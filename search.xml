@@ -27,16 +27,16 @@
 <h3 id="1-1-生成应用专用密码"><a href="#1-1-生成应用专用密码" class="headerlink" title="1.1 生成应用专用密码"></a>1.1 生成应用专用密码</h3><p>首先需要为IFCTT生成一个App专用密码，打开以下链接并登陆Google账号：</p>
 <p><a href="https://support.google.com/accounts/answer/185833" target="_blank" rel="noopener">https://support.google.com/accounts/answer/185833</a></p>
 <p>选择app为<code>Mail</code>：</p>
-<p><img src="http://images2017.cnblogs.com/blog/378300/201712/378300-20171220203034178-1164844500.png" width="700px/"></p>
+<p><img src="http://blog.wangjiegulu.com/web/ifctt/ifctt_email_configuration/app_password_01.png" width="700px/"></p>
 <p>选择设备为<code>Other (Custom name)</code>：</p>
-<p><img src="http://images2017.cnblogs.com/blog/378300/201712/378300-20171220203043037-400690546.png" width="700px/"></p>
+<p><img src="http://blog.wangjiegulu.com/web/ifctt/ifctt_email_configuration/app_password_02.png" width="700px/"></p>
 <p>然后在输入框中填入<code>IFCTT</code>：</p>
-<p><img src="http://images2017.cnblogs.com/blog/378300/201712/378300-20171220203226818-331833630.png" width="700px/"></p>
+<p><img src="http://blog.wangjiegulu.com/web/ifctt/ifctt_email_configuration/app_password_03.png" width="700px/"></p>
 <p>然后，点击<code>GENERATE</code>：</p>
-<p><img src="http://images2017.cnblogs.com/blog/378300/201712/378300-20171220203245959-1955556937.png" width="700px/"></p>
+<p><img src="http://blog.wangjiegulu.com/web/ifctt/ifctt_email_configuration/app_password_04.png" width="700px/"></p>
 <p><strong>以上黄色区域中的16个字符的密码就是我们需要的专用密码，选中复制</strong></p>
 <h3 id="1-2-在IFCTT中配置Gmail"><a href="#1-2-在IFCTT中配置Gmail" class="headerlink" title="1.2 在IFCTT中配置Gmail"></a>1.2 在IFCTT中配置Gmail</h3><p>打开IFCTT，进入<code>Settings</code> -&gt; <code>Email Configuration</code> 并填写相关信息：</p>
-<p><img src="http://images2017.cnblogs.com/blog/378300/201712/378300-20171220203309225-420821781.png" width="400px/"></p>
+<p><img src="http://blog.wangjiegulu.com/web/ifctt/ifctt_email_configuration/ifctt_email_configuration_01.png" width="400px/"></p>
 <blockquote>
 <p><strong>注意</strong>：</p>
 <p><strong>password</strong>：为<a href="#app_password">1.1 生成应用专用密码</a>中生成的应用专用密码<br><strong>Extra properties</strong>：如果你使用的是Gmail邮箱，则内容不需要改动，保持最初始的状态即可</p>
@@ -50,28 +50,28 @@
 <li><strong>#googledoc</strong>：这个标签会使得当你复制了文本内容时，此标签会通过IFTTT推送到你的<code>google docs</code>，把内容追加保存在<code>google docs</code>的名为<code>IFTTT/Email/IFCTT</code>的文件中</li>
 </ul>
 <p>第一次进入后，所有的Hash tags都是默认<code>OFF</code>状态的，如下图所示：</p>
-<p><img src="http://images2017.cnblogs.com/blog/378300/201712/378300-20171220203418990-1206897620.png" width="350/"></p>
+<p><img src="http://blog.wangjiegulu.com/web/ifctt/ifctt_use_default_hash_tags/hash_tag_disabled.png" width="350/"></p>
 <p>下面以开启<code>instapaper</code>这个Hash tag为例</p>
 <p>首先点击进入<code>#instapaper</code>的编辑页面，如下图：</p>
-<p><img src="http://images2017.cnblogs.com/blog/378300/201712/378300-20171220203437943-660274322.png" width="350/"></p>
+<p><img src="http://blog.wangjiegulu.com/web/ifctt/ifctt_use_default_hash_tags/instapaper_detail.png" width="350/"></p>
 <p>首先如上图中，先点击开启按钮</p>
 <p>然后因为默认的Hash tag所对应的<code>IFTTT Applet</code>都已经创建好了，所以可以直接进入IFTTT的Applet界面添加并开启，如上图，点击红色字体部分或者<code>IFTTT</code>的图标，将会打开如下<code>IFTTT</code>的Applet界面：</p>
-<p><img src="http://images2017.cnblogs.com/blog/378300/201712/378300-20171220203505850-1035469032.png" width="350/"></p>
+<p><img src="http://blog.wangjiegulu.com/web/ifctt/ifctt_use_default_hash_tags/ifttt_instapaper_applet.png" width="350/"></p>
 <p>点击开启图标，这时IFTTT可能会让你绑定你的instapaper账号，按照流程正常绑定即可（如果以前已经绑定过了则不需要再次绑定），操作完毕后，IFTTT的instapaper applet就会开启。</p>
 <p>最后返回到IFCTT <code>#instapaper</code>的编辑页面，点击右上角进行保存，成功后回到首页，instapaper的card将会变成彩色。</p>
 <p>其他IFCTT自带默认的Hash tags开启方式都类似。</p>
-<h2 id="创建自定义的Hash-tags"><a href="#创建自定义的Hash-tags" class="headerlink" title="创建自定义的Hash tags"></a>创建自定义的Hash tags</h2><p>除了<a href="../ifctt_use_default_hash_tags/ifctt_use_default_hash_tags.md">使用IFCTT提供的默认Hash tags</a>之外，你还可以创建自己的Hash tags，现在我们来创建一个Hash tags实现如下功能：</p>
+<h2 id="创建自定义的Hash-tags"><a href="#创建自定义的Hash-tags" class="headerlink" title="创建自定义的Hash tags"></a>创建自定义的Hash tags</h2><p>除了<a href="http://blog.wangjiegulu.com/web/ifctt/ifctt_use_default_hash_tags/ifctt_use_default_hash_tags.md">使用IFCTT提供的默认Hash tags</a>之外，你还可以创建自己的Hash tags，现在我们来创建一个Hash tags实现如下功能：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">当你复制了一段文字后，点击此标签后，自动通过IFTTT在你的`Twitter`上发送一条推特</span><br></pre></td></tr></table></figure>
-<p><img src="http://images2017.cnblogs.com/blog/378300/201712/378300-20171220203609021-2048296548.png" width="350/"></p>
+<p><img src="http://blog.wangjiegulu.com/web/ifctt/ifctt_create_custom_hash_tags/main_hash_tag.png" width="350/"></p>
 <p>点击首页右上角的<code>+</code>按钮，添加一个Hash tag，</p>
-<p><img src="http://images2017.cnblogs.com/blog/378300/201712/378300-20171220203626943-817117031.png" width="350/"></p>
+<p><img src="http://blog.wangjiegulu.com/web/ifctt/ifctt_create_custom_hash_tags/new_twitter_hash_tag.png" width="350/"></p>
 <p><span id="tag_twitter"><br>如上，填写<code>tag</code>为<code>twitter</code>（可以自己任意填写）和note（任意填写），除了填写以上信息，还需要在IFTTT中创建对应的<code>IFTTT Applet</code>，点击上图红色字或者IFTTT的图标，即会进入到IFTTT界面，点击下图顶部的<code>+</code>按钮来创建<code>IFTTT Applet</code>：</span></p>
-<p><img src="http://images2017.cnblogs.com/blog/378300/201712/378300-20171220203641803-289568452.png" width="350/"></p>
+<p><img src="http://blog.wangjiegulu.com/web/ifctt/ifctt_create_custom_hash_tags/ifttt_my_applet.png" width="350/"></p>
 <p><code>this</code>（trigger）选择<code>Email</code>，并选择<strong><code>Send IFTTT an email tagged</code></strong>（必须）：</p>
-<p><img src="http://images2017.cnblogs.com/blog/378300/201712/378300-20171220203700709-1346264994.png" width="350/"></p>
+<p><img src="http://blog.wangjiegulu.com/web/ifctt/ifctt_create_custom_hash_tags/ifttt_this_twitter.png" width="350/"></p>
 <p>上图中的<code>Tag</code>输入为<code>twitter</code>（<a href="#tag_twitter">必须要与IFCTT中的一致</a>！），</p>
 <p><code>that</code>（action）选择<code>Twitter</code>，并选择<strong><code>Post a tweet</code></strong>，然后设置如下：</p>
-<p><img src="http://images2017.cnblogs.com/blog/378300/201712/378300-20171220203719959-403008307.png" width="350/"></p>
+<p><img src="http://blog.wangjiegulu.com/web/ifctt/ifctt_create_custom_hash_tags/ifttt_post_a_tweet.png" width="350/"></p>
 <p>上面中的<code>body</code>就是指的就是IFCTT中的复制内容</p>
 <p>提交成功后，返回到IFCTT中的创建页面提交，这时Hash tag创建成功</p>
 ]]></content>
@@ -1671,7 +1671,7 @@
 </strong></font>
 
 <h1 id="异步-layout-inflation"><a href="#异步-layout-inflation" class="headerlink" title="异步 layout inflation"></a>异步 layout inflation</h1><blockquote>
-<p>原文：<a href="&#109;&#97;&#x69;&#x6c;&#116;&#111;&#58;&#104;&#116;&#116;&#x70;&#115;&#58;&#47;&#x2f;&#x6d;&#x65;&#100;&#105;&#x75;&#x6d;&#46;&#x63;&#x6f;&#x6d;&#47;&#x40;&#108;&#x75;&#112;&#97;&#106;&#122;&#x2f;&#x61;&#x73;&#x79;&#x6e;&#99;&#104;&#114;&#x6f;&#x6e;&#x6f;&#117;&#115;&#45;&#108;&#97;&#121;&#111;&#117;&#x74;&#45;&#x69;&#x6e;&#x66;&#x6c;&#x61;&#116;&#x69;&#x6f;&#x6e;&#x2d;&#55;&#99;&#x62;&#x63;&#x61;&#x32;&#54;&#x35;&#x33;&#x62;&#102;&#35;&#x2e;&#113;&#x32;&#50;&#118;&#x70;&#101;&#x7a;&#x67;&#52;">&#104;&#116;&#116;&#x70;&#115;&#58;&#47;&#x2f;&#x6d;&#x65;&#100;&#105;&#x75;&#x6d;&#46;&#x63;&#x6f;&#x6d;&#47;&#x40;&#108;&#x75;&#112;&#97;&#106;&#122;&#x2f;&#x61;&#x73;&#x79;&#x6e;&#99;&#104;&#114;&#x6f;&#x6e;&#x6f;&#117;&#115;&#45;&#108;&#97;&#121;&#111;&#117;&#x74;&#45;&#x69;&#x6e;&#x66;&#x6c;&#x61;&#116;&#x69;&#x6f;&#x6e;&#x2d;&#55;&#99;&#x62;&#x63;&#x61;&#x32;&#54;&#x35;&#x33;&#x62;&#102;&#35;&#x2e;&#113;&#x32;&#50;&#118;&#x70;&#101;&#x7a;&#x67;&#52;</a></p>
+<p>原文：<a href="&#x6d;&#x61;&#x69;&#x6c;&#x74;&#x6f;&#58;&#104;&#116;&#116;&#112;&#115;&#58;&#x2f;&#x2f;&#x6d;&#x65;&#x64;&#x69;&#117;&#109;&#x2e;&#x63;&#111;&#109;&#47;&#x40;&#108;&#x75;&#112;&#x61;&#x6a;&#122;&#x2f;&#x61;&#x73;&#121;&#110;&#x63;&#104;&#x72;&#111;&#110;&#x6f;&#x75;&#x73;&#45;&#108;&#x61;&#x79;&#111;&#117;&#116;&#x2d;&#105;&#x6e;&#x66;&#108;&#x61;&#116;&#105;&#x6f;&#x6e;&#x2d;&#55;&#99;&#x62;&#x63;&#x61;&#50;&#x36;&#53;&#x33;&#98;&#102;&#35;&#x2e;&#113;&#50;&#x32;&#x76;&#x70;&#101;&#x7a;&#x67;&#52;">&#104;&#116;&#116;&#112;&#115;&#58;&#x2f;&#x2f;&#x6d;&#x65;&#x64;&#x69;&#117;&#109;&#x2e;&#x63;&#111;&#109;&#47;&#x40;&#108;&#x75;&#112;&#x61;&#x6a;&#122;&#x2f;&#x61;&#x73;&#121;&#110;&#x63;&#104;&#x72;&#111;&#110;&#x6f;&#x75;&#x73;&#45;&#108;&#x61;&#x79;&#111;&#117;&#116;&#x2d;&#105;&#x6e;&#x66;&#108;&#x61;&#116;&#105;&#x6f;&#x6e;&#x2d;&#55;&#99;&#x62;&#x63;&#x61;&#50;&#x36;&#53;&#x33;&#98;&#102;&#35;&#x2e;&#113;&#50;&#x32;&#x76;&#x70;&#101;&#x7a;&#x67;&#52;</a></p>
 </blockquote>
 <p>随着最近发布的<a href="https://developer.android.com/topic/libraries/support-library/revisions.html" target="_blank" rel="noopener">Android Support Library, revision 24</a>，Google开发者在v4包中增加了一个用来异步inflate layouts的帮助类。</p>
 <h2 id="进入-AsyncLayoutInflater"><a href="#进入-AsyncLayoutInflater" class="headerlink" title="进入 AsyncLayoutInflater"></a>进入 AsyncLayoutInflater</h2><p>你会发现AsyncLayoutInflater可以使用在当你想要去懒加载你应用中部分UI或者用户行为的响应。这个帮助类将会允许你的UI线程在执行繁重的inflate时继续保持响应。</p>
