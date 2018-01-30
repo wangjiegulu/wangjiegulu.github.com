@@ -387,52 +387,21 @@
       
         
           
-            <p><span style="color: #ff0000;"><strong>以下内容为原创，转载请注明：</strong></span></p>
-<p><span style="color: #ff0000;"><strong><span style="color: #ff0000;">来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/3709957.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/3709957.html</a></span></strong></span></p>
-<p>&nbsp;</p>
-<p>之前写过一篇博客，是使用Fragment来实现TabHost的效果，并且模拟TabHost的切换各个fragment生命周期的调用，见<a href="http://www.cnblogs.com/tiantianbyconan/p/3360938.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/3360938.html</a></p>
-<p>但是如果要实现的效果是两级的Tab，比如在第一级tab中又有三个子Tab切换不同的布局，</p>
-<p>相当于在Fragment中嵌套来Fragment，这个怎么实现？</p>
-<p>也有个官方的实现方法，通过使用<span>android-support-v13.jar包中的<span>getChildFragmentManager方法来获取一个Manager。</span></span></p>
-<p>这里带来我写的一个新的方案，使用SubLayout来实现。</p>
-<p>相关源码：<a href="https://github.com/wangjiegulu/AndroidBucket/tree/master/src/com/wangjie/androidbucket/customviews/sublayout" target="_blank" rel="noopener">https://github.com/wangjiegulu/AndroidBucket/tree/master/src/com/wangjie/androidbucket/customviews/sublayout</a></p>
-<p>下面使用一个例子来说下使用方法，先看下最后的效果（项目使用了我的开源<strong><a href="https://github.com/wangjiegulu/AndroidBucket" target="_blank" rel="noopener">AndroidBucket</a></strong>和<strong><a href="https://github.com/wangjiegulu/androidInject" target="_blank" rel="noopener">AndroidInject</a>&nbsp;请先添加依赖项目，欢迎star／fork</strong>）：</p>
-<p><img src="http://images.cnitblog.com/i/378300/201405/051955327296296.png" alt=""></p>
-<p>效果跟以前的例子大同小异，点击第一个tab上的TextView，然后Toast提示EditText上的信息，但是使用方式却是不一样的。</p>
-<p>大体的思路是在MainActivity布局中增加一个FrameLayout，然后在切换过程中不停的用相应的布局去替换FrameLayout中。</p>
-<p>main.xml布局如下：</p>
-<div class="cnblogs_code"><br><pre><span style="color: #008080;"> 1</span> <span style="color: #0000ff;">&lt;?</span><span style="color: #ff00ff;">xml version=”1.0” encoding=”utf-8”</span><span style="color: #0000ff;">?&gt;</span><br><span style="color: #008080;"> 2</span> <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">LinearLayout </span><span style="color: #ff0000;">xmlns:android</span><span style="color: #0000ff;">=”<a href="http://schemas.android.com/apk/res/android" target="_blank" rel="noopener">http://schemas.android.com/apk/res/android</a>“</span><br><span style="color: #008080;"> 3</span> <span style="color: #ff0000;">              android:orientation</span><span style="color: #0000ff;">=”vertical”</span><br><span style="color: #008080;"> 4</span> <span style="color: #ff0000;">              android:layout_width</span><span style="color: #0000ff;">=”fill_parent”</span><br><span style="color: #008080;"> 5</span> <span style="color: #ff0000;">              android:layout_height</span><span style="color: #0000ff;">=”fill_parent”</span><br><span style="color: #008080;"> 6</span>         <span style="color: #0000ff;">&gt;</span><br><span style="color: #008080;"> 7</span><br><span style="color: #008080;"> 8</span>     <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">FrameLayout<br></span><span style="color: #008080;"> 9</span>             <span style="color: #ff0000;">android:id</span><span style="color: #0000ff;">=”@+id/main_content_view”</span><br><span style="color: #008080;">10</span> <span style="color: #ff0000;">            android:layout_width</span><span style="color: #0000ff;">=”match_parent”</span><br><span style="color: #008080;">11</span> <span style="color: #ff0000;">            android:layout_height</span><span style="color: #0000ff;">=”0dp”</span><br><span style="color: #008080;">12</span> <span style="color: #ff0000;">            android:layout_weight</span><span style="color: #0000ff;">=”1.0”</span><br><span style="color: #008080;">13</span>             <span style="color: #0000ff;">/&gt;</span><br><span style="color: #008080;">14</span><br><span style="color: #008080;">15</span>     <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">RadioGroup<br></span><span style="color: #008080;">16</span>             <span style="color: #ff0000;">android:id</span><span style="color: #0000ff;">=”@+id/main_tabs_rg”</span><br><span style="color: #008080;">17</span> <span style="color: #ff0000;">            android:layout_width</span><span style="color: #0000ff;">=”fill_parent”</span><br><span style="color: #008080;">18</span> <span style="color: #ff0000;">            android:layout_height</span><span style="color: #0000ff;">=”65dp”</span><br><span style="color: #008080;">19</span> <span style="color: #ff0000;">            android:background</span><span style="color: #0000ff;">=”#aabbcc”</span><br><span style="color: #008080;">20</span> <span style="color: #ff0000;">            android:gravity</span><span style="color: #0000ff;">=”center_vertical”</span><br><span style="color: #008080;">21</span> <span style="color: #ff0000;">            android:orientation</span><span style="color: #0000ff;">=”horizontal”</span> <span style="color: #0000ff;">&gt;</span><br><span style="color: #008080;">22</span><br><span style="color: #008080;">23</span>         <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">RadioButton<br></span><span style="color: #008080;">24</span>                 <span style="color: #ff0000;">android:id</span><span style="color: #0000ff;">=”@+id/main_tab_a_rb”</span><br><span style="color: #008080;">25</span> <span style="color: #ff0000;">                style</span><span style="color: #0000ff;">=”@style/tab_item_background”</span><br><span style="color: #008080;">26</span> <span style="color: #ff0000;">                android:drawableTop</span><span style="color: #0000ff;">=”@drawable/ic_launcher”</span><br><span style="color: #008080;">27</span> <span style="color: #ff0000;">                android:paddingTop</span><span style="color: #0000ff;">=”7dp”</span><br><span style="color: #008080;">28</span> <span style="color: #ff0000;">                android:textSize</span><span style="color: #0000ff;">=”13sp”</span><br><span style="color: #008080;">29</span> <span style="color: #ff0000;">                android:checked</span><span style="color: #0000ff;">=”true”</span><br><span style="color: #008080;">30</span>                 <span style="color: #0000ff;">/&gt;</span><br><span style="color: #008080;">31</span><br><span style="color: #008080;">32</span>         <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">RadioButton<br></span><span style="color: #008080;">33</span>                 <span style="color: #ff0000;">android:id</span><span style="color: #0000ff;">=”@+id/main_tab_b_rb”</span><br><span style="color: #008080;">34</span> <span style="color: #ff0000;">                style</span><span style="color: #0000ff;">=”@style/tab_item_background”</span><br><span style="color: #008080;">35</span> <span style="color: #ff0000;">                android:drawableTop</span><span style="color: #0000ff;">=”@drawable/ic_launcher”</span><br><span style="color: #008080;">36</span> <span style="color: #ff0000;">                android:paddingTop</span><span style="color: #0000ff;">=”7dp”</span><br><span style="color: #008080;">37</span> <span style="color: #ff0000;">                android:textSize</span><span style="color: #0000ff;">=”13sp”</span><br><span style="color: #008080;">38</span>                 <span style="color: #0000ff;">/&gt;</span><br><span style="color: #008080;">39</span><br><span style="color: #008080;">40</span>         <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">RadioButton<br></span><span style="color: #008080;">41</span>                 <span style="color: #ff0000;">android:id</span><span style="color: #0000ff;">=”@+id/main_tab_c_rb”</span><br><span style="color: #008080;">42</span> <span style="color: #ff0000;">                style</span><span style="color: #0000ff;">=”@style/tab_item_background”</span><br><span style="color: #008080;">43</span> <span style="color: #ff0000;">                android:drawableTop</span><span style="color: #0000ff;">=”@drawable/ic_launcher”</span><br><span style="color: #008080;">44</span> <span style="color: #ff0000;">                android:paddingTop</span><span style="color: #0000ff;">=”7dp”</span><br><span style="color: #008080;">45</span> <span style="color: #ff0000;">                android:textSize</span><span style="color: #0000ff;">=”13sp”</span><br><span style="color: #008080;">46</span>                 <span style="color: #0000ff;">/&gt;</span><br><span style="color: #008080;">47</span><br><span style="color: #008080;">48</span>     <span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">RadioGroup</span><span style="color: #0000ff;">&gt;</span><br><span style="color: #008080;">49</span><br><span style="color: #008080;">50</span> <span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">LinearLayout</span><span style="color: #0000ff;">&gt;</span></pre><br></div>
-
-<p>布局很简单，一个FrameLayout用于存放不同界面的布局，3个RadioButton表示下面的每一项Tab按钮。</p>
-<p>在MainActivity中代码如下：</p>
-<div class="cnblogs_code"><br><pre><span style="color: #000000;">@AILayout(R.layout.main)<br></span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span> MainActivity <span style="color: #0000ff;">extends</span><span style="color: #000000;"> AIActivity {<br>    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">final</span> String TAG = MainActivity.<span style="color: #0000ff;">class</span><span style="color: #000000;">.getSimpleName();<br><br>    @AIView(R.id.main_content_view)<br>    ViewGroup contentView;<br><br>    @AIView(R.id.main_tabs_rg)<br>    RadioGroup rg;<br><br>    SubLayoutManager sbManager;<br><br>    @Override<br>    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> onCreate(Bundle savedInstanceState) {<br>        </span><span style="color: #0000ff;">super</span><span style="color: #000000;">.onCreate(savedInstanceState);<br><br>        sbManager </span>= <span style="color: #0000ff;">new</span> SubLayoutManager&lt;SubLayout&gt;(context, contentView, TabASubLayout.<span style="color: #0000ff;">class</span>, TabBSubLayout.<span style="color: #0000ff;">class</span>, TabCSubLayout.<span style="color: #0000ff;">class</span><span style="color: #000000;">);<br><br>        sbManager.setSwitchListener(</span><span style="color: #0000ff;">new</span> SubLayoutManager.LayoutSwitchListener&lt;SubLayout&gt;<span style="color: #000000;">() {<br>            @Override<br>            </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span> switchSelf(SubLayout subLayout, <span style="color: #0000ff;">int</span><span style="color: #000000;"> position) {<br>                Logger.d(TAG, </span>“[switch listener]switchSelf, subLayout: “ + subLayout + “, position: “ +<span style="color: #000000;"> position);<br>            }<br><br>            @Override<br>            </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span> switchCompleted(SubLayout subLayout, <span style="color: #0000ff;">int</span><span style="color: #000000;"> position) {<br>                Logger.d(TAG, </span>“[switch listener]switchCompleted, subLayout: “ + subLayout + “, position: “ +<span style="color: #000000;"> position);<br>            }<br>        });<br><br>        rg.setOnCheckedChangeListener(</span><span style="color: #0000ff;">new</span><span style="color: #000000;"> RadioGroup.OnCheckedChangeListener() {<br>            @Override<br>            </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span> onCheckedChanged(RadioGroup radioGroup, <span style="color: #0000ff;">int</span><span style="color: #000000;"> i) {<br>                </span><span style="color: #0000ff;">int</span> index = -1<span style="color: #000000;">;<br>                </span><span style="color: #0000ff;">switch</span><span style="color: #000000;">(i){<br>                    </span><span style="color: #0000ff;">case</span><span style="color: #000000;"> R.id.main_tab_a_rb:<br>                        index </span>= 0<span style="color: #000000;">;<br>                        </span><span style="color: #0000ff;">break</span><span style="color: #000000;">;<br><br>                    </span><span style="color: #0000ff;">case</span><span style="color: #000000;"> R.id.main_tab_b_rb:<br>                        index </span>= 1<span style="color: #000000;">;<br>                        </span><span style="color: #0000ff;">break</span><span style="color: #000000;">;<br><br>                    </span><span style="color: #0000ff;">case</span><span style="color: #000000;"> R.id.main_tab_c_rb:<br>                        index </span>= 2<span style="color: #000000;">;<br>                        </span><span style="color: #0000ff;">break</span><span style="color: #000000;">;<br>                }<br>                </span><span style="color: #0000ff;">if</span>(index &lt; 0 || index &gt;=<span style="color: #000000;"> sbManager.getSubLayoutSize()){<br>                    </span><span style="color: #0000ff;">return</span><span style="color: #000000;">;<br>                }<br>                sbManager.switchLayout(index);<br>            }<br>        });<br><br>        sbManager.switchLayout(</span>0); <span style="color: #008000;">//</span><span style="color: #008000;"> 默认切换第一页</span><br><span style="color: #000000;"><br>    }<br><br>    @Override<br>    </span><span style="color: #0000ff;">protected</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> onDestroy() {<br>        </span><span style="color: #0000ff;">super</span><span style="color: #000000;">.onDestroy();<br>        sbManager.destoryClear();<br>        sbManager </span>= <span style="color: #0000ff;">null</span><span style="color: #000000;">;<br><br>    }<br><br>}</span></pre><br></div>
-
-<p>上面的SubLayout相当于一个Fragment，SubLayoutManager用于管理多个SubLayout之间的切换。SubLayoutManager可以通过new获取。</p>
-<p>其中构造方法中：</p>
-<p>public SubLayoutManager(Context context, ViewGroup contentView, Class&lt;? extends T&gt;… slszzs) {</p>
-<p>参数二：contentView表示在MainActivity中预留给SubLayout显示的FrameLayout。</p>
-<p>参数三：是个可变长参数，可以在后面（有序）追加所有需要切换的SubLayout的Class对象。</p>
-<p>第一次初始化后各个SubLayout对象不会马上生成，只会在切换到改页面时才会生成该对象，会执行SubLayout的initLayout()方法，这个方法只会调用一次（类似onCreate()方法）</p>
-<p>需要切换页面时只需要执行SubLayoutManager的switchLayout()方法，传入SubLayout的position就可以了，这个position跟参数三的顺序一致。</p>
-<p>&nbsp;</p>
-<p>接下来看下几个SubLayout是怎么去实现的，因为三个SubLayout大致相同，所以只分析一个就可以了：</p>
-<p>TabASubLayout代码如下：</p>
-<div class="cnblogs_code"><br><pre><span style="color: #008080;"> 1</span> <span style="color: #000000;">@AILayout(R.layout.tab_a)<br></span><span style="color: #008080;"> 2</span> <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span> TabASubLayout <span style="color: #0000ff;">extends</span><span style="color: #000000;"> AISubLayout {<br></span><span style="color: #008080;"> 3</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">final</span> String TAG = TabASubLayout.<span style="color: #0000ff;">class</span><span style="color: #000000;">.getSimpleName();<br></span><span style="color: #008080;"> 4</span><br><span style="color: #008080;"> 5</span><br><span style="color: #008080;"> 6</span> <span style="color: #008000;">//</span><span style="color: #008000;">    @AIView(R.id.tab_a_tv)<br></span><span style="color: #008080;"> 7</span> <span style="color: #008000;">//</span><span style="color: #008000;">    TextView tv;</span><br><span style="color: #008080;"> 8</span> <span style="color: #000000;">    @AIView(R.id.tab_a_et)<br></span><span style="color: #008080;"> 9</span> <span style="color: #000000;">    EditText et;<br></span><span style="color: #008080;">10</span><br><span style="color: #008080;">11</span>     <span style="color: #0000ff;">public</span><span style="color: #000000;"> TabASubLayout(Context context) {<br></span><span style="color: #008080;">12</span>         <span style="color: #0000ff;">super</span><span style="color: #000000;">(context);<br></span><span style="color: #008080;">13</span> <span style="color: #008000;">//</span><span style="color: #008000;">        setContentView(R.layout.tab_a);</span><br><span style="color: #008080;">14</span><br><span style="color: #008080;">15</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">16</span><br><span style="color: #008080;">17</span> <span style="color: #000000;">    @Override<br></span><span style="color: #008080;">18</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> initLayout() {<br></span><span style="color: #008080;">19</span>         <span style="color: #0000ff;">super</span><span style="color: #000000;">.initLayout();<br></span><span style="color: #008080;">20</span>         Logger.d(TAG, “initLayout…”<span style="color: #000000;">);<br></span><span style="color: #008080;">21</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">22</span><br><span style="color: #008080;">23</span> <span style="color: #000000;">    @AIClick({R.id.tab_a_tv})<br></span><span style="color: #008080;">24</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> onClickCallbackSample(View view) {<br></span><span style="color: #008080;">25</span>         Toast.makeText(context, “clicked: “ + ((TextView)view).getText() + “, “ +<span style="color: #000000;"> et.getText(), Toast.LENGTH_SHORT).show();<br></span><span style="color: #008080;">26</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">27</span><br><span style="color: #008080;">28</span> <span style="color: #000000;">    @Override<br></span><span style="color: #008080;">29</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> onResume() {<br></span><span style="color: #008080;">30</span>         <span style="color: #0000ff;">super</span><span style="color: #000000;">.onResume();<br></span><span style="color: #008080;">31</span>         Logger.d(TAG, “onResume…”<span style="color: #000000;">);<br></span><span style="color: #008080;">32</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">33</span><br><span style="color: #008080;">34</span> <span style="color: #000000;">    @Override<br></span><span style="color: #008080;">35</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> onPause() {<br></span><span style="color: #008080;">36</span>         <span style="color: #0000ff;">super</span><span style="color: #000000;">.onPause();<br></span><span style="color: #008080;">37</span>         Logger.d(TAG, “onPause…”<span style="color: #000000;">);<br></span><span style="color: #008080;">38</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">39</span><br><span style="color: #008080;">40</span> }</pre><br></div>
-
-<p>代码很简单，继承AISubLayout即可，AISubLayout是AndroidInject中AndroidBucket的子类，实现了SubLayout的注解的支持。当然你也可以直接继承SubLayout，这样的话就不能使用注解了，看上面的被注释的代码，可以通过setContentView来设置对应的布局，可以通过findViewById来获取控件对象。</p>
-<p>它也有onResume和onPause方法，当前页A被切换到B的话会调用A的onPause，然后调用B的onResume（如果之前B没有被初始化过，则先调用initLayout再调用onResume方法）</p>
-<p>下面来看看log打印的日志：</p>
-<p>&nbsp;</p>
-<p>// 以下为启动应用，默认加载TabA</p>
-<p><em>05-05 08:22:32.216 1086-1086/com.wangjie.sublayouttest D/SubLayoutManager﹕ —–switch start———————–<br>05-05 08:22:32.216    1086-1086/com.wangjie.sublayouttest D/SubLayoutManager﹕ switch before………: [DelayObj{clazz=class com.wangjie.sublayouttest.TabASubLayout, delayObj=null}, DelayObj{clazz=class com.wangjie.sublayouttest.TabBSubLayout, delayObj=null}, DelayObj{clazz=class com.wangjie.sublayouttest.TabCSubLayout, delayObj=null}]<br>05-05 08:22:32.336    1086-1086/com.wangjie.sublayouttest D/TabASubLayout﹕ initLayout…<br>05-05 08:22:32.336    1086-1086/com.wangjie.sublayouttest D/TabASubLayout﹕ onResume…<br>05-05 08:22:32.336    1086-1086/com.wangjie.sublayouttest D/MainActivity﹕ [switch listener]switchCompleted, subLayout: com.wangjie.sublayouttest.TabASubLayout@b4dff088, position: 0<br>05-05 08:22:32.336    1086-1086/com.wangjie.sublayouttest D/SubLayoutManager﹕ switch after………: [DelayObj{clazz=class com.wangjie.sublayouttest.TabASubLayout, delayObj=com.wangjie.sublayouttest.TabASubLayout@b4dff088}, DelayObj{clazz=class com.wangjie.sublayouttest.TabBSubLayout, delayObj=null}, DelayObj{clazz=class com.wangjie.sublayouttest.TabCSubLayout, delayObj=null}]<br>05-05 08:22:32.336    1086-1086/com.wangjie.sublayouttest D/SubLayoutManager﹕ —–switch end———————–</em></p>
-<p><em><br>// TabA切换到TabB<br>05-05 08:22:37.926    1086-1086/com.wangjie.sublayouttest D/SubLayoutManager﹕ —–switch start———————–<br>05-05 08:22:37.926    1086-1086/com.wangjie.sublayouttest D/SubLayoutManager﹕ switch before………: [DelayObj{clazz=class com.wangjie.sublayouttest.TabASubLayout, delayObj=com.wangjie.sublayouttest.TabASubLayout@b4dff088}, DelayObj{clazz=class com.wangjie.sublayouttest.TabBSubLayout, delayObj=null}, DelayObj{clazz=class com.wangjie.sublayouttest.TabCSubLayout, delayObj=null}]<br>05-05 08:22:37.946    1086-1086/com.wangjie.sublayouttest D/TabASubLayout﹕ onPause…<br>05-05 08:22:37.986    1086-1086/com.wangjie.sublayouttest D/TabBSubLayout﹕ initLayout…<br>05-05 08:22:37.996    1086-1086/com.wangjie.sublayouttest D/TabBSubLayout﹕ onResume…<br>05-05 08:22:37.996    1086-1086/com.wangjie.sublayouttest D/MainActivity﹕ [switch listener]switchCompleted, subLayout: com.wangjie.sublayouttest.TabBSubLayout@b4de1d80, position: 1<br>05-05 08:22:37.996    1086-1086/com.wangjie.sublayouttest D/SubLayoutManager﹕ switch after………: [DelayObj{clazz=class com.wangjie.sublayouttest.TabASubLayout, delayObj=com.wangjie.sublayouttest.TabASubLayout@b4dff088}, DelayObj{clazz=class com.wangjie.sublayouttest.TabBSubLayout, delayObj=com.wangjie.sublayouttest.TabBSubLayout@b4de1d80}, DelayObj{clazz=class com.wangjie.sublayouttest.TabCSubLayout, delayObj=null}]<br>05-05 08:22:37.996    1086-1086/com.wangjie.sublayouttest D/SubLayoutManager﹕ —–switch end———————–</em></p>
-<p><em><br>// TabB切换到TabC<br>05-05 08:22:41.486    1086-1086/com.wangjie.sublayouttest D/SubLayoutManager﹕ —–switch start———————–<br>05-05 08:22:41.486    1086-1086/com.wangjie.sublayouttest D/SubLayoutManager﹕ switch before………: [DelayObj{clazz=class com.wangjie.sublayouttest.TabASubLayout, delayObj=com.wangjie.sublayouttest.TabASubLayout@b4dff088}, DelayObj{clazz=class com.wangjie.sublayouttest.TabBSubLayout, delayObj=com.wangjie.sublayouttest.TabBSubLayout@b4de1d80}, DelayObj{clazz=class com.wangjie.sublayouttest.TabCSubLayout, delayObj=null}]<br>05-05 08:22:41.496    1086-1086/com.wangjie.sublayouttest D/TabBSubLayout﹕ onPause…<br>05-05 08:22:41.516    1086-1086/com.wangjie.sublayouttest D/TabCSubLayout﹕ initLayout…<br>05-05 08:22:41.516    1086-1086/com.wangjie.sublayouttest D/TabCSubLayout﹕ onResume…<br>05-05 08:22:41.516    1086-1086/com.wangjie.sublayouttest D/MainActivity﹕ [switch listener]switchCompleted, subLayout: com.wangjie.sublayouttest.TabCSubLayout@b4e17840, position: 2<br>05-05 08:22:41.516    1086-1086/com.wangjie.sublayouttest D/SubLayoutManager﹕ switch after………: [DelayObj{clazz=class com.wangjie.sublayouttest.TabASubLayout, delayObj=com.wangjie.sublayouttest.TabASubLayout@b4dff088}, DelayObj{clazz=class com.wangjie.sublayouttest.TabBSubLayout, delayObj=com.wangjie.sublayouttest.TabBSubLayout@b4de1d80}, DelayObj{clazz=class com.wangjie.sublayouttest.TabCSubLayout, delayObj=com.wangjie.sublayouttest.TabCSubLayout@b4e17840}]<br>05-05 08:22:41.526    1086-1086/com.wangjie.sublayouttest D/SubLayoutManager﹕ —–switch end———————–</em></p>
-<p>&nbsp;</p>
-<p>_// TabC切换到TabA<br>05-05 08:22:44.086    1086-1086/com.wangjie.sublayouttest D/SubLayoutManager﹕ —–switch start———————–<br>05-05 08:22:44.086    1086-1086/com.wangjie.sublayouttest D/SubLayoutManager﹕ switch before………: [DelayObj{clazz=class com.wangjie.sublayouttest.TabASubLayout, delayObj=com.wangjie.sublayouttest.TabASubLayout@b4dff088}, DelayObj{clazz=class com.wangjie.sublayouttest.TabBSubLayout, delayObj=com.wangjie.sublayouttest.TabBSubLayout@b4de1d80}, DelayObj{clazz=class com.wangjie.sublayouttest.TabCSubLayout, delayObj=com.wangjie.sublayouttest.TabCSubLayout@b4e17840}]<br>05-05 08:22:44.086    1086-1086/com.wangjie.sublayouttest D/TabCSubLayout﹕ onPause…<br>05-05 08:22:44.136    1086-1086/com.wangjie.sublayouttest D/TabASubLayout﹕ onResume…<br>05-05 08:22:44.136    1086-1086/com.wangjie.sublayouttest D/MainActivity﹕ [switch listener]switchCompleted, subLayout: com.wangjie.sublayouttest.TabASubLayout@b4dff088, position: 0<br>05-05 08:22:44.136    1086-1086/com.wangjie.sublayouttest D/SubLayoutManager﹕ switch after………: [DelayObj{clazz=class com.wangjie.sublayouttest.TabASubLayout, delayObj=com.wangjie.sublayouttest.TabASubLayout@b4dff088}, DelayObj{clazz=class com.wangjie.sublayouttest.TabBSubLayout, delayObj=com.wangjie.sublayouttest.TabBSubLayout@b4de1d80}, DelayObj{clazz=class com.wangjie.sublayouttest.TabCSubLayout, delayObj=com.wangjie.sublayouttest.TabCSubLayout@b4e17840}]<br>05-05 08:22:44.136    1086-1086/com.wangjie.sublayouttest D/SubLayoutManager﹕ —–switch end———————–</p>
-<p>_</p>
-<p>&nbsp;</p>
-
-          
+          以下内容为原创，转载请注明：
+来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/3709957.html
+&nbsp;
+之前写过一篇博客，是使用Fragment来实现TabHost的效果，并且模拟TabHost的切换各个fragment生命周期的调用，见http://www.cnblogs.com/tiantianbyconan/p/3360938.html
+但是如果要实现的效果是两级的Tab，比如在第一级tab中又有三个子Tab切换不同的布局，
+相当于在Fragment中嵌套来Fragment，这个怎么实现？
+也有个官方的实现方法，通过使用and
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2014/05/05/Android-AndroidBucket增加碎片SubLayout功能及AISubLayout的注解支持/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -561,62 +530,15 @@
       
         
           
-            <p>一、 Android的内存机制<br>Android的程序由Java语言编写，所以Android的内存管理与Java的内存管理相似。程序员通过new为对象分配内存，所有对象在java堆内分配空间；然而对象的释放是由垃圾回收器来完成的.<br>那么GC怎么能够确认某一个对象是不是已经被废弃了呢？Java采用了有向图的原理。Java将引用关系考虑为图的有向边，有向边从引用者指向引用对象。线程对象可以作为有向图的起始顶点，该图就是从起始顶点开始的一棵树，根顶点可以到达的对象都是有效对象，GC不会回收这些对象。如果某个对象 (连通子图)与这个根顶点不可达(注意，该图为有向图)，那么我们认为这个(这些)对象不再被引用，可以被GC回收。</p>
-<p>二、Android的内存溢出</p>
-<p>1、内存泄露导致</p>
-<p>由于我们程序的失误，长期保持某些资源（如Context）的引用，造成内存泄露，资源造成得不到释放。&nbsp;</p>
-<p>Android 中常见就是Activity 被引用没有在调用finish之后却没有释放，第二次打开activity 又重新创建，这样的内存泄露则会导致内存的溢出。<br>2、占用内存较多的对象</p>
-<p>&nbsp;保存了多个耗用内存过大的对象（如Bitmap）或加载单个超大的图片，造成内存超出限制。</p>
-<p>三、常见的内存泄漏<br><span>1.万恶的static</span><br>&nbsp; static是Java中的一个关键字，当用它来修饰成员变量时，那么该变量就属于该类，而不是该类的实例。</p>
-<p>&nbsp;&nbsp;&nbsp; private static Activity mContext;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //省略&nbsp;</p>
-<p>&nbsp;如何才能有效的避免这种引用的发生呢？</p>
-<p>&nbsp;&nbsp;&nbsp; 第一，应该尽量避免static成员变量引用资源耗费过多的实例，比如Context。</p>
-<p>&nbsp;&nbsp;&nbsp; 第二、Context尽量使用Application Context，因为Application的Context的生命周期比较长，引用它不会出现内存泄露的问题。</p>
-<p>&nbsp;&nbsp;&nbsp; 第三、使用WeakReference代替强引用。比如可以使用WeakReference&lt;Context&gt; mContextRef;</p>
-<p><span>2.线程惹的祸</span><br>线程也是造成内存泄露的一个重要的源头。线程产生内存泄露的主要原因在于线程生命周期的不可控。我们来考虑下面一段代码。</p>
-<div class="cnblogs_code"><br><pre><span style="color: #008080;"> 1</span> <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span> MyActivity <span style="color: #0000ff;">extends</span><span style="color: #000000;"> Activity {<br></span><span style="color: #008080;"> 2</span> <span style="color: #000000;">@Override<br></span><span style="color: #008080;"> 3</span> <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> onCreate(Bundle savedInstanceState) {<br></span><span style="color: #008080;"> 4</span>   <span style="color: #0000ff;">super</span><span style="color: #000000;">.onCreate(savedInstanceState);<br></span><span style="color: #008080;"> 5</span> <span style="color: #000000;">  setContentView(R.layout.main);<br></span><span style="color: #008080;"> 6</span>   <span style="color: #0000ff;">new</span><span style="color: #000000;"> MyThread().start();<br></span><span style="color: #008080;"> 7</span> <span style="color: #000000;">}<br></span><span style="color: #008080;"> 8</span> <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">class</span> MyThread <span style="color: #0000ff;">extends</span><span style="color: #000000;"> Thread{<br></span><span style="color: #008080;"> 9</span> <span style="color: #000000;">@Override<br></span><span style="color: #008080;">10</span>   <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> run() {<br></span><span style="color: #008080;">11</span>   <span style="color: #0000ff;">super</span><span style="color: #000000;">.run();<br></span><span style="color: #008080;">12</span>   <span style="color: #008000;">//</span><span style="color: #008000;">do somthing         </span><br><span style="color: #008080;">13</span> <span style="color: #000000;">}<br></span><span style="color: #008080;">14</span> <span style="color: #000000;">}<br></span><span style="color: #008080;">15</span> }  </pre><br></div>
-
-<p><span>我们思考一个问题：假设MyThread的run函数是一个很费时的操作，当调用finish的时候Activity 会销毁掉吗？</span></p>
-<p>&nbsp;</p>
-<p>&nbsp; &nbsp;事实上由于我们的线程是Activity的内部类，所以MyThread中保存了Activity的一个引用，当MyThread的run函数没有结束时，MyThread是不会被销毁的，因此它所引用的老的Activity也不会被销毁，因此就出现了内存泄露的问题。</p>
-<p>&nbsp;</p>
-<p><span><strong>解决方案</strong></span></p>
-<p>&nbsp;&nbsp;&nbsp; 第一、将线程的内部类，改为静态内部类。</p>
-<p>&nbsp;&nbsp;&nbsp; 第二、如果需要引用Acitivity，使用弱引用。<br>&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp; 另外在使用handler 的时候， 尤其用到循环调用的时候，在Activity 退出的时候注意移除。否则也会导致泄露</p>
-<div class="cnblogs_code"><br><pre><span style="color: #008080;"> 1</span> <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span> ThreadDemo <span style="color: #0000ff;">extends</span><span style="color: #000000;"> Activity {<br></span><span style="color: #008080;"> 2</span>     <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">final</span> String TAG = “ThreadDemo”<span style="color: #000000;">;<br></span><span style="color: #008080;"> 3</span>     <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">int</span> count = 0<span style="color: #000000;">;<br></span><span style="color: #008080;"> 4</span>     <span style="color: #0000ff;">private</span> Handler mHandler =  <span style="color: #0000ff;">new</span><span style="color: #000000;"> Handler();<br></span><span style="color: #008080;"> 5</span><br><span style="color: #008080;"> 6</span>     <span style="color: #0000ff;">private</span> Runnable mRunnable = <span style="color: #0000ff;">new</span><span style="color: #000000;"> Runnable() {<br></span><span style="color: #008080;"> 7</span><br><span style="color: #008080;"> 8</span>         <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> run() {<br></span><span style="color: #008080;"> 9</span>             <span style="color: #008000;">//</span><span style="color: #008000;">为了方便 查看，我们用Log打印出来   </span><br><span style="color: #008080;">10</span>             Log.e(TAG, Thread.currentThread().getName() + “ “ +<span style="color: #000000;">count);<br></span><span style="color: #008080;">11</span>             <span style="color: #008000;">//</span><span style="color: #008000;">每2秒执行一次   </span><br><span style="color: #008080;">12</span>             mHandler.postDelayed(mRunnable, 2000<span style="color: #000000;">);<br></span><span style="color: #008080;">13</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;">14</span> <span style="color: #000000;">    };<br></span><span style="color: #008080;">15</span> <span style="color: #000000;">    @Override<br></span><span style="color: #008080;">16</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> onCreate(Bundle savedInstanceState) {<br></span><span style="color: #008080;">17</span>         <span style="color: #0000ff;">super</span><span style="color: #000000;">.onCreate(savedInstanceState);<br></span><span style="color: #008080;">18</span> <span style="color: #000000;">        setContentView(R.layout.main);<br></span><span style="color: #008080;">19</span>         <span style="color: #008000;">//</span><span style="color: #008000;">通过Handler启动线程   </span><br><span style="color: #008080;">20</span> <span style="color: #000000;">        mHandler.post(mRunnable);<br></span><span style="color: #008080;">21</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">22</span><br><span style="color: #008080;">23</span> <span style="color: #000000;">}<br></span><span style="color: #008080;">24</span> <span style="color: #008000;">//</span><span style="color: #008000;">所以我们在应用退出时，要将线程销毁，我们只要在Activity中的，onDestory()方法处理一下就OK了，如下代码所示:</span><br><span style="color: #008080;">25</span> <span style="color: #000000;">@Override<br></span><span style="color: #008080;">26</span>   <span style="color: #0000ff;">protected</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> onDestroy() {<br></span><span style="color: #008080;">27</span> <span style="color: #000000;">    mHandler.removeCallbacks(mRunnable);<br></span><span style="color: #008080;">28</span>     <span style="color: #0000ff;">super</span><span style="color: #000000;">.onDestroy();<br></span><span style="color: #008080;">29</span> <span style="color: #000000;">  }<br></span><span style="color: #008080;">30</span>  </pre><br></div>
-
-<p><span>3.Bitmap</span><br>可以说出现OutOfMemory问题的绝大多数人，都是因为Bitmap的问题。因为Bitmap占用的内存实在是太多了，特别是分辨率大的图片，如果要显示多张那问题就更显著了。</p>
-<p>&nbsp;&nbsp;&nbsp; 解决方案：</p>
-<p>&nbsp;&nbsp;&nbsp; 第一、及时的销毁。</p>
-<p>&nbsp;&nbsp;&nbsp; 虽然，系统能够确认Bitmap分配的内存最终会被销毁，但是由于它占用的内存过多，所以很可能会超过java堆的限制。因此，在用完Bitmap时，要及时的recycle掉。recycle并不能确定立即就会将Bitmap释放掉，但是会给虚拟机一个暗示：&ldquo;该图片可以释放了&rdquo;。</p>
-<p>&nbsp;&nbsp;&nbsp; 第二、设置一定的采样率。</p>
-<p>&nbsp;&nbsp;&nbsp; 有时候，我们要显示的区域很小，没有必要将整个图片都加载出来，而只需要记载一个缩小过的图片，这时候可以设置一定的采样率，那么就可以大大减小占用的内存。如下面的代码：</p>
-<p>private ImageView preview;&nbsp;&nbsp;</p>
-<p>BitmapFactory.Options options = new BitmapFactory.Options();&nbsp;&nbsp;</p>
-<p>options.inSampleSize = 2;//图片宽高都为原来的二分之一，即图片为原来的四分之一&nbsp;&nbsp;</p>
-<p>Bitmap bitmap = BitmapFactory.decodeStream(cr.openInputStream(uri), null, options);&nbsp; preview.setImageBitmap(bitmap);&nbsp;</p>
-<p>第三、巧妙的运用软引用（SoftRefrence）</p>
-<p>&nbsp;&nbsp;&nbsp; 有些时候，我们使用Bitmap后没有保留对它的引用，因此就无法调用Recycle函数。这时候巧妙的运用软引用，可以使Bitmap在内存快不足时得到有效的释放。<br>&nbsp;&nbsp;</p>
-<p><span>4.行踪诡异的Cursor</span></p>
-<p>&nbsp;&nbsp;&nbsp; Cursor是Android查询数据后得到的一个管理数据集合的类，正常情况下，如果查询得到的数据量较小时不会有内存问题，而且虚拟机能够保证Cusor最终会被释放掉。</p>
-<p>&nbsp;&nbsp;&nbsp; 然而如果Cursor的数据量特表大，特别是如果里面有Blob信息时，应该保证Cursor占用的内存被及时的释放掉，而不是等待GC来处理。并且Android明显是倾向于编程者手动的将Cursor close掉</p>
-<p>&nbsp; 而且android数据库中对Cursor资源的是又限制个数的，如果不及时close掉，会导致别的地方无法获得<br>&nbsp;&nbsp;&nbsp;&nbsp;<br><span>5.构造Adapter时，没有使用缓存的 convertView&nbsp;</span><br>&nbsp; 以构造ListView的BaseAdapter为例，在BaseAdapter中提高了方法：<br>&nbsp; &nbsp;public View getView(int position, View convertView, ViewGroup parent)</p>
-<p>&nbsp; AdapterView 在使用View会有一个循环的View队列的，把不显示的View重新投入使用，所以在<span>convertView不为空的时候，不要直接创建新的View</span></p>
-<p>小结:</p>
-<p>static:引用了大对象如context</p>
-<p>线程：切屏时Activity因为线程引用而没有如期被销毁；handler有关，Activity意外终止但线程还在</p>
-<p>Bitmap:要及时recycle,降低采样率</p>
-<p>Cursor:要及时关闭</p>
-<p>Adapter:没有使用缓存的convertView</p>
-<p>&nbsp;</p>
-<p>四、内存泄漏调试:<br>(1).内存监测工具 DDMS –&gt; Heap<br>&nbsp;用 Heap监测应用进程使用内存情况的步骤如下：<br>&nbsp; &nbsp; &nbsp; 1. 切换到DDMS透视图，并确认Devices视图、Heap视图都是打开的；<br>&nbsp; &nbsp; &nbsp; 2. 正常与手机链接成功后，在DDMS的Devices视图中将会显示手机设备的序列号，以及设备中正在运行的部分进程信息；<br>&nbsp; &nbsp; &nbsp; 3. 点击选中想要监测的进程<br>&nbsp; &nbsp; &nbsp; 4. 点击选中Devices视图界面中最上方一排图标中的&ldquo;Update Heap&rdquo;图标；<br>&nbsp; &nbsp; &nbsp; 5. 点击Heap视图中的&ldquo;Cause GC&rdquo;按钮；<br>&nbsp; &nbsp; &nbsp; 6. 此时在Heap视图中就会看到当前选中的进程的内存使用量的详细情况。<br>&nbsp; &nbsp;Heap视图界面会定时刷新，在对应用的不断的操作过程中就可以看到内存使用的变化；<br>&nbsp; 如何才能知道我们的程序是否有内存泄漏的可能性呢。这里需要注意一个值：Heap视图中部有一个Type叫做data object，即数据对象，也就是我们的程序中大量存在的类类型的对象。在data object一行中有一列是&ldquo;Total Size&rdquo;，其值就是当前进程中所有Java数据对象的内存总量，一般情况下，这个值的大小决定了是否会有内存泄漏。可以这样判断：<br>&nbsp; &nbsp;a) 不断的操作当前应用，同时注意观察data object的Total Size值；<br>&nbsp; &nbsp;b) 正常情况下Total Size值都会稳定在一个有限的范围内，也就是说由于程序中的的代码良好，没有造成对象不被垃圾回收的情况，所以说 &nbsp;虽然我们不断的操作会不断的生成很多对象，而在虚拟机不断的进行GC的过程中，这些对象都被回收了，内存占用量会会落到一个稳定的水平；<br>&nbsp; &nbsp; c) 反之如果代码中存在没有释放对象引用的情况，则data object的Total Size值在每次GC后不会有明显的回落，随着操作次数的增多Total Size的值会越来越大，</p>
-<p><span>(2)</span><span>内存分析工具 MAT(Memory Analyzer Tool)</span><br><span>&nbsp; 这里介绍一个极好的内存分析工具 – Memory Analyzer Tool(MAT)。</span><br><span>&nbsp;&nbsp;MAT是一个Eclipse插件，同时也有单独的RCP客户端。官方下载地址、MAT介绍和详细的使用教程请参见：</span><a href="http://www.eclipse.org/mat" target="_blank" rel="noopener">www.eclipse.org/mat</a><span>，在此不进行说明了。另外在MAT安装后的帮助文档里也有完备的使用教程。在此仅举例说明其使用方法。我自己使用的是MAT的eclipse插件，使用插件要比RCP稍微方便一些。插件安装成功后，分析步骤（安装方法有多重，大家随便）</span><br><span>&nbsp;</span><br><span>&nbsp; &nbsp;(a) 生成.hprof文件</span><br><span>&nbsp;&nbsp;</span><br><span>&nbsp; &nbsp; &nbsp; 1. 打开eclipse并切换到DDMS</span><br><span>&nbsp; &nbsp; &nbsp; 2. 点击选中想要分析的应用的进程，在Devices视图上方的一行图标按钮中，选中&ldquo;Update Heap&rdquo;。</span><br><span>&nbsp; &nbsp; &nbsp; 3. 当内存你感觉异常的时候，按下&ldquo;Dump HPROF file&rdquo;按钮，这个时候会提示设置hprof文件的保存路径。</span><br><span>(二) 使用MAT导入.hprof文件</span><br><span>&nbsp; &nbsp; &nbsp;1. 通过</span><span>/ANDROID_SDK/tools目录下的hprof-conv.exe工具（使用命令同adb），输入命令hprof-conv xxx.hprof yyy.hprof，其中xxx.hprof为原始文件，yyy.hprof为转换过后的文件。</span><br><span>&nbsp; &nbsp; 2. 在Eclipse中点击Windows-&gt;Open Perspective-&gt;Other-&gt;Memory Analysis perspective界面。在MAT中点击File-&gt;Open File，浏览并导入刚刚 转换而得到的.hprof文件。</span><br><span>(三) 使用MAT的视图工具分析内存</span><br><span>&nbsp;&nbsp;导入.hprof文件以后，MAT会自动解析并生成报告，报告中会列出使用内存过多或者初始化的实例过多的类。</span></p>
-<p><span>&nbsp;点击Dominator Tree，并按Package分组，选择报告中提到的可疑实例的类，在弹出菜单中选择List objects-&gt;With incoming references。这时会列出所有可疑类，右键点击某一项，并选择Path to GC Roots -&gt; exclude weak/soft references，会进一步筛选出跟程序相关的所有有内存泄露的类。据此，可以追踪到代码中的某一个产生泄露的类。</span><br><span><span>&nbsp;</span><span>&nbsp; 主要是看可疑类的引用是因为什么代码的引用而导致无法释放的</span></span><br><span>&nbsp;&nbsp;总之使用MAT分析内存查找内存泄漏的根本思路，就是找到哪个类的对象的引用没有被释放，找到没有被释放的原因，也就可以很容易定位代码中的哪些片段的逻辑有问题了。</span></p>
-<p>&nbsp;</p>
-<p>转自：<a href="http://blog.csdn.net/cs_epo/article/details/7843766" target="_blank" rel="noopener">http://blog.csdn.net/cs_epo/article/details/7843766</a></p>
-<p>&nbsp;</p>
-
-          
+          一、 Android的内存机制Android的程序由Java语言编写，所以Android的内存管理与Java的内存管理相似。程序员通过new为对象分配内存，所有对象在java堆内分配空间；然而对象的释放是由垃圾回收器来完成的.那么GC怎么能够确认某一个对象是不是已经被废弃了呢？Java采用了有向图的原理。Java将引用关系考虑为图的有向边，有向边从引用者指向引用对象。线程对象可以作为有向图的起始顶点，该图就是从起始顶点开始的一棵树，根顶点可以到达的对象都是有效对象，GC不会回收这些对象。如果某个对象 (连通子图)与这个根顶点不可达(注意，该图为有向图)，那么我们认为这个(这些)对象不再被引用，
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2014/04/22/关于Android-的内存泄露及分析/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -745,40 +667,19 @@
       
         
           
-            <p><span style="color: #ff0000;"><strong>以下内容为原创，欢迎转载，转载请注明</strong></span></p>
-<p><span style="color: #ff0000;"><strong>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/3642849.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/3642849.html</a></strong></span></p>
-<p>&nbsp;</p>
-<p>在Android项目中，经常都会用到ListView这个控件，而相应的Adapter中getView()方法的编写有一个标准的形式，如下：</p>
-<div class="cnblogs_code"><br><pre><span style="color: #008080;"> 1</span> <span style="color: #000000;">@Override<br></span><span style="color: #008080;"> 2</span>     <span style="color: #0000ff;">public</span> View getView(<span style="color: #0000ff;">int</span><span style="color: #000000;"> position, View convertView, ViewGroup parent) {<br></span><span style="color: #008080;"> 3</span> <span style="color: #000000;">        ViewHolder holder;<br></span><span style="color: #008080;"> 4</span>         <span style="color: #0000ff;">if</span>(<span style="color: #0000ff;">null</span> ==<span style="color: #000000;"> convertView){<br></span><span style="color: #008080;"> 5</span>             holder = <span style="color: #0000ff;">new</span><span style="color: #000000;"> ViewHolder();<br></span><span style="color: #008080;"> 6</span>             LayoutInflater mInflater =<span style="color: #000000;"> (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);<br></span><span style="color: #008080;"> 7</span>             convertView = mInflater.inflate(R.layout.item, <span style="color: #0000ff;">null</span><span style="color: #000000;">);<br></span><span style="color: #008080;"> 8</span>             holder.btn =<span style="color: #000000;"> (Button) convertView.findViewById(R.id.btn);<br></span><span style="color: #008080;"> 9</span>             holder.tv =<span style="color: #000000;"> (TextView) convertView.findViewById(R.id.tv);<br></span><span style="color: #008080;">10</span>             holder.iv =<span style="color: #000000;"> (TextView) convertView.findViewById(R.id.iv);<br></span><span style="color: #008080;">11</span><br><span style="color: #008080;">12</span> <span style="color: #000000;">            convertView.setTag(holder);<br></span><span style="color: #008080;">13</span>         }<span style="color: #0000ff;">else</span><span style="color: #000000;">{<br></span><span style="color: #008080;">14</span>             holder =<span style="color: #000000;"> (ViewHolder) convertView.getTag();<br></span><span style="color: #008080;">15</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;">16</span>         <span style="color: #0000ff;">final</span> HashMap&lt;String, Object&gt; map =<span style="color: #000000;"> list.get(position);<br></span><span style="color: #008080;">17</span><br><span style="color: #008080;">18</span>         holder.iv.setImageResource(Integer.valueOf(map.get(“iv”<span style="color: #000000;">).toString()));<br></span><span style="color: #008080;">19</span>         holder.tv.setText(map.get(“tv”<span style="color: #000000;">).toString());<br></span><span style="color: #008080;">20</span><br><span style="color: #008080;">21</span>         holder.btn.setOnClickListener(<span style="color: #0000ff;">new</span><span style="color: #000000;"> View.OnClickListener() {<br></span><span style="color: #008080;">22</span> <span style="color: #000000;">            @Override<br></span><span style="color: #008080;">23</span>             <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> onClick(View v) {<br></span><span style="color: #008080;">24</span>                 Toast.makeText(context, map.get(“btn”<span style="color: #000000;">).toString(), Toast.LENGTH_SHORT).show();<br></span><span style="color: #008080;">25</span> <span style="color: #000000;">            }<br></span><span style="color: #008080;">26</span> <span style="color: #000000;">        });<br></span><span style="color: #008080;">27</span><br><span style="color: #008080;">28</span>         <span style="color: #0000ff;">return</span><span style="color: #000000;"> convertView;<br></span><span style="color: #008080;">29</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">30</span><br><span style="color: #008080;">31</span>     <span style="color: #0000ff;">class</span><span style="color: #000000;"> ViewHolder{<br></span><span style="color: #008080;">32</span> <span style="color: #000000;">        Button btn;<br></span><span style="color: #008080;">33</span> <span style="color: #000000;">        ImageView iv;<br></span><span style="color: #008080;">34</span> <span style="color: #000000;">        TextView tv;<br></span><span style="color: #008080;">35</span><br><span style="color: #008080;">36</span>     }</pre><br></div>
-
-<p>以下是碎碎念（想直接看代码的，就跳过这段吧-_-！）：</p>
-<p>也就是说每次编写Adapter都需要编写class ViewHolder…、if(null == convertView){…等等。这些代码跟业务逻辑关系不大，没有必要每次都写重复代码，</p>
-<p>所以，显然有简化代码的余地。</p>
-<p>既然我们的需求是不需要重复编写ViewHolder等内部类，那就把它移到父类吧。</p>
-<p>但是ViewHolder中在实际项目中有不同的View，那就用list存放起来吧，但是放在list中的话，怎么取出来？用index？显然不是好的方法，不是有Resource Id这玩意，通过这个取不就好了么？所以以Resource Id为key放在Map中比较合适，但是既然以int（Resource Id）为key，那自然而然想到使用SparseArray了。</p>
-<p>然后再把if(null == converView)…这些代码统统移到父类中。</p>
-<p>所以ABaseAdapter诞生了，代码如下：</p>
-<div class="cnblogs_code"><br><pre><span style="color: #008080;"> 1</span> <span style="color: #008000;">/<strong></strong></span><br><span style="color: #008080;"> 2</span> <span style="color: #008000;"> <em> 实现对BaseAdapter中ViewHolder相关的简化<br></em></span><span style="color: #008080;"> 3</span> <span style="color: #008000;">  Created with IntelliJ IDEA.<br></span><span style="color: #008080;"> 4</span> <span style="color: #008000;"> <em> Author: wangjie  email:tiantian.china.2@gmail.com<br></em></span><span style="color: #008080;"> 5</span> <span style="color: #008000;">  Date: 14-4-2<br></span><span style="color: #008080;"> 6</span> <span style="color: #008000;"> <em> Time: 下午5:54<br></em></span><span style="color: #008080;"> 7</span>  <span style="color: #008000;">/</span><br><span style="color: #008080;"> 8</span> <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">abstract</span> <span style="color: #0000ff;">class</span> ABaseAdapter <span style="color: #0000ff;">extends</span><span style="color: #000000;"> BaseAdapter{<br></span><span style="color: #008080;"> 9</span> <span style="color: #000000;">    Context context;<br></span><span style="color: #008080;">10</span><br><span style="color: #008080;">11</span>     <span style="color: #0000ff;">protected</span><span style="color: #000000;"> ABaseAdapter(Context context) {<br></span><span style="color: #008080;">12</span>         <span style="color: #0000ff;">this</span>.context =<span style="color: #000000;"> context;<br></span><span style="color: #008080;">13</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">14</span><br><span style="color: #008080;">15</span>     <span style="color: #0000ff;">protected</span><span style="color: #000000;"> ABaseAdapter() {<br></span><span style="color: #008080;">16</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">17</span><br><span style="color: #008080;">18</span>     <span style="color: #008000;">/</span><br><span style="color: #008080;">19</span> <span style="color: #008000;">     <em> 各个控件的缓存<br></em></span><span style="color: #008080;">20</span>      <span style="color: #008000;">/</span><br><span style="color: #008080;">21</span>     public <span style="color: #0000ff;">class</span><span style="color: #000000;"> ViewHolder{<br></span><span style="color: #008080;">22</span>         <span style="color: #0000ff;">public</span> SparseArray&lt;View&gt; views = <span style="color: #0000ff;">new</span> SparseArray&lt;View&gt;<span style="color: #000000;">();<br></span><span style="color: #008080;">23</span><br><span style="color: #008080;">24</span>         <span style="color: #008000;">/<strong></strong></span><br><span style="color: #008080;">25</span> <span style="color: #008000;">         <em> 指定resId和类型即可获取到相应的view<br></em></span><span style="color: #008080;">26</span> <span style="color: #008000;">          </span><span style="color: #808080;">@param</span><span style="color: #008000;"> convertView<br></span><span style="color: #008080;">27</span> <span style="color: #008000;">         <em> </em></span><span style="color: #808080;">@param</span><span style="color: #008000;"> resId<br></span><span style="color: #008080;">28</span> <span style="color: #008000;">          </span><span style="color: #808080;">@param</span><span style="color: #008000;"> &lt;T&gt;<br></span><span style="color: #008080;">29</span> <span style="color: #008000;">         <em> </em></span><span style="color: #808080;">@return</span><br><span style="color: #008080;">30</span>          <span style="color: #008000;">/</span><br><span style="color: #008080;">31</span>         <span style="color: #0000ff;">public</span> &lt;T <span style="color: #0000ff;">extends</span> View&gt; T obtainView(View convertView, <span style="color: #0000ff;">int</span><span style="color: #000000;"> resId){<br></span><span style="color: #008080;">32</span>             View v =<span style="color: #000000;"> views.get(resId);<br></span><span style="color: #008080;">33</span>             <span style="color: #0000ff;">if</span>(<span style="color: #0000ff;">null</span> ==<span style="color: #000000;"> v){<br></span><span style="color: #008080;">34</span>                 v =<span style="color: #000000;"> convertView.findViewById(resId);<br></span><span style="color: #008080;">35</span> <span style="color: #000000;">                views.put(resId, v);<br></span><span style="color: #008080;">36</span> <span style="color: #000000;">            }<br></span><span style="color: #008080;">37</span>             <span style="color: #0000ff;">return</span><span style="color: #000000;"> (T)v;<br></span><span style="color: #008080;">38</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;">39</span><br><span style="color: #008080;">40</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">41</span><br><span style="color: #008080;">42</span>     <span style="color: #008000;">/</span><br><span style="color: #008080;">43</span> <span style="color: #008000;">     <em> 改方法需要子类实现，需要返回item布局的resource id<br></em></span><span style="color: #008080;">44</span> <span style="color: #008000;">      </span><span style="color: #808080;">@return</span><br><span style="color: #008080;">45</span>      <span style="color: #008000;"><em>/</em></span><br><span style="color: #008080;">46</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">abstract</span> <span style="color: #0000ff;">int</span><span style="color: #000000;"> itemLayoutRes();<br></span><span style="color: #008080;">47</span><br><span style="color: #008080;">48</span> <span style="color: #000000;">    @Override<br></span><span style="color: #008080;">49</span>     <span style="color: #0000ff;">public</span> View getView(<span style="color: #0000ff;">int</span><span style="color: #000000;"> position, View convertView, ViewGroup parent) {<br></span><span style="color: #008080;">50</span> <span style="color: #000000;">        ViewHolder holder;<br></span><span style="color: #008080;">51</span>         <span style="color: #0000ff;">if</span>(<span style="color: #0000ff;">null</span> ==<span style="color: #000000;"> convertView){<br></span><span style="color: #008080;">52</span>             holder = <span style="color: #0000ff;">new</span><span style="color: #000000;"> ViewHolder();<br></span><span style="color: #008080;">53</span>             convertView = LayoutInflater.from(context).inflate(itemLayoutRes(), <span style="color: #0000ff;">null</span><span style="color: #000000;">);<br></span><span style="color: #008080;">54</span> <span style="color: #000000;">            convertView.setTag(holder);<br></span><span style="color: #008080;">55</span>         }<span style="color: #0000ff;">else</span><span style="color: #000000;">{<br></span><span style="color: #008080;">56</span>             holder =<span style="color: #000000;"> (ViewHolder) convertView.getTag();<br></span><span style="color: #008080;">57</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;">58</span>         <span style="color: #0000ff;">return</span><span style="color: #000000;"> getView(position, convertView, parent, holder);<br></span><span style="color: #008080;">59</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">60</span><br><span style="color: #008080;">61</span>     <span style="color: #008000;">/**</span><br><span style="color: #008080;">62</span> <span style="color: #008000;">      使用该getView方法替换原来的getView方法，需要子类实现<br></span><span style="color: #008080;">63</span> <span style="color: #008000;">     <em> </em></span><span style="color: #808080;">@param</span><span style="color: #008000;"> position<br></span><span style="color: #008080;">64</span> <span style="color: #008000;">      </span><span style="color: #808080;">@param</span><span style="color: #008000;"> convertView<br></span><span style="color: #008080;">65</span> <span style="color: #008000;">     <em> </em></span><span style="color: #808080;">@param</span><span style="color: #008000;"> parent<br></span><span style="color: #008080;">66</span> <span style="color: #008000;">      </span><span style="color: #808080;">@param</span><span style="color: #008000;"> holder<br></span><span style="color: #008080;">67</span> <span style="color: #008000;">     <em> </em></span><span style="color: #808080;">@return</span><br><span style="color: #008080;">68</span>      <span style="color: #008000;">/</span><br><span style="color: #008080;">69</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">abstract</span> View getView(<span style="color: #0000ff;">int</span><span style="color: #000000;"> position, View convertView, ViewGroup parent, ViewHolder holder);<br></span><span style="color: #008080;">70</span><br><span style="color: #008080;">71</span> }</pre><br></div>
-
-<p>如上代码：增加了一个itemLayoutRes()的抽象方法，该抽象方法提供给子类实现，返回item布局的resource id，为后面的getView方法提供调用。</p>
-<p>可以看到上述代码中，在系统的getView方法中，进行我们以前在BaseAdapter实现类中所做的事（初始化converView，并绑定ViewHolder作为tag），然后抛弃了系统提供的getView方法，直接去调用自己写的getView抽象方法，这个getView方法是提供给子类去实现的，作用跟系统的getView一样，但是这个getView方法中携带了一个ViewHolder对象，子类可以通过这个对象进行获取item中的控件。</p>
-<p>具体使用方式如下，比如创建了MyAdapter并继承了ABaseAdapter：</p>
-<p>注意，在构造方法中需要调用父类的构造方法：</p>
-<div class="cnblogs_code"><br><pre><span style="color: #008080;">1</span> <span style="color: #0000ff;">public</span> MyAdapter(Context context, List&lt;HashMap&lt;String, Object&gt;&gt;<span style="color: #000000;"> list) {<br></span><span style="color: #008080;">2</span>     <span style="color: #0000ff;">super</span><span style="color: #000000;">(context);<br></span><span style="color: #008080;">3</span>     <span style="color: #0000ff;">this</span>.list =<span style="color: #000000;"> list;<br></span><span style="color: #008080;">4</span> }</pre><br></div>
-
-<p>即，以上的&ldquo;super(context);&rdquo;必须调用。</p>
-<p>接着实现itemLayoutRes()方法，返回item的布局：</p>
-<div class="cnblogs_code"><br><pre><span style="color: #008080;">1</span> <span style="color: #000000;">@Override<br></span><span style="color: #008080;">2</span> <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">int</span><span style="color: #000000;"> itemLayoutRes() {<br></span><span style="color: #008080;">3</span>     <span style="color: #0000ff;">return</span><span style="color: #000000;"> R.layout.item;<br></span><span style="color: #008080;">4</span> }</pre><br></div>
-
-<p>&nbsp;</p>
-<p>getView方法中的实现如下：</p>
-<div class="cnblogs_code"><br><pre><span style="color: #008080;"> 1</span> <span style="color: #000000;">@Override<br></span><span style="color: #008080;"> 2</span> <span style="color: #0000ff;">public</span> View getView(<span style="color: #0000ff;">int</span><span style="color: #000000;"> position, View convertView, ViewGroup parent, ViewHolder holder) {<br></span><span style="color: #008080;"> 3</span>     <span style="color: #0000ff;">final</span> HashMap&lt;String, Object&gt; map =<span style="color: #000000;"> list.get(position);<br></span><span style="color: #008080;"> 4</span><br><span style="color: #008080;"> 5</span>     Button btn =<span style="color: #000000;"> holder.obtainView(convertView, R.id.item_btn);<br></span><span style="color: #008080;"> 6</span>     ImageView iv =<span style="color: #000000;"> holder.obtainView(convertView, R.id.item_iv);<br></span><span style="color: #008080;"> 7</span>     TextView tv =<span style="color: #000000;"> holder.obtainView(convertView, R.id.item_tv);<br></span><span style="color: #008080;"> 8</span><br><span style="color: #008080;"> 9</span>      btn.setOnClickListener(<span style="color: #0000ff;">new</span><span style="color: #000000;"> View.OnClickListener() {<br></span><span style="color: #008080;">10</span> <span style="color: #000000;">        @Override<br></span><span style="color: #008080;">11</span>         <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> onClick(View v) {<br></span><span style="color: #008080;">12</span>             Toast.makeText(context, map.get(“btn”<span style="color: #000000;">).toString(), Toast.LENGTH_SHORT).show();<br></span><span style="color: #008080;">13</span> <span style="color: #000000;">         }<br></span><span style="color: #008080;">14</span> <span style="color: #000000;">     });<br></span><span style="color: #008080;">15</span><br><span style="color: #008080;">16</span>      iv.setImageResource(Integer.valueOf(map.get(“iv”<span style="color: #000000;">).toString()));<br></span><span style="color: #008080;">17</span>      tv.setText(map.get(“tv”<span style="color: #000000;">).toString());<br></span><span style="color: #008080;">18</span><br><span style="color: #008080;">19</span>         <span style="color: #0000ff;">return</span><span style="color: #000000;"> convertView;<br></span><span style="color: #008080;">20</span>     }</pre><br></div>
-
-<p>如上代码：调用holder.obtainView方法既可获取item中的控件；</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-
-          
+          以下内容为原创，欢迎转载，转载请注明
+来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/3642849.html
+&nbsp;
+在Android项目中，经常都会用到ListView这个控件，而相应的Adapter中getView()方法的编写有一个标准的形式，如下：
+ 1 @Override 2     public View getView(int position, View convertView, ViewGroup parent) { 3         ViewHolder holder; 4         if(null == co
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2014/04/03/Android-对BaseAdapter中ViewHolder编写简化/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -907,96 +808,20 @@
       
         
           
-            <p>今天我们来更深入了解一下Android开发上的模糊技术。我读过几篇有关的文章，也在StackOverFlow上看过一些相关教程的帖子，所以我想在这里总结一下学到的东西。</p>
-<h3 id="为什么学习这个模糊技术？"><a href="#为什么学习这个模糊技术？" class="headerlink" title="为什么学习这个模糊技术？"></a>为什么学习这个模糊技术？</h3><p>现在越来越多的开发者喜欢在自定义控件的时候加上各种模糊背景，看看RomanNurik开发的<a href="https://play.google.com/store/apps/details?id=net.nurik.roman.muzei" target="_blank" rel="noopener">Muzei</a>或者Yahoo的<a href="https://play.google.com/store/apps/details?id=com.yahoo.mobile.client.android.weather" target="_blank" rel="noopener">Weather应用</a>app都非常不错。我非常喜欢他们的设计。</p>
-<p>我从<strong>Mark Allison</strong>的帖子(<a href="http://blog.stylingandroid.com/archives/2304" target="_blank" rel="noopener">帖子地址</a>)得到启发，然后写了这篇文章。</p>
-<p>这是我们需要完成下图展示的效果：</p>
-<p><a href="http://www.linuxeden.com/upimg/allimg/140328/0S1031332-0.png" title="Android高级模糊技术" target="_blank" rel="noopener"><img src="http://www.linuxeden.com/upimg/allimg/140328/0S1031332-0.png" alt="1"></a></p>
-<h3 id="预备知识"><a href="#预备知识" class="headerlink" title="预备知识"></a>预备知识</h3><p>首先描述一下我们需要的文件。我们需要一个主<code>Activity</code>，里面有一个含有多个<code>Fragment</code>的<code>ViewPager</code>，每个<code>Fragment</code>展示一种模糊技术。</p>
-<p><span>这是主</span><code>Activity</code><span>的布局文件内容：</span></p>
-<div class="cnblogs_code"><br><pre><span style="color: #008080;">1</span> <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">android.support.v4.view.ViewPager<br></span><span style="color: #008080;">2</span> <span style="color: #ff0000;">xmlns:android</span><span style="color: #0000ff;">=”<a href="http://schemas.android.com/apk/res/android" target="_blank" rel="noopener">http://schemas.android.com/apk/res/android</a>“</span><br><span style="color: #008080;">3</span> <span style="color: #ff0000;">    xmlns:tools</span><span style="color: #0000ff;">=”<a href="http://schemas.android.com/tools" target="_blank" rel="noopener">http://schemas.android.com/tools</a>“</span><br><span style="color: #008080;">4</span> <span style="color: #ff0000;">    android:id</span><span style="color: #0000ff;">=”@+id/pager”</span><br><span style="color: #008080;">5</span> <span style="color: #ff0000;">    android:layout_width</span><span style="color: #0000ff;">=”match_parent”</span><br><span style="color: #008080;">6</span> <span style="color: #ff0000;">    android:layout_height</span><span style="color: #0000ff;">=”match_parent”</span><br><span style="color: #008080;">7</span> <span style="color: #ff0000;">    tools:context</span><span style="color: #0000ff;">=”com.paveldudka.MainActivity”</span> <span style="color: #0000ff;">/&gt;</span></pre><br></div>
+          今天我们来更深入了解一下Android开发上的模糊技术。我读过几篇有关的文章，也在StackOverFlow上看过一些相关教程的帖子，所以我想在这里总结一下学到的东西。
+为什么学习这个模糊技术？现在越来越多的开发者喜欢在自定义控件的时候加上各种模糊背景，看看RomanNurik开发的Muzei或者Yahoo的Weather应用app都非常不错。我非常喜欢他们的设计。
+我从Mark Allison的帖子(帖子地址)得到启发，然后写了这篇文章。
+这是我们需要完成下图展示的效果：
 
-<p><span>这是</span><code>Fragment</code><span>的布局文件内容：</span></p>
-<div class="cnblogs_code"><br><pre><span style="color: #008080;"> 1</span> <span style="color: #0000ff;">&lt;?</span><span style="color: #ff00ff;">xml version=”1.0” encoding=”utf-8”</span><span style="color: #0000ff;">?&gt;</span><br><span style="color: #008080;"> 2</span><br><span style="color: #008080;"> 3</span> <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">FrameLayout </span><span style="color: #ff0000;">xmlns:android</span><span style="color: #0000ff;">=”<a href="http://schemas.android.com/apk/res/android" target="_blank" rel="noopener">http://schemas.android.com/apk/res/android</a>“</span><br><span style="color: #008080;"> 4</span> <span style="color: #ff0000;">    android:layout_width</span><span style="color: #0000ff;">=”match_parent”</span><br><span style="color: #008080;"> 5</span> <span style="color: #ff0000;">    android:layout_height</span><span style="color: #0000ff;">=”match_parent”</span><span style="color: #0000ff;">&gt;</span><br><span style="color: #008080;"> 6</span><br><span style="color: #008080;"> 7</span>     <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">ImageView<br></span><span style="color: #008080;"> 8</span>         <span style="color: #ff0000;">android:id</span><span style="color: #0000ff;">=”@+id/picture”</span><br><span style="color: #008080;"> 9</span> <span style="color: #ff0000;">        android:layout_width</span><span style="color: #0000ff;">=”match_parent”</span><br><span style="color: #008080;">10</span> <span style="color: #ff0000;">        android:layout_height</span><span style="color: #0000ff;">=”match_parent”</span><br><span style="color: #008080;">11</span> <span style="color: #ff0000;">        android:src</span><span style="color: #0000ff;">=”@drawable/picture”</span><br><span style="color: #008080;">12</span> <span style="color: #ff0000;">        android:scaleType</span><span style="color: #0000ff;">=”centerCrop”</span> <span style="color: #0000ff;">/&gt;</span><br><span style="color: #008080;">13</span><br><span style="color: #008080;">14</span>     <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">TextView<br></span><span style="color: #008080;">15</span>         <span style="color: #ff0000;">android:id</span><span style="color: #0000ff;">=”@+id/text”</span><br><span style="color: #008080;">16</span> <span style="color: #ff0000;">        android:gravity</span><span style="color: #0000ff;">=”center_horizontal”</span><br><span style="color: #008080;">17</span> <span style="color: #ff0000;">        android:layout_width</span><span style="color: #0000ff;">=”match_parent”</span><br><span style="color: #008080;">18</span> <span style="color: #ff0000;">        android:layout_height</span><span style="color: #0000ff;">=”wrap_content”</span><br><span style="color: #008080;">19</span> <span style="color: #ff0000;">        android:text</span><span style="color: #0000ff;">=”My super text”</span><br><span style="color: #008080;">20</span> <span style="color: #ff0000;">        android:textColor</span><span style="color: #0000ff;">=”&lt;a href=”</span><span style="color: #ff0000;"><a href="http://www.jobbole.com/members/android/" target="_blank" rel="noopener">http://www.jobbole.com/members/android/</a>“ rel</span><span style="color: #0000ff;">=”nofollow”</span><span style="color: #0000ff;">&gt;</span>@android<span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">a</span><span style="color: #0000ff;">&gt;</span><span style="color: #000000;">:color/white”<br></span><span style="color: #008080;">21</span> <span style="color: #000000;">        android:layout_gravity=”center_vertical”<br></span><span style="color: #008080;">22</span> <span style="color: #000000;">        android:textStyle=”bold”<br></span><span style="color: #008080;">23</span> <span style="color: #000000;">        android:textSize=”48sp” /&gt;<br></span><span style="color: #008080;">24</span>     <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">LinearLayout<br></span><span style="color: #008080;">25</span>         <span style="color: #ff0000;">android:id</span><span style="color: #0000ff;">=”@+id/controls”</span><br><span style="color: #008080;">26</span> <span style="color: #ff0000;">        android:layout_width</span><span style="color: #0000ff;">=”match_parent”</span><br><span style="color: #008080;">27</span> <span style="color: #ff0000;">        android:layout_height</span><span style="color: #0000ff;">=”wrap_content”</span><br><span style="color: #008080;">28</span> <span style="color: #ff0000;">        android:background</span><span style="color: #0000ff;">=”#7f000000”</span><br><span style="color: #008080;">29</span> <span style="color: #ff0000;">        android:orientation</span><span style="color: #0000ff;">=”vertical”</span><br><span style="color: #008080;">30</span> <span style="color: #ff0000;">        android:layout_gravity</span><span style="color: #0000ff;">=”bottom”</span><span style="color: #0000ff;">/&gt;</span><br><span style="color: #008080;">31</span> <span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">FrameLayout</span><span style="color: #0000ff;">&gt;</span></pre><br></div>
-
-<p>我们只是在布局上放了一个<code>ImageView</code>，然后在中间加一个<code>TextView</code>，还有一些作为效果显示和测试的控件（如 @+id/controls）。</p>
-<p>最普遍的模糊技术是这样做的：</p>
-<ul>
-<li>从<code>TextView</code>的后一层背景中截取一部分；</li>
-<li>进行模糊处理；</li>
-<li>把模糊处理后的部分设置为<code>TextView</code>的背景。</li>
-</ul>
-<h3 id="Renderscript"><a href="#Renderscript" class="headerlink" title="Renderscript"></a>Renderscript</h3><p>那怎么在Android中实现模糊处理呢？最好的答案就是Renderscript。这是一个功能强大的图形处理&ldquo;引擎&rdquo;。RenderScript的底层原理就不做介绍了（因为我也不知道），而且这超过了我们这篇文章的范围。</p>
-<p>先看下面的代码：</p>
-<div class="cnblogs_code"><br><pre><span style="color: #008080;"> 1</span> <span style="color: #000000;">public class RSBlurFragment extends Fragment {<br></span><span style="color: #008080;"> 2</span> <span style="color: #000000;">    private ImageView image;<br></span><span style="color: #008080;"> 3</span> <span style="color: #000000;">    private TextView text;<br></span><span style="color: #008080;"> 4</span> <span style="color: #000000;">    private TextView statusText;<br></span><span style="color: #008080;"> 5</span><br><span style="color: #008080;"> 6</span> <span style="color: #000000;">    @Override<br></span><span style="color: #008080;"> 7</span> <span style="color: #000000;">    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {<br></span><span style="color: #008080;"> 8</span> <span style="color: #000000;">        View view = inflater.inflate(R.layout.fragment_layout, container, false);<br></span><span style="color: #008080;"> 9</span> <span style="color: #000000;">        image = (ImageView) view.findViewById(R.id.picture);<br></span><span style="color: #008080;">10</span> <span style="color: #000000;">        text = (TextView) view.findViewById(R.id.text);<br></span><span style="color: #008080;">11</span> <span style="color: #000000;">        statusText = addStatusText((ViewGroup) view.findViewById(R.id.controls));<br></span><span style="color: #008080;">12</span> <span style="color: #000000;">        applyBlur();<br></span><span style="color: #008080;">13</span> <span style="color: #000000;">        return view;<br></span><span style="color: #008080;">14</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">15</span><br><span style="color: #008080;">16</span> <span style="color: #000000;">    private void applyBlur() {<br></span><span style="color: #008080;">17</span> <span style="color: #000000;">        image.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {<br></span><span style="color: #008080;">18</span> <span style="color: #000000;">            @Override<br></span><span style="color: #008080;">19</span> <span style="color: #000000;">            public boolean onPreDraw() {<br></span><span style="color: #008080;">20</span> <span style="color: #000000;">                image.getViewTreeObserver().removeOnPreDrawListener(this);<br></span><span style="color: #008080;">21</span> <span style="color: #000000;">                image.buildDrawingCache();<br></span><span style="color: #008080;">22</span><br><span style="color: #008080;">23</span> <span style="color: #000000;">                Bitmap bmp = image.getDrawingCache();<br></span><span style="color: #008080;">24</span> <span style="color: #000000;">                blur(bmp, text);<br></span><span style="color: #008080;">25</span> <span style="color: #000000;">                return true;<br></span><span style="color: #008080;">26</span> <span style="color: #000000;">            }<br></span><span style="color: #008080;">27</span> <span style="color: #000000;">        });<br></span><span style="color: #008080;">28</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">29</span><br><span style="color: #008080;">30</span> <span style="color: #000000;">    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)<br></span><span style="color: #008080;">31</span> <span style="color: #000000;">    private void blur(Bitmap bkg, View view) {<br></span><span style="color: #008080;">32</span> <span style="color: #000000;">        long startMs = System.currentTimeMillis();<br></span><span style="color: #008080;">33</span><br><span style="color: #008080;">34</span> <span style="color: #000000;">        float radius = 20;<br></span><span style="color: #008080;">35</span><br><span style="color: #008080;">36</span> <span style="color: #000000;">        Bitmap overlay = Bitmap.createBitmap((int) (view.getMeasuredWidth()),<br></span><span style="color: #008080;">37</span> <span style="color: #000000;">                (int) (view.getMeasuredHeight()), Bitmap.Config.ARGB_8888);<br></span><span style="color: #008080;">38</span><br><span style="color: #008080;">39</span> <span style="color: #000000;">        Canvas canvas = new Canvas(overlay);<br></span><span style="color: #008080;">40</span><br><span style="color: #008080;">41</span> <span style="color: #000000;">        canvas.translate(-view.getLeft(), -view.getTop());<br></span><span style="color: #008080;">42</span> <span style="color: #000000;">        canvas.drawBitmap(bkg, 0, 0, null);<br></span><span style="color: #008080;">43</span><br><span style="color: #008080;">44</span> <span style="color: #000000;">        RenderScript rs = RenderScript.create(getActivity());<br></span><span style="color: #008080;">45</span><br><span style="color: #008080;">46</span> <span style="color: #000000;">        Allocation overlayAlloc = Allocation.createFromBitmap(<br></span><span style="color: #008080;">47</span> <span style="color: #000000;">                rs, overlay);<br></span><span style="color: #008080;">48</span><br><span style="color: #008080;">49</span> <span style="color: #000000;">        ScriptIntrinsicBlur blur = ScriptIntrinsicBlur.create(<br></span><span style="color: #008080;">50</span> <span style="color: #000000;">                rs, overlayAlloc.getElement());<br></span><span style="color: #008080;">51</span><br><span style="color: #008080;">52</span> <span style="color: #000000;">        blur.setInput(overlayAlloc);<br></span><span style="color: #008080;">53</span><br><span style="color: #008080;">54</span> <span style="color: #000000;">        blur.setRadius(radius);<br></span><span style="color: #008080;">55</span><br><span style="color: #008080;">56</span> <span style="color: #000000;">        blur.forEach(overlayAlloc);<br></span><span style="color: #008080;">57</span><br><span style="color: #008080;">58</span> <span style="color: #000000;">        overlayAlloc.copyTo(overlay);<br></span><span style="color: #008080;">59</span><br><span style="color: #008080;">60</span> <span style="color: #000000;">        view.setBackground(new BitmapDrawable(<br></span><span style="color: #008080;">61</span> <span style="color: #000000;">                getResources(), overlay));<br></span><span style="color: #008080;">62</span><br><span style="color: #008080;">63</span> <span style="color: #000000;">        rs.destroy();<br></span><span style="color: #008080;">64</span> <span style="color: #000000;">        statusText.setText(System.currentTimeMillis() - startMs + “ms”);<br></span><span style="color: #008080;">65</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">66</span><br><span style="color: #008080;">67</span> <span style="color: #000000;">    @Override<br></span><span style="color: #008080;">68</span> <span style="color: #000000;">    public String toString() {<br></span><span style="color: #008080;">69</span> <span style="color: #000000;">        return “RenderScript”;<br></span><span style="color: #008080;">70</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">71</span><br><span style="color: #008080;">72</span> <span style="color: #000000;">    private TextView addStatusText(ViewGroup container) {<br></span><span style="color: #008080;">73</span> <span style="color: #000000;">        TextView result = new TextView(getActivity());<br></span><span style="color: #008080;">74</span> <span style="color: #000000;">        result.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));<br></span><span style="color: #008080;">75</span> <span style="color: #000000;">        result.setTextColor(0xFFFFFFFF);<br></span><span style="color: #008080;">76</span> <span style="color: #000000;">        container.addView(result);<br></span><span style="color: #008080;">77</span> <span style="color: #000000;">        return result;<br></span><span style="color: #008080;">78</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">79</span> }</pre><br></div>
-
-<ul>
-<li>在<code>Fragment</code>创建的时候，我先载入了布局文件，然后把<code>TextView</code>添加到我在布局文件中定义的LinearLayout中（用来显示模糊效果，进行效果测试），最后对图片做模糊处理。</li>
-<li>在<code>applyBlur()</code>函数中我注册了<code>onPreDrawListener()</code>。因为在<code>applyBlur()</code>方法调用的时候界面还没有开始布局，所以我需要实现这个监听器否则不能进行模糊处理。需要等到布局文件全都经过<strong>measured</strong>、<strong>laid out</strong>、<strong>displayed</strong>的时候，才能进行操作。</li>
-<li>在<code>onPreDraw()</code>回调函数中，我首先把返回值<strong>false</strong>改成<strong>true</strong>。这个很重要，如果返回<strong>false</strong>的话，刚开始出现的那一帧画面会被跳过，但是我们需要显示这第一帧，所以要返回<strong>true</strong>。</li>
-<li>接着我去掉了里面的回调方法，因为我们不需要监听它的<code>preDraw</code>事件。</li>
-<li>然后我们需要从<code>ImageView</code>中获取<code>Bitmap</code>，然后用<code>getDrawingCache()</code>函数创建<strong>drawing cache</strong>并保存。</li>
-<li>最后就是进行模糊处理了，我们接下来会详细讨论这个环节。</li>
-</ul>
-<p>需要说明的是，我的代码中在两种情况下考虑不是很周全：</p>
-<ul>
-<li>在布局文件改变时不会再自动重新模糊处理。这个问题可以通过注册<code>onGlobalLayoutListener</code>监听器解决，在布局文件改变时重新进行模糊处理就可以了。</li>
-<li>这个模糊处理操作是在主线程中进行的。我们知道在实际开发中不会这么做，但是为了方便暂时先这么做了。</li>
-</ul>
-<p>现在回到<code>blur()</code>方法：</p>
-<ul>
-<li>首先我创建了一个空的bitmap，把背景的一部分复制进去，之后我会对这个bitmap进行模糊处理并设置为<code>TextView</code>的背景。</li>
-<li>通过这个bitmap保存<code>Canvas</code>的状态；</li>
-<li>在父布局文件中把<code>Canvas</code>移动到<code>TextView</code>的位置；</li>
-<li>把<code>ImageView</code>的内容绘到bitmap中；</li>
-<li>此时，我们就有了一个和<code>TextView</code>一样大小的bitmap，它包含了<code>ImageView</code>的一部分内容，也就是<code>TextView</code>背后一层布局的内容；</li>
-<li>创建一个Renderscript的实例；</li>
-<li>把bitmap复制一份到Renderscript需要的数据片中；</li>
-<li>创建Renderscript模糊处理的实例；</li>
-<li>设置输入，半径范围然后进行模糊处理；</li>
-<li>把处理后的结果复制回之前的bitmap中；</li>
-<li>好了，我们已经把bitmap惊醒模糊处理了，可以将它设置为<code>TextView</code>背景了；</li>
-</ul>
-<p>这是我们处理后的效果：</p>
-<p><a href="http://www.linuxeden.com/upimg/allimg/140328/0S1032447-1.png" title="Android高级模糊技术" target="_blank" rel="noopener"><img src="http://www.linuxeden.com/upimg/allimg/140328/0S1032447-1.png" alt="2"></a></p>
-<p>可以看到效果还不错，但是它用了57ms的时间。我们知道在Android中渲染一帧的时间应该不超过16ms（60fps），但如果在UI线程中做模糊处理就会让帧率降到了17fps。显然这是不可接受的，我们需要把这个操作移到<strong>AsyncTask</strong>上或者使用别的机制实现。</p>
-<p>而且有必要说明的是，<strong>ScriptIntrinsicBlur</strong>只支持API17以上，当然也可以用Renderscript的<strong>support lib</strong>降低一些API版本的要求。</p>
-<p>可是我们还是需要支持一些老一些的API版本，它们不支持Renderscript，现在我们看看该怎么办吧。</p>
-<h3 id="FastBlur"><a href="#FastBlur" class="headerlink" title="FastBlur"></a>FastBlur</h3><p>因为我们知道，这种模糊处理的过程也就是像素处理而已，所以我们可以尝试着手动进行模糊操作。幸运的是，Java上已经有了很多实现模糊处理方案的例子。我们唯一要做的就是找到一个相对快速的实现方案。</p>
-<p>感谢在StackOverFlow上的一篇帖子，我找到了一个能快速实现模糊处理的方案。先看看它是怎么样的。</p>
-<p>因为很多代码都是一样的，所以这里只讨论关于模糊处理的函数：</p>
-<div class="cnblogs_code"><br><pre><span style="color: #008080;"> 1</span> <span style="color: #000000;">private void blur(Bitmap bkg, View view) {<br></span><span style="color: #008080;"> 2</span> <span style="color: #000000;">    long startMs = System.currentTimeMillis();<br></span><span style="color: #008080;"> 3</span> <span style="color: #000000;">    float radius = 20;<br></span><span style="color: #008080;"> 4</span><br><span style="color: #008080;"> 5</span> <span style="color: #000000;">    Bitmap overlay = Bitmap.createBitmap((int) (view.getMeasuredWidth()),<br></span><span style="color: #008080;"> 6</span> <span style="color: #000000;">            (int) (view.getMeasuredHeight()), Bitmap.Config.ARGB_8888);<br></span><span style="color: #008080;"> 7</span> <span style="color: #000000;">    Canvas canvas = new Canvas(overlay);<br></span><span style="color: #008080;"> 8</span> <span style="color: #000000;">    canvas.translate(-view.getLeft(), -view.getTop());<br></span><span style="color: #008080;"> 9</span> <span style="color: #000000;">    canvas.drawBitmap(bkg, 0, 0, null);<br></span><span style="color: #008080;">10</span> <span style="color: #000000;">    overlay = FastBlur.doBlur(overlay, (int)radius, true);<br></span><span style="color: #008080;">11</span> <span style="color: #000000;">    view.setBackground(new BitmapDrawable(getResources(), overlay));<br></span><span style="color: #008080;">12</span> <span style="color: #000000;">    statusText.setText(System.currentTimeMillis() - startMs + “ms”);<br></span><span style="color: #008080;">13</span> }</pre><br></div>
-
-<p>实现的效果如下：</p>
-<p><a href="http://www.linuxeden.com/upimg/allimg/140328/0S10323F-2.png" title="Android高级模糊技术" target="_blank" rel="noopener"><img src="http://www.linuxeden.com/upimg/allimg/140328/0S10323F-2.png" alt="3"></a></p>
-<p>可以看到，模糊处理的效果也相当不错。使用FastBlur的好处是，我们可以去掉对Renderscript的依赖（还有最低API版本的限制）。但是可恶的是，理模糊操作竟然花费了147ms！这还不是最慢的<strong>SW</strong>模糊算法，我都不敢用高斯模糊了&hellip;</p>
-<h3 id="继续深入"><a href="#继续深入" class="headerlink" title="继续深入"></a>继续深入</h3><p>现在我们要想想该怎么做。模糊处理的过程都会有精度损失，你知道什么是精度损失吗？对，要降低尺寸。</p>
-<p>既然这样，为什么不把bitmap的尺寸先降低然后进行模糊处理，然后再放大尺寸呢？我试着实现了一下这个想法，这是处理后得到的效果：</p>
-<p><a href="http://www.linuxeden.com/upimg/allimg/140328/0S10345Z-3.png" title="Android高级模糊技术" target="_blank" rel="noopener"><img src="http://www.linuxeden.com/upimg/allimg/140328/0S10345Z-3.png" alt="4"></a></p>
-<p>看到了吗！Renderscript只用了13ms，FastBlur只用了2ms！还不错。</p>
-<p>再看看代码。这里只讨论FastBlur版本，因为Renderscript也是一样的，全部代码都可以从<span class="wp_keywordlink"><a href="http://blog.jobbole.com/6492/" title="GitHub如何运作系列文章" target="_blank" rel="noopener">GitHub</a></span>仓库中检出。</p>
-<div class="cnblogs_code"><br><pre><span style="color: #008080;"> 1</span> <span style="color: #000000;">private void blur(Bitmap bkg, View view) {<br></span><span style="color: #008080;"> 2</span> <span style="color: #000000;">    long startMs = System.currentTimeMillis();<br></span><span style="color: #008080;"> 3</span> <span style="color: #000000;">    float scaleFactor = 1;<br></span><span style="color: #008080;"> 4</span> <span style="color: #000000;">    float radius = 20;<br></span><span style="color: #008080;"> 5</span> <span style="color: #000000;">    if (downScale.isChecked()) {<br></span><span style="color: #008080;"> 6</span> <span style="color: #000000;">        scaleFactor = 8;<br></span><span style="color: #008080;"> 7</span> <span style="color: #000000;">        radius = 2;<br></span><span style="color: #008080;"> 8</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;"> 9</span><br><span style="color: #008080;">10</span> <span style="color: #000000;">    Bitmap overlay = Bitmap.createBitmap((int) (view.getMeasuredWidth()/scaleFactor),<br></span><span style="color: #008080;">11</span> <span style="color: #000000;">            (int) (view.getMeasuredHeight()/scaleFactor), Bitmap.Config.ARGB_8888);<br></span><span style="color: #008080;">12</span> <span style="color: #000000;">    Canvas canvas = new Canvas(overlay);<br></span><span style="color: #008080;">13</span> <span style="color: #000000;">    canvas.translate(-view.getLeft()/scaleFactor, -view.getTop()/scaleFactor);<br></span><span style="color: #008080;">14</span> <span style="color: #000000;">    canvas.scale(1 / scaleFactor, 1 / scaleFactor);<br></span><span style="color: #008080;">15</span> <span style="color: #000000;">    Paint paint = new Paint();<br></span><span style="color: #008080;">16</span> <span style="color: #000000;">    paint.setFlags(Paint.FILTER_BITMAP_FLAG);<br></span><span style="color: #008080;">17</span> <span style="color: #000000;">    canvas.drawBitmap(bkg, 0, 0, paint);<br></span><span style="color: #008080;">18</span><br><span style="color: #008080;">19</span> <span style="color: #000000;">    overlay = FastBlur.doBlur(overlay, (int)radius, true);<br></span><span style="color: #008080;">20</span> <span style="color: #000000;">    view.setBackground(new BitmapDrawable(getResources(), overlay));<br></span><span style="color: #008080;">21</span> <span style="color: #000000;">    statusText.setText(System.currentTimeMillis() - startMs + “ms”);<br></span><span style="color: #008080;">22</span> }</pre><br></div>
-
-<p>我们过一遍这个代码：</p>
-<ul>
-<li><strong>scaleFactor</strong>提供了需要缩小的等级，在代码中我把bitmap的尺寸缩小到原图的1/8。因为这个bitmap在模糊处理时会先被缩小然后再放大，所以在我的模糊算法中就不用<strong>radius</strong>这个参数了，所以把它设成2。</li>
-<li>接着需要创建bitmap，这个bitmap比最后需要的小八倍。</li>
-<li>请注意我给<strong>Paint</strong>提供了<strong>FILTER_BITMAP_FLAG</strong>标示，这样的话在处理bitmap缩放的时候，就可以达到双缓冲的效果，模糊处理的过程就更加顺畅了。</li>
-<li>接下来和之前一样进行模糊处理操作，这次的图片小了很多，幅度也降低了很多，所以模糊过程非常快。</li>
-<li>把模糊处理后的图片作为背景，它会自动进行放大操作的。</li>
-</ul>
-<p>之前说到FastBlur进行模糊操作比Renderscript还要快，这是因为FastBlur在进行bitmap复制操作时还会同时进行其他操作，节省了时间。经过了这些处理后，我们应该已经掌握了相对快速的模糊处理方案和原理，并去掉了对Renderscript的依赖。</p>
-<p>本文的示例代码：<a href="https://github.com/paveldudka/blurring" target="_blank" rel="noopener">GitHub &ndash; blurring</a>。</p>
-<p>&nbsp;</p>
-<p><span>原文链接：&nbsp;</span><a href="http://trickyandroid.com/advanced-blurring-techniques/" target="_blank" rel="noopener">trickyandroid</a><span>&nbsp;&nbsp;&nbsp;翻译：&nbsp;</span><a href="http://blog.jobbole.com/" target="_blank" rel="noopener">伯乐在线&nbsp;</a><span>-&nbsp;</span><a href="http://blog.jobbole.com/author/chris/" target="_blank" rel="noopener">chris</a><br><span>译文链接：&nbsp;</span><a href="http://blog.jobbole.com/63894/" target="_blank" rel="noopener">http://blog.jobbole.com/63894/</a></p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-
-          
+预备知识首先描述一下我们需要的文件。我们需要一个主Activity，里面有一个含有多个Fragment的ViewPag
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2014/03/28/Android高级模糊技术-转/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1125,52 +950,24 @@
       
         
           
-            <p><span style="color: #ff0000;"><strong>以下内容为原创，欢迎转载，转载请注明</strong></span></p>
-<p><span><strong><span style="color: #ff0000;">来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/3623050.html" target="_blank" rel="noopener"><span style="color: #ff0000;">http://www.cnblogs.com/tiantianbyconan/p/3623050.html</span></a></span><a href="http://www.cnblogs.com/tiantianbyconan/p/3540427.html" target="_blank" rel="noopener">
-</a></strong></span></p>
-<p>AndroidInject项目是我写的一个使用注解注入来简化代码的开源项目</p>
-<p><a href="https://github.com/wangjiegulu/androidInject" target="_blank" rel="noopener">https://github.com/wangjiegulu/androidInject</a></p>
-<p>今天新增功能如下：</p>
-<p>1. 增加对sqlite3数据库的orm注解支持，增加@AIColumn、@AIPrimaryKey、@AITable三个注解来映射到表（有待改进）</p>
-<p>2. 使用反射来封装AIDbExecutor类，实现半自动化orm，类似mybatis</p>
-<p><img src="http://images.cnitblog.com/i/378300/201403/251333009205565.png" alt=""></p>
-<p>　　先说说使用的方式吧</p>
-<p>　　一. 新建DatabaseHelper，继承AIDatabaseHelper（AndroidInject提供，直接继承了SQLiteOpenHelper），在onCreate中调用如下方法来新建表user：</p>
-<div class="cnblogs_code"><br><pre><span style="color: #000000;">@Override<br></span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> onCreate(SQLiteDatabase db) {<br>        AIDbUtil.createTableIfNotExist(db,<br>                </span>“create table user(uid INTEGER PRIMARY KEY AUTOINCREMENT, “ +<br>                        “username varchar(20), “ +<br>                        “password varchar(20), “ +<br>                        “createmillis long, “ +<br>                        “height float, “ +<br>                        “weight double)”<span style="color: #000000;">,<br>                </span>“user”<span style="color: #000000;">);<br>}</span></pre><br></div>
+          以下内容为原创，欢迎转载，转载请注明
+来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/3623050.html
 
-<p>其中方法createTableIfNotExist (SQLiteDatabase db, String sql, String tableName) 用于新建表，如果存在该表，则不创建&nbsp; &nbsp;&nbsp;</p>
-<p>　　二. 既然是ORM，不管怎么样，总要在表与持久层对象之间映射，所以新建表完毕之后，就要新建类User：</p>
-<div class="cnblogs_code"><br><pre><span style="color: #008080;"> 1</span> <span style="color: #008000;">/<em>*</em></span><br><span style="color: #008080;"> 2</span> <span style="color: #008000;">  Created with IntelliJ IDEA.<br></span><span style="color: #008080;"> 3</span> <span style="color: #008000;"> <em> Author: wangjie  email:tiantian.china.2@gmail.com<br></em></span><span style="color: #008080;"> 4</span> <span style="color: #008000;">  Date: 14-3-25<br></span><span style="color: #008080;"> 5</span> <span style="color: #008000;"> <em> Time: 上午10:04<br></em></span><span style="color: #008080;"> 6</span>  <span style="color: #008000;">/</span><br><span style="color: #008080;"> 7</span> <span style="color: #000000;">@AITable(“user”)<br></span><span style="color: #008080;"> 8</span> <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span> User <span style="color: #0000ff;">implements</span><span style="color: #000000;"> Serializable{<br></span><span style="color: #008080;"> 9</span> <span style="color: #000000;">    @AIColumn<br></span><span style="color: #008080;">10</span>     @AIPrimaryKey(insertable = <span style="color: #0000ff;">false</span><span style="color: #000000;">)<br></span><span style="color: #008080;">11</span>     <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">int</span><span style="color: #000000;"> uid;<br></span><span style="color: #008080;">12</span>     @AIColumn(“username”<span style="color: #000000;">)<br></span><span style="color: #008080;">13</span>     <span style="color: #0000ff;">private</span><span style="color: #000000;"> String username;<br></span><span style="color: #008080;">14</span> <span style="color: #000000;">    @AIColumn<br></span><span style="color: #008080;">15</span>     <span style="color: #0000ff;">private</span><span style="color: #000000;"> String password;<br></span><span style="color: #008080;">16</span> <span style="color: #000000;">    @AIColumn<br></span><span style="color: #008080;">17</span>     <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">long</span><span style="color: #000000;"> createmillis;<br></span><span style="color: #008080;">18</span> <span style="color: #000000;">    @AIColumn<br></span><span style="color: #008080;">19</span>     <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">float</span><span style="color: #000000;"> height;<br></span><span style="color: #008080;">20</span> <span style="color: #000000;">    @AIColumn<br></span><span style="color: #008080;">21</span>     <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">double</span><span style="color: #000000;"> weight;<br></span><span style="color: #008080;">22</span><br><span style="color: #008080;">23</span>     <span style="color: #0000ff;">private</span><span style="color: #000000;"> String notCol;<br></span><span style="color: #008080;">24</span>     // getter/setter…<br><span style="color: #008080;">25</span> }</pre><br></div>
+AndroidInject项目是我写的一个使用注解注入来简化代码的开源项目
+https://github.com/wangjiegulu/androidInject
+今天新增功能如下：
+1. 增加对sqlite3数据库的orm注解支持，增加@AIColumn、@AIPrimaryKey、@AITable三个注解来映射到表（有待改进）
+2. 使用反射来封装AIDbExecutor类，实现半自动化orm，类似mybatis
 
-<p>如上面的代码所示：</p>
-<p>@AITable&nbsp;类注解，用于映射类到表， value()表示要映射到的表的名称，不填写或未增加该注解则默认以类名小写为表名</p>
-<p>@AIPrimaryKey&nbsp;属性注解，用于指定属性为主键，insertable()表示插入数据时是否同时也插入主键到表。默认为false，即表的主键应该为自动生成</p>
-<p>@AIColumn&nbsp;属性注解，用于映射属性到表字段，value()表示要映射到的表字段名称，不填写则默认以属性名作为表字段名</p>
-<p>这样，类和表之间就用以上的几个注解进行了映射。</p>
-<p>&nbsp; &nbsp; 三. AndroidInject提供了一个AIDbExecutor抽象类来对表数据进行操作，使用时需要自己编写一个DbExecutor来继承AIDbExecutor，并实现obtainDbHelper()方法，用于提供给DbExecutor一个AIDatabaseHelper。如下：</p>
-<div class="cnblogs_code"><br><pre><span style="color: #008080;"> 1</span> <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span> DbExecutor&lt;T&gt; <span style="color: #0000ff;">extends</span> AIDbExecutor&lt;T&gt;<span style="color: #000000;">{<br></span><span style="color: #008080;"> 2</span>     <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">final</span> <span style="color: #0000ff;">static</span> String TAG = DbExecutor.<span style="color: #0000ff;">class</span><span style="color: #000000;">.getSimpleName();<br></span><span style="color: #008080;"> 3</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">final</span> <span style="color: #0000ff;">static</span> String DB_NAME = “androidinject_db”<span style="color: #000000;">;<br></span><span style="color: #008080;"> 4</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">final</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">int</span> VERSION = 1<span style="color: #000000;">;<br></span><span style="color: #008080;"> 5</span><br><span style="color: #008080;"> 6</span>     <span style="color: #0000ff;">public</span><span style="color: #000000;"> DbExecutor(Context context) {<br></span><span style="color: #008080;"> 7</span>         <span style="color: #0000ff;">super</span><span style="color: #000000;">(context);<br></span><span style="color: #008080;"> 8</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;"> 9</span><br><span style="color: #008080;">10</span> <span style="color: #000000;">    @Override<br></span><span style="color: #008080;">11</span>     <span style="color: #0000ff;">public</span><span style="color: #000000;"> AIDatabaseHelper obtainDbHelper() {<br></span><span style="color: #008080;">12</span>         <span style="color: #0000ff;">return</span> <span style="color: #0000ff;">new</span><span style="color: #000000;"> DatabaseHelper(context, DB_NAME, VERSION);<br></span><span style="color: #008080;">13</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">14</span><br><span style="color: #008080;">15</span><br><span style="color: #008080;">16</span> }</pre><br></div>
-
-<p>&nbsp; &nbsp;接下来就可以直接使用AIDbExecutor来进行数据库的操作了，如下：</p>
-<div class="cnblogs_code"><br><pre><span style="color: #008000;">//</span><span style="color: #008000;"> 创建一个用于操作user表的dbExecutor对象</span><br>AIDbExecutor&lt;User&gt; userExecutor = <span style="color: #0000ff;">new</span> DbExecutor&lt;User&gt;<span style="color: #000000;">(context);<br><br></span><span style="color: #008000;">//</span><span style="color: #008000;"> 插入一条user数据：</span><br>User dbUser = <span style="color: #0000ff;">new</span> User(“wangjie” + rd.nextInt(10000), String.valueOf(rd.nextInt(10000) + 10000), System.currentTimeMillis(), rd.nextInt(80) + 120, rd.nextInt(80) + 120, “aaaa”<span style="color: #000000;">);<br>userExecutor.executeSave(dbUser);<br><br></span><span style="color: #008000;">//</span><span style="color: #008000;"> 查询user表</span><br>List&lt;User&gt; users = userExecutor.executeQuery(“select * from user where uid &gt; ?”, <span style="color: #0000ff;">new</span> String[]{“4”}, User.<span style="color: #0000ff;">class</span><span style="color: #000000;">);<br><br></span><span style="color: #008000;">//</span><span style="color: #008000;"> 删除user表中的一条数据</span><br>userExecutor.executeDelete(users.get(0<span style="color: #000000;">));<br><br></span><span style="color: #008000;">//</span><span style="color: #008000;"> 更新user表中的一条数据</span><br>User user = users.get(0<span style="color: #000000;">);<br>user.setUsername(user.getUsername().startsWith(</span>“wangjie”) ? “jiewang” + rd.nextInt(10000) : “wangjie” + rd.nextInt(10000<span style="color: #000000;">));<br>user.setPassword(user.getPassword().startsWith(</span>“123456”) ? “abcdef” : “123456”<span style="color: #000000;">);<br>user.setCreatemillis(System.currentTimeMillis());<br>user.setHeight(rd.nextInt(</span>80) + 120<span style="color: #000000;">);<br>user.setWeight(rd.nextInt(</span>80) + 120<span style="color: #000000;">);<br>user.setNotCol(</span>“bbb”<span style="color: #000000;">);<br>userExecutor.executeUpdate(user, </span><span style="color: #0000ff;">null</span>, <span style="color: #0000ff;">new</span> String[]{“createmillis”});</pre><br></div>
-
-<p>四. AIDbExecutor类中提供的方法有：</p>
-<p>1. public List&lt;T&gt; executeQuery(String sql, String[] selectionArgs, Class&lt;?&gt; clazz) throws Exception;</p>
-<p>用于查询表，并自动封装到List&lt;T&gt;中，告别Cursor</p>
-<p>2.&nbsp;public int executeSave(final T obj) throws Exception;</p>
-<p>用于保存一条数据</p>
-<p>3.&nbsp;public int executeUpdate(final T obj, final String[] includeParams, final String[] excludeParams) throws Exception;</p>
-<p>用于更新一条数据，更新数据时，是根据主键去更新其他字段的。可以对其他要更新的字段进行包含和排除（填写类的属性）。</p>
-<p>注意：包含在includeParams，并且不包含在excludeParams中才会被更新。</p>
-<p>4.&nbsp;public int executeDelete(final T obj) throws Exception;</p>
-<p>删除一条数据，根据主键删除一条数据</p>
-<p>5.&nbsp;public void executeSql(String sql, Object[] selectionArgs) throws Exception;</p>
-<p>执行一条sql语句（insert、update、delete）</p>
-<p>6. 同时提供了生成SQLiteDatabase对象的方法</p>
-<p>public SQLiteDatabase getReadableDatabase();</p>
-<p>public SQLiteDatabase getWritableDatabase();</p>
-<p>&nbsp;</p>
-
-          
+　　先说说使
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2014/03/25/Android-AndroidInject增加sqlite3数据库映射注解-ORM/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1299,118 +1096,20 @@
       
         
           
-            <p>转自：<a href="http://blog.csdn.net/ioriogami/article/details/12782141" target="_blank" rel="noopener">http://blog.csdn.net/ioriogami/article/details/12782141</a></p>
-<p>&nbsp;</p>
-<p><span><strong>1. 什么是&lambda;表达式</strong></span></p>
-<p>&lambda;表达式本质上是一个匿名方法。让我们来看下面这个例子：</p>
-<p>&nbsp;&nbsp;&nbsp; public int add(int x, int y) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return x + y;<br>&nbsp;&nbsp;&nbsp; }</p>
-<p>转成&lambda;表达式后是这个样子：<br>&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp; (int x, int y) -&gt; x + y;</p>
-<p>参数类型也可以省略，Java编译器会根据上下文推断出来：</p>
-<p>&nbsp;&nbsp;&nbsp; (x, y) -&gt; x + y; //返回两数之和<br>&nbsp;<br>或者</p>
-<p>&nbsp;&nbsp;&nbsp; (x, y) -&gt; { return x + y; } //显式指明返回值</p>
-<p>可见&lambda;表达式有三部分组成：参数列表，箭头（-&gt;），以及一个表达式或语句块。</p>
-<p>下面这个例子里的&lambda;表达式没有参数，也没有返回值（相当于一个方法接受0个参数，返回void，其实就是Runnable里run方法的一个实现）：</p>
-<p>&nbsp;&nbsp;&nbsp; () -&gt; { System.out.println(“Hello Lambda!”); }</p>
-<p>如果只有一个参数且可以被Java推断出类型，那么参数列表的括号也可以省略：</p>
-<p>&nbsp;&nbsp;&nbsp; c -&gt; { return c.size(); }</p>
-<p>&nbsp;</p>
-<p><span><strong>2. &lambda;表达式的类型（它是Object吗？）</strong></span></p>
-<p>&lambda;表达式可以被当做是一个Object（注意措辞）。&lambda;表达式的类型，叫做&ldquo;目标类型（target type）&rdquo;。&lambda;表达式的目标类型是&ldquo;函数接口（functional interface）&rdquo;，这是Java8新引入的概念。它的定义是：一个接口，如果只有一个显式声明的抽象方法，那么它就是一个函数接口。一般用@FunctionalInterface标注出来（也可以不标）。举例如下：</p>
-<p>&nbsp;&nbsp;&nbsp; @FunctionalInterface<br>&nbsp;&nbsp;&nbsp; public interface Runnable { void run(); }<br>&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp; public interface Callable&lt;V&gt; { V call() throws Exception; }<br>&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp; public interface ActionListener { void actionPerformed(ActionEvent e); }<br>&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp; public interface Comparator&lt;T&gt; { int compare(T o1, T o2); boolean equals(Object obj); }</p>
-<p>注意最后这个Comparator接口。它里面声明了两个方法，貌似不符合函数接口的定义，但它的确是函数接口。这是因为equals方法是Object的，所有的接口都会声明Object的public方法&mdash;&mdash;虽然大多是隐式的。所以，Comparator显式的声明了equals不影响它依然是个函数接口。</p>
-<p>你可以用一个&lambda;表达式为一个函数接口赋值：<br>&nbsp;<br>&nbsp;&nbsp;&nbsp; Runnable r1 = () -&gt; {System.out.println(“Hello Lambda!”);};<br>&nbsp;&nbsp;&nbsp;&nbsp;<br>然后再赋值给一个Object：</p>
-<p>&nbsp;&nbsp;&nbsp; Object obj = r1;<br>&nbsp;&nbsp;&nbsp;&nbsp;<br>但却不能这样干：</p>
-<p>&nbsp;&nbsp;&nbsp; Object obj = () -&gt; {System.out.println(“Hello Lambda!”);}; // ERROR! Object is not a functional interface!</p>
-<p>必须显式的转型成一个函数接口才可以：</p>
-<p>&nbsp;&nbsp;&nbsp; Object o = (Runnable) () -&gt; { System.out.println(“hi”); }; // correct<br>&nbsp;&nbsp;&nbsp;&nbsp;<br>一个&lambda;表达式只有在转型成一个函数接口后才能被当做Object使用。所以下面这句也不能编译：</p>
-<p>&nbsp;&nbsp;&nbsp; System.out.println( () -&gt; {} ); //错误! 目标类型不明<br>&nbsp;&nbsp;&nbsp;&nbsp;<br>必须先转型:</p>
-<p>&nbsp;&nbsp;&nbsp; System.out.println( (Runnable)() -&gt; {} ); // 正确</p>
-<p>假设你自己写了一个函数接口，长的跟Runnable一模一样：</p>
-<p>&nbsp;&nbsp;&nbsp; @FunctionalInterface<br>&nbsp;&nbsp;&nbsp; public interface MyRunnable {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public void run();<br>&nbsp;&nbsp;&nbsp; }<br>&nbsp;&nbsp;&nbsp;&nbsp;<br>那么</p>
-<p>&nbsp;&nbsp;&nbsp; Runnable r1 =&nbsp;&nbsp;&nbsp; () -&gt; {System.out.println(“Hello Lambda!”);};<br>&nbsp;&nbsp;&nbsp; MyRunnable2 r2 = () -&gt; {System.out.println(“Hello Lambda!”);};</p>
-<p>都是正确的写法。这说明一个&lambda;表达式可以有多个目标类型（函数接口），只要函数匹配成功即可。<br>但需注意一个&lambda;表达式必须至少有一个目标类型。</p>
-<p>JDK预定义了很多函数接口以避免用户重复定义。最典型的是Function：</p>
-<p>&nbsp;&nbsp;&nbsp; @FunctionalInterface<br>&nbsp;&nbsp;&nbsp; public interface Function&lt;T, R&gt; {&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; R apply(T t);<br>&nbsp;&nbsp;&nbsp; }</p>
-<p>这个接口代表一个函数，接受一个T类型的参数，并返回一个R类型的返回值。&nbsp;&nbsp;&nbsp;</p>
-<p>另一个预定义函数接口叫做Consumer，跟Function的唯一不同是它没有返回值。</p>
-<p>&nbsp;&nbsp;&nbsp; @FunctionalInterface<br>&nbsp;&nbsp;&nbsp; public interface Consumer&lt;T&gt; {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void accept(T t);<br>&nbsp;&nbsp;&nbsp; }</p>
-<p>还有一个Predicate，用来判断某项条件是否满足。经常用来进行筛滤操作：<br>&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp; @FunctionalInterface<br>&nbsp;&nbsp;&nbsp; public interface Predicate&lt;T&gt; {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; boolean test(T t);<br>&nbsp;&nbsp;&nbsp; }<br>&nbsp;&nbsp;&nbsp;&nbsp;<br>综上所述，一个&lambda;表达式其实就是定义了一个匿名方法，只不过这个方法必须符合至少一个函数接口。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br><span><strong>3. &lambda;表达式的使用</strong></span></p>
-<p><span><strong>3.1 &lambda;表达式用在何处</strong></span></p>
-<p>&lambda;表达式主要用于替换以前广泛使用的内部匿名类，各种回调，比如事件响应器、传入Thread类的Runnable等。看下面的例子：</p>
-<p>&nbsp;&nbsp;&nbsp; Thread oldSchool = new Thread( new Runnable () {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @Override<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public void run() {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println(“This is from an anonymous class.”);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>&nbsp;&nbsp;&nbsp; } );<br>&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp; Thread gaoDuanDaQiShangDangCi = new Thread( () -&gt; {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println(“This is from an anonymous method (lambda exp).”);<br>&nbsp;&nbsp;&nbsp; } );</p>
-<p>注意第二个线程里的&lambda;表达式，你并不需要显式地把它转成一个Runnable，因为Java能根据上下文自动推断出来：一个Thread的构造函数接受一个Runnable参数，而传入的&lambda;表达式正好符合其run()函数，所以Java编译器推断它为Runnable。</p>
-<p>从形式上看，&lambda;表达式只是为你节省了几行代码。但将&lambda;表达式引入Java的动机并不仅仅为此。Java8有一个短期目标和一个长期目标。短期目标是：配合&ldquo;集合类批处理操作&rdquo;的内部迭代和并行处理（下面将要讲到）；长期目标是将Java向函数式编程语言这个方向引导（并不是要完全变成一门函数式编程语言，只是让它有更多的函数式编程语言的特性），也正是由于这个原因，Oracle并没有简单地使用内部类去实现&lambda;表达式，而是使用了一种更动态、更灵活、易于将来扩展和改变的策略（invokedynamic）。</p>
-<p><span><strong>3.2 &lambda;表达式与集合类批处理操作（或者叫块操作）</strong></span></p>
-<p>上文提到了集合类的批处理操作。这是Java8的另一个重要特性，它与&lambda;表达式的配合使用乃是Java8的最主要特性。集合类的批处理操作API的目的是实现集合类的&ldquo;内部迭代&rdquo;，并期望充分利用现代多核CPU进行并行计算。<br>Java8之前集合类的迭代（Iteration）都是外部的，即客户代码。而内部迭代意味着改由Java类库来进行迭代，而不是客户代码。例如：</p>
-<p>&nbsp;&nbsp;&nbsp; for(Object o: list) { // 外部迭代<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println(o);<br>&nbsp;&nbsp;&nbsp; }</p>
-<p>可以写成：</p>
-<p>&nbsp;&nbsp;&nbsp; list.forEach(o -&gt; {System.out.println(o);}); //forEach函数实现内部迭代</p>
-<p>集合类（包括List）现在都有一个forEach方法，对元素进行迭代（遍历），所以我们不需要再写for循环了。forEach方法接受一个函数接口Consumer做参数，所以可以使用&lambda;表达式。</p>
-<p>这种内部迭代方法广泛存在于各种语言，如C++的STL算法库、python、ruby、scala等。</p>
-<p>Java8为集合类引入了另一个重要概念：流（stream）。一个流通常以一个集合类实例为其数据源，然后在其上定义各种操作。流的API设计使用了管道（pipelines）模式。对流的一次操作会返回另一个流。如同IO的API或者StringBuffer的append方法那样，从而多个不同的操作可以在一个语句里串起来。看下面的例子：</p>
-<p>&nbsp;&nbsp;&nbsp; List&lt;Shape&gt; shapes = …<br>&nbsp;&nbsp;&nbsp; shapes.stream()<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .filter(s -&gt; s.getColor() == BLUE)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .forEach(s -&gt; s.setColor(RED));</p>
-<p>首先调用stream方法，以集合类对象shapes里面的元素为数据源，生成一个流。然后在这个流上调用filter方法，挑出蓝色的，返回另一个流。最后调用forEach方法将这些蓝色的物体喷成红色。（forEach方法不再返回流，而是一个终端方法，类似于StringBuffer在调用若干append之后的那个toString）</p>
-<p>filter方法的参数是Predicate类型，forEach方法的参数是Consumer类型，它们都是函数接口，所以可以使用&lambda;表达式。</p>
-<p>还有一个方法叫parallelStream()，顾名思义它和stream()一样，只不过指明要并行处理，以期充分利用现代CPU的多核特性。</p>
-<p>&nbsp;&nbsp;&nbsp; shapes.parallelStream(); // 或shapes.stream().parallel()</p>
-<p>来看更多的例子。下面是典型的大数据处理方法，Filter-Map-Reduce：</p>
-<p>&nbsp;&nbsp;&nbsp; //给出一个String类型的数组，找出其中所有不重复的素数<br>&nbsp;&nbsp;&nbsp; public void distinctPrimary(String… numbers) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; List&lt;String&gt; l = Arrays.asList(numbers);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; List&lt;Integer&gt; r = l.stream()<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .map(e -&gt; new Integer(e))<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .filter(e -&gt; Primes.isPrime(e))<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .distinct()<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .collect(Collectors.toList());<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println(“distinctPrimary result is: “ + r);<br>&nbsp;&nbsp;&nbsp; }</p>
-<p>第一步：传入一系列String（假设都是合法的数字），转成一个List，然后调用stream()方法生成流。</p>
-<p>第二步：调用流的map方法把每个元素由String转成Integer，得到一个新的流。map方法接受一个Function类型的参数，上面介绍了，Function是个函数接口，所以这里用&lambda;表达式。</p>
-<p>第三步：调用流的filter方法，过滤那些不是素数的数字，并得到一个新流。filter方法接受一个Predicate类型的参数，上面介绍了，Predicate是个函数接口，所以这里用&lambda;表达式。</p>
-<p>第四步：调用流的distinct方法，去掉重复，并得到一个新流。这本质上是另一个filter操作。</p>
-<p>第五步：用collect方法将最终结果收集到一个List里面去。collect方法接受一个Collector类型的参数，这个参数指明如何收集最终结果。在这个例子中，结果简单地收集到一个List中。我们也可以用Collectors.toMap(e-&gt;e, e-&gt;e)把结果收集到一个Map中，它的意思是：把结果收到一个Map，用这些素数自身既作为键又作为值。toMap方法接受两个Function类型的参数，分别用以生成键和值，Function是个函数接口，所以这里都用&lambda;表达式。</p>
-<p>你可能会觉得在这个例子里，List l被迭代了好多次，map，filter，distinct都分别是一次循环，效率会不好。实际并非如此。这些返回另一个Stream的方法都是&ldquo;懒（lazy）&rdquo;的，而最后返回最终结果的collect方法则是&ldquo;急（eager）&rdquo;的。在遇到eager方法之前，lazy的方法不会执行。</p>
-<p>当遇到eager方法时，前面的lazy方法才会被依次执行。而且是管道贯通式执行。这意味着每一个元素依次通过这些管道。例如有个元素&ldquo;3&rdquo;，首先它被map成整数型3；然后通过filter，发现是素数，被保留下来；又通过distinct，如果已经有一个3了，那么就直接丢弃，如果还没有则保留。这样，3个操作其实只经过了一次循环。</p>
-<p>除collect外其它的eager操作还有forEach，toArray，reduce等。</p>
-<p>下面来看一下也许是最常用的收集器方法，groupingBy：</p>
-<p>&nbsp;&nbsp;&nbsp; //给出一个String类型的数组，找出其中所有不重复的素数，并统计其出现次数<br>&nbsp;&nbsp;&nbsp; public void primaryOccurrence(String… numbers) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; List&lt;String&gt; l = Arrays.asList(numbers);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Map&lt;Integer, Integer&gt; r = l.stream()<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .map(e -&gt; new Integer(e))<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .filter(e -&gt; Primes.isPrime(e))<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .collect( Collectors.groupingBy(p-&gt;p, Collectors.summingInt(p-&gt;1)) );<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println(“primaryOccurrence result is: “ + r);<br>&nbsp;&nbsp;&nbsp; }</p>
-<p>注意这一行：</p>
-<p>&nbsp;&nbsp;&nbsp; Collectors.groupingBy(p-&gt;p, Collectors.summingInt(p-&gt;1))</p>
-<p>它的意思是：把结果收集到一个Map中，用统计到的各个素数自身作为键，其出现次数作为值。</p>
-<p>下面是一个reduce的例子：</p>
-<p>&nbsp;&nbsp;&nbsp; //给出一个String类型的数组，求其中所有不重复素数的和<br>&nbsp;&nbsp;&nbsp; public void distinctPrimarySum(String… numbers) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; List&lt;String&gt; l = Arrays.asList(numbers);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int sum = l.stream()<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .map(e -&gt; new Integer(e))<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .filter(e -&gt; Primes.isPrime(e))<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .distinct()<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .reduce(0, (x,y) -&gt; x+y); // equivalent to .sum()<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println(“distinctPrimarySum result is: “ + sum);<br>&nbsp;&nbsp;&nbsp; }</p>
-<p>reduce方法用来产生单一的一个最终结果。<br>流有很多预定义的reduce操作，如sum()，max()，min()等。</p>
-<p>再举个现实世界里的栗子比如：</p>
-<p>&nbsp;&nbsp;&nbsp; // 统计年龄在25-35岁的男女人数、比例<br>&nbsp;&nbsp;&nbsp; public void boysAndGirls(List&lt;Person&gt; persons) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Map&lt;Integer, Integer&gt; result = persons.parallelStream().filter(p -&gt; p.getAge()&gt;=25 &amp;&amp; p.getAge()&lt;=35).<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; collect(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Collectors.groupingBy(p-&gt;p.getSex(), Collectors.summingInt(p-&gt;1))<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; );<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.print(“boysAndGirls result is “ + result);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println(“, ratio (male : female) is “ + (float)result.get(Person.MALE)/result.get(Person.FEMALE));<br>&nbsp;&nbsp;&nbsp; }</p>
-<p><strong><span>3.3 &lambda;表达式的更多用法</span></strong></p>
-<p>&nbsp;&nbsp;&nbsp; // 嵌套的&lambda;表达式<br>&nbsp;&nbsp;&nbsp; Callable&lt;Runnable&gt; c1 = () -&gt; () -&gt; { System.out.println(“Nested lambda”); };<br>&nbsp;&nbsp;&nbsp; c1.call().run();</p>
-<p>&nbsp;&nbsp;&nbsp; // 用在条件表达式中<br>&nbsp;&nbsp;&nbsp; Callable&lt;Integer&gt; c2 = true ? (() -&gt; 42) : (() -&gt; 24);<br>&nbsp;&nbsp;&nbsp; System.out.println(c2.call());</p>
-<p>&nbsp;&nbsp;&nbsp; // 定义一个递归函数<br>&nbsp;&nbsp;&nbsp; private UnaryOperator&lt;Integer&gt; factorial = i -&gt; { return i == 0 ? 1 : i * factorial.apply( i - 1 ); };<br>&nbsp;&nbsp;&nbsp; …<br>&nbsp;&nbsp;&nbsp; System.out.println(factorial.apply(3));</p>
-<p>在Java中，随声明随调用的方式是不行的，比如下面这样，声明了一个&lambda;表达式(x, y) -&gt; x + y，同时企图通过传入实参(2, 3)来调用它：</p>
-<p>&nbsp;&nbsp;&nbsp; int five = ( (x, y) -&gt; x + y ) (2, 3); // ERROR! try to call a lambda in-place</p>
-<p>这在C++中是可以的，但Java中不行。Java的&lambda;表达式只能用作赋值、传参、返回值等。</p>
-<p><span><strong>4. 其它相关概念</strong></span></p>
-<p><strong><span>4.1 捕获（Capture）</span></strong></p>
-<p>捕获的概念在于解决在&lambda;表达式中我们可以使用哪些外部变量（即除了它自己的参数和内部定义的本地变量）的问题。</p>
-<p>答案是：与内部类非常相似，但有不同点。不同点在于内部类总是持有一个其外部类对象的引用。而&lambda;表达式呢，除非在它内部用到了其外部类（包围类）对象的方法或者成员，否则它就不持有这个对象的引用。</p>
-<p>在Java8以前，如果要在内部类访问外部对象的一个本地变量，那么这个变量必须声明为final才行。在Java8中，这种限制被去掉了，代之以一个新的概念，&ldquo;effectively final&rdquo;。它的意思是你可以声明为final，也可以不声明final但是按照final来用，也就是一次赋值永不改变。换句话说，保证它加上final前缀后不会出编译错误。</p>
-<p>在Java8中，内部类和&lambda;表达式都可以访问effectively final的本地变量。&lambda;表达式的例子如下：</p>
-<p>&nbsp;&nbsp;&nbsp; …&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp; int tmp1 = 1; //包围类的成员变量<br>&nbsp;&nbsp;&nbsp; static int tmp2 = 2; //包围类的静态成员变量<br>&nbsp;&nbsp;&nbsp; public void testCapture() {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int tmp3 = 3; //没有声明为final，但是effectively final的本地变量<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; final int tmp4 = 4; //声明为final的本地变量<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int tmp5 = 5; //普通本地变量<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Function&lt;Integer, Integer&gt; f1 = i -&gt; i + tmp1;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Function&lt;Integer, Integer&gt; f2 = i -&gt; i + tmp2;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Function&lt;Integer, Integer&gt; f3 = i -&gt; i + tmp3;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Function&lt;Integer, Integer&gt; f4 = i -&gt; i + tmp4;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Function&lt;Integer, Integer&gt; f5 = i -&gt; {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp5&nbsp; += i; // 编译错！对tmp5赋值导致它不是effectively final的<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return tmp5;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; };<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; …<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp5 = 9; // 编译错！对tmp5赋值导致它不是effectively final的<br>&nbsp;&nbsp;&nbsp; }<br>&nbsp;&nbsp;&nbsp; …</p>
-<p>Java要求本地变量final或者effectively final的原因是多线程并发问题。内部类、&lambda;表达式都有可能在不同的线程中执行，允许多个线程同时修改一个本地变量不符合Java的设计理念。</p>
-<p><strong><span>4.2 方法引用（Method reference）</span></strong></p>
-<p>任何一个&lambda;表达式都可以代表某个函数接口的唯一方法的匿名描述符。我们也可以使用某个类的某个具体方法来代表这个描述符，叫做方法引用。例如：</p>
-<p>&nbsp;&nbsp;&nbsp; Integer::parseInt //静态方法引用<br>&nbsp;&nbsp;&nbsp; System.out::print //实例方法引用<br>&nbsp;&nbsp;&nbsp; Person::new&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //构造器引用</p>
-<p>下面是一组例子，教你使用方法引用代替&lambda;表达式：</p>
-<p>&nbsp;&nbsp;&nbsp; //c1 与 c2 是一样的（静态方法引用）<br>&nbsp;&nbsp;&nbsp; Comparator&lt;Integer&gt; c2 = (x, y) -&gt; Integer.compare(x, y);<br>&nbsp;&nbsp;&nbsp; Comparator&lt;Integer&gt; c1 = Integer::compare;<br>&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp; //下面两句是一样的（实例方法引用1）<br>&nbsp;&nbsp;&nbsp; persons.forEach(e -&gt; System.out.println(e));<br>&nbsp;&nbsp;&nbsp; persons.forEach(System.out::println);<br>&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp; //下面两句是一样的（实例方法引用2）<br>&nbsp;&nbsp;&nbsp; persons.forEach(person -&gt; person.eat());<br>&nbsp;&nbsp;&nbsp; persons.forEach(Person::eat);<br>&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp; //下面两句是一样的（构造器引用）<br>&nbsp;&nbsp;&nbsp; strList.stream().map(s -&gt; new Integer(s));<br>&nbsp;&nbsp;&nbsp; strList.stream().map(Integer::new);<br>&nbsp;&nbsp;&nbsp;&nbsp;<br>使用方法引用，你的程序会变得更短些。现在distinctPrimarySum方法可以改写如下：</p>
-<p>&nbsp;&nbsp;&nbsp; public void distinctPrimarySum(String… numbers) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; List&lt;String&gt; l = Arrays.asList(numbers);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int sum = l.stream().map(Integer::new).filter(Primes::isPrime).distinct().sum();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println(“distinctPrimarySum result is: “ + sum);<br>&nbsp;&nbsp;&nbsp; }<br>&nbsp;&nbsp;&nbsp;&nbsp;<br>还有一些其它的方法引用:</p>
-<p>&nbsp;&nbsp;&nbsp; super::methName //引用某个对象的父类方法<br>&nbsp;&nbsp;&nbsp; TypeName[]::new //引用一个数组的构造器</p>
-<p><strong><span>4.3 默认方法（Default method）</span></strong></p>
-<p>Java8中，接口声明里可以有方法实现了，叫做默认方法。在此之前，接口里的方法全部是抽象方法。</p>
-<p>&nbsp;&nbsp;&nbsp; public interface MyInterf {<br>&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; String m1();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default String m2() {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return “Hello default method!”;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp; }<br>&nbsp;&nbsp;&nbsp;&nbsp;<br>这实际上有点混淆接口和抽象类，但一个类仍然可以实现多个接口，而只能继承一个抽象类。</p>
-<p>这么做的原因是：由于Collection库需要为批处理操作添加新的方法，如forEach()，stream()等，但是不能修改现有的Collection接口&mdash;&mdash;如果那样做的话所有的实现类都要进行修改，包括很多客户自制的实现类。</p>
-<p>那么，我们就面临一种类似多继承的问题。如果类Sub继承了两个接口，Base1和Base2，而这两个接口恰好具有完全相同的两个默认方法，那么就会产生冲突。这时Sub类就必须通过重载来显式指明自己要使用哪一个接口的实现（或者提供自己的实现）：<br>&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp; public class Sub implements Base1, Base2 {<br>&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public void hello() {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Base1.super.hello(); //使用Base1的实现<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp; }</p>
-<p>除了默认方法，Java8的接口也可以有静态方法的实现：</p>
-<p>&nbsp;&nbsp;&nbsp; public interface MyInterf {<br>&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; String m1();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default String m2() {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return “Hello default method!”;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; static String m3() {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return “Hello static method in Interface!”;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp; }<br>&nbsp;&nbsp;&nbsp;&nbsp;<br><strong><span>4.4 生成器函数（Generator function）</span></strong></p>
-<p>有时候一个流的数据源不一定是一个已存在的集合对象，也可能是个&ldquo;生成器函数&rdquo;。一个生成器函数会产生一系列元素，供给一个流。Stream.generate(Supplier&lt;T&gt; s)就是一个生成器函数。其中参数Supplier是一个函数接口，里面有唯一的抽象方法 &lt;T&gt; get()。</p>
-<p>下面这个例子生成并打印5个随机数：</p>
-<p>&nbsp;&nbsp;&nbsp; Stream.generate(Math::random).limit(5).forEach(System.out::println);</p>
-<p>注意这个limit(5)，如果没有这个调用，那么这条语句会永远地执行下去。也就是说这个生成器是无穷的。这种调用叫做终结操作，或者短路（short-circuiting）操作。</p>
-<p>&nbsp;</p>
-<p><span><strong>参考资料：</strong></span><br><a href="http://openjdk.java.net/projects/lambda/" target="_blank" rel="noopener">http://openjdk.java.net/projects/lambda/</a><br><a href="http://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html" target="_blank" rel="noopener">http://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html</a></p>
-<p>&nbsp;</p>
-
-          
+          转自：http://blog.csdn.net/ioriogami/article/details/12782141
+&nbsp;
+1. 什么是&lambda;表达式
+&lambda;表达式本质上是一个匿名方法。让我们来看下面这个例子：
+&nbsp;&nbsp;&nbsp; public int add(int x, int y) {&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return x + y;&nbsp;&nbsp;&nbsp; }
+转成&lambda;表达式后是这个样子：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2014/03/20/Java8-Lambda表达式教程/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1539,48 +1238,25 @@
       
         
           
-            <p><span style="color: #ff0000;"><strong>以下内容为原创，欢迎转载，转载请注明</strong></span></p>
-<p><span style="color: #ff0000;"><strong>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/3574131.html" title="view: [Android]异步加载图片，内存缓存，文件缓存，imageview显示图片时增加淡入淡出动画" target="_blank" rel="noopener"><span style="color: #ff0000;">http://www.cnblogs.com/tiantianbyconan/p/3574131.html</span></a>&nbsp;</strong></span></p>
-<p>这个可以实现ImageView异步加载图片，内存缓存，文件缓存，imageview显示图片时增加淡入淡出动画。</p>
-<p>github地址：<a href="https://github.com/wangjiegulu/ImageLoaderSample" target="_blank" rel="noopener">https://github.com/wangjiegulu/ImageLoaderSample</a></p>
-<p>解决了：</p>
-<p>1. listview加载oom问题</p>
-<p>2. listview加载时卡顿的现象</p>
-<p>3. listview加载时item中图片重复错位等情况</p>
-<p>可以配置：</p>
-<p>1. 设置加载图片的最大尺寸</p>
-<p>2. 设置默认图片的显示</p>
-<p>3. 设置图片位图模式</p>
-<p>4. 设置内存缓存的最大值。</p>
-<p>5. 文件缓存保存的目录</p>
-<p>　　这个框架基本的代码是很久以前不知道哪里弄的，零零碎碎的，现在已经优化了很多，所以现在上传到github上共享。</p>
-<p>　　讲讲使用方式吧：</p>
-<p>&nbsp;</p>
-<p>首先使用前下载源码或者jar包（见github：<a href="https://github.com/wangjiegulu/ImageLoaderSample" target="_blank" rel="noopener">https://github.com/wangjiegulu/ImageLoaderSample</a>）</p>
-<p>然后进行图片加载器（ImageLoader）的配置和初始化，推荐的方法如下：</p>
-<p>新建MyApplication类，继承Application，在onCreate中增加如下代码：</p>
-<div class="cnblogs_code"><br><pre><span style="color: #008080;"> 1</span> <span style="color: #008000;">/<em>*</em></span><br><span style="color: #008080;"> 2</span> <span style="color: #008000;">  Created with IntelliJ IDEA.<br></span><span style="color: #008080;"> 3</span> <span style="color: #008000;"> <em> Author: wangjie  email:tiantian.china.2@gmail.com<br></em></span><span style="color: #008080;"> 4</span> <span style="color: #008000;">  Date: 14-2-27<br></span><span style="color: #008080;"> 5</span> <span style="color: #008000;"> <em> Time: 上午11:25<br></em></span><span style="color: #008080;"> 6</span>  <span style="color: #008000;">/</span><br><span style="color: #008080;"> 7</span> <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span> MyApplication <span style="color: #0000ff;">extends</span><span style="color: #000000;"> Application{<br></span><span style="color: #008080;"> 8</span> <span style="color: #000000;">    @Override<br></span><span style="color: #008080;"> 9</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> onCreate() {<br></span><span style="color: #008080;">10</span>         <span style="color: #0000ff;">super</span><span style="color: #000000;">.onCreate();<br></span><span style="color: #008080;">11</span> <span style="color: #000000;">        ImageLoader.init(getApplicationContext(),<br></span><span style="color: #008080;">12</span>                 <span style="color: #0000ff;">new</span><span style="color: #000000;"> CacheConfig()<br></span><span style="color: #008080;">13</span>                     .setDefRequiredSize(600) <span style="color: #008000;">//</span><span style="color: #008000;"> 设置默认的加载图片尺寸（表示宽高任一不超过该值，默认是70px）</span><br><span style="color: #008080;">14</span>                     .setDefaultResId(R.drawable.ic_launcher) <span style="color: #008000;">//</span><span style="color: #008000;"> 设置显示的默认图片（默认是0，即空白图片）</span><br><span style="color: #008080;">15</span>                     .setBitmapConfig(Bitmap.Config.ARGB_8888) <span style="color: #008000;">//</span><span style="color: #008000;"> 设置图片位图模式（默认是Bitmap.CacheConfig.ARGB_8888）</span><br><span style="color: #008080;">16</span>                     .setMemoryCachelimit(Runtime.getRuntime().maxMemory() / 3) <span style="color: #008000;">//</span><span style="color: #008000;"> 设置图片内存缓存大小（默认是Runtime.getRuntime().maxMemory() / 4）<br></span><span style="color: #008080;">17</span> <span style="color: #008000;">//</span><span style="color: #008000;">                  .setFileCachePath(Environment.getExternalStorageDirectory().toString() + “/mycache”) </span><span style="color: #008000;">//</span><span style="color: #008000;"> 设置文件缓存保存目录</span><br><span style="color: #008080;">18</span> <span style="color: #000000;">        );<br></span><span style="color: #008080;">19</span><br><span style="color: #008080;">20</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">21</span><br><span style="color: #008080;">22</span><br><span style="color: #008080;">23</span> <span style="color: #000000;">    &hellip;&hellip;<br></span><span style="color: #008080;">24</span> }</pre><br></div>
-
-<p>&nbsp;</p>
-<p>然后再AndroidManifest.xml中添加：</p>
-<div class="cnblogs_code"><br><pre>&lt;<span style="color: #000000;">application<br>            ……<br>            android:name</span>=”MyApplication”&gt;<span style="color: #000000;"><br>            ……<br></span>&lt;/application&gt;</pre><br></div>
-
-<p>到此，配置已经全部完成：</p>
-<p>接下来，使用ImageLoader来加载图片：</p>
-<div class="cnblogs_code"><br><pre><span style="color: #008080;"> 1</span> holder.progress.setText(“0%”<span style="color: #000000;">);<br></span><span style="color: #008080;"> 2</span> <span style="color: #000000;">    holder.progress.setVisibility(View.VISIBLE);<br></span><span style="color: #008080;"> 3</span>     <span style="color: #0000ff;">final</span> ViewHolder vhr =<span style="color: #000000;"> holder;<br></span><span style="color: #008080;"> 4</span>     ImageLoader.getInstances().displayImage(list.get(position), holder.image, <span style="color: #0000ff;">new</span><span style="color: #000000;"> ImageLoader.OnImageLoaderListener() {<br></span><span style="color: #008080;"> 5</span> <span style="color: #000000;">        @Override<br></span><span style="color: #008080;"> 6</span>         <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span> onProgressImageLoader(ImageView imageView, <span style="color: #0000ff;">int</span> currentSize, <span style="color: #0000ff;">int</span><span style="color: #000000;"> totalSize) {<br></span><span style="color: #008080;"> 7</span>             vhr.progress.setText(currentSize * 100 / totalSize + “%”<span style="color: #000000;">);<br></span><span style="color: #008080;"> 8</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;"> 9</span><br><span style="color: #008080;">10</span> <span style="color: #000000;">        @Override<br></span><span style="color: #008080;">11</span>         <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> onFinishedImageLoader(ImageView imageView, Bitmap bitmap) {<br></span><span style="color: #008080;">12</span> <span style="color: #000000;">            vhr.progress.setVisibility(View.GONE);<br></span><span style="color: #008080;">13</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;">14</span> <span style="color: #000000;">    });<br></span><span style="color: #008080;">15</span> <span style="color: #000000;">    或者：<br></span><span style="color: #008080;">16</span> <span style="color: #000000;">    ImageLoader.getInstances().displayImage(url, imageIv);<br></span><span style="color: #008080;">17</span> <span style="color: #000000;">    或者<br></span><span style="color: #008080;">18</span>     ImageLoader.getInstances().displayImage(url, imageIv, 100);</pre><br></div>
-
-<p>备注：</p>
-<p>例子中，用到了一部分注解（与ImageLoader功能无关，但是可以简化代码的编写） 可以点下面连接进入：</p>
-<p>github：<a href="https://github.com/wangjiegulu/androidInject" target="_blank" rel="noopener">https://github.com/wangjiegulu/androidInject</a></p>
-<p>博客：</p>
-<p><a href="http://www.cnblogs.com/tiantianbyconan/p/3459139.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/3459139.html</a></p>
-<p><a href="http://www.cnblogs.com/tiantianbyconan/p/3540427.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/3540427.html</a></p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-
-          
+          以下内容为原创，欢迎转载，转载请注明
+来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/3574131.html&nbsp;
+这个可以实现ImageView异步加载图片，内存缓存，文件缓存，imageview显示图片时增加淡入淡出动画。
+github地址：https://github.com/wangjiegulu/ImageLoaderSample
+解决了：
+1. listview加载oom问题
+2. listview加载时卡顿的现象
+3. listview加载时item中图片重复错位等情况
+可以配置：
+1. 设置加载图片的最大尺寸
+2. 设置默
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2014/02/28/Android-异步加载图片，内存缓存，文件缓存，imageview显示图片时增加淡入淡出动画/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1709,151 +1385,19 @@
       
         
           
-            <p>HBase是Hadoop的数据库，能够对大数据提供随机、实时读写访问。他是开源的，分布式的，多版本的，面向列的，存储模型。</p>
-<p>在讲解的时候我首先给大家讲解一下HBase的整体结构，如下图：</p>
-<p><img src="http://static.open-open.com/lib/uploadImg/20120717/20120717163859_417.jpg" alt=" HBase Java API详解 "></p>
-<p>HBase Master是服务器负责管理所有的HRegion服务器，HBase Master并不存储HBase服务器的任何数据，HBase逻辑上的表可能会划分为多个HRegion，然后存储在HRegion Server群中，HBase Master Server中存储的是从数据到HRegion Server的映射。</p>
-<p>一台机器只能运行一个HRegion服务器，数据的操作会记录在Hlog中，在读取数据时候，HRegion会先访问Hmemcache缓存，如果 缓存中没有数据才回到Hstore中上找，没一个列都会有一个Hstore集合，每个Hstore集合包含了很多具体的HstoreFile文件，这些文 件是B树结构的，方便快速读取。</p>
-<p>&nbsp;</p>
-<p>再看下HBase数据物理视图如下：</p>
-<p>&nbsp;</p>
-<table border="1" cellspacing="0" cellpadding="0"><br><tbody><br><tr><br><td rowspan="2" width="67"><strong>Row Key</strong></td><br><td rowspan="2" width="104"><strong>Timestamp</strong></td><br><td colspan="2" width="385"><strong>Column Family</strong></td><br></tr><br><tr><br><td width="227"><strong>URI</strong></td><br><td width="158"><strong>Parser</strong></td><br></tr><br><tr><br><td rowspan="3" width="67">r1</td><br><td width="104">t3</td><br><td width="227">url=<a href="http://www.taobao.com" target="_blank" rel="noopener">http://www.taobao.com</a></td><br><td width="158">title=天天特价</td><br></tr><br><tr><br><td width="104">t2</td><br><td width="227">host=taobao.com</td><br><td width="158">&nbsp;</td><br></tr><br><tr><br><td width="104">t1</td><br><td width="227">&nbsp;</td><br><td width="158">&nbsp;</td><br></tr><br><tr><br><td rowspan="2" width="67">r2</td><br><td width="104">t5</td><br><td width="227">url=<a href="http://www.alibaba.com" target="_blank" rel="noopener">http://www.alibaba.com</a></td><br><td width="158">content=每天&hellip;</td><br></tr><br><tr><br><td width="104">t4</td><br><td width="227">host=alibaba.com</td><br><td width="158">&nbsp;</td><br></tr><br></tbody><br></table>
+          HBase是Hadoop的数据库，能够对大数据提供随机、实时读写访问。他是开源的，分布式的，多版本的，面向列的，存储模型。
+在讲解的时候我首先给大家讲解一下HBase的整体结构，如下图：
 
-<p><span>&Oslash;&nbsp;&nbsp;Row Key: 行键，Table的主键，Table中的记录按照Row Key排序</span></p>
-<p><span>&Oslash;&nbsp;&nbsp;Timestamp: 时间戳，每次数据操作对应的时间戳，可以看作是数据的version number</span></p>
-<p><span>&Oslash;&nbsp;&nbsp;Column Family：列簇，Table在水平方向有一个或者多个Column Family组成，一个Column Family中可以由任意多个Column组成，即Column Family支持动态扩展，无需预先定义Column的数量以及类型，所有Column均以二进制格式存储，用户需要自行进行类型转换。</span></p>
-<p>&nbsp;</p>
-<p>了解了HBase的体系结构和HBase数据视图够，现在让我们一起看看怎样通过Java来操作HBase数据吧！</p>
-<p>先说说具体的API先，如下</p>
-<p>&nbsp;</p>
-<p><span>HBaseConfiguration</span>是每一个hbase client都会使用到的对象，它代表的<span>是HBase配置信息</span>。它有两种构造方式：</p>
-<p>public HBaseConfiguration()</p>
-<p>public HBaseConfiguration(final Configuration c)</p>
-<p>默认的构造方式会尝试从hbase-default.xml和hbase-site.xml中读取配置。如果classpath没有这两个文件，就需要你自己设置配置。</p>
-<p>Configuration HBASE_CONFIG = new Configuration();</p>
-<p>HBASE_CONFIG.set(&ldquo;hbase.zookeeper.quorum&rdquo;, &ldquo;zkServer&rdquo;);</p>
-<p>HBASE_CONFIG.set(&ldquo;hbase.zookeeper.property.clientPort&rdquo;, &ldquo;2181&Prime;);</p>
-<p>HBaseConfiguration cfg = new HBaseConfiguration(HBASE_CONFIG);</p>
-<p>&nbsp;</p>
-<p>创建表</p>
-<p><span>创建表是通过HBaseAdmin对象来操作的</span>。HBaseAdmin负责表的META信息处理。HBaseAdmin提供了createTable这个方法：</p>
-<p>public void createTable(HTableDescriptor desc)</p>
-<p><span>HTableDescriptor 代表的是表的schema</span>, 提供的方法中比较有用的有</p>
-<p>setMaxFileSize，指定最大的region size</p>
-<p>setMemStoreFlushSize 指定memstore flush到HDFS上的文件大小</p>
-<p>&nbsp;</p>
-<p>增加family通过 addFamily方法</p>
-<p>public void addFamily(final HColumnDescriptor family)</p>
-<p>HColumnDescriptor 代表的是column的schema，提供的方法比较常用的有</p>
-<p><span>setTimeToLive:指定最大的TTL,单位是ms,过期数据会被自动删除</span>。</p>
-<p>setInMemory:指定是否放在内存中，对小表有用，可用于提高效率。默认关闭</p>
-<p>setBloomFilter:指定是否使用BloomFilter,可提高随机查询效率。默认关闭</p>
-<p>setCompressionType:设定数据压缩类型。默认无压缩。</p>
-<p>setMaxVersions:指定数据最大保存的版本个数。默认为3。</p>
-<p>&nbsp;</p>
-<p><span>一个简单的例子，创建了4个family的表：</span></p>
-<div class="cnblogs_code"><br><pre>HBaseAdmin hAdmin = <span style="color: #0000ff;">new</span><span style="color: #000000;"> HBaseAdmin(hbaseConfig);<br><br>HTableDescriptor t </span>= <span style="color: #0000ff;">new</span><span style="color: #000000;"> HTableDescriptor(tableName);<br><br>t.addFamily(</span><span style="color: #0000ff;">new</span><span style="color: #000000;"> HColumnDescriptor(&ldquo;f1&Prime;));<br><br>t.addFamily(</span><span style="color: #0000ff;">new</span><span style="color: #000000;"> HColumnDescriptor(&ldquo;f2&Prime;));<br><br>t.addFamily(</span><span style="color: #0000ff;">new</span><span style="color: #000000;"> HColumnDescriptor(&ldquo;f3&Prime;));<br><br>t.addFamily(</span><span style="color: #0000ff;">new</span><span style="color: #000000;"> HColumnDescriptor(&ldquo;f4&Prime;));<br><br>hAdmin.createTable(t);</span></pre><br></div>
-
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>删除表</p>
-<p><span>删除表也是通过HBaseAdmin来操作，删除表之前首先要disable表。</span>这是一个非常耗时的操作，所以不建议频繁删除表。</p>
-<p>disableTable和deleteTable分别用来disable和delete表。</p>
-<p>Example:</p>
-<div class="cnblogs_code"><br><pre>HBaseAdmin hAdmin = <span style="color: #0000ff;">new</span><span style="color: #000000;"> HBaseAdmin(hbaseConfig);<br><br></span><span style="color: #0000ff;">if</span><span style="color: #000000;"> (hAdmin.tableExists(tableName)) {<br><br>       hAdmin.disableTable(tableName);<br><br>       hAdmin.deleteTable(tableName);<br><br>}</span></pre><br></div>
-
-<p><span style="line-height: 1.5;">&nbsp;</span></p>
-<p>查询数据</p>
-<p><span>查询分为单条随机查询和批量查询。</span></p>
-<p><span>单条查询是通过rowkey在table中查询某一行的数据</span>。HTable提供了get方法来完成单条查询。</p>
-<p><span>批量查询是通过制定一段rowkey的范围来查询</span>。HTable提供了个getScanner方法来完成批量查询。</p>
-<p>public Result get(final Get get)</p>
-<p>public ResultScanner getScanner(final Scan scan)</p>
-<p>Get对象包含了一个Get查询需要的信息。它的构造方法有两种：</p>
-<p>&nbsp; public Get(byte [] row)</p>
-<p>&nbsp; public Get(byte [] row, RowLock rowLock)</p>
-<p>Rowlock是为了保证读写的原子性，你可以传递一个已经存在Rowlock，否则HBase会自动生成一个新的rowlock。</p>
-<p>Scan对象提供了默认构造函数，一般使用默认构造函数。</p>
-<p>&nbsp;</p>
-<p>Get/Scan的常用方法有：</p>
-<p>addFamily/addColumn:指定需要的family或者column,如果没有调用任何addFamily或者Column,会返回所有的columns.</p>
-<p>setMaxVersions:指定最大的版本个数。如果不带任何参数调用setMaxVersions,表示取所有的版本。如果不掉用setMaxVersions,只会取到最新的版本。</p>
-<p>setTimeRange:指定最大的时间戳和最小的时间戳，只有在此范围内的cell才能被获取。</p>
-<p>setTimeStamp:指定时间戳。</p>
-<p>setFilter:指定Filter来过滤掉不需要的信息</p>
-<p>&nbsp;</p>
-<p>Scan特有的方法：</p>
-<p>setStartRow:指定开始的行。如果不调用，则从表头开始。</p>
-<p>setStopRow:指定结束的行（不含此行）。</p>
-<p>setBatch:指定最多返回的Cell数目。用于防止一行中有过多的数据，导致OutofMemory错误。</p>
-<p>ResultScanner是Result的一个容器，每次调用ResultScanner的next方法，会返回Result.</p>
-<p>public Result next() throws IOException;</p>
-<p>public Result [] next(int nbRows) throws IOException;</p>
-<p>&nbsp;</p>
-<p>Result代表是一行的数据。常用方法有：</p>
-<p>getRow:返回rowkey</p>
-<p>raw:返回所有的key value数组。</p>
-<p>getValue:按照column来获取cell的值</p>
-<p>&nbsp;</p>
-<p>Example:</p>
-<div class="cnblogs_code"><br><pre>Scan s = <span style="color: #0000ff;">new</span><span style="color: #000000;"> Scan();<br><br>s.setMaxVersions();<br><br>ResultScanner ss </span>=<span style="color: #000000;"> table.getScanner(s);<br><br></span><span style="color: #0000ff;">for</span><span style="color: #000000;">(Result r:ss){<br><br>    System.out.println(</span><span style="color: #0000ff;">new</span><span style="color: #000000;"> String(r.getRow()));<br><br>    </span><span style="color: #0000ff;">for</span><span style="color: #000000;">(KeyValue kv:r.raw()){<br><br>       System.out.println(</span><span style="color: #0000ff;">new</span><span style="color: #000000;"> String(kv.getColumn()));<br><br>    }<br><br>}</span></pre><br></div>
-
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p><span>插入数据</span></p>
-<p>HTable通过put方法来插入数据。&nbsp;</p>
-<p>public void put(final Put put) throws IOException</p>
-<p>public void put(final List&nbsp;puts) throws IOException</p>
-<p>可以传递单个批Put对象或者List put对象来分别实现单条插入和批量插入。</p>
-<p>Put提供了3种构造方式：</p>
-<p>public Put(byte [] row)</p>
-<p>public Put(byte [] row, RowLock rowLock)</p>
-<p>public Put(Put putToCopy)&nbsp;</p>
-<p>&nbsp;</p>
-<p>Put常用的方法有：</p>
-<p>add:增加一个Cell</p>
-<p>setTimeStamp:指定所有cell默认的timestamp,如果一个Cell没有指定timestamp,就会用到这个值。如果没有调用，HBase会将当前时间作为未指定timestamp的cell的timestamp.</p>
-<p>setWriteToWAL: WAL是Write Ahead Log的缩写，指的是HBase在插入操作前是否写Log。默认是打开，关掉会提高性能，但是如果系统出现故障(负责插入的Region Server挂掉)，数据可能会丢失。</p>
-<p>另外HTable也有两个方法也会影响插入的性能</p>
-<p>setAutoFlash: AutoFlush指的是在每次调用HBase的Put操作，是否提交到HBase Server。默认是true,每次会提交。如果此时是单条插入，就会有更多的IO,从而降低性能.</p>
-<p>setWriteBufferSize: Write Buffer Size在AutoFlush为false的时候起作用，默认是2MB,也就是当插入数据超过2MB,就会自动提交到Server</p>
-<p>&nbsp;</p>
-<p>Example:</p>
-<div class="cnblogs_code"><br><pre>HTable table = <span style="color: #0000ff;">new</span><span style="color: #000000;"> HTable(hbaseConfig, tableName);<br><br>table.setAutoFlush(autoFlush);<br><br>List lp </span>= <span style="color: #0000ff;">new</span><span style="color: #000000;"> ArrayList();<br><br></span><span style="color: #0000ff;">int</span> count = 10000<span style="color: #000000;">;<br><br></span><span style="color: #0000ff;">byte</span>[] buffer = <span style="color: #0000ff;">new</span> <span style="color: #0000ff;">byte</span>[1024<span style="color: #000000;">];<br><br>Random r </span>= <span style="color: #0000ff;">new</span><span style="color: #000000;"> Random();<br><br></span><span style="color: #0000ff;">for</span> (<span style="color: #0000ff;">int</span> i = 1; i &lt;= count; ++<span style="color: #000000;">i) {<br><br>       Put p </span>= <span style="color: #0000ff;">new</span> Put(String.format(&ldquo;row%<span style="color: #000000;">09d&rdquo;,i).getBytes());<br><br>       r.nextBytes(buffer);<br><br>       p.add(&ldquo;f1&Prime;.getBytes(), </span><span style="color: #0000ff;">null</span><span style="color: #000000;">, buffer);<br><br>       p.add(&ldquo;f2&Prime;.getBytes(), </span><span style="color: #0000ff;">null</span><span style="color: #000000;">, buffer);<br><br>       p.add(&ldquo;f3&Prime;.getBytes(), </span><span style="color: #0000ff;">null</span><span style="color: #000000;">, buffer);<br><br>       p.add(&ldquo;f4&Prime;.getBytes(), </span><span style="color: #0000ff;">null</span><span style="color: #000000;">, buffer);<br><br>       p.setWriteToWAL(wal);<br><br>       lp.add(p);<br><br>       </span><span style="color: #0000ff;">if</span>(i%1000==0<span style="color: #000000;">){<br><br>           table.put(lp);<br><br>           lp.clear();<br><br>       }<br><br>    }</span></pre><br></div>
-
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p><span>删除数据</span></p>
-<p>HTable 通过delete方法来删除数据。</p>
-<p>&nbsp; public void delete(final Delete delete)&nbsp;</p>
-<p>&nbsp;</p>
-<p>Delete构造方法有：</p>
-<p>public Delete(byte [] row)</p>
-<p>public Delete(byte [] row, long timestamp, RowLock rowLock)</p>
-<p>public Delete(final Delete d)</p>
-<p>Delete常用方法有</p>
-<p>deleteFamily/deleteColumns:指定要删除的family或者column的数据。如果不调用任何这样的方法，将会删除整行。</p>
-<p>注意：如果某个Cell的timestamp高于当前时间，这个Cell将不会被删除，仍然可以查出来。</p>
-<p>&nbsp;</p>
-<p>Example:</p>
-<div class="cnblogs_code"><br><pre>HTable table = <span style="color: #0000ff;">new</span><span style="color: #000000;"> HTable(hbaseConfig, &ldquo;mytest&rdquo;);<br><br>Delete d </span>= <span style="color: #0000ff;">new</span><span style="color: #000000;"> Delete(&ldquo;row1&Prime;.getBytes());<br><br>table.delete(d) </span></pre><br></div>
-
-<p><span style="line-height: 1.5;">&nbsp;</span></p>
-<p><span>切分表</span></p>
-<p>HBaseAdmin提供split方法来将table 进行split.</p>
-<p>public void split(final String tableNameOrRegionName)</p>
-<p>&nbsp;</p>
-<p>如果提供的tableName，那么会将table所有region进行split ;如果提供的region Name，那么只会split这个region.</p>
-<p>由于split是一个异步操作，我们并不能确切的控制region的个数。</p>
-<p>&nbsp;</p>
-<p>Example:</p>
-<div class="cnblogs_code"><br><pre><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span> split(String tableName,<span style="color: #0000ff;">int</span> number,<span style="color: #0000ff;">int</span> timeout) <span style="color: #0000ff;">throws</span><span style="color: #000000;"> Exception {<br><br>    Configuration HBASE_CONFIG </span>= <span style="color: #0000ff;">new</span><span style="color: #000000;"> Configuration();<br><br>    HBASE_CONFIG.set(&ldquo;hbase.zookeeper.quorum&rdquo;, GlobalConf.ZOOKEEPER_QUORUM);<br><br>    HBASE_CONFIG.set(&ldquo;hbase.zookeeper.property.clientPort&rdquo;, GlobalConf.ZOOKEEPER_PORT);<br><br>    HBaseConfiguration cfg </span>= <span style="color: #0000ff;">new</span><span style="color: #000000;"> HBaseConfiguration(HBASE_CONFIG);<br><br>    HBaseAdmin hAdmin </span>= <span style="color: #0000ff;">new</span><span style="color: #000000;"> HBaseAdmin(cfg);<br><br>    HTable hTable </span>= <span style="color: #0000ff;">new</span><span style="color: #000000;"> HTable(cfg,tableName);<br><br>    </span><span style="color: #0000ff;">int</span> oldsize = 0<span style="color: #000000;">;<br><br>    t </span>=<span style="color: #000000;">  System.currentTimeMillis();<br><br>    </span><span style="color: #0000ff;">while</span>(<span style="color: #0000ff;">true</span><span style="color: #000000;">){<br><br>       </span><span style="color: #0000ff;">int</span> size =<span style="color: #000000;"> hTable.getRegionsInfo().size();<br><br>       logger.info(&ldquo;the region number</span>=&rdquo;+<span style="color: #000000;">size);<br><br>       </span><span style="color: #0000ff;">if</span>(size&gt;=number ) <span style="color: #0000ff;">break</span><span style="color: #000000;">;<br><br>       </span><span style="color: #0000ff;">if</span>(size!=<span style="color: #000000;">oldsize){<br><br>           hAdmin.split(hTable.getTableName());<br><br>           oldsize </span>=<span style="color: #000000;"> size;<br><br>       }       </span><span style="color: #0000ff;">else</span> <span style="color: #0000ff;">if</span>(System.currentTimeMillis()-t&gt;<span style="color: #000000;">timeout){<br><br>           </span><span style="color: #0000ff;">break</span><span style="color: #000000;">;<br><br>       }<br><br>       Thread.sleep(</span>1000*10<span style="color: #000000;">);<br><br>    }<br><br>}</span></pre><br></div>
-
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>来自：<a href="http://www.open-open.com/lib/view/open1342514370807.html" target="_blank" rel="noopener">http://www.open-open.com/lib/view/open1342514370807.html</a></p>
-
-          
+HBase Master是服务器负责管理所有的HRegion服务器，HBase Master并不存储HBase服务器的任何数据，HBase逻辑上的表可能会划分为多个HRegion，然后存储在HRegion Server群中，HBase Master Server中存储的是从数据到HRegion Server的映射。
+一台机器只能运行一个HRegion服务器，数据的操作会记录在Hlog中，在读取数据时候，HR
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2014/02/20/Hbase-Java-API详解/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1982,53 +1526,22 @@
       
         
           
-            <p>1. 安装jdk：<br>sudo apt-get install openjdk-6-jdk</p>
-<p>2. 配置ssh：<br>安装ssh：<br>apt-get install openssh-server</p>
-<p>为运行hadoop的用户生成一个SSH key：<br>$ ssh-keygen -t rsa -P “”</p>
-<p>让你可以通过新生成的key来登录本地机器：<br>$ cp ~/.ssh/id_rsa.pub ~/.ssh/authorized_keys</p>
-<p>3. 安装hadoop：<br>下载hadoop tar.gz包<br>并解压：<br>tar -zxvf hadoop-2.2.0.tar.gz</p>
-<p>4. 配置：</p>
-<ul>
-<li><p>在~/.bashrc文件中添加：<br>export HADOOP_HOME=/usr/local/hadoop<br>export JAVA_HOME=/usr/lib/jvm/java-6-openjdk-amd64<br>export PATH=$PATH:$HADOOP_HOME/bin<br>在修改完成后保存，重新登录，相应的环境变量就配置好了。</p>
-</li>
-<li><p>配置hadoop-env.sh：<br>export JAVA_HOME=/usr/lib/jvm/java-6-openjdk-amd64</p>
-</li>
-<li><p>配置hdfs-site.xml：<br>&lt;property&gt;</p>
-<p>  &lt;name&gt;hadoop.tmp.dir&lt;/name&gt;</p>
-<p>  &lt;value&gt;/app/hadoop/tmp&lt;/value&gt;<br>  &lt;description&gt;A base for other temporary directories.&lt;/description&gt;</p>
-</li>
-</ul>
-<p>&lt;/property&gt;</p>
-<p>&lt;property&gt;<br>    &lt;name&gt;fs.default.name&lt;/name&gt;</p>
-<pre><code>&amp;lt;value&amp;gt;hdfs://localhost:9000&amp;lt;/value&amp;gt;
-&amp;lt;description&amp;gt;The name of the default file system.  A URI whose
-</code></pre><p>  scheme and </p>
-<p>authority determine the FileSystem implementation.  The<br>  uri’s scheme determines the </p>
-<p>config property (fs.SCHEME.impl) naming<br>  the FileSystem implementation class.  The uri’s </p>
-<p>authority is used to<br>  determine the host, port, etc. for a filesystem.&lt;/description&gt;<br>&lt;/property&gt;</p>
-<ul>
-<li><p>配置mapred-site.xml：<br>&lt;property&gt;<br>&lt;name&gt;mapred.job.tracker&lt;/name&gt;<br>&lt;value&gt;localhost:9001&lt;/value&gt;<br>&lt;description&gt;The host and port that the MapReduce job tracker runs<br>at.  If “local”, then jobs are run in-process as a single map<br>and reduce task.<br>&lt;/description&gt;<br>&lt;/property&gt;</p>
-</li>
-<li><p>配置hdfs-site.xml：<br>&lt;property&gt;</p>
-<p>  &lt;name&gt;dfs.replication&lt;/name&gt;</p>
-<p>  &lt;value&gt;1&lt;/value&gt;<br>  &lt;description&gt;Default block replication.<br>The actual number of replications can be </p>
-</li>
-</ul>
-<p>specified when the file is created.<br>  The default is used if replication is not specified </p>
-<p>in create time.<br>  &lt;/description&gt;</p>
-<p>&lt;/property&gt;</p>
-<p>5. 通过 NameNode 来格式化 HDFS 文件系统<br>$ /usr/local/hadoop/bin/hadoop namenode -format</p>
-<p>6. 运行hadoop<br>$ /usr/local/hadoop/sbin/start-all.sh</p>
-<p>7. 检查hadoop的运行状况</p>
-<ul>
-<li><p>使用jps来检查hadoop的运行状况：<br>$ jps</p>
-</li>
-<li><p>使用netstat 命令来检查 hadoop 是否正常运行：<br>$ sudo netstat -plten | grep java</p>
-</li>
-</ul>
-<p>8. 停止运行hadoop：<br>$ /usr/local/hadoop/bins/stop-all.sh</p>
+          1. 安装jdk：sudo apt-get install openjdk-6-jdk
+2. 配置ssh：安装ssh：apt-get install openssh-server
+为运行hadoop的用户生成一个SSH key：$ ssh-keygen -t rsa -P “”
+让你可以通过新生成的key来登录本地机器：$ cp ~/.ssh/id_rsa.pub ~/.ssh/authorized_keys
+3. 安装hadoop：下载hadoop tar.gz包并解压：tar -zxvf hadoop-2.2.0.tar.gz
+4. 配置：
 
-          
+在~/.bashrc文件中添加：export 
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2014/02/17/在Ubuntu上安装Hadoop（单机模式）步骤/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -2157,32 +1670,27 @@
       
         
           
-            <p><span style="color: #ff0000;"><strong>以下内容为原创，欢迎转载，转载请注明</strong></span></p>
-<p><span style="color: #ff0000;"><strong>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/3544785.html" title="view: [android]亲自破解Flappy Bird（去广告+永生）" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/3544785.html</a><span>&nbsp;</span></strong></span></p>
-<p>&nbsp;</p>
-<p><span>听说最近Flappy Bird很火，但是难度令人发指，于是怒了，亲自破解（去广告+永生）</span></p>
-<p><span>只要不碰到地上，永远不死，直接穿过管道- -！下载地址：</span><a href="http://pan.baidu.com/s/1kT7bA55" target="_blank" rel="noopener">http://pan.baidu.com/s/1kT7bA55</a></p>
-<p>注意：只支持android版本</p>
-<p>效果图：</p>
-<p><img src="http://images.cnitblog.com/blog/378300/201402/111729388451360.png" alt="">&nbsp;<img src="http://images.cnitblog.com/blog/378300/201402/111730054144409.png" alt=""></p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>反编译后修改smali：</p>
-<p><span style="color: #ff0000;">去广告：</span></p>
-<p>修改Flappy_Bird\smali\com\dotgears\a.smali和b.smali中run()方法中对应修改为：</p>
-<div class="cnblogs_code"><br><pre><span style="color: #000000;">const/4 v1, 0x4<br><br>    invoke-virtual {v0, v1}, Lcom/google/ads/AdView;-&gt;setVisibility(I)V</span></pre><br></div>
-
-<p>&nbsp;</p>
-<p><span style="line-height: 1.5; color: #ff0000;">永生（取消碰撞检测即可）：</span></p>
-<p>修改Flappy_Bird\smali\com\dotgears\flappy\c.smali</p>
-<div class="cnblogs_code"><br><pre><span style="color: #000000;">.method public static a(IIIIIIII)Z<br>    .locals 1<br><br>    add-int v0, p0, p2<br><br>    if-lt v0, p4, :cond_0<br><br>    add-int v0, p4, p6<br><br>    if-gt p0, v0, :cond_0<br><br>    add-int v0, p1, p3<br><br>    if-lt v0, p5, :cond_0<br><br>    add-int v0, p5, p7<br><br>    if-le p1, v0, :cond_1<br><br>    :cond_0<br>    const/4 v0, 0x0<br><br>    :goto_0<br>    return v0<br><br>    :cond_1<br>    const/4 v0, 0x1<br><br>    goto :goto_0<br>.end method</span></pre><br></div>
-
-<p>改为：</p>
-<div class="cnblogs_code"><br><pre><span style="color: #000000;">.method public static a(IIIIIIII)Z<br>    .locals 1<br><br>    :cond_0<br>    const/4 v0, 0x0<br><br>    :goto_0<br>    return v0<br><br>    :cond_1<br>    const/4 v0, 0x1<br><br>    goto :goto_0<br>.end method</span></pre><br></div>
-
-<p>&nbsp;</p>
-
-          
+          以下内容为原创，欢迎转载，转载请注明
+来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/3544785.html&nbsp;
+&nbsp;
+听说最近Flappy Bird很火，但是难度令人发指，于是怒了，亲自破解（去广告+永生）
+只要不碰到地上，永远不死，直接穿过管道- -！下载地址：http://pan.baidu.com/s/1kT7bA55
+注意：只支持android版本
+效果图：
+&nbsp;
+&nbsp;
+&nbsp;
+反编译后修改smali：
+去广告：
+修改Flappy_Bird\smali\com\dotgears\a.smali和b
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2014/02/11/android-亲自破解Flappy-Bird（去广告-永生）/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
