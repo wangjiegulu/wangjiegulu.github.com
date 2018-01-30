@@ -66,7 +66,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="android,翻译,testing,monkey,MonkeyRunner,autemate," />
 
 
 
@@ -80,13 +80,14 @@
 
 
 <meta name="description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/5050768.html   翻译自 Android Developer 官网：http://developer.android.com/tools/help/monkeyrunner_concepts.html monkeyrunnermonkeyrunner工具提">
+<meta name="keywords" content="android,翻译,testing,monkey,MonkeyRunner,autemate">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Android]官网《monkeyrunner》中文翻译">
 <meta property="og:url" content="http://blog.wangjiegulu.com/2015/12/16/Android-官网《monkeyrunner》中文翻译/index.html">
 <meta property="og:site_name" content="WAND JIE">
 <meta property="og:description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/5050768.html   翻译自 Android Developer 官网：http://developer.android.com/tools/help/monkeyrunner_concepts.html monkeyrunnermonkeyrunner工具提">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-01-29T12:36:41.000Z">
+<meta property="og:updated_time" content="2018-01-30T03:21:37.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[Android]官网《monkeyrunner》中文翻译">
 <meta name="twitter:description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/5050768.html   翻译自 Android Developer 官网：http://developer.android.com/tools/help/monkeyrunner_concepts.html monkeyrunnermonkeyrunner工具提">
@@ -464,6 +465,7 @@
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">jar</span> <span class="attr">jarfile</span>=<span class="string">"myplugin"</span> <span class="attr">basedir</span>=<span class="string">"$&#123;build.dir&#125;"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">manifest</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">attribute</span> <span class="attr">name</span>=<span class="string">"MonkeyRunnerStartupRunner"</span> <span class="attr">value</span>=<span class="string">"com.myapp.myplugin"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">manifest</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">jar</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>要去访问monkeyrunner的运行时环境，启动类可以实现<code>com.google.common.base.Predicate&lt;PythonInterpreter&gt;</code>接口。举个例子，这个类在默认的命名空间中设置了一些变量：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.android.example;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.google.common.base.Predicate;</span><br><span class="line"><span class="keyword">import</span> org.python.util.PythonInterpreter;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> <span class="keyword">implements</span> <span class="title">Predicate</span>&lt;<span class="title">PythonInterpreter</span>&gt; </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">apply</span><span class="params">(PythonInterpreter anInterpreter)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">        * 一个例子使用来在monkeyrunner环境的命名空间中初始化一些变量。</span></span><br><span class="line"><span class="comment">        * 在执行期间，monkeyrunner程序可以使用“newtest”和“use_emulator”这些变量</span></span><br><span class="line"><span class="comment">        *</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">        anInterpreter.set(<span class="string">"newtest"</span>, <span class="string">"enabled"</span>);</span><br><span class="line">        anInterpreter.set(<span class="string">"use_emulator"</span>, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
       
     </div>
     
@@ -477,6 +479,22 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/android/" rel="tag"># android</a>
+          
+            <a href="/tags/翻译/" rel="tag"># 翻译</a>
+          
+            <a href="/tags/testing/" rel="tag"># testing</a>
+          
+            <a href="/tags/monkey/" rel="tag"># monkey</a>
+          
+            <a href="/tags/MonkeyRunner/" rel="tag"># MonkeyRunner</a>
+          
+            <a href="/tags/autemate/" rel="tag"># autemate</a>
+          
+        </div>
       
 
       
@@ -627,7 +645,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">196</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

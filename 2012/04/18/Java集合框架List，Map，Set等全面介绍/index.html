@@ -66,7 +66,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="java," />
 
 
 
@@ -80,13 +80,14 @@
 
 
 <meta name="description" content="Java Collections Framework是Java提供的对集合进行定义，操作，和管理的包含一组接口，类的体系结构。&amp;nbsp;Java集合框架的基本接口/类层次结构：java.util.Collection [I]+–java.util.List [I]&amp;nbsp;&amp;nbsp; +–java.util.ArrayList [C]&amp;nbsp;&amp;nbsp; +–java.util.Link">
+<meta name="keywords" content="java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java集合框架List，Map，Set等全面介绍">
 <meta property="og:url" content="http://blog.wangjiegulu.com/2012/04/18/Java集合框架List，Map，Set等全面介绍/index.html">
 <meta property="og:site_name" content="WAND JIE">
 <meta property="og:description" content="Java Collections Framework是Java提供的对集合进行定义，操作，和管理的包含一组接口，类的体系结构。&amp;nbsp;Java集合框架的基本接口/类层次结构：java.util.Collection [I]+–java.util.List [I]&amp;nbsp;&amp;nbsp; +–java.util.ArrayList [C]&amp;nbsp;&amp;nbsp; +–java.util.Link">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-01-29T12:36:41.000Z">
+<meta property="og:updated_time" content="2018-01-30T03:40:36.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java集合框架List，Map，Set等全面介绍">
 <meta name="twitter:description" content="Java Collections Framework是Java提供的对集合进行定义，操作，和管理的包含一组接口，类的体系结构。&amp;nbsp;Java集合框架的基本接口/类层次结构：java.util.Collection [I]+–java.util.List [I]&amp;nbsp;&amp;nbsp; +–java.util.ArrayList [C]&amp;nbsp;&amp;nbsp; +–java.util.Link">
@@ -412,6 +413,8 @@
 <li><span>System.out.println(<span class="string">“two&nbsp;=”</span><span>&nbsp;+&nbsp;n);&nbsp;</span></span></li></ol></div><div>&nbsp;&nbsp; &nbsp;由于作为key的对象将通过计算其散列函数来确定与之对应的value的位置，因此任何作为key的对象都必须实现hashCode和equals方 法。hashCode和equals方法继承自根类Object，如果你用自定义的类当作key的话，要相当小心，按照散列函数的定义，如果两个对象相 同，即obj1.equals(obj2)=true，则它们的hashCode必须相同，但如果两个对象不同，则它们的hashCode不一定不同，如 果两个不同对象的hashCode相同，这种现象称为冲突，冲突会导致操作哈希表的时间开销增大，所以尽量定义好的hashCode()方法，能加快哈希 表的操作。</div><br><div>&nbsp;&nbsp; &nbsp;如果相同的对象有不同的hashCode，对哈希表的操作会出现意想不到的结果（期待的get方法返回null），要避免这种问题，只需要牢记一条：要同时复写equals方法和hashCode方法，而不要只写其中一个。</div><br><div>&nbsp;&nbsp; &nbsp;Hashtable是同步的。</div><br><div>&nbsp;</div><br><div><span><strong>HashMap类</strong></span></div><br><div>&nbsp;&nbsp; &nbsp;HashMap和Hashtable类似，不同之处在于HashMap是非同步的，并且允许null，即null value和null key。，但是将HashMap视为Collection时（values()方法可返回Collection），其迭代子操作时间开销和HashMap 的容量成比例。因此，如果迭代操作的性能相当重要的话，不要将HashMap的初始化容量设得过高，或者load factor过低。</div><br><div>&nbsp;</div><br><div><span><strong>WeakHashMap类</strong></span></div><br><div>&nbsp;&nbsp; &nbsp;WeakHashMap是一种改进的HashMap，它对key实行&ldquo;弱引用&rdquo;，如果一个key不再被外部所引用，那么该key可以被GC回收。</div><br><div>&nbsp;</div><br><div><span><strong>对集合操作的工具类</strong></span></div><br><div>&nbsp;&nbsp; &nbsp;Java提供了java.util.Collections，以及java.util.Arrays类简化对集合的操作<br><div>&nbsp;&nbsp; &nbsp;java.util.Collections主要提供一些static方法用来操作或创建Collection，Map等集合。</div><br>&nbsp;&nbsp; &nbsp;java.util.Arrays主要提供static方法对数组进行操作。。</div><br><div>&nbsp;</div><br><div><span><strong>总结</strong></span></div><br><div>&nbsp;&nbsp; &nbsp;如果涉及到堆栈，队列等操作，应该考虑用List，对于需要快速插入，删除元素，应该使用LinkedList，如果需要快速随机访问元素，应该使用ArrayList。</div><br><div>&nbsp;&nbsp; &nbsp;如果程序在单线程环境中，或者访问仅仅在一个线程中进行，考虑非同步的类，其效率较高，如果多个线程可能同时操作一个类，应该使用同步的类。</div><br><div>&nbsp;&nbsp; &nbsp;在除需要排序时使用TreeSet,TreeMap外,都应使用HashSet,HashMap,因为他们 的效率更高。</div><br><div>&nbsp;&nbsp; &nbsp;要特别注意对哈希表的操作，作为key的对象要正确复写equals和hashCode方法。</div><br><div>&nbsp;</div><br><div>&nbsp;&nbsp; &nbsp;容器类仅能持有对象引用（指向对象的指针），而不是将对象信息copy一份至数列某位置。一旦将对象置入容器内，便损失了该对象的型别信息。</div><br><div>&nbsp;&nbsp; &nbsp;尽量返回接口而非实际的类型，如返回List而非ArrayList，这样如果以后需要将ArrayList换成LinkedList时，客户端代码不用改变。这就是针对抽象编程。</div><br><div>&nbsp;</div><br><div><strong><span>注意：</span></strong></div><br><div>1、Collection没有get()方法来取得某个元素。只能通过iterator()遍历元素。</div><br><div>2、Set和Collection拥有一模一样的接口。</div><br><div>3、List，可以通过get()方法来一次取出一个元素。使用数字来选择一堆对象中的一个，get(0)…。(add/get)</div><br><div>4、一般使用ArrayList。用LinkedList构造堆栈stack、队列queue。</div><br><div>5、Map用 put(k,v) / get(k)，还可以使用containsKey()/containsValue()来检查其中是否含有某个key/value。</div><br><div>&nbsp;&nbsp; &nbsp; &nbsp;HashMap会利用对象的hashCode来快速找到key。</div><br><div>&nbsp;</div><br><div><br><div>6、Map中元素，可以将key序列、value序列单独抽取出来。</div><br><div>使用keySet()抽取key序列，将map中的所有keys生成一个Set。</div><br><div>使用values()抽取value序列，将map中的所有values生成一个Collection。</div><br><div>为什么一个生成Set，一个生成Collection？那是因为，key总是独一无二的，value允许重复。</div><br><div>&nbsp;</div><br><div>————————</div><br><div>本文结合了几篇网上文章并摘录而成的：</div><br><div>1.&nbsp;<a href="http://jonsion.javaeye.com/blog/421993" target="_blank" rel="noopener">Java Collections Framework - Java集合框架List,Map,Set等全面介绍</a></div><br><div>2.&nbsp;<a href="http://blog.csdn.net/Fitzwilliam/archive/2006/02/10/596384.aspx" target="_blank" rel="noopener">细说Java之util类</a></div><br><div>3.&nbsp;<a href="http://billy-lee.javaeye.com/blog/356398" target="_blank" rel="noopener">Java基本概念：集合类 List/Set/Map… 的区别和联系</a></div><br></div>
 
 
+
+
       
     </div>
     
@@ -425,6 +428,12 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java/" rel="tag"># java</a>
+          
+        </div>
       
 
       
@@ -566,7 +575,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">196</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

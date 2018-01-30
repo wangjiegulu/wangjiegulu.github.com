@@ -66,7 +66,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="git,git flow," />
 
 
 
@@ -80,13 +80,14 @@
 
 
 <meta name="description" content="说明：&amp;nbsp;本文以nvie的&amp;ldquo;a successful git branching model&amp;rdquo;为蓝本，结合我个人理解写成。如有谬误，还请各位指出。多谢！ Note:&amp;nbsp;This article is highly based on nvie’s&amp;nbsp;a successful git branching model. Thanks nvie. # Git">
+<meta name="keywords" content="git,git flow">
 <meta property="og:type" content="article">
 <meta property="og:title" content="基于git的源代码管理模型——git flow">
 <meta property="og:url" content="http://blog.wangjiegulu.com/2014/12/11/基于git的源代码管理模型——git-flow/index.html">
 <meta property="og:site_name" content="WAND JIE">
 <meta property="og:description" content="说明：&amp;nbsp;本文以nvie的&amp;ldquo;a successful git branching model&amp;rdquo;为蓝本，结合我个人理解写成。如有谬误，还请各位指出。多谢！ Note:&amp;nbsp;This article is highly based on nvie’s&amp;nbsp;a successful git branching model. Thanks nvie. # Git">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-01-29T12:36:41.000Z">
+<meta property="og:updated_time" content="2018-01-30T03:45:26.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基于git的源代码管理模型——git flow">
 <meta name="twitter:description" content="说明：&amp;nbsp;本文以nvie的&amp;ldquo;a successful git branching model&amp;rdquo;为蓝本，结合我个人理解写成。如有谬误，还请各位指出。多谢！ Note:&amp;nbsp;This article is highly based on nvie’s&amp;nbsp;a successful git branching model. Thanks nvie. # Git">
@@ -434,6 +435,8 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
 配合Cygwin使用。Cygwin之下的安装非常简单。执行如下指令即可：</code>wget -q -O - –no-check-certificate <a href="https://github.com/nvie/gitflow/raw/develop/contrib/gitflow-installer.sh" target="_blank" rel="noopener">https://github.com/nvie/gitflow/raw/develop/contrib/gitflow-installer.sh</a> | bash`<br><br>使用这条命令在大多数情况下都可以完成Git Flow的安装。但在少数情况下也会遇到异常：
 
 </em>   执行 git flow init 命令后出现错误：”flags: FATAL unable to determine getopt version”<br><br>需要使用Cygwin的Util-linux安装包。重新使用cywgin的setup安装吧。<br><br><em>   如果出现类似”$’\r’: command not found”的错误，则可能是换行符出现了问题。可以使用sed命令来快速解决。<br><br>`$ sed -i ‘s/\n\r/\n/mg’ /usr/local/bin/git-flow</em><br>$ sed -i ‘s/\n\r/\n/mg’ /usr/local/bin/gitflow-*`<br><br>&nbsp;<br><br></div><br><div class="copyright-announce">来自：<a href="http://www.ituring.com.cn/article/56870" target="_blank" rel="noopener">http://www.ituring.com.cn/article/56870</a></div>
+
+
       
     </div>
     
@@ -447,6 +450,14 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/git/" rel="tag"># git</a>
+          
+            <a href="/tags/git-flow/" rel="tag"># git flow</a>
+          
+        </div>
       
 
       
@@ -588,7 +599,7 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">196</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
