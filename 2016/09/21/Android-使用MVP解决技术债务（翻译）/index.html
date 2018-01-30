@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="WAND JIE" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/5892671.html   使用MVP解决技术债务 原文：https://medium.com/picnic-engineering/tackling-technical-debt-with-mvp-67e805ed5103#.couu0d5i0  免责申明：这篇博">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Android]使用MVP解决技术债务（翻译）">
+<meta property="og:url" content="http://blog.wangjiegulu.com/2016/09/21/Android-使用MVP解决技术债务（翻译）/index.html">
+<meta property="og:site_name" content="WAND JIE">
+<meta property="og:description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/5892671.html   使用MVP解决技术债务 原文：https://medium.com/picnic-engineering/tackling-technical-debt-with-mvp-67e805ed5103#.couu0d5i0  免责申明：这篇博">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-01-29T12:36:41.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[Android]使用MVP解决技术债务（翻译）">
+<meta name="twitter:description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/5892671.html   使用MVP解决技术债务 原文：https://medium.com/picnic-engineering/tackling-technical-debt-with-mvp-67e805ed5103#.couu0d5i0  免责申明：这篇博">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.wangjiegulu.com/2016/09/21/Android-使用MVP解决技术债务（翻译）/"/>
+
+
+
+
+
+  <title>[Android]使用MVP解决技术债务（翻译） | WAND JIE</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-111189680-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">WAND JIE</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">TO BE AN ARTIST-ENGINNER</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.wangjiegulu.com/2016/09/21/Android-使用MVP解决技术债务（翻译）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wang Jie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/my_avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WAND JIE">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">[Android]使用MVP解决技术债务（翻译）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-09-21T15:03:00+08:00">
+                2016-09-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/09/21/Android-使用MVP解决技术债务（翻译）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2016/09/21/Android-使用MVP解决技术债务（翻译）/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <font color="#ff0000"><strong><br>以下内容为原创，欢迎转载，转载请注明<br>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/5892671.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/5892671.html</a>
+</strong></font>
+
+<h1 id="使用MVP解决技术债务"><a href="#使用MVP解决技术债务" class="headerlink" title="使用MVP解决技术债务"></a>使用MVP解决技术债务</h1><blockquote>
+<p>原文：<a href="https://medium.com/picnic-engineering/tackling-technical-debt-with-mvp-67e805ed5103#.couu0d5i0" target="_blank" rel="noopener">https://medium.com/picnic-engineering/tackling-technical-debt-with-mvp-67e805ed5103#.couu0d5i0</a></p>
+</blockquote>
+<p>免责申明：这篇博客并不是讲关于怎么使用MVP的方式（上帝知道关于这些已经太多了）去写Android代码。而仅仅是我的个人经验，关于怎么转换我们的表现层到MVP架构来帮助我们解决一些累积的技术债务，而且在这个过程中也会帮助我们的app从一个原型转变成一个更具维护性的产品。</p>
+<p>任何从事Android工作足够久、项目足够大的开发者最有可能达到一个点，他们面对他们的代码库，觉得应该有更好的实现方案。我们在Picnic也是一样，在Android app开发开始后大约八个月，我们到达了的那一刻，就在我们向公众发布第一个版本的时候。</p>
+<p>这一刻正好是在我们app推出的时候这也并不意外。直到那时，我们以一个非常快的速度在前进，不断敲打我们的键盘，从零开始构建一个完整的产品，尝试新的东西，结合用户反馈到我们的app中，在每天的基础上增加和丢弃特性。</p>
+<p>为了跟上公司的速度我们砍掉了这里那里的边边角角。这样的工作对我们来说很好，这也是我们能够在这么短的时间内构建这个app的原因之一。但是正如预期那样，最后这些决定的影响开始以技术债务的形式显示出来。幸运的是这些技术债务是在数月之内建立的，在app的性能和稳定性上面并没有任何真正的影响。反而我们是在其它领域开始注意到它：</p>
+<ul>
+<li>新功能迭代时间的增加。</li>
+<li>新入职的开发者遇到困难</li>
+<li>它被证实难以实现自动化测试</li>
+<li>整体功能的复杂性在增加</li>
+</ul>
+<p>我们已经有了一个很好的想法和一个易于理解的架构，用于网络层、错误处理和app内部模块通信。但是像大多数Android开发者，我们会对把太多的逻辑放进Activity和Fragment中会产生内疚。</p>
+<p>旁注：这是Android开发者的共同的问题，而作为开发者需要在黑暗中摸索，因为Google对这个话题保持沉默。我们从它们那里得到的第一个（算是）官方回复是来自Android团队的一个开发者在 <a href="https://plus.google.com/+DianneHackborn/posts/FXCCYxepsDU" target="_blank" rel="noopener">Google+ post</a>，说明我们应该把核心的Android API作为一个‘系统框架’，意味着他们会带我们手把手地到达Android核心的组件（Activity, BroadcastReceiver, Service 和 ContentProvider）。之后我们做什么都是看我们自己了。而且就在最近，Google终于提供了一系列的例子用来解决关于怎么构建一个Android app的共同问题，它着重于MVP。尽管只是beta，但是它可以在这里查看：<a href="https://github.com/googlesamples/android-architecture" target="_blank" rel="noopener">Android Architecture Blueprints</a>。</p>
+<p>无论如何，这其实是一件好事，因为这意味着我们可以自由地去实验任何我们喜欢的方式，而不是被强制在一个平台遵循一个特定的模式。</p>
+<p>现在讲回我们的故事… 除非你处在Android开发世界的远古时期，你应该会注意到表现层架构是现在的热门。关于最好的方式是什么，每个人甚至连他妈妈似乎都有自己的观点。工作中标准的Android方式（类似MVC），到MVP，到通过data-binding的MVVM，所有的方式都沿用了 Uncle Bob 的 <em>clean architecture</em>。每一种方式围绕赞成或者反对的意见都有一些有趣的讨论，但是有一件事我们要明确知道，那就是我们应该避免喝Kool-Aid<em>（译者注：这里是比喻，表示非常愚昧地接受信奉某种观点或者思想）</em>和期望其中一种是银色子弹<em>（译者注：这里是比喻为具有极端有效性的解决方法）</em>然后永远解决所有问题。</p>
+<p>当在考虑怎么去重构我们的表现层时，我们已经有近一年的代码库的积累，我们很清楚我们的缺陷在哪里，然后我们需要使用一个新的实现（以上主要表示一些能够解决我们的技术债务的点）来达到我们的目标。我们在虚拟的项目中试玩了一些，体验了各种方法的不同之处，然后最终决定使用MVP。从它的核心来说，MVP本身仅仅是一个概念，而Android框架，根据设计，并不强制任何模式，我们可以自由地选择实际的实现细节。</p>
+<p>在Android团队中，首先我们是不过度工程的信徒，让代码随着时间的推移自然地发展，而不是过早地在试图为自己不可预知的未来做准备的抽象之上增加抽象。正因为这个原因，我们选择另一风味的MVP，使得可以最低限度地保持我们的抽象层次。在代码级别，这意味着有一个单独的接口来表示View。所有其它的组件都是具体的类。你可能会问自己，怎么会只有View使用接口？考虑到我们迫切的需要，这是真正受益于这样的接口的唯一的组件，因为我们实际上有不同的具体的Views来共享相同的接口。所以在我们的案例中，这里的一个接口将被允许我们去重用Presenters。一些MVP实现建议给所有组件（M，V和P）设置接口。尽管这样会工作得很完美，但是我们在较早的阶段并不提倡，因为添加之后的成本是代码可读性和维护性，尤其是当我们考虑到新入职对MVP陌生的初级开发者的时候，好处超过面向接口编程的方式。</p>
+<p>相比其他，MVP实现是非常标准的。View（Activity，Fragment或者一个自定义View）负责创造和维护Presenter，而Presenter处理各种业务相关的逻辑（数据获取，存储，格式化等等），然后根据需要通过更新UI回调到View。在我们的案例中，数据层已经是相当模块化了，构造用于表示数据模型的POJOs，以及一个预先存在的控制层用于处理网络通信。</p>
+<p>这是一个非常标准的MVP设置，也因为它很简单，我们可以在几周的时间内替换几乎我们的所有的UI代码。因为我们已经存在独立的数据层来处理所有与后端的API交互，所以真正需要重构的只是Views和Presenters的交互。</p>
+<p>在重构的过程中，我们也学习了一些可能会派得上用场的东西：</p>
+<ul>
+<li><p><strong>生命周期：</strong>因为Presenter是View创建的，我们需要确保完全地理解View的生命周期，特别是因为它将最有可能去处理状态更新和异步数据。举个例子，每一个Presenter应该在View destroyed的情况下有一个取消异步任务的方式，或者应该在用户暂停或者恢复视图事件时重置到原始状态等等。最后但同样重要的是，当View已经被销毁，试图从Presenter去更新View元素，始终需要注意可怕的NPEs。</p>
+</li>
+<li><p><strong>保持Views尽可能地愚蠢：</strong>我们的Views应该不再包含任何业务相关的逻辑。它应该只包含Android框架inflate和设置View的这些最低限度的东西。任何用户交互应该派发到Presenter。根据经验，如果你的views有任何其它方法去更新UI元素或者响应用户触发的事件，那么你可能应该去检查它们的实现。</p>
+</li>
+<li><p><strong>保持Presenter尽可能地纯粹：</strong>这一点，我们的意思时你应该尽可能地避免有Android相关的代码在你的presenters中。为这些组件编写纯粹的单元测试，而不需要使用其它如Robolectric等测试框架，这明显地得到了简化。这明显说起来比做起来容易得多，因为你终归会在某些地方遇到这种情况，举个例子，你将需要有一个Context的引用用来比如数据加载、访问strings文件等等。</p>
+</li>
+</ul>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>那么，说了那么多，最终的结论是什么呢？总的来说，我很高兴使用了MVP。它一定程度上帮我们解决了我们快速开发所累积的技术债务，然后，我们准备了更多来针对第二阶段的开发。</p>
+<p>一些值得一提的事情：</p>
+<ul>
+<li><p><strong>测试数：</strong>在重构之前，测试的数量用两只手都可以数得过来。这是一个巨大的任务来针对包含了所有逻辑如执行数据解析、格式化、网络请求、错误处理和管理自己的生命周期的Activity编写测试。仅思考如果在这些条件下编写测试就足以让我们去寻找其它的方式了。一旦转换我们的第一份代码到MVP，对此编写测试就变得碎片化了。通过一个清晰的合同明确什么View能够处理，我们可以把自己的代码与Android UI框架隔离开，然后仅仅测试实际调用的是否是正确的方法，并给出每个测试场景。现在实际的业务相关逻辑被放置在Presenters中，因为它们绝大多数都不需要有Android OS相关的认知（或者小部分相关的可以被mocked），我们也可以针对它们编写非常有效率的单元测试，因此，在过去几个月里，我们的测试用例从原来的10增加到900，而且还在增长中。</p>
+</li>
+<li><p><strong>可预见性：</strong>这个是有一点软度量，但是非常强大的一点。针对UI，我们选择并坚持一个通用的模式，我可以在代码库中获得可预见的好处。这意味着，无论是哪种开发者眼里的UI元素（Activity，Dialog，Fragment等等），如果理解其中一个怎么工作，那也就能理解所有怎么工作。打开一个就算不是你写的文件也不再会遇到让你觉得惊喜的东西了。明确规定职责，每一单个的UI组件都遵循相同的明确的模式。让新入职的新开发者从第一天起就是高效的，这是非常宝贵的。</p>
+</li>
+</ul>
+<p>我们别忘记MVP并不只是用于表现层，但是作为前端开发人员，这里花费了我们太多的时间。所以努力去寻找一个解决方案来给我们带来更好的可预见性和在新的开发者加入我们的时候也能让我们快速迭代是值得的。经过全面的考虑，我们可以有把握地说MVP是可以帮助我们达到这个目标的一个重要的里程碑。</p>
+<p>P.S. 如果你仍然渴望看到一些源代码，这里有一个我们MVP实现‘忘记密码’用例的剥离下来的版本，展示MVP组件与用户的交互，用户点击‘重置密码’按钮进入他们的邮件地址（为保持代码的简洁，Android模版代码已经移除）：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// BasePresenter.java (Base class for all our Presenters)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">BasePresenter</span>&lt;<span class="title">V</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> WeakReference&lt;V&gt; mView;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">bindView</span><span class="params">(@NonNull V view)</span> </span>&#123;</span><br><span class="line">    mView = <span class="keyword">new</span> WeakReference&lt;&gt;(view);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">unbindView</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    mView = <span class="keyword">null</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> V <span class="title">getView</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (mView == <span class="keyword">null</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> mView.get();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">protected</span> <span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">isViewAttached</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> mView != <span class="keyword">null</span> &amp;&amp; mView.get() != <span class="keyword">null</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// IForgotPasswordView.java (view interface)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IForgotPasswordView</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">showLoading</span><span class="params">()</span></span>;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">hideLoading</span><span class="params">()</span></span>;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">setEmailText</span><span class="params">(String email)</span></span>;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">showEmailNotValidError</span><span class="params">()</span></span>;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">showPasswordRequestOk</span><span class="params">(String message)</span></span>;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">showPasswordRequestFail</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ForgotPasswordFragment.java (view implementation)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ForgotPasswordFragment</span> <span class="keyword">implements</span> <span class="title">IForgotPasswordView</span>,</span></span><br><span class="line"><span class="class">        <span class="title">View</span>.<span class="title">OnClickListener</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Triggered by the user clicking a button</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onResetPasswordClick</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    String email = mEmailEditText.getText().toString();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Forward all logic to the Presenter</span></span><br><span class="line">    mPresenter.requestPasswordChange(email);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ForgotPasswordPresenter.java</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ForgotPasswordPresenter</span> <span class="keyword">extends</span> <span class="title">BasePresenter</span>&lt;<span class="title">IForgotPasswordView</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">requestPasswordChange</span><span class="params">(String email)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!Utils.isEmailValid(email)) &#123;</span><br><span class="line"></span><br><span class="line">      <span class="comment">// Make sure the view is still alive before trying to access it</span></span><br><span class="line">      <span class="keyword">if</span>(isViewAttached()) &#123;</span><br><span class="line">        getView().showEmailNotValidError();    </span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      requestPasswordChangeAsync(email);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">requestPasswordChangeAsync</span><span class="params">(String email)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Update the view's UI elements</span></span><br><span class="line">    <span class="keyword">if</span>(isViewAttached()) &#123;</span><br><span class="line">      getView().hideKeyboard();</span><br><span class="line">      getView().showLoading();</span><br><span class="line"></span><br><span class="line">      <span class="comment">// Call our API (results are posted back on an EventBus)</span></span><br><span class="line">      api.forgotPassword(email);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Subscription to the event bus</span></span><br><span class="line">  <span class="meta">@Subscribe</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onEvent</span><span class="params">(<span class="keyword">final</span> Event event)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (isViewAttached()) &#123;</span><br><span class="line"></span><br><span class="line">      <span class="comment">// Update the view's UI elements</span></span><br><span class="line">      getView().hideLoading();</span><br><span class="line"></span><br><span class="line">      <span class="keyword">switch</span> (event.getType()) &#123;</span><br><span class="line">        <span class="keyword">case</span> FORGOT_PASSWORD_OK:</span><br><span class="line">          getView().showPasswordRequestOk((String) event.getData());</span><br><span class="line">          <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> FORGOT_PASSWORD_FAILED:</span><br><span class="line">          getView().showPasswordRequestFail();</span><br><span class="line">          <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/01/Android-异步-layout-inflation（翻译）/" rel="next" title="[Android]异步 layout inflation（翻译）">
+                <i class="fa fa-chevron-left"></i> [Android]异步 layout inflation（翻译）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/11/01/Android-Android端ORM框架——RapidORM-v2-1/" rel="prev" title="[Android]Android端ORM框架——RapidORM(v2.1)">
+                [Android]Android端ORM框架——RapidORM(v2.1) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/my_avatar.jpg"
+                alt="Wang Jie" />
+            
+              <p class="site-author-name" itemprop="name">Wang Jie</p>
+              <p class="site-description motion-element" itemprop="description">Wang Jie's blog</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">144</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wangjiegulu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:tiantian.china.2@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/+%E5%A4%A9%E5%A4%A9wangjie" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/wangjiegulu" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://stackoverflow.com/users/2124006/wangjie" target="_blank" title="StackOverflow">
+                      
+                        <i class="fa fa-fw fa-stack-overflow"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/wangjiegulu" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.cnblogs.com/tiantianbyconan/" title="cnblog" target="_blank">cnblog</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#使用MVP解决技术债务"><span class="nav-text">使用MVP解决技术债务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#结论"><span class="nav-text">结论</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wang Jie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://blog-wangjiegulu-com.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://blog.wangjiegulu.com/2016/09/21/Android-使用MVP解决技术债务（翻译）/';
+          this.page.identifier = '2016/09/21/Android-使用MVP解决技术债务（翻译）/';
+          this.page.title = '[Android]使用MVP解决技术债务（翻译）';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://blog-wangjiegulu-com.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "default";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "GooglePlus,Evernote,Twitter,Facebook,Douban,Weibo";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

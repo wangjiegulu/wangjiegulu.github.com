@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="WAND JIE" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/5795091.html   使用自定义JUnit Rules、annotations和Resources进行单元测试 原文：http://www.thedroidsonroids.com/blog/android/unit-tests-rules-annotatio">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Android]使用自定义JUnit Rules、annotations和Resources进行单元测试（翻译）">
+<meta property="og:url" content="http://blog.wangjiegulu.com/2016/08/22/Android-使用自定义JUnit-Rules、annotations和Resources进行单元测试（翻译）/index.html">
+<meta property="og:site_name" content="WAND JIE">
+<meta property="og:description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/5795091.html   使用自定义JUnit Rules、annotations和Resources进行单元测试 原文：http://www.thedroidsonroids.com/blog/android/unit-tests-rules-annotatio">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-01-29T12:36:41.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[Android]使用自定义JUnit Rules、annotations和Resources进行单元测试（翻译）">
+<meta name="twitter:description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/5795091.html   使用自定义JUnit Rules、annotations和Resources进行单元测试 原文：http://www.thedroidsonroids.com/blog/android/unit-tests-rules-annotatio">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.wangjiegulu.com/2016/08/22/Android-使用自定义JUnit-Rules、annotations和Resources进行单元测试（翻译）/"/>
+
+
+
+
+
+  <title>[Android]使用自定义JUnit Rules、annotations和Resources进行单元测试（翻译） | WAND JIE</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-111189680-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">WAND JIE</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">TO BE AN ARTIST-ENGINNER</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.wangjiegulu.com/2016/08/22/Android-使用自定义JUnit-Rules、annotations和Resources进行单元测试（翻译）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wang Jie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/my_avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WAND JIE">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">[Android]使用自定义JUnit Rules、annotations和Resources进行单元测试（翻译）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-08-22T12:00:00+08:00">
+                2016-08-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/08/22/Android-使用自定义JUnit-Rules、annotations和Resources进行单元测试（翻译）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2016/08/22/Android-使用自定义JUnit-Rules、annotations和Resources进行单元测试（翻译）/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <font color="#ff0000"><strong><br>以下内容为原创，欢迎转载，转载请注明<br>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/5795091.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/5795091.html</a>
+</strong></font>
+
+<h1 id="使用自定义JUnit-Rules、annotations和Resources进行单元测试"><a href="#使用自定义JUnit-Rules、annotations和Resources进行单元测试" class="headerlink" title="使用自定义JUnit Rules、annotations和Resources进行单元测试"></a>使用自定义JUnit Rules、annotations和Resources进行单元测试</h1><blockquote>
+<p>原文：<a href="http://www.thedroidsonroids.com/blog/android/unit-tests-rules-annotations-resources" target="_blank" rel="noopener">http://www.thedroidsonroids.com/blog/android/unit-tests-rules-annotations-resources</a></p>
+</blockquote>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Unit Test并不只有断言和测试方法组成。它有一些可以用来提高质量和测试代码可读性的技术。在本文中我们将探索：</p>
+<ul>
+<li>annotations</li>
+<li>JUnit rules</li>
+<li>java resources</li>
+</ul>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>很多或者大多数Android apps作为一个API Client，因此需要数据格式之间的转换（通常是JSON）和POJO（数据模型类）。我们不需要在自己的代码中实现一个转换引擎而是可以使用如 <a href="https://github.com/google/gson" target="_blank" rel="noopener">GSON</a> 或 <a href="https://github.com/square/moshi" target="_blank" rel="noopener">moshi</a> 等三方库来完成。</p>
+<p>众所周知的库通常都是有很高的单元测试的覆盖率的，所以如下测试它们是没有意义的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testGson</span><span class="params">()</span> </span>&#123;</span><br><span class="line"> <span class="comment">//given</span></span><br><span class="line"> Gson gson = <span class="keyword">new</span> Gson();</span><br><span class="line"> <span class="comment">//when</span></span><br><span class="line"> String result = gson.fromJson(<span class="string">"\"test\""</span>, String.class);</span><br><span class="line"> <span class="comment">//then</span></span><br><span class="line"> assertThat(result).isEqualTo(<span class="string">"test"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>Listing 1. 无用的GSON单元测试.</em></p>
+<p>另一方面测试解析（JSON到POJO）和生成（POJO到JSON）逻辑相关的模型类可能是有用的。如下的POJO：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Contributor</span> </span>&#123;</span><br><span class="line"> <span class="keyword">public</span> String login;</span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">boolean</span> siteAdmin;</span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">long</span> id;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>Listing 2. 简单POJO.</em></p>
+<p>和相应的JSON：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"login"</span>: <span class="string">"koral--"</span>,</span><br><span class="line">    <span class="attr">"id"</span>: <span class="number">3340954</span>,</span><br><span class="line">    <span class="attr">"site_admin"</span>: <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>Listing 3. 简单JSON.</em></p>
+<p>如果属性映射都正确的话，我们希望去测试它。注意属性<code>siteAdmin</code>使用了不同的命名风格 － Java中的驼峰命名和JSON中的蛇底命名。</p>
+<h2 id="简单方案"><a href="#简单方案" class="headerlink" title="简单方案"></a>简单方案</h2><p>最简单的一种unit test看起来如下：</p>
+<p><span id="listing4"></span></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testParseHardcodedContributors</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"> <span class="comment">//given</span></span><br><span class="line"> String json = <span class="string">"[\n"</span> +</span><br><span class="line"> <span class="string">"  &#123;\n"</span> +</span><br><span class="line"> <span class="string">"    \"login\": \"koral--\",\n"</span> +</span><br><span class="line"> <span class="string">"    \"id\": 3340954,\n"</span> +</span><br><span class="line"> <span class="string">"    \"site_admin\": true\n"</span> +</span><br><span class="line"> <span class="string">"  &#125;,\n"</span> +</span><br><span class="line"> <span class="string">"  &#123;\n"</span> +</span><br><span class="line"> <span class="string">"    \"login\": \"Wavesonics\",\n"</span> +</span><br><span class="line"> <span class="string">"    \"id\": 406473,\n"</span> +</span><br><span class="line"> <span class="string">"    \"site_admin\": false\n"</span> +</span><br><span class="line"> <span class="string">"  &#125;\n"</span> +</span><br><span class="line"> <span class="string">"]\n"</span>;</span><br><span class="line"></span><br><span class="line"> GsonBuilder gsonBuilder = <span class="keyword">new</span> GsonBuilder();</span><br><span class="line"> gsonBuilder.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES);</span><br><span class="line"> Gson gson = gsonBuilder.create();</span><br><span class="line"></span><br><span class="line"> <span class="comment">//when</span></span><br><span class="line"> Contributor[] contributors;</span><br><span class="line"> <span class="keyword">try</span> (Reader reader = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> StringReader(json))) &#123;</span><br><span class="line"> contributors = gson.fromJson(reader, Contributor[].class);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p><em>Listing 4. 使用硬编码JSON的单元测试.</em></p>
+<p>这种方法有几个弊端。最值得注意的就是比较差的JSON可读性，有大量的转义字符和没有语法高亮。此外有一点模版代码，如果有更多的JSON需要测试的话将会产生重复代码。让我们思考怎样可以用更加简便的方法来编写，提高可读性和消除代码重复率。</p>
+<h2 id="改进"><a href="#改进" class="headerlink" title="改进"></a>改进</h2><p>首先<code>Gson</code>对象可以在测试方法外部实例化，比如使用一些像 [Dagger] (<a href="http://google.github.io/dagger" target="_blank" rel="noopener">http://google.github.io/dagger</a>) 的DI（依赖注入）机制或者使用一个简单的常量。DI已经超出了本文的范围所以我们在例子代码中使用后者。在代码提取后看起来如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Constants</span> </span>&#123;</span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Gson GSON;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">static</span> &#123;</span><br><span class="line"> <span class="keyword">final</span> GsonBuilder gsonBuilder = <span class="keyword">new</span> GsonBuilder();</span><br><span class="line"> gsonBuilder.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES);</span><br><span class="line"> GSON = gsonBuilder.create();</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>Listing 5. 把GSON实例作为一个全局变量.</em></p>
+<p>接着，文本形式的JSON可以被置于一个resource file中。这会给我们带来语法的高亮和缩进（漂亮的打印），默认情况下Android Studio和Intellij IDEA内置了这些功能特性。不需要引号的转义，所以可读性也不再是问题。再者，文件中的行数和列数和GSON中的一致，所以将会更加容易地像这样debug异常：<code>MalformedJsonException: Unterminated array at line 4 column 5 path $[2]</code>。如果JSON被放置在一个单独的文件，行数是会被确切地匹配到的，跟上述硬编码JSON的例子矛盾的地方是，需要通过java源文件中的偏移进行调整。下面是这个示例中被使用的文件：</p>
+<p><span id="listing6"><span></span></span></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">"login"</span>: <span class="string">"koral--"</span>,</span><br><span class="line">    <span class="attr">"id"</span>: <span class="number">3340954</span>,</span><br><span class="line">    <span class="attr">"site_admin"</span>: <span class="literal">true</span></span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">"login"</span>: <span class="string">"Wavesonics"</span>,</span><br><span class="line">    <span class="attr">"id"</span>: <span class="number">406473</span>,</span><br><span class="line">    <span class="attr">"site_admin"</span>: <span class="literal">false</span></span><br><span class="line">  &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p><em>Listing 6. 包含JSON的Java resource文件.</em></p>
+<p>最后，代码执行转换可以从测试方法中提取，所以广义说它会更容易在不同的测试用例上使用。它可以使用下章将会讨论的Java和JUnit特性来实现。</p>
+<h2 id="Goodies"><a href="#Goodies" class="headerlink" title="Goodies"></a>Goodies</h2><h3 id="Java-resources"><a href="#Java-resources" class="headerlink" title="Java resources"></a>Java resources</h3><p>Java resources是程序需要的数据文件，它被放置在源代码外面。注意我们讨论的是 <a href="https://docs.oracle.com/javase/8/docs/technotes/guides/lang/resources.html" target="_blank" rel="noopener">Java resources</a>，默认被放置在<code>src/&lt;source set&gt;/resources</code>，并不是 <a href="https://developer.android.com/guide/topics/resources/providing-resources.html" target="_blank" rel="noopener">Android App Resources</a>(drawables, layouts等)。这本例子中并没有Android特别的特性。所以一切都是可以像 <a href="http://robolectric.org/" target="_blank" rel="noopener">Robolectric</a> 那样脱离frameworks可单元测试的。</p>
+<p>如果<a href="#listing6">listing 6</a>的JSON文件被保存于<code>src/test/resources/pl/droidsonroids/modeltesting/api/contributors.json</code>，它可以通过调用<code>TestClass.getResourceAsStream(&quot;contributors.json&quot;)</code>来被单元测试代码访问。相关的类需要被放置在对应的package中，在这个例子中是<code>pl.droidsonroids.modeltesting.api</code>。详情见<a href="https://developer.android.com/reference/java/lang/Class.html#getResourceAsStream(java.lang.String" target="_blank" rel="noopener"><strong><code>#getResourceAsStream()</code> javadoc</strong></a>)</p>
+<h3 id="注解Annotation"><a href="#注解Annotation" class="headerlink" title="注解Annotation"></a>注解Annotation</h3><p><a href="http://docs.oracle.com/javase/8/docs/technotes/guides/language/annotations.html" target="_blank" rel="noopener">Annotation</a>是关联到源代码元素的元数据（eg. 方法或者类）。有众所周知的一些如<a href="https://developer.android.com/reference/java/lang/Override.html" target="_blank" rel="noopener">@Override</a>或<a href="https://developer.android.com/reference/java/lang/Deprecated.html" target="_blank" rel="noopener">@Deprecated</a>的内置注解。也可以自定义并使用它们把特定的resources绑定到测试方法中。</p>
+<p>注解来起来与interface很类似：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Java</span><br><span class="line"></span><br><span class="line"><span class="meta">@Retention</span>(RUNTIME)</span><br><span class="line"><span class="meta">@Target</span>(METHOD)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> JsonFileResource &#123;</span><br><span class="line">	<span class="function">String <span class="title">fileName</span><span class="params">()</span></span>;</span><br><span class="line">	Class&lt;?&gt; clazz();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>Listing 7. 简单注解.</em></p>
+<p>注意<code>interface</code>关键字前面的<code>@</code>符号。我们自定义的注解被2个元注解来注解。我们设置<a href="https://developer.android.com/reference/java/lang/annotation/Retention.html" target="_blank" rel="noopener">Retention</a>为<a href="https://developer.android.com/reference/java/lang/annotation/RetentionPolicy.html#RUNTIME" target="_blank" rel="noopener">RUNTIME</a>，因为注解需要在单元测试执行时（运行时）为可读，所以默认的retention（<a href="https://developer.android.com/reference/java/lang/annotation/RetentionPolicy.html#CLASS" target="_blank" rel="noopener">CLASS</a>）的并不满足。我们也需要设置<a href="https://developer.android.com/reference/java/lang/annotation/Target.html" target="_blank" rel="noopener">Target</a>为<a href="https://developer.android.com/reference/java/lang/annotation/ElementType.html#METHOD" target="_blank" rel="noopener">METHOD</a>因为我们只需要为方法进行注解（绑定特定的resource）。错位的注解会引发编译错误。没有指定一个target，注解会可以被用于任何地方。</p>
+<h3 id="JUnit-Rules"><a href="#JUnit-Rules" class="headerlink" title="JUnit Rules"></a>JUnit Rules</h3><p>简单来说，<a href="https://github.com/junit-team/junit4/wiki/Rules" target="_blank" rel="noopener">rule</a>是在测试（方法）运行时触发的一个hook。我们将使用rule在测试方法执行之前增加一些额外的行为。即我们将从resources中解析JSON并提供给测试方法内部相应的POJO。我们的目标时像下面这样支持单元测试：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Rule</span> <span class="keyword">public</span> JsonParsingRule jsonParsingRule = <span class="keyword">new</span> JsonParsingRule(Constants.GSON);</span><br><span class="line"></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="meta">@JsonFileResource</span>(fileName = <span class="string">"contributors.json"</span>, clazz = Contributor[].class)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testGetContributors</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"> Contributor[] contributors = jsonParsingRule.getValue();</span><br><span class="line"> assertThat(contributors).hasSize(<span class="number">2</span>);</span><br><span class="line"> assertThat(contributors[<span class="number">0</span>].login).isEqualTo(<span class="string">"koral--"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>Listing 8. 使用自定义rule的简单测试方法.</em></p>
+<p>如你所见，模版代码与<a href="#listing4">listing 4</a>相比明显地减少。只有必要的部分是类型明确的：</p>
+<ul>
+<li><p>GSON实例用来解析JSONs - <code>jsonParsingRule = new JsonParsingRule(Constants.GSON)</code></p>
+</li>
+<li><p>被放置JSON字符串的resource - <code>@JsonFileResource(fileName = &quot;contributors.json&quot;</code></p>
+</li>
+<li><p>POJO类 - <code>, clazz = Contributor[].class</code></p>
+</li>
+<li><p>POJO实例的接收 - <code>contributors = jsonParsingRule.getValue()</code></p>
+</li>
+</ul>
+<p>注意对于测试类只需要一个<code>JsonParsingRule</code>实例。对于每个测试方法Rule会被独立计算并且在特定方法中<code>jsonParsingRule.getValue()</code>的结果不会影响到上一次测试。<strong>clazz</strong>并不是一个错字而是故意的，因为<code>class</code>是Java语言关键字并不能用做一个标识符。还有一个重要的是被<a href="http://junit.org/junit4/javadoc/latest/org/junit/Rule.html" target="_blank" rel="noopener">@Rule</a>注解的属性必须是public和非static的。</p>
+<h4 id="Rule实现"><a href="#Rule实现" class="headerlink" title="Rule实现"></a>Rule实现</h4><p>看下rule实现的草案：</p>
+<p><span id="listing9"></span></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JsonParsingRule</span> <span class="keyword">implements</span> <span class="title">TestRule</span> </span>&#123;</span><br><span class="line"> <span class="keyword">private</span> <span class="keyword">final</span> Gson mGson;</span><br><span class="line"> <span class="keyword">private</span> Object mValue;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="title">JsonParsingRule</span><span class="params">(Gson gson)</span> </span>&#123;</span><br><span class="line"> mGson = gson;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="meta">@SuppressWarnings</span>(<span class="string">"unchecked"</span>)</span><br><span class="line"> <span class="function"><span class="keyword">public</span>  T <span class="title">getValue</span><span class="params">()</span> </span>&#123;</span><br><span class="line"> <span class="keyword">return</span> (T) mValue;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="meta">@Override</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> Statement <span class="title">apply</span><span class="params">(<span class="keyword">final</span> Statement base, <span class="keyword">final</span> Description description)</span> </span>&#123;</span><br><span class="line"> <span class="keyword">return</span> <span class="keyword">new</span> Statement() &#123;</span><br><span class="line"> <span class="meta">@Override</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">evaluate</span><span class="params">()</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line"> <span class="comment">//TODO set mValue according to annotation</span></span><br><span class="line"> base.evaluate();</span><br><span class="line"> &#125;</span><br><span class="line"> &#125;;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>Listing 9. Rule骨架.</em></p>
+<p>我们的rule实现了<a href="http://junit.org/junit4/javadoc/latest/org/junit/rules/TestRule.html" target="_blank" rel="noopener">TestRule</a>，因此可以使用被使用<code>@Rule</code>注解。我们使用了一个范型的getter，所以它的返回值可以被直接分配给特定类型的变量而不需要在测试方法中转型。在<code>apply()</code>方法中我们可以创建一个原始<a href="http://junit.org/junit4/javadoc/latest/org/junit/runners/model/Statement.html" target="_blank" rel="noopener">Statement</a>（测试方法）的包装。调用<code>base.evaluate()</code>被放置在最后（在注解处理之后），因此在测试方法执行过程中rule的效果是可见的。</p>
+<p>现在更接近地观看statement包装的关键部分（<a href="#listing9">listing 9</a>中<code>TODO</code>的实现）：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">JsonFileResource jsonFileResource = description.getAnnotation(JsonFileResource.class);</span><br><span class="line"><span class="keyword">if</span> (jsonFileResource != <span class="keyword">null</span>) &#123;</span><br><span class="line"> Class&lt;?&gt; clazz = jsonFileResource.clazz();</span><br><span class="line"> String resourceName = jsonFileResource.fileName();</span><br><span class="line"> Class&lt;?&gt; testClass = description.getTestClass();</span><br><span class="line"> InputStream in = testClass.getResourceAsStream(resourceName);</span><br><span class="line"></span><br><span class="line"> <span class="keyword">assert</span> in != <span class="keyword">null</span> : <span class="string">"Failed to load resource: "</span> + resourceName + <span class="string">" from "</span> + testClass;</span><br><span class="line"> <span class="keyword">try</span> (Reader reader = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(in))) &#123;</span><br><span class="line"> mValue = mGson.fromJson(reader, clazz);</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>Listing 10. Statement的实现.</em></p>
+<p><code>description</code>参数在这里是必不可少的，它可以让我们访问测试方法包括注解在内的元数据。Rule适用于所有测试方法，包括没有注解的，这种情况下<a href="http://junit.org/junit4/javadoc/latest/org/junit/runner/Description.html#getAnnotation(java.lang.Class" target="_blank" rel="noopener">getAnnotation()</a>)会返回<code>null</code>，并且我们可以有条件地跳过定制的其余部分。所以测试方法没有<code>@JsonFileResource</code>注解的测试方法（比如，一些不涉及JSON的测试）可以放在使用了<code>JsonParsingRule</code>的测试类中。第8行是下面代码的一个<a href="https://docs.oracle.com/javase/8/docs/technotes/guides/language/assert.html#intro" target="_blank" rel="noopener">简写等效</a>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (in != <span class="keyword">null</span>) &#123;</span><br><span class="line"> <span class="keyword">throw</span> <span class="keyword">new</span> AssertionError(<span class="string">"Failed to load resource: "</span> + resourceName + <span class="string">" from "</span> + testClass);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>Listing 11. 断言语句判定.</em></p>
+<p>最后我们传入使用被<a href="https://developer.android.com/reference/java/io/Reader.html" target="_blank" rel="noopener">Reader</a>包装的resource到GSON引擎。<a href="https://docs.oracle.com/javase/tutorial/essential/exceptions/tryResourceClose.html" target="_blank" rel="noopener">Try-with-resources</a>语句在这里被使用，所以Reader将会在读取甚至发生异常之后自动关闭。这里需要在<code>finally</code>块中明确类型。</p>
+<p>注意try-with-resources从Android API 19（Kitkat）才可用。如果测试代码位于Android gradle module中，并且你的<code>minSdkVersion</code>低于19，那么你可能需要在<code>evaluate()</code>方法上增加<code>@TargetApi(Build.VERSION_CODES.KITKAT)</code>注解来避免<a href="http://tools.android.com/tips/lint-checks" target="_blank" rel="noopener">lint</a>错误。单元测试会在开发机器（Mac，PC等）上被执行而不是Android设备或者模拟器，所以这里只有<code>compileSdkVersion</code>才是关键。</p>
+<p>这样的单元测试（不需要使用Android特定的API）也可以被放在java module中（<code>build.gradle</code>中<code>apply plugin: &#39;java&#39;</code>）。理论上这事最好的idea，但是在Android Studio/Intellij IDEA中有一个<a href="http://tools.android.com/knownissues#TOC-JUnit-tests-missing-resources-in-classpath-when-run-from-Studio" target="_blank" rel="noopener">问题</a>需要预防，那就是从IDE开箱即用地执行单元测试的配置工作。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/06/29/Android-Android端ORM框架——RapidORM-v2-0/" rel="next" title="[Android]Android端ORM框架——RapidORM(v2.0)">
+                <i class="fa fa-chevron-left"></i> [Android]Android端ORM框架——RapidORM(v2.0)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/08/24/Git-Note/" rel="prev" title="Git Note">
+                Git Note <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/my_avatar.jpg"
+                alt="Wang Jie" />
+            
+              <p class="site-author-name" itemprop="name">Wang Jie</p>
+              <p class="site-description motion-element" itemprop="description">Wang Jie's blog</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">144</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wangjiegulu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:tiantian.china.2@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/+%E5%A4%A9%E5%A4%A9wangjie" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/wangjiegulu" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://stackoverflow.com/users/2124006/wangjie" target="_blank" title="StackOverflow">
+                      
+                        <i class="fa fa-fw fa-stack-overflow"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/wangjiegulu" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.cnblogs.com/tiantianbyconan/" title="cnblog" target="_blank">cnblog</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#使用自定义JUnit-Rules、annotations和Resources进行单元测试"><span class="nav-text">使用自定义JUnit Rules、annotations和Resources进行单元测试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简单方案"><span class="nav-text">简单方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#改进"><span class="nav-text">改进</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Goodies"><span class="nav-text">Goodies</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-resources"><span class="nav-text">Java resources</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注解Annotation"><span class="nav-text">注解Annotation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JUnit-Rules"><span class="nav-text">JUnit Rules</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Rule实现"><span class="nav-text">Rule实现</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wang Jie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://blog-wangjiegulu-com.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://blog.wangjiegulu.com/2016/08/22/Android-使用自定义JUnit-Rules、annotations和Resources进行单元测试（翻译）/';
+          this.page.identifier = '2016/08/22/Android-使用自定义JUnit-Rules、annotations和Resources进行单元测试（翻译）/';
+          this.page.title = '[Android]使用自定义JUnit Rules、annotations和Resources进行单元测试（翻译）';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://blog-wangjiegulu-com.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "default";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "GooglePlus,Evernote,Twitter,Facebook,Douban,Weibo";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

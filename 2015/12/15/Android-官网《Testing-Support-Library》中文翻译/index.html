@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="WAND JIE" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/5048524.html   翻译自 Android Developer 官网：http://developer.android.com/tools/testing-support-library/index.html Testing Support LibraryA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Android]官网《Testing Support Library》中文翻译">
+<meta property="og:url" content="http://blog.wangjiegulu.com/2015/12/15/Android-官网《Testing-Support-Library》中文翻译/index.html">
+<meta property="og:site_name" content="WAND JIE">
+<meta property="og:description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/5048524.html   翻译自 Android Developer 官网：http://developer.android.com/tools/testing-support-library/index.html Testing Support LibraryA">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-01-29T12:36:41.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[Android]官网《Testing Support Library》中文翻译">
+<meta name="twitter:description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/5048524.html   翻译自 Android Developer 官网：http://developer.android.com/tools/testing-support-library/index.html Testing Support LibraryA">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.wangjiegulu.com/2015/12/15/Android-官网《Testing-Support-Library》中文翻译/"/>
+
+
+
+
+
+  <title>[Android]官网《Testing Support Library》中文翻译 | WAND JIE</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-111189680-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">WAND JIE</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">TO BE AN ARTIST-ENGINNER</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.wangjiegulu.com/2015/12/15/Android-官网《Testing-Support-Library》中文翻译/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wang Jie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/my_avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WAND JIE">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">[Android]官网《Testing Support Library》中文翻译</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-12-15T15:44:00+08:00">
+                2015-12-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/12/15/Android-官网《Testing-Support-Library》中文翻译/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2015/12/15/Android-官网《Testing-Support-Library》中文翻译/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <font color="#ff0000"><strong><br>以下内容为原创，欢迎转载，转载请注明<br>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/5048524.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/5048524.html</a>
+</strong></font>
+
+<p>翻译自 Android Developer 官网：<a href="http://developer.android.com/tools/testing-support-library/index.html" target="_blank" rel="noopener">http://developer.android.com/tools/testing-support-library/index.html</a></p>
+<h1 id="Testing-Support-Library"><a href="#Testing-Support-Library" class="headerlink" title="Testing Support Library"></a>Testing Support Library</h1><p><code>Android Testing Support Library</code>为Android app的测试提供了一个广泛的框架。 这个库提供了一系列的API可以让你快速build和run你app的代码，它包括了<code>JUnit 4</code>和功能性的用户界面（UI）测试。你可以通过<a href="http://developer.android.com/tools/studio/index.html" target="_blank" rel="noopener">Android Studio IDE</a>或者命令行的方式运行你使用这些API创建的测试。</p>
+<p><code>Android Testing Support Library</code>已经可以通过<code>Android SDK Manager</code>下载使用了。详情可见<a href="http://developer.android.com/tools/testing-support-library/index.html#setup" target="_blank" rel="noopener">Testing Support Library Setup</a></p>
+<p>这页中会提供一些关于<code>Android Testing Support Library</code>中所提供的工具的信息，怎样在你的测试环境中使用它们，还有库发布的相关信息。</p>
+<h2 id="Testing-Support-Library的特性"><a href="#Testing-Support-Library的特性" class="headerlink" title="Testing Support Library的特性"></a>Testing Support Library的特性</h2><p><code>Android Testing Support Library</code>提供包括了以下自动化测试工具：</p>
+<ul>
+<li><p><a href="http://developer.android.com/reference/android/support/test/runner/AndroidJUnitRunner.html" target="_blank" rel="noopener">AndroidJUnitRunner</a>：兼容Android的JUnit 4。</p>
+</li>
+<li><p><a href="http://developer.android.com/tools/testing-support-library/index.html#Espresso" target="_blank" rel="noopener">Espresso</a>：UI测试框架，适用于app内的功能性UI测试。</p>
+</li>
+<li><p><a href="http://developer.android.com/tools/testing-support-library/index.html#UIAutomator" target="_blank" rel="noopener">UI Automator</a>：UI测试框架，适用于系统和安装app间跨app的功能性UI测试。</p>
+</li>
+</ul>
+<h3 id="AndroidJUnitRunner"><a href="#AndroidJUnitRunner" class="headerlink" title="AndroidJUnitRunner"></a>AndroidJUnitRunner</h3><p><a href="http://developer.android.com/reference/android/support/test/runner/AndroidJUnitRunner.html" target="_blank" rel="noopener">AndroidJUnitRunner</a> 类是一个 <a href="http://junit.org/" target="_blank" rel="noopener">JUnit</a> 测试runner，它可以让你在Android设备上运行<code>JUnit 3</code>或者<code>JUnit 4-style</code>的测试类，包括使用了 <a href="http://developer.android.com/tools/testing-support-library/index.html#Espresso" target="_blank" rel="noopener">Espresso</a> 和 <a href="http://developer.android.com/tools/testing-support-library/index.html#UIAutomator" target="_blank" rel="noopener">UI Automator</a> 测试框架的。<code>test runner</code>处理的事情有 加载你的测试package和需要在设备上测试的app，运行你的测试，还有报告测试结果。这个类会替换掉只支持<code>JUnit 3</code>测试的<a href="http://developer.android.com/reference/android/test/InstrumentationTestRunner.html" target="_blank" rel="noopener">InstrumentationTestRunner</a>类。</p>
+<p>这个<code>test runner</code>的关键特性包括：</p>
+<ul>
+<li><p><a href="http://developer.android.com/tools/testing-support-library/index.html#ajur-junit" target="_blank" rel="noopener">JUnit的支持</a></p>
+</li>
+<li><p><a href="http://developer.android.com/tools/testing-support-library/index.html#ajur-instrumentation" target="_blank" rel="noopener">访问instrumentation信息</a></p>
+</li>
+<li><p><a href="http://developer.android.com/tools/testing-support-library/index.html#ajur-filtering" target="_blank" rel="noopener">测试过滤</a></p>
+</li>
+<li><p><a href="http://developer.android.com/tools/testing-support-library/index.html#ajur-sharding" target="_blank" rel="noopener">测试拆分</a></p>
+</li>
+</ul>
+<p>需要 Android2.2(API level 8) 或者更高。</p>
+<h4 id="JUnit的支持"><a href="#JUnit的支持" class="headerlink" title="JUnit的支持"></a>JUnit的支持</h4><p><code>Rest runner</code>兼容<code>JUnit 3</code>和<code>JUnit 4</code>（最高到<code>JUnit 4.10</code>）的测试。不管怎样，你应该避免在一个package中混合使用JUnit 3和 JUnit 4的代码，因为这样做可能会引发一些预料之外的问题。如果你创建了一个JUnit 4的测试类在设备或者模拟器上运行时，你的测试类必须要加上<code>@RunWith(AndroidJUnit4.class)</code>注解作为前缀。</p>
+<p>下面的代码片段展示了你应该怎么去编写一个JUnit 4测试来验证<code>CalculatorActivity</code>类中的<code>add</code>操作是正确执行的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> android.support.test.runner.AndroidJUnit4;</span><br><span class="line"><span class="keyword">import</span> android.support.test.runner.AndroidJUnitRunner;</span><br><span class="line"><span class="keyword">import</span> android.test.ActivityInstrumentationTestCase2;</span><br><span class="line"></span><br><span class="line"><span class="meta">@RunWith</span>(AndroidJUnit4.class)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CalculatorInstrumentationTest</span></span></span><br><span class="line"><span class="class">        <span class="keyword">extends</span> <span class="title">ActivityInstrumentationTestCase2</span>&lt;<span class="title">CalculatorActivity</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Before</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUp</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.setUp();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 当你使用`AndroidJUnitRunner`运行测试时，</span></span><br><span class="line">        <span class="comment">// 注入Instrumentation实例是必要的。</span></span><br><span class="line">        injectInstrumentation(InstrumentationRegistry.getInstrumentation());</span><br><span class="line">        mActivity = getActivity();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">typeOperandsAndPerformAddOperation</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 调用CalculatorActivity add()方法并传入一些操作数据，</span></span><br><span class="line">        <span class="comment">// 然后检查返回值是否是期望值</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@After</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">tearDown</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.tearDown();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="访问instrumentation信息"><a href="#访问instrumentation信息" class="headerlink" title="访问instrumentation信息"></a>访问instrumentation信息</h4><p>你可以使用 <a href="http://developer.android.com/reference/android/support/test/InstrumentationRegistry.html" target="_blank" rel="noopener"><code>InstrumentationRegistry</code></a> 类来访问你测试的app的相关信息。这个类包含一个 <a href="http://developer.android.com/reference/android/app/Instrumentation.html" target="_blank" rel="noopener"><code>Instrumentation</code></a> 对象，目标app的 <a href="http://developer.android.com/reference/android/content/Context.html" target="_blank" rel="noopener"><code>Context</code></a> 对象，还有你通过命令行传入到该测试的参数。这个数据在你使用UI Automator框架编写测试或者编写一些依赖 <a href="http://developer.android.com/reference/android/app/Instrumentation.html" target="_blank" rel="noopener"><code>Instrumentation</code></a> 或者 <a href="http://developer.android.com/reference/android/content/Context.html" target="_blank" rel="noopener"><code>Context</code></a> 对象的测试的时候是很有用的。</p>
+<h4 id="测试过滤"><a href="#测试过滤" class="headerlink" title="测试过滤"></a>测试过滤</h4><p>在你的 JUnit 4 测试中， 你可以使用注解来配置你的测试的运行。这会最大限度地减少你测试中需要的模版代码和有条件的代码。除了 JUnit 4 支持的标准注解，<code>test runner</code>也支持一些针对Android的特殊的注解，包括：</p>
+<ul>
+<li><p><a href="http://developer.android.com/reference/android/support/test/filters/RequiresDevice.html" target="_blank" rel="noopener"><code>@RequiresDevice</code></a>：指明这个测试只能运行的物理设备上面，而不是模拟器上面。</p>
+</li>
+<li><p><a href="http://developer.android.com/reference/android/support/test/filters/SdkSuppress.html" target="_blank" rel="noopener"><code>@SdkSupress</code></a>：限制这个测试运行在低于给定的Android API level。举个例子，限制测试运行在API level低于18的环境下，使用注解 <code>@SDKSupress(minSdkVersion=18)</code>。</p>
+</li>
+<li><p><a href="http://developer.android.com/reference/android/test/suitebuilder/annotation/SmallTest.html" target="_blank" rel="noopener"><code>@SmallTest</code></a>，<a href="http://developer.android.com/reference/android/test/suitebuilder/annotation/MediumTest.html" target="_blank" rel="noopener"><code>@MediumTest</code></a>，和<a href="http://developer.android.com/reference/android/test/suitebuilder/annotation/LargeTest.html" target="_blank" rel="noopener"><code>@LargeTest</code></a>：对测试需要的时间运行来分类，因此，可以决定是否可以经常运行该测试。</p>
+</li>
+</ul>
+<h4 id="测试拆分"><a href="#测试拆分" class="headerlink" title="测试拆分"></a>测试拆分</h4><p><code>Test runner</code> 支持把一个测试套件分割成多个碎片，所以你可以很简单地运行属于通过碎片分组的所有测试，并且它们使用同一个 <a href="http://developer.android.com/reference/android/app/Instrumentation.html" target="_blank" rel="noopener"><code>Instrumentation</code></a> 实例。每一个碎片都有一个索引编号（index number）作为它的唯一识别。当运行测试时，使用 <code>-e numShards</code> 选项来指定要创建的碎片的数量和 <code>-e shardIndex</code> 选项来指定哪些碎片运行。</p>
+<p>举个例子，把一个测试套件分割成10个碎片，并且只运行被分组的测试中的第二个碎片，使用以下的命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb shell am instrument -w -e numShards 10 -e shardIndex 2</span><br></pre></td></tr></table></figure>
+<p>这个 <code>test runner</code> 的更多相关学习，见 <a href="http://developer.android.com/reference/android/support/test/package-summary.html" target="_blank" rel="noopener">API reference</a>。</p>
+<h3 id="Espresso"><a href="#Espresso" class="headerlink" title="Espresso"></a>Espresso</h3><p>Espresso 测试框架提供了一系列的API用于构建UI测试来测试app内用户流操作。这些API让你可以编写简洁可靠的自动化UI测试。<strong>Espresso非常适合用来编写白盒测试</strong>，其中测试代码的编写是利用了被测试app中程序代码实现细节。</p>
+<p>Espresso测试框架的关键特性包括：</p>
+<ul>
+<li><p>提供了灵活的API用于匹配目标app中<code>view</code>和<code>adapter</code>。更多的信息，见 <a href="http://developer.android.com/tools/testing-support-library/index.html#espresso-matching" target="_blank" rel="noopener">View 匹配</a></p>
+</li>
+<li><p>大而全的 <code>行为 api</code>（action APIs） 用于自动化UI交互。更多的信息，见 <a href="http://developer.android.com/tools/testing-support-library/index.html#espresso-actions" target="_blank" rel="noopener">行为 APIs</a></p>
+</li>
+<li><p>UI线程同步来提高测试可靠性。更多信息，见 <a href="http://developer.android.com/tools/testing-support-library/index.html#espresso-thread-sync" target="_blank" rel="noopener">UI 线程同步</a></p>
+</li>
+</ul>
+<p>需要 Android2.2(API level 8) 或者更高。</p>
+<h4 id="View-匹配"><a href="#View-匹配" class="headerlink" title="View 匹配"></a>View 匹配</h4><p><a href="http://developer.android.com/reference/android/support/test/espresso/Espresso.html#onView" target="_blank" rel="noopener"><code>Espresso.onView()</code></a> 方法可以让你访问目标app中的一个UI组件并与它交互。这个方法接收一个 <a href="http://hamcrest.org/JavaHamcrest/javadoc/1.3/org/hamcrest/Matcher.html" target="_blank" rel="noopener"><code>Matcher</code></a> 作为参数，然后根据我们给定的条件在view的层次结构中搜索出对应相符的<a href="http://developer.android.com/reference/android/view/View.html" target="_blank" rel="noopener"><code>View</code></a>实例。你可以使用如下的条件来优化你的搜索结果：</p>
+<ul>
+<li>View的类名</li>
+<li>View内容的描述（<code>content description</code>）</li>
+<li>View的<code>R.id</code></li>
+<li>View显示的文本</li>
+</ul>
+<p>举个例子，寻找一个ID为<code>my_button</code>的目标button，你可以如以下一样指定一个matcher：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">onView(withId(R.id.my_button));</span><br></pre></td></tr></table></figure>
+<p>如果搜索是成功的，<a href="http://developer.android.com/reference/android/support/test/espresso/Espresso.html#onView" target="_blank" rel="noopener"><code>onView()</code></a> 方法会返回一个可以让你执行用户行为和测试目标中对view断言的引用。</p>
+<h4 id="Adapter-匹配"><a href="#Adapter-匹配" class="headerlink" title="Adapter 匹配"></a>Adapter 匹配</h4><p>在一个 <a href="http://developer.android.com/reference/android/widget/AdapterView.html" target="_blank" rel="noopener"><code>AdapterView</code></a> 的布局中，布局是在运行时根据children动态填充的。如果目标view是在 <a href="http://developer.android.com/reference/android/widget/AdapterView.html" target="_blank" rel="noopener"><code>AdapterView</code></a> 子类（比如<a href="http://developer.android.com/reference/android/widget/ListView.html" target="_blank" rel="noopener"><code>ListView</code></a> 或者 <a href="http://developer.android.com/reference/android/widget/GridView.html" target="_blank" rel="noopener"><code>GridView</code></a>）的布局中的，<a href="http://developer.android.com/reference/android/support/test/espresso/Espresso.html#onView" target="_blank" rel="noopener"><code>onView()</code></a> 方法可能就不起作用了，因为当前加载的view层次结构可能只是layout的一个子集。</p>
+<p>替代方案是使用 <a href="http://developer.android.com/reference/android/support/test/espresso/Espresso.html#onData)" target="_blank" rel="noopener"><code>Espresso.onData()</code></a> 方法去访问一个目标view元素。<a href="http://developer.android.com/reference/android/support/test/espresso/Espresso.html#onData)" target="_blank" rel="noopener"><code>Espresso.onData()</code></a> 方法返回一个可以让你执行用户行为和测试目标 <a href="http://developer.android.com/reference/android/widget/AdapterView.html" target="_blank" rel="noopener"><code>AdapterView</code></a> 中对元素断言的引用。</p>
+<h4 id="行为-APIs"><a href="#行为-APIs" class="headerlink" title="行为 APIs"></a>行为 APIs</h4><p>典型的，你可以通过对app的用户界面执行一些用户交互来测试app。在你的测试中使用 <a href="http://developer.android.com/reference/android/support/test/espresso/action/ViewActions.html" target="_blank" rel="noopener"><code>ViewActions</code></a> API 可以让你很容易地自动化这些行为。你可以通过以下方式执行这些UI交互：</p>
+<ul>
+<li><p>View的点击</p>
+</li>
+<li><p>滑动</p>
+</li>
+<li><p>按键和按钮的按下</p>
+</li>
+<li><p>输入文本</p>
+</li>
+<li><p>打开一个链接</p>
+</li>
+</ul>
+<p>举个例子，模拟输入一个字符串数据并按下按钮来提交这个值，你可以像这样编写一个自动化测试脚本。 <a href="http://developer.android.com/reference/android/support/test/espresso/ViewInteraction.html#perform(android.support.test.espresso.ViewAction..." target="_blank" rel="noopener"><code>ViewInteraction.preform()</code></a>) 和 <a href="http://developer.android.com/reference/android/support/test/espresso/DataInteraction.html#perform(android.support.test.espresso.ViewAction..." target="_blank" rel="noopener"><code>DataInteraction.perform()</code></a>) 方法接收一个或者多个<a href="http://developer.android.com/reference/android/support/test/espresso/ViewAction.html" target="_blank" rel="noopener"><code>ViewAction</code></a> 参数并且按照提供的顺序执行这些<code>actions</code>。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在一个EditText中输入文本信息，然后关闭软键盘</span></span><br><span class="line">onView(withId(R.id.editTextUserInput))</span><br><span class="line">    .perform(typeText(STRING_TO_BE_TYPED), closeSoftKeyboard());</span><br><span class="line"></span><br><span class="line"><span class="comment">// 按下按钮来提交改变的文本</span></span><br><span class="line">onView(withId(R.id.changeTextBt)).perform(click());</span><br></pre></td></tr></table></figure>
+<h4 id="UI线程同步"><a href="#UI线程同步" class="headerlink" title="UI线程同步"></a>UI线程同步</h4><p>在Android设备上测试可能由于时间的关系会随机性地失败。这个测试问题称为test flakiness（测试片状）。在Espresso之前，变通的办法是在测试中插入足够长的睡眠或者一段时间后超时，或者增加在操作失败之后保持重试的代码。Espresso测试框架会在<a href="http://developer.android.com/reference/android/app/Instrumentation.html" target="_blank" rel="noopener"><code>Instrumentation</code></a>和UI线程之间保持同步；这样就可以去掉之前因为时间问题使用的变通的方法，并且确保你测试的行为和断言运行更加可靠。</p>
+<p>更多Espresso的相关学习，见 <a href="http://developer.android.com/reference/android/support/test/package-summary.html" target="_blank" rel="noopener">API reference</a> 和 <a href="http://developer.android.com/training/testing/ui-testing/espresso-testing.html" target="_blank" rel="noopener">针对单个App的UI测试</a> 练习。</p>
+<h3 id="UI-Automator"><a href="#UI-Automator" class="headerlink" title="UI Automator"></a>UI Automator</h3><p>UI Automator测试框架提供了一系列的API来构建在用户app和系统app之间的UI测试。UI Automator APIs  允许你在测试设备中执行例如打开设置菜单或者launcher等操作。<strong>UI Automator 测试框架非常适合用来写黑盒测试</strong>，其中测试代码的编写不需要依赖于目标app的内部实现细节。</p>
+<p>UI Automator测试框架的关键特性包括：</p>
+<ul>
+<li><p>检查layout层次结构的Viewer。更多信息，见 <a href="http://developer.android.com/tools/testing-support-library/index.html#uia-viewer" target="_blank" rel="noopener"><code>UI Automator Viewer</code></a>。</p>
+</li>
+<li><p>一个用于在目标设备上获取状态信息和执行操作的API。更多信息，见 <a href="http://developer.android.com/tools/testing-support-library/index.html#uia-device-state" target="_blank" rel="noopener"><code>访问设备状态</code></a></p>
+</li>
+<li><p>跨app的UI测试APIs。更多信息，见 <a href="http://developer.android.com/tools/testing-support-library/index.html#uia-apis" target="_blank" rel="noopener"><code>UI automator APIS</code></a></p>
+</li>
+</ul>
+<p>需要 Android4.3(API level 18) 或者更高。</p>
+<h4 id="UI-Automator-Viewer"><a href="#UI-Automator-Viewer" class="headerlink" title="UI Automator Viewer"></a>UI Automator Viewer</h4><p><code>uiautomatorviewer</code> 工具提供了一个方便的GUI来扫描和分析当前在Android设备上显示的UI组件。你可以使用这些工具来检查layout层次结构和查看在设备前台可见的组件的属性。这个信息可以让你使用UI Automator创建更加细粒度的测试，比如创建一个匹配指定的可见性属性的UI选择器。</p>
+<p><code>uiautomatorviewer</code> 工具在 <code>&lt;android-sdk&gt;/tools/</code> 目录下。</p>
+<h4 id="访问设备状态"><a href="#访问设备状态" class="headerlink" title="访问设备状态"></a>访问设备状态</h4><p>UI Automator测试框架提供了一个 <a href="http://developer.android.com/reference/android/support/test/uiautomator/UiDevice.html" target="_blank" rel="noopener"><code>UIDevice</code></a> 类在目标app运行的设备上访问和执行操作。你可以调用它的方法来访问如当前的设备定向活着显示尺寸等设备属性。 <a href="http://developer.android.com/reference/android/support/test/uiautomator/UiDevice.html" target="_blank" rel="noopener"><code>UIDevice</code></a> 类也可以让你执行一些如下的行为：</p>
+<ul>
+<li><p>旋转设备</p>
+</li>
+<li><p>按下 <code>D-pad</code> 键</p>
+</li>
+<li><p>按下返回键、Home键、菜单键</p>
+</li>
+<li><p>打开通知栏</p>
+</li>
+<li><p>当前的窗口截图</p>
+</li>
+</ul>
+<p>举个例子，模拟按下Home按钮，调用 <code>UiDevice.pressHome()</code> 方法。</p>
+<h4 id="UI-Automator-APIs"><a href="#UI-Automator-APIs" class="headerlink" title="UI Automator APIs"></a>UI Automator APIs</h4><p>UI Automator APIs 允许你在不需要知道目标app实现细节的情况下去编写强大的测试。你可以使用这些APIs来捕获和操作跨越多个app的UI组件：</p>
+<ul>
+<li><p><a href="http://developer.android.com/reference/android/support/test/uiautomator/UiCollection.html" target="_blank" rel="noopener"><code>UiCollection</code></a>：枚举容器中的UI元素来计数，或者通过子元素的可见text或<code>content-description</code>属性来作为一个目标。</p>
+</li>
+<li><p><a href="http://developer.android.com/reference/android/support/test/uiautomator/UiObject.html" target="_blank" rel="noopener"><code>UiObject</code></a>：代表在设备上一个可见的UI元素。</p>
+</li>
+<li><p><a href="http://developer.android.com/reference/android/support/test/uiautomator/UiScrollable.html" target="_blank" rel="noopener"><code>UiScrollable</code></a>：对可滚动的UI容器中搜索UI元素提供支持。</p>
+</li>
+<li><p><a href="http://developer.android.com/reference/android/support/test/uiautomator/UiSelector.html" target="_blank" rel="noopener"><code>UiSelector</code></a>：代表一个设备上对一个或者多个目标UI元素的查询。</p>
+</li>
+<li><p><a href="http://developer.android.com/reference/android/support/test/uiautomator/Configurator.html" target="_blank" rel="noopener"><code>Configurator</code></a>：允许你设置UI Automator测试的关键参数。</p>
+</li>
+</ul>
+<p>举个例子，下面的代码展示了怎么样去编写一个测试脚本来获取默认的app launcher：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 初始化 UiDevice 实例</span></span><br><span class="line">mDevice = UiDevice.getInstance(getInstrumentation());</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在 HOME 按钮上执行一个短暂的按压</span></span><br><span class="line">mDevice().pressHome();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 通过匹配启动按钮的content-description来搜索一个UI组件</span></span><br><span class="line"><span class="comment">// 得到默认的launcher</span></span><br><span class="line">UiObject allAppsButton = mDevice</span><br><span class="line">        .findObject(<span class="keyword">new</span> UiSelector().description(<span class="string">"Apps"</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在得到的launcher 按钮上面执行一个点击</span></span><br><span class="line">allAppsButton.clickAndWaitForNewWindow();</span><br></pre></td></tr></table></figure>
+<p>更多UI Automator相关学习，见 <a href="http://developer.android.com/reference/android/support/test/package-summary.html" target="_blank" rel="noopener">API reference</a> 和 <a href="http://developer.android.com/training/testing/ui-testing/uiautomator-testing.html" target="_blank" rel="noopener">多App的UI测试</a> 练习。</p>
+<h2 id="Testing-Support-Library-Setup"><a href="#Testing-Support-Library-Setup" class="headerlink" title="Testing Support Library Setup"></a>Testing Support Library Setup</h2><p>Android Testing Support Library package已经包含在最新版本的作为补充库、可在SDK Manager中下载的Android Support Repository中。</p>
+<p>通过SDK Manager下载Android Support Repository：</p>
+<p>1. 启动 <a href="http://developer.android.com/tools/help/sdk-manager.html" target="_blank" rel="noopener">Android SDK Manager</a>。</p>
+<p>2. 在SDK Manager窗口，滚动到Packages列表的最底部，找到<code>Extras</code>目录，如果需要，把它展开显示它的内容。</p>
+<p>3. 找到 <strong>Android Support Repository</strong> 项。</p>
+<p>4. 点击 <strong>Install packages…</strong> 按钮。</p>
+<p>下载完之后，工具把Support Repository文件安装在存在的Android SDK目录。库文件会被放置在你SDK目录的子目录中：<code>&lt;sdk&gt;/extras/android/m2respository</code> 目录。</p>
+<p>Android Testing Support Library 类被放置在<code>android.support.test</code>包下面。</p>
+<p>为了在你的Gradle项目中使用Android Testing Support Library，在你的<code>build.gradle</code>文件中增加如下依赖：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">  androidTestCompile <span class="string">'com.android.support.test:runner:0.4'</span></span><br><span class="line">  <span class="comment">// Set this dependency to use JUnit 4 rules</span></span><br><span class="line">  androidTestCompile <span class="string">'com.android.support.test:rules:0.4'</span></span><br><span class="line">  <span class="comment">// Set this dependency to build and run Espresso tests</span></span><br><span class="line">  androidTestCompile <span class="string">'com.android.support.test.espresso:espresso-core:2.2.1'</span></span><br><span class="line">  <span class="comment">// Set this dependency to build and run UI Automator tests</span></span><br><span class="line">  androidTestCompile <span class="string">'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>为了在你的Gradle项目中默认使用<a href="http://developer.android.com/reference/android/support/test/runner/AndroidJUnitRunner.html" target="_blank" rel="noopener">AndroidJUnitRunner</a>作为默认的instrumentation runner，在你的<code>build.gradle</code>文件中指定这个依赖：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">android &#123;</span><br><span class="line">    defaultConfig &#123;</span><br><span class="line">        testInstrumentationRunner <span class="string">"android.support.test.runner.AndroidJUnitRunner"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>强烈推荐你与Android Studio IDE一起使用Android Testing Support Library。Android Studio提供了支持测试开发的功能，比如：</p>
+<ul>
+<li><p>灵活并基于Gradle构建系统，支持对你测试代码的依赖管理。</p>
+</li>
+<li><p>单元和instrumented测试代码与你的app的源代码放置在单个项目结构中。</p>
+</li>
+<li><p>支持从命令行或者GUI来部署和运行你的测试在虚拟或者物理设备中。</p>
+</li>
+</ul>
+<p>更多Android Studio相关和下载，见 <a href="http://developer.android.com/sdk/index.html" target="_blank" rel="noopener">下载Android Studio和SDK Tools</a>。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/12/10/Android-对MVC和MVP的总结/" rel="next" title="[Android]对MVC和MVP的总结">
+                <i class="fa fa-chevron-left"></i> [Android]对MVC和MVP的总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/12/15/Android-官网《UI-Application-Exerciser-Monkey》中文翻译/" rel="prev" title="[Android]官网《UI/Application Exerciser Monkey》中文翻译">
+                [Android]官网《UI/Application Exerciser Monkey》中文翻译 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/my_avatar.jpg"
+                alt="Wang Jie" />
+            
+              <p class="site-author-name" itemprop="name">Wang Jie</p>
+              <p class="site-description motion-element" itemprop="description">Wang Jie's blog</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">144</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wangjiegulu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:tiantian.china.2@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/+%E5%A4%A9%E5%A4%A9wangjie" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/wangjiegulu" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://stackoverflow.com/users/2124006/wangjie" target="_blank" title="StackOverflow">
+                      
+                        <i class="fa fa-fw fa-stack-overflow"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/wangjiegulu" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.cnblogs.com/tiantianbyconan/" title="cnblog" target="_blank">cnblog</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Testing-Support-Library"><span class="nav-text">Testing Support Library</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Testing-Support-Library的特性"><span class="nav-text">Testing Support Library的特性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#AndroidJUnitRunner"><span class="nav-text">AndroidJUnitRunner</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JUnit的支持"><span class="nav-text">JUnit的支持</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#访问instrumentation信息"><span class="nav-text">访问instrumentation信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#测试过滤"><span class="nav-text">测试过滤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#测试拆分"><span class="nav-text">测试拆分</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Espresso"><span class="nav-text">Espresso</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#View-匹配"><span class="nav-text">View 匹配</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Adapter-匹配"><span class="nav-text">Adapter 匹配</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#行为-APIs"><span class="nav-text">行为 APIs</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UI线程同步"><span class="nav-text">UI线程同步</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UI-Automator"><span class="nav-text">UI Automator</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#UI-Automator-Viewer"><span class="nav-text">UI Automator Viewer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#访问设备状态"><span class="nav-text">访问设备状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UI-Automator-APIs"><span class="nav-text">UI Automator APIs</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Testing-Support-Library-Setup"><span class="nav-text">Testing Support Library Setup</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wang Jie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://blog-wangjiegulu-com.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://blog.wangjiegulu.com/2015/12/15/Android-官网《Testing-Support-Library》中文翻译/';
+          this.page.identifier = '2015/12/15/Android-官网《Testing-Support-Library》中文翻译/';
+          this.page.title = '[Android]官网《Testing Support Library》中文翻译';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://blog-wangjiegulu-com.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "default";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "GooglePlus,Evernote,Twitter,Facebook,Douban,Weibo";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

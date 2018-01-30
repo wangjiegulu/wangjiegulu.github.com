@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="WAND JIE" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="今天我们来更深入了解一下Android开发上的模糊技术。我读过几篇有关的文章，也在StackOverFlow上看过一些相关教程的帖子，所以我想在这里总结一下学到的东西。 为什么学习这个模糊技术？现在越来越多的开发者喜欢在自定义控件的时候加上各种模糊背景，看看RomanNurik开发的Muzei或者Yahoo的Weather应用app都非常不错。我非常喜欢他们的设计。 我从Mark Allison的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android高级模糊技术[转]">
+<meta property="og:url" content="http://blog.wangjiegulu.com/2014/03/28/Android高级模糊技术-转/index.html">
+<meta property="og:site_name" content="WAND JIE">
+<meta property="og:description" content="今天我们来更深入了解一下Android开发上的模糊技术。我读过几篇有关的文章，也在StackOverFlow上看过一些相关教程的帖子，所以我想在这里总结一下学到的东西。 为什么学习这个模糊技术？现在越来越多的开发者喜欢在自定义控件的时候加上各种模糊背景，看看RomanNurik开发的Muzei或者Yahoo的Weather应用app都非常不错。我非常喜欢他们的设计。 我从Mark Allison的">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://www.linuxeden.com/upimg/allimg/140328/0S1031332-0.png">
+<meta property="og:image" content="http://www.linuxeden.com/upimg/allimg/140328/0S1032447-1.png">
+<meta property="og:image" content="http://www.linuxeden.com/upimg/allimg/140328/0S10323F-2.png">
+<meta property="og:image" content="http://www.linuxeden.com/upimg/allimg/140328/0S10345Z-3.png">
+<meta property="og:updated_time" content="2018-01-29T12:36:41.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android高级模糊技术[转]">
+<meta name="twitter:description" content="今天我们来更深入了解一下Android开发上的模糊技术。我读过几篇有关的文章，也在StackOverFlow上看过一些相关教程的帖子，所以我想在这里总结一下学到的东西。 为什么学习这个模糊技术？现在越来越多的开发者喜欢在自定义控件的时候加上各种模糊背景，看看RomanNurik开发的Muzei或者Yahoo的Weather应用app都非常不错。我非常喜欢他们的设计。 我从Mark Allison的">
+<meta name="twitter:image" content="http://www.linuxeden.com/upimg/allimg/140328/0S1031332-0.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.wangjiegulu.com/2014/03/28/Android高级模糊技术-转/"/>
+
+
+
+
+
+  <title>Android高级模糊技术[转] | WAND JIE</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-111189680-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">WAND JIE</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">TO BE AN ARTIST-ENGINNER</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.wangjiegulu.com/2014/03/28/Android高级模糊技术-转/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wang Jie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/my_avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WAND JIE">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android高级模糊技术[转]</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-03-28T10:46:00+08:00">
+                2014-03-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2014/03/28/Android高级模糊技术-转/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2014/03/28/Android高级模糊技术-转/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>今天我们来更深入了解一下Android开发上的模糊技术。我读过几篇有关的文章，也在StackOverFlow上看过一些相关教程的帖子，所以我想在这里总结一下学到的东西。</p>
+<h3 id="为什么学习这个模糊技术？"><a href="#为什么学习这个模糊技术？" class="headerlink" title="为什么学习这个模糊技术？"></a>为什么学习这个模糊技术？</h3><p>现在越来越多的开发者喜欢在自定义控件的时候加上各种模糊背景，看看RomanNurik开发的<a href="https://play.google.com/store/apps/details?id=net.nurik.roman.muzei" target="_blank" rel="noopener">Muzei</a>或者Yahoo的<a href="https://play.google.com/store/apps/details?id=com.yahoo.mobile.client.android.weather" target="_blank" rel="noopener">Weather应用</a>app都非常不错。我非常喜欢他们的设计。</p>
+<p>我从<strong>Mark Allison</strong>的帖子(<a href="http://blog.stylingandroid.com/archives/2304" target="_blank" rel="noopener">帖子地址</a>)得到启发，然后写了这篇文章。</p>
+<p>这是我们需要完成下图展示的效果：</p>
+<p><a href="http://www.linuxeden.com/upimg/allimg/140328/0S1031332-0.png" title="Android高级模糊技术" target="_blank" rel="noopener"><img src="http://www.linuxeden.com/upimg/allimg/140328/0S1031332-0.png" alt="1"></a></p>
+<h3 id="预备知识"><a href="#预备知识" class="headerlink" title="预备知识"></a>预备知识</h3><p>首先描述一下我们需要的文件。我们需要一个主<code>Activity</code>，里面有一个含有多个<code>Fragment</code>的<code>ViewPager</code>，每个<code>Fragment</code>展示一种模糊技术。</p>
+<p><span>这是主</span><code>Activity</code><span>的布局文件内容：</span></p>
+<div class="cnblogs_code"><br><pre><span style="color: #008080;">1</span> <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">android.support.v4.view.ViewPager<br></span><span style="color: #008080;">2</span> <span style="color: #ff0000;">xmlns:android</span><span style="color: #0000ff;">=”<a href="http://schemas.android.com/apk/res/android" target="_blank" rel="noopener">http://schemas.android.com/apk/res/android</a>“</span><br><span style="color: #008080;">3</span> <span style="color: #ff0000;">    xmlns:tools</span><span style="color: #0000ff;">=”<a href="http://schemas.android.com/tools" target="_blank" rel="noopener">http://schemas.android.com/tools</a>“</span><br><span style="color: #008080;">4</span> <span style="color: #ff0000;">    android:id</span><span style="color: #0000ff;">=”@+id/pager”</span><br><span style="color: #008080;">5</span> <span style="color: #ff0000;">    android:layout_width</span><span style="color: #0000ff;">=”match_parent”</span><br><span style="color: #008080;">6</span> <span style="color: #ff0000;">    android:layout_height</span><span style="color: #0000ff;">=”match_parent”</span><br><span style="color: #008080;">7</span> <span style="color: #ff0000;">    tools:context</span><span style="color: #0000ff;">=”com.paveldudka.MainActivity”</span> <span style="color: #0000ff;">/&gt;</span></pre><br></div>
+
+<p><span>这是</span><code>Fragment</code><span>的布局文件内容：</span></p>
+<div class="cnblogs_code"><br><pre><span style="color: #008080;"> 1</span> <span style="color: #0000ff;">&lt;?</span><span style="color: #ff00ff;">xml version=”1.0” encoding=”utf-8”</span><span style="color: #0000ff;">?&gt;</span><br><span style="color: #008080;"> 2</span><br><span style="color: #008080;"> 3</span> <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">FrameLayout </span><span style="color: #ff0000;">xmlns:android</span><span style="color: #0000ff;">=”<a href="http://schemas.android.com/apk/res/android" target="_blank" rel="noopener">http://schemas.android.com/apk/res/android</a>“</span><br><span style="color: #008080;"> 4</span> <span style="color: #ff0000;">    android:layout_width</span><span style="color: #0000ff;">=”match_parent”</span><br><span style="color: #008080;"> 5</span> <span style="color: #ff0000;">    android:layout_height</span><span style="color: #0000ff;">=”match_parent”</span><span style="color: #0000ff;">&gt;</span><br><span style="color: #008080;"> 6</span><br><span style="color: #008080;"> 7</span>     <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">ImageView<br></span><span style="color: #008080;"> 8</span>         <span style="color: #ff0000;">android:id</span><span style="color: #0000ff;">=”@+id/picture”</span><br><span style="color: #008080;"> 9</span> <span style="color: #ff0000;">        android:layout_width</span><span style="color: #0000ff;">=”match_parent”</span><br><span style="color: #008080;">10</span> <span style="color: #ff0000;">        android:layout_height</span><span style="color: #0000ff;">=”match_parent”</span><br><span style="color: #008080;">11</span> <span style="color: #ff0000;">        android:src</span><span style="color: #0000ff;">=”@drawable/picture”</span><br><span style="color: #008080;">12</span> <span style="color: #ff0000;">        android:scaleType</span><span style="color: #0000ff;">=”centerCrop”</span> <span style="color: #0000ff;">/&gt;</span><br><span style="color: #008080;">13</span><br><span style="color: #008080;">14</span>     <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">TextView<br></span><span style="color: #008080;">15</span>         <span style="color: #ff0000;">android:id</span><span style="color: #0000ff;">=”@+id/text”</span><br><span style="color: #008080;">16</span> <span style="color: #ff0000;">        android:gravity</span><span style="color: #0000ff;">=”center_horizontal”</span><br><span style="color: #008080;">17</span> <span style="color: #ff0000;">        android:layout_width</span><span style="color: #0000ff;">=”match_parent”</span><br><span style="color: #008080;">18</span> <span style="color: #ff0000;">        android:layout_height</span><span style="color: #0000ff;">=”wrap_content”</span><br><span style="color: #008080;">19</span> <span style="color: #ff0000;">        android:text</span><span style="color: #0000ff;">=”My super text”</span><br><span style="color: #008080;">20</span> <span style="color: #ff0000;">        android:textColor</span><span style="color: #0000ff;">=”&lt;a href=”</span><span style="color: #ff0000;"><a href="http://www.jobbole.com/members/android/" target="_blank" rel="noopener">http://www.jobbole.com/members/android/</a>“ rel</span><span style="color: #0000ff;">=”nofollow”</span><span style="color: #0000ff;">&gt;</span>@android<span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">a</span><span style="color: #0000ff;">&gt;</span><span style="color: #000000;">:color/white”<br></span><span style="color: #008080;">21</span> <span style="color: #000000;">        android:layout_gravity=”center_vertical”<br></span><span style="color: #008080;">22</span> <span style="color: #000000;">        android:textStyle=”bold”<br></span><span style="color: #008080;">23</span> <span style="color: #000000;">        android:textSize=”48sp” /&gt;<br></span><span style="color: #008080;">24</span>     <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">LinearLayout<br></span><span style="color: #008080;">25</span>         <span style="color: #ff0000;">android:id</span><span style="color: #0000ff;">=”@+id/controls”</span><br><span style="color: #008080;">26</span> <span style="color: #ff0000;">        android:layout_width</span><span style="color: #0000ff;">=”match_parent”</span><br><span style="color: #008080;">27</span> <span style="color: #ff0000;">        android:layout_height</span><span style="color: #0000ff;">=”wrap_content”</span><br><span style="color: #008080;">28</span> <span style="color: #ff0000;">        android:background</span><span style="color: #0000ff;">=”#7f000000”</span><br><span style="color: #008080;">29</span> <span style="color: #ff0000;">        android:orientation</span><span style="color: #0000ff;">=”vertical”</span><br><span style="color: #008080;">30</span> <span style="color: #ff0000;">        android:layout_gravity</span><span style="color: #0000ff;">=”bottom”</span><span style="color: #0000ff;">/&gt;</span><br><span style="color: #008080;">31</span> <span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">FrameLayout</span><span style="color: #0000ff;">&gt;</span></pre><br></div>
+
+<p>我们只是在布局上放了一个<code>ImageView</code>，然后在中间加一个<code>TextView</code>，还有一些作为效果显示和测试的控件（如 @+id/controls）。</p>
+<p>最普遍的模糊技术是这样做的：</p>
+<ul>
+<li>从<code>TextView</code>的后一层背景中截取一部分；</li>
+<li>进行模糊处理；</li>
+<li>把模糊处理后的部分设置为<code>TextView</code>的背景。</li>
+</ul>
+<h3 id="Renderscript"><a href="#Renderscript" class="headerlink" title="Renderscript"></a>Renderscript</h3><p>那怎么在Android中实现模糊处理呢？最好的答案就是Renderscript。这是一个功能强大的图形处理&ldquo;引擎&rdquo;。RenderScript的底层原理就不做介绍了（因为我也不知道），而且这超过了我们这篇文章的范围。</p>
+<p>先看下面的代码：</p>
+<div class="cnblogs_code"><br><pre><span style="color: #008080;"> 1</span> <span style="color: #000000;">public class RSBlurFragment extends Fragment {<br></span><span style="color: #008080;"> 2</span> <span style="color: #000000;">    private ImageView image;<br></span><span style="color: #008080;"> 3</span> <span style="color: #000000;">    private TextView text;<br></span><span style="color: #008080;"> 4</span> <span style="color: #000000;">    private TextView statusText;<br></span><span style="color: #008080;"> 5</span><br><span style="color: #008080;"> 6</span> <span style="color: #000000;">    @Override<br></span><span style="color: #008080;"> 7</span> <span style="color: #000000;">    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {<br></span><span style="color: #008080;"> 8</span> <span style="color: #000000;">        View view = inflater.inflate(R.layout.fragment_layout, container, false);<br></span><span style="color: #008080;"> 9</span> <span style="color: #000000;">        image = (ImageView) view.findViewById(R.id.picture);<br></span><span style="color: #008080;">10</span> <span style="color: #000000;">        text = (TextView) view.findViewById(R.id.text);<br></span><span style="color: #008080;">11</span> <span style="color: #000000;">        statusText = addStatusText((ViewGroup) view.findViewById(R.id.controls));<br></span><span style="color: #008080;">12</span> <span style="color: #000000;">        applyBlur();<br></span><span style="color: #008080;">13</span> <span style="color: #000000;">        return view;<br></span><span style="color: #008080;">14</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">15</span><br><span style="color: #008080;">16</span> <span style="color: #000000;">    private void applyBlur() {<br></span><span style="color: #008080;">17</span> <span style="color: #000000;">        image.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {<br></span><span style="color: #008080;">18</span> <span style="color: #000000;">            @Override<br></span><span style="color: #008080;">19</span> <span style="color: #000000;">            public boolean onPreDraw() {<br></span><span style="color: #008080;">20</span> <span style="color: #000000;">                image.getViewTreeObserver().removeOnPreDrawListener(this);<br></span><span style="color: #008080;">21</span> <span style="color: #000000;">                image.buildDrawingCache();<br></span><span style="color: #008080;">22</span><br><span style="color: #008080;">23</span> <span style="color: #000000;">                Bitmap bmp = image.getDrawingCache();<br></span><span style="color: #008080;">24</span> <span style="color: #000000;">                blur(bmp, text);<br></span><span style="color: #008080;">25</span> <span style="color: #000000;">                return true;<br></span><span style="color: #008080;">26</span> <span style="color: #000000;">            }<br></span><span style="color: #008080;">27</span> <span style="color: #000000;">        });<br></span><span style="color: #008080;">28</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">29</span><br><span style="color: #008080;">30</span> <span style="color: #000000;">    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)<br></span><span style="color: #008080;">31</span> <span style="color: #000000;">    private void blur(Bitmap bkg, View view) {<br></span><span style="color: #008080;">32</span> <span style="color: #000000;">        long startMs = System.currentTimeMillis();<br></span><span style="color: #008080;">33</span><br><span style="color: #008080;">34</span> <span style="color: #000000;">        float radius = 20;<br></span><span style="color: #008080;">35</span><br><span style="color: #008080;">36</span> <span style="color: #000000;">        Bitmap overlay = Bitmap.createBitmap((int) (view.getMeasuredWidth()),<br></span><span style="color: #008080;">37</span> <span style="color: #000000;">                (int) (view.getMeasuredHeight()), Bitmap.Config.ARGB_8888);<br></span><span style="color: #008080;">38</span><br><span style="color: #008080;">39</span> <span style="color: #000000;">        Canvas canvas = new Canvas(overlay);<br></span><span style="color: #008080;">40</span><br><span style="color: #008080;">41</span> <span style="color: #000000;">        canvas.translate(-view.getLeft(), -view.getTop());<br></span><span style="color: #008080;">42</span> <span style="color: #000000;">        canvas.drawBitmap(bkg, 0, 0, null);<br></span><span style="color: #008080;">43</span><br><span style="color: #008080;">44</span> <span style="color: #000000;">        RenderScript rs = RenderScript.create(getActivity());<br></span><span style="color: #008080;">45</span><br><span style="color: #008080;">46</span> <span style="color: #000000;">        Allocation overlayAlloc = Allocation.createFromBitmap(<br></span><span style="color: #008080;">47</span> <span style="color: #000000;">                rs, overlay);<br></span><span style="color: #008080;">48</span><br><span style="color: #008080;">49</span> <span style="color: #000000;">        ScriptIntrinsicBlur blur = ScriptIntrinsicBlur.create(<br></span><span style="color: #008080;">50</span> <span style="color: #000000;">                rs, overlayAlloc.getElement());<br></span><span style="color: #008080;">51</span><br><span style="color: #008080;">52</span> <span style="color: #000000;">        blur.setInput(overlayAlloc);<br></span><span style="color: #008080;">53</span><br><span style="color: #008080;">54</span> <span style="color: #000000;">        blur.setRadius(radius);<br></span><span style="color: #008080;">55</span><br><span style="color: #008080;">56</span> <span style="color: #000000;">        blur.forEach(overlayAlloc);<br></span><span style="color: #008080;">57</span><br><span style="color: #008080;">58</span> <span style="color: #000000;">        overlayAlloc.copyTo(overlay);<br></span><span style="color: #008080;">59</span><br><span style="color: #008080;">60</span> <span style="color: #000000;">        view.setBackground(new BitmapDrawable(<br></span><span style="color: #008080;">61</span> <span style="color: #000000;">                getResources(), overlay));<br></span><span style="color: #008080;">62</span><br><span style="color: #008080;">63</span> <span style="color: #000000;">        rs.destroy();<br></span><span style="color: #008080;">64</span> <span style="color: #000000;">        statusText.setText(System.currentTimeMillis() - startMs + “ms”);<br></span><span style="color: #008080;">65</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">66</span><br><span style="color: #008080;">67</span> <span style="color: #000000;">    @Override<br></span><span style="color: #008080;">68</span> <span style="color: #000000;">    public String toString() {<br></span><span style="color: #008080;">69</span> <span style="color: #000000;">        return “RenderScript”;<br></span><span style="color: #008080;">70</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">71</span><br><span style="color: #008080;">72</span> <span style="color: #000000;">    private TextView addStatusText(ViewGroup container) {<br></span><span style="color: #008080;">73</span> <span style="color: #000000;">        TextView result = new TextView(getActivity());<br></span><span style="color: #008080;">74</span> <span style="color: #000000;">        result.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));<br></span><span style="color: #008080;">75</span> <span style="color: #000000;">        result.setTextColor(0xFFFFFFFF);<br></span><span style="color: #008080;">76</span> <span style="color: #000000;">        container.addView(result);<br></span><span style="color: #008080;">77</span> <span style="color: #000000;">        return result;<br></span><span style="color: #008080;">78</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">79</span> }</pre><br></div>
+
+<ul>
+<li>在<code>Fragment</code>创建的时候，我先载入了布局文件，然后把<code>TextView</code>添加到我在布局文件中定义的LinearLayout中（用来显示模糊效果，进行效果测试），最后对图片做模糊处理。</li>
+<li>在<code>applyBlur()</code>函数中我注册了<code>onPreDrawListener()</code>。因为在<code>applyBlur()</code>方法调用的时候界面还没有开始布局，所以我需要实现这个监听器否则不能进行模糊处理。需要等到布局文件全都经过<strong>measured</strong>、<strong>laid out</strong>、<strong>displayed</strong>的时候，才能进行操作。</li>
+<li>在<code>onPreDraw()</code>回调函数中，我首先把返回值<strong>false</strong>改成<strong>true</strong>。这个很重要，如果返回<strong>false</strong>的话，刚开始出现的那一帧画面会被跳过，但是我们需要显示这第一帧，所以要返回<strong>true</strong>。</li>
+<li>接着我去掉了里面的回调方法，因为我们不需要监听它的<code>preDraw</code>事件。</li>
+<li>然后我们需要从<code>ImageView</code>中获取<code>Bitmap</code>，然后用<code>getDrawingCache()</code>函数创建<strong>drawing cache</strong>并保存。</li>
+<li>最后就是进行模糊处理了，我们接下来会详细讨论这个环节。</li>
+</ul>
+<p>需要说明的是，我的代码中在两种情况下考虑不是很周全：</p>
+<ul>
+<li>在布局文件改变时不会再自动重新模糊处理。这个问题可以通过注册<code>onGlobalLayoutListener</code>监听器解决，在布局文件改变时重新进行模糊处理就可以了。</li>
+<li>这个模糊处理操作是在主线程中进行的。我们知道在实际开发中不会这么做，但是为了方便暂时先这么做了。</li>
+</ul>
+<p>现在回到<code>blur()</code>方法：</p>
+<ul>
+<li>首先我创建了一个空的bitmap，把背景的一部分复制进去，之后我会对这个bitmap进行模糊处理并设置为<code>TextView</code>的背景。</li>
+<li>通过这个bitmap保存<code>Canvas</code>的状态；</li>
+<li>在父布局文件中把<code>Canvas</code>移动到<code>TextView</code>的位置；</li>
+<li>把<code>ImageView</code>的内容绘到bitmap中；</li>
+<li>此时，我们就有了一个和<code>TextView</code>一样大小的bitmap，它包含了<code>ImageView</code>的一部分内容，也就是<code>TextView</code>背后一层布局的内容；</li>
+<li>创建一个Renderscript的实例；</li>
+<li>把bitmap复制一份到Renderscript需要的数据片中；</li>
+<li>创建Renderscript模糊处理的实例；</li>
+<li>设置输入，半径范围然后进行模糊处理；</li>
+<li>把处理后的结果复制回之前的bitmap中；</li>
+<li>好了，我们已经把bitmap惊醒模糊处理了，可以将它设置为<code>TextView</code>背景了；</li>
+</ul>
+<p>这是我们处理后的效果：</p>
+<p><a href="http://www.linuxeden.com/upimg/allimg/140328/0S1032447-1.png" title="Android高级模糊技术" target="_blank" rel="noopener"><img src="http://www.linuxeden.com/upimg/allimg/140328/0S1032447-1.png" alt="2"></a></p>
+<p>可以看到效果还不错，但是它用了57ms的时间。我们知道在Android中渲染一帧的时间应该不超过16ms（60fps），但如果在UI线程中做模糊处理就会让帧率降到了17fps。显然这是不可接受的，我们需要把这个操作移到<strong>AsyncTask</strong>上或者使用别的机制实现。</p>
+<p>而且有必要说明的是，<strong>ScriptIntrinsicBlur</strong>只支持API17以上，当然也可以用Renderscript的<strong>support lib</strong>降低一些API版本的要求。</p>
+<p>可是我们还是需要支持一些老一些的API版本，它们不支持Renderscript，现在我们看看该怎么办吧。</p>
+<h3 id="FastBlur"><a href="#FastBlur" class="headerlink" title="FastBlur"></a>FastBlur</h3><p>因为我们知道，这种模糊处理的过程也就是像素处理而已，所以我们可以尝试着手动进行模糊操作。幸运的是，Java上已经有了很多实现模糊处理方案的例子。我们唯一要做的就是找到一个相对快速的实现方案。</p>
+<p>感谢在StackOverFlow上的一篇帖子，我找到了一个能快速实现模糊处理的方案。先看看它是怎么样的。</p>
+<p>因为很多代码都是一样的，所以这里只讨论关于模糊处理的函数：</p>
+<div class="cnblogs_code"><br><pre><span style="color: #008080;"> 1</span> <span style="color: #000000;">private void blur(Bitmap bkg, View view) {<br></span><span style="color: #008080;"> 2</span> <span style="color: #000000;">    long startMs = System.currentTimeMillis();<br></span><span style="color: #008080;"> 3</span> <span style="color: #000000;">    float radius = 20;<br></span><span style="color: #008080;"> 4</span><br><span style="color: #008080;"> 5</span> <span style="color: #000000;">    Bitmap overlay = Bitmap.createBitmap((int) (view.getMeasuredWidth()),<br></span><span style="color: #008080;"> 6</span> <span style="color: #000000;">            (int) (view.getMeasuredHeight()), Bitmap.Config.ARGB_8888);<br></span><span style="color: #008080;"> 7</span> <span style="color: #000000;">    Canvas canvas = new Canvas(overlay);<br></span><span style="color: #008080;"> 8</span> <span style="color: #000000;">    canvas.translate(-view.getLeft(), -view.getTop());<br></span><span style="color: #008080;"> 9</span> <span style="color: #000000;">    canvas.drawBitmap(bkg, 0, 0, null);<br></span><span style="color: #008080;">10</span> <span style="color: #000000;">    overlay = FastBlur.doBlur(overlay, (int)radius, true);<br></span><span style="color: #008080;">11</span> <span style="color: #000000;">    view.setBackground(new BitmapDrawable(getResources(), overlay));<br></span><span style="color: #008080;">12</span> <span style="color: #000000;">    statusText.setText(System.currentTimeMillis() - startMs + “ms”);<br></span><span style="color: #008080;">13</span> }</pre><br></div>
+
+<p>实现的效果如下：</p>
+<p><a href="http://www.linuxeden.com/upimg/allimg/140328/0S10323F-2.png" title="Android高级模糊技术" target="_blank" rel="noopener"><img src="http://www.linuxeden.com/upimg/allimg/140328/0S10323F-2.png" alt="3"></a></p>
+<p>可以看到，模糊处理的效果也相当不错。使用FastBlur的好处是，我们可以去掉对Renderscript的依赖（还有最低API版本的限制）。但是可恶的是，理模糊操作竟然花费了147ms！这还不是最慢的<strong>SW</strong>模糊算法，我都不敢用高斯模糊了&hellip;</p>
+<h3 id="继续深入"><a href="#继续深入" class="headerlink" title="继续深入"></a>继续深入</h3><p>现在我们要想想该怎么做。模糊处理的过程都会有精度损失，你知道什么是精度损失吗？对，要降低尺寸。</p>
+<p>既然这样，为什么不把bitmap的尺寸先降低然后进行模糊处理，然后再放大尺寸呢？我试着实现了一下这个想法，这是处理后得到的效果：</p>
+<p><a href="http://www.linuxeden.com/upimg/allimg/140328/0S10345Z-3.png" title="Android高级模糊技术" target="_blank" rel="noopener"><img src="http://www.linuxeden.com/upimg/allimg/140328/0S10345Z-3.png" alt="4"></a></p>
+<p>看到了吗！Renderscript只用了13ms，FastBlur只用了2ms！还不错。</p>
+<p>再看看代码。这里只讨论FastBlur版本，因为Renderscript也是一样的，全部代码都可以从<span class="wp_keywordlink"><a href="http://blog.jobbole.com/6492/" title="GitHub如何运作系列文章" target="_blank" rel="noopener">GitHub</a></span>仓库中检出。</p>
+<div class="cnblogs_code"><br><pre><span style="color: #008080;"> 1</span> <span style="color: #000000;">private void blur(Bitmap bkg, View view) {<br></span><span style="color: #008080;"> 2</span> <span style="color: #000000;">    long startMs = System.currentTimeMillis();<br></span><span style="color: #008080;"> 3</span> <span style="color: #000000;">    float scaleFactor = 1;<br></span><span style="color: #008080;"> 4</span> <span style="color: #000000;">    float radius = 20;<br></span><span style="color: #008080;"> 5</span> <span style="color: #000000;">    if (downScale.isChecked()) {<br></span><span style="color: #008080;"> 6</span> <span style="color: #000000;">        scaleFactor = 8;<br></span><span style="color: #008080;"> 7</span> <span style="color: #000000;">        radius = 2;<br></span><span style="color: #008080;"> 8</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;"> 9</span><br><span style="color: #008080;">10</span> <span style="color: #000000;">    Bitmap overlay = Bitmap.createBitmap((int) (view.getMeasuredWidth()/scaleFactor),<br></span><span style="color: #008080;">11</span> <span style="color: #000000;">            (int) (view.getMeasuredHeight()/scaleFactor), Bitmap.Config.ARGB_8888);<br></span><span style="color: #008080;">12</span> <span style="color: #000000;">    Canvas canvas = new Canvas(overlay);<br></span><span style="color: #008080;">13</span> <span style="color: #000000;">    canvas.translate(-view.getLeft()/scaleFactor, -view.getTop()/scaleFactor);<br></span><span style="color: #008080;">14</span> <span style="color: #000000;">    canvas.scale(1 / scaleFactor, 1 / scaleFactor);<br></span><span style="color: #008080;">15</span> <span style="color: #000000;">    Paint paint = new Paint();<br></span><span style="color: #008080;">16</span> <span style="color: #000000;">    paint.setFlags(Paint.FILTER_BITMAP_FLAG);<br></span><span style="color: #008080;">17</span> <span style="color: #000000;">    canvas.drawBitmap(bkg, 0, 0, paint);<br></span><span style="color: #008080;">18</span><br><span style="color: #008080;">19</span> <span style="color: #000000;">    overlay = FastBlur.doBlur(overlay, (int)radius, true);<br></span><span style="color: #008080;">20</span> <span style="color: #000000;">    view.setBackground(new BitmapDrawable(getResources(), overlay));<br></span><span style="color: #008080;">21</span> <span style="color: #000000;">    statusText.setText(System.currentTimeMillis() - startMs + “ms”);<br></span><span style="color: #008080;">22</span> }</pre><br></div>
+
+<p>我们过一遍这个代码：</p>
+<ul>
+<li><strong>scaleFactor</strong>提供了需要缩小的等级，在代码中我把bitmap的尺寸缩小到原图的1/8。因为这个bitmap在模糊处理时会先被缩小然后再放大，所以在我的模糊算法中就不用<strong>radius</strong>这个参数了，所以把它设成2。</li>
+<li>接着需要创建bitmap，这个bitmap比最后需要的小八倍。</li>
+<li>请注意我给<strong>Paint</strong>提供了<strong>FILTER_BITMAP_FLAG</strong>标示，这样的话在处理bitmap缩放的时候，就可以达到双缓冲的效果，模糊处理的过程就更加顺畅了。</li>
+<li>接下来和之前一样进行模糊处理操作，这次的图片小了很多，幅度也降低了很多，所以模糊过程非常快。</li>
+<li>把模糊处理后的图片作为背景，它会自动进行放大操作的。</li>
+</ul>
+<p>之前说到FastBlur进行模糊操作比Renderscript还要快，这是因为FastBlur在进行bitmap复制操作时还会同时进行其他操作，节省了时间。经过了这些处理后，我们应该已经掌握了相对快速的模糊处理方案和原理，并去掉了对Renderscript的依赖。</p>
+<p>本文的示例代码：<a href="https://github.com/paveldudka/blurring" target="_blank" rel="noopener">GitHub &ndash; blurring</a>。</p>
+<p>&nbsp;</p>
+<p><span>原文链接：&nbsp;</span><a href="http://trickyandroid.com/advanced-blurring-techniques/" target="_blank" rel="noopener">trickyandroid</a><span>&nbsp;&nbsp;&nbsp;翻译：&nbsp;</span><a href="http://blog.jobbole.com/" target="_blank" rel="noopener">伯乐在线&nbsp;</a><span>-&nbsp;</span><a href="http://blog.jobbole.com/author/chris/" target="_blank" rel="noopener">chris</a><br><span>译文链接：&nbsp;</span><a href="http://blog.jobbole.com/63894/" target="_blank" rel="noopener">http://blog.jobbole.com/63894/</a></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/03/25/Android-AndroidInject增加sqlite3数据库映射注解-ORM/" rel="next" title="[Android]AndroidInject增加sqlite3数据库映射注解(ORM)">
+                <i class="fa fa-chevron-left"></i> [Android]AndroidInject增加sqlite3数据库映射注解(ORM)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/04/03/Android-对BaseAdapter中ViewHolder编写简化/" rel="prev" title="[Android]对BaseAdapter中ViewHolder编写简化">
+                [Android]对BaseAdapter中ViewHolder编写简化 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/my_avatar.jpg"
+                alt="Wang Jie" />
+            
+              <p class="site-author-name" itemprop="name">Wang Jie</p>
+              <p class="site-description motion-element" itemprop="description">Wang Jie's blog</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">144</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wangjiegulu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:tiantian.china.2@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/+%E5%A4%A9%E5%A4%A9wangjie" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/wangjiegulu" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://stackoverflow.com/users/2124006/wangjie" target="_blank" title="StackOverflow">
+                      
+                        <i class="fa fa-fw fa-stack-overflow"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/wangjiegulu" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.cnblogs.com/tiantianbyconan/" title="cnblog" target="_blank">cnblog</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么学习这个模糊技术？"><span class="nav-text">为什么学习这个模糊技术？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#预备知识"><span class="nav-text">预备知识</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Renderscript"><span class="nav-text">Renderscript</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FastBlur"><span class="nav-text">FastBlur</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#继续深入"><span class="nav-text">继续深入</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wang Jie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://blog-wangjiegulu-com.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://blog.wangjiegulu.com/2014/03/28/Android高级模糊技术-转/';
+          this.page.identifier = '2014/03/28/Android高级模糊技术-转/';
+          this.page.title = 'Android高级模糊技术[转]';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://blog-wangjiegulu-com.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "default";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "GooglePlus,Evernote,Twitter,Facebook,Douban,Weibo";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="WAND JIE" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="&amp;nbsp;Hibernate3注解 收藏&amp;nbsp;1、@Entity(name=”EntityName”)&amp;nbsp;必须,name为可选,对应数据库中一的个表 2、@Table(name=””,catalog=””,schema=””)&amp;nbsp;可选,通常和@Entity配合使用,只能标注在实体的class定义处,表示实体对应的数据库表的信息&amp;nbsp;name:可选,表示表的名称.默认地">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hibernate3注解[转]">
+<meta property="og:url" content="http://blog.wangjiegulu.com/2013/10/08/Hibernate3注解-转/index.html">
+<meta property="og:site_name" content="WAND JIE">
+<meta property="og:description" content="&amp;nbsp;Hibernate3注解 收藏&amp;nbsp;1、@Entity(name=”EntityName”)&amp;nbsp;必须,name为可选,对应数据库中一的个表 2、@Table(name=””,catalog=””,schema=””)&amp;nbsp;可选,通常和@Entity配合使用,只能标注在实体的class定义处,表示实体对应的数据库表的信息&amp;nbsp;name:可选,表示表的名称.默认地">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-01-29T12:36:41.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hibernate3注解[转]">
+<meta name="twitter:description" content="&amp;nbsp;Hibernate3注解 收藏&amp;nbsp;1、@Entity(name=”EntityName”)&amp;nbsp;必须,name为可选,对应数据库中一的个表 2、@Table(name=””,catalog=””,schema=””)&amp;nbsp;可选,通常和@Entity配合使用,只能标注在实体的class定义处,表示实体对应的数据库表的信息&amp;nbsp;name:可选,表示表的名称.默认地">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.wangjiegulu.com/2013/10/08/Hibernate3注解-转/"/>
+
+
+
+
+
+  <title>Hibernate3注解[转] | WAND JIE</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-111189680-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">WAND JIE</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">TO BE AN ARTIST-ENGINNER</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.wangjiegulu.com/2013/10/08/Hibernate3注解-转/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wang Jie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/my_avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WAND JIE">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Hibernate3注解[转]</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2013-10-08T14:40:00+08:00">
+                2013-10-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2013/10/08/Hibernate3注解-转/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2013/10/08/Hibernate3注解-转/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>&nbsp;Hibernate3注解 收藏&nbsp;<br>1、@Entity(name=”EntityName”)&nbsp;<br>必须,name为可选,对应数据库中一的个表</p>
+<p>2、@Table(name=””,catalog=””,schema=””)&nbsp;<br>可选,通常和@Entity配合使用,只能标注在实体的class定义处,表示实体对应的数据库表的信息&nbsp;<br>name:可选,表示表的名称.默认地,表名和实体名称一致,只有在不一致的情况下才需要指定表名&nbsp;<br>catalog:可选,表示Catalog名称,默认为Catalog(“”).&nbsp;<br>schema:可选,表示Schema名称,默认为Schema(“”).</p>
+<p>3、@id&nbsp;<br>必须&nbsp;<br>@id定义了映射到数据库表的主键的属性,一个实体只能有一个属性被映射为主键.置于getXxxx()前.</p>
+<p>4、@GeneratedValue(strategy=GenerationType,generator=””)&nbsp;<br>可选&nbsp;<br>strategy:表示主键生成策略,有AUTO,INDENTITY,SEQUENCE 和 TABLE 4种,分别表示让ORM框架自动选择,&nbsp;<br>根据数据库的Identity字段生成,根据数据库表的Sequence字段生成,以有根据一个额外的表生成主键,默认为AUTO&nbsp;<br>generator:表示主键生成器的名称,这个属性通常和ORM框架相关,例如,Hibernate可以指定uuid等主键生成方式.&nbsp;<br>示例:&nbsp;<br>&nbsp;&nbsp;&nbsp; @Id&nbsp;<br>&nbsp;&nbsp;&nbsp; @GeneratedValues(strategy=StrategyType.SEQUENCE)&nbsp;<br>&nbsp;&nbsp;&nbsp; public int getPk() {&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return pk;&nbsp;<br>&nbsp;&nbsp;&nbsp; }</p>
+<p>5、@Basic(fetch=FetchType,optional=true)&nbsp;<br>可选&nbsp;<br>@Basic表示一个简单的属性到数据库表的字段的映射,对于没有任何标注的getXxxx()方法,默认即为@Basic&nbsp;<br>fetch: 表示该属性的读取策略,有EAGER和LAZY两种,分别表示主支抓取和延迟加载,默认为EAGER.&nbsp;<br>optional:表示该属性是否允许为null,默认为true&nbsp;<br>示例:&nbsp;<br>&nbsp;&nbsp;&nbsp; @Basic(optional=false)&nbsp;<br>&nbsp;&nbsp;&nbsp; public String getAddress() {&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return address;&nbsp;<br>&nbsp;&nbsp;&nbsp; }</p>
+<p>6、@Column&nbsp;<br>可选&nbsp;<br>@Column描述了数据库表中该字段的详细定义,这对于根据JPA注解生成数据库表结构的工具非常有作用.&nbsp;<br>name:表示数据库表中该字段的名称,默认情形属性名称一致&nbsp;<br>nullable:表示该字段是否允许为null,默认为true&nbsp;<br>unique:表示该字段是否是唯一标识,默认为false&nbsp;<br>length:表示该字段的大小,仅对String类型的字段有效&nbsp;<br>insertable:表示在ORM框架执行插入操作时,该字段是否应出现INSETRT语句中,默认为true&nbsp;<br>updateable:表示在ORM框架执行更新操作时,该字段是否应该出现在UPDATE语句中,默认为true.对于一经创建就不可以更改的字段,该属性非常有用,如对于birthday字段.&nbsp;<br>columnDefinition:表示该字段在数据库中的实际类型.通常ORM框架可以根据属性类型自动判断数据库中字段的类型,但是对于Date类型仍无法确定数据库中字段类型究竟是DATE,TIME还是TIMESTAMP.此外,String的默认映射类型为VARCHAR,如果要将String类型映射到特定数据库的BLOB或TEXT字段类型,该属性非常有用.&nbsp;<br>示例:&nbsp;<br>&nbsp;&nbsp;&nbsp; @Column(name=”BIRTH”,nullable=”false”,columnDefinition=”DATE”)&nbsp;<br>&nbsp;&nbsp;&nbsp; public String getBithday() {&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return birthday;&nbsp;<br>&nbsp;&nbsp;&nbsp; }</p>
+<p>7、@Transient&nbsp;<br>可选&nbsp;<br>@Transient表示该属性并非一个到数据库表的字段的映射,ORM框架将忽略该属性.&nbsp;<br>如果一个属性并非数据库表的字段映射,就务必将其标示为@Transient,否则,ORM框架默认其注解为@Basic&nbsp;<br>示例:&nbsp;<br>&nbsp;&nbsp;&nbsp; //根据birth计算出age属性&nbsp;<br>&nbsp;&nbsp;&nbsp; @Transient&nbsp;<br>&nbsp;&nbsp;&nbsp; public int getAge() {&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return getYear(new Date()) - getYear(birth);&nbsp;<br>&nbsp;&nbsp;&nbsp; }</p>
+<p>8、@ManyToOne(fetch=FetchType,cascade=CascadeType)&nbsp;<br>可选&nbsp;<br>@ManyToOne表示一个多对一的映射,该注解标注的属性通常是数据库表的外键&nbsp;<br>optional:是否允许该字段为null,该属性应该根据数据库表的外键约束来确定,默认为true&nbsp;<br>fetch:表示抓取策略,默认为FetchType.EAGER&nbsp;<br>cascade:表示默认的级联操作策略,可以指定为ALL,PERSIST,MERGE,REFRESH和REMOVE中的若干组合,默认为无级联操作&nbsp;<br>targetEntity:表示该属性关联的实体类型.该属性通常不必指定,ORM框架根据属性类型自动判断targetEntity.&nbsp;<br>示例:&nbsp;<br>&nbsp;&nbsp;&nbsp; //订单Order和用户User是一个ManyToOne的关系&nbsp;<br>&nbsp;&nbsp;&nbsp; //在Order类中定义&nbsp;<br>&nbsp;&nbsp;&nbsp; @ManyToOne()&nbsp;<br>&nbsp;&nbsp;&nbsp; @JoinColumn(name=”USER”)&nbsp;<br>&nbsp;&nbsp;&nbsp; public User getUser() {&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return user;&nbsp;<br>&nbsp;&nbsp;&nbsp; }</p>
+<p>9、@JoinColumn&nbsp;<br>可选&nbsp;<br>@JoinColumn和@Column类似,介量描述的不是一个简单字段,而一一个关联字段,例如.描述一个@ManyToOne的字段.&nbsp;<br>name:该字段的名称.由于@JoinColumn描述的是一个关联字段,如ManyToOne,则默认的名称由其关联的实体决定.&nbsp;<br>例如,实体Order有一个user属性来关联实体User,则Order的user属性为一个外键,&nbsp;<br>其默认的名称为实体User的名称+下划线+实体User的主键名称&nbsp;<br>示例:&nbsp;<br>&nbsp;&nbsp;&nbsp; 见@ManyToOne</p>
+<p>10、@OneToMany(fetch=FetchType,cascade=CascadeType)&nbsp;<br>可选&nbsp;<br>@OneToMany描述一个一对多的关联,该属性应该为集体类型,在数据库中并没有实际字段.&nbsp;<br>fetch:表示抓取策略,默认为FetchType.LAZY,因为关联的多个对象通常不必从数据库预先读取到内存&nbsp;<br>cascade:表示级联操作策略,对于OneToMany类型的关联非常重要,通常该实体更新或删除时,其关联的实体也应当被更新或删除&nbsp;<br>例如:实体User和Order是OneToMany的关系,则实体User被删除时,其关联的实体Order也应该被全部删除&nbsp;<br>示例:&nbsp;<br>&nbsp;&nbsp;&nbsp; @OneTyMany(cascade=ALL)&nbsp;<br>&nbsp;&nbsp;&nbsp; public List getOrders() {&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return orders;&nbsp;<br>&nbsp;&nbsp;&nbsp; }</p>
+<p>11、@OneToOne(fetch=FetchType,cascade=CascadeType)&nbsp;<br>可选&nbsp;<br>@OneToOne描述一个一对一的关联&nbsp;<br>fetch:表示抓取策略,默认为FetchType.LAZY&nbsp;<br>cascade:表示级联操作策略&nbsp;<br>示例:&nbsp;<br>&nbsp;&nbsp;&nbsp; @OneToOne(fetch=FetchType.LAZY)&nbsp;<br>&nbsp;&nbsp;&nbsp; public Blog getBlog() {&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return blog;&nbsp;<br>&nbsp;&nbsp;&nbsp; }</p>
+<p>12、@ManyToMany&nbsp;<br>可选&nbsp;<br>@ManyToMany 描述一个多对多的关联.多对多关联上是两个一对多关联,但是在ManyToMany描述中,中间表是由ORM框架自动处理&nbsp;<br>targetEntity:表示多对多关联的另一个实体类的全名,例如:package.Book.class&nbsp;<br>mappedBy:表示多对多关联的另一个实体类的对应集合属性名称&nbsp;<br>示例:&nbsp;<br>&nbsp;&nbsp;&nbsp; User实体表示用户,Book实体表示书籍,为了描述用户收藏的书籍,可以在User和Book之间建立ManyToMany关联&nbsp;<br>&nbsp;&nbsp;&nbsp; @Entity&nbsp;<br>&nbsp;&nbsp;&nbsp; public class User {&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; private List books;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @ManyToMany(targetEntity=package.Book.class)&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public List getBooks() {&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return books;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public void setBooks(List books) {&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; this.books=books;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }&nbsp;<br>&nbsp;&nbsp;&nbsp; }&nbsp;<br>&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp; @Entity&nbsp;<br>&nbsp;&nbsp;&nbsp; public class Book {&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; private List users;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @ManyToMany(targetEntity=package.Users.class, mappedBy=”books”)&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public List getUsers() {&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return users;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public void setUsers(List users) {&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; this.users=users;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }&nbsp;<br>&nbsp;&nbsp;&nbsp; }&nbsp;<br>两个实体间相互关联的属性必须标记为@ManyToMany,并相互指定targetEntity属性,&nbsp;<br>需要注意的是,有且只有一个实体的@ManyToMany注解需要指定mappedBy属性,指向targetEntity的集合属性名称&nbsp;<br>利用ORM工具自动生成的表除了User和Book表外,还自动生成了一个User_Book表,用于实现多对多关联</p>
+<p>13、@MappedSuperclass&nbsp;<br>可选&nbsp;<br>@MappedSuperclass可以将超类的JPA注解传递给子类,使子类能够继承超类的JPA注解&nbsp;<br>示例:&nbsp;<br>&nbsp;&nbsp;&nbsp; @MappedSuperclass&nbsp;<br>&nbsp;&nbsp;&nbsp; public class Employee() {&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ….&nbsp;<br>&nbsp;&nbsp;&nbsp; }&nbsp;<br>&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp; @Entity&nbsp;<br>&nbsp;&nbsp;&nbsp; public class Engineer extends Employee {&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; …..&nbsp;<br>&nbsp;&nbsp;&nbsp; }&nbsp;<br>&nbsp;&nbsp;&nbsp; @Entity&nbsp;<br>&nbsp;&nbsp;&nbsp; public class Manager extends Employee {&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; …..&nbsp;<br>&nbsp;&nbsp;&nbsp; }</p>
+<p>14、@Embedded&nbsp;<br>可选&nbsp;<br>@Embedded将几个字段组合成一个类,并作为整个Entity的一个属性.&nbsp;<br>例如User包括id,name,city,street,zip属性.&nbsp;<br>我们希望city,street,zip属性映射为Address对象.这样,User对象将具有id,name和address这三个属性.&nbsp;<br>Address对象必须定义为@Embededable&nbsp;<br>示例:&nbsp;<br>&nbsp;&nbsp;&nbsp; @Embeddable&nbsp;<br>&nbsp;&nbsp;&nbsp; public class Address {city,street,zip}&nbsp;<br>&nbsp;&nbsp;&nbsp; @Entity&nbsp;<br>&nbsp;&nbsp;&nbsp; public class User {&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @Embedded&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public Address getAddress() {&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ……….&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }&nbsp;<br>&nbsp;&nbsp;&nbsp; }</p>
+<p>　　现在，让我们来动手使用Hibernate Annotation。</p>
+<p>安装 Hibernate Annotation&nbsp;<br>　　要使用 Hibernate Annotation，您至少需要具备 Hibernate 3.2和Java 5。可以从 Hibernate 站点 下载 Hibernate 3.2 和 Hibernate Annotation库。除了标准的 Hibernate JAR 和依赖项之外，您还需要 Hibernate Annotations .jar 文件（hibernate-annotations.jar）、Java 持久性 API （lib/ejb3-persistence.jar）。如果您正在使用 Maven，只需要向 POM 文件添加相应的依赖项即可，如下所示：</p>
+<p>&nbsp;&nbsp;&nbsp; …&nbsp;<br>&lt;dependency&gt;&nbsp;<br>&lt;groupId&gt;org.hibernate&lt;/groupId&gt;&nbsp;<br>&lt;artifactId&gt;hibernate&lt;/artifactId&gt;&nbsp;<br>&lt;version&gt;3.2.1.ga&lt;/version&gt;&nbsp;<br>&lt;/dependency&gt;&nbsp;<br>&lt;dependency&gt;&nbsp;<br>&lt;groupId&gt;org.hibernate&lt;/groupId&gt;&nbsp;<br>&lt;artifactId&gt;hibernate-annotations&lt;/artifactId&gt;&nbsp;<br>&lt;version&gt;3.2.0.ga&lt;/version&gt;&nbsp;<br>&lt;/dependency&gt;&nbsp;<br>&lt;dependency&gt;&nbsp;<br>&lt;groupId&gt;javax.persistence&lt;/groupId&gt;&nbsp;<br>&lt;artifactId&gt;persistence-api&lt;/artifactId&gt;&nbsp;<br>&lt;version&gt;1.0&lt;/version&gt;&nbsp;<br>&lt;/dependency&gt;&nbsp;<br>…&nbsp;<br>　　下一步就是获取 Hibernate 会话工厂。尽管无需惊天的修改，但这一工作与使用 Hibernate Annotations有所不同。您需要使用 AnnotationConfiguration 类来建立会话工厂：</p>
+<p>sessionFactory = new&nbsp;<br>AnnotationConfiguration().buildSessionFactory();&nbsp;<br>　　尽管通常使用 &lt;mapping&gt; 元素来声明持久性类，您还是需要在 Hibernate 配置文件（通常是 hibernate.cfg.xml）中声明持久性类：</p>
+<p>&lt;!DOCTYPE hibernate-configuration PUBLIC&nbsp;<br>“-//Hibernate/Hibernate Configuration DTD 3.0//EN”&nbsp;<br>“<a href="http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd" target="_blank" rel="noopener">http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd</a>“&gt;&nbsp;<br>&lt;hibernate-configuration&gt;&nbsp;<br>&lt;session-factory&gt;&nbsp;<br>&lt;mapping class=”com.onjava.modelplanes.domain.PlaneType”/&gt;&nbsp;<br>&lt;mapping class=”com.onjava.modelplanes.domain.ModelPlane”/&gt;&nbsp;<br>&lt;/session-factory&gt;&nbsp;<br>&lt;/hibernate-configuration&gt;&nbsp;<br>　　近期的许多 Java 项目都使用了轻量级的应用框架，例如 Spring。如果您正在使用 Spring 框架，可以使用 AnnotationSessionFactoryBean 类轻松建立一个基于注释的 Hibernate 会话工厂，如下所示：</p>
+<p>&lt;!– Hibernate session factory –&gt;&nbsp;<br>&lt;bean id=”sessionFactory”&nbsp;<br>class=”org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean”&gt;&nbsp;<br>&lt;property name=”dataSource”&gt;&nbsp;<br>&lt;ref bean=”dataSource”/&gt;&nbsp;<br>&lt;/property&gt;&nbsp;<br>&lt;property name=”hibernateProperties”&gt;&nbsp;<br>&lt;props&gt;&nbsp;<br>&lt;prop key=”hibernate.dialect”&gt;org.hibernate.dialect.DerbyDialect&lt;/prop&gt;&nbsp;<br>&lt;prop key=”hibernate.hbm2ddl.auto”&gt;create&lt;/prop&gt;&nbsp;<br>…&nbsp;<br>&lt;/props&gt;&nbsp;<br>&lt;/property&gt;&nbsp;<br>&lt;property name=”annotatedClasses”&gt;&nbsp;<br>&lt;list&gt;&nbsp;<br>&lt;value&gt;com.onjava.modelplanes.domain.PlaneType&lt;/value&gt;&nbsp;<br>&lt;value&gt;com.onjava.modelplanes.domain.ModelPlane&lt;/value&gt;&nbsp;<br>…&nbsp;<br>&lt;/list&gt;&nbsp;<br>&lt;/property&gt;&nbsp;<br>&lt;/bean&gt;&nbsp;<br>第一个持久性类&nbsp;<br>　　既然已经知道了如何获得注释所支持的 Hibernate 会话，下面让我们来了解一下带注释的持久性类的情况：</p>
+<p>　　像在其他任何 Hibernate应用程序中一样，带注释的持久性类也是普通 POJO。差不多可以说是。您需要向 Java 持久性 API （javax.persistence.<em>）添加依赖项，如果您正在使用任何特定于 Hibernate的扩展，那很可能就是 Hibernate Annotation 程序包（org.hibernate.annotations.</em>），但除此之外，它们只是具备了持久性注释的普通 POJO 。下面是一个简单的例子：</p>
+<p>@Entity&nbsp;<br>public class ModelPlane {&nbsp;<br>private Long id;&nbsp;<br>private String name;&nbsp;<br>@Id&nbsp;<br>public Long getId() {&nbsp;<br>return id;&nbsp;<br>}&nbsp;<br>public void setId(Long id) {&nbsp;<br>this.id = id;&nbsp;<br>}&nbsp;<br>public String getName() {&nbsp;<br>return name;&nbsp;<br>}&nbsp;<br>public void setName(String name) {&nbsp;<br>this.name = name;&nbsp;<br>}&nbsp;<br>}&nbsp;<br>　　正像我们所提到的，这非常简单。@Entity 注释声明该类为持久类。@Id 注释可以表明哪种属性是该类中的独特标识符。事实上，您既可以保持字段（注释成员变量），也可以保持属性（注释getter方法）的持久性。后文中将使用基于属性的注释。基于注释的持久性的优点之一在于大量使用了默认值（最大的优点就是 &ldquo;惯例优先原则（convention over configuration）&rdquo;）。例如，您无需说明每个属性的持久性&mdash;&mdash;任何属性都被假定为持久的，除非您使用 @Transient 注释来说明其他情况。这简化了代码，相对使用老的 XML 映射文件而言也大幅地减少了输入工作量。</p>
+<p>生成主键&nbsp;<br>　　Hibernate 能够出色地自动生成主键。Hibernate/EBJ 3 注释也可以为主键的自动生成提供丰富的支持，允许实现各种策略。下面的示例说明了一种常用的方法，其中 Hibernate 将会根据底层数据库来确定一种恰当的键生成策略：</p>
+<p>@Id&nbsp;<br>@GeneratedValue(strategy=GenerationType.AUTO)&nbsp;<br>public Long getId() {&nbsp;<br>return id;&nbsp;<br>}&nbsp;<br>定制表和字段映射&nbsp;<br>　　默认情况下，Hibernate 会将持久类以匹配的名称映射到表和字段中。例如，前一个类可以与映射到以如下代码创建的表中：</p>
+<p>CREATE TABLE MODELPLANE&nbsp;<br>(&nbsp;<br>ID long,&nbsp;<br>NAME varchar&nbsp;<br>)&nbsp;<br>　　如果您是自己生成并维护数据库，那么这种方法很有效，通过省略代码可以大大简化代码维护。然而，这并不能满足所有人的需求。有些应用程序需要访问外部数据库，而另一些可能需要遵从公司的数据库命名惯例。如果有必要，您可以使用 @Table 和 @Column 注释来定制您自己的持久性映射，如下所示：</p>
+<p>@Entity&nbsp;<br>@Table(name=”T_MODEL_PLANE”)&nbsp;<br>public class ModelPlane {&nbsp;<br>private Long id;&nbsp;<br>private String name;&nbsp;<br>@Id&nbsp;<br>@Column(name=”PLANE_ID”)&nbsp;<br>public Long getId() {&nbsp;<br>return id;&nbsp;<br>}&nbsp;<br>public void setId(Long id) {&nbsp;<br>this.id = id;&nbsp;<br>}&nbsp;<br>@Column(name=”PLANE_NAME”)&nbsp;<br>public String getName() {&nbsp;<br>return name;&nbsp;<br>}&nbsp;<br>public void setName(String name) {&nbsp;<br>this.name = name;&nbsp;<br>}&nbsp;<br>}&nbsp;<br>　　该内容将映射到下表中：</p>
+<p>CREATE TABLE T_MODEL_PLANE&nbsp;<br>(&nbsp;<br>PLANE_ID long,&nbsp;<br>PLANE_NAME varchar&nbsp;<br>)&nbsp;<br>　　也可以使用其他图和列的属性来定制映射。这使您可以指定诸如列长度、非空约束等详细内容。Hibernate支持大量针对这些注释的属性。下例中就包含了几种属性：</p>
+<p>&nbsp;&nbsp;&nbsp; …&nbsp;<br>@Column(name=”PLANE_ID”, length=80, nullable=true)&nbsp;<br>public String getName() {&nbsp;<br>return name;&nbsp;<br>}&nbsp;<br>…&nbsp;<br>映射关系&nbsp;<br>　　Java 持久性映射过程中最重要和最复杂的一环就是确定如何映射表间的关系。像其他产品一样， Hibernate 在该领域中提供了高度的灵活性，但却是以复杂度的增加为代价。我们将通过研究几个常见案例来了解如何使用注释来处理这一问题。</p>
+<p>　　其中一种最常用的关系就是多对一的关系。假定在以上示例中每个 ModelPlane 通过多对一的关系（也就是说，每个飞机模型只与一种飞机类型建立联系，尽管指定的飞机类型可以与七种飞机模型建立联系）来与 PlaneType 建立联系。可如下进行映射：</p>
+<p>&nbsp;&nbsp;&nbsp; @ManyToOne( cascade = {CascadeType.PERSIST, CascadeType.MERGE} )&nbsp;<br>public PlaneType getPlaneType() {&nbsp;<br>return planeType;&nbsp;<br>}&nbsp;<br>　　CascadeType 值表明 Hibernate 应如何处理级联操作。</p>
+<p>　　另一种常用的关系与上述关系相反：一对多再对一关系，也称为集合。在老式的 Hibernate 版本中进行映射或使用注释时，集合令人头疼，这里我们将简要加以探讨，以使您了解如何处理集合，例如，在以上示例中每个 PlaneType 对象都可能会包含一个 ModelPlanes 集合。可映射如下：</p>
+<p>@OneToMany(mappedBy=”planeType”,&nbsp;<br>cascade=CascadeType.ALL,&nbsp;<br>fetch=FetchType.EAGER)&nbsp;<br>@OrderBy(“name”)&nbsp;<br>public List&lt;ModelPlane&gt; getModelPlanes() {&nbsp;<br>return modelPlanes;&nbsp;<br>}&nbsp;<br>命名查询&nbsp;<br>　　Hibernate 最优秀的功能之一就在于它能够在您的映射文件中声明命名查询。随后即可通过代码中的名称调用此类查询，这使您可以专注于查询，而避免了 SQL 或者 HQL 代码分散于整个应用程序中的情况。</p>
+<p>　　也可以使用注释来实现命名查询，可以使用 @NamedQueries 和 @NamedQuery 注释，如下所示：</p>
+<p>@NamedQueries(&nbsp;<br>{&nbsp;<br>@NamedQuery(&nbsp;<br>name=”planeType.findById”,&nbsp;<br>query=”select p from PlaneType p left join fetch p.modelPlanes where id=:id”&nbsp;<br>),&nbsp;<br>@NamedQuery(&nbsp;<br>name=”planeType.findAll”,&nbsp;<br>query=”select p from PlaneType p”&nbsp;<br>),&nbsp;<br>@NamedQuery(&nbsp;<br>name=”planeType.delete”,&nbsp;<br>query=”delete from PlaneType where id=:id”&nbsp;<br>)&nbsp;<br>}&nbsp;<br>)&nbsp;<br>　　一旦完成了定义，您就可以像调用其他任何其他命名查询一样来调用它们。</p>
+<p>结束语&nbsp;<br>　　Hibernate 3 注释提供了强大而精致的 API，简化了 Java 数据库中的持久性代码，本文中只进行了简单的讨论。您可以选择遵从标准并使用 Java 持久性 API，也可以利用特定于 Hibernate的扩展，这些功能以损失可移植性为代价提供了更为强大的功能和更高的灵活性。无论如何，通过消除对 XML 映射文件的需求，Hibernate 注释将简化应用程序的维护，同时也可以使您对EJB 3 有初步认识。来试试吧！&nbsp;<br>&nbsp;<br>&nbsp;<br>本文来自CSDN博客，转载请标明出处：<a href="http://blog.csdn.net/dingqinghu/archive/2011/03/25/6275798.aspx" target="_blank" rel="noopener">http://blog.csdn.net/dingqinghu/archive/2011/03/25/6275798.aspx</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2013/09/24/java使用动态代理来实现AOP（日志记录）/" rel="next" title="java使用动态代理来实现AOP（日志记录）">
+                <i class="fa fa-chevron-left"></i> java使用动态代理来实现AOP（日志记录）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2013/10/10/Android使用Fragment来实现TabHost的功能（解决切换Fragment状态不保存）以及各个Fragment之间的通信/" rel="prev" title="Android使用Fragment来实现TabHost的功能（解决切换Fragment状态不保存）以及各个Fragment之间的通信">
+                Android使用Fragment来实现TabHost的功能（解决切换Fragment状态不保存）以及各个Fragment之间的通信 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/my_avatar.jpg"
+                alt="Wang Jie" />
+            
+              <p class="site-author-name" itemprop="name">Wang Jie</p>
+              <p class="site-description motion-element" itemprop="description">Wang Jie's blog</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">144</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wangjiegulu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:tiantian.china.2@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/+%E5%A4%A9%E5%A4%A9wangjie" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/wangjiegulu" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://stackoverflow.com/users/2124006/wangjie" target="_blank" title="StackOverflow">
+                      
+                        <i class="fa fa-fw fa-stack-overflow"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/wangjiegulu" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.cnblogs.com/tiantianbyconan/" title="cnblog" target="_blank">cnblog</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wang Jie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://blog-wangjiegulu-com.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://blog.wangjiegulu.com/2013/10/08/Hibernate3注解-转/';
+          this.page.identifier = '2013/10/08/Hibernate3注解-转/';
+          this.page.title = 'Hibernate3注解[转]';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://blog-wangjiegulu-com.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "default";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "GooglePlus,Evernote,Twitter,Facebook,Douban,Weibo";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>WAND JIE</title>
+  
+  <subtitle>TO BE AN ARTIST-ENGINNER</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://blog.wangjiegulu.com/"/>
+  <updated>2018-01-29T13:05:19.000Z</updated>
+  <id>http://blog.wangjiegulu.com/</id>
+  
+  <author>
+    <name>Wang Jie</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>[Android App]IFCTT，即If Copy Then That，一个基于IFTTT的`This`实现</title>
+    <link href="http://blog.wangjiegulu.com/2017/12/20/Android-App-IFCTT%EF%BC%8C%E5%8D%B3If-Copy-Then-That%EF%BC%8C%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8EIFTTT%E7%9A%84-This-%E5%AE%9E%E7%8E%B0/"/>
+    <id>http://blog.wangjiegulu.com/2017/12/20/Android-App-IFCTT，即If-Copy-Then-That，一个基于IFTTT的-This-实现/</id>
+    <published>2017-12-20T04:41:00.000Z</published>
+    <updated>2018-01-29T13:05:19.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;IFCTT，即：&lt;code&gt;If Copy Then That&lt;/code&gt;，是一个基于IFTTT（&lt;code&gt;If This Then That&lt;/code&gt;）的”This”实现，它打通了”用户手机端操作”与”This条件触发”之间的桥梁，让这个过程更具方便性和快捷性。通过手机端的Copy动作，以”Tagged Email”的方式连接到IFTTT，从而触发IFTTT中所有支持的”That”行为。用户只需要复制然后选择触发IFTTT的”Hash Tag”即可，它支持用户配置多种”Hash Tag”来进行多种自定义方式内容传输，比如：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;手机端执行拷贝Url地址（随时随地，任何地方，如Twitter/Facebook/Instagram/wechat/weibo/blog…），一键通过IFCTT &amp;amp; IFTTT，保存链接对应的文章到Instapaper/Pocket，最低成本实现Read it later&lt;/li&gt;
+&lt;li&gt;手机端执行拷贝文章内容，一键通过IFCTT &amp;amp; IFTTT，保存发送对应的内容到Evernote/Google doc/kindle…&lt;/li&gt;
+&lt;li&gt;等等&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;使用IFCTT需要以下几个条件：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;你需要拥有IFTTT账号，并开启相应的Applets&lt;/li&gt;
+&lt;li&gt;你需要使用与IFTTT相同的Email账号在IFCTT中进行smtp授权和配置&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;首先，下载安装IFCTT App&lt;font color=&quot;#FF2D51&quot;&gt;（12月21日～12月28日圣诞节免限中）&lt;/font&gt;：&lt;/p&gt;
+&lt;font color=&quot;#FF2D51&quot;&gt;&lt;strong&gt;Google Play：&lt;a href=&quot;https://play.google.com/store/apps/details?id=com.wangjie.ifctt&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://play.google.com/store/apps/details?id=com.wangjie.ifctt&lt;/a&gt;&lt;/strong&gt;&lt;/font&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>应朋友死皮白咧地邀请贴一个招聘广告</title>
+    <link href="http://blog.wangjiegulu.com/2017/09/25/%E5%BA%94%E6%9C%8B%E5%8F%8B%E6%AD%BB%E7%9A%AE%E7%99%BD%E5%92%A7%E5%9C%B0%E9%82%80%E8%AF%B7%E8%B4%B4%E4%B8%80%E4%B8%AA%E6%8B%9B%E8%81%98%E5%B9%BF%E5%91%8A/"/>
+    <id>http://blog.wangjiegulu.com/2017/09/25/应朋友死皮白咧地邀请贴一个招聘广告/</id>
+    <published>2017-09-25T09:24:00.000Z</published>
+    <updated>2018-01-29T13:07:26.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;应朋友&lt;strike&gt;死皮白咧地&lt;/strike&gt;邀请在这里贴一个招聘广告，&lt;strong&gt;注意：以下的联系方式都是我朋友的&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;招聘【阿里巴巴ICBU内部推荐快速通道】&quot;&gt;&lt;a href=&quot;#招聘【阿里巴巴ICBU内部推荐快速通道】&quot; class=&quot;headerlink&quot; title=&quot;招聘【阿里巴巴ICBU内部推荐快速通道】&quot;&gt;&lt;/a&gt;招聘【阿里巴巴ICBU内部推荐快速通道】&lt;/h1&gt;&lt;h3 id=&quot;ICBU技术部介绍：&quot;&gt;&lt;a href=&quot;#ICBU技术部介绍：&quot; class=&quot;headerlink&quot; title=&quot;ICBU技术部介绍：&quot;&gt;&lt;/a&gt;ICBU技术部介绍：&lt;/h3&gt;&lt;p&gt;作为阿里巴巴集团提出的eWTP建设的重要部队，国际无线技术部旨在以优秀的无线技术服务全球中小企业。我们面临的技术挑战有：全球化环境下复杂的技术与网络环境、国际贸易复杂的业务流程与规则、国际物流的信息跟踪等履约规范建立、跨境贸易沟通下的语言障碍等。通过深入对技术的全球化布局提升极致的用户体验，研究最新的无线技术如IoT等将业务化繁为简，丰富的无线相机能力和语言翻译服务让沟通全方位无障碍。让全球企业受惠eWTP，无线技术大有可为！ &lt;/p&gt;
+&lt;p&gt;招聘Android、IOS、Java工程师&lt;br&gt;投递邮箱：dechong.wc@alibaba-inc.com&lt;/p&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>[Android]Android焦点流程代码分析</title>
+    <link href="http://blog.wangjiegulu.com/2017/08/04/Android-Android%E7%84%A6%E7%82%B9%E6%B5%81%E7%A8%8B%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    <id>http://blog.wangjiegulu.com/2017/08/04/Android-Android焦点流程代码分析/</id>
+    <published>2017-08-04T10:08:00.000Z</published>
+    <updated>2018-01-29T13:07:42.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;font color=&quot;#ff0000&quot;&gt;&lt;strong&gt;&lt;br&gt;以下内容为原创，欢迎转载，转载请注明&lt;br&gt;来自天天博客：&lt;a href=&quot;http://www.cnblogs.com/tiantianbyconan/p/7286503.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://www.cnblogs.com/tiantianbyconan/p/7286503.html&lt;/a&gt;
+&lt;/strong&gt;&lt;/font&gt;
+
+&lt;p&gt;通过View的&lt;code&gt;View::focusSearch&lt;/code&gt;进行焦点搜索对应方向上的下一个可以获取焦点的View：&lt;/p&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>[Android]Android内存泄漏你所要知道的一切（翻译）</title>
+    <link href="http://blog.wangjiegulu.com/2017/07/25/Android-Android%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E4%BD%A0%E6%89%80%E8%A6%81%E7%9F%A5%E9%81%93%E7%9A%84%E4%B8%80%E5%88%87%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/"/>
+    <id>http://blog.wangjiegulu.com/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/</id>
+    <published>2017-07-25T09:58:00.000Z</published>
+    <updated>2018-01-29T13:08:18.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;font color=&quot;#ff0000&quot;&gt;&lt;strong&gt;&lt;br&gt;以下内容为原创，欢迎转载，转载请注明&lt;br&gt;来自天天博客：&lt;a href=&quot;http://www.cnblogs.com/tiantianbyconan/p/7235616.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://www.cnblogs.com/tiantianbyconan/p/7235616.html&lt;/a&gt;
+&lt;/strong&gt;&lt;/font&gt;
+
+&lt;h1 id=&quot;Android内存泄漏你所要知道的一切&quot;&gt;&lt;a href=&quot;#Android内存泄漏你所要知道的一切&quot; class=&quot;headerlink&quot; title=&quot;Android内存泄漏你所要知道的一切&quot;&gt;&lt;/a&gt;Android内存泄漏你所要知道的一切&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;原文：&lt;a href=&quot;https://blog.aritraroy.in/everything-you-need-to-know-about-memory-leaks-in-android-apps-655f191ca859&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.aritraroy.in/everything-you-need-to-know-about-memory-leaks-in-android-apps-655f191ca859&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;写一个Android app很简单，但是&lt;strong&gt;写一个超高品质的内存高效的Android app并不简单&lt;/strong&gt;。从我的个人经验来说，我曾经比较关注和感兴趣构建我app的新特性，功能和UI组件。&lt;/p&gt;
+&lt;p&gt;我主要倾向于工作在具有更多视觉冲击力的东西，而不是花时间在没有人一眼会注意到的东西上面。我开始养成了避免或者给app优化等事情更低优先级的习惯（检测和修复内存泄漏就是其中的一个）。&lt;/p&gt;
+&lt;p&gt;这自然而然导致我承担起了技术负债，从长远来看，它开始影响我的应用的性能和质量。我满满地改变了我的心态，比起去年我更多地以“性能为重点”。&lt;/p&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>[Android]Gradle 插件 DiscardFilePlugin（class注入&amp;清空类和方法）</title>
+    <link href="http://blog.wangjiegulu.com/2017/04/19/Android-Gradle-%E6%8F%92%E4%BB%B6-DiscardFilePlugin%EF%BC%88class%E6%B3%A8%E5%85%A5-%E6%B8%85%E7%A9%BA%E7%B1%BB%E5%92%8C%E6%96%B9%E6%B3%95%EF%BC%89/"/>
+    <id>http://blog.wangjiegulu.com/2017/04/19/Android-Gradle-插件-DiscardFilePlugin（class注入-清空类和方法）/</id>
+    <published>2017-04-19T02:40:00.000Z</published>
+    <updated>2018-01-29T13:08:45.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;font color=&quot;#ff0000&quot;&gt;&lt;strong&gt;&lt;br&gt;以下内容为原创，欢迎转载，转载请注明&lt;br&gt;来自天天博客：&lt;a href=&quot;http://www.cnblogs.com/tiantianbyconan/p/6732128.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://www.cnblogs.com/tiantianbyconan/p/6732128.html&lt;/a&gt;
+&lt;/strong&gt;&lt;/font&gt;
+
+&lt;h1 id=&quot;Android-Gradle-插件-DiscardFilePlugin（清空类和方法）&quot;&gt;&lt;a href=&quot;#Android-Gradle-插件-DiscardFilePlugin（清空类和方法）&quot; class=&quot;headerlink&quot; title=&quot;Android Gradle 插件 DiscardFilePlugin（清空类和方法）&quot;&gt;&lt;/a&gt;Android Gradle 插件 DiscardFilePlugin（清空类和方法）&lt;/h1&gt;&lt;p&gt;An android gradle plugin for discard class or method in compile time.&lt;/p&gt;
+&lt;p&gt;用于在编译构建时期忽略清空类和方法的一个Android Gradle插件。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Github: &lt;a href=&quot;https://github.com/wangjiegulu/DiscardFilePlugin&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://github.com/wangjiegulu/DiscardFilePlugin&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&quot;1-1-使用场景&quot;&gt;&lt;a href=&quot;#1-1-使用场景&quot; class=&quot;headerlink&quot; title=&quot;1.1 使用场景&quot;&gt;&lt;/a&gt;1.1 使用场景&lt;/h2&gt;&lt;p&gt;在实际的生产中，我们总是会在我们的app中增加一些调试的工具，比如在&lt;code&gt;debug&lt;/code&gt;模式下加入&lt;code&gt;DebugPanelActivity&lt;/code&gt;（调试面板工具页面，提供比如“切换服务器”等操作）。我们需要在正式上线的release版本中清空相关类和方法，或者修改&lt;code&gt;boolean isProductionEnvironment()&lt;/code&gt;方法，让它永远返回&lt;code&gt;true&lt;/code&gt;，&lt;strong&gt;以此来避免上线之后调试相关代码通过反编译等手段暴露出来。&lt;/strong&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>NDK配置</title>
+    <link href="http://blog.wangjiegulu.com/2017/04/11/NDK%E9%85%8D%E7%BD%AE/"/>
+    <id>http://blog.wangjiegulu.com/2017/04/11/NDK配置/</id>
+    <published>2017-04-11T04:09:00.000Z</published>
+    <updated>2018-01-29T13:09:26.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;NDK-配置&quot;&gt;&lt;a href=&quot;#NDK-配置&quot; class=&quot;headerlink&quot; title=&quot;NDK 配置&quot;&gt;&lt;/a&gt;NDK 配置&lt;/h1&gt;&lt;p&gt;Android SDK中下载&lt;code&gt;NDK&lt;/code&gt;, &lt;code&gt;LLDB&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&quot;Android-mk-和-Application-mk&quot;&gt;&lt;a href=&quot;#Android-mk-和-Application-mk&quot; class=&quot;headerlink&quot; title=&quot;Android.mk 和 Application.mk&quot;&gt;&lt;/a&gt;Android.mk 和 Application.mk&lt;/h2&gt;&lt;p&gt;简单来说&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Android.mk 用来描述需要生成哪些模块的 .so 文件&lt;/li&gt;
+&lt;li&gt;Application.mk 用来描述如何生成 .so 文件，生成静态库还是动态库&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>CPP Note</title>
+    <link href="http://blog.wangjiegulu.com/2017/04/10/CPP-Note/"/>
+    <id>http://blog.wangjiegulu.com/2017/04/10/CPP-Note/</id>
+    <published>2017-04-10T07:05:00.000Z</published>
+    <updated>2018-01-29T13:09:44.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;hello.cpp -&amp;gt; 编译代码&lt;code&gt;g++ hello.cpp -o a&lt;/code&gt; -&amp;gt; &lt;code&gt;a.out&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;区分大小写的编程语言&lt;/p&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>[Android]使用RecyclerView替代ListView（四：SeizeRecyclerView）</title>
+    <link href="http://blog.wangjiegulu.com/2017/03/29/Android-%E4%BD%BF%E7%94%A8RecyclerView%E6%9B%BF%E4%BB%A3ListView%EF%BC%88%E5%9B%9B%EF%BC%9ASeizeRecyclerView%EF%BC%89/"/>
+    <id>http://blog.wangjiegulu.com/2017/03/29/Android-使用RecyclerView替代ListView（四：SeizeRecyclerView）/</id>
+    <published>2017-03-29T13:09:00.000Z</published>
+    <updated>2018-01-29T13:10:20.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;font color=&quot;#ff0000&quot;&gt;&lt;strong&gt;&lt;br&gt;以下内容为原创，欢迎转载，转载请注明&lt;br&gt;来自天天博客：&lt;a href=&quot;http://www.cnblogs.com/tiantianbyconan/p/6641794.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://www.cnblogs.com/tiantianbyconan/p/6641794.html&lt;/a&gt;
+&lt;/strong&gt;&lt;/font&gt;
+
+&lt;h1 id=&quot;Android-使用RecyclerView替代ListView（四：SeizeRecyclerView）&quot;&gt;&lt;a href=&quot;#Android-使用RecyclerView替代ListView（四：SeizeRecyclerView）&quot; class=&quot;headerlink&quot; title=&quot;[Android]使用RecyclerView替代ListView（四：SeizeRecyclerView）&quot;&gt;&lt;/a&gt;[Android]使用RecyclerView替代ListView（四：SeizeRecyclerView）&lt;/h1&gt;&lt;p&gt;在RecyclerView的开发过程中，可能会遇到一些窘境，比如，下图是今日头条的视频详情页面：&lt;/p&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Lottie简介（翻译）</title>
+    <link href="http://blog.wangjiegulu.com/2017/02/04/Lottie%E7%AE%80%E4%BB%8B%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/"/>
+    <id>http://blog.wangjiegulu.com/2017/02/04/Lottie简介（翻译）/</id>
+    <published>2017-02-04T04:21:00.000Z</published>
+    <updated>2018-01-29T13:10:40.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;font color=&quot;#ff0000&quot;&gt;&lt;strong&gt;&lt;br&gt;以下内容为原创，欢迎转载，转载请注明&lt;br&gt;来自天天博客：&lt;a href=&quot;http://www.cnblogs.com/tiantianbyconan/p/6364634.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://www.cnblogs.com/tiantianbyconan/p/6364634.html&lt;/a&gt;
+&lt;/strong&gt;&lt;/font&gt;
+
+&lt;h1 id=&quot;Lottie简介（翻译）&quot;&gt;&lt;a href=&quot;#Lottie简介（翻译）&quot; class=&quot;headerlink&quot; title=&quot;Lottie简介（翻译）&quot;&gt;&lt;/a&gt;Lottie简介（翻译）&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;原文：&lt;a href=&quot;https://medium.com/airbnb-engineering/introducing-lottie-4ff4a0afac0e#.mfnxbtt06&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://medium.com/airbnb-engineering/introducing-lottie-4ff4a0afac0e#.mfnxbtt06&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;新的向本地apps的构建动画的开源工具。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;作者：&lt;a href=&quot;http://github.com/buba447&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Brandon Withrow&lt;/a&gt;, &lt;a href=&quot;https://twitter.com/gpeal8&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Gabridl Peal&lt;/a&gt;, &lt;a href=&quot;https://twitter.com/intelligibabble&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Leland Richardson&lt;/a&gt; 和 &lt;a href=&quot;https://twitter.com/therealsalih?lang=en&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Salih AbdulKarim&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;在以前，在Android，iOS和React Native app上面构建复杂的动画是困难和冗长的过程。你要么不得不为每个尺寸增加大量的图片文件，要么干脆编写数千行不可维护的代码。正因为如此，大多的apps并没有使用动画——尽管这是一个交流想法和创建引人注目的用户体验的强大的工具。一年前，我们就开始改变。&lt;/p&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>[Android]在Dagger 2中Activities和Subcomponents的多绑定（翻译）</title>
+    <link href="http://blog.wangjiegulu.com/2017/01/09/Android-%E5%9C%A8Dagger-2%E4%B8%ADActivities%E5%92%8CSubcomponents%E7%9A%84%E5%A4%9A%E7%BB%91%E5%AE%9A%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/"/>
+    <id>http://blog.wangjiegulu.com/2017/01/09/Android-在Dagger-2中Activities和Subcomponents的多绑定（翻译）/</id>
+    <published>2017-01-09T12:23:00.000Z</published>
+    <updated>2018-01-29T13:11:00.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;font color=&quot;#ff0000&quot;&gt;&lt;strong&gt;&lt;br&gt;以下内容为原创，欢迎转载，转载请注明&lt;br&gt;来自天天博客：&lt;a href=&quot;http://www.cnblogs.com/tiantianbyconan/p/6266442.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://www.cnblogs.com/tiantianbyconan/p/6266442.html&lt;/a&gt;
+&lt;/strong&gt;&lt;/font&gt;
+
+&lt;h1 id=&quot;在Dagger-2中Activities和Subcomponents的多绑定&quot;&gt;&lt;a href=&quot;#在Dagger-2中Activities和Subcomponents的多绑定&quot; class=&quot;headerlink&quot; title=&quot;在Dagger 2中Activities和Subcomponents的多绑定&quot;&gt;&lt;/a&gt;在Dagger 2中Activities和Subcomponents的多绑定&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;原文：&lt;a href=&quot;http://frogermcs.github.io/activities-multibinding-in-dagger-2&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://frogermcs.github.io/activities-multibinding-in-dagger-2&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;几个月前，在&lt;a href=&quot;http://2016.mceconf.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;MCE^3&lt;/a&gt;会议中，Gregory Kick在他的&lt;a href=&quot;https://www.youtube.com/watch?v=iwjXqRlEevg&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;演讲&lt;/a&gt;中展示了一个提供Subcomponents（比如，为Activity）的新概念。新的方式给我们带来了一个创建不使用AppComponent对象引用（以前时Activities Subcomponents的工厂）的方式。为了让它成为现实，我们不得不等到了新的Dagger release版本：&lt;a href=&quot;https://github.com/google/dagger/releases/tag/dagger-2.7&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;version 2.7&lt;/a&gt;。&lt;/p&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>[Android]使用Dagger 2来构建UserScope（翻译）</title>
+    <link href="http://blog.wangjiegulu.com/2016/12/30/Android-%E4%BD%BF%E7%94%A8Dagger-2%E6%9D%A5%E6%9E%84%E5%BB%BAUserScope%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/"/>
+    <id>http://blog.wangjiegulu.com/2016/12/30/Android-使用Dagger-2来构建UserScope（翻译）/</id>
+    <published>2016-12-30T09:23:00.000Z</published>
+    <updated>2018-01-29T12:36:41.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;font color=&quot;#ff0000&quot;&gt;&lt;strong&gt;&lt;br&gt;以下内容为原创，欢迎转载，转载请注明&lt;br&gt;来自天天博客：&lt;a href=&quot;http://www.cnblogs.com/tiantianbyconan/p/6237731.html&quot;
+        
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>[Android]在Dagger 2中使用RxJava来进行异步注入（翻译）</title>
+    <link href="http://blog.wangjiegulu.com/2016/12/30/Android-%E5%9C%A8Dagger-2%E4%B8%AD%E4%BD%BF%E7%94%A8RxJava%E6%9D%A5%E8%BF%9B%E8%A1%8C%E5%BC%82%E6%AD%A5%E6%B3%A8%E5%85%A5%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/"/>
+    <id>http://blog.wangjiegulu.com/2016/12/30/Android-在Dagger-2中使用RxJava来进行异步注入（翻译）/</id>
+    <published>2016-12-30T05:53:00.000Z</published>
+    <updated>2018-01-29T12:36:41.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;font color=&quot;#ff0000&quot;&gt;&lt;strong&gt;&lt;br&gt;以下内容为原创，欢迎转载，转载请注明&lt;br&gt;来自天天博客：&lt;a href=&quot;http://www.cnblogs.com/tiantianbyconan/p/6236646.html&quot;
+        
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>[Android]使用Dagger 2进行依赖注入 - Producers（翻译）</title>
+    <link href="http://blog.wangjiegulu.com/2016/12/29/Android-%E4%BD%BF%E7%94%A8Dagger-2%E8%BF%9B%E8%A1%8C%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5-Producers%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/"/>
+    <id>http://blog.wangjiegulu.com/2016/12/29/Android-使用Dagger-2进行依赖注入-Producers（翻译）/</id>
+    <published>2016-12-29T13:08:00.000Z</published>
+    <updated>2018-01-29T12:36:41.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;font color=&quot;#ff0000&quot;&gt;&lt;strong&gt;&lt;br&gt;以下内容为原创，欢迎转载，转载请注明&lt;br&gt;来自天天博客：&lt;a href=&quot;http://www.cnblogs.com/tiantianbyconan/p/6234811.html&quot;
+        
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>[Android]Android端ORM框架——RapidORM(v2.1)</title>
+    <link href="http://blog.wangjiegulu.com/2016/11/01/Android-Android%E7%AB%AFORM%E6%A1%86%E6%9E%B6%E2%80%94%E2%80%94RapidORM-v2-1/"/>
+    <id>http://blog.wangjiegulu.com/2016/11/01/Android-Android端ORM框架——RapidORM-v2-1/</id>
+    <published>2016-11-01T09:54:00.000Z</published>
+    <updated>2018-01-29T12:36:41.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;font color=&quot;#ff0000&quot;&gt;&lt;strong&gt;&lt;br&gt;以下内容为原创，欢迎转载，转载请注明&lt;br&gt;&lt;br&gt;来自天天博客：&lt;a href=&quot;http://www.cnblogs.com/tiantianbyconan/p/6020412.html&quot;
+        
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>[Android]使用MVP解决技术债务（翻译）</title>
+    <link href="http://blog.wangjiegulu.com/2016/09/21/Android-%E4%BD%BF%E7%94%A8MVP%E8%A7%A3%E5%86%B3%E6%8A%80%E6%9C%AF%E5%80%BA%E5%8A%A1%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/"/>
+    <id>http://blog.wangjiegulu.com/2016/09/21/Android-使用MVP解决技术债务（翻译）/</id>
+    <published>2016-09-21T07:03:00.000Z</published>
+    <updated>2018-01-29T12:36:41.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;font color=&quot;#ff0000&quot;&gt;&lt;strong&gt;&lt;br&gt;以下内容为原创，欢迎转载，转载请注明&lt;br&gt;来自天天博客：&lt;a href=&quot;http://www.cnblogs.com/tiantianbyconan/p/5892671.html&quot;
+        
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>[Android]异步 layout inflation（翻译）</title>
+    <link href="http://blog.wangjiegulu.com/2016/09/01/Android-%E5%BC%82%E6%AD%A5-layout-inflation%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/"/>
+    <id>http://blog.wangjiegulu.com/2016/09/01/Android-异步-layout-inflation（翻译）/</id>
+    <published>2016-09-01T06:42:00.000Z</published>
+    <updated>2018-01-29T12:36:41.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;font color=&quot;#ff0000&quot;&gt;&lt;strong&gt;&lt;br&gt;以下内容为原创，欢迎转载，转载请注明&lt;br&gt;来自天天博客：&lt;a href=&quot;http://www.cnblogs.com/tiantianbyconan/p/5829809.html&quot;
+        
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>HTTP协议详解</title>
+    <link href="http://blog.wangjiegulu.com/2016/08/29/HTTP%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3/"/>
+    <id>http://blog.wangjiegulu.com/2016/08/29/HTTP协议详解/</id>
+    <published>2016-08-29T06:13:00.000Z</published>
+    <updated>2018-01-29T12:36:41.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;div id=&quot;editor-reader-full&quot; class=&quot;editor-reader-full-shown&quot;&gt;&lt;br&gt;&lt;div class=&quot;reader-full-topInfo-shown&quot;&gt;来自:&amp;nbsp;&lt;a
+        
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>网络基础</title>
+    <link href="http://blog.wangjiegulu.com/2016/08/29/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/"/>
+    <id>http://blog.wangjiegulu.com/2016/08/29/网络基础/</id>
+    <published>2016-08-29T06:10:00.000Z</published>
+    <updated>2018-01-29T12:36:41.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;div id=&quot;editor-reader-full&quot; class=&quot;editor-reader-full-shown&quot;&gt;&lt;br&gt;&lt;div class=&quot;reader-full-topInfo-shown&quot;&gt;&lt;span style=&quot;font-size: 14px;
+        
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Git Note</title>
+    <link href="http://blog.wangjiegulu.com/2016/08/24/Git-Note/"/>
+    <id>http://blog.wangjiegulu.com/2016/08/24/Git-Note/</id>
+    <published>2016-08-24T09:36:00.000Z</published>
+    <updated>2018-01-29T12:36:41.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;Git&quot;&gt;&lt;a href=&quot;#Git&quot; class=&quot;headerlink&quot; title=&quot;Git&quot;&gt;&lt;/a&gt;Git&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;参考 &lt;a
+        
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>[Android]使用自定义JUnit Rules、annotations和Resources进行单元测试（翻译）</title>
+    <link href="http://blog.wangjiegulu.com/2016/08/22/Android-%E4%BD%BF%E7%94%A8%E8%87%AA%E5%AE%9A%E4%B9%89JUnit-Rules%E3%80%81annotations%E5%92%8CResources%E8%BF%9B%E8%A1%8C%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/"/>
+    <id>http://blog.wangjiegulu.com/2016/08/22/Android-使用自定义JUnit-Rules、annotations和Resources进行单元测试（翻译）/</id>
+    <published>2016-08-22T04:00:00.000Z</published>
+    <updated>2018-01-29T12:36:41.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;font color=&quot;#ff0000&quot;&gt;&lt;strong&gt;&lt;br&gt;以下内容为原创，欢迎转载，转载请注明&lt;br&gt;来自天天博客：&lt;a href=&quot;http://www.cnblogs.com/tiantianbyconan/p/5795091.html&quot;
+        
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+</feed>

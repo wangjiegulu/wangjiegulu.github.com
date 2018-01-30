@@ -1,0 +1,1429 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="WAND JIE" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="Git 参考 http://chengshiwen.com/article/head-first-git/  文件状态 Git目录: （git directory），亦即Git仓库，一般对应项目根目录下的.git目录。该目录非常重要，每次克隆镜像仓库的时候，实际拷贝的就是这个目录里面的数据。  工作目录:（working directory）是项目某个版本的签出（The working direc">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git Note">
+<meta property="og:url" content="http://blog.wangjiegulu.com/2016/08/24/Git-Note/index.html">
+<meta property="og:site_name" content="WAND JIE">
+<meta property="og:description" content="Git 参考 http://chengshiwen.com/article/head-first-git/  文件状态 Git目录: （git directory），亦即Git仓库，一般对应项目根目录下的.git目录。该目录非常重要，每次克隆镜像仓库的时候，实际拷贝的就是这个目录里面的数据。  工作目录:（working directory）是项目某个版本的签出（The working direc">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-01-29T12:36:41.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Git Note">
+<meta name="twitter:description" content="Git 参考 http://chengshiwen.com/article/head-first-git/  文件状态 Git目录: （git directory），亦即Git仓库，一般对应项目根目录下的.git目录。该目录非常重要，每次克隆镜像仓库的时候，实际拷贝的就是这个目录里面的数据。  工作目录:（working directory）是项目某个版本的签出（The working direc">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.wangjiegulu.com/2016/08/24/Git-Note/"/>
+
+
+
+
+
+  <title>Git Note | WAND JIE</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-111189680-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">WAND JIE</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">TO BE AN ARTIST-ENGINNER</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.wangjiegulu.com/2016/08/24/Git-Note/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wang Jie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/my_avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WAND JIE">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Git Note</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-08-24T17:36:00+08:00">
+                2016-08-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/08/24/Git-Note/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2016/08/24/Git-Note/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h1><blockquote>
+<p>参考 <a href="http://chengshiwen.com/article/head-first-git/" target="_blank" rel="noopener">http://chengshiwen.com/article/head-first-git/</a></p>
+</blockquote>
+<h2 id="文件状态"><a href="#文件状态" class="headerlink" title="文件状态"></a>文件状态</h2><ul>
+<li><p><strong>Git目录</strong>: （git directory），亦即Git仓库，一般对应项目根目录下的.git目录。该目录非常重要，每次克隆镜像仓库的时候，实际拷贝的就是这个目录里面的数据。</p>
+</li>
+<li><p><strong>工作目录</strong>:（working directory）是项目某个版本的签出（The working directory is a single checkout of one version of the project） ，也就是本地项目目录，其包含该版本的所有文件（不包括Git目录）。这些文件都是从Git目录中取出的，我们可以在工作目录中修改它们(modify)、删除它们(remove)或添加新文件(add)——这些称之为改动（Changes）。</p>
+</li>
+<li><p><strong>暂存区域</strong>:（staging area）是工作目录和Git目录之间的临时中转区，存储着工作目录中部分改动文件的快照，该快照将在下次提交时被永久地保存到Git目录中。暂存区域也叫索引（index），实际是Git目录下的index文件（<code>.git/index</code>），其存放了与当前暂存内容相关的信息，包括暂存的文件名、文件内容的SHA-1哈希值和文件访问权限，使用<code>git ls-files --stage</code>命令可查看其内容。</p>
+</li>
+</ul>
+<h2 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2><h3 id="查看配置信息"><a href="#查看配置信息" class="headerlink" title="查看配置信息"></a>查看配置信息</h3><p><code>git config --list</code></p>
+<p><code>git config [--system/--global/--local] user.name</code></p>
+<h3 id="初始化新仓库"><a href="#初始化新仓库" class="headerlink" title="初始化新仓库"></a>初始化新仓库</h3><p><code>git init</code></p>
+<h3 id="从现有仓库克隆"><a href="#从现有仓库克隆" class="headerlink" title="从现有仓库克隆"></a>从现有仓库克隆</h3><p>从现有的项目仓库（如远程服务器上自己的项目，或者其它某个开源项目）克隆到本地，Git接收的是项目历史的所有数据（包括每一个文件的每一个版本）。</p>
+<p><code>git clone &lt;repo&gt; [&lt;dir&gt;]</code></p>
+<p>克隆时可以在上面的命令末尾指定新的名字，来定义要新建的项目目录名称（仅目录名称不同），例如：</p>
+<p><code>git clone git@github.com:jquery/jquery.git myjquery</code></p>
+<p>Git支持<code>git://</code>，<code>http(s)://</code>，<code>ssh://</code>等多种数据传输协议。</p>
+<h2 id="Git的基本工作流程"><a href="#Git的基本工作流程" class="headerlink" title="Git的基本工作流程"></a>Git的基本工作流程</h2><ul>
+<li><p>改动文件：在工作目录中修改、删除或添加某些文件</p>
+</li>
+<li><p>暂存文件：对改动后的文件进行快照，保存至暂存区域</p>
+</li>
+<li><p>提交快照：将保存在暂存区域的文件快照永久转储到Git目录中</p>
+</li>
+</ul>
+<h3 id="查看工作目录下当前文件的状态"><a href="#查看工作目录下当前文件的状态" class="headerlink" title="查看工作目录下当前文件的状态"></a>查看工作目录下当前文件的状态</h3><p><code>git status</code></p>
+<h3 id="暂存文件"><a href="#暂存文件" class="headerlink" title="暂存文件"></a>暂存文件</h3><p>其作用是把目标文件快照放入暂存区域（add file into staged area）。</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>新文件</th>
+<th>被修改文件</th>
+<th>被删除文件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>git add</code></td>
+<td>Y</td>
+<td>Y</td>
+<td>N</td>
+</tr>
+<tr>
+<td><code>git add -u</code></td>
+<td>N</td>
+<td>Y</td>
+<td>Y</td>
+</tr>
+<tr>
+<td><code>git add -A</code></td>
+<td>Y</td>
+<td>Y</td>
+<td>Y</td>
+</tr>
+</tbody>
+</table>
+<h4 id="取消已修改或已暂存文件"><a href="#取消已修改或已暂存文件" class="headerlink" title="取消已修改或已暂存文件"></a>取消已修改或已暂存文件</h4><p><code>git checkout [&lt;commit&gt;] [--] &lt;file&gt;...</code></p>
+<ul>
+<li><p>省略commit: 暂存区域 覆盖工作目录 的文件</p>
+</li>
+<li><p>指定commit: 指定commit 覆盖暂存区域和工作目录</p>
+</li>
+</ul>
+<p>两者不会改变HEAD指针，其中–用于分隔指定文件，防止该文件与分支重名造成分支误操作。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -- grep.py   # 放弃grep.py文件未暂存的改动</span><br><span class="line">$ git checkout .            # 放弃所有未暂存的改动</span><br><span class="line">$ git checkout HEAD *.txt   # 放弃本次所有txt文件作的改动（包括工作目录和暂存区域）</span><br><span class="line">$ git checkout HEAD .       # 放弃所有已暂存改动和未暂存改动，即完全重置到最近的提交状态</span><br></pre></td></tr></table></figure>
+<h4 id="文件重置为最近提交时的状态"><a href="#文件重置为最近提交时的状态" class="headerlink" title="文件重置为最近提交时的状态"></a>文件重置为最近提交时的状态</h4><p><code>git reset HEAD &lt;file&gt;</code></p>
+<h4 id="从暂存区域移除文件"><a href="#从暂存区域移除文件" class="headerlink" title="从暂存区域移除文件"></a>从暂存区域移除文件</h4><p><code>git rm --cached &lt;file&gt;</code></p>
+<h3 id="差异比较"><a href="#差异比较" class="headerlink" title="差异比较"></a>差异比较</h3><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>git diff</code></td>
+<td>工作目录 / 暂存区域快照</td>
+</tr>
+<tr>
+<td><code>git diff [--] &lt;path&gt;...</code></td>
+<td>工作目录 / 暂存区域快照(指定文件或目录)</td>
+</tr>
+<tr>
+<td><code>git diff --cached</code></td>
+<td>暂存区域快照 / 上次提交</td>
+</tr>
+<tr>
+<td><code>git diff --cached [--] &lt;path&gt;...</code></td>
+<td>暂存区域快照 / 上次提交(指定文件或目录)</td>
+</tr>
+<tr>
+<td><code>git diff HEAD</code></td>
+<td>工作目录 / 上次提交</td>
+</tr>
+<tr>
+<td><code>git diff &lt;commit&gt;</code></td>
+<td>工作目录 / commit</td>
+</tr>
+<tr>
+<td><code>git diff &lt;commit&gt; [--] &lt;path&gt;...</code></td>
+<td>工作目录 / commit(指定文件或目录)</td>
+</tr>
+<tr>
+<td><code>git diff --cached HEAD</code></td>
+<td>暂存区域快照 / 上次提交</td>
+</tr>
+<tr>
+<td><code>git diff --cached &lt;commit&gt;</code></td>
+<td>暂存区域快照 / commit</td>
+</tr>
+<tr>
+<td><code>git diff --cached &lt;commit&gt; [--] &lt;path&gt;...</code></td>
+<td>暂存区域快照 / commit(指定文件或目录)</td>
+</tr>
+<tr>
+<td><code>git diff &lt;commit1&gt; &lt;commit2&gt;</code></td>
+<td>commit1 / commit2</td>
+</tr>
+<tr>
+<td><code>git diff --check</code></td>
+<td>列出所有的尾随空白符</td>
+</tr>
+</tbody>
+</table>
+<h3 id="提交快照"><a href="#提交快照" class="headerlink" title="提交快照"></a>提交快照</h3><p>把暂存区域内的文件快照提交至Git目录中:<br><code>git commit -m &quot;Fix Bug #182: Fix benchmarks for speed&quot;</code></p>
+<p>把所有已经跟踪过的文件暂存起来一并提交:<br><code>git commit -a -m &quot;added new benchmarks&quot;</code></p>
+<p>以新作者提交:<code>git commit --author wjhook&lt;wjhook@gmail.com&gt;</code></p>
+<p>将指定文件和已暂存文件一并提交:<code>git commit -i &lt;file&gt;...</code></p>
+<p>只提交指定文件:<code>git commit -o &lt;file&gt;...</code></p>
+<p>修改最后一次提交:</p>
+<ul>
+<li>重新编辑提交说明: <code>git commit --amend -m &lt;message&gt;</code></li>
+<li>重新编辑提交作者: <code>git commit --amend --author wjhook&lt;wjhook@gmail.com&gt;</code></li>
+</ul>
+<h3 id="Git的基本工作扩展"><a href="#Git的基本工作扩展" class="headerlink" title="Git的基本工作扩展"></a>Git的基本工作扩展</h3><h4 id="查看提交历史"><a href="#查看提交历史" class="headerlink" title="查看提交历史"></a>查看提交历史</h4><p><code>git log --pretty=format:&quot;%h [%an]&lt;%ae&gt;(%ad) message -&gt; %s&quot; --after=&quot;2016-08-12 15:26:00&quot; --before=&quot;2016-08-25&quot; --graph --author= wangjie -p -- *android/alibaba/member*FragmentMemberSignIn.java  -3</code></p>
+<p>按照”hash [作者]&lt;邮箱&gt;(时间) message -&gt; 提交说明”的格式查看提交时间在2016-08-12 15:26:00 ~ 2016-08-25 之间的、作者为wangjie的关于<code>*android/alibaba/member*FragmentMemberSignIn.java</code>文件的log并显示提交差异。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">%H	：提交对象（commit）的完整哈希字串</span><br><span class="line">%h	：提交对象的简短哈希字串</span><br><span class="line">%an：作者（author）的名字</span><br><span class="line">%ae：作者的电子邮件地址</span><br><span class="line">%ad：作者修订日期（可以用 -date= 选项定制格式）</span><br><span class="line">%ar：作者修订日期，按多久以前的方式显示</span><br><span class="line">%s：提交说明</span><br></pre></td></tr></table></figure>
+<p><code>git log --diff-filter=[A/D] --summary</code>：<br>列出版本库中曾添加/删除过文件的提交</p>
+<p><code>git log --diff-filter=[A/D] --summary | grep create</code>：<br>列出所有添加/删除过的历史文件</p>
+<p><code>git log branch1..branch2</code>：属于branch2，不属于branch1的提交</p>
+<h5 id="暂存栈"><a href="#暂存栈" class="headerlink" title="暂存栈"></a>暂存栈</h5><blockquote>
+<p><stash> -&gt; stash@{0/1/2/3…}</stash></p>
+</blockquote>
+<p><code>git stash [save &lt;message&gt;]</code>: 当前工作保存到暂存栈中</p>
+<p><code>git stash pop [&lt;stash&gt;]</code>: 恢复暂存栈中引用为<stash>的工作，并从暂存栈中删除</stash></p>
+<p><code>git stash apply [&lt;stash&gt;]</code>: 恢复暂存栈中引用为<stash>的工作，暂存栈中不删除</stash></p>
+<p><code>git stash drop [&lt;stash&gt;]</code>: 删除暂存栈中引用为<stash>的工作</stash></p>
+<p><code>git stash list</code>: 列出暂存栈中的所有工作</p>
+<p><code>git stash show [&lt;stash&gt;]</code>: 显示暂存栈中引用为<stash>的工作的改动记录</stash></p>
+<p><code>git stash clear</code>: 清除暂存栈中所有保留的工作</p>
+<p><code>git stash branch &lt;branchname&gt; [&lt;stash&gt;]</code>: 基于指定工作创建新分支，完全恢复该工作被保存前的状态（新建一个最新提交为<stash>创建时所在的提交、名为<branchname>的分支，同时切换到该分支，恢复暂存栈中引用为<stash>的工作，并将其从暂存栈中删除）</stash></branchname></stash></p>
+<h5 id="删除文件"><a href="#删除文件" class="headerlink" title="删除文件"></a>删除文件</h5><p><code>rm &lt;file&gt;...</code>：从工作目录中删除指定文件，但不从暂存区域移除</p>
+<p><code>git rm &lt;file&gt;...</code>：从工作目录中删除指定文件，同时将其从暂存区域移除</p>
+<p><code>git rm --cached &lt;file&gt;...</code>：仅仅将文件从暂存区域中移除（其状态变为未跟踪），不对该文件进行其它操作</p>
+<p><code>git rm -f &lt;file&gt;...</code>：强制删除</p>
+<p><code>git rm -r &lt;file&gt;...</code>：递归删除（用于删除目录）</p>
+<h5 id="移动或重命名文件"><a href="#移动或重命名文件" class="headerlink" title="移动或重命名文件"></a>移动或重命名文件</h5><p><code>git mv &lt;file_from&gt; &lt;file_to&gt;</code></p>
+<p>其等价于</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ mv &lt;file_from&gt; &lt;file_to&gt;</span><br><span class="line">$ git rm &lt;file_from&gt;</span><br><span class="line">$ git add &lt;file_to</span><br></pre></td></tr></table></figure>
+<h5 id="清除未跟踪文件"><a href="#清除未跟踪文件" class="headerlink" title="清除未跟踪文件"></a>清除未跟踪文件</h5><p><code>git clean -n</code>: 显示将要清除的文件和目录</p>
+<p><code>git clean -f</code>：强制清除文件（不包括目录）</p>
+<p><code>git clean -df</code>：强制清除所有文件和目录</p>
+<p>若要同时再移除被忽略的文件或目录，加上-x参数；若只移除被忽略的文件或目录，加上-X参数。</p>
+<h5 id="合并"><a href="#合并" class="headerlink" title="合并"></a>合并</h5><p><code>git merge -m &lt;msg&gt; &lt;commit&gt;</code>：如果产生新的合并提交，则附加msg说明</p>
+<p><code>git merge --no-commit &lt;commit&gt;</code>：合并成功后不会自动产生新的提交，用户可以在下次提交前对这次的合并结果进行修改和调整</p>
+<p><code>git merge --abort</code>：遇到合并冲突时，此命令将终止合并，并恢复未合并之前的状态</p>
+<h5 id="分支挑捡"><a href="#分支挑捡" class="headerlink" title="分支挑捡"></a>分支挑捡</h5><p>如果不需要合并某个分支的全部提交,而只需要该分支的某个或某些提交,使用git cherry-pick命令，它会将指定的commit重新应用到当前分支，命令格式为：</p>
+<p><code>$ git cherry-pick &lt;commit&gt;...</code></p>
+<h3 id="远程交互"><a href="#远程交互" class="headerlink" title="远程交互"></a>远程交互</h3><h5 id="查看远程仓库"><a href="#查看远程仓库" class="headerlink" title="查看远程仓库"></a>查看远程仓库</h5><p><code>git remote</code></p>
+<p>加上<code>-v</code>选项，显示对应的克隆地址：<code>git remote -v</code></p>
+<h5 id="添加远程仓库"><a href="#添加远程仓库" class="headerlink" title="添加远程仓库"></a>添加远程仓库</h5><p><code>git remote add &lt;shortname&gt; &lt;url&gt;</code></p>
+<p><code>git remote add upstream https://github.com/xgenvn/InputHelper.git</code></p>
+<p>拉取所有xgenvn有的，但本地仓库没有的信息</p>
+<p><code>git fetch upstream</code></p>
+<p><code>git remote rename &lt;old&gt; &lt;new&gt;</code>：重命名远程仓库</p>
+<p><code>git remote rm &lt;name&gt;</code>：删除名为name的远程仓库</p>
+<p><code>git remote [-v] show &lt;name&gt;</code>：查看远程仓库信息</p>
+<p><code>git remote prune &lt;name&gt;</code>：删除不存在对应远程分支的本地分支</p>
+<h5 id="推送提交到远程仓库"><a href="#推送提交到远程仓库" class="headerlink" title="推送提交到远程仓库"></a>推送提交到远程仓库</h5><p><code>git push &lt;remote&gt; &lt;branch&gt;</code></p>
+<p><code>git push &lt;remote&gt; &lt;lbranch&gt;:[&lt;rbranch&gt;]</code>：将本地lbranch分支推送到remote远程仓库的rbranch分支。若rbranch缺省则默认为lbranch，等同于git push <remote> <lbranch></lbranch></remote></p>
+<p><code>git push &lt;remote&gt; :&lt;branch&gt;</code>：将空推送到remote远程仓库的branch分支，即删除remote远程仓库的branch分支</p>
+<p><code>git push &lt;remote&gt; --delete &lt;branch&gt;</code>：删除remote远程仓库的branch分支</p>
+<p><code>git push &lt;remote&gt; -f &lt;lbranch&gt;:[&lt;rbranch&gt;]</code>：将本地lbranch分支强制推送到remote远程仓库的rbranch分支</p>
+<h5 id="从远程仓库拉取最新改动"><a href="#从远程仓库拉取最新改动" class="headerlink" title="从远程仓库拉取最新改动"></a>从远程仓库拉取最新改动</h5><p>基本命令为<code>git fetch</code>，其作用是到远程仓库中拉取所有本地仓库中还没有的最新改动，但不会自动将这些改动合并到当前工作分支</p>
+<p><code>git fetch [&lt;remote&gt;]</code>：到remote远程仓库拉取所有本地仓库中还没有的最新改动，不指定remote则默认为origin</p>
+<p><code>git fetch &lt;remote&gt; &lt;branch&gt;</code>：将remote远程仓库的branch分支拉取到本地，同时用FETCH_HEAD指针指向它</p>
+<p><code>git fetch --all</code>：拉取所有远程仓库</p>
+<p><code>git fetch -p</code>：删除不存在对应远程分支的本地分支</p>
+<h5 id="从远程仓库拉取最新改动并合并"><a href="#从远程仓库拉取最新改动并合并" class="headerlink" title="从远程仓库拉取最新改动并合并"></a>从远程仓库拉取最新改动并合并</h5><p>基本命令为<code>git pull</code>，其作用是从远程仓库自动拉取最新改动到本地（Fetch），然后将远程分支自动合并到本地仓库中的当前分支(Merge)</p>
+<p><code>git pull &lt;remote&gt; &lt;branch&gt;</code></p>
+<p>其将remote远程仓库的branch分支拉取到本地，然后将其合并到本地当前分支。</p>
+<p><code>git pull &lt;remote&gt; &lt;rbranch&gt;:&lt;lbranch&gt;</code>：将remote远程仓库的rbranch分支拉取到本地，然后将其合并到本地lbranch分支</p>
+<h5 id="重置"><a href="#重置" class="headerlink" title="重置"></a>重置</h5><p>基本命令为git reset，其作用是将当前分支指针（HEAD指针）重置为指定状态</p>
+<p><code>git reset [&lt;commit&gt;] [--] &lt;paths&gt;...</code></p>
+<p>将暂存区域中指定路径的文件重置为指定commit（不指定则默认为HEAD）时的状态，但不会改变工作目录及当前分支，其相当于git add <paths>的反向操作。该命令执行后，自从commit以来指定文件的所有改动都显示在Changes not staged for commit中，而这些改动的反向改动会显示在Changes to be committed中。</paths></p>
+<p><code>git reset (--soft|--mixed|--hard) [&lt;commit&gt;]</code></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/22/Android-使用自定义JUnit-Rules、annotations和Resources进行单元测试（翻译）/" rel="next" title="[Android]使用自定义JUnit Rules、annotations和Resources进行单元测试（翻译）">
+                <i class="fa fa-chevron-left"></i> [Android]使用自定义JUnit Rules、annotations和Resources进行单元测试（翻译）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/08/29/网络基础/" rel="prev" title="网络基础">
+                网络基础 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/my_avatar.jpg"
+                alt="Wang Jie" />
+            
+              <p class="site-author-name" itemprop="name">Wang Jie</p>
+              <p class="site-description motion-element" itemprop="description">Wang Jie's blog</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">144</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wangjiegulu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:tiantian.china.2@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/+%E5%A4%A9%E5%A4%A9wangjie" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/wangjiegulu" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://stackoverflow.com/users/2124006/wangjie" target="_blank" title="StackOverflow">
+                      
+                        <i class="fa fa-fw fa-stack-overflow"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/wangjiegulu" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.cnblogs.com/tiantianbyconan/" title="cnblog" target="_blank">cnblog</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Git"><span class="nav-text">Git</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#文件状态"><span class="nav-text">文件状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#初始化"><span class="nav-text">初始化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查看配置信息"><span class="nav-text">查看配置信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化新仓库"><span class="nav-text">初始化新仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从现有仓库克隆"><span class="nav-text">从现有仓库克隆</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Git的基本工作流程"><span class="nav-text">Git的基本工作流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查看工作目录下当前文件的状态"><span class="nav-text">查看工作目录下当前文件的状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#暂存文件"><span class="nav-text">暂存文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#取消已修改或已暂存文件"><span class="nav-text">取消已修改或已暂存文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文件重置为最近提交时的状态"><span class="nav-text">文件重置为最近提交时的状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#从暂存区域移除文件"><span class="nav-text">从暂存区域移除文件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#差异比较"><span class="nav-text">差异比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#提交快照"><span class="nav-text">提交快照</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Git的基本工作扩展"><span class="nav-text">Git的基本工作扩展</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#查看提交历史"><span class="nav-text">查看提交历史</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#暂存栈"><span class="nav-text">暂存栈</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#删除文件"><span class="nav-text">删除文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#移动或重命名文件"><span class="nav-text">移动或重命名文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#清除未跟踪文件"><span class="nav-text">清除未跟踪文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#合并"><span class="nav-text">合并</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#分支挑捡"><span class="nav-text">分支挑捡</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#远程交互"><span class="nav-text">远程交互</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#查看远程仓库"><span class="nav-text">查看远程仓库</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#添加远程仓库"><span class="nav-text">添加远程仓库</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#推送提交到远程仓库"><span class="nav-text">推送提交到远程仓库</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#从远程仓库拉取最新改动"><span class="nav-text">从远程仓库拉取最新改动</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#从远程仓库拉取最新改动并合并"><span class="nav-text">从远程仓库拉取最新改动并合并</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#重置"><span class="nav-text">重置</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wang Jie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://blog-wangjiegulu-com.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://blog.wangjiegulu.com/2016/08/24/Git-Note/';
+          this.page.identifier = '2016/08/24/Git-Note/';
+          this.page.title = 'Git Note';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://blog-wangjiegulu-com.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "default";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "GooglePlus,Evernote,Twitter,Facebook,Douban,Weibo";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

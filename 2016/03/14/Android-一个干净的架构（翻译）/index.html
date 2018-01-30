@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="WAND JIE" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/5276587.html   一个干净的架构 原文：https://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html   在过去几年中我们能看到的一系列关于系统架构的思想。它们包括：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Android]一个干净的架构（翻译）">
+<meta property="og:url" content="http://blog.wangjiegulu.com/2016/03/14/Android-一个干净的架构（翻译）/index.html">
+<meta property="og:site_name" content="WAND JIE">
+<meta property="og:description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/5276587.html   一个干净的架构 原文：https://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html   在过去几年中我们能看到的一系列关于系统架构的思想。它们包括：">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://blog.8thlight.com/assets/posts/2012-08-13-the-clean-architecture/CleanArchitecture-81565aba46f035911a5018e77a0f2d4e.jpg">
+<meta property="og:updated_time" content="2018-01-29T12:36:41.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[Android]一个干净的架构（翻译）">
+<meta name="twitter:description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/5276587.html   一个干净的架构 原文：https://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html   在过去几年中我们能看到的一系列关于系统架构的思想。它们包括：">
+<meta name="twitter:image" content="https://blog.8thlight.com/assets/posts/2012-08-13-the-clean-architecture/CleanArchitecture-81565aba46f035911a5018e77a0f2d4e.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.wangjiegulu.com/2016/03/14/Android-一个干净的架构（翻译）/"/>
+
+
+
+
+
+  <title>[Android]一个干净的架构（翻译） | WAND JIE</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-111189680-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">WAND JIE</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">TO BE AN ARTIST-ENGINNER</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.wangjiegulu.com/2016/03/14/Android-一个干净的架构（翻译）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wang Jie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/my_avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WAND JIE">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">[Android]一个干净的架构（翻译）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-03-14T17:52:00+08:00">
+                2016-03-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/03/14/Android-一个干净的架构（翻译）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2016/03/14/Android-一个干净的架构（翻译）/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <font color="#ff0000"><strong><br>以下内容为原创，欢迎转载，转载请注明<br>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/5276587.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/5276587.html</a>
+</strong></font>
+
+<h1 id="一个干净的架构"><a href="#一个干净的架构" class="headerlink" title="一个干净的架构"></a>一个干净的架构</h1><blockquote>
+<p>原文：<a href="https://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html" target="_blank" rel="noopener">https://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html</a></p>
+</blockquote>
+<p><img src="https://blog.8thlight.com/assets/posts/2012-08-13-the-clean-architecture/CleanArchitecture-81565aba46f035911a5018e77a0f2d4e.jpg" alt=""></p>
+<p>在过去几年中我们能看到的一系列关于系统架构的思想。它们包括：</p>
+<ul>
+<li><p><a href="http://alistair.cockburn.us/Hexagonal+architecture" target="_blank" rel="noopener">Hexagonal Architecture</a>（也称为<code>Ports and Adapters</code>），作者是 Alistair Cockburn，并被 Steve Freeman 和 Nat Pryce 在他们很棒的 <a href="http://www.amazon.com/Growing-Object-Oriented-Software-Guided-Tests/dp/0321503627" target="_blank" rel="noopener">Growing Object Oriented Software</a> 这本书中采用。</p>
+</li>
+<li><p><a href="http://jeffreypalermo.com/blog/the-onion-architecture-part-1/" target="_blank" rel="noopener">Onion Architecture</a>，作者是 Jeffrey Palermo。</p>
+</li>
+<li><p><a href="http://blog.8thlight.com/uncle-bob/2011/09/30/Screaming-Architecture.html" target="_blank" rel="noopener">Screaming Architecture</a>，来自我去年写的一篇博客。</p>
+</li>
+<li><p><a href="http://www.amazon.com/Lean-Architecture-Agile-Software-Development/dp/0470684208/" target="_blank" rel="noopener">DCI</a>，来自 James Coplien 和 Trygve Reenskaug。</p>
+</li>
+<li><p><a href="http://www.amazon.com/Object-Oriented-Software-Engineering-Approach/dp/0201544350" target="_blank" rel="noopener">BCE</a>，来自 Ivar Jacobson 的一本书 <em>Object Oriented Software Engineering: A Use-Case Driven Approach</em></p>
+</li>
+</ul>
+<p>尽管这些书在细节上有些不同之处，但是它们是非常相似的。从分离的观点上来讲它们都有着同样的目标。它们都是通过软件分层来实现分离的。每一个都至少有一层是用于业务规则，另外一层用于接口。</p>
+<p>这些架构生产系统：</p>
+<p>1. <strong>框架独立性</strong>。架构并不依赖于已经存在的某些库的有负载的特性。这允许你作为工具去使用框架，而不是把你的系统强塞到限制和约束中。</p>
+<p>2. <strong>可测试性</strong>。业务规则可以脱离UI、数据库、web服务器和其它外部元素去进行测试。</p>
+<p>3. <strong>UI的独立性</strong>。UI可以在不修改系统其它地方的情况下很容易地被改变。比如，一个Web UI可以使用console UI替换，而不改变任何业务规则。</p>
+<p>4. <strong>数据库独立</strong>。你可以使用Mongo、BitTable、CouchDB或者其它来置换Oracle或SQL Server。你的业务规则不会被数据库束缚。</p>
+<p>5. <strong>外部代理的独立性</strong>。事实上，你的业务规则根本不知道外面的世界。</p>
+<p>这篇文章顶部的图表就是尝试所有这些结构到单个可操作的思想中去。</p>
+<h2 id="依赖准则"><a href="#依赖准则" class="headerlink" title="依赖准则"></a>依赖准则</h2><p>同心圆表示不同软件的区域。一般情况下，走得越远，软件水平也会变得越高。外面的圆是机制，而内部的圆是政策。</p>
+<p>使得这个架构可行的最重要的规则是 <em>依赖准则</em> 。这个准则指 <em>代码的依赖</em> 只能 <em>向内</em> 。没有一个内部圆可以知道外部圆的任何东西。尤其是在内部圆声明的东西名字不能被内部圆中的代码提到。这里包括方法、类、变量、或者其它软件实体的名字。</p>
+<p>同样的原因，外部圆中用到的数据格式不能被内部圆使用，尤其是这些格式是被外部圆中的框架生成的。我们不希望任何在外部圆中的东西影响到内部圆。</p>
+<h3 id="Entities"><a href="#Entities" class="headerlink" title="Entities"></a><em>Entities</em></h3><p>实体封装了 <em>企业级</em> 业务规则。一个实体可以是一个有方法的对象，或者有一系列的数据结构和函数。只要这个实体可以被很多不同企业中的应用使用就没关系。</p>
+<p>如果你没有一个企业，并且只是编写单个的应用程序，那么这些实体就是应用程序中的业务对象。它封装了大部分一般的和高级别的规则。它们最不可能在外部改变的时候被改变。比如，由于安全你不希望这些对象被导航页面改变而影响。没有特别的可操作的改变可以影响实体层。</p>
+<h2 id="用例"><a href="#用例" class="headerlink" title="用例"></a>用例</h2><p>软件在这一层包含应用程序指定的业务规则。它封装和实现了这个系统的所有用例。这些用例转化数据流到实体和从实体转化到数据流，然后这些实体直接使用它们企业范围的业务规则来达到用例的目的。</p>
+<p>我们不期望改变这一层来影响到实体。我们也不希望这一层被外部的改变，比如数据库、UI、任何常见的框架等影响。在这一层在这的观点上是被孤立的。</p>
+<p>然而，我们要做的是希望应用程序操作的改变会影响到软件的用例，所以应该是在这一层。如果用例的细节改变了，那么这一层的某些代码当然也会受到影响。</p>
+<h2 id="接口适配器"><a href="#接口适配器" class="headerlink" title="接口适配器"></a>接口适配器</h2><p>在软件的这一层是一系列的适配器，通过最方便的用例和实体转换数据格式，最方便的外部代理格式有数据库或者Web等。在这一层，举个例子，将会完整包含 GUI 的 MVC 架构。Presenters、Views、 Controllers 都属于这里。Models有可能仅仅是数据结构，它们从 contrllers 被传入到用例中，然后从用例到 presenters 和 views。</p>
+<p>同样的，在这一层，数据会被转换，从最方便的方式如实体和用例，转换到使用的用于持久框架的最方便的方式，即数据库。<br>这个圆中没有代码可以向内知道任何关于数据库的东西。如果数据库是一个 SQL database，那么所有 SQL 应该在这一层被限制，特别是在这一层需要进行数据库操作的部分。</p>
+<p>在这一层也有必要从一些外部形式去转换数据，比如一个外部服务，转化为内部用例和实体使用的形式。</p>
+<h2 id="框架和驱动"><a href="#框架和驱动" class="headerlink" title="框架和驱动"></a>框架和驱动</h2><p>最外层通常是框架和工具，通常是数据库、Web 框架等的组合。通常你不需要在这一层编写太多的代码，除了一些用于向内圈进行通信的固定代码。</p>
+<p>这一层是所有细节走向的地方。Web是一个细节。数据库是一个细节。我们把这些东西放置在外部，这样它们就难以造成伤害。</p>
+<h2 id="只有四个圆？"><a href="#只有四个圆？" class="headerlink" title="只有四个圆？"></a>只有四个圆？</h2><p>不，这些圆只是简图。你可能会需要多于这四个圆。这里并没有一个规则来让你必须要使用这四个圆。然而，<em>依赖规则</em> 总是适用的。代码依赖总是指向内部。当你向内移动时，抽象级别增加。最外层的圆是最低级别的具体细节。当你向内移动，就会变得更加抽象和更高级别策略的封装。最内部的圆是最通用的。</p>
+<h2 id="跨越边界"><a href="#跨越边界" class="headerlink" title="跨越边界"></a>跨越边界</h2><p>右下方的图是一个我们怎么去跨越圆的边界的例子。它展示了 Controllers 和 Presenters 通过下一层使用用例进行通信。注意控制流。它在controller中开始，通过用例，然后再Presenter中执行。也要注意代码的依赖。它们每一个都是向内指向用例。</p>
+<p>我们通常使用 <a href="http://en.wikipedia.org/wiki/Dependency_inversion_principle" target="_blank" rel="noopener">依赖反转准则</a> 来解决这个明显的矛盾。在像Java的语言中，举个例子，我们使用了interfaces和继承关系，这样代码依赖关系控制权被反转，达到跨越边界的目的。</p>
+<p>举个例子，考虑到用例需要调用Presenter。然而，这些调用必须不能是直接的，因为它会违反<em>依赖准则</em>：内部圆不能提到外部圆中的任何名字。所以我们这种情况我们会调用在内部圆中的接口（就像这里展示的 Use Case Output Port)），然后在外部圆中的Presenter去实现它。</p>
+<p>同样的技术在架构的所有跨越边界的地方被使用到。我们利用动态代理的优势去创建代码依赖来达到控制反转，所以我们可以确保无论什么方向的 <em>依赖准则</em> 控制流都能有效。</p>
+<h2 id="什么数据跨越边界。"><a href="#什么数据跨越边界。" class="headerlink" title="什么数据跨越边界。"></a>什么数据跨越边界。</h2><p>典型的跨越边界的数据就是简单的数据结构。如果你喜欢你可以使用基本结构或者简单的数据传输对象。或者是方法调用时的简单的参数数据。或者你可以把它放进一个HashMap，或者构建它到一个对象中。重要的是分离的、简单的数据结构跨越过边界。我们不希望去欺骗并传递 <em>Entities</em> 或者数据库的行。我们不希望数据结构有任何的违反 <em>依赖准则</em> 的依赖。</p>
+<p>举个例子，很多数据库框架通过一个查询返回一个方便的数据形式的响应。我们可能称它为一个RowStructure。我们不希望这个行结构向内跨越边界。这将违反 <em>依赖准则</em> 因为这将强制一个内部圆去知道外部圆的一些东西。</p>
+<p>所以当我们跨越边界传递数据时，它对于内圆来说总是以最方便的形式的。</p>
+<p>遵守这些简单的规则并不难，前进的道路上会解决很多头疼的事情。通过分离软件到不同层次，并遵守 <em>依赖准则</em> ，你将会创建一个本质上可测试的系统，这意味这所有的好处。当任何系统外置的部分变得过时，就像数据库，或者web框架，你可以在最小的改动下替换这些外置元素。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/02/16/Android-Dagger2Metrics-测量DI图表初始化的性能（翻译）/" rel="next" title="[Android]Dagger2Metrics - 测量DI图表初始化的性能（翻译）">
+                <i class="fa fa-chevron-left"></i> [Android]Dagger2Metrics - 测量DI图表初始化的性能（翻译）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/04/22/Android-Android-MVP-依赖注入-单元测试/" rel="prev" title="[Android]Android MVP&依赖注入&单元测试">
+                [Android]Android MVP&依赖注入&单元测试 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/my_avatar.jpg"
+                alt="Wang Jie" />
+            
+              <p class="site-author-name" itemprop="name">Wang Jie</p>
+              <p class="site-description motion-element" itemprop="description">Wang Jie's blog</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">144</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wangjiegulu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:tiantian.china.2@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/+%E5%A4%A9%E5%A4%A9wangjie" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/wangjiegulu" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://stackoverflow.com/users/2124006/wangjie" target="_blank" title="StackOverflow">
+                      
+                        <i class="fa fa-fw fa-stack-overflow"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/wangjiegulu" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.cnblogs.com/tiantianbyconan/" title="cnblog" target="_blank">cnblog</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一个干净的架构"><span class="nav-text">一个干净的架构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#依赖准则"><span class="nav-text">依赖准则</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Entities"><span class="nav-text">Entities</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用例"><span class="nav-text">用例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口适配器"><span class="nav-text">接口适配器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#框架和驱动"><span class="nav-text">框架和驱动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#只有四个圆？"><span class="nav-text">只有四个圆？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#跨越边界"><span class="nav-text">跨越边界</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么数据跨越边界。"><span class="nav-text">什么数据跨越边界。</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wang Jie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://blog-wangjiegulu-com.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://blog.wangjiegulu.com/2016/03/14/Android-一个干净的架构（翻译）/';
+          this.page.identifier = '2016/03/14/Android-一个干净的架构（翻译）/';
+          this.page.title = '[Android]一个干净的架构（翻译）';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://blog-wangjiegulu-com.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "default";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "GooglePlus,Evernote,Twitter,Facebook,Douban,Weibo";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

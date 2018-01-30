@@ -1,0 +1,1360 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="WAND JIE" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="以下翻译内容为原创，转载请注明： 来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/3768936.html &amp;nbsp; 碎碎念。。。 Swift是苹果在WWDC刚发布的新语言，本人也没学过，现在看苹果官方文档一边翻译一边学习，再加上英语水平和对编程理解很有限，有错误的地方请大家指出，翻译只供参考，建议阅读苹果Swift官方的文档 &amp;nbsp; Sw">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[IOS]《A Swift Tour》翻译（一）">
+<meta property="og:url" content="http://blog.wangjiegulu.com/2014/06/04/IOS-《A-Swift-Tour》翻译（一）/index.html">
+<meta property="og:site_name" content="WAND JIE">
+<meta property="og:description" content="以下翻译内容为原创，转载请注明： 来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/3768936.html &amp;nbsp; 碎碎念。。。 Swift是苹果在WWDC刚发布的新语言，本人也没学过，现在看苹果官方文档一边翻译一边学习，再加上英语水平和对编程理解很有限，有错误的地方请大家指出，翻译只供参考，建议阅读苹果Swift官方的文档 &amp;nbsp; Sw">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-01-29T12:36:41.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[IOS]《A Swift Tour》翻译（一）">
+<meta name="twitter:description" content="以下翻译内容为原创，转载请注明： 来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/3768936.html &amp;nbsp; 碎碎念。。。 Swift是苹果在WWDC刚发布的新语言，本人也没学过，现在看苹果官方文档一边翻译一边学习，再加上英语水平和对编程理解很有限，有错误的地方请大家指出，翻译只供参考，建议阅读苹果Swift官方的文档 &amp;nbsp; Sw">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.wangjiegulu.com/2014/06/04/IOS-《A-Swift-Tour》翻译（一）/"/>
+
+
+
+
+
+  <title>[IOS]《A Swift Tour》翻译（一） | WAND JIE</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-111189680-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">WAND JIE</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">TO BE AN ARTIST-ENGINNER</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.wangjiegulu.com/2014/06/04/IOS-《A-Swift-Tour》翻译（一）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wang Jie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/my_avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WAND JIE">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">[IOS]《A Swift Tour》翻译（一）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-06-04T23:06:00+08:00">
+                2014-06-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2014/06/04/IOS-《A-Swift-Tour》翻译（一）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2014/06/04/IOS-《A-Swift-Tour》翻译（一）/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><span style="color: #ff0000;"><strong>以下翻译内容为原创，转载请注明：</strong></span></p>
+<p><span style="color: #ff0000;"><strong>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/3768936.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/3768936.html</a></strong></span></p>
+<p>&nbsp;</p>
+<p>碎碎念。。。</p>
+<p>Swift是苹果在WWDC刚发布的新语言，本人也没学过，现在看苹果官方文档一边翻译一边学习，再加上英语水平和对编程理解很有限，有错误的地方请大家指出，翻译只供参考，建议阅读<a href="https://developer.apple.com/library/prerelease/ios/documentation/Swift/Conceptual/Swift_Programming_Language/GuidedTour.html#//apple_ref/doc/uid/TP40014097-CH2-XID_1" target="_blank" rel="noopener">苹果Swift官方的文档</a></p>
+<p>&nbsp;</p>
+<p><span class="s1">Swift 之旅</span></p>
+<p><span class="s1">按照传统，在开始学习一门新的语言时写的第一个程序应该是在屏幕上打印&ldquo;Hello, World&rdquo;，这个可以用一行来完成：</span></p>
+<p>&nbsp;</p>
+<p><span class="s1">print(&ldquo;Hello, world&rdquo;)</span></p>
+<p>&nbsp;</p>
+<p><span class="s1">&nbsp;如果你有写过C或者Objective-C的经验，这个语法你应该会感觉很熟悉&mdash;&mdash;在Swift中，这行代码就是一个完整的程序。你不需要像输入输出流或者字符串处理等那样去导入另外的具有功能性的库。在全局范围编写的代码即是程序的入口点，所以你不需要一个main方法。你也不需要在每个语句后面写上分号。</span></p>
+<p><span class="s1">&nbsp; &nbsp; 这个旅程会带给你足够的信息让你用Swift来完成各种编程任务。不用担心你是否懂得一些编程&mdash;&mdash;这本书对各个方面都进行来详细的介绍。</span></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>基本数据</p>
+<p><span class="s1">&nbsp; &nbsp; 使用let来表示一个常量，使用var来表示一个变量。常量的值不需要在编译时期被知道，但是你必须且只能一次分配一个值给它。这表示你一旦给这个常量分配了一个值，你就能在很多地方使用它了。</span></p>
+<p>&nbsp;</p>
+<p><span class="s1">var myVariable = 42;</span></p>
+<p><span class="s1">myVariable = 50;</span></p>
+<p><span class="s1">let myConstant = 42;</span></p>
+<p>&nbsp;</p>
+<p><span class="s1">一个常量或者变量的类型必须要跟你分配给它的值的类型一致。然而，你一般不需要精确的写明它的类型。当你创建了一个常量或者变量，并赋值后，编译器会自动推断出它的类型。比如在上面的例子中，编译器会推断出myVariable是一个integer，因为它的初始值就是一个integer。</span></p>
+<p><span class="s1">如果初始值不能提供足够的信息（或者它根本没有初始值），可以在这个变量后面加上冒号，然后写上指定类型。</span></p>
+<p>&nbsp;</p>
+<p><span class="s1">let implicitInteger = 70</span></p>
+<p><span class="s1">let implicitDouble = 70.0</span></p>
+<p><span class="s1">let explicitDouble: Double = 70</span></p>
+<p>&nbsp;</p>
+<p><span class="s1">值不会隐式地被转换成另一种类型。如果你需要转换成一个不同类型的值，显示地生成一个期望类型的实例。</span></p>
+<p>&nbsp;</p>
+<p><span class="s1">let label = &ldquo;The width is &rdquo;</span></p>
+<p><span class="s1">let width = 94</span></p>
+<p><span class="s1">let widthLabel = label + String(width)</span></p>
+<p>&nbsp;</p>
+<p><span class="s1">还有一个更简单的方法，在字符串中包含变量值：写一对括号里面写一个变量值，然后在括号前面写一个反斜杠，举个例子：</span></p>
+<p>&nbsp;</p>
+<p><span class="s1">let apples = 3</span></p>
+<p><span class="s1">let oranges = 5</span></p>
+<p><span class="s1">let appleSummary = &ldquo;I have (apples) apples.&rdquo;</span></p>
+<p><span class="s1">let fruitSummary = &ldquo;I have (apples + oranges) pieces of fruit.&rdquo;</span></p>
+<p>&nbsp;</p>
+<p><span class="s1">使用中括号（[]）来创建一个数组或者字典，使用index（索引）或者key（键）访问他们的某一项。</span></p>
+<p>&nbsp;</p>
+<p><span class="s1">var shoppingList = [&ldquo;catfish&rdquo;, &ldquo;water&rdquo;, &ldquo;tulips&rdquo;, &ldquo;blue paint&rdquo;]</span></p>
+<p><span class="s1">shoppingList[1] = &ldquo;bottle of water&rdquo;</span></p>
+<p><span class="s1">var occupations = [</span></p>
+<p><span class="s1">&ldquo;Malcolm&rdquo;: &ldquo;Captain&rdquo;,</span></p>
+<p><span class="s1">&ldquo;Kaylee&rdquo;: &ldquo;Mechanic&rdquo;,</span></p>
+<p><span class="s1">]</span></p>
+<p><span class="s1">occupations[&ldquo;Jayne&rdquo;] = &ldquo;Public Relations&rdquo;</span></p>
+<p>&nbsp;</p>
+<p><span class="s1">使用初始化器的语法来创建一个空的数组或者字典。</span></p>
+<p>&nbsp;</p>
+<p><span class="s1">let emptyArray = String<a href=""></a></span></p>
+<p><span class="s1">let emptyDictionary = Dictionary&lt;String, Float&gt;()</span></p>
+<p>&nbsp;</p>
+<p><span class="s1">如果类型信息是可推断的，你可以使用[]创建一个空的数组，使用[:]来创建一个空的字典，举个例子，当你设置一个新的值或者往方法中传入一个变量作为参数</span></p>
+<p>&nbsp;</p>
+<p><span class="s1">shoppingList = []</span></p>
+<p>&nbsp;</p>
+<p><span class="s1">控制语句</span></p>
+<p><span class="s1">使用if和switch来创建一个条件，使用for-in，for，while和do-while来创建一个循环。</span></p>
+<p><span class="s1">条件和循环变量上的括号是可选的。if后面大括号和循环体的大括号是必须的。</span></p>
+<p>&nbsp;</p>
+<p><span class="s1">let individualScores = [75, 43, 103, 87, 12]</span></p>
+<p><span class="s1">var teamScore = 0</span></p>
+<p><span class="s1">for score in individualScores{</span></p>
+<p><span class="s1">if score &gt; 50{</span></p>
+<p><span class="s1">teamScore += 3</span></p>
+<p><span class="s1">}else{</span></p>
+<p><span class="s1">teamScore += 1</span></p>
+<p><span class="s1">}</span></p>
+<p><span class="s1">}</span></p>
+<p><span class="s1">teamScore</span></p>
+<p>&nbsp;</p>
+<p><span class="s1">在一个if语句中，条件必须是一个布尔类型的表达式&mdash;&mdash;这表示像if score { &hellip; }这样的代码是错误的，这个score并不是隐式地去跟0比较。</span></p>
+<p>&nbsp;</p>
+<p><span class="s1">你可以在值可能为空的时候同时使用if和let。这些值就被表示为可选地。一个可选的值可能包含一个值或者包含一个nil，nil表示这个值是空。在这个值的类型后面写上一个疑问符号（?）可以把这个值标记为可选的。</span></p>
+<p>&nbsp;</p>
+<p><span class="s1">var optionalString: String? = &ldquo;Hello&rdquo;</span></p>
+<p><span class="s1">optionalString == nil</span></p>
+<p>&nbsp;</p>
+<p><span class="s1">var optionalName: String? = &ldquo;John Appleseed&rdquo;</span></p>
+<p><span class="s1">var greeting = &ldquo;Hello!&rdquo;</span></p>
+<p><span class="s1">if let name = optionalName{</span></p>
+<p><span class="s1">greeting = &ldquo;Hello, (name)&rdquo;</span></p>
+<p><span class="s1">}</span></p>
+<p>&nbsp;</p>
+<p><span class="s1">如果可选值是nil，那么这个条件就为false，大括号中代码就会跳过。否则，可选值执行后面代码块中的代码并分配给let后面的常数。</span></p>
+<p><span class="s1">Switches支持各种数据和各种各样的比较操作&mdash;&mdash;它们不局限于integers和相等式的比较。</span></p>
+<p>&nbsp;</p>
+<p><span class="s1">let vegetable = &ldquo;red pepper&rdquo;</span></p>
+<p><span class="s1">switch vegetable{</span></p>
+<p><span class="s1">case &ldquo;celery&rdquo;:</span></p>
+<p><span class="s1">let vegetableComment = &ldquo;Add some raisins and make ants on a log.&rdquo;</span></p>
+<p><span class="s1">case &ldquo;cucumber&rdquo;, &ldquo;watercress&rdquo;:</span></p>
+<p><span class="s1">let vegetableComment = &ldquo;That would make a good tea sandwich.&rdquo;</span></p>
+<p><span class="s1">case let x where x.hasSuffix(&ldquo;pepper&rdquo;):</span></p>
+<p><span class="s1">let vegetableComment = &ldquo;Is it a spicy (x)?&rdquo;</span></p>
+<p><span class="s1">default:</span></p>
+<p><span class="s1">let vegetableComment = &ldquo;Everything tastes good in soup.&rdquo;</span></p>
+<p><span class="s1">}</span></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><span class="s1">在匹配的case中执行完代码后，程序退出switch语句。执行不会在下一个case中继续，所以不需要显示的在每个cases中的最后依次写上跳出该switch的break语句。</span></p>
+<p><span class="s1">你可以使用for-in语句来迭代键值对形式的字典中的所有items。</span></p>
+<p>&nbsp;</p>
+<p><span class="s1">let interestingNumbers = [</span></p>
+<p><span class="s1">&ldquo;Prime&rdquo;: [2, 3, 5, 7, 11, 13],</span></p>
+<p><span class="s1">&ldquo;Fibonacci&rdquo;: [1, 1, 2, 3, 5, 8],</span></p>
+<p><span class="s1">&ldquo;Square&rdquo;: [1, 4, 9, 16, 25],</span></p>
+<p><span class="s1">]</span></p>
+<p><span class="s1">var largest = 0</span></p>
+<p><span class="s1">for(kind, numbers) in interestingNumbers{</span></p>
+<p><span class="s1">for number in numbers{</span></p>
+<p><span class="s1">if number &gt; largest{</span></p>
+<p><span class="s1">largest = number</span></p>
+<p><span class="s1">}</span></p>
+<p><span class="s1">}</span></p>
+<p><span class="s1">}</span></p>
+<p><span class="s1">largest</span></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><span class="s1">使用while来重复代码块中的代码，直到条件改变。循环条件也可以放在最后，可以确保这个循环至少执行一次。</span></p>
+<p>&nbsp;</p>
+<p><span class="s1">var n = 2</span></p>
+<p><span class="s1">while n &lt; 100{</span></p>
+<p><span class="s1">n = n * 2</span></p>
+<p><span class="s1">}</span></p>
+<p><span class="s1">n</span></p>
+<p>&nbsp;</p>
+<p><span class="s1">var m = 2</span></p>
+<p><span class="s1">do{</span></p>
+<p><span class="s1">m = m * 2</span></p>
+<p><span class="s1">} while m &lt; 100</span></p>
+<p><span class="s1">m</span></p>
+<p>&nbsp;</p>
+<p><span class="s1">你可以在循环中保持一个索引index&mdash;&mdash;通过使用..来限定一个索引范围或者指明初始值，条件和增量。下面两个结果一样的循环：</span></p>
+<p>&nbsp;</p>
+<p><span class="s1">var firstForLoop = 0</span></p>
+<p><span class="s1">for i in 0..3{</span></p>
+<p><span class="s1">firstForLoop += i</span></p>
+<p><span class="s1">}</span></p>
+<p><span class="s1">firstForLoop</span></p>
+<p>&nbsp;</p>
+<p><span class="s1">var secondForLoop = 0</span></p>
+<p><span class="s1">for var i = 0; i &lt; 3; ++i{</span></p>
+<p><span class="s1">secondForLoop += 1</span></p>
+<p><span class="s1">}</span></p>
+<p><span class="s1">secondForLoop</span></p>
+<p>&nbsp;</p>
+<p><span class="s1">使用..来限定范围会省略范围的上限值，使用…来限定范围会包含所有限定值。（译者注：..是左闭右开整数区间，&hellip;是左闭右闭整数区间）</span></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/05/19/Android-Property-Animation动画/" rel="next" title="Android Property Animation动画">
+                <i class="fa fa-chevron-left"></i> Android Property Animation动画
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/06/07/Android无线调试/" rel="prev" title="Android无线调试">
+                Android无线调试 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/my_avatar.jpg"
+                alt="Wang Jie" />
+            
+              <p class="site-author-name" itemprop="name">Wang Jie</p>
+              <p class="site-description motion-element" itemprop="description">Wang Jie's blog</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">144</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wangjiegulu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:tiantian.china.2@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/+%E5%A4%A9%E5%A4%A9wangjie" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/wangjiegulu" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://stackoverflow.com/users/2124006/wangjie" target="_blank" title="StackOverflow">
+                      
+                        <i class="fa fa-fw fa-stack-overflow"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/wangjiegulu" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.cnblogs.com/tiantianbyconan/" title="cnblog" target="_blank">cnblog</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wang Jie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://blog-wangjiegulu-com.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://blog.wangjiegulu.com/2014/06/04/IOS-《A-Swift-Tour》翻译（一）/';
+          this.page.identifier = '2014/06/04/IOS-《A-Swift-Tour》翻译（一）/';
+          this.page.title = '[IOS]《A Swift Tour》翻译（一）';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://blog-wangjiegulu-com.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "default";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "GooglePlus,Evernote,Twitter,Facebook,Douban,Weibo";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

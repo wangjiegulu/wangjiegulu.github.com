@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="WAND JIE" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="本人大四即将毕业的准程序员（JavaSE、JavaEE、android等）一枚，小项目也做过一点，于是乎一时兴起就写了一些工具。 我会在本博客中陆续发布一些平时可能会用到的工具。 代码质量可能不是很好，大家多担待！ 代码或者思路有不妥之处，还希望大牛们能不吝赐教哈！ &amp;nbsp; 以下代码为本人原创，转载请注明： 本文转载，来自：http://www.cnblogs.com/tiantianbyc">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[工具库]JFileDownloader工具类——多线程下载网络文件，并保存在本地">
+<meta property="og:url" content="http://blog.wangjiegulu.com/2013/02/20/工具库-JFileDownloader工具类——多线程下载网络文件，并保存在本地/index.html">
+<meta property="og:site_name" content="WAND JIE">
+<meta property="og:description" content="本人大四即将毕业的准程序员（JavaSE、JavaEE、android等）一枚，小项目也做过一点，于是乎一时兴起就写了一些工具。 我会在本博客中陆续发布一些平时可能会用到的工具。 代码质量可能不是很好，大家多担待！ 代码或者思路有不妥之处，还希望大牛们能不吝赐教哈！ &amp;nbsp; 以下代码为本人原创，转载请注明： 本文转载，来自：http://www.cnblogs.com/tiantianbyc">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif">
+<meta property="og:image" content="http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif">
+<meta property="og:image" content="http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif">
+<meta property="og:image" content="http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif">
+<meta property="og:image" content="http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif">
+<meta property="og:image" content="http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif">
+<meta property="og:image" content="http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif">
+<meta property="og:image" content="http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif">
+<meta property="og:updated_time" content="2018-01-29T12:36:41.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[工具库]JFileDownloader工具类——多线程下载网络文件，并保存在本地">
+<meta name="twitter:description" content="本人大四即将毕业的准程序员（JavaSE、JavaEE、android等）一枚，小项目也做过一点，于是乎一时兴起就写了一些工具。 我会在本博客中陆续发布一些平时可能会用到的工具。 代码质量可能不是很好，大家多担待！ 代码或者思路有不妥之处，还希望大牛们能不吝赐教哈！ &amp;nbsp; 以下代码为本人原创，转载请注明： 本文转载，来自：http://www.cnblogs.com/tiantianbyc">
+<meta name="twitter:image" content="http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.wangjiegulu.com/2013/02/20/工具库-JFileDownloader工具类——多线程下载网络文件，并保存在本地/"/>
+
+
+
+
+
+  <title>[工具库]JFileDownloader工具类——多线程下载网络文件，并保存在本地 | WAND JIE</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-111189680-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">WAND JIE</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">TO BE AN ARTIST-ENGINNER</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.wangjiegulu.com/2013/02/20/工具库-JFileDownloader工具类——多线程下载网络文件，并保存在本地/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wang Jie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/my_avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WAND JIE">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">[工具库]JFileDownloader工具类——多线程下载网络文件，并保存在本地</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2013-02-20T17:37:00+08:00">
+                2013-02-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2013/02/20/工具库-JFileDownloader工具类——多线程下载网络文件，并保存在本地/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2013/02/20/工具库-JFileDownloader工具类——多线程下载网络文件，并保存在本地/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本人大四即将毕业的准程序员（JavaSE、JavaEE、android等）一枚，小项目也做过一点，于是乎一时兴起就写了一些工具。</p>
+<p>我会在本博客中陆续发布一些平时可能会用到的工具。</p>
+<p>代码质量可能不是很好，大家多担待！</p>
+<p>代码或者思路有不妥之处，还希望大牛们能不吝赐教哈！</p>
+<p>&nbsp;</p>
+<p><span>以下代码为本人原创，转载请注明：</span></p>
+<p><span>本文转载，来自：<a href="http://www.cnblogs.com/tiantianbyconan/archive/2013/02/20/2919132.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/archive/2013/02/20/2919132.html</a></span></p>
+<p>&nbsp;</p>
+<p>JFileDownloader：用于多线程下载网络文件，并保存在本地。</p>
+<p><strong>源码如下：</strong></p>
+<p>1.JFileDownloader类：主要负责下载的初始化可启动工作。</p>
+<div class="cnblogs_code" onclick="cnblogs_code_show('d395f922-7845-43c4-b066-96e79a7d1609')"><img src="http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif" alt=""><img src="http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif" alt=""><span class="cnblogs_code_collapse">View Code </span><br><div id="cnblogs_code_open_d395f922-7845-43c4-b066-96e79a7d1609" class="cnblogs_code_hide"><br><pre><span style="color: #008080;">  1</span> <span style="color: #0000ff;">package</span><span style="color: #000000;"> com.wangjie.extrautil.jfiledownloader;<br></span><span style="color: #008080;">  2</span><br><span style="color: #008080;">  3</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> java.io.File;<br></span><span style="color: #008080;">  4</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> java.net.HttpURLConnection;<br></span><span style="color: #008080;">  5</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> java.net.URL;<br></span><span style="color: #008080;">  6</span><br><span style="color: #008080;">  7</span> <span style="color: #008000;">/<strong></strong></span><br><span style="color: #008080;">  8</span> <span style="color: #008000;"> <em><br></em></span><span style="color: #008080;">  9</span> <span style="color: #008000;">  </span><span style="color: #808080;">@author</span><span style="color: #008000;"> wangjie<br></span><span style="color: #008080;"> 10</span> <span style="color: #008000;"> <em> </em></span><span style="color: #808080;">@version</span><span style="color: #008000;"> 创建时间：2013-2-7 下午1:40:52<br></span><span style="color: #008080;"> 11</span>  <span style="color: #008000;">/</span><br><span style="color: #008080;"> 12</span> <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> JFileDownloader{<br></span><span style="color: #008080;"> 13</span>     <span style="color: #0000ff;">private</span><span style="color: #000000;"> String urlPath;<br></span><span style="color: #008080;"> 14</span>     <span style="color: #0000ff;">private</span><span style="color: #000000;"> String destFilePath;<br></span><span style="color: #008080;"> 15</span>     <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">int</span><span style="color: #000000;"> threadCount;<br></span><span style="color: #008080;"> 16</span>     <span style="color: #0000ff;">private</span><span style="color: #000000;"> JFileDownloadThread[] threads;<br></span><span style="color: #008080;"> 17</span><br><span style="color: #008080;"> 18</span>     <span style="color: #0000ff;">private</span> JFileDownloadListener fileDownloadListener; <span style="color: #008000;">//</span><span style="color: #008000;"> 进度监听器</span><br><span style="color: #008080;"> 19</span>     <span style="color: #0000ff;">private</span> JFileDownloaderNotificationThread notificationThread; <span style="color: #008000;">//</span><span style="color: #008000;"> 通知进度线程</span><br><span style="color: #008080;"> 20</span><br><span style="color: #008080;"> 21</span>     <span style="color: #0000ff;">private</span><span style="color: #000000;"> File destFile;<br></span><span style="color: #008080;"> 22</span>     <span style="color: #008000;">/</span><br><span style="color: #008080;"> 23</span> <span style="color: #008000;">     <em> 下载过程中文件的后缀名。<br></em></span><span style="color: #008080;"> 24</span>      <span style="color: #008000;">/</span><br><span style="color: #008080;"> 25</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">final</span> <span style="color: #0000ff;">static</span> String DOWNLOADING_SUFFIX = “.jd”<span style="color: #000000;">;<br></span><span style="color: #008080;"> 26</span>     <span style="color: #008000;">/<strong></strong></span><br><span style="color: #008080;"> 27</span> <span style="color: #008000;">     <em> 默认使用的线程数量。&lt;br&gt;<br></em></span><span style="color: #008080;"> 28</span> <span style="color: #008000;">      如果不设置线程数量参数（threadCount），则默认线程启动数量为1，即单线程下载。<br></span><span style="color: #008080;"> 29</span>      <span style="color: #008000;">*/</span><br><span style="color: #008080;"> 30</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">final</span> <span style="color: #0000ff;">int</span> DEFAULT_THREADCOUNT = 1<span style="color: #000000;">;<br></span><span style="color: #008080;"> 31</span>     <span style="color: #008000;">/</span><br><span style="color: #008080;"> 32</span> <span style="color: #008000;">     <em> 生成JFileDownloader对象。<br></em></span><span style="color: #008080;"> 33</span> <span style="color: #008000;">      </span><span style="color: #808080;">@param</span><span style="color: #008000;"> urlPath 要下载的目标文件URL路径<br></span><span style="color: #008080;"> 34</span> <span style="color: #008000;">     <em> </em></span><span style="color: #808080;">@param</span><span style="color: #008000;"> destFilePath 要保存的文件目标（路径+文件名）<br></span><span style="color: #008080;"> 35</span> <span style="color: #008000;">      </span><span style="color: #808080;">@param</span><span style="color: #008000;"> threadCount 下载该文件所需要的线程数量<br></span><span style="color: #008080;"> 36</span>      <span style="color: #008000;"><em>/</em></span><br><span style="color: #008080;"> 37</span>     <span style="color: #0000ff;">public</span> JFileDownloader(String urlPath, String destFilePath, <span style="color: #0000ff;">int</span><span style="color: #000000;"> threadCount) {<br></span><span style="color: #008080;"> 38</span>         <span style="color: #0000ff;">this</span>.urlPath =<span style="color: #000000;"> urlPath;<br></span><span style="color: #008080;"> 39</span>         <span style="color: #0000ff;">this</span>.destFilePath =<span style="color: #000000;"> destFilePath;<br></span><span style="color: #008080;"> 40</span>         <span style="color: #0000ff;">this</span>.threadCount =<span style="color: #000000;"> threadCount;<br></span><span style="color: #008080;"> 41</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;"> 42</span>     <span style="color: #008000;">/**</span><br><span style="color: #008080;"> 43</span> <span style="color: #008000;">      生成JFileDownloader对象，其中下载线程数量默认是1，也就是选择单线程下载。<br></span><span style="color: #008080;"> 44</span> <span style="color: #008000;">     <em> </em></span><span style="color: #808080;">@param</span><span style="color: #008000;"> urlPath urlPath 要下载的目标文件URL路径<br></span><span style="color: #008080;"> 45</span> <span style="color: #008000;">      </span><span style="color: #808080;">@param</span><span style="color: #008000;"> destFilePath destFilePath 要保存的文件目标（路径+文件名）<br></span><span style="color: #008080;"> 46</span>      <span style="color: #008000;"><em>/</em></span><br><span style="color: #008080;"> 47</span>     <span style="color: #0000ff;">public</span><span style="color: #000000;"> JFileDownloader(String urlPath, String destFilePath) {<br></span><span style="color: #008080;"> 48</span>         <span style="color: #0000ff;">this</span><span style="color: #000000;">(urlPath, destFilePath, DEFAULT_THREADCOUNT);<br></span><span style="color: #008080;"> 49</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;"> 50</span>     <span style="color: #008000;">/**</span><br><span style="color: #008080;"> 51</span> <span style="color: #008000;">      默认的构造方法，使用构造方法后必须要调用set方法来设置url等下载所需配置。<br></span><span style="color: #008080;"> 52</span>      <span style="color: #008000;"><em>/</em></span><br><span style="color: #008080;"> 53</span>     <span style="color: #0000ff;">public</span><span style="color: #000000;"> JFileDownloader() {<br></span><span style="color: #008080;"> 54</span><br><span style="color: #008080;"> 55</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;"> 56</span>     <span style="color: #008000;">/**</span><br><span style="color: #008080;"> 57</span> <span style="color: #008000;">      开始下载方法（流程分为3步）。<br></span><span style="color: #008080;"> 58</span> <span style="color: #008000;">     <em> &lt;br&gt;&lt;ul&gt;<br></em></span><span style="color: #008080;"> 59</span> <span style="color: #008000;">      &lt;li&gt;检验URL的合法性&lt;br&gt;<br></span><span style="color: #008080;"> 60</span> <span style="color: #008000;">     <em> &lt;li&gt;计算下载所需的线程数量和每个线程需下载多少大小的文件&lt;br&gt;<br></em></span><span style="color: #008080;"> 61</span> <span style="color: #008000;">      &lt;li&gt;启动各线程。<br></span><span style="color: #008080;"> 62</span> <span style="color: #008000;">     <em> &lt;/ul&gt;<br></em></span><span style="color: #008080;"> 63</span> <span style="color: #008000;">      </span><span style="color: #808080;">@author</span><span style="color: #008000;"> wangjie<br></span><span style="color: #008080;"> 64</span> <span style="color: #008000;">     <em> </em></span><span style="color: #808080;">@throws</span><span style="color: #008000;"> Exception 如果设置的URL，includes等参数不合法，则抛出该异常<br></span><span style="color: #008080;"> 65</span>      <span style="color: #008000;">/</span><br><span style="color: #008080;"> 66</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span> startDownload() <span style="color: #0000ff;">throws</span><span style="color: #000000;"> Exception{<br></span><span style="color: #008080;"> 67</span>         checkSettingfValidity(); <span style="color: #008000;">//</span><span style="color: #008000;"> 检验参数合法性</span><br><span style="color: #008080;"> 68</span><br><span style="color: #008080;"> 69</span>         URL url = <span style="color: #0000ff;">new</span><span style="color: #000000;"> URL(urlPath);<br></span><span style="color: #008080;"> 70</span>         HttpURLConnection conn =<span style="color: #000000;"> (HttpURLConnection)url.openConnection();<br></span><span style="color: #008080;"> 71</span>         conn.setConnectTimeout(20 <em> 1000<span style="color: #000000;">);<br></span><span style="color: #008080;"> 72</span>         <span style="color: #008000;">//</span><span style="color: #008000;"> 获取文件长度</span><br><span style="color: #008080;"> 73</span>         <span style="color: #0000ff;">long</span> size =<span style="color: #000000;"> conn.getContentLength();<br></span><span style="color: #008080;"> 74</span> <span style="color: #008000;">//</span><span style="color: #008000;">        int size = conn.getInputStream().available();</span><br><span style="color: #008080;"> 75</span>         <span style="color: #0000ff;">if</span>(size &lt; 0 || <span style="color: #0000ff;">null</span> ==<span style="color: #000000;"> conn.getInputStream()){<br></span><span style="color: #008080;"> 76</span>             <span style="color: #0000ff;">throw</span> <span style="color: #0000ff;">new</span> Exception(“网络连接错误，请检查URL地址是否正确”<span style="color: #000000;">);<br></span><span style="color: #008080;"> 77</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;"> 78</span> <span style="color: #000000;">        conn.disconnect();<br></span><span style="color: #008080;"> 79</span><br><span style="color: #008080;"> 80</span><br><span style="color: #008080;"> 81</span>         <span style="color: #008000;">//</span><span style="color: #008000;"> 计算每个线程需要下载多少byte的文件</span><br><span style="color: #008080;"> 82</span>         <span style="color: #0000ff;">long</span> perSize = size % threadCount == 0 ? size / threadCount : (size / threadCount + 1<span style="color: #000000;">);<br></span><span style="color: #008080;"> 83</span>         <span style="color: #008000;">//</span><span style="color: #008000;"> 建立目标文件（文件以.jd结尾）</span><br><span style="color: #008080;"> 84</span>         destFile = <span style="color: #0000ff;">new</span> File(destFilePath +<span style="color: #000000;"> DOWNLOADING_SUFFIX);<br></span><span style="color: #008080;"> 85</span> <span style="color: #000000;">        destFile.createNewFile();<br></span><span style="color: #008080;"> 86</span><br><span style="color: #008080;"> 87</span>         threads = <span style="color: #0000ff;">new</span><span style="color: #000000;"> JFileDownloadThread[threadCount];<br></span><span style="color: #008080;"> 88</span><br><span style="color: #008080;"> 89</span>         <span style="color: #008000;">//</span><span style="color: #008000;"> 启动进度通知线程</span><br><span style="color: #008080;"> 90</span>         notificationThread = <span style="color: #0000ff;">new</span><span style="color: #000000;"> JFileDownloaderNotificationThread(threads, fileDownloadListener, destFile, size);<br></span><span style="color: #008080;"> 91</span> <span style="color: #000000;">        notificationThread.start();<br></span><span style="color: #008080;"> 92</span><br><span style="color: #008080;"> 93</span>         <span style="color: #008000;">//</span><span style="color: #008000;"> 初始化若干个下载线程</span><br><span style="color: #008080;"> 94</span>         <span style="color: #0000ff;">for</span>(<span style="color: #0000ff;">int</span> i = 0; i &lt; threadCount; i++<span style="color: #000000;">){<br></span><span style="color: #008080;"> 95</span>             <span style="color: #0000ff;">if</span>(i != (threadCount - 1<span style="color: #000000;">)){<br></span><span style="color: #008080;"> 96</span>                 threads[i] = <span style="color: #0000ff;">new</span><span style="color: #000000;"> JFileDownloadThread(urlPath, destFile,<br></span><span style="color: #008080;"> 97</span>                         i </em><span style="color: #000000;"> perSize, perSize, notificationThread);<br></span><span style="color: #008080;"> 98</span>             }<span style="color: #0000ff;">else</span><span style="color: #000000;">{<br></span><span style="color: #008080;"> 99</span>                 threads[i] = <span style="color: #0000ff;">new</span><span style="color: #000000;"> JFileDownloadThread(urlPath, destFile,<br></span><span style="color: #008080;">100</span>                         i <em> perSize, size - (threadCount - 1) </em><span style="color: #000000;"> perSize, notificationThread);<br></span><span style="color: #008080;">101</span> <span style="color: #000000;">            }<br></span><span style="color: #008080;">102</span>             threads[i].setPriority(8<span style="color: #000000;">);<br></span><span style="color: #008080;">103</span> <span style="color: #008000;">//</span><span style="color: #008000;">            threads[i].start();</span><br><span style="color: #008080;">104</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;">105</span>         <span style="color: #008000;">//</span><span style="color: #008000;"> 启动若干个下载线程（因为下载线程JFileDownloaderNotificationThread中使用了threads属性，所以必须等下载线程全部初始化以后才能启动线程）</span><br><span style="color: #008080;">106</span>         <span style="color: #0000ff;">for</span><span style="color: #000000;">(JFileDownloadThread thread : threads){<br></span><span style="color: #008080;">107</span> <span style="color: #000000;">            thread.start();<br></span><span style="color: #008080;">108</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;">109</span><br><span style="color: #008080;">110</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">111</span>     <span style="color: #008000;">/<strong></strong></span><br><span style="color: #008080;">112</span> <span style="color: #008000;">     <em> 取消所有下载线程。<br></em></span><span style="color: #008080;">113</span> <span style="color: #008000;">      </span><span style="color: #808080;">@author</span><span style="color: #008000;"> wangjie<br></span><span style="color: #008080;">114</span>      <span style="color: #008000;">*/</span><br><span style="color: #008080;">115</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> cancelDownload(){<br></span><span style="color: #008080;">116</span>         <span style="color: #0000ff;">if</span>(<span style="color: #0000ff;">null</span> != threads &amp;&amp; 0 != threads.length &amp;&amp; <span style="color: #0000ff;">null</span> !=<span style="color: #000000;"> notificationThread){<br></span><span style="color: #008080;">117</span>             <span style="color: #0000ff;">for</span>(JFileDownloadThread thread : threads){ <span style="color: #008000;">//</span><span style="color: #008000;"> 终止所有下载线程</span><br><span style="color: #008080;">118</span> <span style="color: #000000;">                thread.cancelThread();<br></span><span style="color: #008080;">119</span> <span style="color: #000000;">            }<br></span><span style="color: #008080;">120</span>             notificationThread.cancelThread(); <span style="color: #008000;">//</span><span style="color: #008000;"> 终止通知线程</span><br><span style="color: #008080;">121</span>             System.out.println(“下载已被终止。”<span style="color: #000000;">);<br></span><span style="color: #008080;">122</span>             <span style="color: #0000ff;">return</span><span style="color: #000000;">;<br></span><span style="color: #008080;">123</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;">124</span>         System.out.println(“下载线程还未启动，无法终止。”<span style="color: #000000;">);<br></span><span style="color: #008080;">125</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">126</span><br><span style="color: #008080;">127</span>     <span style="color: #008000;">/</span><br><span style="color: #008080;">128</span> <span style="color: #008000;">     <em> 设置要下载的目标文件URL路径。<br></em></span><span style="color: #008080;">129</span> <span style="color: #008000;">      </span><span style="color: #808080;">@author</span><span style="color: #008000;"> wangjie<br></span><span style="color: #008080;">130</span> <span style="color: #008000;">     <em> </em></span><span style="color: #808080;">@param</span><span style="color: #008000;"> urlPath 要下载的目标文件URL路径<br></span><span style="color: #008080;">131</span> <span style="color: #008000;">      </span><span style="color: #808080;">@return</span><span style="color: #008000;"> 返回当前JFileDownloader对象<br></span><span style="color: #008080;">132</span>      <span style="color: #008000;"><em>/</em></span><br><span style="color: #008080;">133</span>     <span style="color: #0000ff;">public</span><span style="color: #000000;"> JFileDownloader setUrlPath(String urlPath) {<br></span><span style="color: #008080;">134</span>         <span style="color: #0000ff;">this</span>.urlPath =<span style="color: #000000;"> urlPath;<br></span><span style="color: #008080;">135</span>         <span style="color: #0000ff;">return</span> <span style="color: #0000ff;">this</span><span style="color: #000000;">;<br></span><span style="color: #008080;">136</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">137</span>     <span style="color: #008000;">/**</span><br><span style="color: #008080;">138</span> <span style="color: #008000;">      设置要保存的目标文件（路径+文件名）。<br></span><span style="color: #008080;">139</span> <span style="color: #008000;">     <em> </em></span><span style="color: #808080;">@author</span><span style="color: #008000;"> wangjie<br></span><span style="color: #008080;">140</span> <span style="color: #008000;">      </span><span style="color: #808080;">@param</span><span style="color: #008000;"> destFilePath 要保存的文件目标（路径+文件名）<br></span><span style="color: #008080;">141</span> <span style="color: #008000;">     <em> </em></span><span style="color: #808080;">@return</span><span style="color: #008000;"> 返回当前JFileDownloader对象<br></span><span style="color: #008080;">142</span>      <span style="color: #008000;">/</span><br><span style="color: #008080;">143</span>     <span style="color: #0000ff;">public</span><span style="color: #000000;"> JFileDownloader setDestFilePath(String destFilePath) {<br></span><span style="color: #008080;">144</span>         <span style="color: #0000ff;">this</span>.destFilePath =<span style="color: #000000;"> destFilePath;<br></span><span style="color: #008080;">145</span>         <span style="color: #0000ff;">return</span> <span style="color: #0000ff;">this</span><span style="color: #000000;">;<br></span><span style="color: #008080;">146</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">147</span>     <span style="color: #008000;">/<strong></strong></span><br><span style="color: #008080;">148</span> <span style="color: #008000;">     <em> 设置下载该文件所需要的线程数量。<br></em></span><span style="color: #008080;">149</span> <span style="color: #008000;">      </span><span style="color: #808080;">@author</span><span style="color: #008000;"> wangjie<br></span><span style="color: #008080;">150</span> <span style="color: #008000;">     <em> </em></span><span style="color: #808080;">@param</span><span style="color: #008000;"> threadCount 下载该文件所需要的线程数量<br></span><span style="color: #008080;">151</span> <span style="color: #008000;">      </span><span style="color: #808080;">@return</span><span style="color: #008000;"> 返回当前JFileDownloader对象<br></span><span style="color: #008080;">152</span>      <span style="color: #008000;">*/</span><br><span style="color: #008080;">153</span>     <span style="color: #0000ff;">public</span> JFileDownloader setThreadCount(<span style="color: #0000ff;">int</span><span style="color: #000000;"> threadCount) {<br></span><span style="color: #008080;">154</span>         <span style="color: #0000ff;">this</span>.threadCount =<span style="color: #000000;"> threadCount;<br></span><span style="color: #008080;">155</span>         <span style="color: #0000ff;">return</span> <span style="color: #0000ff;">this</span><span style="color: #000000;">;<br></span><span style="color: #008080;">156</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">157</span><br><span style="color: #008080;">158</span>     <span style="color: #008000;">//</span><span style="color: #008000;">观察者模式来获取下载进度</span><br><span style="color: #008080;">159</span>     <span style="color: #008000;">/</span><br><span style="color: #008080;">160</span> <span style="color: #008000;">     <em> 设置监听器，以获取下载进度。<br></em></span><span style="color: #008080;">161</span>      <span style="color: #008000;">/</span><br><span style="color: #008080;">162</span>     <span style="color: #0000ff;">public</span><span style="color: #000000;"> JFileDownloader setFileDownloadListener(<br></span><span style="color: #008080;">163</span> <span style="color: #000000;">            JFileDownloadListener fileDownloadListener) {<br></span><span style="color: #008080;">164</span>         <span style="color: #0000ff;">this</span>.fileDownloadListener =<span style="color: #000000;"> fileDownloadListener;<br></span><span style="color: #008080;">165</span>         <span style="color: #0000ff;">return</span> <span style="color: #0000ff;">this</span><span style="color: #000000;">;<br></span><span style="color: #008080;">166</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">167</span>     <span style="color: #008000;">/<strong></strong></span><br><span style="color: #008080;">168</span> <span style="color: #008000;">     <em> 通过该方法移出相应的监听器对象。<br></em></span><span style="color: #008080;">169</span> <span style="color: #008000;">      </span><span style="color: #808080;">@author</span><span style="color: #008000;"> wangjie<br></span><span style="color: #008080;">170</span> <span style="color: #008000;">     <em> </em></span><span style="color: #808080;">@param</span><span style="color: #008000;"> fileDownloadListener 要移除的监听器对象<br></span><span style="color: #008080;">171</span>      <span style="color: #008000;">/</span><br><span style="color: #008080;">172</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> removeFileDownloadListener(<br></span><span style="color: #008080;">173</span> <span style="color: #000000;">            JFileDownloadListener fileDownloadListener) {<br></span><span style="color: #008080;">174</span>         fileDownloadListener = <span style="color: #0000ff;">null</span><span style="color: #000000;">;<br></span><span style="color: #008080;">175</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">176</span><br><span style="color: #008080;">177</span><br><span style="color: #008080;">178</span>     <span style="color: #008000;">/</span><br><span style="color: #008080;">179</span> <span style="color: #008000;">     <em> 检验设置的参数是否合法。<br></em></span><span style="color: #008080;">180</span> <span style="color: #008000;">      </span><span style="color: #808080;">@author</span><span style="color: #008000;"> wangjie<br></span><span style="color: #008080;">181</span> <span style="color: #008000;">     <em> </em></span><span style="color: #808080;">@throws</span><span style="color: #008000;"> Exception 目标文件URL路径不合法，或者线程数小于1，则抛出该异常<br></span><span style="color: #008080;">182</span>      <span style="color: #008000;">/</span><br><span style="color: #008080;">183</span>     <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">void</span> checkSettingfValidity() <span style="color: #0000ff;">throws</span><span style="color: #000000;"> Exception{<br></span><span style="color: #008080;">184</span>         <span style="color: #0000ff;">if</span>(<span style="color: #0000ff;">null</span> == urlPath || “”<span style="color: #000000;">.equals(urlPath)){<br></span><span style="color: #008080;">185</span>             <span style="color: #0000ff;">throw</span> <span style="color: #0000ff;">new</span> Exception(“目标文件URL路径不能为空”<span style="color: #000000;">);<br></span><span style="color: #008080;">186</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;">187</span>         <span style="color: #0000ff;">if</span>(threadCount &lt; 1<span style="color: #000000;">){<br></span><span style="color: #008080;">188</span>             <span style="color: #0000ff;">throw</span> <span style="color: #0000ff;">new</span> Exception(“线程数不能小于1”<span style="color: #000000;">);<br></span><span style="color: #008080;">189</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;">190</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">191</span><br><span style="color: #008080;">192</span> }</pre><br></div><br></div>
+
+<p>&nbsp;</p>
+<p>2.JFileDownloadListener接口：该接口用于监听JFileDownloader下载的进度。</p>
+<div class="cnblogs_code" onclick="cnblogs_code_show('ee01f91f-781d-4fde-9833-bb14aaf3a587')"><img src="http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif" alt=""><img src="http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif" alt=""><span class="cnblogs_code_collapse">View Code </span><br><div id="cnblogs_code_open_ee01f91f-781d-4fde-9833-bb14aaf3a587" class="cnblogs_code_hide"><br><pre><span style="color: #008080;"> 1</span> <span style="color: #0000ff;">package</span><span style="color: #000000;"> com.wangjie.extrautil.jfiledownloader;<br></span><span style="color: #008080;"> 2</span><br><span style="color: #008080;"> 3</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> java.io.File;<br></span><span style="color: #008080;"> 4</span><br><span style="color: #008080;"> 5</span> <span style="color: #008000;">/<strong></strong></span><br><span style="color: #008080;"> 6</span> <span style="color: #008000;"> <em><br></em></span><span style="color: #008080;"> 7</span> <span style="color: #008000;">  该接口用于监听JFileDownloader下载的进度。<br></span><span style="color: #008080;"> 8</span> <span style="color: #008000;"> <em><br></em></span><span style="color: #008080;"> 9</span> <span style="color: #008000;">  </span><span style="color: #808080;">@author</span><span style="color: #008000;"> wangjie<br></span><span style="color: #008080;">10</span> <span style="color: #008000;"> <em> </em></span><span style="color: #808080;">@version</span><span style="color: #008000;"> 创建时间：2013-2-7 下午2:12:45<br></span><span style="color: #008080;">11</span>  <span style="color: #008000;">/</span><br><span style="color: #008080;">12</span> <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">interface</span><span style="color: #000000;"> JFileDownloadListener {<br></span><span style="color: #008080;">13</span>     <span style="color: #008000;">/</span><br><span style="color: #008080;">14</span> <span style="color: #008000;">     <em> 该方法可获得文件的下载进度信息。<br></em></span><span style="color: #008080;">15</span> <span style="color: #008000;">      </span><span style="color: #808080;">@author</span><span style="color: #008000;"> wangjie<br></span><span style="color: #008080;">16</span> <span style="color: #008000;">     <em> </em></span><span style="color: #808080;">@param</span><span style="color: #008000;"> progress 文件下载的进度值，范围（0-100）。0表示文件还未开始下载；100则表示文件下载完成。<br></span><span style="color: #008080;">17</span> <span style="color: #008000;">      </span><span style="color: #808080;">@param</span><span style="color: #008000;"> speed 此时下载瞬时速度（单位：kb/每秒）。<br></span><span style="color: #008080;">18</span> <span style="color: #008000;">     <em> </em></span><span style="color: #808080;">@param</span><span style="color: #008000;"> remainTime 此时剩余下载所需时间（单位为毫秒）。<br></span><span style="color: #008080;">19</span>      <span style="color: #008000;">/</span><br><span style="color: #008080;">20</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span> downloadProgress(<span style="color: #0000ff;">int</span> progress, <span style="color: #0000ff;">double</span> speed, <span style="color: #0000ff;">long</span><span style="color: #000000;"> remainTime);<br></span><span style="color: #008080;">21</span>     <span style="color: #008000;">/<em>*</em></span><br><span style="color: #008080;">22</span> <span style="color: #008000;">      文件下载完成会调用该方法。<br></span><span style="color: #008080;">23</span> <span style="color: #008000;">     <em> </em></span><span style="color: #808080;">@author</span><span style="color: #008000;"> wangjie<br></span><span style="color: #008080;">24</span> <span style="color: #008000;">      </span><span style="color: #808080;">@param</span><span style="color: #008000;"> file 返回下载完成的File对象。<br></span><span style="color: #008080;">25</span> <span style="color: #008000;">     <em> </em></span><span style="color: #808080;">@param</span><span style="color: #008000;"> downloadTime 下载所用的总时间（单位为毫秒）。<br></span><span style="color: #008080;">26</span>      <span style="color: #008000;">/</span><br><span style="color: #008080;">27</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span> downloadCompleted(File file, <span style="color: #0000ff;">long</span><span style="color: #000000;"> downloadTime);<br></span><span style="color: #008080;">28</span> }</pre><br></div><br></div>
+
+<p>&nbsp;</p>
+<p>3.JFileDownloaderNotificationThread类：该线程为通知下载进度的线程。</p>
+<div class="cnblogs_code" onclick="cnblogs_code_show('606a576f-1d6a-48a8-bb25-21c2a4df4a63')"><img src="http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif" alt=""><img src="http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif" alt=""><span class="cnblogs_code_collapse">View Code </span><br><div id="cnblogs_code_open_606a576f-1d6a-48a8-bb25-21c2a4df4a63" class="cnblogs_code_hide"><br><pre><span style="color: #008080;">  1</span> <span style="color: #0000ff;">package</span><span style="color: #000000;"> com.wangjie.extrautil.jfiledownloader;<br></span><span style="color: #008080;">  2</span><br><span style="color: #008080;">  3</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> java.io.File;<br></span><span style="color: #008080;">  4</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> java.math.BigDecimal;<br></span><span style="color: #008080;">  5</span><br><span style="color: #008080;">  6</span> <span style="color: #008000;">/<strong></strong></span><br><span style="color: #008080;">  7</span> <span style="color: #008000;"> <em> 该线程为通知下载进度的线程。<br></em></span><span style="color: #008080;">  8</span> <span style="color: #008000;">  用于在下载未完成时通知用户下载的进度，范围（0-100）。0表示文件还未开始下载；100则表示文件下载完成。<br></span><span style="color: #008080;">  9</span> <span style="color: #008000;"> <em> 此时下载瞬时速度（单位：kb/每秒）。<br></em></span><span style="color: #008080;"> 10</span> <span style="color: #008000;">  在完成时返回下载完成的File对象给用户。返回下载所用的总时间（单位为毫秒）给用户。<br></span><span style="color: #008080;"> 11</span> <span style="color: #008000;"> <em> </em></span><span style="color: #808080;">@author</span><span style="color: #008000;"> wangjie<br></span><span style="color: #008080;"> 12</span> <span style="color: #008000;">  </span><span style="color: #808080;">@version</span><span style="color: #008000;"> 创建时间：2013-2-17 下午12:23:59<br></span><span style="color: #008080;"> 13</span>  <span style="color: #008000;">*/</span><br><span style="color: #008080;"> 14</span> <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span> JFileDownloaderNotificationThread <span style="color: #0000ff;">extends</span><span style="color: #000000;"> Thread{<br></span><span style="color: #008080;"> 15</span>     <span style="color: #0000ff;">private</span><span style="color: #000000;"> JFileDownloadThread[] threads;<br></span><span style="color: #008080;"> 16</span>     <span style="color: #0000ff;">private</span><span style="color: #000000;"> JFileDownloadListener fileDownloadListener;<br></span><span style="color: #008080;"> 17</span>     <span style="color: #0000ff;">private</span><span style="color: #000000;"> File destFile;<br></span><span style="color: #008080;"> 18</span>     <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">long</span><span style="color: #000000;"> destFileSize;<br></span><span style="color: #008080;"> 19</span>     <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">boolean</span> isRunning; <span style="color: #008000;">//</span><span style="color: #008000;"> 线程运行停止标志</span><br><span style="color: #008080;"> 20</span>     <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">boolean</span> notificationTag; <span style="color: #008000;">//</span><span style="color: #008000;"> 通知标志</span><br><span style="color: #008080;"> 21</span>     <span style="color: #008000;">/</span><br><span style="color: #008080;"> 22</span> <span style="color: #008000;">     <em> 通过该方法构建一个进度通知线程。<br></em></span><span style="color: #008080;"> 23</span> <span style="color: #008000;">      </span><span style="color: #808080;">@param</span><span style="color: #008000;"> threads 下载某文件需要的所有线程。<br></span><span style="color: #008080;"> 24</span> <span style="color: #008000;">     <em> </em></span><span style="color: #808080;">@param</span><span style="color: #008000;"> fileDownloadListener 要通知进度的监听器对象。<br></span><span style="color: #008080;"> 25</span> <span style="color: #008000;">      </span><span style="color: #808080;">@param</span><span style="color: #008000;"> destFile 下载的文件对象。<br></span><span style="color: #008080;"> 26</span>      <span style="color: #008000;"><em>/</em></span><br><span style="color: #008080;"> 27</span>     <span style="color: #0000ff;">public</span><span style="color: #000000;"> JFileDownloaderNotificationThread(JFileDownloadThread[] threads,<br></span><span style="color: #008080;"> 28</span>             JFileDownloadListener fileDownloadListener, File destFile, <span style="color: #0000ff;">long</span><span style="color: #000000;"> destFileSize) {<br></span><span style="color: #008080;"> 29</span>         <span style="color: #0000ff;">this</span>.threads =<span style="color: #000000;"> threads;<br></span><span style="color: #008080;"> 30</span>         <span style="color: #0000ff;">this</span>.fileDownloadListener =<span style="color: #000000;"> fileDownloadListener;<br></span><span style="color: #008080;"> 31</span>         <span style="color: #0000ff;">this</span>.destFile =<span style="color: #000000;"> destFile;<br></span><span style="color: #008080;"> 32</span>         <span style="color: #0000ff;">this</span>.destFileSize =<span style="color: #000000;"> destFileSize;<br></span><span style="color: #008080;"> 33</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;"> 34</span><br><span style="color: #008080;"> 35</span>     <span style="color: #008000;">/**</span><br><span style="color: #008080;"> 36</span> <span style="color: #008000;">      不断地循环来就检查更新进度。<br></span><span style="color: #008080;"> 37</span>      <span style="color: #008000;"><em>/</em></span><br><span style="color: #008080;"> 38</span> <span style="color: #000000;">    @Override<br></span><span style="color: #008080;"> 39</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> run() {<br></span><span style="color: #008080;"> 40</span>         isRunning = <span style="color: #0000ff;">true</span><span style="color: #000000;">;<br></span><span style="color: #008080;"> 41</span>         <span style="color: #0000ff;">long</span> startTime = 0<span style="color: #000000;">;<br></span><span style="color: #008080;"> 42</span>         <span style="color: #0000ff;">if</span>(<span style="color: #0000ff;">null</span> !=<span style="color: #000000;"> fileDownloadListener){<br></span><span style="color: #008080;"> 43</span>             startTime = System.currentTimeMillis(); <span style="color: #008000;">//</span><span style="color: #008000;"> 文件下载开始时间</span><br><span style="color: #008080;"> 44</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;"> 45</span><br><span style="color: #008080;"> 46</span>         <span style="color: #0000ff;">long</span> oldTemp = 0; <span style="color: #008000;">//</span><span style="color: #008000;"> 上次已下载数据长度</span><br><span style="color: #008080;"> 47</span>         <span style="color: #0000ff;">long</span> oldTime = 0; <span style="color: #008000;">//</span><span style="color: #008000;"> 上次下载的当前时间</span><br><span style="color: #008080;"> 48</span><br><span style="color: #008080;"> 49</span>         <span style="color: #0000ff;">while</span><span style="color: #000000;">(isRunning){<br></span><span style="color: #008080;"> 50</span>             <span style="color: #0000ff;">if</span>(notificationTag){ <span style="color: #008000;">//</span><span style="color: #008000;"> 如果此时正等待检查更新进度。<br></span><span style="color: #008080;"> 51</span>                 <span style="color: #008000;">//</span><span style="color: #008000;"> 计算此时的所有线程下载长度的总和</span><br><span style="color: #008080;"> 52</span>                 <span style="color: #0000ff;">long</span> temp = 0<span style="color: #000000;">;<br></span><span style="color: #008080;"> 53</span>                 <span style="color: #0000ff;">for</span><span style="color: #000000;">(JFileDownloadThread thread : threads){<br></span><span style="color: #008080;"> 54</span>                     temp +=<span style="color: #000000;"> thread.currentLength;<br></span><span style="color: #008080;"> 55</span> <span style="color: #000000;">                }<br></span><span style="color: #008080;"> 56</span> <span style="color: #008000;">//</span><span style="color: #008000;">                System.out.println(“temp: “ + temp);<br></span><span style="color: #008080;"> 57</span> <span style="color: #008000;">//</span><span style="color: #008000;">                System.out.println(“destFileSize: “ + destFileSize);<br></span><span style="color: #008080;"> 58</span>                 <span style="color: #008000;">//</span><span style="color: #008000;"> 换算成进度</span><br><span style="color: #008080;"> 59</span>                 <span style="color: #0000ff;">int</span> progress = (<span style="color: #0000ff;">int</span>) ((<span style="color: #0000ff;">double</span>)temp  100 / (<span style="color: #0000ff;">double</span><span style="color: #000000;">)destFileSize);<br></span><span style="color: #008080;"> 60</span><br><span style="color: #008080;"> 61</span>                 <span style="color: #008000;">//</span><span style="color: #008000;"> 把进度通知给监听器</span><br><span style="color: #008080;"> 62</span>                 <span style="color: #0000ff;">if</span>(<span style="color: #0000ff;">null</span> !=<span style="color: #000000;"> fileDownloadListener){<br></span><span style="color: #008080;"> 63</span>                     <span style="color: #008000;">//</span><span style="color: #008000;"> 计算瞬时速度</span><br><span style="color: #008080;"> 64</span>                     <span style="color: #0000ff;">long</span> detaTemp = temp - oldTemp; <span style="color: #008000;">//</span><span style="color: #008000;"> 两次更新进度的时间段内的已下载数据差</span><br><span style="color: #008080;"> 65</span>                     <span style="color: #0000ff;">long</span> detaTime = System.currentTimeMillis() - oldTime; <span style="color: #008000;">//</span><span style="color: #008000;"> 两次更新进度的时间段内的时间差<br></span><span style="color: #008080;"> 66</span>                     <span style="color: #008000;">//</span><span style="color: #008000;"> 两次更新进度的时间段内的速度作为瞬时速度</span><br><span style="color: #008080;"> 67</span>                     <span style="color: #0000ff;">double</span> speed = ((<span style="color: #0000ff;">double</span>)detaTemp / 1024) / ((<span style="color: #0000ff;">double</span>)(detaTime) / 1000<span style="color: #000000;">);<br></span><span style="color: #008080;"> 68</span><br><span style="color: #008080;"> 69</span>                     <span style="color: #008000;">//</span><span style="color: #008000;"> 保留小数点后2位，最后一位四舍五入</span><br><span style="color: #008080;"> 70</span>                     speed = <span style="color: #0000ff;">new</span> BigDecimal(speed).setScale(2<span style="color: #000000;">, BigDecimal.ROUND_HALF_UP).doubleValue();<br></span><span style="color: #008080;"> 71</span><br><span style="color: #008080;"> 72</span>                     <span style="color: #008000;">//</span><span style="color: #008000;"> 计算剩余下载时间</span><br><span style="color: #008080;"> 73</span>                     <span style="color: #0000ff;">double</span> remainTime = (<span style="color: #0000ff;">double</span>)(destFileSize - temp) /<span style="color: #000000;"> speed;<br></span><span style="color: #008080;"> 74</span>                     <span style="color: #0000ff;">if</span>(Double.isInfinite(remainTime) ||<span style="color: #000000;"> Double.isNaN(remainTime)){<br></span><span style="color: #008080;"> 75</span>                         remainTime = 0<span style="color: #000000;">;<br></span><span style="color: #008080;"> 76</span>                     }<span style="color: #0000ff;">else</span><span style="color: #000000;">{<br></span><span style="color: #008080;"> 77</span>                         remainTime = <span style="color: #0000ff;">new</span> BigDecimal(remainTime).setScale(0<span style="color: #000000;">, BigDecimal.ROUND_HALF_UP).longValue();<br></span><span style="color: #008080;"> 78</span> <span style="color: #000000;">                    }<br></span><span style="color: #008080;"> 79</span><br><span style="color: #008080;"> 80</span>                     <span style="color: #008000;">//</span><span style="color: #008000;"> 通知监听者进度和速度以及下载剩余时间</span><br><span style="color: #008080;"> 81</span>                     fileDownloadListener.downloadProgress(progress, speed, (<span style="color: #0000ff;">long</span><span style="color: #000000;">)remainTime);<br></span><span style="color: #008080;"> 82</span><br><span style="color: #008080;"> 83</span>                     <span style="color: #008000;">//</span><span style="color: #008000;"> 重置上次已下载数据长度和上次下载的当前时间</span><br><span style="color: #008080;"> 84</span>                     oldTemp =<span style="color: #000000;"> temp;<br></span><span style="color: #008080;"> 85</span>                     oldTime =<span style="color: #000000;"> System.currentTimeMillis();<br></span><span style="color: #008080;"> 86</span> <span style="color: #000000;">                }<br></span><span style="color: #008080;"> 87</span><br><span style="color: #008080;"> 88</span>                 <span style="color: #008000;">//</span><span style="color: #008000;"> 如果下载进度达到100，则表示下载完毕</span><br><span style="color: #008080;"> 89</span>                 <span style="color: #0000ff;">if</span>(100 &lt;=<span style="color: #000000;"> progress){<br></span><span style="color: #008080;"> 90</span>                     <span style="color: #008000;">//</span><span style="color: #008000;"> 给下载好的文件进行重命名，即去掉DOWNLOADING_SUFFIX后缀</span><br><span style="color: #008080;"> 91</span>                     String oldPath =<span style="color: #000000;"> destFile.getPath();<br></span><span style="color: #008080;"> 92</span>                     File newFile = <span style="color: #0000ff;">new</span> File(oldPath.substring(0, oldPath.lastIndexOf(“.”<span style="color: #000000;">)));<br></span><span style="color: #008080;"> 93</span>                     <span style="color: #008000;">//</span><span style="color: #008000;"> 检查去掉后的文件是否存在。如果存在，则删除原来的文件并重命名下载的文件（即：覆盖原文件）</span><br><span style="color: #008080;"> 94</span>                     <span style="color: #0000ff;">if</span><span style="color: #000000;">(newFile.exists()){<br></span><span style="color: #008080;"> 95</span> <span style="color: #000000;">                        newFile.delete();<br></span><span style="color: #008080;"> 96</span> <span style="color: #000000;">                    }<br></span><span style="color: #008080;"> 97</span>                     System.out.println(destFile.renameTo(newFile));<span style="color: #008000;">//</span><span style="color: #008000;"> 重命名<br></span><span style="color: #008080;"> 98</span>                     <span style="color: #008000;">//</span><span style="color: #008000;"> 通知监听器，并传入新的文件对象</span><br><span style="color: #008080;"> 99</span>                     <span style="color: #0000ff;">if</span>(<span style="color: #0000ff;">null</span> !=<span style="color: #000000;"> fileDownloadListener){<br></span><span style="color: #008080;">100</span>                         fileDownloadListener.downloadCompleted(newFile, System.currentTimeMillis() -<span style="color: #000000;"> startTime);<br></span><span style="color: #008080;">101</span> <span style="color: #000000;">                    }<br></span><span style="color: #008080;">102</span>                     isRunning = <span style="color: #0000ff;">false</span>; <span style="color: #008000;">//</span><span style="color: #008000;"> 文件下载完就结束通知线程。</span><br><span style="color: #008080;">103</span> <span style="color: #000000;">                }<br></span><span style="color: #008080;">104</span>                 notificationTag = <span style="color: #0000ff;">false</span><span style="color: #000000;">;<br></span><span style="color: #008080;">105</span> <span style="color: #000000;">            }<br></span><span style="color: #008080;">106</span>             <span style="color: #008000;">//</span><span style="color: #008000;"> 设置为每100毫秒进行检查并更新通知</span><br><span style="color: #008080;">107</span>             <span style="color: #0000ff;">try</span><span style="color: #000000;"> {<br></span><span style="color: #008080;">108</span>                 Thread.sleep(100<span style="color: #000000;">);<br></span><span style="color: #008080;">109</span>             } <span style="color: #0000ff;">catch</span><span style="color: #000000;"> (InterruptedException e) {<br></span><span style="color: #008080;">110</span> <span style="color: #000000;">                e.printStackTrace();<br></span><span style="color: #008080;">111</span> <span style="color: #000000;">            }<br></span><span style="color: #008080;">112</span><br><span style="color: #008080;">113</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;">114</span><br><span style="color: #008080;">115</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">116</span>     <span style="color: #008000;">/<strong></strong></span><br><span style="color: #008080;">117</span> <span style="color: #008000;">     <em> 调用这个方法，则会使得线程处于待检查更新进度状态。<br></em></span><span style="color: #008080;">118</span> <span style="color: #008000;">      </span><span style="color: #808080;">@author</span><span style="color: #008000;"> wangjie<br></span><span style="color: #008080;">119</span>      <span style="color: #008000;">*/</span><br><span style="color: #008080;">120</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">synchronized</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> notificationProgress(){<br></span><span style="color: #008080;">121</span>         notificationTag = <span style="color: #0000ff;">true</span><span style="color: #000000;">;<br></span><span style="color: #008080;">122</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">123</span>     <span style="color: #008000;">/</span><br><span style="color: #008080;">124</span> <span style="color: #008000;">     <em> 取消该通知线程<br></em></span><span style="color: #008080;">125</span> <span style="color: #008000;">      </span><span style="color: #808080;">@author</span><span style="color: #008000;"> wangjie<br></span><span style="color: #008080;">126</span>      <span style="color: #008000;">*/</span><br><span style="color: #008080;">127</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> cancelThread(){<br></span><span style="color: #008080;">128</span>         isRunning = <span style="color: #0000ff;">false</span><span style="color: #000000;">;<br></span><span style="color: #008080;">129</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">130</span><br><span style="color: #008080;">131</span><br><span style="color: #008080;">132</span> }</pre><br></div><br></div>
+
+<p>&nbsp;</p>
+<p>4.JFileDownloadThread类：真正的下载线程，该线程用于执行该线程所要负责下载的数据。</p>
+<div class="cnblogs_code" onclick="cnblogs_code_show('c46c22f4-1e9a-43c7-b6e7-f5c514b5483e')"><img src="http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif" alt=""><img src="http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif" alt=""><span class="cnblogs_code_collapse">View Code </span><br><div id="cnblogs_code_open_c46c22f4-1e9a-43c7-b6e7-f5c514b5483e" class="cnblogs_code_hide"><br><pre><span style="color: #008080;">  1</span> <span style="color: #0000ff;">package</span><span style="color: #000000;"> com.wangjie.extrautil.jfiledownloader;<br></span><span style="color: #008080;">  2</span><br><span style="color: #008080;">  3</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> java.io.File;<br></span><span style="color: #008080;">  4</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> java.io.IOException;<br></span><span style="color: #008080;">  5</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> java.io.InputStream;<br></span><span style="color: #008080;">  6</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> java.io.RandomAccessFile;<br></span><span style="color: #008080;">  7</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> java.net.HttpURLConnection;<br></span><span style="color: #008080;">  8</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> java.net.URL;<br></span><span style="color: #008080;">  9</span><br><span style="color: #008080;"> 10</span> <span style="color: #008000;">/<strong></strong></span><br><span style="color: #008080;"> 11</span> <span style="color: #008000;"> <em><br></em></span><span style="color: #008080;"> 12</span> <span style="color: #008000;">  真正的下载线程，该线程用于执行该线程所要负责下载的数据。<br></span><span style="color: #008080;"> 13</span> <span style="color: #008000;"> <em><br></em></span><span style="color: #008080;"> 14</span> <span style="color: #008000;">  </span><span style="color: #808080;">@author</span><span style="color: #008000;"> wangjie<br></span><span style="color: #008080;"> 15</span> <span style="color: #008000;"> <em> </em></span><span style="color: #808080;">@version</span><span style="color: #008000;"> 创建时间：2013-2-7 上午11:58:24<br></span><span style="color: #008080;"> 16</span>  <span style="color: #008000;">/</span><br><span style="color: #008080;"> 17</span> <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span> JFileDownloadThread <span style="color: #0000ff;">extends</span><span style="color: #000000;"> Thread{<br></span><span style="color: #008080;"> 18</span>     <span style="color: #0000ff;">private</span><span style="color: #000000;"> String urlPath;<br></span><span style="color: #008080;"> 19</span>     <span style="color: #0000ff;">private</span><span style="color: #000000;"> File destFile;<br></span><span style="color: #008080;"> 20</span>     <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">long</span><span style="color: #000000;"> startPos;<br></span><span style="color: #008080;"> 21</span>     <span style="color: #008000;">/</span><br><span style="color: #008080;"> 22</span> <span style="color: #008000;">     <em> 此线程需要下载的数据长度。<br></em></span><span style="color: #008080;"> 23</span>      <span style="color: #008000;">/</span><br><span style="color: #008080;"> 24</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">long</span><span style="color: #000000;"> length;<br></span><span style="color: #008080;"> 25</span>     <span style="color: #008000;">/<strong></strong></span><br><span style="color: #008080;"> 26</span> <span style="color: #008000;">     <em> 此线程现在已下载好了的数据长度。<br></em></span><span style="color: #008080;"> 27</span>      <span style="color: #008000;">/</span><br><span style="color: #008080;"> 28</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">long</span><span style="color: #000000;"> currentLength;<br></span><span style="color: #008080;"> 29</span><br><span style="color: #008080;"> 30</span>     <span style="color: #0000ff;">private</span><span style="color: #000000;"> JFileDownloaderNotificationThread notificationThread;<br></span><span style="color: #008080;"> 31</span>     <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">boolean</span> isRunning = <span style="color: #0000ff;">true</span><span style="color: #000000;">;<br></span><span style="color: #008080;"> 32</span><br><span style="color: #008080;"> 33</span>     <span style="color: #008000;">/</span><br><span style="color: #008080;"> 34</span> <span style="color: #008000;">     <em> 构造方法，可生成配置完整的JFileDownloadThread对象<br></em></span><span style="color: #008080;"> 35</span> <span style="color: #008000;">      </span><span style="color: #808080;">@param</span><span style="color: #008000;"> urlPath 要下载的目标文件URL<br></span><span style="color: #008080;"> 36</span> <span style="color: #008000;">     <em> </em></span><span style="color: #808080;">@param</span><span style="color: #008000;"> destFile 要保存的目标文件<br></span><span style="color: #008080;"> 37</span> <span style="color: #008000;">      </span><span style="color: #808080;">@param</span><span style="color: #008000;"> startPos 该线程需要下载目标文件第几个byte之后的数据<br></span><span style="color: #008080;"> 38</span> <span style="color: #008000;">     <em> </em></span><span style="color: #808080;">@param</span><span style="color: #008000;"> length 该线程需要下载多少长度的数据<br></span><span style="color: #008080;"> 39</span> <span style="color: #008000;">      </span><span style="color: #808080;">@param</span><span style="color: #008000;"> notificationThread 通知进度线程<br></span><span style="color: #008080;"> 40</span>      <span style="color: #008000;"><em>/</em></span><br><span style="color: #008080;"> 41</span>     <span style="color: #0000ff;">public</span> JFileDownloadThread(String urlPath, File destFile, <span style="color: #0000ff;">long</span><span style="color: #000000;"> startPos,<br></span><span style="color: #008080;"> 42</span>             <span style="color: #0000ff;">long</span><span style="color: #000000;"> length, JFileDownloaderNotificationThread notificationThread) {<br></span><span style="color: #008080;"> 43</span>         <span style="color: #0000ff;">this</span>.urlPath =<span style="color: #000000;"> urlPath;<br></span><span style="color: #008080;"> 44</span>         <span style="color: #0000ff;">this</span>.destFile =<span style="color: #000000;"> destFile;<br></span><span style="color: #008080;"> 45</span>         <span style="color: #0000ff;">this</span>.startPos =<span style="color: #000000;"> startPos;<br></span><span style="color: #008080;"> 46</span>         <span style="color: #0000ff;">this</span>.length =<span style="color: #000000;"> length;<br></span><span style="color: #008080;"> 47</span>         <span style="color: #0000ff;">this</span>.notificationThread =<span style="color: #000000;"> notificationThread;<br></span><span style="color: #008080;"> 48</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;"> 49</span>     <span style="color: #008000;">/**</span><br><span style="color: #008080;"> 50</span> <span style="color: #008000;">      该方法将执行下载功能，并把数据存储在目标文件中的相应位置。<br></span><span style="color: #008080;"> 51</span>      <span style="color: #008000;"><em>/</em></span><br><span style="color: #008080;"> 52</span> <span style="color: #000000;">    @Override<br></span><span style="color: #008080;"> 53</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> run() {<br></span><span style="color: #008080;"> 54</span>         RandomAccessFile raf = <span style="color: #0000ff;">null</span><span style="color: #000000;">;<br></span><span style="color: #008080;"> 55</span>         HttpURLConnection conn = <span style="color: #0000ff;">null</span><span style="color: #000000;">;<br></span><span style="color: #008080;"> 56</span>         InputStream is = <span style="color: #0000ff;">null</span><span style="color: #000000;">;<br></span><span style="color: #008080;"> 57</span>         <span style="color: #0000ff;">try</span><span style="color: #000000;"> {<br></span><span style="color: #008080;"> 58</span> <span style="color: #008000;">//</span><span style="color: #008000;">            URL url = new URL(“</span><span style="color: #008000; text-decoration: underline;"><a href="http://localhost" target="_blank" rel="noopener">http://localhost</a></span><span style="color: #008000;">:8080/firstserver/files/hibernate.zip”);</span><br><span style="color: #008080;"> 59</span>             URL url = <span style="color: #0000ff;">new</span><span style="color: #000000;"> URL(urlPath);<br></span><span style="color: #008080;"> 60</span>             conn =<span style="color: #000000;"> (HttpURLConnection)url.openConnection();<br></span><span style="color: #008080;"> 61</span>             conn.setConnectTimeout(20  1000<span style="color: #000000;">);<br></span><span style="color: #008080;"> 62</span>             is =<span style="color: #000000;"> conn.getInputStream();<br></span><span style="color: #008080;"> 63</span>             raf = <span style="color: #0000ff;">new</span> RandomAccessFile(destFile, “rw”<span style="color: #000000;">);<br></span><span style="color: #008080;"> 64</span>             raf.setLength(conn.getContentLength()); <span style="color: #008000;">//</span><span style="color: #008000;"> 设置保存文件的大小<br></span><span style="color: #008080;"> 65</span> <span style="color: #008000;">//</span><span style="color: #008000;">            raf.setLength(conn.getInputStream().available());<br></span><span style="color: #008080;"> 66</span><br><span style="color: #008080;"> 67</span>             <span style="color: #008000;">//</span><span style="color: #008000;"> 设置读入和写入的文件位置</span><br><span style="color: #008080;"> 68</span> <span style="color: #000000;">            is.skip(startPos);<br></span><span style="color: #008080;"> 69</span> <span style="color: #000000;">            raf.seek(startPos);<br></span><span style="color: #008080;"> 70</span><br><span style="color: #008080;"> 71</span>             currentLength = 0; <span style="color: #008000;">//</span><span style="color: #008000;"> 当前已下载好的文件长度</span><br><span style="color: #008080;"> 72</span>             <span style="color: #0000ff;">byte</span>[] buffer = <span style="color: #0000ff;">new</span> <span style="color: #0000ff;">byte</span>[1024 <em> 1024<span style="color: #000000;">];<br></span><span style="color: #008080;"> 73</span>             <span style="color: #0000ff;">int</span> len = 0<span style="color: #000000;">;<br></span><span style="color: #008080;"> 74</span>             <span style="color: #0000ff;">while</span>(currentLength &lt; length &amp;&amp; -1 != (len =<span style="color: #000000;"> is.read(buffer))){<br></span><span style="color: #008080;"> 75</span>                 <span style="color: #0000ff;">if</span>(!<span style="color: #000000;">isRunning){<br></span><span style="color: #008080;"> 76</span>                     <span style="color: #0000ff;">break</span><span style="color: #000000;">;<br></span><span style="color: #008080;"> 77</span> <span style="color: #000000;">                }<br></span><span style="color: #008080;"> 78</span>                 <span style="color: #0000ff;">if</span>(currentLength + len &gt;<span style="color: #000000;"> length){<br></span><span style="color: #008080;"> 79</span>                     raf.write(buffer, 0, (<span style="color: #0000ff;">int</span>)(length -<span style="color: #000000;"> currentLength));<br></span><span style="color: #008080;"> 80</span>                     currentLength =<span style="color: #000000;"> length;<br></span><span style="color: #008080;"> 81</span>                     notificationThread.notificationProgress(); <span style="color: #008000;">//</span><span style="color: #008000;"> 通知进度线程来更新进度</span><br><span style="color: #008080;"> 82</span>                     <span style="color: #0000ff;">return</span><span style="color: #000000;">;<br></span><span style="color: #008080;"> 83</span>                 }<span style="color: #0000ff;">else</span><span style="color: #000000;">{<br></span><span style="color: #008080;"> 84</span>                     raf.write(buffer, 0<span style="color: #000000;">, len);<br></span><span style="color: #008080;"> 85</span>                     currentLength +=<span style="color: #000000;"> len;<br></span><span style="color: #008080;"> 86</span>                     notificationThread.notificationProgress(); <span style="color: #008000;">//</span><span style="color: #008000;"> 通知进度线程来更新进度</span><br><span style="color: #008080;"> 87</span> <span style="color: #000000;">                }<br></span><span style="color: #008080;"> 88</span> <span style="color: #000000;">            }<br></span><span style="color: #008080;"> 89</span>         } <span style="color: #0000ff;">catch</span><span style="color: #000000;"> (Exception e) {<br></span><span style="color: #008080;"> 90</span> <span style="color: #000000;">            e.printStackTrace();<br></span><span style="color: #008080;"> 91</span>         } <span style="color: #0000ff;">finally</span><span style="color: #000000;">{<br></span><span style="color: #008080;"> 92</span>             <span style="color: #0000ff;">try</span><span style="color: #000000;"> {<br></span><span style="color: #008080;"> 93</span> <span style="color: #000000;">                is.close();<br></span><span style="color: #008080;"> 94</span> <span style="color: #000000;">                raf.close();<br></span><span style="color: #008080;"> 95</span> <span style="color: #000000;">                conn.disconnect();<br></span><span style="color: #008080;"> 96</span>             } <span style="color: #0000ff;">catch</span><span style="color: #000000;"> (IOException e) {<br></span><span style="color: #008080;"> 97</span> <span style="color: #000000;">                e.printStackTrace();<br></span><span style="color: #008080;"> 98</span> <span style="color: #000000;">            }<br></span><span style="color: #008080;"> 99</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;">100</span><br><span style="color: #008080;">101</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">102</span>     <span style="color: #008000;">/**</span><br><span style="color: #008080;">103</span> <span style="color: #008000;">     </span></em> 取消该线程下载<br><span style="color: #008080;">104</span> <span style="color: #008000;">     <em> </em></span><span style="color: #808080;">@author</span><span style="color: #008000;"> wangjie<br></span><span style="color: #008080;">105</span>      <span style="color: #008000;">/</span><br><span style="color: #008080;">106</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> cancelThread(){<br></span><span style="color: #008080;">107</span>         isRunning = <span style="color: #0000ff;">false</span><span style="color: #000000;">;<br></span><span style="color: #008080;">108</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">109</span><br><span style="color: #008080;">110</span><br><span style="color: #008080;">111</span> }</pre><br></div><br></div>
+
+<p>&nbsp;</p>
+<p><strong>使用方法如下：</strong></p>
+<div class="cnblogs_code"><br><pre><span style="color: #008080;"> 1</span> String urlPath = “<a href="http://localhost:8080/firstserver/files/test.zip" target="_blank" rel="noopener">http://localhost:8080/firstserver/files/test.zip</a>“<span style="color: #000000;">;<br></span><span style="color: #008080;"> 2</span> String destFilePath = “C:\Users\admin\Desktop\杂\临时仓库\test.zip”<span style="color: #000000;">;<br></span><span style="color: #008080;"> 3</span> <span style="color: #0000ff;">int</span> threadCount = 3<span style="color: #000000;">;<br></span><span style="color: #008080;"> 4</span><br><span style="color: #008080;"> 5</span> JFileDownloader downloader = <span style="color: #0000ff;">new</span><span style="color: #000000;"> JFileDownloader(urlPath, destFilePath, threadCount);<br></span><span style="color: #008080;"> 6</span> <span style="color: #008000;">//</span><span style="color: #008000;">或者：</span><br><span style="color: #008080;"> 7</span> JFileDownloader downloader = <span style="color: #0000ff;">new</span><span style="color: #000000;"> JFileDownloader()<br></span><span style="color: #008080;"> 8</span> <span style="color: #000000;">            .setUrlPath(urlPath)<br></span><span style="color: #008080;"> 9</span> <span style="color: #000000;">            .setDestFilePath(destFilePath)<br></span><span style="color: #008080;">10</span> <span style="color: #000000;">            .setThreadCount(threadCount)<br></span><span style="color: #008080;">11</span>             .setFileDownloadListener(<span style="color: #0000ff;">new</span> JFileDownloadListener() { <span style="color: #008000;">//</span><span style="color: #008000;"> 设置进度监听器</span><br><span style="color: #008080;">12</span>                     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span> downloadProgress(<span style="color: #0000ff;">int</span> progress, <span style="color: #0000ff;">double</span> speed, <span style="color: #0000ff;">long</span><span style="color: #000000;"> remainTime) {<br></span><span style="color: #008080;">13</span>                         System.out.println(“文件已下载：” + progress + “%，下载速度为：” + speed + “kb/s，剩余所需时间：” + remainTime + “毫秒”<span style="color: #000000;">);<br></span><span style="color: #008080;">14</span> <span style="color: #000000;">                    }<br></span><span style="color: #008080;">15</span>                     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span> downloadCompleted(File file, <span style="color: #0000ff;">long</span><span style="color: #000000;"> downloadTime) {<br></span><span style="color: #008080;">16</span>                         System.out.println(“文件：” + file.getName() + “下载完成，用时：” + downloadTime + “毫秒”<span style="color: #000000;">);<br></span><span style="color: #008080;">17</span> <span style="color: #000000;">                    }<br></span><span style="color: #008080;">18</span> <span style="color: #000000;">            });<br></span><span style="color: #008080;">19</span>     <span style="color: #0000ff;">try</span><span style="color: #000000;"> {<br></span><span style="color: #008080;">20</span>         downloader.startDownload(); <span style="color: #008000;">//</span><span style="color: #008000;"> 开始下载</span><br><span style="color: #008080;">21</span>     } <span style="color: #0000ff;">catch</span><span style="color: #000000;"> (Exception e) {<br></span><span style="color: #008080;">22</span> <span style="color: #000000;">        e.printStackTrace();<br></span><span style="color: #008080;">23</span>     }</pre><br></div>
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2013/02/19/工具库-JOJSONBuilder工具类——一键把多个bean对象数据转换为JSON格式数据/" rel="next" title="[工具库]JOJSONBuilder工具类——一键把多个bean对象数据转换为JSON格式数据">
+                <i class="fa fa-chevron-left"></i> [工具库]JOJSONBuilder工具类——一键把多个bean对象数据转换为JSON格式数据
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2013/02/23/看书笔记-《深入java虚拟机》——java体系结构（一）/" rel="prev" title="[看书笔记]《深入java虚拟机》——java体系结构（一）">
+                [看书笔记]《深入java虚拟机》——java体系结构（一） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/my_avatar.jpg"
+                alt="Wang Jie" />
+            
+              <p class="site-author-name" itemprop="name">Wang Jie</p>
+              <p class="site-description motion-element" itemprop="description">Wang Jie's blog</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">144</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wangjiegulu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:tiantian.china.2@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/+%E5%A4%A9%E5%A4%A9wangjie" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/wangjiegulu" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://stackoverflow.com/users/2124006/wangjie" target="_blank" title="StackOverflow">
+                      
+                        <i class="fa fa-fw fa-stack-overflow"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/wangjiegulu" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.cnblogs.com/tiantianbyconan/" title="cnblog" target="_blank">cnblog</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wang Jie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://blog-wangjiegulu-com.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://blog.wangjiegulu.com/2013/02/20/工具库-JFileDownloader工具类——多线程下载网络文件，并保存在本地/';
+          this.page.identifier = '2013/02/20/工具库-JFileDownloader工具类——多线程下载网络文件，并保存在本地/';
+          this.page.title = '[工具库]JFileDownloader工具类——多线程下载网络文件，并保存在本地';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://blog-wangjiegulu-com.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "default";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "GooglePlus,Evernote,Twitter,Facebook,Douban,Weibo";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

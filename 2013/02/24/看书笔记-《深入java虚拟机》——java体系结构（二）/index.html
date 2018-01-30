@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="WAND JIE" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="java虚拟机的三种含义：  抽象的规范 一个具体的实现 一个运行中的虚拟机实例  ———————java虚拟机的生命周期：java虚拟机实例的天职就是负责运行一个java程序。启动一个java程序，一个虚拟机实例诞生了；程序关闭退出，虚拟机消亡。有几个java程序正在运行，就有几个java虚拟机实例。每个java程序都运行在自己的java虚拟机实例中。 java虚拟机中有两种线程：  守护线程：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[看书笔记]《深入java虚拟机》——java体系结构（二）">
+<meta property="og:url" content="http://blog.wangjiegulu.com/2013/02/24/看书笔记-《深入java虚拟机》——java体系结构（二）/index.html">
+<meta property="og:site_name" content="WAND JIE">
+<meta property="og:description" content="java虚拟机的三种含义：  抽象的规范 一个具体的实现 一个运行中的虚拟机实例  ———————java虚拟机的生命周期：java虚拟机实例的天职就是负责运行一个java程序。启动一个java程序，一个虚拟机实例诞生了；程序关闭退出，虚拟机消亡。有几个java程序正在运行，就有几个java虚拟机实例。每个java程序都运行在自己的java虚拟机实例中。 java虚拟机中有两种线程：  守护线程：">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://images.cnitblog.com/blog/378300/201302/24100155-fc24aa95237c49d8b70f462592324040.jpg">
+<meta property="og:updated_time" content="2018-01-29T12:36:41.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[看书笔记]《深入java虚拟机》——java体系结构（二）">
+<meta name="twitter:description" content="java虚拟机的三种含义：  抽象的规范 一个具体的实现 一个运行中的虚拟机实例  ———————java虚拟机的生命周期：java虚拟机实例的天职就是负责运行一个java程序。启动一个java程序，一个虚拟机实例诞生了；程序关闭退出，虚拟机消亡。有几个java程序正在运行，就有几个java虚拟机实例。每个java程序都运行在自己的java虚拟机实例中。 java虚拟机中有两种线程：  守护线程：">
+<meta name="twitter:image" content="http://images.cnitblog.com/blog/378300/201302/24100155-fc24aa95237c49d8b70f462592324040.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.wangjiegulu.com/2013/02/24/看书笔记-《深入java虚拟机》——java体系结构（二）/"/>
+
+
+
+
+
+  <title>[看书笔记]《深入java虚拟机》——java体系结构（二） | WAND JIE</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-111189680-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">WAND JIE</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">TO BE AN ARTIST-ENGINNER</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.wangjiegulu.com/2013/02/24/看书笔记-《深入java虚拟机》——java体系结构（二）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wang Jie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/my_avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WAND JIE">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">[看书笔记]《深入java虚拟机》——java体系结构（二）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2013-02-24T10:02:00+08:00">
+                2013-02-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2013/02/24/看书笔记-《深入java虚拟机》——java体系结构（二）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2013/02/24/看书笔记-《深入java虚拟机》——java体系结构（二）/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>java虚拟机的三种含义：</p>
+<ul>
+<li>抽象的规范</li>
+<li>一个具体的实现</li>
+<li>一个运行中的虚拟机实例</li>
+</ul>
+<p>———————java虚拟机的生命周期：<br>java虚拟机实例的天职就是负责运行一个java程序。<br>启动一个java程序，一个虚拟机实例诞生了；程序关闭退出，虚拟机消亡。<br>有几个java程序正在运行，就有几个java虚拟机实例。每个java程序都运行在自己的java虚拟机实例中。</p>
+<p>java虚拟机中有两种线程：</p>
+<ul>
+<li>守护线程：由虚拟机自己使用的（执行垃圾收集线程），java程序也可以把任何线程标记为守护线程。</li>
+<li>非守护线程：main()这种。</li>
+</ul>
+<p>非守护线程都终止时，虚拟机实例才自动退出。（也可以调用Runtime或System的exit()方法退出程序）。</p>
+<p>———————java虚拟机的体系结构：<br>见同目录第五章.Java虚拟机-体系结构图！<br>方法区和堆是该虚拟机实例的所有线程共享的。<br>当虚拟机装载一个class文件时，他会从这个class文件包含的二进制数据中解析类型信息，然后把这些类型信息放到方法区中。<br>当程序运行时，虚拟机会把所有该程序在运行时创建的对象都放到堆中。</p>
+<p>每个新线程被创建时，他都将得到它自己的PC寄存器以及一个java栈（不是所有线程共享）。<br>java虚拟机为每个线程创建内存区，这些内存区域是私有的，任何线程都不能访问另一个线程的PC寄存器或者java栈。<br>如果线程正在执行的是一个java方法（非本地方法），那么PC寄存器的值将总是指示下一条将被执行的指令。<br>java栈则总是存储该线程中java方法调用的状态（局部变量、被调用时传进来的参数、返回值、运算的中间结果）</p>
+<p>本地方法调用的状态则是以某种依赖于具体实现的方式存储在本地方法栈中，也可能在寄存器或者其他某些特定实现相关的内存区中。</p>
+<p>———————栈帧（1）：<br>java栈上由许多栈帧（帧）组成的，一个栈帧包含一个java方法调用的状态。<br>当线程调用一个java方法时，虚拟机压入一个新的栈帧到该线程的java栈中；当方法返回时，这个栈帧被从java栈中弹出并抛弃。</p>
+<p>java虚拟机没有寄存器，其指令集使用java栈来存储中间数据（为了平台无关性）。</p>
+<p>———————类型数据<br>类型数据分为来那个中：<br>基本类型：float、double、byte、short、int、long、char、boolean<br>引用类型：reference（类引用、接口引用、数组引用）<br>注意：编译成字节码时boolean用int表示，</p>
+<p>java虚拟机中，最基本的数据单元就是字，至少选择32位作为字长。<br>运行时数据区的大部分内容，都是基于&ldquo;字&rdquo;这个抽象概念的。</p>
+<p>———————类装载器子系统：<br>类装载器的装载、连接和初始化：</p>
+<ul>
+<li>装载：查找并装载类型的二进制数据</li>
+<li>连接：执行验证，准备，以及解析（可选）。<br>  验证：确保被导入类型的正确性。<br>  准备：为静态变量分配内存，并将其初始化为默认值。<br>  解析：把类型中的符号引用转换为直接引用。</li>
+<li>初始化：把静态变量初始化为正确初始值。</li>
+</ul>
+<p>启动类装载器：<br>只要是符合java class文件格式的二进制文件，java虚拟机实现都必须能够从中辨别并装载器中的类和接口。每个java虚拟机实现必须有一个启动类加载器来加载受信任的类，比如java API。</p>
+<p>用户自定义类装载器：<br>用户自定义的类装载器是普通的java对象，它的类必须派生自java.lang.ClassLoader类。ClassLoader类中定义的方法为程序提供了访问类装载器机制的接口。<br>用户自定义类装载器和Class类的实例都放在内存中的堆区，而装载的类型信息则都位于方法区。</p>
+<p>ClassLoader类的四个通往java虚拟机的方法：<br>protected final Class defineClass(String name, byte data[], int offset, int length);<br>接收一个名为data[]的字节数组，并且在data[offset]到data[data+length]之间的二进制数据必须符合java class格式（表示一个新的可用类），name是该类型的全限定名，并将赋以默认的保护域。注意：该方法返回Class对象实例时表示指定的class文件已经被找到并装载到了方法区（不一定连接和初始化）</p>
+<p>protected final Class defineClass(String name, byte data[], int offset, int length,<br>ProtectionDomain protectionDomain);<br>与前面一样，只是，该类型的保护域将由它的protectionDomain参数指定。</p>
+<p>protected final Class findSystemClass(String name);<br>接收一个字符串name（该类型的全限定名），用于启动系统类装载器（必须保证能启动）。</p>
+<p>protected final void resolveClass(Class c);<br>接收一个Class实例的引用作为参数，它将对该Class实例表示的类型执行连接动作（必须保证能执行连接动作）。</p>
+<p>———————方法区：<br>所有线程都共享方法区，所以它们对方法区数据的访问必须被设计为是线程安全的。<br>方法区的大小不必说固定的，虚拟机可以根据应用的需要动态调整。<br>方法区不必是连续的。<br>方法区也可以被垃圾收集。</p>
+<p>类型信息：<br>对每个装载的类型，虚拟机都会在方法区中存储一下类型信息：</p>
+<ul>
+<li>该类型全限定名</li>
+<li>该类型的直接超类的全限定名（除非是Object类，没有超类）</li>
+<li>该类型是类类型还是接口类型</li>
+<li>该类型的访问修饰符（public、abstract、final的某个子集）</li>
+<li><p>任何型直接超接口的全限定名的有序列表</p>
+</li>
+<li><p>该类型的常量池【核心】：所有常量的类型字段方法的符号引用(索引访问)</p>
+</li>
+<li>字段信息：字段名，字段类型，字段修饰符</li>
+<li>方法信息：方法名，返回类型，参数数量和类型(按序)，方法修饰符</li>
+<li>除了常量以外的静态变量</li>
+<li>一个到类ClassLoader的引用：跟踪保存该类加载时所用的加载器的类别</li>
+<li>一个到Class类的引用：虚拟机会创建一个相应的java.lang.Class类的实例</li>
+</ul>
+<p>———————方法表：<br>方法表：类型数据结构<br>虚拟机为每个非抽象类都生成一个表，把它作为类信息的一部分保存在方法区。<br>方法表是一个数组，元素是所有它的实例可能被调用的实例方法的直接引用<br>，包括是超类直接继承过来的方法。运行时可以通过方法表快速搜寻在对象中调用的实例方法。</p>
+<p>———————堆：<br>java程序在运行时创建的所有类实例或数组都放在同一个堆中（要考虑线程同步问题）。<br>和方法区一样，堆空间也不是连续的内存区。</p>
+<p>———————数组：<br>数组的内部表示：<br>在java中，数组才是真正的对象<br>和其他对象一样，数组总是存储在堆中。<br>和其他对象一样，数组也有一个与他们的类关联的Class实例，所有具有相同维度和类型的数组都是同一个类的实例（不管数组的长度是多少）。</p>
+<p>数组类的名称由两部分组成，每一维度用一个”[“表示，用字符或字符串表示元素类型。如&ldquo;[[Ljava/lang/Object&rdquo;表示元素为Object的二维数组。</p>
+<p>在堆中，每一个数组对象还必须要保存数组的长度、数组数据以及某些指向数组的类数据的引用。</p>
+<p>———————程序计数器（PC寄存器）：<br>每一个线程都有它自己的PC寄存器，它是在该线程启动的时候创建的。<br>PC寄存器的大小是字长，因此能够持有一个本地指针，也能够持有一个returnAddress。当线程执行某个java方法时，PC寄存器的内容总是写一条将被执行的指令的地址，这里的地址可以是个本地指针，也可以是在方法字节码中相对于该方法其实指令的偏移量。如果该线程正在执行一个本地方法，此时PC寄存器的值是&ldquo;undefined&rdquo;。</p>
+<p>———————Java栈：<br>每当启动一个新线程时，java虚拟机都会为它分配一个java栈。<br>虚拟机智慧直接对java栈执行两种操作：以帧为单位的压栈或出栈。<br>每当线程调用一个java方法时，虚拟机都会在该java栈中压入一个新帧。<br>java方法不管是正常返回还是抛异常中止，虚拟机都会将当前栈弹出java栈，然后释放内存。</p>
+<p>java栈和栈帧在内存中也不必说连续的。</p>
+<p>———————栈帧（2）：<br>栈帧的构成：</p>
+<ul>
+<li><p>局部变量区：</p>
+<pre><code>是一个以字长为单位，从0开始计数的数组。字节码指令通过从0开始的索引来使用其中的数据。
+ int、float、reference和returnAddress的值在数组中只占一项；
+ byte、short、char的值在存入数组前都被转换成int，所以也只占一项；
+ boolean虚拟机不支持，用int来表示，所以也只占一项；
+ long、double的值在数组中占两项（使用只要指出第一项索引值）。
+ 局部变量区包含对应的方法参数和局部变量。
+ 按参数的顺序来存入局部变量数组中。真正的局部变量顺序任意。
+</code></pre></li>
+<li><p>操作数栈：</p>
+<pre><code>是一个以字节为单位的数组（不是通过索引来访问），是通过标准的栈操作（压栈和出栈）来访问。
+存储的数据类型和局部变量区的一样。
+虚拟机把操作数栈作为他的工作区，大多数指令都要从这里弹出数据，执行计算，然后把结果压回到操作数栈中。
+</code></pre></li>
+<li><p>帧数据区：</p>
+<pre><code>常量池解析、正常方法返回、异常派发机制。
+每当虚拟机要执行某个需要用到常量池数据的指令时，它都会通过帧数据区中指向常量池的指针来访问它。
+帧数据区还要帮助虚拟机处理java方法的正常结束或异常中止：
+如果正常结束：虚拟机必须恢复发起调用的方法的（上一个）栈帧，调用完成方法的指令的下一个指令。如果有返回值，虚拟机将把返回值压倒发
+</code></pre></li>
+</ul>
+<p>起调用的方法的操作数栈。<br>         如果抛出异常，根据帧数据区的异常表来处理。如果有catch语句，就会交给catch中的代码，如果没有，则立即异常中止。</p>
+<p>———————本地方法栈：<br>当线程调用本地方法时，虚拟机会保持java栈不变，不再在线程的java栈中压入新的帧，虚拟机只是简单地动态连接并直接调用指定的本地方法。</p>
+<p>就像其他运行时内存区一样，本地方法栈占用的内存区也不必说固定大小的，它可以根据需要动态扩展或者收缩。</p>
+<p>———————执行引擎：<br>任何java虚拟机实现的核心都是它的执行引擎。<br>在java虚拟机规范中，执行引擎的行为使用指令集来定义。<br>作为运行时实例的执行引擎就是一个线程。<br>运行中java程序的每一个线程都是一个独立的虚拟机执行引擎的实例。从生命周期的开始到结束，它要么在执行字节码，要么在执行本地方法。</p>
+<p><img src="http://images.cnitblog.com/blog/378300/201302/24100155-fc24aa95237c49d8b70f462592324040.jpg" alt=""></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2013/02/24/lucene-使用教程/" rel="next" title="lucene 使用教程">
+                <i class="fa fa-chevron-left"></i> lucene 使用教程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2013/02/27/svn的使用/" rel="prev" title="svn的使用">
+                svn的使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/my_avatar.jpg"
+                alt="Wang Jie" />
+            
+              <p class="site-author-name" itemprop="name">Wang Jie</p>
+              <p class="site-description motion-element" itemprop="description">Wang Jie's blog</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">144</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wangjiegulu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:tiantian.china.2@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/+%E5%A4%A9%E5%A4%A9wangjie" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/wangjiegulu" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://stackoverflow.com/users/2124006/wangjie" target="_blank" title="StackOverflow">
+                      
+                        <i class="fa fa-fw fa-stack-overflow"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/wangjiegulu" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.cnblogs.com/tiantianbyconan/" title="cnblog" target="_blank">cnblog</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wang Jie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://blog-wangjiegulu-com.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://blog.wangjiegulu.com/2013/02/24/看书笔记-《深入java虚拟机》——java体系结构（二）/';
+          this.page.identifier = '2013/02/24/看书笔记-《深入java虚拟机》——java体系结构（二）/';
+          this.page.title = '[看书笔记]《深入java虚拟机》——java体系结构（二）';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://blog-wangjiegulu-com.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "default";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "GooglePlus,Evernote,Twitter,Facebook,Douban,Weibo";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

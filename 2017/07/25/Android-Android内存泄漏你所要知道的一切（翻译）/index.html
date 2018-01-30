@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="WAND JIE" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/7235616.html   Android内存泄漏你所要知道的一切 原文：https://blog.aritraroy.in/everything-you-need-to-know-about-memory-leaks-in-android-apps-655f191">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Android]Android内存泄漏你所要知道的一切（翻译）">
+<meta property="og:url" content="http://blog.wangjiegulu.com/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/index.html">
+<meta property="og:site_name" content="WAND JIE">
+<meta property="og:description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/7235616.html   Android内存泄漏你所要知道的一切 原文：https://blog.aritraroy.in/everything-you-need-to-know-about-memory-leaks-in-android-apps-655f191">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/378300/201707/378300-20170724130625383-711376452.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/378300/201707/378300-20170724160146731-1663679590.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/378300/201707/378300-20170724162545262-106537289.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/378300/201707/378300-20170724163402043-410997.png">
+<meta property="og:updated_time" content="2018-01-29T13:08:18.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[Android]Android内存泄漏你所要知道的一切（翻译）">
+<meta name="twitter:description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/7235616.html   Android内存泄漏你所要知道的一切 原文：https://blog.aritraroy.in/everything-you-need-to-know-about-memory-leaks-in-android-apps-655f191">
+<meta name="twitter:image" content="http://images2015.cnblogs.com/blog/378300/201707/378300-20170724130625383-711376452.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.wangjiegulu.com/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/"/>
+
+
+
+
+
+  <title>[Android]Android内存泄漏你所要知道的一切（翻译） | WAND JIE</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-111189680-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">WAND JIE</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">TO BE AN ARTIST-ENGINNER</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.wangjiegulu.com/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wang Jie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/my_avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WAND JIE">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">[Android]Android内存泄漏你所要知道的一切（翻译）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-25T17:58:00+08:00">
+                2017-07-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <font color="#ff0000"><strong><br>以下内容为原创，欢迎转载，转载请注明<br>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/7235616.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/7235616.html</a>
+</strong></font>
+
+<h1 id="Android内存泄漏你所要知道的一切"><a href="#Android内存泄漏你所要知道的一切" class="headerlink" title="Android内存泄漏你所要知道的一切"></a>Android内存泄漏你所要知道的一切</h1><blockquote>
+<p>原文：<a href="https://blog.aritraroy.in/everything-you-need-to-know-about-memory-leaks-in-android-apps-655f191ca859" target="_blank" rel="noopener">https://blog.aritraroy.in/everything-you-need-to-know-about-memory-leaks-in-android-apps-655f191ca859</a></p>
+</blockquote>
+<p>写一个Android app很简单，但是<strong>写一个超高品质的内存高效的Android app并不简单</strong>。从我的个人经验来说，我曾经比较关注和感兴趣构建我app的新特性，功能和UI组件。</p>
+<p>我主要倾向于工作在具有更多视觉冲击力的东西，而不是花时间在没有人一眼会注意到的东西上面。我开始养成了避免或者给app优化等事情更低优先级的习惯（检测和修复内存泄漏就是其中的一个）。</p>
+<p>这自然而然导致我承担起了技术负债，从长远来看，它开始影响我的应用的性能和质量。我满满地改变了我的心态，比起去年我更多地以“性能为重点”。</p>
+<a id="more"></a>
+<p><strong>内存泄漏的概念对很多的开发者来说是非常艰巨的。</strong>他们觉得这是困难，耗时，无聊和不必要的，但幸运的是，这些都不是真的。一旦你开始深入，你将绝对会爱上它。</p>
+<p>在本文中，我将尝试让这个话题尽可能地简单，这样即使是新的开发者也能从他们的职业生涯一开始就能构建高质量和高性能的Android apps。</p>
+<h2 id="垃圾收集器是你的朋友，但不一直是"><a href="#垃圾收集器是你的朋友，但不一直是" class="headerlink" title="垃圾收集器是你的朋友，但不一直是"></a>垃圾收集器是你的朋友，但不一直是</h2><p><strong>Java是一个强大的语言</strong>。在Android中，我们不会（有时候我们会）像 C 或者 C++ 那样去写代码来让我们自己去管理整个内存分配和释放。</p>
+<p>现在浮现在我脑中的第一个问题就是，既然Java有了一个内置专用的内存管理系统，它会在我们不需要时清理内存，那么为什么我们还需要关心这个呢。<em>是垃圾收集器不够完善？</em></p>
+<p>不，当然不是。<strong>垃圾收集器的工作原理就是如此</strong>。但是我们自己编程错误有时就会阻止垃圾收集器收集大量不必要的内存。</p>
+<p>所以基本上，都是我们自己的错误才导致了一切的混乱。<strong>垃圾收集器是Java最好的成就之一</strong>，它值得被尊重。</p>
+<p><strong><a href="https://blog.aritraroy.in/what-my-2-years-of-android-development-have-taught-me-the-hard-way-52b495ba5c51" target="_blank" rel="noopener">推荐阅读</a></strong></p>
+<h2 id="垃圾收集器“更多的一点”"><a href="#垃圾收集器“更多的一点”" class="headerlink" title="垃圾收集器“更多的一点”"></a>垃圾收集器“更多的一点”</h2><p>在进一步之前，你需要了解一点垃圾收集器的工作原理。<strong>它的原理非常简单</strong>，但是它的内部有时候非常复杂。但是不用担心，我们将主要关注简单的部分。</p>
+<p><img src="http://images2015.cnblogs.com/blog/378300/201707/378300-20170724130625383-711376452.png" alt=""></p>
+<p>每一个Android（或者Java）应用程序都有一个从对象开始获取实例化、方法被调用的起点。<strong>所以我们可以认为这个起点是内存树的“root”</strong>。一些对象直接保持了一个对“root”的引用，并且从它们中实例化其它对象，保持这些对象的引用等等。</p>
+<p>因而，形成了创建内存树的引用链。所以，垃圾收集器从GC roots开始，然后直接或间接遍历对象链接到根。在这个过程的最后，存在一些GC从来没有访问到的对象。</p>
+<p><strong>这些是你的垃圾（或者dead objects）</strong>，这些对象就是我们所钟爱的垃圾收集器有资格去收集的。</p>
+<p>到目前为止，这似乎是一个童话故事，但让我们深入了解一下开始真正的乐趣。</p>
+<p><strong>Bonus:</strong> 如果你希望学习更多关于垃圾收集器，我强烈推荐你看下 <a href="https://www.youtube.com/watch?v=UnaNQgzw4zY" target="_blank" rel="noopener">这里</a> 和 <a href="http://www.cubrid.org/blog/dev-platform/understanding-java-garbage-collection/" target="_blank" rel="noopener">这里</a> 。</p>
+<h2 id="那么现在，什么是内存泄漏呢？"><a href="#那么现在，什么是内存泄漏呢？" class="headerlink" title="那么现在，什么是内存泄漏呢？"></a>那么现在，什么是内存泄漏呢？</h2><p>知道现在，你有了一个简单想法的垃圾收集器，那么，在Android apps中内存管理师怎么工作的。现在，让我们关注于更详细的内存泄漏这个话题。</p>
+<p>简单来说，<strong>内存泄漏发生在当你长时间持有一个已经达到目的的对象</strong>。实际的概念就这么简单。</p>
+<p>每个对象都有它自己的生命，之后它需要说拜拜，然后释放内存。但是如果一些对象持有这个对象（直接或间接），那么垃圾收集器就无法收集它。<strong>这就是我们的朋友，内存泄漏</strong>。</p>
+<p>但是有个好消息就是你不需要担心你app中的每一处的内存泄漏。并不是所有的内存泄漏都会伤害你的app。</p>
+<p>有一些泄漏真的非常小（泄漏了几千字节的内存），有些存在于Android framework本身（是的，你没看错），这些你不能也不需要去修复。他们通常对于你的app影响很小并且你可以安全地忽略它们。</p>
+<p>但是也存在其它的可以<strong>让你的应用程序崩溃，使它像地狱一样滞留，并将其逐字缩小</strong>。这些是你要关注的东西。</p>
+<p><strong><a href="https://blog.aritraroy.in/20-awesome-open-source-android-apps-to-boost-your-development-skills-b62832cf0fa4" target="_blank" rel="noopener">推荐阅读</a></strong></p>
+<h2 id="为什么你真的需要解决内存泄漏？"><a href="#为什么你真的需要解决内存泄漏？" class="headerlink" title="为什么你真的需要解决内存泄漏？"></a>为什么你真的需要解决内存泄漏？</h2><p>没有人希望使用<strong>一个缓慢的、迟钝的、吃很多内存、每用几分钟就会crash的app</strong>。对于用户长时间使用，它真的会创建一个糟糕的体验，然后你就有永远失去用户的可能性。</p>
+<p><img src="http://images2015.cnblogs.com/blog/378300/201707/378300-20170724160146731-1663679590.png" alt=""></p>
+<p>随着用户继续使用你的app，堆内存也不断地增长，如果你的app中有内存泄漏，那么GC就无法释放你无用的内存。所以你app的堆内存就会经常增长，直到达到一个死亡的点，<strong>这时将没有更多的内存分配给你的app，从而导致可怕的 <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/OutOfMemoryError.html" target="_blank" rel="noopener">OutOfMemoryError</a> 并最终让你的应用程序崩溃。</strong></p>
+<p>你还要必须记住一件事情，垃圾收集器是一个繁重的过程，<em>垃圾收集器跑得越少，对你的app就越好。</em></p>
+<p>App正在被使用，对内存保持着增长状态，一个小的GC将启动并尝试清除刚刚死亡的对象。现在这些小的GC同时运行着（在单独的线程上），并且不会减缓你的app（2-5ms的暂停）。</p>
+<p><strong>但是如果你的app内部有严重的内存泄漏的问题</strong>，那么这些小的GC无法去回收这些内存，并且堆还在持续增长，从而迫使更大的GC被启动，这通常是一个”<a href="https://plumbr.eu/blog/garbage-collection/minor-gc-vs-major-gc-vs-full-gc" target="_blank" rel="noopener">停止世界</a> 的GC”，它会暂停整个app主线程（大约50-100ms），从而<strong>使你的app严重滞后，甚至有时几乎不可用</strong>。</p>
+<p>所以现在你知道这些内存泄漏可能对你的应用程序产生的影响，以及<strong>为什么需要立即修复它们</strong>，为用户提供他们应得的最佳体验。</p>
+<h2 id="怎么去检测这些内存泄漏？"><a href="#怎么去检测这些内存泄漏？" class="headerlink" title="怎么去检测这些内存泄漏？"></a>怎么去检测这些内存泄漏？</h2><p>目前为止，你应该相当信服你需要修复这些隐藏在你app中的内存泄漏。<strong>但是怎么去实际检测它们呢？</strong></p>
+<p>不错的是，对于这点Android Studio提供了一个非常有用且强大的工具，<strong>Monitors</strong>。这个显示器不仅展示了内存使用，同样还有网络、CPU、GPU使用（更多信息查看<a href="https://developer.android.com/studio/profile/android-monitor.html" target="_blank" rel="noopener">这里</a>）。</p>
+<p><img src="http://images2015.cnblogs.com/blog/378300/201707/378300-20170724162545262-106537289.png" alt=""></p>
+<p>当你在使用和调试你的app时，应该密切关注这个内存监视器。<em>内存泄漏的第一症状是当你持续使用你的app时内存使用图表经常增长</em>，并且从不下降，甚至在你切换到后台后。</p>
+<p><a href="https://developer.android.com/studio/profile/am-allocation.html" target="_blank" rel="noopener">Allocation Tracker</a>可以派上用场，你可以使用它来检查分配给应用程序中不同类型对象的内存百分比。</p>
+<p>但是这本身还不够，因为你现在需要使用<strong>Dump Java Heap</strong>选项来创建一个实际表示给定时间内存快照的<a href="https://developer.android.com/studio/profile/am-hprof.html" target="_blank" rel="noopener">heap dump</a>。看起来是一个无聊和重复性的工作，对吧？对，它确实是。</p>
+<p><img src="http://images2015.cnblogs.com/blog/378300/201707/378300-20170724163402043-410997.png" alt=""></p>
+<p>我们工程师往往是懒惰的，<strong>这点 <a href="https://github.com/square/leakcanary" target="_blank" rel="noopener">LeakCanary</a> 来救援了</strong>。这个库随着你的app一起运行。在需要时dump出内存，寻找潜在的内存泄漏并且通过一个清晰有用的stack trace来寻找泄漏的根源。</p>
+<p><em>LeakCanary 让任何人在他们的app中检测泄漏变得超级简单</em>。我不能再感谢 <a href="https://twitter.com/piwai" target="_blank" rel="noopener">Py</a>(来自 <a href="https://github.com/square" target="_blank" rel="noopener">Square</a>)写了如此惊人和拯救了生命的库了。奖励！</p>
+<p><strong>Bonus</strong>: 如果你想详细学习怎么充分使用这个库，看<a href="https://realm.io/news/droidcon-ricau-memory-leaks-leakcanary/" target="_blank" rel="noopener">这里</a>。</p>
+<p><a href="https://blog.aritraroy.in/50-ultimate-resources-to-master-android-development-15165d6bc376" target="_blank" rel="noopener">推荐阅读</a></p>
+<h2 id="一些实际常见的内存泄漏情况并怎么去解决它们"><a href="#一些实际常见的内存泄漏情况并怎么去解决它们" class="headerlink" title="一些实际常见的内存泄漏情况并怎么去解决它们"></a>一些实际常见的内存泄漏情况并怎么去解决它们</h2><p>从我们经验来看，有几个最常见的可能会导致内存泄漏的场景，它们都非常相似，你会在日常的Android开发中遇到这些情况。</p>
+<p>一旦你知道这些内存泄漏发生在什么时候，什么地方，怎么发生，你就可以更容易对此进行修复。</p>
+<h3 id="Unregistered-Listeners"><a href="#Unregistered-Listeners" class="headerlink" title="Unregistered Listeners"></a>Unregistered Listeners</h3><p>有很多场景，你在Activity（或者Fragment）中进行了一个监听器的注册，但是忘记把它反注册掉。<strong>如果运气不好，这个很容易导致一个巨大的内存泄漏</strong>。一般情况下，这些监听器是平衡的，所以如果你在某些地方注册了它，你也需要在那里反注册它。</p>
+<p>现在我们来看一个简单的例子。假设你要在你的app中接收到位置的更新，你要做的事就是拿到一个 <a href="https://developer.android.com/reference/android/location/LocationManager.html" target="_blank" rel="noopener">LocationManager</a> 系统服务，然后为位置更新注册一个listener。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">registerLocationUpdates</span><span class="params">()</span></span>&#123;</span><br><span class="line">mManager = (LocationManager) getSystemService(LOCATION_SERVICE);</span><br><span class="line">mManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,</span><br><span class="line">            TimeUnit.MINUTES.toMillis(<span class="number">1</span>), </span><br><span class="line">            <span class="number">100</span>, </span><br><span class="line">            <span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>你在Activity本身实现了listener接口，<em>因此 LocationManager 持有了一个它的引用</em>。现在你的Activity是时候要销毁了，Android Framework将会调用它的 onDestroy() 方法，但是垃圾收集器将不能从内存中把这个实例删除，因为 LocationManager 仍然持有了它的强引用。</p>
+<p><strong>解决方案非常简单</strong>。仅仅在 onDestroy() 方法中反注册掉listener，这个很好实现。这是我们大多数人忘记甚至不知道的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onDestroy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.onDestroy();</span><br><span class="line">    <span class="keyword">if</span> (mManager != <span class="keyword">null</span>) &#123;</span><br><span class="line">        mManager.removeUpdates(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="内部类"><a href="#内部类" class="headerlink" title="内部类"></a>内部类</h3><p>内部类在Java中非常常见，由于它的简洁性，Android开发者经常使用在各种任务中。但是由于不恰当的使用，<em>这些内部类也导致了潜在的内存泄漏。</em></p>
+<p>让我们再在一个简单例子的帮助下看看，</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BadActivity</span> <span class="keyword">extends</span> <span class="title">Activity</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> TextView mMessageView;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.layout_bad_activity);</span><br><span class="line">        mMessageView = (TextView) findViewById(R.id.messageView);</span><br><span class="line">        <span class="keyword">new</span> LongRunningTask().execute();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">LongRunningTask</span> <span class="keyword">extends</span> <span class="title">AsyncTask</span>&lt;<span class="title">Void</span>, <span class="title">Void</span>, <span class="title">String</span>&gt; </span>&#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">protected</span> String <span class="title">doInBackground</span><span class="params">(Void... params)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"Am finally done!"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onPostExecute</span><span class="params">(String result)</span> </span>&#123;</span><br><span class="line">            mMessageView.setText(result);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这是一个非常简单的Activity，它在后台（也许是复杂的数据库查询或者一个缓慢的网络请求）启动了一个耗时任务。在Task完成时，结果被展示在 TextView。看起来一切都很好？</p>
+<p>不，当然不是。问题在于<strong>非静态内部类持有一个外部类的隐式引用</strong>（也就是Activity本身）。现在如果我们旋转了屏幕或者如果这个耗时的任务比Activity生命长，那么它不会让垃圾收集器把整个Activity实例从内存回收。<strong>一个简单的错误导致了一个巨大的内存泄漏</strong>。</p>
+<p>但是解决方案还是非常简单，看了你就明白了，</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GoodActivity</span> <span class="keyword">extends</span> <span class="title">Activity</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> AsyncTask mLongRunningTask;</span><br><span class="line">    <span class="keyword">private</span> TextView mMessageView;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.layout_good_activity);</span><br><span class="line">        mMessageView = (TextView) findViewById(R.id.messageView);</span><br><span class="line">        mLongRunningTask = <span class="keyword">new</span> LongRunningTask(mMessageView).execute();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onDestroy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onDestroy();</span><br><span class="line">        mLongRunningTask.cancel(<span class="keyword">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">LongRunningTask</span> <span class="keyword">extends</span> <span class="title">AsyncTask</span>&lt;<span class="title">Void</span>, <span class="title">Void</span>, <span class="title">String</span>&gt; </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">final</span> WeakReference&lt;TextView&gt; messageViewReference;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">LongRunningTask</span><span class="params">(TextView messageView)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.messageViewReference = <span class="keyword">new</span> WeakReference&lt;&gt;(messageView);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">protected</span> String <span class="title">doInBackground</span><span class="params">(Void... params)</span> </span>&#123;</span><br><span class="line">            String message = <span class="keyword">null</span>;</span><br><span class="line">            <span class="keyword">if</span> (!isCancelled()) &#123;</span><br><span class="line">                message = <span class="string">"I am finally done!"</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> message;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onPostExecute</span><span class="params">(String result)</span> </span>&#123;</span><br><span class="line">            TextView view = messageViewReference.get();</span><br><span class="line">            <span class="keyword">if</span> (view != <span class="keyword">null</span>) &#123;</span><br><span class="line">                view.setText(result);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如你所见，<strong>我把非静态内部类改成了静态内部类</strong>，这样静态内部类就不会持有任何外部类的隐式引用。但是我们不能通过静态上下文去访问外部类的非静态变量（比如 TextView），所以我们不得不通过构造方法传递我们需要的对象引用到内部类。</p>
+<p>我强烈推荐使用 WeakReference 包装这个对象引用来防止进一步的内存泄漏。你需要开始学习关于<strong>在Java中各个可用的引用类型</strong>。</p>
+<h3 id="匿名类"><a href="#匿名类" class="headerlink" title="匿名类"></a>匿名类</h3><p>匿名类是很多开发者最喜欢的，因为它们被定义的方式使得用它们编写代码非常容易和简洁。但是根据我的经验<strong>这些匿名类是内存泄漏最常见的原因</strong>。</p>
+<p>匿名类没有什么，但是非静态内部类会由于前面我讲到过的同样的理由引发潜在的内存泄漏。你已经在app的一系列地方用到了它，<strong>但是你不知道如果错误的使用可能会对你app的性能有严重的影响</strong>。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MoviesActivity</span> <span class="keyword">extends</span> <span class="title">Activity</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> TextView mNoOfMoviesThisWeek;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.layout_movies_activity);</span><br><span class="line">        mNoOfMoviesThisWeek = (TextView) findViewById(R.id.no_of_movies_text_view);</span><br><span class="line">        MoviesRepository repository = ((MoviesApp) getApplication()).getRepository();</span><br><span class="line">        repository.getMoviesThisWeek()</span><br><span class="line">                .enqueue(<span class="keyword">new</span> Callback&lt;List&lt;Movie&gt;&gt;() &#123;</span><br><span class="line"></span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onResponse</span><span class="params">(Call&lt;List&lt;Movie&gt;&gt; call,</span></span></span><br><span class="line"><span class="function"><span class="params">                                           Response&lt;List&lt;Movie&gt;&gt; response)</span> </span>&#123;</span><br><span class="line">                        <span class="keyword">int</span> numberOfMovies = response.body().size();</span><br><span class="line">                        mNoOfMoviesThisWeek.setText(<span class="string">"No of movies this week: "</span> + String.valueOf(numberOfMovies));</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onFailure</span><span class="params">(Call&lt;List&lt;Movie&gt;&gt; call, Throwable t)</span> </span>&#123;</span><br><span class="line">                        <span class="comment">// Oops.</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里，我们使用了一个非常流行的库 <a href="https://github.com/square/retrofit" target="_blank" rel="noopener">Retrofit</a> 来执行一个网络请求并把结果显示在 TextView 上。很明显，Callable 对象持有了一个外部Activity类的引用。</p>
+<p>如果这个网络请求执行速度非常慢，并且在调用结束之前 Activity 因为某种情况被旋转了屏幕或者被销毁，<strong>那么整个Activity实例都会被泄漏</strong>。</p>
+<p>不管是否必须，使用静态内部类来代替匿名内部类通常是明智之举。不是我突然告诉你完全停止使用匿名类，而是你必须要懂得判断什么时候能用什么时候不能用。</p>
+<p><a href="https://blog.aritraroy.in/why-you-should-start-using-kotlin-to-supercharge-your-android-development-in-2017-61db1f11d666" target="_blank" rel="noopener">推荐阅读</a></p>
+<h3 id="Bitmaps"><a href="#Bitmaps" class="headerlink" title="Bitmaps"></a>Bitmaps</h3><p>在你app中看到的所有图片都没关系，除了 <a href="https://developer.android.com/reference/android/graphics/Bitmap.html" target="_blank" rel="noopener">Bitmap</a> ，它包含了图像的整个像素数据。</p>
+<p>这些 bitmaps 对象一般非常重，<strong>如果处理不当可能会引发明显的内存泄漏</strong>，并最终让你的app因为 <a href="https://developer.android.com/reference/java/lang/OutOfMemoryError.html" target="_blank" rel="noopener">OutOfMemoryError</a> 而崩溃。你在app中使用的图片相关的 bitmap 内存 都会由Android Framework 自身自动管理，如果你手动处理 Bitmap，确保在使用后进行 <a href="https://developer.android.com/reference/android/graphics/Bitmap.html#recycle%28%29" target="_blank" rel="noopener">recycle()</a>。</p>
+<p><strong>你还必须学会怎么去正确地管理这些bitmaps</strong>，加载大的Bitmap时通过压缩，以及使用bitmap缓存池来尽可能减少内存的占用。<a href="https://developer.android.com/training/displaying-bitmaps/manage-memory.html" target="_blank" rel="noopener">这里</a> 有一个理解 bitmap 处理的很好的资源。</p>
+<h3 id="Contexts"><a href="#Contexts" class="headerlink" title="Contexts"></a>Contexts</h3><p>另一个相当常见的内存泄漏是滥用 context 实例。<a href="https://developer.android.com/reference/android/content/Context.html" target="_blank" rel="noopener">Context</a> 只是一个抽象类，它有很多类（比如 Activity，Application，Service 等等）继承它并提供它们自己的功能。</p>
+<blockquote>
+<p><em>如果你要在 Android 中完成任务，那么 Context 对象就是你的老板。</em></p>
+</blockquote>
+<p>但是这些 contexts 有一些不同之处。非常重要的一点是<strong>理解 Activity级别的Context 和 Application级别的Context 之间的区别</strong>，分别用在什么情况下。</p>
+<p>在错误的地方使用 Activity context 会持有整个 Activity 的引用并引发潜在的内存泄漏。<a href="https://medium.com/@ali.muzaffar/which-context-should-i-use-in-android-e3133d00772c#.mruk222z2" target="_blank" rel="noopener">这里</a>有篇很好的文章作为开始。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>现在你肯定知道垃圾收集器是怎么工作的，什么是内存泄漏，它们如何对你的app产生重大的影响。你也学习了怎样检测和修复这些内存泄漏。</p>
+<p><strong>没有任何借口，从现在开始让我们开始构建一个高质量，高性能的 Android app</strong>。检测和修复内存泄漏不仅会让你的app的用户体验更好，而且会慢慢地让你成为一个更好的开发者。</p>
+<p>本文最初发表于 <a href="http://techbeacon.com/" target="_blank" rel="noopener">TechBeacon</a>.</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/19/Android-Gradle-插件-DiscardFilePlugin（class注入-清空类和方法）/" rel="next" title="[Android]Gradle 插件 DiscardFilePlugin（class注入&清空类和方法）">
+                <i class="fa fa-chevron-left"></i> [Android]Gradle 插件 DiscardFilePlugin（class注入&清空类和方法）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/04/Android-Android焦点流程代码分析/" rel="prev" title="[Android]Android焦点流程代码分析">
+                [Android]Android焦点流程代码分析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/my_avatar.jpg"
+                alt="Wang Jie" />
+            
+              <p class="site-author-name" itemprop="name">Wang Jie</p>
+              <p class="site-description motion-element" itemprop="description">Wang Jie's blog</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">144</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wangjiegulu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:tiantian.china.2@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/+%E5%A4%A9%E5%A4%A9wangjie" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/wangjiegulu" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://stackoverflow.com/users/2124006/wangjie" target="_blank" title="StackOverflow">
+                      
+                        <i class="fa fa-fw fa-stack-overflow"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/wangjiegulu" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.cnblogs.com/tiantianbyconan/" title="cnblog" target="_blank">cnblog</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Android内存泄漏你所要知道的一切"><span class="nav-text">Android内存泄漏你所要知道的一切</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#垃圾收集器是你的朋友，但不一直是"><span class="nav-text">垃圾收集器是你的朋友，但不一直是</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#垃圾收集器“更多的一点”"><span class="nav-text">垃圾收集器“更多的一点”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#那么现在，什么是内存泄漏呢？"><span class="nav-text">那么现在，什么是内存泄漏呢？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么你真的需要解决内存泄漏？"><span class="nav-text">为什么你真的需要解决内存泄漏？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#怎么去检测这些内存泄漏？"><span class="nav-text">怎么去检测这些内存泄漏？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些实际常见的内存泄漏情况并怎么去解决它们"><span class="nav-text">一些实际常见的内存泄漏情况并怎么去解决它们</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Unregistered-Listeners"><span class="nav-text">Unregistered Listeners</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内部类"><span class="nav-text">内部类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#匿名类"><span class="nav-text">匿名类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bitmaps"><span class="nav-text">Bitmaps</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Contexts"><span class="nav-text">Contexts</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wang Jie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://blog-wangjiegulu-com.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://blog.wangjiegulu.com/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/';
+          this.page.identifier = '2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/';
+          this.page.title = '[Android]Android内存泄漏你所要知道的一切（翻译）';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://blog-wangjiegulu-com.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "default";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "GooglePlus,Evernote,Twitter,Facebook,Douban,Weibo";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

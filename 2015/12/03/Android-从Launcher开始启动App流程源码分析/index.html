@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="WAND JIE" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/5017056.html   从Launcher开始启动App流程源码分析com.android.launcher.Launcher就是我们的Launcher页面了，可以看到Launcher其实也是一个Activity： 123public final class L">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Android]从Launcher开始启动App流程源码分析">
+<meta property="og:url" content="http://blog.wangjiegulu.com/2015/12/03/Android-从Launcher开始启动App流程源码分析/index.html">
+<meta property="og:site_name" content="WAND JIE">
+<meta property="og:description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/5017056.html   从Launcher开始启动App流程源码分析com.android.launcher.Launcher就是我们的Launcher页面了，可以看到Launcher其实也是一个Activity： 123public final class L">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-01-29T12:36:41.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[Android]从Launcher开始启动App流程源码分析">
+<meta name="twitter:description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/5017056.html   从Launcher开始启动App流程源码分析com.android.launcher.Launcher就是我们的Launcher页面了，可以看到Launcher其实也是一个Activity： 123public final class L">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.wangjiegulu.com/2015/12/03/Android-从Launcher开始启动App流程源码分析/"/>
+
+
+
+
+
+  <title>[Android]从Launcher开始启动App流程源码分析 | WAND JIE</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-111189680-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">WAND JIE</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">TO BE AN ARTIST-ENGINNER</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.wangjiegulu.com/2015/12/03/Android-从Launcher开始启动App流程源码分析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wang Jie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/my_avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WAND JIE">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">[Android]从Launcher开始启动App流程源码分析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-12-03T17:45:00+08:00">
+                2015-12-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/12/03/Android-从Launcher开始启动App流程源码分析/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2015/12/03/Android-从Launcher开始启动App流程源码分析/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <font color="#ff0000"><strong><br>以下内容为原创，欢迎转载，转载请注明<br>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/5017056.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/5017056.html</a>
+</strong></font>
+
+<h2 id="从Launcher开始启动App流程源码分析"><a href="#从Launcher开始启动App流程源码分析" class="headerlink" title="从Launcher开始启动App流程源码分析"></a>从Launcher开始启动App流程源码分析</h2><p><code>com.android.launcher.Launcher</code>就是我们的Launcher页面了，可以看到Launcher其实也是一个<code>Activity</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Launcher</span> <span class="keyword">extends</span> <span class="title">Activity</span> <span class="keyword">implements</span> <span class="title">View</span>.<span class="title">OnClickListener</span>, <span class="title">OnLongClickListener</span> </span>&#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>既然是<code>Activity</code>，那当然也会有<code>onCreate</code>、<code>onResume</code>等生命周期了，按照逻辑，应该会去加载所有App，以网格的布局显示在页面上，果然，在<code>onResume</code>看到了这个方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onResume</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.onResume();</span><br><span class="line">    <span class="keyword">if</span> (mRestoring) &#123;</span><br><span class="line">        startLoaders();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>看方法名就可以猜到这个方法就是用来加载所有App信息的，进入这个方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">startLoaders</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">boolean</span> loadApplications = sModel.loadApplications(<span class="keyword">true</span>, <span class="keyword">this</span>, mLocaleChanged);</span><br><span class="line">	sModel.loadUserItems(!mLocaleChanged, <span class="keyword">this</span>, mLocaleChanged, loadApplications);</span><br><span class="line">	mRestoring = <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里调用<code>sModel</code>（<code>LauncherModel</code>类型）的<code>loadUserItems</code>方法去加载数据了，<code>sModel</code>明显属于<code>Model</code>层，进入<code>loadUserItems</code>方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">loadUserItems</span><span class="params">(<span class="keyword">boolean</span> isLaunching, Launcher launcher, <span class="keyword">boolean</span> localeChanged,</span></span></span><br><span class="line"><span class="function"><span class="params">            <span class="keyword">boolean</span> loadApplications)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">		mDesktopItemsLoaded = <span class="keyword">false</span>;</span><br><span class="line">        mDesktopItemsLoader = <span class="keyword">new</span> DesktopItemsLoader(launcher, localeChanged, loadApplications,</span><br><span class="line">                isLaunching);</span><br><span class="line">        mDesktopLoaderThread = <span class="keyword">new</span> Thread(mDesktopItemsLoader, <span class="string">"Desktop Items Loader"</span>);</span><br><span class="line">        mDesktopLoaderThread.start();</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后使用<code>DesktopItemsLoader</code>在<code>mDesktopLoaderThread</code>线程中加载，：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">DesktopItemsLoader</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">// ...</span></span><br><span class="line">		<span class="keyword">final</span> Cursor c = contentResolver.query(LauncherSettings.Favorites.CONTENT_URI, <span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>);</span><br><span class="line">		<span class="comment">// ...</span></span><br><span class="line">		<span class="keyword">final</span> <span class="keyword">int</span> idIndex = c.getColumnIndexOrThrow(LauncherSettings.Favorites._ID);</span><br><span class="line">		<span class="keyword">final</span> <span class="keyword">int</span> intentIndex = c.getColumnIndexOrThrow(LauncherSettings.Favorites.INTENT);</span><br><span class="line">		<span class="keyword">final</span> <span class="keyword">int</span> titleIndex = c.getColumnIndexOrThrow(LauncherSettings.Favorites.TITLE);</span><br><span class="line">		<span class="keyword">final</span> <span class="keyword">int</span> iconTypeIndex = c.getColumnIndexOrThrow(LauncherSettings.Favorites.ICON_TYPE);</span><br><span class="line">		<span class="keyword">final</span> <span class="keyword">int</span> iconIndex = c.getColumnIndexOrThrow(LauncherSettings.Favorites.ICON);</span><br><span class="line">		<span class="keyword">final</span> <span class="keyword">int</span> iconPackageIndex = c.getColumnIndexOrThrow(LauncherSettings.Favorites.ICON_PACKAGE);</span><br><span class="line">		<span class="keyword">final</span> <span class="keyword">int</span> iconResourceIndex = c.getColumnIndexOrThrow(LauncherSettings.Favorites.ICON_RESOURCE);</span><br><span class="line">		<span class="keyword">final</span> <span class="keyword">int</span> containerIndex = c.getColumnIndexOrThrow(LauncherSettings.Favorites.CONTAINER);</span><br><span class="line">		<span class="keyword">final</span> <span class="keyword">int</span> itemTypeIndex = c.getColumnIndexOrThrow(LauncherSettings.Favorites.ITEM_TYPE);</span><br><span class="line">		<span class="keyword">final</span> <span class="keyword">int</span> appWidgetIdIndex = c.getColumnIndexOrThrow(LauncherSettings.Favorites.APPWIDGET_ID);</span><br><span class="line">		<span class="keyword">final</span> <span class="keyword">int</span> screenIndex = c.getColumnIndexOrThrow(LauncherSettings.Favorites.SCREEN);</span><br><span class="line">		<span class="keyword">final</span> <span class="keyword">int</span> cellXIndex = c.getColumnIndexOrThrow(LauncherSettings.Favorites.CELLX);</span><br><span class="line">		<span class="keyword">final</span> <span class="keyword">int</span> cellYIndex = c.getColumnIndexOrThrow(LauncherSettings.Favorites.CELLY);</span><br><span class="line">		<span class="keyword">final</span> <span class="keyword">int</span> spanXIndex = c.getColumnIndexOrThrow(LauncherSettings.Favorites.SPANX);</span><br><span class="line">		<span class="keyword">final</span> <span class="keyword">int</span> spanYIndex = c.getColumnIndexOrThrow(LauncherSettings.Favorites.SPANY);</span><br><span class="line">		<span class="keyword">final</span> <span class="keyword">int</span> uriIndex = c.getColumnIndexOrThrow(LauncherSettings.Favorites.URI);</span><br><span class="line">		<span class="keyword">final</span> <span class="keyword">int</span> displayModeIndex = c.getColumnIndexOrThrow(LauncherSettings.Favorites.DISPLAY_MODE);</span><br><span class="line">		<span class="comment">// ...</span></span><br><span class="line">		<span class="comment">// 通过launcher回调返回数据</span></span><br><span class="line">		launcher.onDesktopItemsLoaded(uiDesktopItems, uiDesktopWidgets);</span><br><span class="line">		<span class="comment">// ...</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后我们回到<code>Launcher</code>的<code>onDesktopItemsLoaded</code>方法：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">onDesktopItemsLoaded</span><span class="params">(ArrayList&lt;ItemInfo&gt; shortcuts, ArrayList&lt;LauncherAppWidgetInfo&gt; appWidgets)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	bindDesktopItems(shortcuts, appWidgets);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>继续进入<code>bindDesktopItems</code>方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">bindDesktopItems</span><span class="params">(ArrayList&lt;ItemInfo&gt; shortcuts, ArrayList&lt;LauncherAppWidgetInfo&gt; appWidgets)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	mBinder = <span class="keyword">new</span> DesktopBinder(<span class="keyword">this</span>, shortcuts, appWidgets, drawerAdapter);</span><br><span class="line">    mBinder.startBindingItems();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>进入<code>startBindingItems</code>方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startBindingItems</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	obtainMessage(MESSAGE_BIND_ITEMS, <span class="number">0</span>, mShortcuts.size()).sendToTarget();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里使用了<code>Handler</code>发送消息，进入<code>Handler</code>的<code>handleMessage</code>方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleMessage</span><span class="params">(Message msg)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	<span class="keyword">switch</span> (msg.what) &#123;</span><br><span class="line">		<span class="comment">// ...</span></span><br><span class="line">		<span class="keyword">case</span> MESSAGE_BIND_ITEMS: &#123;</span><br><span class="line">			launcher.bindItems(<span class="keyword">this</span>, mShortcuts, msg.arg1, msg.arg2);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">		<span class="comment">// ...</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接收到消息之后调用<code>bindItems</code>方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">bindItems</span><span class="params">(Launcher.DesktopBinder binder, ArrayList&lt;ItemInfo&gt; shortcuts, <span class="keyword">int</span> start, <span class="keyword">int</span> count)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	<span class="keyword">case</span> LauncherSettings.Favorites.ITEM_TYPE_APPLICATION:</span><br><span class="line">	<span class="keyword">case</span> LauncherSettings.Favorites.ITEM_TYPE_SHORTCUT:</span><br><span class="line">		<span class="keyword">final</span> View shortcut = createShortcut((ApplicationInfo) item);</span><br><span class="line">		workspace.addInScreen(shortcut, item.screen, item.cellX, item.cellY, <span class="number">1</span>, <span class="number">1</span>, !desktopLocked);</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里我们只考虑app或者app快捷方式的情况，文件夹和widgets暂时不考虑。app或者app快捷方式实质上都是进入了这个逻辑中，调用<code>createShortcut</code>方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 重载方法，最终都会调用这个方法</span></span><br><span class="line"><span class="function">View <span class="title">createShortcut</span><span class="params">(<span class="keyword">int</span> layoutResId, ViewGroup parent, ApplicationInfo info)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	TextView favorite = (TextView) mInflater.inflate(layoutResId, parent, <span class="keyword">false</span>);</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	favorite.setCompoundDrawablesWithIntrinsicBounds(<span class="keyword">null</span>, info.icon, <span class="keyword">null</span>, <span class="keyword">null</span>);</span><br><span class="line">	favorite.setText(info.title);</span><br><span class="line">	favorite.setTag(info);</span><br><span class="line">	favorite.setOnClickListener(<span class="keyword">this</span>);</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里首先inflater出item的布局，然后设置<code>text</code>和<code>OnClickListener</code>，还有tag，这个tag是<code>ApplicationInfo</code>，里面包含了各种App信息，是从App的<code>AndroidManifest.xml</code>的<code>&lt;application&gt;</code>标签中解析出来的。既然设置了点击事件，显然，点击后应该会打开对应的App才对。所以继续看<code>onClick</code>方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</span><br><span class="line">    Object tag = v.getTag();</span><br><span class="line">    <span class="keyword">if</span> (tag <span class="keyword">instanceof</span> ApplicationInfo) &#123;</span><br><span class="line">        <span class="comment">// Open shortcut</span></span><br><span class="line">        <span class="keyword">final</span> Intent intent = ((ApplicationInfo) tag).intent;</span><br><span class="line">        startActivitySafely(intent);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (tag <span class="keyword">instanceof</span> FolderInfo) &#123;</span><br><span class="line">        handleFolderClick((FolderInfo) tag);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>点击App就会通过<code>startActivitySafely</code>方法使用刚才设置的tag，也就是<code>ApplicationInfo</code>中的intent进行跳转：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">startActivitySafely</span><span class="params">(Intent intent)</span> </span>&#123;</span><br><span class="line">	intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	startActivity(intent);</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后我们来看看打开某个app的时候整个流程是怎么走的。接着上面的的<code>startActivity()</code>方法走：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startActivity</span><span class="params">(Intent intent, @Nullable Bundle options)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	<span class="keyword">if</span> (options != <span class="keyword">null</span>) &#123;</span><br><span class="line">		startActivityForResult(intent, -<span class="number">1</span>, options);</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">	    startActivityForResult(intent, -<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到，不管你是调用了<code>startActivity</code>还是<code>startActivityForResult</code>方法，<code>startActivityForResult</code>方法，并且如果是调用的<code>startActivity</code>，则默认<code>requestCode</code>就是-1，所以如果你想调用<code>startActivityForResult</code>的时候，注意不能把<code>requestCode</code>设置为-1，否则它的效果就跟<code>startActivity</code>一样了，不会再回调<code>onActivityResult</code>！，再看看<code>startActivityForResult</code>的实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startActivityForResult</span><span class="params">(Intent intent, <span class="keyword">int</span> requestCode, @Nullable Bundle options)</span> </span>&#123;</span><br><span class="line">	Instrumentation.ActivityResult ar = mInstrumentation.execStartActivity(</span><br><span class="line">            <span class="keyword">this</span>, mMainThread.getApplicationThread(), mToken, <span class="keyword">this</span>,</span><br><span class="line">            intent, requestCode, options);</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到，Activity内部是使用<code>mInstrumentation</code>（<code>Instrumentation</code>类型）执行<code>execStartActivity</code>方法来实现<code>Activity</code>跳转的，执行完毕后会返回一个<code>Instrumentation.ActivityResult</code>。</p>
+<p>然后查看<code>Instrumentation::execStartActivity</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> ActivityResult <span class="title">execStartActivity</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">	// ...</span></span></span><br><span class="line"><span class="function"><span class="params">	<span class="keyword">int</span> result = ActivityManagerNative.getDefault()</span></span></span><br><span class="line"><span class="function">        .<span class="title">startActivity</span><span class="params">(whoThread, who.getBasePackageName()</span>, intent,</span></span><br><span class="line"><span class="function">                intent.<span class="title">resolveTypeIfNeeded</span><span class="params">(who.getContentResolver()</span>),</span></span><br><span class="line"><span class="function">                token, target !</span>= <span class="keyword">null</span> ? target.mEmbeddedID : <span class="keyword">null</span>,</span><br><span class="line">                requestCode, <span class="number">0</span>, <span class="keyword">null</span>, options);</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>首先通过<code>ActivityManagerNative.getDefault()</code>获得一个<code>IActivityManager</code>的实现类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">public</span> IActivityManager <span class="title">getDefault</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> gDefault.get();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Singleton&lt;IActivityManager&gt; gDefault = <span class="keyword">new</span> Singleton&lt;IActivityManager&gt;() &#123;</span><br><span class="line">	<span class="function"><span class="keyword">protected</span> IActivityManager <span class="title">create</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">// 通过Binder IPC获取ActivityManager（IBinder）</span></span><br><span class="line">        IBinder b = ServiceManager.getService(<span class="string">"activity"</span>);</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">        IActivityManager am = asInterface(b);</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">        <span class="keyword">return</span> am;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">public</span> IActivityManager <span class="title">asInterface</span><span class="params">(IBinder obj)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (obj == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    IActivityManager in =</span><br><span class="line">        (IActivityManager)obj.queryLocalInterface(descriptor);</span><br><span class="line">    <span class="keyword">if</span> (in != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> in;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ActivityManagerProxy(obj);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>先通过Binder IPC的方式从服务端获取一个<code>Activity Manager</code>，然后通过<code>ActivityManagernative</code>封装成一个代理<code>ActivityManagerProxy</code>对象，然后调用<code>startActivity</code>也是使用了Binder IPC进行与服务器端的通信，（整个Android系统的通信机制使用了大量的Binder IPC，这个以后再专门讨论这个吧），接着，我们进入到了<code>com.android.server.am.ActivityManagerService</code>的<code>startActivity</code>方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">startActivity</span><span class="params">(IApplicationThread caller, String callingPackage, Intent intent, String resolvedType, IBinder resultTo, String resultWho, <span class="keyword">int</span> requestCode, <span class="keyword">int</span> startFlags, ProfilerInfo profilerInfo, Bundle options)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> startActivityAsUser(caller, callingPackage, intent, resolvedType, resultTo, resultWho, requestCode, startFlags, profilerInfo, options, UserHandle.getCallingUserId());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接下来的调用链：</p>
+<p>-&gt; <code>startActivityAsUser</code><br>-&gt; <code>startActivityMayWait</code><br>-&gt; <code>startActivityLocked</code><br>-&gt; <code>startActivityUncheckedLocked</code><br>-&gt; <code>targetStack.startActivityLocked(r, newTask, doResume, keepCurTransition, options)</code><br>-&gt; <code>mStackSupervisor.resumeTopActivitiesLocked(this, r, options)</code><br>-&gt; <code>resumeTopActivityInnerLocked(prev, options);</code><br>-&gt; <code>mStackSupervisor.startSpecificActivityLocked(next, true, true)</code></p>
+<p><code>startSpecificActivityLocked</code>方法如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">startSpecificActivityLocked</span><span class="params">(ActivityRecord r, <span class="keyword">boolean</span> andResume, <span class="keyword">boolean</span> checkConfig)</span> </span>&#123;</span><br><span class="line">    ProcessRecord app = mService.getProcessRecordLocked(r.processName,</span><br><span class="line">            r.info.applicationInfo.uid, <span class="keyword">true</span>);</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	<span class="keyword">if</span> (app != <span class="keyword">null</span> &amp;&amp; app.thread != <span class="keyword">null</span>) &#123;</span><br><span class="line">		<span class="comment">// ...</span></span><br><span class="line">		realStartActivityLocked(r, app, andResume, checkConfig);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	mService.startProcessLocked(r.processName, r.info.applicationInfo, <span class="keyword">true</span>, <span class="number">0</span>, <span class="string">"activity"</span>, r.intent.getComponent(), <span class="keyword">false</span>, <span class="keyword">false</span>, <span class="keyword">true</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>首先从<code>mService</code>找出对应需要启动Activity的进程（通过进程名字和uid，进程名字可以在<code>AndroidManifest.xml</code>中配置）如果可以获取到，说明这个Activity所属的进程已经存在了，也就是说app已经在运行了，那就会调用<code>realStartActivityLocked</code>，否则，如果该Activity所在的App是第一次启动，则会调用<code>mService.startProcessLocked</code>方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">final</span> ProcessRecord <span class="title">startProcessLocked</span><span class="params">(<span class="comment">/*...*/</span>)</span></span>&#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	startProcessLocked(app, hostingType, hostingNameStr, abiOverride, entryPoint, entryPointArgs);</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">final</span> ProcessRecord <span class="title">startProcessLocked</span><span class="params">(String processName, ApplicationInfo info, <span class="keyword">boolean</span> knownToBeDead, <span class="keyword">int</span> intentFlags, String hostingType, ComponentName hostingName, <span class="keyword">boolean</span> allowWhileBooting, <span class="keyword">boolean</span> isolated, <span class="keyword">int</span> isolatedUid, <span class="keyword">boolean</span> keepIfLarge, String abiOverride, String entryPoint, String[] entryPointArgs, Runnable crashHandler)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	app = getProcessRecordLocked(processName, info.uid, keepIfLarge);</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	<span class="keyword">if</span> (app == <span class="keyword">null</span>) &#123;</span><br><span class="line">		app = newProcessRecordLocked(info, processName, isolated, isolatedUid);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">startProcessLocked</span><span class="params">(ProcessRecord app, String hostingType, String hostingNameStr, String abiOverride, String entryPoint, String[] entryPointArgs)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	<span class="comment">// entryPoint表示一个类，它用来作为新创建的进程的主入口，会调用这个类的静态main方法，这个参数在startProcessLocked方法中会被检查重置，如果是null的话，就默认是android.app.ActivityThread。</span></span><br><span class="line">	<span class="keyword">if</span> (entryPoint == <span class="keyword">null</span>) entryPoint = <span class="string">"android.app.ActivityThread"</span>;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	Process.ProcessStartResult startResult = Process.start(entryPoint,</span><br><span class="line">            app.processName, uid, uid, gids, debugFlags, mountExternal,</span><br><span class="line">            app.info.targetSdkVersion, app.info.seinfo, requiredAbi, </span><br><span class="line">            instructionSet, app.info.dataDir, entryPointArgs);</span><br><span class="line">	<span class="comment">// ...	</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这3个重载方法做的事情就是，先根据进程名字调用<code>getProcessRecordLocked()</code>获取<code>ProcessRecord</code>，如果<code>ProcessRecord</code>不存在，则调用<code>newProcessRecordLocked()</code>方法建立一个<code>ProcessRecord</code>，并且新的<code>ProcessRecord</code>绑定了<code>ApplicationInfo</code>，<code>uid</code>等信息，但后进入第三个重载方法，执行新建、启动进程。</p>
+<p>再看<code>Process::start</code>的实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> ProcessStartResult <span class="title">start</span><span class="params">(<span class="comment">/*...*/</span>)</span></span>&#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	<span class="keyword">return</span> startViaZygote(processClass, niceName, uid, gid, gids,</span><br><span class="line">              debugFlags, mountExternal, targetSdkVersion, seInfo,</span><br><span class="line">              abi, instructionSet, appDataDir, zygoteArgs);</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接下来就是通过<code>Zygote</code>进程<code>fork</code>一个新的进程作为app的进程。这里要需要讲的一个参数是<code>processClass</code>，这个参数表示一个类，它用来作为新创建的进程的主入口，会调用这个类的静态<code>main</code>方法，这个参数在<code>startProcessLocked</code>方法中会被检查重置，如果是null的话，就默认是<code>android.app.ActivityThread</code>。</p>
+<p>现在App的进程也创建成功了，就会进入<code>android.app.ActivityThread</code>的静态的<code>main</code>中：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	<span class="comment">// 初始化主线程Looper</span></span><br><span class="line">	Looper.prepareMainLooper();</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	ActivityThread thread = <span class="keyword">new</span> ActivityThread();</span><br><span class="line">    thread.attach(<span class="keyword">false</span>);	</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	<span class="comment">// 启动消息循环</span></span><br><span class="line">	Looper.loop()</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后创建了一个<code>ActivityThread</code>，说明每当一个新的app进程被创建，都会对应一个新的<code>ActivityThread</code>实例，然后调用它的<code>attach</code>方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">attach</span><span class="params">(<span class="keyword">boolean</span> system)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	<span class="keyword">if</span> (!system) &#123;</span><br><span class="line">		<span class="comment">// ...</span></span><br><span class="line">		<span class="keyword">final</span> IActivityManager mgr = ActivityManagerNative.getDefault();</span><br><span class="line">		<span class="comment">// ...</span></span><br><span class="line">		mgr.attachApplication(mAppThread);</span><br><span class="line">		<span class="comment">// ...</span></span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="comment">// ...</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后再次通过Binder IPC调用<code>ActivityManagerProxy</code>的<code>attachApplication</code>，传入的<code>ApplicationThread</code>（Binder）参数用于在服务端进行回调通信。最后进入<code>ActivityManagerService::attachApplication</code>，再调用<code>attachApplicationLocked(thread, callingPid)</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">attachApplicationLocked</span><span class="params">(IApplicationThread thread, <span class="keyword">int</span> pid)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	app = mPidsSelfLocked.get(pid);</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	app.makeActive(thread, mProcessStats);</span><br><span class="line">    app.curAdj = app.setAdj= -<span class="number">100</span>;</span><br><span class="line">    app.curSchedGroup = app.setSchedGroup = Process.THREAD_GROUP_DEFAULT;</span><br><span class="line">    app.forcingToForeground = <span class="keyword">null</span>;</span><br><span class="line">    updateProcessForegroundLocked(app, <span class="keyword">false</span>, <span class="keyword">false</span>);</span><br><span class="line">    app.hasShownUi = <span class="keyword">false</span>;</span><br><span class="line">    app.debugging = <span class="keyword">false</span>;</span><br><span class="line">    app.cached = <span class="keyword">false</span>;</span><br><span class="line">    app.killedByAm = <span class="keyword">false</span>;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	thread.bindApplication(processName, appInfo, providers, app.instrumentationClass, profilerInfo, app.instrumentationArguments, app.instrumentationWatcher, app.instrumentationUiAutomationConnection, testMode, enableOpenGlTrace, enableTrackAllocation, isRestrictedBackupMode || !normalMode, app.persistent, <span class="keyword">new</span> Configuration(mConfiguration), app.compat, getCommonServicesLocked(app.isolated), mCoreSettingsObserver.getCoreSettingsLocked());</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	<span class="keyword">if</span> (normalMode) &#123;</span><br><span class="line">	    <span class="keyword">try</span> &#123;</span><br><span class="line">	        <span class="keyword">if</span> (mStackSupervisor.attachApplicationLocked(app)) &#123;</span><br><span class="line">	            didSomething = <span class="keyword">true</span>;</span><br><span class="line">	        &#125;</span><br><span class="line">	    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">	        Slog.wtf(TAG, <span class="string">"Exception thrown launching activities in "</span> + app, e);</span><br><span class="line">	        badApp = <span class="keyword">true</span>;</span><br><span class="line">	    &#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>首先，通过pid获取刚刚创建的进程，然后对app进行一些初始化工作，然后调用<code>bindApplication</code>远程调用客户端<code>ActivityThread::bindApplication</code>，再通过<code>Handler</code>调用到<code>ActivityThread::handleBindApplication</code>方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">handleBindApplication</span><span class="params">(AppBindData data)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	<span class="keyword">final</span> ContextImpl appContext = ContextImpl.createAppContext(<span class="keyword">this</span>, data.info);</span><br><span class="line">	<span class="keyword">if</span> (data.instrumentationName != <span class="keyword">null</span>) &#123;</span><br><span class="line">		<span class="comment">// ...</span></span><br><span class="line">		mInstrumentationPackageName = ii.packageName;</span><br><span class="line">        mInstrumentationAppDir = ii.sourceDir;</span><br><span class="line">        mInstrumentationSplitAppDirs = ii.splitSourceDirs;</span><br><span class="line">        mInstrumentationLibDir = ii.nativeLibraryDir;</span><br><span class="line">        mInstrumentedAppDir = data.info.getAppDir();</span><br><span class="line">        mInstrumentedSplitAppDirs = data.info.getSplitAppDirs();</span><br><span class="line">        mInstrumentedLibDir = data.info.getLibDir();</span><br><span class="line"></span><br><span class="line">        ApplicationInfo instrApp = <span class="keyword">new</span> ApplicationInfo();</span><br><span class="line">        instrApp.packageName = ii.packageName;</span><br><span class="line">        instrApp.sourceDir = ii.sourceDir;</span><br><span class="line">        instrApp.publicSourceDir = ii.publicSourceDir;</span><br><span class="line">        instrApp.splitSourceDirs = ii.splitSourceDirs;</span><br><span class="line">        instrApp.splitPublicSourceDirs = ii.splitPublicSourceDirs;</span><br><span class="line">        instrApp.dataDir = ii.dataDir;</span><br><span class="line">        instrApp.nativeLibraryDir = ii.nativeLibraryDir;</span><br><span class="line">        LoadedApk pi = getPackageInfo(instrApp, data.compatInfo,</span><br><span class="line">                appContext.getClassLoader(), <span class="keyword">false</span>, <span class="keyword">true</span>, <span class="keyword">false</span>);</span><br><span class="line">        ContextImpl instrContext = ContextImpl.createAppContext(<span class="keyword">this</span>, pi);</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">java.lang.ClassLoader cl = instrContext.getClassLoader();</span><br><span class="line">        mInstrumentation = (Instrumentation) cl.loadClass(data.instrumentationName.getClassName()).newInstance();</span><br><span class="line">        mInstrumentation.init(<span class="keyword">this</span>, instrContext, appContext, <span class="keyword">new</span> ComponentName(ii.packageName, ii.name), data.instrumentationWatcher, data.instrumentationUiAutomationConnection);</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		mInstrumentation = <span class="keyword">new</span> Instrumentation();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	Application app = data.info.makeApplication(data.restrictedBackupMode, <span class="keyword">null</span>);</span><br><span class="line">    mInitialApplication = app;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	mInstrumentation.callApplicationOnCreate(app);</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>首先，创建一个当前App的<code>Context</code>，然后如果<code>data.instrumentationName != null</code>，则初始化<code>Instrumentation</code>相关的变量，并创建<code>Instrumentation</code>的<code>ApplicationInfo</code>等对象来创建<code>Instrumentation</code>的<code>Context</code>，然后创建<code>Instrumentation</code>对象，并调用它的<code>init</code>方法进行初始化。如果<code>data.instrumentationName == null</code>，则new一个<code>Instrumentation</code>（在一个进程中只会有一个<code>Instrumentation</code>实例）然后创建<code>Application</code>对象，并调用它的<code>onCreate</code>方法，这样<code>Application</code>就会被回调了。</p>
+<p>然后我们回到<code>ActivityManagerService::attachApplicationLocked</code>方法，远程执行完<code>thread.bindApplication</code>方法之后，接下来会调用<code>mStackSupervisor.attachApplicationLocked(app)</code>方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">attachApplicationLocked</span><span class="params">(ProcessRecord app)</span> <span class="keyword">throws</span> RemoteException </span>&#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	ActivityRecord hr = stack.topRunningActivityLocked(<span class="keyword">null</span>);</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	realStartActivityLocked(hr, app, <span class="keyword">true</span>, <span class="keyword">true</span>)</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>先通过<code>topRunningActivityLocked</code>从堆栈顶端获取要启动的Activity，然后<code>realStartActivityLocked(hr, app, true, true)</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">realStartActivityLocked</span><span class="params">(ActivityRecord r,</span></span></span><br><span class="line"><span class="function"><span class="params">            ProcessRecord app, <span class="keyword">boolean</span> andResume, <span class="keyword">boolean</span> checkConfig)</span></span></span><br><span class="line"><span class="function">            <span class="keyword">throws</span> RemoteException </span>&#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	app.thread.scheduleLaunchActivity(<span class="keyword">new</span> Intent(r.intent), r.appToken, System.identityHashCode(r), r.info, <span class="keyword">new</span> Configuration(mService.mConfiguration), <span class="keyword">new</span> Configuration(stack.mOverrideConfig), r.compat, r.launchedFromPackage, task.voiceInteractor, app.repProcState, r.icicle, r.persistentState, results, newIntents, !andResume, mService.isNextTransitionForward(), profilerInfo);</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>继续通过Binder IPC远程调用<code>scheduleLaunchActivity</code>方法，然后进入<code>ActivityThread</code>的<code>scheduleLaunchActivity</code>方法中，然后通过<code>Handler</code>进入<code>handleLaunchActivity</code>方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">handleLaunchActivity</span><span class="params">(ActivityClientRecord r, Intent customIntent)</span></span>&#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	Activity a = performLaunchActivity(r, customIntent);</span><br><span class="line"></span><br><span class="line">	handleResumeActivity(r.token, <span class="keyword">false</span>, r.isForward, !r.activity.mFinished &amp;&amp; !r.startsNotResumed);</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>先调用<code>performLaunchActivity</code>方法返回一个<code>Activity</code>，然后调用<code>handleResumeActivity</code>方法让该<code>Activity</code>进入<code>onResume</code>状态。所以很显然在<code>performLaunchActivity</code>中肯定是生成了<code>Activity</code>实例，并调用了<code>onCreate</code>方法了，来看下代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> Activity <span class="title">performLaunchActivity</span><span class="params">(ActivityClientRecord r, Intent customIntent)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	ActivityInfo aInfo = r.activityInfo;</span><br><span class="line">	<span class="keyword">if</span> (r.packageInfo == <span class="keyword">null</span>) &#123;</span><br><span class="line">	    r.packageInfo = getPackageInfo(aInfo.applicationInfo, r.compatInfo,</span><br><span class="line">	            Context.CONTEXT_INCLUDE_CODE);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	java.lang.ClassLoader cl = r.packageInfo.getClassLoader();</span><br><span class="line">    activity = mInstrumentation.newActivity(cl, component.getClassName(), r.intent);</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	Context appContext = createBaseContextForActivity(r, activity);</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	activity.attach(appContext, <span class="keyword">this</span>, getInstrumentation(), r.token, r.ident, app, r.intent, r.activityInfo, title, r.parent, r.embeddedID, r.lastNonConfigurationInstances, config, r.referrer, r.voiceInteractor);</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	<span class="keyword">if</span> (r.isPersistable()) &#123;</span><br><span class="line">     mInstrumentation.callActivityOnCreate(activity, r.state, r.persistentState);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        mInstrumentation.callActivityOnCreate(activity, r.state);</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	mInstrumentation.callActivityOnRestoreInstanceState(activity, r.state, r.persistentState);</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	mInstrumentation.callActivityOnPostCreate(activity, r.state, r.persistentState);</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>首先，初始化<code>LoadedApk</code>，然后通过<code>Instrumentation</code>来创建一个<code>Activity</code>实例，通过<code>createBaseContextForActivity</code>方法创建一个<code>Activity Context</code>，调用<code>activity</code>的<code>attach</code>方法，然后依次触发该<code>Activity</code>的<code>onCreate</code>、<code>onRestoreInstanceState</code>、<code>onPostCreate</code>等生命周期方法。</p>
+<p><code>createBaseContextForActivity</code>方法如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> Context <span class="title">createBaseContextForActivity</span><span class="params">(ActivityClientRecord r, <span class="keyword">final</span> Activity activity)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	ContextImpl appContext = ContextImpl.createActivityContext(<span class="keyword">this</span>, r.packageInfo, displayId, r.overrideConfig);</span><br><span class="line">    appContext.setOuterContext(activity);</span><br><span class="line">    Context baseContext = appContext;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过<code>ContextImpl::createActivityContext</code>创建的<code>Context</code>对象，可以发现，不论是<code>System Context/App Context/Activity Context</code>，这些<code>Context</code>都是通过<code>ContextImpl</code>生成的，具体这里再挖个坑先。</p>
+<p>再继续进入<code>Activity::attach</code>方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">final</span> <span class="keyword">void</span> <span class="title">attach</span><span class="params">(Context context, ActivityThread aThread,</span></span></span><br><span class="line"><span class="function"><span class="params">            Instrumentation instr, IBinder token, <span class="keyword">int</span> ident,</span></span></span><br><span class="line"><span class="function"><span class="params">            Application application, Intent intent, ActivityInfo info,</span></span></span><br><span class="line"><span class="function"><span class="params">            CharSequence title, Activity parent, String id,</span></span></span><br><span class="line"><span class="function"><span class="params">            NonConfigurationInstances lastNonConfigurationInstances,</span></span></span><br><span class="line"><span class="function"><span class="params">            Configuration config, String referrer, IVoiceInteractor voiceInteractor)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	mMainThread = aThread;</span><br><span class="line">    mInstrumentation = instr;</span><br><span class="line">    mToken = token;</span><br><span class="line">    mIdent = ident;</span><br><span class="line">    mApplication = application;</span><br><span class="line">    mIntent = intent;</span><br><span class="line">    mReferrer = referrer;</span><br><span class="line">    mComponent = intent.getComponent();</span><br><span class="line">    mActivityInfo = info;</span><br><span class="line">    mTitle = title;</span><br><span class="line">    mParent = parent;</span><br><span class="line">    mEmbeddedID = id;</span><br><span class="line">    mLastNonConfigurationInstances = lastNonConfigurationInstances;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面对<code>Activity</code>与<code>ActivityThread</code>、<code>Instrumentation</code>等进行了绑定，所以说每个<code>Activity</code>都含有一个<code>ActivityThread</code>引用和一个<code>Instrumentation</code>引用，而<code>ActivityThread</code>实例和<code>Instrumentation</code>实例在一个进程中都只有一个实例，因为<code>ActivityThread</code>是在进程被创建成功后，进入<code>ActivityThread</code>的<code>static main()</code>时才会被创建，而<code>Instrumentation</code>则是在<code>ActivityThread</code>被创建后进行<code>attach</code>的之后被创建。</p>
+<h3 id="启动应用流程所有方法链调用总结："><a href="#启动应用流程所有方法链调用总结：" class="headerlink" title="启动应用流程所有方法链调用总结："></a>启动应用流程所有方法链调用总结：</h3><ul>
+<li><p><code>Activity::startActivity</code></p>
+</li>
+<li><p><code>Activity::startActivityForResult</code></p>
+</li>
+<li><p><code>Instrumentation::execStartActivity</code>：<br>携带参数：<br>1. <code>who</code>：from的Context<br>2. <code>contextThread</code>：from的<code>ActivityThread</code>的<code>ApplicationThread</code>，<code>ApplicationThread</code>中可以通过Binder IPC提供给服务端回调<code>Activity</code>生命周期等操作（from的主线程）。<br>3. <code>mToken</code>：<code>Binder</code>类型，用来标识from的Activity，可能为null。<br>4. <code>target</code>：from的Activity（所以是用来接收跳转结果的），如果不是从Activity跳转则为null。<br>5. <code>intent</code>：跳转Intent。<br>6. <code>requestCode</code>：如果是<code>startActivity</code>，则为-1。<br>7. <code>options</code>：额外Bundle数据。</p>
+</li>
+<li><p><code>ActivityManagerProxy::startActivity()</code>：<br>携带参数：<br>1. <code>caller</code>：上面的<code>contextThread</code>，from主线程。<br>2. <code>callingPackage</code>：from的Context包名。<br>3. <code>intent</code>：跳转Intent。<br>4. <code>resolvedType</code>：跳转Intent的MIME类型。<br>5. <code>resultTo</code>：上面的<code>token</code>，<code>Binder</code>类型，用来标识from的Activity。<br>6. <code>resultWho</code>：from的Activity的mEmbeddedID（唯一标示字符串）<br>7. <code>requestCode</code>：如果是<code>startActivity</code>，则为-1。<br>8. <code>startFlags</code>：默认传入为0。<br>9. <code>profilerInfo</code>：默认传入为null。<br>10. <code>options</code>：额外Bundle数据。</p>
+</li>
+<li><p><code>ActivityManagerService::startActivity()</code>（通过Binder IPC调用）：<br>携带参数跟上面一样。</p>
+</li>
+<li><p><code>ActivityManagerService::startActivityAsUser</code><br>携带参数包括<code>ActivityManagerService::startActivity()</code>所有的参数，最再加一个：<br>1. <code>userId</code>：userId，根据给当前进程分配的Linux UID（这个UID可以用来让上层系统服务进行身份识别和权限检查）得到一个userId（如果不是多用户，则直接返回0）。</p>
+</li>
+<li><p><code>ActivityStackSupervisor::startActivityMayWait()</code><br>参数：<br>1. <code>caller</code>：上面的<code>caller/contextThread</code>，from主线程。<br>2. <code>callingUid</code>：调用用户uid。<br>3. <code>callingPackage</code>：from的Context包名。<br>4. <code>intent</code>：跳转Intent。<br>5. <code>resolvedType</code>：跳转Intent的MIME类型。<br>6. <code>voiceSession</code>：传null。<br>7. <code>voiceInteractor</code>：传null。<br>8. <code>resultTo</code>：上面的<code>resultTo/token</code>，<code>Binder</code>类型，用来标识from的Activity。<br>9. <code>resultWho</code>：from的Activity的mEmbeddedID（唯一标示字符串）<br>10. <code>requestCode</code>：如果是<code>startActivity</code>，则为-1。<br>11. <code>startFlags</code>：传null。<br>12. <code>profilerInfo</code>：传null。<br>13. <code>outResult</code>：传null。<br>14. <code>config</code>：传null。<br>15. <code>options</code>：额外数据。<br>16. <code>ignoreTargetSecurity</code>：false。<br>17. <code>userId</code>：上面的<code>userId</code>，根据给当前进程分配的Linux UID（这个UID可以用来让上层系统服务进行身份识别和权限检查）得到一个userId（如果不是多用户，则直接返回0）。<br>18. <code>iContainer</code>：传null。<br>19. <code>inTask</code>：null。</p>
+</li>
+<li><p><code>ActivityStackSupervisor::startActivityLocked()</code>：<br>参数：<br>1. <code>caller</code>：上面的<code>caller/contextThread</code>，from主线程。<br>2. <code>intent</code>：跳转Intent。<br>3. <code>resolvedType</code>：跳转Intent的MIME类型。<br>4. <code>aInfo</code>：<code>ActivityInfo</code>类型，解析from的Activity的Intent信息。<br>5. <code>voiceSession</code>：传null。<br>6. <code>voiceInteractor</code>：传null。<br>7. <code>resultTo</code>：上面的<code>resultTo/token</code>，<code>Binder</code>类型，用来标识from的Activity。<br>8. <code>resultWho</code>：from的Activity的mEmbeddedID（唯一标示字符串）<br>9. <code>requestCode</code>：如果是<code>startActivity</code>，则为-1。<br>10. <code>callingPackage</code>：from的Context包名。<br>11. <code>startFlags</code>：传null。<br>12. <code>options</code>：额外数据。<br>13. <code>ignoreTargetSecurity</code>：false。<br>14. <code>componentSpecified</code>：是否显示指定了<code>component</code>。<br>15. <code>outActivity</code>：传null。<br>16. <code>container</code>：上面的<code>iContainer</code>，转型成了<code>ActivityContainer</code>，还是null。<br>17. <code>inTask</code>：null。<br>在这个方法中，通过<code>ProcessRecord callerApp = mService.getRecordForAppLocked(caller);</code>获取到之前创建的<code>ProcessRecord</code>，然后从<code>Activity</code>栈中根据<code>resultTo/token</code>获取到对应from Activity的<code>ActivityRecord</code>（sourceRecord），然后<strong>创建将要跳转的Activity的ActivityRecord对象</strong>（<code>Token</code>也是在这个时候生成的）。</p>
+</li>
+<li><p><code>ActivityStackSupervisor::startActivityUncheckedLocked()</code>：<br>参数：<br>1. <code>r</code>：<code>ActivityRecord</code>类型，就是<code>ActivityStackSupervisor::startActivityLocked()</code>中创建的将要跳转的Activity的ActivityRecord对象。<br>2. <code>sourceRecord</code>：就是<code>ActivityStackSupervisor::startActivityLocked()</code>方法获取的from Activity的<code>sourceRecord</code>。<br>3. <code>voiceSession</code>：传null。<br>4. <code>voiceInteractor</code>：传null。<br>5. <code>startFlags</code>：传null。<br>6. <code>doResume</code>：传true。<br>7. <code>options</code>：额外数据。<br>8. <code>inTask</code>：null。<br>这个方法中有大量的代码来处理<code>task/stack</code>等方面的逻辑，以后再仔细深入这个方法。</p>
+</li>
+<li><p><code>ActivityStrack::startActivityLocked()</code>：<br>方法调用者：<code>ActivityStack</code>类型，<br><code>targetStack</code>：在<code>ActivityStackSupervisor::startActivityUncheckedLocked()</code>中确定的需要添加到的<code>ActivityStack</code>。<br>参数：<br>1. <code>r</code>：<code>ActivityRecord</code>类型，就是<code>ActivityStackSupervisor::startActivityLocked()</code>中创建的跳转的Activity的ActivityRecord对象。<br>2. <code>newTask</code>：是否<code>Intent</code>是否设置了<code>Intent.FLAG_ACTIVITY_NEW_TASK</code>。<br>3. <code>doResume</code>：传true。<br>4. <code>keepCurTransition</code>：这个具体后面再研究，跟<code>Intent</code>的flag有关。<br>5. <code>options</code>：额外数据。<br>同样，这个方法中有大量的代码来处理<code>task/stack</code>等方面的逻辑，以后再仔细深入这个方法<strong>（执行完这个方法后，<code>ActivityRecord</code>就会被真正加入到<code>ActivityStack</code>中）</strong>。</p>
+</li>
+<li><p><code>ActivityStackSupervisor::resumeTopActivitiesLocked()</code>：<br>参数：<br>1. <code>targetStack</code>：在<code>ActivityStackSupervisor::startActivityUncheckedLocked()</code>中确定的需要添加到的<code>ActivityStack</code>。<br>2. <code>target</code>：<code>ActivityRecord</code>类型，就是<code>ActivityStackSupervisor::startActivityLocked()</code>中创建的跳转的Activity的ActivityRecord对象。<br>3. <code>targetOptions</code>：额外数据。</p>
+</li>
+<li><p><code>ActivityStack::resumeTopActivityLocked()</code>：<br>参数：<br>1. <code>prev</code>：<code>ActivityRecord</code>类型，就是<code>ActivityStackSupervisor::startActivityLocked()</code>中创建的跳转的Activity的ActivityRecord对象。<br>2. <code>options</code>：额外数据。</p>
+</li>
+<li><p><code>ActivityStack::resumeTopActivityInnerLocked()</code>：<br>参数：<br>1. <code>prev</code>：<code>ActivityRecord</code>类型，就是<code>ActivityStackSupervisor::startActivityLocked()</code>中创建的跳转的Activity的ActivityRecord对象。<br>2. <code>options</code>：额外数据。</p>
+</li>
+<li><p><code>ActivityStackSupervisor::startSpecificActivityLocked()</code>：<br>参数：<br>1. <code>r</code>：最顶部没有处于finishing的Activity，就是刚刚在<code>startActivityLocked</code>中加入的将要跳转的<code>ActivityRecord</code>，通过<code>topRunningActivityLocked(null)</code>查找<br>2. <code>andResume</code>：传true<br>3. <code>checkConfig</code>：传true</p>
+</li>
+<li><p><code>ActivityManagerService::startProcessLocked()</code>：<br>参数：<br>1. <code>processName</code>：创建进程的名称，就是<code>ActivityStack::startSpecificActivityLocked()</code>中的<code>r.processName</code><br>2. <code>info</code>：<code>ApplicationInfo</code>，也是<code>r.info.applicaitonInfo</code>，具体可以查看<code>ActivityStackSupervisor::startActivityLocked()</code>中创建<code>ActivityRecord</code>的代码。<br>3. <code>knownToBeDead</code>：传true。<br>4. <code>intentFlags</code>：传0。<br>5. <code>hostingType</code>：传字符串“activity”。<br>6. <code>hostingName</code>：<code>ComponentName</code>类型，<code>intent</code>中的<code>Componentname</code><br>7. <code>allowWhileBooting</code>：传false。<br>8. <code>isolated</code>：传false<br>9. <code>keepIfLarge</code>传true</p>
+</li>
+<li><p><code>ActivityManagerService::startProcessLocked()</code>（重载方法）：<br>参数包含上面所有，多了以下几个：<br>1. <code>isolatedUid</code>：传0<br>2. <code>abiOverride</code>：传null<br>3. <code>entryPoint</code>：传null<br>4. <code>entryPointArgs</code>传null<br>5. <code>crashHandler</code>传null<br>注意：在这个方法中，会创建新进程的<code>ProcessRecord</code>对象，并绑定<code>ApplicationInfo</code>等信息，这样，启动进程后进行<code>bindApplicaiton</code>的时候就可以根据进程PID获取到所有的<code>ApplicationInfo</code>信息了。</p>
+</li>
+<li><p><code>ActivityManagerService::startProcessLocked()</code>（重载方法）：<br>参数：<br>1. <code>app</code>：<code>ProcessRecord</code>类型，创建的进程。<br>2. <code>hostingType</code>：传字符串“activity”。<br>3. <code>hostingNameStr</code>：通过<code>hostingName</code>生成的字符串（包名 + “/“ + 类的简单类名）<br>4. <code>abiOverride</code>：传null<br>5. <code>entryPoint</code>：传null<br>6. <code>entryPointArgs</code>传null</p>
+</li>
+<li><p><code>Process.start()</code><br>参数（省略部分参数）：<br>1. <code>processClass</code>：上面的<code>entryPoint</code>，但是并不是null了，而是<code>android.app.ActivityThread</code>，因为在<code>ActivityManagerService::startProcessLocked()</code>中被设置默认值了，它表示一个类，用来作为新创建的进程的主入口，会调用这个类的静态main方法。所以启动完这个进程就会进入<code>ActivityThread</code>的<code>static main()</code>方法。<br>2. <code>zygoteArgs</code>：fork zygote进程时的参数。</p>
+</li>
+<li><p><code>ActivityThread::main()</code></p>
+</li>
+<li><p><code>ActivityThread::attach()</code></p>
+</li>
+<li><p><code>ActivityManagerProxy::attachApplication()</code>：<br>参数：<br>1. <code>mAppThread</code>：<code>ApplicationThread()</code>类型，Binder，用来提供给AMS调用。</p>
+</li>
+<li><p><code>ActivityManagerService::attachApplication()</code>：<br>参数：<br>1. <code>mAppThread</code>：<code>ApplicationThread()</code>类型，Binder，用来提供给AMS调用。</p>
+</li>
+<li><p><code>ActivityManagerService::attachApplicationLocked()</code>：<br>参数：<br>1. <code>thread</code>：<code>ApplicationThread()</code>类型，Binder，用来提供给AMS调用。上面的<code>mAppThread</code>。<br>2. <code>pid</code>：当前调用的进程PID。</p>
+</li>
+<li><p><code>IApplicationThread::bindApplication()</code>：<br>方法调用调用者：上面的<code>thread/mAppThread</code>，Binder，用来提供给AMS调用。<br>参数（省略部分参数）：<br>1. <code>packageName</code>：用的进程名字<code>processName</code><br>2. <code>info</code>：<code>ApplicationInfo</code>类型，从<code>ProcessRecord</code>中的<code>instrumentationInfo或者info</code>，这个<code>ApplicationInfo</code>是在建立<code>ProcessRecord</code>时就保存了。</p>
+</li>
+<li><p><code>ActivityThread::bindApplication()</code>：<br>参数：同上</p>
+</li>
+<li><p><code>ActivityThread::handleBindApplication()</code>：<br>通过Handler调用。<br>参数：<br>1. <code>data</code>：<code>AppBindData</code>类型，里面包含的类型<code>processName</code>，<code>providers</code>，<code>instrumentationName</code>，<code>instrumentationArgs</code>，<code>instrumentationWatcher</code>，<code>instrumentationUiAutomationConnection</code>，<code>config</code>等数据。</p>
+</li>
+<li><p><code>ActivityManagerService</code>中的<code>ActivityThread::bindApplication()</code>执行完毕之后</p>
+</li>
+<li><p><code>ActivityStackSupervisor::attachApplicationLocked()</code>：<br>参数：<br>1. <code>app</code>：新建的进程绑定的<code>ProcessRecord</code>。</p>
+</li>
+<li><p><code>ActivityStackSupervisor::realStartActivityLocked()</code>：<br>参数：<br>1. <code>r</code>：<code>ActivityRecord</code>类型，topRunningActivityLocked从堆栈顶端获取要启动的Activity。<br>2. <code>app</code>：新建的进程绑定的<code>ProcessRecord</code>。<br>3. <code>andResume</code>：传入true<br>4. <code>checkConfig</code>：传入true</p>
+</li>
+<li><p><code>IApplicationThread::scheduleLaunchActivity()</code>：<br>参数（部分）：<br>1. <code>intent</code>：将要启动的<code>ActivityRecord</code>中的<code>intent</code>。<br>2. <code>token</code>：将要启动的<code>ActivityRecord</code>中的<code>token</code>。<br>3. <code>info</code>：将要启动的<code>ActivityRecord</code>中的<code>ApplicationInfo</code>。</p>
+</li>
+<li><p><code>ActivityThread::scheduleLaunchActivity()</code>：<br>Binder IPC调用，参数与<code>IApplicationThread::scheduleLaunchActivity()</code>相同。</p>
+</li>
+<li><p><code>ActivityThread::handleLaunchActivity()</code>：<br>该方法通过Handler调用，参数同上。<br>1. <code>r</code>：<code>ActivityClientRecord</code>类型，在<code>ActivityThread::scheduleLaunchActivity()</code>中封装，包括的数据有<code>token</code>, <code>ident</code>, <code>intent</code>, <code>activityInfo</code>等等，但是<code>LoadedApk</code>是这时根据包名从<code>ActivityThread</code>中弱引用缓存中获取的的。<br>2. <code>customIntent</code>：null</p>
+</li>
+<li><p><code>ActivityThread::performLaunchActivity()</code>：<br>参数与<code>ActivityThread::handleLaunchActivity()</code>相同。</p>
+</li>
+<li><p><code>Activity::attach()</code>：<br>参数（部分）：<br>1. <code>context</code>：<code>ActivityThread::performLaunchActivity()</code>中创建的<code>Activity Context</code>。<br>2. <code>aThread</code>：<code>ActivityThread</code>类型，主线程，一个进程都共用一个。<br>3. <code>token</code>：构建<code>ActivityRecord</code>时生成的<code>token</code>。<br>4. <code>application</code>：<code>Application</code>第一次的时候创建一遍。<br>5. <code>intent</code>：将要启动的ActivityRecord中的intent。<br>6. <code>info</code>：<code>ActivityInfo</code>类型，将要启动的ActivityRecord中的<code>ActivityInfo</code>。</p>
+</li>
+<li><p><code>Instrumentation::callActivityOnCreate()</code>：<br>参数（部分）：<br>1. <code>activity</code>：<code>ActivityThread::performLaunchActivity()</code>中创建的<code>Activity</code>。</p>
+</li>
+<li><p><code>Activity::performCreate()</code></p>
+</li>
+<li><p><code>Activity::onCreate()</code></p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/12/02/Android-Android系统启动流程源码分析/" rel="next" title="[Android]Android系统启动流程源码分析">
+                <i class="fa fa-chevron-left"></i> [Android]Android系统启动流程源码分析
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/12/10/Android-对MVC和MVP的总结/" rel="prev" title="[Android]对MVC和MVP的总结">
+                [Android]对MVC和MVP的总结 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/my_avatar.jpg"
+                alt="Wang Jie" />
+            
+              <p class="site-author-name" itemprop="name">Wang Jie</p>
+              <p class="site-description motion-element" itemprop="description">Wang Jie's blog</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">144</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wangjiegulu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:tiantian.china.2@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/+%E5%A4%A9%E5%A4%A9wangjie" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/wangjiegulu" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://stackoverflow.com/users/2124006/wangjie" target="_blank" title="StackOverflow">
+                      
+                        <i class="fa fa-fw fa-stack-overflow"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/wangjiegulu" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.cnblogs.com/tiantianbyconan/" title="cnblog" target="_blank">cnblog</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#从Launcher开始启动App流程源码分析"><span class="nav-text">从Launcher开始启动App流程源码分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#启动应用流程所有方法链调用总结："><span class="nav-text">启动应用流程所有方法链调用总结：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wang Jie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://blog-wangjiegulu-com.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://blog.wangjiegulu.com/2015/12/03/Android-从Launcher开始启动App流程源码分析/';
+          this.page.identifier = '2015/12/03/Android-从Launcher开始启动App流程源码分析/';
+          this.page.title = '[Android]从Launcher开始启动App流程源码分析';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://blog-wangjiegulu-com.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "default";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "GooglePlus,Evernote,Twitter,Facebook,Douban,Weibo";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

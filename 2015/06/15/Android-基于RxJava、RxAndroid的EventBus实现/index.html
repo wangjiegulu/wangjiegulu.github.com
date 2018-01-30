@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="WAND JIE" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="以下内容为原创，欢迎转载，转载请注明 来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/4578699.html&amp;nbsp; &amp;nbsp; Github：https://github.com/wangjiegulu/RxAndroidEventsSample EventBus的作用是发布/订阅事件总线，因为项目中用到RxJava、RxAndroid，所">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Android]基于RxJava、RxAndroid的EventBus实现">
+<meta property="og:url" content="http://blog.wangjiegulu.com/2015/06/15/Android-基于RxJava、RxAndroid的EventBus实现/index.html">
+<meta property="og:site_name" content="WAND JIE">
+<meta property="og:description" content="以下内容为原创，欢迎转载，转载请注明 来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/4578699.html&amp;nbsp; &amp;nbsp; Github：https://github.com/wangjiegulu/RxAndroidEventsSample EventBus的作用是发布/订阅事件总线，因为项目中用到RxJava、RxAndroid，所">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-01-29T12:36:41.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[Android]基于RxJava、RxAndroid的EventBus实现">
+<meta name="twitter:description" content="以下内容为原创，欢迎转载，转载请注明 来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/4578699.html&amp;nbsp; &amp;nbsp; Github：https://github.com/wangjiegulu/RxAndroidEventsSample EventBus的作用是发布/订阅事件总线，因为项目中用到RxJava、RxAndroid，所">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.wangjiegulu.com/2015/06/15/Android-基于RxJava、RxAndroid的EventBus实现/"/>
+
+
+
+
+
+  <title>[Android]基于RxJava、RxAndroid的EventBus实现 | WAND JIE</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-111189680-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">WAND JIE</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">TO BE AN ARTIST-ENGINNER</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.wangjiegulu.com/2015/06/15/Android-基于RxJava、RxAndroid的EventBus实现/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wang Jie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/my_avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WAND JIE">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">[Android]基于RxJava、RxAndroid的EventBus实现</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-06-15T17:09:00+08:00">
+                2015-06-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/06/15/Android-基于RxJava、RxAndroid的EventBus实现/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2015/06/15/Android-基于RxJava、RxAndroid的EventBus实现/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>以下内容为原创，欢迎转载，转载请注明</strong></p>
+<p><strong><span style="color: #ff0000;">来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/4578699.html%20" title="view: [Android]基于RxJava、RxAndroid的EventBus实现" target="_blank" rel="noopener"><span style="color: #ff0000;">http://www.cnblogs.com/tiantianbyconan/p/4578699.html</span></a></span>&nbsp;</strong></p>
+<p>&nbsp;</p>
+<p><strong><span style="line-height: 1.5;">Github：<a href="https://github.com/wangjiegulu/RxAndroidEventsSample" target="_blank" rel="noopener">https://github.com/wangjiegulu/RxAndroidEventsSample</a></span></strong></p>
+<p>EventBus的作用是发布/订阅事件总线，因为项目中用到RxJava、RxAndroid，所以完全可以使用RxJava、RxAndroid来实现EventBus。</p>
+<p>&nbsp;</p>
+<p>1. 编写RxBus，用于存储所有事件Subjects。</p>
+<p>事件是传递的最小单位，可以把任何类作为一个事件。</p>
+<p>RxBus代码如下：</p>
+<div class="cnblogs_code"><br><pre><span style="color: #008080;"> 1</span> <span style="color: #008000;">/<em>*</em></span><br><span style="color: #008080;"> 2</span> <span style="color: #008000;">  Author: wangjie<br></span><span style="color: #008080;"> 3</span> <span style="color: #008000;"> <em> Email: tiantian.china.2@gmail.com<br></em></span><span style="color: #008080;"> 4</span> <span style="color: #008000;">  Date: 6/11/15.<br></span><span style="color: #008080;"> 5</span>  <span style="color: #008000;">*/</span><br><span style="color: #008080;"> 6</span> <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> RxBus {<br></span><span style="color: #008080;"> 7</span>     <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">final</span> String TAG = RxBus.<span style="color: #0000ff;">class</span><span style="color: #000000;">.getSimpleName();<br></span><span style="color: #008080;"> 8</span>     <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">static</span><span style="color: #000000;"> RxBus instance;<br></span><span style="color: #008080;"> 9</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">boolean</span> DEBUG = <span style="color: #0000ff;">false</span><span style="color: #000000;">;<br></span><span style="color: #008080;">10</span><br><span style="color: #008080;">11</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">synchronized</span><span style="color: #000000;"> RxBus get() {<br></span><span style="color: #008080;">12</span>         <span style="color: #0000ff;">if</span> (<span style="color: #0000ff;">null</span> ==<span style="color: #000000;"> instance) {<br></span><span style="color: #008080;">13</span>             instance = <span style="color: #0000ff;">new</span><span style="color: #000000;"> RxBus();<br></span><span style="color: #008080;">14</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;">15</span>         <span style="color: #0000ff;">return</span><span style="color: #000000;"> instance;<br></span><span style="color: #008080;">16</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">17</span><br><span style="color: #008080;">18</span>     <span style="color: #0000ff;">private</span><span style="color: #000000;"> RxBus() {<br></span><span style="color: #008080;">19</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">20</span><br><span style="color: #008080;">21</span>     <span style="color: #0000ff;">private</span> ConcurrentHashMap&lt;Object, List&lt;Subject&gt;&gt; subjectMapper = <span style="color: #0000ff;">new</span> ConcurrentHashMap&lt;&gt;<span style="color: #000000;">();<br></span><span style="color: #008080;">22</span><br><span style="color: #008080;">23</span>     @SuppressWarnings(“unchecked”<span style="color: #000000;">)<br></span><span style="color: #008080;">24</span>     <span style="color: #0000ff;">public</span> &lt;T&gt; Observable&lt;T&gt; register(@NonNull Object tag, @NonNull Class&lt;T&gt;<span style="color: #000000;"> clazz) {<br></span><span style="color: #008080;">25</span>         List&lt;Subject&gt; subjectList =<span style="color: #000000;"> subjectMapper.get(tag);<br></span><span style="color: #008080;">26</span>         <span style="color: #0000ff;">if</span> (<span style="color: #0000ff;">null</span> ==<span style="color: #000000;"> subjectList) {<br></span><span style="color: #008080;">27</span>             subjectList = <span style="color: #0000ff;">new</span> ArrayList&lt;&gt;<span style="color: #000000;">();<br></span><span style="color: #008080;">28</span> <span style="color: #000000;">            subjectMapper.put(tag, subjectList);<br></span><span style="color: #008080;">29</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;">30</span><br><span style="color: #008080;">31</span>         Subject&lt;T, T&gt;<span style="color: #000000;"> subject;<br></span><span style="color: #008080;">32</span>         subjectList.add(subject =<span style="color: #000000;"> PublishSubject.create());<br></span><span style="color: #008080;">33</span>         <span style="color: #0000ff;">if</span> (DEBUG) Log.d(TAG, “[register]subjectMapper: “ +<span style="color: #000000;"> subjectMapper);<br></span><span style="color: #008080;">34</span>         <span style="color: #0000ff;">return</span><span style="color: #000000;"> subject;<br></span><span style="color: #008080;">35</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">36</span><br><span style="color: #008080;">37</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> unregister(@NonNull Object tag, @NonNull Observable observable) {<br></span><span style="color: #008080;">38</span>         List&lt;Subject&gt; subjects =<span style="color: #000000;"> subjectMapper.get(tag);<br></span><span style="color: #008080;">39</span>         <span style="color: #0000ff;">if</span> (<span style="color: #0000ff;">null</span> !=<span style="color: #000000;"> subjects) {<br></span><span style="color: #008080;">40</span> <span style="color: #000000;">            subjects.remove((Subject) observable);<br></span><span style="color: #008080;">41</span>             <span style="color: #0000ff;">if</span><span style="color: #000000;"> (ABTextUtil.isEmpty(subjects)) {<br></span><span style="color: #008080;">42</span> <span style="color: #000000;">                subjectMapper.remove(tag);<br></span><span style="color: #008080;">43</span> <span style="color: #000000;">            }<br></span><span style="color: #008080;">44</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;">45</span><br><span style="color: #008080;">46</span>         <span style="color: #0000ff;">if</span> (DEBUG) Log.d(TAG, “[unregister]subjectMapper: “ +<span style="color: #000000;"> subjectMapper);<br></span><span style="color: #008080;">47</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">48</span><br><span style="color: #008080;">49</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> post(@NonNull Object content) {<br></span><span style="color: #008080;">50</span> <span style="color: #000000;">        post(content.getClass().getName(), content);<br></span><span style="color: #008080;">51</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">52</span><br><span style="color: #008080;">53</span>     @SuppressWarnings(“unchecked”<span style="color: #000000;">)<br></span><span style="color: #008080;">54</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> post(@NonNull Object tag, @NonNull Object content) {<br></span><span style="color: #008080;">55</span>         List&lt;Subject&gt; subjectList =<span style="color: #000000;"> subjectMapper.get(tag);<br></span><span style="color: #008080;">56</span><br><span style="color: #008080;">57</span>         <span style="color: #0000ff;">if</span> (!<span style="color: #000000;">ABTextUtil.isEmpty(subjectList)) {<br></span><span style="color: #008080;">58</span>             <span style="color: #0000ff;">for</span><span style="color: #000000;"> (Subject subject : subjectList) {<br></span><span style="color: #008080;">59</span> <span style="color: #000000;">                subject.onNext(content);<br></span><span style="color: #008080;">60</span> <span style="color: #000000;">            }<br></span><span style="color: #008080;">61</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;">62</span>         <span style="color: #0000ff;">if</span> (DEBUG) Log.d(TAG, “[send]subjectMapper: “ +<span style="color: #000000;"> subjectMapper);<br></span><span style="color: #008080;">63</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">64</span> }</pre><br></div>
+
+<p>如上述代码，RxBus只提供了register、unregister、post三个方法。</p>
+<p>这里又加入了一个tag的概念，也可以理解为channel，注册Subject、反注册Subject和post事件的时候都需要这个tag，只有tag一致才能正常接收到事件。</p>
+<p>比如有一个事件类HelloEvent，这个事件的作用是接收到后toast一个提示&ldquo;hello&rdquo;，如果两个Activity都注册了这个HelloEvent事件，但是没有tag去限制，一旦post了一个helloEvent事件后，两个Activity都会收到这个事件，导致两个Activity都会toast。如果使用tag，post这个HelloEvent的时候可以设置这个tag，只有register时也使用了这个tag才会接收到这个event。</p>
+<p>2. 在Present（如Activity的onCreate）中注册一个Observer（以下以发送一个String类型的事件为例）</p>
+<div class="cnblogs_code"><br><pre><span style="color: #008080;">1</span> Observable&lt;String&gt; addOb =<span style="color: #000000;"> RxBus.get()<br></span><span style="color: #008080;">2</span>                 .register(“addFeedTag”, String.<span style="color: #0000ff;">class</span><span style="color: #000000;">);<br></span><span style="color: #008080;">3</span><br><span style="color: #008080;">4</span> <span style="color: #000000;">addOb.observeOn(AndroidSchedulers.mainThread())<br></span><span style="color: #008080;">5</span>                 .subscribe(s -&gt;<span style="color: #000000;"> {<br></span><span style="color: #008080;">6</span>                     <span style="color: #008000;">//</span><span style="color: #008000;"> todo: Accept event and process here</span><br><span style="color: #008080;">7</span>                 });</pre><br></div>
+
+<p>如上，注册了一个String类型的事件，事件的tag是&ldquo;addFeedTag&rdquo;，用来增加一个Feed。使用RxAndroid在Action1中处理接收到的这个事件。</p>
+<p>3. 在任何地方发送一个事件：</p>
+<div class="cnblogs_code"><br><pre>RxBus.get().post(“addFeedTag”, “hello RxBus!”);</pre><br></div>
+
+<p>这里发送了一个tag为&ldquo;addFeedTag&rdquo;的String类型的事件。</p>
+<p>4. 反注册Observer：</p>
+<div class="cnblogs_code"><br><pre>RxBus.get().unregister(“addFeedTag”, addOb);</pre><br></div>
+
+<p>注意：这里的Tag都为&ldquo;addFeedTag&rdquo;。</p>
+<p>&nbsp;</p>
+<p><strong>下面使用注解的方式更简单方便地使用RxBus（嗯－。－这里才是重点）。</strong></p>
+<p>首先来看下使用注解后的代码：</p>
+<p>1. 注册Observer</p>
+<p>这一步可以省略掉。</p>
+<p>2. 发送一个事件（这里我们换一个事件：FeedItemClickEvent，我们定义这个事件是用来处理当Feed被点击后的事件）</p>
+<div class="cnblogs_code"><br><pre>RxBus.get().post(<span style="color: #0000ff;">new</span> FeedItemClickEvent().setPosition(position).setFeed(feed));</pre><br></div>
+
+<p>3. 接收事件，然后处理</p>
+<div class="cnblogs_code"><br><pre><span style="color: #008080;">1</span> <span style="color: #000000;">@Accept<br></span><span style="color: #008080;">2</span> <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> onPostAccept(Object tag, FeedItemClickEvent event) {<br></span><span style="color: #008080;">3</span> 　　Logger.d(TAG, “onPostAccept event: “ +<span style="color: #000000;"> event);<br></span><span style="color: #008080;">4</span> 　　Feed feed =<span style="color: #000000;"> event.getFeed();<br></span><span style="color: #008080;">5</span> 　　<span style="color: #008000;">//</span><span style="color: #008000;"> 跳转到feed详情页面…</span><br><span style="color: #008080;">6</span> }</pre><br></div>
+
+<p>如上，这里只需要编写一个方法，加上Accept注解，然后在方法中进行事件处理即可。</p>
+<p>注意：方法名可以任意</p>
+<p>方法参数一：必须为Object类型的tag；</p>
+<p>方法参数二，如果这个方法只接收一种事件，则写明具体的事件类型，如上；如果这个方法接收多种事件，则类型需要为Object。</p>
+<p>4. 反注册Observer</p>
+<p>这一步也可以省略掉。</p>
+<p>&nbsp;</p>
+<p>接收多种事件：</p>
+<div class="cnblogs_code"><br><pre><span style="color: #008080;"> 1</span> <span style="color: #000000;">@Accept(<br></span><span style="color: #008080;"> 2</span>             acceptScheduler =<span style="color: #000000;"> AcceptScheduler.NEW_THREAD,<br></span><span style="color: #008080;"> 3</span>             value =<span style="color: #000000;"> {<br></span><span style="color: #008080;"> 4</span>                     @AcceptType(tag = ActionEvent.CLOSE, clazz = String.<span style="color: #0000ff;">class</span><span style="color: #000000;">),<br></span><span style="color: #008080;"> 5</span>                     @AcceptType(tag = ActionEvent.BACK, clazz = String.<span style="color: #0000ff;">class</span><span style="color: #000000;">),<br></span><span style="color: #008080;"> 6</span>                     @AcceptType(tag = ActionEvent.EDIT, clazz = String.<span style="color: #0000ff;">class</span><span style="color: #000000;">),<br></span><span style="color: #008080;"> 7</span>                     @AcceptType(tag = ActionEvent.REFRESH, clazz = String.<span style="color: #0000ff;">class</span><span style="color: #000000;">)<br></span><span style="color: #008080;"> 8</span> <span style="color: #000000;">            }<br></span><span style="color: #008080;"> 9</span> <span style="color: #000000;">    )<br></span><span style="color: #008080;">10</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> onPostAccept(Object tag, Object actionEvent) {<br></span><span style="color: #008080;">11</span>         Logger.d(TAG, “[ActionEvent]onPostAccept action event name: “ +<span style="color: #000000;"> actionEvent);<br></span><span style="color: #008080;">12</span>         <span style="color: #008000;">//</span><span style="color: #008000;"> todo: Accept event and process here (in new thread)</span><br><span style="color: #008080;">13</span>     }</pre><br></div>
+
+<p>这里@Accept注解中设置了acceptScheduler为AcceptScheduler.NEW_THREAD，指明方法运行在子线程中.</p>
+<p>value中指明了接收的事件类型，这里表示这个方法接收4种类型的事件：CLOSE, BACK, EDIT, REFRESH.</p>
+<p>&nbsp;</p>
+<p><strong>注解解释：</strong></p>
+<p><strong>@Accept注解</strong></p>
+<p>acceptScheduler: 指定被注解的方法运行的Scheduler。</p>
+<p>value[]: AcceptType注解数组，用于指定接收事件的tag和class。</p>
+<p>&nbsp;</p>
+<p><strong>@AcceptType注解：</strong></p>
+<p>tag: 接收事件的tag<br>clazz: 接收事件的类型</p>
+<p>&nbsp;</p>
+<p><strong>AcceptScheduler：</strong></p>
+<p>详情见：rx.schedulers.Schedulers和rx.android.schedulers.AndroidSchedulers</p>
+<p>如果设置的是AcceptScheduler.EXECUTOR或AcceptScheduler.HANDLER，则需要在Application中配置Executor和Handler：</p>
+<div class="cnblogs_code"><br><pre><span style="color: #008080;"> 1</span> <span style="color: #008000;">/<em>*</em></span><br><span style="color: #008080;"> 2</span> <span style="color: #008000;">  Author: wangjie<br></span><span style="color: #008080;"> 3</span> <span style="color: #008000;"> <em> Email: tiantian.china.2@gmail.com<br></em></span><span style="color: #008080;"> 4</span> <span style="color: #008000;">  Date: 6/15/15.<br></span><span style="color: #008080;"> 5</span>  <span style="color: #008000;">*/</span><br><span style="color: #008080;"> 6</span> <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span> MyApplication <span style="color: #0000ff;">extends</span><span style="color: #000000;"> Application {<br></span><span style="color: #008080;"> 7</span>     <span style="color: #0000ff;">private</span> Executor acceptExecutor =<span style="color: #000000;"> Executors.newCachedThreadPool();<br></span><span style="color: #008080;"> 8</span>     <span style="color: #0000ff;">private</span> Handler handler = <span style="color: #0000ff;">new</span><span style="color: #000000;"> Handler(Looper.getMainLooper());<br></span><span style="color: #008080;"> 9</span><br><span style="color: #008080;">10</span> <span style="color: #000000;">    @Override<br></span><span style="color: #008080;">11</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> onCreate() {<br></span><span style="color: #008080;">12</span>         <span style="color: #0000ff;">super</span><span style="color: #000000;">.onCreate();<br></span><span style="color: #008080;">13</span>         RxBus.DEBUG = <span style="color: #0000ff;">true</span><span style="color: #000000;">;<br></span><span style="color: #008080;">14</span><br><span style="color: #008080;">15</span>         DefaultAcceptConfiguration.getInstance().registerAcceptConfiguration(<span style="color: #0000ff;">new</span><span style="color: #000000;"> DefaultAcceptConfiguration.OnDefaultAcceptConfiguration() {<br></span><span style="color: #008080;">16</span> <span style="color: #000000;">            @Override<br></span><span style="color: #008080;">17</span>             <span style="color: #0000ff;">public</span><span style="color: #000000;"> Executor applyAcceptExecutor() {<br></span><span style="color: #008080;">18</span>                 <span style="color: #0000ff;">return</span><span style="color: #000000;"> acceptExecutor;<br></span><span style="color: #008080;">19</span> <span style="color: #000000;">            }<br></span><span style="color: #008080;">20</span><br><span style="color: #008080;">21</span> <span style="color: #000000;">            @Override<br></span><span style="color: #008080;">22</span>             <span style="color: #0000ff;">public</span><span style="color: #000000;"> Handler applyAcceptHandler() {<br></span><span style="color: #008080;">23</span>                 <span style="color: #0000ff;">return</span><span style="color: #000000;"> handler;<br></span><span style="color: #008080;">24</span> <span style="color: #000000;">            }<br></span><span style="color: #008080;">25</span> <span style="color: #000000;">        });<br></span><span style="color: #008080;">26</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">27</span> }</pre><br></div>
+
+<p>因为需要对Accept和AcceptType注解的解析，所以项目的BaseActivity需要使用<strong><a href="https://github.com/wangjiegulu/androidInject/blob/master/src/com/wangjie/androidinject/annotation/present/AIAppCompatActivity.java" target="_blank" rel="noopener">AIAppCompatActivity</a></strong>，然后实现parserMethodAnnotations()方法，使用<strong><a href="https://github.com/wangjiegulu/RxAndroidEventsSample/blob/master/sample/src/main/java/com/wangjie/rxandroideventssample/rxbus/RxBusAnnotationManager.java" target="_blank" rel="noopener">RxBusAnnotationManager</a></strong>对注解进行解析。</p>
+<p>&nbsp;</p>
+<p>参考：<a href="http://nerds.weddingpartyapp.com/tech/2014/12/24/implementing-an-event-bus-with-rxjava-rxbus/" target="_blank" rel="noopener">http://nerds.weddingpartyapp.com/tech/2014/12/24/implementing-an-event-bus-with-rxjava-rxbus/</a></p>
+<p>&nbsp;</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/05/11/Learn-RxJava/" rel="next" title="Learn RxJava">
+                <i class="fa fa-chevron-left"></i> Learn RxJava
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/08/21/Android-Android端ORM框架——RapidORM-v1-0/" rel="prev" title="[Android]Android端ORM框架——RapidORM(v1.0)">
+                [Android]Android端ORM框架——RapidORM(v1.0) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/my_avatar.jpg"
+                alt="Wang Jie" />
+            
+              <p class="site-author-name" itemprop="name">Wang Jie</p>
+              <p class="site-description motion-element" itemprop="description">Wang Jie's blog</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">144</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wangjiegulu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:tiantian.china.2@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/+%E5%A4%A9%E5%A4%A9wangjie" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/wangjiegulu" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://stackoverflow.com/users/2124006/wangjie" target="_blank" title="StackOverflow">
+                      
+                        <i class="fa fa-fw fa-stack-overflow"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/wangjiegulu" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.cnblogs.com/tiantianbyconan/" title="cnblog" target="_blank">cnblog</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wang Jie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://blog-wangjiegulu-com.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://blog.wangjiegulu.com/2015/06/15/Android-基于RxJava、RxAndroid的EventBus实现/';
+          this.page.identifier = '2015/06/15/Android-基于RxJava、RxAndroid的EventBus实现/';
+          this.page.title = '[Android]基于RxJava、RxAndroid的EventBus实现';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://blog-wangjiegulu-com.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "default";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "GooglePlus,Evernote,Twitter,Facebook,Douban,Weibo";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

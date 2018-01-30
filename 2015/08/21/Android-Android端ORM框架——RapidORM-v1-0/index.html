@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="WAND JIE" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="以下内容为原创，欢迎转载，转载请注明 来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/4748077.html&amp;nbsp; &amp;nbsp; Android上主流的ORM框架有很多，常用的有ORMLite、GreenDao等。 ORMLite： －优点：API很友好，使用比较方便简单稳定，相关功能比较完整。 －缺点：内部使用反射实现，性能并不是很好。 G">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Android]Android端ORM框架——RapidORM(v1.0)">
+<meta property="og:url" content="http://blog.wangjiegulu.com/2015/08/21/Android-Android端ORM框架——RapidORM-v1-0/index.html">
+<meta property="og:site_name" content="WAND JIE">
+<meta property="og:description" content="以下内容为原创，欢迎转载，转载请注明 来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/4748077.html&amp;nbsp; &amp;nbsp; Android上主流的ORM框架有很多，常用的有ORMLite、GreenDao等。 ORMLite： －优点：API很友好，使用比较方便简单稳定，相关功能比较完整。 －缺点：内部使用反射实现，性能并不是很好。 G">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-01-29T12:36:41.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[Android]Android端ORM框架——RapidORM(v1.0)">
+<meta name="twitter:description" content="以下内容为原创，欢迎转载，转载请注明 来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/4748077.html&amp;nbsp; &amp;nbsp; Android上主流的ORM框架有很多，常用的有ORMLite、GreenDao等。 ORMLite： －优点：API很友好，使用比较方便简单稳定，相关功能比较完整。 －缺点：内部使用反射实现，性能并不是很好。 G">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.wangjiegulu.com/2015/08/21/Android-Android端ORM框架——RapidORM-v1-0/"/>
+
+
+
+
+
+  <title>[Android]Android端ORM框架——RapidORM(v1.0) | WAND JIE</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-111189680-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">WAND JIE</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">TO BE AN ARTIST-ENGINNER</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.wangjiegulu.com/2015/08/21/Android-Android端ORM框架——RapidORM-v1-0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wang Jie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/my_avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WAND JIE">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">[Android]Android端ORM框架——RapidORM(v1.0)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-08-21T15:39:00+08:00">
+                2015-08-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/08/21/Android-Android端ORM框架——RapidORM-v1-0/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2015/08/21/Android-Android端ORM框架——RapidORM-v1-0/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><span style="color: #ff0000;"><strong>以下内容为原创，欢迎转载，转载请注明</strong></span></p>
+<p><span style="color: #ff0000;"><strong>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/4748077.html" title="view: [Android]Android端ORM框架&mdash;&mdash;RapidORM" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/4748077.html</a>&nbsp;</strong></span></p>
+<p>&nbsp;</p>
+<p>Android上主流的ORM框架有很多，常用的有ORMLite、GreenDao等。</p>
+<p>ORMLite：</p>
+<p>－优点：API很友好，使用比较方便简单稳定，相关功能比较完整。</p>
+<p>－缺点：内部使用反射实现，性能并不是很好。</p>
+<p>GreenDao：</p>
+<p>－优点：性能很不错，</p>
+<p>－缺点：API却不太友好，而且不支持复合主键，主键必须要有并且必须是long或者Long。持久类可以用它提供的模版生成，但是一旦使用了它的模版，持久类、DAO就不能随意去修改，扩展性不是很好。如果不使用它的模版，代码写起来就很繁琐。</p>
+<p>&nbsp;</p>
+<p>所以结合了两者重新写了一个ORM：<strong><a href="https://github.com/wangjiegulu/RapidORM" target="_blank" rel="noopener">RapidORM</a></strong>（<a href="https://github.com/wangjiegulu/RapidORM" target="_blank" rel="noopener"><strong>https://github.com/wangjiegulu/RapidORM</strong></a>）</p>
+<p>特点：</p>
+<p>1. 支持使用反射和非反射（模版生成）两种方式实现执行SQL。</p>
+<p>2. 支持复合主键</p>
+<p>3. 支持任何主键类型</p>
+<p>4. 兼容android原生的&nbsp;<span style="color: #000000; background-color: #e1e1e1;">android.database.sqlite.SQLiteDatabase</span>&nbsp;和SqlCipher的 <span style="background-color: #e1e1e1;">net.sqlcipher.database.SQLiteDatabase</span>。<span style="background-color: #e1e1e1;"><br></span></p>
+<p>缺点：</p>
+<p>1. 不支持链表查询。</p>
+<p>&nbsp;</p>
+<p><span style="font-size: 18px;"><strong>快速指南：</strong></span></p>
+<p><strong><span style="font-size: 14px;">一、新建持久类Person：</span></strong></p>
+<div class="cnblogs_code"><br><pre><span style="color: #008080;"> 1</span> <span style="color: #008000;">/<em>*</em></span><br><span style="color: #008080;"> 2</span> <span style="color: #008000;">  Author: wangjie<br></span><span style="color: #008080;"> 3</span> <span style="color: #008000;"> <em> Email: tiantian.china.2@gmail.com<br></em></span><span style="color: #008080;"> 4</span> <span style="color: #008000;">  Date: 6/25/15.<br></span><span style="color: #008080;"> 5</span>  <span style="color: #008000;">*/</span><br><span style="color: #008080;"> 6</span> @Table(propertyClazz = PersonProperty.<span style="color: #0000ff;">class</span><span style="color: #000000;">)<br></span><span style="color: #008080;"> 7</span> <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span> Person <span style="color: #0000ff;">implements</span><span style="color: #000000;"> Serializable{<br></span><span style="color: #008080;"> 8</span><br><span style="color: #008080;"> 9</span>     @Column(primaryKey = <span style="color: #0000ff;">true</span><span style="color: #000000;">)<br></span><span style="color: #008080;">10</span>     <span style="color: #0000ff;">private</span><span style="color: #000000;"> Integer id;<br></span><span style="color: #008080;">11</span><br><span style="color: #008080;">12</span>     @Column(primaryKey = <span style="color: #0000ff;">true</span><span style="color: #000000;">)<br></span><span style="color: #008080;">13</span>     <span style="color: #0000ff;">private</span><span style="color: #000000;"> Integer typeId;<br></span><span style="color: #008080;">14</span><br><span style="color: #008080;">15</span> <span style="color: #000000;">    @Column<br></span><span style="color: #008080;">16</span>     <span style="color: #0000ff;">private</span><span style="color: #000000;"> String name;<br></span><span style="color: #008080;">17</span><br><span style="color: #008080;">18</span> <span style="color: #000000;">    @Column<br></span><span style="color: #008080;">19</span>     <span style="color: #0000ff;">private</span><span style="color: #000000;"> Integer age;<br></span><span style="color: #008080;">20</span><br><span style="color: #008080;">21</span> <span style="color: #000000;">    @Column<br></span><span style="color: #008080;">22</span>     <span style="color: #0000ff;">private</span><span style="color: #000000;"> String address;<br></span><span style="color: #008080;">23</span><br><span style="color: #008080;">24</span> <span style="color: #000000;">    @Column<br></span><span style="color: #008080;">25</span>     <span style="color: #0000ff;">private</span><span style="color: #000000;"> Long birth;<br></span><span style="color: #008080;">26</span><br><span style="color: #008080;">27</span> <span style="color: #000000;">    @Column<br></span><span style="color: #008080;">28</span>     <span style="color: #0000ff;">private</span><span style="color: #000000;"> Boolean student;<br></span><span style="color: #008080;">29</span><br><span style="color: #008080;">30</span>     <span style="color: #008000;">//</span><span style="color: #008000;"> getter/setter…</span><br><span style="color: #008080;">31</span><br><span style="color: #008080;">32</span> }</pre><br></div>
+
+<p>&nbsp;</p>
+<p><span style="line-height: 1.5;">1. Table注解用于标记这个类需要映射到数据表，RapidORM会创建这个表。</span></p>
+<p>－name属性：表示对应表的名称，默认为类的simpleName。</p>
+<p>－propertyClazz属性：表示如果不使用反射执行sql时，需要的ModelProperty类的Class，RapidORM会自动在这个ModelProperty中去绑定需要执行SQL的数据。不填写则表示使用默认的反射的方式执行SQL。具体后面会讲到。</p>
+<p>2. Column注解用语标记这个字段映射到的数据表的列（如果）。</p>
+<p>－name属性：表示对应列的名称。默认为字段的名称。</p>
+<p>－primaryKey属性：表示改列是否是主键，默认是false。（可以在多个字段都适用这个属性，表示为复合主键）。</p>
+<p>－autoincrement属性：表示主键是否是自增长，只有该字段是主键并且只有一个主键并且是Integer或int类型才会生效。</p>
+<p>－defaultValue属性：表示该列默认值。</p>
+<p>－notNull属性：表示该列不能为空。</p>
+<p>－unique属性：表示该列唯一约束。</p>
+<p>－uniqueCombo属性：暂未实现。</p>
+<p>－index属性：暂未实现。</p>
+<p>&nbsp;</p>
+<p><strong><span style="font-size: 14px;">二、注册持久类，并指定SQLiteOpenHelper：</span></strong></p>
+<p>新建类DatabaseFactory，继承RapidORMConnection：</p>
+<div class="cnblogs_code"><br><pre><span style="color: #008080;"> 1</span> <span style="color: #008000;">/<em>*</em></span><br><span style="color: #008080;"> 2</span> <span style="color: #008000;">  Author: wangjie<br></span><span style="color: #008080;"> 3</span> <span style="color: #008000;"> <em> Email: tiantian.china.2@gmail.com<br></em></span><span style="color: #008080;"> 4</span> <span style="color: #008000;">  Date: 6/25/15.<br></span><span style="color: #008080;"> 5</span>  <span style="color: #008000;">*/</span><br><span style="color: #008080;"> 6</span> <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span> DatabaseFactory <span style="color: #0000ff;">extends</span> RapidORMConnection&lt;RapidORMDefaultSQLiteOpenHelperDelegate&gt;<span style="color: #000000;"> {<br></span><span style="color: #008080;"> 7</span>     <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">final</span> <span style="color: #0000ff;">int</span> VERSION = 1<span style="color: #000000;">;<br></span><span style="color: #008080;"> 8</span><br><span style="color: #008080;"> 9</span>     <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">static</span><span style="color: #000000;"> DatabaseFactory instance;<br></span><span style="color: #008080;">10</span><br><span style="color: #008080;">11</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">synchronized</span> <span style="color: #0000ff;">static</span><span style="color: #000000;"> DatabaseFactory getInstance() {<br></span><span style="color: #008080;">12</span>         <span style="color: #0000ff;">if</span> (<span style="color: #0000ff;">null</span> ==<span style="color: #000000;"> instance) {<br></span><span style="color: #008080;">13</span>             instance = <span style="color: #0000ff;">new</span><span style="color: #000000;"> DatabaseFactory();<br></span><span style="color: #008080;">14</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;">15</span>         <span style="color: #0000ff;">return</span><span style="color: #000000;"> instance;<br></span><span style="color: #008080;">16</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">17</span><br><span style="color: #008080;">18</span>     <span style="color: #0000ff;">private</span><span style="color: #000000;"> DatabaseFactory() {<br></span><span style="color: #008080;">19</span>         <span style="color: #0000ff;">super</span><span style="color: #000000;">();<br></span><span style="color: #008080;">20</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">21</span><br><span style="color: #008080;">22</span> <span style="color: #000000;">    @Override<br></span><span style="color: #008080;">23</span>     <span style="color: #0000ff;">protected</span><span style="color: #000000;"> RapidORMDefaultSQLiteOpenHelperDelegate getRapidORMDatabaseOpenHelper(@NonNull String databaseName) {<br></span><span style="color: #008080;">24</span>         <span style="color: #0000ff;">return</span> <span style="color: #0000ff;">new</span> RapidORMDefaultSQLiteOpenHelperDelegate(<span style="color: #0000ff;">new</span><span style="color: #000000;"> MyDatabaseOpenHelper(MyApplication.getInstance(), databaseName, VERSION));<br></span><span style="color: #008080;">25</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">26</span><br><span style="color: #008080;">27</span> <span style="color: #000000;">    @Override<br></span><span style="color: #008080;">28</span>     <span style="color: #0000ff;">protected</span> List&lt;Class&lt;?&gt;&gt;<span style="color: #000000;"> registerAllTableClass() {<br></span><span style="color: #008080;">29</span>         List&lt;Class&lt;?&gt;&gt; allTableClass = <span style="color: #0000ff;">new</span> ArrayList&lt;&gt;<span style="color: #000000;">();<br></span><span style="color: #008080;">30</span>         allTableClass.add(Person.<span style="color: #0000ff;">class</span><span style="color: #000000;">);<br></span><span style="color: #008080;">31</span>         <span style="color: #008000;">//</span><span style="color: #008000;"> all table class</span><br><span style="color: #008080;">32</span>         <span style="color: #0000ff;">return</span><span style="color: #000000;"> allTableClass;<br></span><span style="color: #008080;">33</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">34</span> }</pre><br></div>
+
+<p>DatabaseFactory推荐使用单例，实现RapidORMConnection的getRapidORMDatabaseOpenHelper()方法，该方法需要返回一个RapidORMDatabaseOpenHelperDelegate或者它的子类对象，RapidORMDatabaseOpenHelperDelegate是SQLiteOpenHelper的委托，因为需要兼容android原生的&nbsp;<span style="background-color: #e1e1e1;">android.database.sqlite.SQLiteDatabase</span>&nbsp;和SqlCipher的&nbsp;<span style="background-color: #e1e1e1;">net.sqlcipher.database.SQLiteDatabase</span> 两种方式。</p>
+<p>如果使用&nbsp;<span style="background-color: #e1e1e1;">android.database.sqlite.SQLiteDatabase</span>&nbsp;，则可以使用RapidORMDefaultSQLiteOpenHelperDelegate，然后构造方法中传入真正的<span style="background-color: #e1e1e1;">android.database.sqlite.SQLiteDatabase</span>&nbsp;（也就是这里的MyDatabaseOpenHelper）即可，使用SqlCipher的方式后面再讲。</p>
+<p>还需要实现registerAllTableClass()方法，这里返回一个所有需要映射表的持久类Class集合。</p>
+<p>&nbsp;</p>
+<p><strong><span style="font-size: 14px;">三、在需要的地方进行初始化RapidORM（比如在登录完成之后）：</span></strong></p>
+<div class="cnblogs_code"><br><pre>DatabaseFactory.getInstance().resetDatabase(“hello_rapid_orm.db”);</pre><br></div>
+
+<p>如上，调用resetDatabase()方法即可初始化数据库。</p>
+<p>&nbsp;</p>
+<p><strong>四、编写Dao：</strong></p>
+<p>新建PersonDaoImpl继承BaseDaoImpl&lt;Person&gt;（这里简略了PersonDao接口）：</p>
+<div class="cnblogs_code"><br><pre><span style="color: #008080;"> 1</span> <span style="color: #008000;">/<em>*</em></span><br><span style="color: #008080;"> 2</span> <span style="color: #008000;">  Author: wangjie<br></span><span style="color: #008080;"> 3</span> <span style="color: #008000;"> <em> Email: tiantian.china.2@gmail.com<br></em></span><span style="color: #008080;"> 4</span> <span style="color: #008000;">  Date: 6/26/15.<br></span><span style="color: #008080;"> 5</span>  <span style="color: #008000;">*/</span><br><span style="color: #008080;"> 6</span> <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span> PersonDaoImpl <span style="color: #0000ff;">extends</span> BaseDaoImpl&lt;Person&gt;<span style="color: #000000;"> {<br></span><span style="color: #008080;"> 7</span>     <span style="color: #0000ff;">public</span><span style="color: #000000;"> PersonDaoImpl() {<br></span><span style="color: #008080;"> 8</span>         <span style="color: #0000ff;">super</span>(Person.<span style="color: #0000ff;">class</span><span style="color: #000000;">);<br></span><span style="color: #008080;"> 9</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">10</span><br><span style="color: #008080;">11</span> }</pre><br></div>
+
+<p>BaseDaoImpl中默认实现了下面的基本方法（T为范型，指具体的持久类）：</p>
+<p>－void insert(T model) throws Exception;　　//&nbsp;插入一条数据。</p>
+<p>－void update(T model) throws Exception;　　//&nbsp;更新一条数据。</p>
+<p>－void delete(T model) throws Exception;　　// 删除一条数据。</p>
+<p>－void deleteAll() throws Exception;　　　　　　// 删除表中所有的数据</p>
+<p>－void insertOrReplace(T model) throws Exception;　　　　// 删除或者替换（暂不支持）</p>
+<p>－List&lt;T&gt; queryAll() throws Exception;　　　　　　// 查询表中所有数据</p>
+<p>－List&lt;T&gt; rawQuery(String sql, String[] selectionArgs) throws Exception;　　　　　　// 使用原生sql查询表中所有的数据</p>
+<p>－void rawExecute(String sql, Object[] bindArgs) throws Exception;　　　　　　　　// 使用原生sql执行一条sql语句</p>
+<p>－void insertInTx(T… models) throws Exception;　　　　　　　　　　// 插入多条数据（在一个事务中）</p>
+<p>－void insertInTx(Iterable&lt;T&gt; models) throws Exception;　　　　　　// 同上</p>
+<p>－void updateInTx(T… models) throws Exception;　　　　　　　　　　// 更新多条数据（在一个事务中）</p>
+<p>－void updateInTx(Iterable&lt;T&gt; models) throws Exception;　　　　　　// 同上</p>
+<p>－void deleteInTx(T… models) throws Exception;　　　　　　　　　　　　// 删除多条数据（在一个事务中）</p>
+<p>－void deleteInTx(Iterable&lt;T&gt; models) throws Exception;　　　　　　　　// 同上</p>
+<p>－void executeInTx(RapidORMSQLiteDatabaseDelegate db, RapidOrmFunc1 func1) throws Exception;&nbsp;// 执行一个方法（可多个sql），在一个事务中</p>
+<p>－void executeInTx(RapidOrmFunc1 func1) throws Exception;　　　　// 同上</p>
+<p>&nbsp;</p>
+<p><span style="font-size: 15px;"><strong>面向对象的方式使用Where和Builder来构建sql语句：</strong></span></p>
+<p><strong>1. Where：</strong></p>
+<p>Where表示一系列的条件语句，含义与SQL中的where关键字一致。</p>
+<p>支持的where操作：</p>
+<p>－eq(String column, Object value)　　　　//&nbsp;相等条件判断</p>
+<p>－ne(String column, Object value)　　　　// 不相等条件判断</p>
+<p>－gt(String column, Object value)　　　　 // 大于条件判断</p>
+<p>－lt(String column, Object value)　　　　　// 小于条件判断</p>
+<p>－ge(String column, Object value)　　　　 //&nbsp;大于等于条件</p>
+<p>－le(String column, Object value)　　　　　// 小于等于条件</p>
+<p>－in(String column, Object… values)　　　 // 包含条件</p>
+<p>－ni(String column, Object… values)　　　 // 不包含条件</p>
+<p>－isNull(String column)　　　　　　　　　　//&nbsp;null条件判断</p>
+<p>－notNull(String column)　　　　　　　　　// 不为null条件判断</p>
+<p>－between(String column, Object value1, Object value2)　　//&nbsp;BETWEEN … AND …” condition</p>
+<p>－like(String column, Object value)　　　　　　// 模糊匹配条件</p>
+<p>－Where raw(String rawWhere, Object… values)　　// 原生sql条件</p>
+<p>－and(Where… wheres)　　　　　　　　　　// 多个Where与</p>
+<p>－or(Where… wheres)　　　　　　　　　　// 多个Where或</p>
+<p>&nbsp;</p>
+<p>Where举例：</p>
+<div class="cnblogs_code"><br><pre><span style="color: #008080;">1</span> <span style="color: #000000;">    Where.and(<br></span><span style="color: #008080;">2</span>                 Where.like(PersonProperty.name.column, “%wangjie%”<span style="color: #000000;">),<br></span><span style="color: #008080;">3</span>                 Where.lt(PersonProperty.id.column, 200<span style="color: #000000;">),<br></span><span style="color: #008080;">4</span> <span style="color: #000000;">                Where.or(<br></span><span style="color: #008080;">5</span>                         Where.between(PersonProperty.age.column, 19, 39<span style="color: #000000;">),<br></span><span style="color: #008080;">6</span> <span style="color: #000000;">                        Where.isNull(PersonProperty.address.column)<br></span><span style="color: #008080;">7</span> <span style="color: #000000;">                ),<br></span><span style="color: #008080;">8</span>                 Where.eq(PersonProperty.typeId.column, 1<span style="color: #000000;">)<br></span><span style="color: #008080;">9</span>         )</pre><br></div>
+
+<p>如上，</p>
+<p>Line2条件：name模糊匹配wangjie</p>
+<p>Line3条件：id小于200</p>
+<p>Line5条件：age在19到39之间</p>
+<p>Line6条件：address不是null</p>
+<p>Line8条件：typeId等于1</p>
+<p>Line4条件：Line5条件和Line6条件是or关系；</p>
+<p>Line1条件：Line2、Line3、Line4、Line8条件是and关系。</p>
+<p>&nbsp;</p>
+<p><strong>2. QueryBuilder：</strong></p>
+<p>QueryBuilder用于构建查询语句。</p>
+<p>－setWhere(Where where)　　　　// 设置Where条件；</p>
+<p>－setLimit(Integer limit)　　　　　　// 设置limit</p>
+<p>－addSelectColumn(String… selectColumn)　　　　// 设置查询的数据列名（可以调用多遍来设置多个，默认是查询所有数据）</p>
+<p>－addOrder(String column, boolean isAsc)　　　　　// 设置查询结果的排序（可以调用多遍来设置多个）</p>
+<p>&nbsp;</p>
+<p>QueryBuilder举例：</p>
+<div class="cnblogs_code"><br><pre><span style="color: #008080;"> 1</span>     <span style="color: #0000ff;">public</span> List&lt;Person&gt; findPersonsByWhere() <span style="color: #0000ff;">throws</span><span style="color: #000000;"> Exception {<br></span><span style="color: #008080;"> 2</span>         <span style="color: #0000ff;">return</span><span style="color: #000000;"> queryBuilder()<br></span><span style="color: #008080;"> 3</span> <span style="color: #000000;">                .addSelectColumn(PersonProperty.id.column, PersonProperty.typeId.column, PersonProperty.name.column,<br></span><span style="color: #008080;"> 4</span> <span style="color: #000000;">                        PersonProperty.age.column, PersonProperty.birth.column, PersonProperty.address.column)<br></span><span style="color: #008080;"> 5</span> <span style="color: #000000;">                .setWhere(Where.and(<br></span><span style="color: #008080;"> 6</span>                         Where.like(PersonProperty.name.column, “%wangjie%”<span style="color: #000000;">),<br></span><span style="color: #008080;"> 7</span>                         Where.lt(PersonProperty.id.column, 200<span style="color: #000000;">),<br></span><span style="color: #008080;"> 8</span> <span style="color: #000000;">                        Where.or(<br></span><span style="color: #008080;"> 9</span>                                 Where.between(PersonProperty.age.column, 19, 39<span style="color: #000000;">),<br></span><span style="color: #008080;">10</span> <span style="color: #000000;">                                Where.isNull(PersonProperty.address.column)<br></span><span style="color: #008080;">11</span> <span style="color: #000000;">                        ),<br></span><span style="color: #008080;">12</span>                         Where.eq(PersonProperty.typeId.column, 1<span style="color: #000000;">)<br></span><span style="color: #008080;">13</span> <span style="color: #000000;">                ))<br></span><span style="color: #008080;">14</span>                 .addOrder(PersonProperty.id.column, <span style="color: #0000ff;">false</span><span style="color: #000000;">)<br></span><span style="color: #008080;">15</span>                 .addOrder(PersonProperty.name.column, <span style="color: #0000ff;">true</span><span style="color: #000000;">)<br></span><span style="color: #008080;">16</span>                 .setLimit(10<span style="color: #000000;">)<br></span><span style="color: #008080;">17</span>                 .query(<span style="color: #0000ff;">this</span><span style="color: #000000;">);<br></span><span style="color: #008080;">18</span>     }</pre><br></div>
+
+<p>如上，通过queryBuilder()方法构建一个QueryBuilder，并设置查询的列名、Where、排序、limit等参数，最后调用query()执行查询。</p>
+<p>&nbsp;</p>
+<p><strong>3. UpdateBuilder：</strong></p>
+<p>UpdateBuilder用于构建更新语句。</p>
+<p>－setWhere(Where where)　　　　// 设置Where条件；</p>
+<p>－addUpdateColumn(String column, Object value)　　　　// 添加需要更新的字段；</p>
+<p>&nbsp;</p>
+<p>UpdateBuilder举例：</p>
+<div class="cnblogs_code"><br><pre><span style="color: #008080;"> 1</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span> updatePerson() <span style="color: #0000ff;">throws</span><span style="color: #000000;"> Exception {<br></span><span style="color: #008080;"> 2</span>         <span style="color: #0000ff;">long</span> now =<span style="color: #000000;"> System.currentTimeMillis();<br></span><span style="color: #008080;"> 3</span> <span style="color: #000000;">        updateBuilder()<br></span><span style="color: #008080;"> 4</span> <span style="color: #000000;">                .setWhere(Where.and(<br></span><span style="color: #008080;"> 5</span>                         Where.like(PersonProperty.name.column, “%wangjie%”<span style="color: #000000;">),<br></span><span style="color: #008080;"> 6</span>                         Where.lt(PersonProperty.id.column, 200<span style="color: #000000;">),<br></span><span style="color: #008080;"> 7</span> <span style="color: #000000;">                        Where.or(<br></span><span style="color: #008080;"> 8</span>                                 Where.between(PersonProperty.age.column, 19, 39<span style="color: #000000;">),<br></span><span style="color: #008080;"> 9</span> <span style="color: #000000;">                                Where.isNull(PersonProperty.address.column)<br></span><span style="color: #008080;">10</span> <span style="color: #000000;">                        ),<br></span><span style="color: #008080;">11</span>                         Where.eq(PersonProperty.typeId.column, 1<span style="color: #000000;">)<br></span><span style="color: #008080;">12</span> <span style="color: #000000;">                ))<br></span><span style="color: #008080;">13</span> <span style="color: #000000;">                .addUpdateColumn(PersonProperty.birth.column, now)<br></span><span style="color: #008080;">14</span>                 .addUpdateColumn(PersonProperty.address.column, “address_” + now).update(<span style="color: #0000ff;">this</span><span style="color: #000000;">);<br></span><span style="color: #008080;">15</span>     }</pre><br></div>
+
+<p>如上，通过updateBuilder()方法构建一个UpdateBuilder，并设置要更新的字段，最后调用update()执行查询。</p>
+<p>&nbsp;</p>
+<p><strong>4. DeleteBuilder：&nbsp;</strong></p>
+<p>DeleteBuilder用于构建删除语句。</p>
+<p>－setWhere(Where where)　　　　// 设置Where条件；</p>
+<p>&nbsp;</p>
+<p>DeleteBuilder举例：</p>
+<div class="cnblogs_code"><br><pre><span style="color: #008080;"> 1</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span> deletePerson() <span style="color: #0000ff;">throws</span><span style="color: #000000;"> Exception {<br></span><span style="color: #008080;"> 2</span> <span style="color: #000000;">        deleteBuilder()<br></span><span style="color: #008080;"> 3</span> <span style="color: #000000;">                .setWhere(Where.and(<br></span><span style="color: #008080;"> 4</span>                         Where.like(PersonProperty.name.column, “%wangjie%”<span style="color: #000000;">),<br></span><span style="color: #008080;"> 5</span>                         Where.lt(PersonProperty.id.column, 200<span style="color: #000000;">),<br></span><span style="color: #008080;"> 6</span> <span style="color: #000000;">                        Where.or(<br></span><span style="color: #008080;"> 7</span>                                 Where.between(PersonProperty.age.column, 19, 39<span style="color: #000000;">),<br></span><span style="color: #008080;"> 8</span> <span style="color: #000000;">                                Where.isNull(PersonProperty.address.column)<br></span><span style="color: #008080;"> 9</span> <span style="color: #000000;">                        ),<br></span><span style="color: #008080;">10</span>                         Where.eq(PersonProperty.typeId.column, 1<span style="color: #000000;">)<br></span><span style="color: #008080;">11</span> <span style="color: #000000;">                ))<br></span><span style="color: #008080;">12</span>                 .delete(<span style="color: #0000ff;">this</span><span style="color: #000000;">);<br></span><span style="color: #008080;">13</span>     }</pre><br></div>
+
+<p>如上，通过deleteBuilder()方法构建一个DeleteBuilder，并设置Where条件，最后调用delete()执行查询。</p>
+<p>&nbsp;</p>
+<p><span style="font-size: 15px;"><strong>使用模版生成ModelProperty：</strong></span></p>
+<p>如果你打算使用非反射的方式执行sql，则可以使用ModelPropertyGenerator模版来生成</p>
+<p>1. 新建一个类，在main方法中执行：</p>
+<div class="cnblogs_code"><br><pre><span style="color: #008000;">/<em>*</em></span><span style="color: #008000;">
+  Author: wangjie<br> <em> Email: tiantian.china.2@gmail.com
+ </em> Date: 7/2/15.<br> </span><span style="color: #008000;">*/</span><br><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> MyGenerator {<br>    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span> main(String[] args) <span style="color: #0000ff;">throws</span><span style="color: #000000;"> Exception {<br><br>        Class tableClazz </span>= Person.<span style="color: #0000ff;">class</span><span style="color: #000000;">;<br>        </span><span style="color: #0000ff;">new</span><span style="color: #000000;"> ModelPropertyGenerator().generate(tableClazz,<br>                </span>“example/src/main/java”<span style="color: #000000;">,<br>                tableClazz.getPackage().getName() </span>+ “.config”<span style="color: #000000;">);<br><br>    }<br><br>}</span></pre><br></div>
+
+<p>如上，generate()方法参数如下：</p>
+<p>generate(Class tableClazz, String outerDir, String packageName)</p>
+<p>参数一：要生成的Property持久类的Class</p>
+<p>参数二：生成的ModelProperty类文件存放目录</p>
+<p>参数三：生成的ModelProperty类文件的包名</p>
+<p>执行完毕后，就会在com.wangjie.rapidorm.example.database.model.config包下生成如下的ModelProperty：</p>
+<div class="cnblogs_code"><br><pre><span style="color: #008080;">  1</span> <span style="color: #008000;">//</span><span style="color: #008000;"> THIS CODE IS GENERATED BY RapidORM, DO NOT EDIT.</span><br><span style="color: #008080;">  2</span> <span style="color: #008000;">/<em>*</em></span><br><span style="color: #008080;">  3</span> <span style="color: #008000;"> Property of Person<br></span><span style="color: #008080;">  4</span> <span style="color: #008000;">*/</span><br><span style="color: #008080;">  5</span> <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span> PersonProperty <span style="color: #0000ff;">implements</span> IModelProperty&lt;Person&gt;<span style="color: #000000;"> {<br></span><span style="color: #008080;">  6</span><br><span style="color: #008080;">  7</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">final</span> ModelFieldMapper id = <span style="color: #0000ff;">new</span> ModelFieldMapper(0, “id”, “id”<span style="color: #000000;">);<br></span><span style="color: #008080;">  8</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">final</span> ModelFieldMapper typeId = <span style="color: #0000ff;">new</span> ModelFieldMapper(1, “typeId”, “typeId”<span style="color: #000000;">);<br></span><span style="color: #008080;">  9</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">final</span> ModelFieldMapper name = <span style="color: #0000ff;">new</span> ModelFieldMapper(2, “name”, “name”<span style="color: #000000;">);<br></span><span style="color: #008080;"> 10</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">final</span> ModelFieldMapper age = <span style="color: #0000ff;">new</span> ModelFieldMapper(3, “age”, “age”<span style="color: #000000;">);<br></span><span style="color: #008080;"> 11</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">final</span> ModelFieldMapper address = <span style="color: #0000ff;">new</span> ModelFieldMapper(4, “address”, “address”<span style="color: #000000;">);<br></span><span style="color: #008080;"> 12</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">final</span> ModelFieldMapper birth = <span style="color: #0000ff;">new</span> ModelFieldMapper(5, “birth”, “birth”<span style="color: #000000;">);<br></span><span style="color: #008080;"> 13</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">final</span> ModelFieldMapper student = <span style="color: #0000ff;">new</span> ModelFieldMapper(6, “student”, “student”<span style="color: #000000;">);<br></span><span style="color: #008080;"> 14</span><br><span style="color: #008080;"> 15</span>     <span style="color: #0000ff;">public</span><span style="color: #000000;"> PersonProperty() {<br></span><span style="color: #008080;"> 16</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;"> 17</span><br><span style="color: #008080;"> 18</span><br><span style="color: #008080;"> 19</span> <span style="color: #000000;">    @Override<br></span><span style="color: #008080;"> 20</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span> bindInsertArgs(Person model, List&lt;Object&gt;<span style="color: #000000;"> insertArgs) {<br></span><span style="color: #008080;"> 21</span>         Integer id =<span style="color: #000000;"> model.getId();<br></span><span style="color: #008080;"> 22</span>         insertArgs.add(<span style="color: #0000ff;">null</span> == id ? <span style="color: #0000ff;">null</span><span style="color: #000000;"> : id);<br></span><span style="color: #008080;"> 23</span><br><span style="color: #008080;"> 24</span>         Integer typeId =<span style="color: #000000;"> model.getTypeId();<br></span><span style="color: #008080;"> 25</span>         insertArgs.add(<span style="color: #0000ff;">null</span> == typeId ? <span style="color: #0000ff;">null</span><span style="color: #000000;"> : typeId);<br></span><span style="color: #008080;"> 26</span><br><span style="color: #008080;"> 27</span>         String name =<span style="color: #000000;"> model.getName();<br></span><span style="color: #008080;"> 28</span>         insertArgs.add(<span style="color: #0000ff;">null</span> == name ? <span style="color: #0000ff;">null</span><span style="color: #000000;"> : name);<br></span><span style="color: #008080;"> 29</span><br><span style="color: #008080;"> 30</span>         Integer age =<span style="color: #000000;"> model.getAge();<br></span><span style="color: #008080;"> 31</span>         insertArgs.add(<span style="color: #0000ff;">null</span> == age ? <span style="color: #0000ff;">null</span><span style="color: #000000;"> : age);<br></span><span style="color: #008080;"> 32</span><br><span style="color: #008080;"> 33</span>         String address =<span style="color: #000000;"> model.getAddress();<br></span><span style="color: #008080;"> 34</span>         insertArgs.add(<span style="color: #0000ff;">null</span> == address ? <span style="color: #0000ff;">null</span><span style="color: #000000;"> : address);<br></span><span style="color: #008080;"> 35</span><br><span style="color: #008080;"> 36</span>         Long birth =<span style="color: #000000;"> model.getBirth();<br></span><span style="color: #008080;"> 37</span>         insertArgs.add(<span style="color: #0000ff;">null</span> == birth ? <span style="color: #0000ff;">null</span><span style="color: #000000;"> : birth);<br></span><span style="color: #008080;"> 38</span><br><span style="color: #008080;"> 39</span>         Boolean student =<span style="color: #000000;"> model.isStudent();<br></span><span style="color: #008080;"> 40</span>         insertArgs.add(<span style="color: #0000ff;">null</span> == student ? <span style="color: #0000ff;">null</span> : student ? 1 : 0<span style="color: #000000;">);<br></span><span style="color: #008080;"> 41</span><br><span style="color: #008080;"> 42</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;"> 43</span><br><span style="color: #008080;"> 44</span> <span style="color: #000000;">    @Override<br></span><span style="color: #008080;"> 45</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span> bindUpdateArgs(Person model, List&lt;Object&gt;<span style="color: #000000;"> updateArgs) {<br></span><span style="color: #008080;"> 46</span>         String name =<span style="color: #000000;"> model.getName();<br></span><span style="color: #008080;"> 47</span>         updateArgs.add(<span style="color: #0000ff;">null</span> == name ? <span style="color: #0000ff;">null</span><span style="color: #000000;"> : name);<br></span><span style="color: #008080;"> 48</span><br><span style="color: #008080;"> 49</span>         Integer age =<span style="color: #000000;"> model.getAge();<br></span><span style="color: #008080;"> 50</span>         updateArgs.add(<span style="color: #0000ff;">null</span> == age ? <span style="color: #0000ff;">null</span><span style="color: #000000;"> : age);<br></span><span style="color: #008080;"> 51</span><br><span style="color: #008080;"> 52</span>         String address =<span style="color: #000000;"> model.getAddress();<br></span><span style="color: #008080;"> 53</span>         updateArgs.add(<span style="color: #0000ff;">null</span> == address ? <span style="color: #0000ff;">null</span><span style="color: #000000;"> : address);<br></span><span style="color: #008080;"> 54</span><br><span style="color: #008080;"> 55</span>         Long birth =<span style="color: #000000;"> model.getBirth();<br></span><span style="color: #008080;"> 56</span>         updateArgs.add(<span style="color: #0000ff;">null</span> == birth ? <span style="color: #0000ff;">null</span><span style="color: #000000;"> : birth);<br></span><span style="color: #008080;"> 57</span><br><span style="color: #008080;"> 58</span>         Boolean student =<span style="color: #000000;"> model.isStudent();<br></span><span style="color: #008080;"> 59</span>         updateArgs.add(<span style="color: #0000ff;">null</span> == student ? <span style="color: #0000ff;">null</span> : student ? 1 : 0<span style="color: #000000;">);<br></span><span style="color: #008080;"> 60</span><br><span style="color: #008080;"> 61</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;"> 62</span><br><span style="color: #008080;"> 63</span> <span style="color: #000000;">    @Override<br></span><span style="color: #008080;"> 64</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span> bindPkArgs(Person model, List&lt;Object&gt;<span style="color: #000000;"> pkArgs) {<br></span><span style="color: #008080;"> 65</span>         Integer id =<span style="color: #000000;"> model.getId();<br></span><span style="color: #008080;"> 66</span>         pkArgs.add(<span style="color: #0000ff;">null</span> == id ? <span style="color: #0000ff;">null</span><span style="color: #000000;"> : id);<br></span><span style="color: #008080;"> 67</span><br><span style="color: #008080;"> 68</span>         Integer typeId =<span style="color: #000000;"> model.getTypeId();<br></span><span style="color: #008080;"> 69</span>         pkArgs.add(<span style="color: #0000ff;">null</span> == typeId ? <span style="color: #0000ff;">null</span><span style="color: #000000;"> : typeId);<br></span><span style="color: #008080;"> 70</span><br><span style="color: #008080;"> 71</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;"> 72</span><br><span style="color: #008080;"> 73</span> <span style="color: #000000;">    @Override<br></span><span style="color: #008080;"> 74</span>     <span style="color: #0000ff;">public</span><span style="color: #000000;"> Person parseFromCursor(Cursor cursor) {<br></span><span style="color: #008080;"> 75</span>         Person model = <span style="color: #0000ff;">new</span><span style="color: #000000;"> Person();<br></span><span style="color: #008080;"> 76</span>         <span style="color: #0000ff;">int</span><span style="color: #000000;"> index;<br></span><span style="color: #008080;"> 77</span>         index = cursor.getColumnIndex(“id”<span style="color: #000000;">);<br></span><span style="color: #008080;"> 78</span>         <span style="color: #0000ff;">if</span>(-1 !=<span style="color: #000000;"> index){<br></span><span style="color: #008080;"> 79</span>             model.setId(cursor.isNull(index) ? <span style="color: #0000ff;">null</span><span style="color: #000000;"> : (cursor.getInt(index)));<br></span><span style="color: #008080;"> 80</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;"> 81</span><br><span style="color: #008080;"> 82</span>         index = cursor.getColumnIndex(“typeId”<span style="color: #000000;">);<br></span><span style="color: #008080;"> 83</span>         <span style="color: #0000ff;">if</span>(-1 !=<span style="color: #000000;"> index){<br></span><span style="color: #008080;"> 84</span>             model.setTypeId(cursor.isNull(index) ? <span style="color: #0000ff;">null</span><span style="color: #000000;"> : (cursor.getInt(index)));<br></span><span style="color: #008080;"> 85</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;"> 86</span><br><span style="color: #008080;"> 87</span>         index = cursor.getColumnIndex(“name”<span style="color: #000000;">);<br></span><span style="color: #008080;"> 88</span>         <span style="color: #0000ff;">if</span>(-1 !=<span style="color: #000000;"> index){<br></span><span style="color: #008080;"> 89</span>             model.setName(cursor.isNull(index) ? <span style="color: #0000ff;">null</span><span style="color: #000000;"> : (cursor.getString(index)));<br></span><span style="color: #008080;"> 90</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;"> 91</span><br><span style="color: #008080;"> 92</span>         index = cursor.getColumnIndex(“age”<span style="color: #000000;">);<br></span><span style="color: #008080;"> 93</span>         <span style="color: #0000ff;">if</span>(-1 !=<span style="color: #000000;"> index){<br></span><span style="color: #008080;"> 94</span>             model.setAge(cursor.isNull(index) ? <span style="color: #0000ff;">null</span><span style="color: #000000;"> : (cursor.getInt(index)));<br></span><span style="color: #008080;"> 95</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;"> 96</span><br><span style="color: #008080;"> 97</span>         index = cursor.getColumnIndex(“address”<span style="color: #000000;">);<br></span><span style="color: #008080;"> 98</span>         <span style="color: #0000ff;">if</span>(-1 !=<span style="color: #000000;"> index){<br></span><span style="color: #008080;"> 99</span>             model.setAddress(cursor.isNull(index) ? <span style="color: #0000ff;">null</span><span style="color: #000000;"> : (cursor.getString(index)));<br></span><span style="color: #008080;">100</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;">101</span><br><span style="color: #008080;">102</span>         index = cursor.getColumnIndex(“birth”<span style="color: #000000;">);<br></span><span style="color: #008080;">103</span>         <span style="color: #0000ff;">if</span>(-1 !=<span style="color: #000000;"> index){<br></span><span style="color: #008080;">104</span>             model.setBirth(cursor.isNull(index) ? <span style="color: #0000ff;">null</span><span style="color: #000000;"> : (cursor.getLong(index)));<br></span><span style="color: #008080;">105</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;">106</span><br><span style="color: #008080;">107</span>         index = cursor.getColumnIndex(“student”<span style="color: #000000;">);<br></span><span style="color: #008080;">108</span>         <span style="color: #0000ff;">if</span>(-1 !=<span style="color: #000000;"> index){<br></span><span style="color: #008080;">109</span>             model.setStudent(cursor.isNull(index) ? <span style="color: #0000ff;">null</span> : (cursor.getInt(index) == 1<span style="color: #000000;">));<br></span><span style="color: #008080;">110</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;">111</span><br><span style="color: #008080;">112</span>         <span style="color: #0000ff;">return</span><span style="color: #000000;"> model;<br></span><span style="color: #008080;">113</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">114</span><br><span style="color: #008080;">115</span> }</pre><br></div>
+
+<p>注意：此Property类一旦生成，则不能修改；如果该持久类相关的注解属性改变，则需要重新生成这个Property类。</p>
+<p>2. 在相应的持久类的@Table注解中设置propertyClazz：</p>
+<div class="cnblogs_code"><br><pre><span style="color: #008080;">1</span> @Table(propertyClazz = PersonProperty.<span style="color: #0000ff;">class</span><span style="color: #000000;">)<br></span><span style="color: #008080;">2</span> <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span> Person <span style="color: #0000ff;">implements</span> Serializable{</pre><br></div>
+
+<p>&nbsp;</p>
+<p><span style="font-size: 16px;"><strong>如何兼容SqlCipher</strong></span></p>
+<p>1. 新建MySQLCipherOpenHelper，继承net.sqlcipher.database.SQLiteOpenHelper：</p>
+<div class="cnblogs_code"><br><pre><span style="color: #008080;"> 1</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> android.content.Context;<br></span><span style="color: #008080;"> 2</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> com.wangjie.rapidorm.core.dao.DatabaseProcessor;<br></span><span style="color: #008080;"> 3</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> com.wangjie.rapidorm.core.delegate.database.RapidORMSQLiteDatabaseDelegate;<br></span><span style="color: #008080;"> 4</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> net.sqlcipher.database.SQLiteDatabase;<br></span><span style="color: #008080;"> 5</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> net.sqlcipher.database.SQLiteDatabaseHook;<br></span><span style="color: #008080;"> 6</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> net.sqlcipher.database.SQLiteOpenHelper;<br></span><span style="color: #008080;"> 7</span><br><span style="color: #008080;"> 8</span> <span style="color: #008000;">/<em>*</em></span><br><span style="color: #008080;"> 9</span> <span style="color: #008000;">  Author: wangjie<br></span><span style="color: #008080;">10</span> <span style="color: #008000;"> <em> Email: tiantian.china.2@gmail.com<br></em></span><span style="color: #008080;">11</span> <span style="color: #008000;">  Date: 8/17/15.<br></span><span style="color: #008080;">12</span>  <span style="color: #008000;">*/</span><br><span style="color: #008080;">13</span> <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span> MySQLCipherOpenHelper <span style="color: #0000ff;">extends</span><span style="color: #000000;"> SQLiteOpenHelper {<br></span><span style="color: #008080;">14</span><br><span style="color: #008080;">15</span>     <span style="color: #0000ff;">private</span><span style="color: #000000;"> RapidORMSQLiteDatabaseDelegate rapidORMSQLiteDatabaseDelegate;<br></span><span style="color: #008080;">16</span><br><span style="color: #008080;">17</span>     <span style="color: #0000ff;">public</span> MySQLCipherOpenHelper(Context context, String name, <span style="color: #0000ff;">int</span><span style="color: #000000;"> version) {<br></span><span style="color: #008080;">18</span>         <span style="color: #0000ff;">super</span>(context, name, <span style="color: #0000ff;">null</span><span style="color: #000000;">, version);<br></span><span style="color: #008080;">19</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">20</span><br><span style="color: #008080;">21</span>     <span style="color: #0000ff;">public</span> MySQLCipherOpenHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, <span style="color: #0000ff;">int</span><span style="color: #000000;"> version) {<br></span><span style="color: #008080;">22</span>         <span style="color: #0000ff;">super</span><span style="color: #000000;">(context, name, factory, version);<br></span><span style="color: #008080;">23</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">24</span><br><span style="color: #008080;">25</span>     <span style="color: #0000ff;">public</span> MySQLCipherOpenHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, <span style="color: #0000ff;">int</span><span style="color: #000000;"> version, SQLiteDatabaseHook hook) {<br></span><span style="color: #008080;">26</span>         <span style="color: #0000ff;">super</span><span style="color: #000000;">(context, name, factory, version, hook);<br></span><span style="color: #008080;">27</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">28</span><br><span style="color: #008080;">29</span> <span style="color: #000000;">    @Override<br></span><span style="color: #008080;">30</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> onCreate(SQLiteDatabase db) {<br></span><span style="color: #008080;">31</span> <span style="color: #008000;">//</span><span style="color: #008000;">        super.onCreate(db);</span><br><span style="color: #008080;">32</span>         rapidORMSQLiteDatabaseDelegate = <span style="color: #0000ff;">new</span><span style="color: #000000;"> MySQLCipherDatabaseDelegate(db);<br></span><span style="color: #008080;">33</span>         DatabaseProcessor databaseProcessor =<span style="color: #000000;"> DatabaseProcessor.getInstance();<br></span><span style="color: #008080;">34</span>         <span style="color: #0000ff;">for</span> (Class&lt;?&gt;<span style="color: #000000;"> tableClazz : databaseProcessor.getAllTableClass()) {<br></span><span style="color: #008080;">35</span>             databaseProcessor.createTable(rapidORMSQLiteDatabaseDelegate, tableClazz, <span style="color: #0000ff;">true</span><span style="color: #000000;">);<br></span><span style="color: #008080;">36</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;">37</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">38</span><br><span style="color: #008080;">39</span> <span style="color: #000000;">    @Override<br></span><span style="color: #008080;">40</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span> onUpgrade(SQLiteDatabase db, <span style="color: #0000ff;">int</span> oldVersion, <span style="color: #0000ff;">int</span><span style="color: #000000;"> newVersion) {<br></span><span style="color: #008080;">41</span> <span style="color: #008000;">//</span><span style="color: #008000;">        super.onUpgrade(db, oldVersion, newVersion);</span><br><span style="color: #008080;">42</span>         rapidORMSQLiteDatabaseDelegate = <span style="color: #0000ff;">new</span><span style="color: #000000;"> MySQLCipherDatabaseDelegate(db);<br></span><span style="color: #008080;">43</span>         DatabaseProcessor databaseProcessor =<span style="color: #000000;"> DatabaseProcessor.getInstance();<br></span><span style="color: #008080;">44</span>         <span style="color: #008000;">//</span><span style="color: #008000;"> todo: dev only!!!!!</span><br><span style="color: #008080;">45</span> <span style="color: #000000;">        databaseProcessor.dropAllTable(rapidORMSQLiteDatabaseDelegate);<br></span><span style="color: #008080;">46</span><br><span style="color: #008080;">47</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">48</span> }</pre><br></div>
+
+<p>&nbsp;</p>
+<p>2. 新建MySQLCipherDatabaseDelegate继承RapidORMSQLiteDatabaseDelegate，并实现以下的方法：</p>
+<div class="cnblogs_code"><br><pre><span style="color: #008080;"> 1</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> android.database.Cursor;<br></span><span style="color: #008080;"> 2</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> android.database.SQLException;<br></span><span style="color: #008080;"> 3</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> com.wangjie.rapidorm.core.delegate.database.RapidORMSQLiteDatabaseDelegate;<br></span><span style="color: #008080;"> 4</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> net.sqlcipher.database.SQLiteDatabase;<br></span><span style="color: #008080;"> 5</span><br><span style="color: #008080;"> 6</span> <span style="color: #008000;">/<em>*</em></span><br><span style="color: #008080;"> 7</span> <span style="color: #008000;">  Author: wangjie<br></span><span style="color: #008080;"> 8</span> <span style="color: #008000;"> <em> Email: tiantian.china.2@gmail.com<br></em></span><span style="color: #008080;"> 9</span> <span style="color: #008000;">  Date: 8/17/15.<br></span><span style="color: #008080;">10</span>  <span style="color: #008000;">*/</span><br><span style="color: #008080;">11</span> <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span> MySQLCipherDatabaseDelegate <span style="color: #0000ff;">extends</span> RapidORMSQLiteDatabaseDelegate&lt;SQLiteDatabase&gt;<span style="color: #000000;"> {<br></span><span style="color: #008080;">12</span>     <span style="color: #0000ff;">public</span><span style="color: #000000;"> MySQLCipherDatabaseDelegate(SQLiteDatabase db) {<br></span><span style="color: #008080;">13</span>         <span style="color: #0000ff;">super</span><span style="color: #000000;">(db);<br></span><span style="color: #008080;">14</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">15</span><br><span style="color: #008080;">16</span> <span style="color: #000000;">    @Override<br></span><span style="color: #008080;">17</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span> execSQL(String sql) <span style="color: #0000ff;">throws</span><span style="color: #000000;"> SQLException {<br></span><span style="color: #008080;">18</span> <span style="color: #000000;">        db.execSQL(sql);<br></span><span style="color: #008080;">19</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">20</span><br><span style="color: #008080;">21</span> <span style="color: #000000;">    @Override<br></span><span style="color: #008080;">22</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">boolean</span><span style="color: #000000;"> isDbLockedByCurrentThread() {<br></span><span style="color: #008080;">23</span>         <span style="color: #0000ff;">return</span><span style="color: #000000;"> db.isDbLockedByCurrentThread();<br></span><span style="color: #008080;">24</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">25</span><br><span style="color: #008080;">26</span> <span style="color: #000000;">    @Override<br></span><span style="color: #008080;">27</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span> execSQL(String sql, Object[] bindArgs) <span style="color: #0000ff;">throws</span><span style="color: #000000;"> Exception {<br></span><span style="color: #008080;">28</span> <span style="color: #000000;">        db.execSQL(sql, bindArgs);<br></span><span style="color: #008080;">29</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">30</span><br><span style="color: #008080;">31</span> <span style="color: #000000;">    @Override<br></span><span style="color: #008080;">32</span>     <span style="color: #0000ff;">public</span><span style="color: #000000;"> Cursor rawQuery(String sql, String[] selectionArgs) {<br></span><span style="color: #008080;">33</span>         <span style="color: #0000ff;">return</span><span style="color: #000000;"> db.rawQuery(sql, selectionArgs);<br></span><span style="color: #008080;">34</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">35</span><br><span style="color: #008080;">36</span> <span style="color: #000000;">    @Override<br></span><span style="color: #008080;">37</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> beginTransaction() {<br></span><span style="color: #008080;">38</span> <span style="color: #000000;">        db.beginTransaction();<br></span><span style="color: #008080;">39</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">40</span><br><span style="color: #008080;">41</span> <span style="color: #000000;">    @Override<br></span><span style="color: #008080;">42</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> setTransactionSuccessful() {<br></span><span style="color: #008080;">43</span> <span style="color: #000000;">        db.setTransactionSuccessful();<br></span><span style="color: #008080;">44</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">45</span><br><span style="color: #008080;">46</span> <span style="color: #000000;">    @Override<br></span><span style="color: #008080;">47</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> endTransaction() {<br></span><span style="color: #008080;">48</span> <span style="color: #000000;">        db.endTransaction();<br></span><span style="color: #008080;">49</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">50</span><br><span style="color: #008080;">51</span> <span style="color: #000000;">    @Override<br></span><span style="color: #008080;">52</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> close() {<br></span><span style="color: #008080;">53</span> <span style="color: #000000;">        db.close();<br></span><span style="color: #008080;">54</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">55</span> }</pre><br></div>
+
+<p>注意这里的import，这里的SQLiteDatabase需要导入&nbsp;<span style="background-color: #d8d8d8;">net.sqlcipher.database.SQLiteDatabase</span>&nbsp;。</p>
+<p>&nbsp;</p>
+<p>3. 新建MySQLCipherOpenHelperDelegate继承RapidORMDatabaseOpenHelperDelegate，实现如下方法：</p>
+<div class="cnblogs_code"><br><pre><span style="color: #008080;"> 1</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> com.wangjie.rapidorm.core.delegate.openhelper.RapidORMDatabaseOpenHelperDelegate;<br></span><span style="color: #008080;"> 2</span> <span style="color: #008080;"> 3</span><br><span style="color: #008080;"> 4</span> <span style="color: #008000;">/<em>*</em></span><br><span style="color: #008080;"> 5</span> <span style="color: #008000;">  Author: wangjie<br></span><span style="color: #008080;"> 6</span> <span style="color: #008000;"> <em> Email: tiantian.china.2@gmail.com<br></em></span><span style="color: #008080;"> 7</span> <span style="color: #008000;">  Date: 6/18/15.<br></span><span style="color: #008080;"> 8</span>  <span style="color: #008000;">*/</span><br><span style="color: #008080;"> 9</span> <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span> MySQLCipherOpenHelperDelegate <span style="color: #0000ff;">extends</span> RapidORMDatabaseOpenHelperDelegate&lt;MySQLCipherOpenHelper, MySQLCipherOpenHelperDelegate&gt;<span style="color: #000000;"> {<br></span><span style="color: #008080;">10</span>     <span style="color: #0000ff;">public</span><span style="color: #000000;"> MySQLCipherOpenHelperDelegate(MySQLCipherOpenHelper sqLiteOpenHelper) {<br></span><span style="color: #008080;">11</span>         <span style="color: #0000ff;">super</span><span style="color: #000000;">(sqLiteOpenHelper);<br></span><span style="color: #008080;">12</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">13</span><br><span style="color: #008080;">14</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">final</span> String SECRET_KEY = “1234567890abcdef”<span style="color: #000000;">;<br></span><span style="color: #008080;">15</span><br><span style="color: #008080;">16</span> <span style="color: #000000;">    @Override<br></span><span style="color: #008080;">17</span>     <span style="color: #0000ff;">public</span><span style="color: #000000;"> MySQLCipherOpenHelperDelegate getReadableDatabase() {<br></span><span style="color: #008080;">18</span>         <span style="color: #0000ff;">return</span> <span style="color: #0000ff;">new</span><span style="color: #000000;"> MySQLCipherDatabaseDelegate(openHelper.getReadableDatabase(SECRET_KEY));<br></span><span style="color: #008080;">19</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">20</span><br><span style="color: #008080;">21</span> <span style="color: #000000;">    @Override<br></span><span style="color: #008080;">22</span>     <span style="color: #0000ff;">public</span><span style="color: #000000;"> MySQLCipherOpenHelperDelegate getWritableDatabase() {<br></span><span style="color: #008080;">23</span>         <span style="color: #0000ff;">return</span> <span style="color: #0000ff;">new</span><span style="color: #000000;"> MySQLCipherDatabaseDelegate(openHelper.getWritableDatabase(SECRET_KEY));<br></span><span style="color: #008080;">24</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">25</span><br><span style="color: #008080;">26</span> }</pre><br></div>
+
+<p>&nbsp;</p>
+<p>4. 在DatabaseFactory中使用SqlCipher版本：</p>
+<div class="cnblogs_code"><br><pre><span style="color: #008080;"> 1</span> <span style="color: #008000;">/<em>*</em></span><br><span style="color: #008080;"> 2</span> <span style="color: #008000;">  Author: wangjie<br></span><span style="color: #008080;"> 3</span> <span style="color: #008000;"> <em> Email: tiantian.china.2@gmail.com<br></em></span><span style="color: #008080;"> 4</span> <span style="color: #008000;">  Date: 6/25/15.<br></span><span style="color: #008080;"> 5</span>  <span style="color: #008000;">*/</span><br><span style="color: #008080;"> 6</span> <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span> DatabaseFactory <span style="color: #0000ff;">extends</span> RapidORMConnection&lt;MySQLCipherOpenHelperDelegate&gt;<span style="color: #000000;"> {<br></span><span style="color: #008080;"> 7</span>     <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">final</span> <span style="color: #0000ff;">int</span> VERSION = 1<span style="color: #000000;">;<br></span><span style="color: #008080;"> 8</span><br><span style="color: #008080;"> 9</span>     <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">static</span><span style="color: #000000;"> DatabaseFactory instance;<br></span><span style="color: #008080;">10</span><br><span style="color: #008080;">11</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">synchronized</span> <span style="color: #0000ff;">static</span><span style="color: #000000;"> DatabaseFactory getInstance() {<br></span><span style="color: #008080;">12</span>         <span style="color: #0000ff;">if</span> (<span style="color: #0000ff;">null</span> ==<span style="color: #000000;"> instance) {<br></span><span style="color: #008080;">13</span>             instance = <span style="color: #0000ff;">new</span><span style="color: #000000;"> DatabaseFactory();<br></span><span style="color: #008080;">14</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;">15</span>         <span style="color: #0000ff;">return</span><span style="color: #000000;"> instance;<br></span><span style="color: #008080;">16</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">17</span><br><span style="color: #008080;">18</span>     <span style="color: #0000ff;">private</span><span style="color: #000000;"> DatabaseFactory() {<br></span><span style="color: #008080;">19</span>         <span style="color: #0000ff;">super</span><span style="color: #000000;">();<br></span><span style="color: #008080;">20</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">21</span><br><span style="color: #008080;">22</span> <span style="color: #000000;">    @Override<br></span><span style="color: #008080;">23</span>     <span style="color: #0000ff;">protected</span><span style="color: #000000;"> MySQLCipherOpenHelperDelegate getRapidORMDatabaseOpenHelper(@NonNull String databaseName) {<br></span><span style="color: #008080;">24</span>         <span style="color: #0000ff;">return</span> <span style="color: #0000ff;">new</span> MySQLCipherOpenHelperDelegate(<span style="color: #0000ff;">new</span><span style="color: #000000;"> MySQLCipherOpenHelper(applicationContext, databaseName, VERSION));<br></span><span style="color: #008080;">25</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">26</span><br><span style="color: #008080;">27</span> <span style="color: #000000;">    @Override<br></span><span style="color: #008080;">28</span>     <span style="color: #0000ff;">protected</span> List&lt;Class&lt;?&gt;&gt;<span style="color: #000000;"> registerAllTableClass() {<br></span><span style="color: #008080;">29</span>         List&lt;Class&lt;?&gt;&gt; allTableClass = <span style="color: #0000ff;">new</span> ArrayList&lt;&gt;<span style="color: #000000;">();<br></span><span style="color: #008080;">30</span>         allTableClass.add(Person.<span style="color: #0000ff;">class</span><span style="color: #000000;">);<br></span><span style="color: #008080;">31</span>         <span style="color: #008000;">//</span><span style="color: #008000;"> register all table class here…</span><br><span style="color: #008080;">32</span>         <span style="color: #0000ff;">return</span><span style="color: #000000;"> allTableClass;<br></span><span style="color: #008080;">33</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">34</span> }</pre><br></div>
+
+<p>&nbsp;</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/06/15/Android-基于RxJava、RxAndroid的EventBus实现/" rel="next" title="[Android]基于RxJava、RxAndroid的EventBus实现">
+                <i class="fa fa-chevron-left"></i> [Android]基于RxJava、RxAndroid的EventBus实现
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/09/09/Kotlin：Android世界的Swift/" rel="prev" title="Kotlin：Android世界的Swift">
+                Kotlin：Android世界的Swift <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/my_avatar.jpg"
+                alt="Wang Jie" />
+            
+              <p class="site-author-name" itemprop="name">Wang Jie</p>
+              <p class="site-description motion-element" itemprop="description">Wang Jie's blog</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">144</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wangjiegulu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:tiantian.china.2@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/+%E5%A4%A9%E5%A4%A9wangjie" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/wangjiegulu" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://stackoverflow.com/users/2124006/wangjie" target="_blank" title="StackOverflow">
+                      
+                        <i class="fa fa-fw fa-stack-overflow"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/wangjiegulu" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.cnblogs.com/tiantianbyconan/" title="cnblog" target="_blank">cnblog</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wang Jie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://blog-wangjiegulu-com.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://blog.wangjiegulu.com/2015/08/21/Android-Android端ORM框架——RapidORM-v1-0/';
+          this.page.identifier = '2015/08/21/Android-Android端ORM框架——RapidORM-v1-0/';
+          this.page.title = '[Android]Android端ORM框架——RapidORM(v1.0)';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://blog-wangjiegulu-com.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "default";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "GooglePlus,Evernote,Twitter,Facebook,Douban,Weibo";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

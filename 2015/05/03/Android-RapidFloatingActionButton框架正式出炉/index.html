@@ -1,0 +1,1260 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="WAND JIE" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="以下内容为原创，欢迎转载，转载请注明 来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/4474748.html RapidFloatingActionButtonGoogle推出了MaterialDesign的设计语言，其中FloatingActionButton就是一部分，但是Google却没有提供一个官方的FloatingActionButton">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Android]RapidFloatingActionButton框架正式出炉">
+<meta property="og:url" content="http://blog.wangjiegulu.com/2015/05/03/Android-RapidFloatingActionButton框架正式出炉/index.html">
+<meta property="og:site_name" content="WAND JIE">
+<meta property="og:description" content="以下内容为原创，欢迎转载，转载请注明 来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/4474748.html RapidFloatingActionButtonGoogle推出了MaterialDesign的设计语言，其中FloatingActionButton就是一部分，但是Google却没有提供一个官方的FloatingActionButton">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://raw.githubusercontent.com/wangjiegulu/RapidFloatingActionButton/master/screenshot/rfab_label_list.gif">
+<meta property="og:image" content="https://raw.githubusercontent.com/wangjiegulu/RapidFloatingActionButton/master/screenshot/rfabg.gif">
+<meta property="og:image" content="https://raw.githubusercontent.com/wangjiegulu/RapidFloatingActionButton/master/screenshot/rfab_01.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wangjiegulu/RapidFloatingActionButton/master/screenshot/rfab_03.png">
+<meta property="og:updated_time" content="2018-01-29T12:36:41.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[Android]RapidFloatingActionButton框架正式出炉">
+<meta name="twitter:description" content="以下内容为原创，欢迎转载，转载请注明 来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/4474748.html RapidFloatingActionButtonGoogle推出了MaterialDesign的设计语言，其中FloatingActionButton就是一部分，但是Google却没有提供一个官方的FloatingActionButton">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/wangjiegulu/RapidFloatingActionButton/master/screenshot/rfab_label_list.gif">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.wangjiegulu.com/2015/05/03/Android-RapidFloatingActionButton框架正式出炉/"/>
+
+
+
+
+
+  <title>[Android]RapidFloatingActionButton框架正式出炉 | WAND JIE</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-111189680-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">WAND JIE</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">TO BE AN ARTIST-ENGINNER</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.wangjiegulu.com/2015/05/03/Android-RapidFloatingActionButton框架正式出炉/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wang Jie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/my_avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WAND JIE">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">[Android]RapidFloatingActionButton框架正式出炉</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-05-03T21:28:00+08:00">
+                2015-05-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/05/03/Android-RapidFloatingActionButton框架正式出炉/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2015/05/03/Android-RapidFloatingActionButton框架正式出炉/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><span style="color: #ff0000;"><strong>以下内容为原创，欢迎转载，转载请注明</strong></span></p>
+<p><span style="color: #ff0000;"><strong>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/4474748.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/4474748.html</a></strong></span></p>
+<h1 id="RapidFloatingActionButton"><a href="#RapidFloatingActionButton" class="headerlink" title="RapidFloatingActionButton"></a>RapidFloatingActionButton</h1><p>Google推出了MaterialDesign的设计语言，其中FloatingActionButton就是一部分，但是Google却没有提供一个官方的FloatingActionButton控件，网上找了几个试用了下，但是始终没有找到合适的，所以，自己动手丰衣足食了。</p>
+<p><a href="http://www.cnblogs.com/RapidFloatingActionButton" target="_blank" rel="noopener">RapidFloatingActionButton</a>（以下简称RFAB）是Floating Action Button的快速实现。</p>
+<p><strong><span style="color: #ff0000;">Github地址：<a href="https://github.com/wangjiegulu/RapidFloatingActionButton" target="_blank" rel="noopener"><span style="color: #ff0000;">https://github.com/wangjiegulu/RapidFloatingActionButton</span></a></span></strong></p>
+<p><a href="https://raw.githubusercontent.com/wangjiegulu/RapidFloatingActionButton/master/screenshot/rfab_label_list.gif" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/wangjiegulu/RapidFloatingActionButton/master/screenshot/rfab_label_list.gif" alt=""></a>&nbsp;<a href="https://raw.githubusercontent.com/wangjiegulu/RapidFloatingActionButton/master/screenshot/rfabg.gif" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/wangjiegulu/RapidFloatingActionButton/master/screenshot/rfabg.gif" alt=""></a>&nbsp;</p>
+<p><a href="https://raw.githubusercontent.com/wangjiegulu/RapidFloatingActionButton/master/screenshot/rfab_01.png" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/wangjiegulu/RapidFloatingActionButton/master/screenshot/rfab_01.png" alt=""></a>&nbsp;<a href="https://raw.githubusercontent.com/wangjiegulu/RapidFloatingActionButton/master/screenshot/rfab_03.png" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/wangjiegulu/RapidFloatingActionButton/master/screenshot/rfab_03.png" alt=""></a></p>
+<h1 id="使用方式："><a href="#使用方式：" class="headerlink" title="使用方式："></a><a href="https://github.com/wangjiegulu/RapidFloatingActionButton#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F" target="_blank" rel="noopener"></a>使用方式：</h1><p>依赖：<br><strong><a href="https://github.com/wangjiegulu/AndroidBucket" target="_blank" rel="noopener">AndroidBucket</a>(<a href="https://github.com/wangjiegulu/AndroidBucket" target="_blank" rel="noopener">https://github.com/wangjiegulu/AndroidBucket</a>)</strong>：基础工具包<br><strong><a href="https://github.com/wangjiegulu/androidInject" target="_blank" rel="noopener">AndroidInject</a>(<a href="https://github.com/wangjiegulu/androidInject" target="_blank" rel="noopener">https://github.com/wangjiegulu/androidInject</a>)</strong>：注解框架</p>
+<p><strong><a href="https://github.com/JakeWharton/NineOldAndroids" target="_blank" rel="noopener">NineOldAndroids</a>(<a href="https://github.com/JakeWharton/NineOldAndroids" target="_blank" rel="noopener">https://github.com/JakeWharton/NineOldAndroids</a>)</strong>：兼容低版本的动画框架</p>
+<h2 id="activity-main-xml："><a href="#activity-main-xml：" class="headerlink" title="activity_main.xml："></a><a href="https://github.com/wangjiegulu/RapidFloatingActionButton#activity_mainxml" target="_blank" rel="noopener"></a>activity_main.xml：</h2><div class="cnblogs_code"><br><pre><span style="color: #008080;"> 1</span> &lt;<span style="color: #000000;">com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout<br></span><span style="color: #008080;"> 2</span>       xmlns:rfal=”<a href="http://schemas.android.com/apk/res-auto" target="_blank" rel="noopener">http://schemas.android.com/apk/res-auto</a>“<br><span style="color: #008080;"> 3</span>       android:id=”@+id/activity_main_rfal”<br><span style="color: #008080;"> 4</span>       android:layout_width=”match_parent”<br><span style="color: #008080;"> 5</span>       android:layout_height=”match_parent”<br><span style="color: #008080;"> 6</span>       rfal:rfal_frame_color=”#ffffff”<br><span style="color: #008080;"> 7</span>       rfal:rfal_frame_alpha=”0.7”<br><span style="color: #008080;"> 8</span>       &gt;<br><span style="color: #008080;"> 9</span>   &lt;<span style="color: #000000;">com.wangjie.rapidfloatingactionbutton.RapidFloatingActionButton<br></span><span style="color: #008080;">10</span>           xmlns:rfab=”<a href="http://schemas.android.com/apk/res-auto" target="_blank" rel="noopener">http://schemas.android.com/apk/res-auto</a>“<br><span style="color: #008080;">11</span>           android:id=”@+id/activity_main_rfab”<br><span style="color: #008080;">12</span>           android:layout_width=”wrap_content”<br><span style="color: #008080;">13</span>           android:layout_height=”wrap_content”<br><span style="color: #008080;">14</span>           android:layout_alignParentRight=”true”<br><span style="color: #008080;">15</span>           android:layout_alignParentBottom=”true”<br><span style="color: #008080;">16</span>           android:layout_marginRight=”15dp”<br><span style="color: #008080;">17</span>           android:layout_marginBottom=”15dp”<br><span style="color: #008080;">18</span>           android:padding=”8dp”<br><span style="color: #008080;">19</span>           rfab:rfab_size=”normal”<br><span style="color: #008080;">20</span>           rfab:rfab_drawable=”@drawable/rfab__drawable_rfab_default”<br><span style="color: #008080;">21</span>           rfab:rfab_color_normal=”#37474f”<br><span style="color: #008080;">22</span>           rfab:rfab_color_pressed=”#263238”<br><span style="color: #008080;">23</span>           rfab:rfab_shadow_radius=”7dp”<br><span style="color: #008080;">24</span>           rfab:rfab_shadow_color=”#999999”<br><span style="color: #008080;">25</span>           rfab:rfab_shadow_dx=”0dp”<br><span style="color: #008080;">26</span>           rfab:rfab_shadow_dy=”5dp”<br><span style="color: #008080;">27</span>           /&gt;<br><span style="color: #008080;">28</span> &lt;/com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout&gt;</pre><br></div>
+
+<p>在需要增加RFAB最外层使用<code>&amp;lt;com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout&amp;gt;</code>，按钮使用<code>&amp;lt;com.wangjie.rapidfloatingactionbutton.RapidFloatingActionButton&amp;gt;</code></p>
+<h3 id="属性解释"><a href="#属性解释" class="headerlink" title="属性解释"></a><a href="https://github.com/wangjiegulu/RapidFloatingActionButton#%E5%B1%9E%E6%80%A7%E8%A7%A3%E9%87%8A" target="_blank" rel="noopener"></a>属性解释</h3><h4 id="RapidFloatingActionLayout"><a href="#RapidFloatingActionLayout" class="headerlink" title="RapidFloatingActionLayout:"></a><a href="https://github.com/wangjiegulu/RapidFloatingActionButton#rapidfloatingactionlayout" target="_blank" rel="noopener"></a>RapidFloatingActionLayout:</h4><div class="cnblogs_code"><br><pre><span style="color: #000000;">  rfal_frame_color: 展开RFAB时候最外覆盖层的颜色，默认是纯白色<br>  rfal_frame_alpha: 展开RFAB时候最外覆盖层的透明度(0 ~ 1)，默认是0.7</span></pre><br></div>
+
+<h4 id="RapidFloatingActionButton-1"><a href="#RapidFloatingActionButton-1" class="headerlink" title="RapidFloatingActionButton:"></a><a href="https://github.com/wangjiegulu/RapidFloatingActionButton#rapidfloatingactionbutton-1" target="_blank" rel="noopener"></a>RapidFloatingActionButton:</h4><div class="cnblogs_code"><br><pre><span style="color: #000000;">　rfab_size: RFAB的尺寸大小，只支持两种尺寸（Material Design规范）：<br>          normal: 直径56dp<br>          mini: 直径40dp<br>  rfab_drawable: RFAB中间的图标，默认是一个”+”图标<br>  rfab_color_normal: RFAB背景的普通状态下的颜色。默认是白色<br>  rfab_color_pressed: RFAB背景的触摸按下状态的颜色。默认颜色是”#dddddd”<br>  rfab_shadow_radius: RFAB的阴影半径。默认是0，表示没有阴影<br>  rfab_shadow_color: RFAB的阴影颜色。默认是透明，另外如果rfab_shadow_radius为0，则该属性无效<br>  rfab_shadow_dx: RFAB的阴影X轴偏移量。默认是0<br>  rfab_shadow_dy: RFAB的阴影Y轴偏移量。默认是0</span></pre><br></div>
+
+<h2 id="MainActivity："><a href="#MainActivity：" class="headerlink" title="MainActivity："></a><a href="https://github.com/wangjiegulu/RapidFloatingActionButton#mainactivity" target="_blank" rel="noopener"></a>MainActivity：</h2><div class="cnblogs_code"><br><pre><span style="color: #008080;"> 1</span> <span style="color: #000000;">@AILayout(R.layout.activity_main)<br></span><span style="color: #008080;"> 2</span> <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span> MainActivity <span style="color: #0000ff;">extends</span> AIActionBarActivity <span style="color: #0000ff;">implements</span><span style="color: #000000;"> RapidFloatingActionContentLabelList.OnRapidFloatingActionContentListener {<br></span><span style="color: #008080;"> 3</span><br><span style="color: #008080;"> 4</span> <span style="color: #000000;">    @AIView(R.id.activity_main_rfal)<br></span><span style="color: #008080;"> 5</span>     <span style="color: #0000ff;">private</span><span style="color: #000000;"> RapidFloatingActionLayout rfaLayout;<br></span><span style="color: #008080;"> 6</span> <span style="color: #000000;">    @AIView(R.id.activity_main_rfab)<br></span><span style="color: #008080;"> 7</span>     <span style="color: #0000ff;">private</span><span style="color: #000000;"> RapidFloatingActionButton rfaBtn;<br></span><span style="color: #008080;"> 8</span>     <span style="color: #0000ff;">private</span><span style="color: #000000;"> RapidFloatingActionButtonHelper rfabHelper;<br></span><span style="color: #008080;"> 9</span><br><span style="color: #008080;">10</span> <span style="color: #000000;">    @Override<br></span><span style="color: #008080;">11</span>     <span style="color: #0000ff;">protected</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> onCreate(Bundle savedInstanceState) {<br></span><span style="color: #008080;">12</span>         <span style="color: #0000ff;">super</span><span style="color: #000000;">.onCreate(savedInstanceState);<br></span><span style="color: #008080;">13</span><br><span style="color: #008080;">14</span>         RapidFloatingActionContentLabelList rfaContent = <span style="color: #0000ff;">new</span><span style="color: #000000;"> RapidFloatingActionContentLabelList(context);<br></span><span style="color: #008080;">15</span>         rfaContent.setOnRapidFloatingActionContentListener(<span style="color: #0000ff;">this</span><span style="color: #000000;">);<br></span><span style="color: #008080;">16</span>         List&lt;RFACLabelItem&gt; items = <span style="color: #0000ff;">new</span> ArrayList&lt;&gt;<span style="color: #000000;">();<br></span><span style="color: #008080;">17</span>         items.add(<span style="color: #0000ff;">new</span> RFACLabelItem&lt;Integer&gt;<span style="color: #000000;">()<br></span><span style="color: #008080;">18</span>                         .setLabel(“Github: wangjiegulu”<span style="color: #000000;">)<br></span><span style="color: #008080;">19</span> <span style="color: #000000;">                        .setResId(R.drawable.ic_launcher)<br></span><span style="color: #008080;">20</span>                         .setIconNormalColor(0xffd84315<span style="color: #000000;">)<br></span><span style="color: #008080;">21</span>                         .setIconPressedColor(0xffbf360c<span style="color: #000000;">)<br></span><span style="color: #008080;">22</span>                         .setWrapper(0<span style="color: #000000;">)<br></span><span style="color: #008080;">23</span> <span style="color: #000000;">        );<br></span><span style="color: #008080;">24</span>         items.add(<span style="color: #0000ff;">new</span> RFACLabelItem&lt;Integer&gt;<span style="color: #000000;">()<br></span><span style="color: #008080;">25</span>                         .setLabel(“tiantian.china.2@gmail.com”<span style="color: #000000;">)<br></span><span style="color: #008080;">26</span> <span style="color: #000000;">                        .setResId(R.drawable.ic_launcher)<br></span><span style="color: #008080;">27</span>                         .setIconNormalColor(0xff4e342e<span style="color: #000000;">)<br></span><span style="color: #008080;">28</span>                         .setIconPressedColor(0xff3e2723<span style="color: #000000;">)<br></span><span style="color: #008080;">29</span>                         .setWrapper(1<span style="color: #000000;">)<br></span><span style="color: #008080;">30</span> <span style="color: #000000;">        );<br></span><span style="color: #008080;">31</span>         items.add(<span style="color: #0000ff;">new</span> RFACLabelItem&lt;Integer&gt;<span style="color: #000000;">()<br></span><span style="color: #008080;">32</span>                         .setLabel(“WangJie”<span style="color: #000000;">)<br></span><span style="color: #008080;">33</span> <span style="color: #000000;">                        .setResId(R.drawable.ic_launcher)<br></span><span style="color: #008080;">34</span>                         .setIconNormalColor(0xff056f00<span style="color: #000000;">)<br></span><span style="color: #008080;">35</span>                         .setIconPressedColor(0xff0d5302<span style="color: #000000;">)<br></span><span style="color: #008080;">36</span>                         .setWrapper(2<span style="color: #000000;">)<br></span><span style="color: #008080;">37</span> <span style="color: #000000;">        );<br></span><span style="color: #008080;">38</span>         items.add(<span style="color: #0000ff;">new</span> RFACLabelItem&lt;Integer&gt;<span style="color: #000000;">()<br></span><span style="color: #008080;">39</span>                         .setLabel(“Compose”<span style="color: #000000;">)<br></span><span style="color: #008080;">40</span> <span style="color: #000000;">                        .setResId(R.drawable.ic_launcher)<br></span><span style="color: #008080;">41</span>                         .setIconNormalColor(0xff283593<span style="color: #000000;">)<br></span><span style="color: #008080;">42</span>                         .setIconPressedColor(0xff1a237e<span style="color: #000000;">)<br></span><span style="color: #008080;">43</span>                         .setWrapper(3<span style="color: #000000;">)<br></span><span style="color: #008080;">44</span> <span style="color: #000000;">        );<br></span><span style="color: #008080;">45</span> <span style="color: #000000;">        rfaContent<br></span><span style="color: #008080;">46</span> <span style="color: #000000;">                .setItems(items)<br></span><span style="color: #008080;">47</span>                 .setIconShadowRadius(ABTextUtil.dip2px(context, 5<span style="color: #000000;">))<br></span><span style="color: #008080;">48</span>                 .setIconShadowColor(0xff999999<span style="color: #000000;">)<br></span><span style="color: #008080;">49</span>                 .setIconShadowDy(ABTextUtil.dip2px(context, 5<span style="color: #000000;">))<br></span><span style="color: #008080;">50</span> <span style="color: #000000;">        ;<br></span><span style="color: #008080;">51</span><br><span style="color: #008080;">52</span>         rfabHelper = <span style="color: #0000ff;">new</span><span style="color: #000000;"> RapidFloatingActionButtonHelper(<br></span><span style="color: #008080;">53</span> <span style="color: #000000;">                context,<br></span><span style="color: #008080;">54</span> <span style="color: #000000;">                rfaLayout,<br></span><span style="color: #008080;">55</span> <span style="color: #000000;">                rfaBtn,<br></span><span style="color: #008080;">56</span> <span style="color: #000000;">                rfaContent<br></span><span style="color: #008080;">57</span> <span style="color: #000000;">        ).build();<br></span><span style="color: #008080;">58</span><br><span style="color: #008080;">59</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">60</span><br><span style="color: #008080;">61</span> <span style="color: #000000;">    @Override<br></span><span style="color: #008080;">62</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span> onRFACItemLabelClick(<span style="color: #0000ff;">int</span><span style="color: #000000;"> position, RFACLabelItem item) {<br></span><span style="color: #008080;">63</span>         Toast.makeText(getContext(), “clicked label: “ +<span style="color: #000000;"> position, Toast.LENGTH_SHORT).show();<br></span><span style="color: #008080;">64</span> <span style="color: #000000;">        rfabHelper.toggleContent();<br></span><span style="color: #008080;">65</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">66</span><br><span style="color: #008080;">67</span> <span style="color: #000000;">    @Override<br></span><span style="color: #008080;">68</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span> onRFACItemIconClick(<span style="color: #0000ff;">int</span><span style="color: #000000;"> position, RFACLabelItem item) {<br></span><span style="color: #008080;">69</span>         Toast.makeText(getContext(), “clicked icon: “ +<span style="color: #000000;"> position, Toast.LENGTH_SHORT).show();<br></span><span style="color: #008080;">70</span> <span style="color: #000000;">        rfabHelper.toggleContent();<br></span><span style="color: #008080;">71</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">72</span> }</pre><br></div>
+
+<p>除了xml中设置的<code>RapidFloatingActionLayout</code>和<code>RapidFloatingActionButton</code>之外，还需要<code>RapidFloatingActionContent</code>的实现类来填充和指定RFAB的内容和形式。<br>这里提供了一个快速的<code>RapidFloatingActionContent</code>的实现解决方案:<code>RapidFloatingActionContentLabelList</code>。你可以加入多个item（RFACLabelItem，当然，不建议加太多的item，导致超过一个屏幕），然后设置每个item的颜色、图标、阴影、label的背景图片、字体大小颜色甚至动画。<br>它的效果可参考<a href="https://github.com/wangjiegulu/RapidFloatingActionButton/tree/master/screenshot" target="_blank" rel="noopener">最上面的效果图片</a>或者<a href="https://play.google.com/store/apps/details?id=com.google.android.apps.inbox" target="_blank" rel="noopener">Google的Inbox</a>的效果。<br>除此之外，你还需要使用<code>RapidFloatingActionButtonHelper</code>来把以上所有零散的组件组合起来。</p>
+<h1 id="关于扩展："><a href="#关于扩展：" class="headerlink" title="关于扩展："></a><a href="https://github.com/wangjiegulu/RapidFloatingActionButton#%E5%85%B3%E4%BA%8E%E6%89%A9%E5%B1%95" target="_blank" rel="noopener"></a>关于扩展：</h1><p>如果你不喜欢默认提供的<code>RapidFloatingActionContentLabelList</code>，理论上你可以扩展自己的内容样式。方法是继承<code>com.wangjie.rapidfloatingactionbutton.RapidFloatingActionContent</code>，然后初始化内容布局和样式，并调用父类的<code>setRootView(xxx);</code>方法即可。如果你需要增加动画，可以重写如下方法：</p>
+<div class="cnblogs_code"><br><pre><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> onExpandAnimator(AnimatorSet animatorSet);<br></span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span> onCollapseAnimator(AnimatorSet animatorSet);</pre><br></div>
+
+<p>把需要的Animator增加到animatorSet中即可<br><code>另外，作者也会不定期增加更多的RapidFloatingActionContent的扩展</code></p>
+<h1 id="License"><a href="#License" class="headerlink" title="License"></a><a href="https://github.com/wangjiegulu/RapidFloatingActionButton#license" target="_blank" rel="noopener"></a>License</h1><div class="cnblogs_code"><br><pre><span style="color: #000000;">Copyright 2015 Wang Jie<br><br>Licensed under the Apache License, Version 2.0 (the “License”);<br>you may not use this file except in compliance with the License.<br>You may obtain a copy of the License at<br><br>   <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="noopener">http://www.apache.org/licenses/LICENSE-2.0</a><br><br>Unless required by applicable law or agreed to in writing, software<br>distributed under the License is distributed on an “AS IS” BASIS,<br>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<br>See the License for the specific language governing permissions and<br>limitations under the License.</span></pre><br></div>
+
+<p>&nbsp;</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/04/03/Android-Activity跳转传递任意类型的数据、Activity为SingleTask时代替StartActivityForResult的解决方案/" rel="next" title="[Android]Activity跳转传递任意类型的数据、Activity为SingleTask时代替StartActivityForResult的解决方案">
+                <i class="fa fa-chevron-left"></i> [Android]Activity跳转传递任意类型的数据、Activity为SingleTask时代替StartActivityForResult的解决方案
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/05/11/Learn-RxJava/" rel="prev" title="Learn RxJava">
+                Learn RxJava <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/my_avatar.jpg"
+                alt="Wang Jie" />
+            
+              <p class="site-author-name" itemprop="name">Wang Jie</p>
+              <p class="site-description motion-element" itemprop="description">Wang Jie's blog</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">144</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wangjiegulu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:tiantian.china.2@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/+%E5%A4%A9%E5%A4%A9wangjie" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/wangjiegulu" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://stackoverflow.com/users/2124006/wangjie" target="_blank" title="StackOverflow">
+                      
+                        <i class="fa fa-fw fa-stack-overflow"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/wangjiegulu" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.cnblogs.com/tiantianbyconan/" title="cnblog" target="_blank">cnblog</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#RapidFloatingActionButton"><span class="nav-text">RapidFloatingActionButton</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用方式："><span class="nav-text">使用方式：</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#activity-main-xml："><span class="nav-text">activity_main.xml：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#属性解释"><span class="nav-text">属性解释</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#RapidFloatingActionLayout"><span class="nav-text">RapidFloatingActionLayout:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RapidFloatingActionButton-1"><span class="nav-text">RapidFloatingActionButton:</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MainActivity："><span class="nav-text">MainActivity：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关于扩展："><span class="nav-text">关于扩展：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#License"><span class="nav-text">License</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wang Jie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://blog-wangjiegulu-com.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://blog.wangjiegulu.com/2015/05/03/Android-RapidFloatingActionButton框架正式出炉/';
+          this.page.identifier = '2015/05/03/Android-RapidFloatingActionButton框架正式出炉/';
+          this.page.title = '[Android]RapidFloatingActionButton框架正式出炉';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://blog-wangjiegulu-com.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "default";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "GooglePlus,Evernote,Twitter,Facebook,Douban,Weibo";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="WAND JIE" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/7286503.html   通过View的View::focusSearch进行焦点搜索对应方向上的下一个可以获取焦点的View：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Android]Android焦点流程代码分析">
+<meta property="og:url" content="http://blog.wangjiegulu.com/2017/08/04/Android-Android焦点流程代码分析/index.html">
+<meta property="og:site_name" content="WAND JIE">
+<meta property="og:description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/7286503.html   通过View的View::focusSearch进行焦点搜索对应方向上的下一个可以获取焦点的View：">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-01-29T13:07:42.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[Android]Android焦点流程代码分析">
+<meta name="twitter:description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/7286503.html   通过View的View::focusSearch进行焦点搜索对应方向上的下一个可以获取焦点的View：">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.wangjiegulu.com/2017/08/04/Android-Android焦点流程代码分析/"/>
+
+
+
+
+
+  <title>[Android]Android焦点流程代码分析 | WAND JIE</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-111189680-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">WAND JIE</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">TO BE AN ARTIST-ENGINNER</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.wangjiegulu.com/2017/08/04/Android-Android焦点流程代码分析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wang Jie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/my_avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WAND JIE">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">[Android]Android焦点流程代码分析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-04T18:08:00+08:00">
+                2017-08-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/08/04/Android-Android焦点流程代码分析/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/08/04/Android-Android焦点流程代码分析/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <font color="#ff0000"><strong><br>以下内容为原创，欢迎转载，转载请注明<br>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/7286503.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/7286503.html</a>
+</strong></font>
+
+<p>通过View的<code>View::focusSearch</code>进行焦点搜索对应方向上的下一个可以获取焦点的View：</p>
+<a id="more"></a>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> View <span class="title">focusSearch</span><span class="params">(@FocusRealDirection <span class="keyword">int</span> direction)</span> </span>&#123;</span><br><span class="line">   <span class="keyword">if</span> (mParent != <span class="keyword">null</span>) &#123;</span><br><span class="line">       <span class="keyword">return</span> mParent.focusSearch(<span class="keyword">this</span>, direction);</span><br><span class="line">   &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><span id="focusSearch"><br>不断地调用父控件来进行搜索，focusSearch有两个实现：<code>ViewGroup</code>和<code>RecyclerView</code>，先看<code>ViewGroup</code>：</span></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> View <span class="title">focusSearch</span><span class="params">(View focused, <span class="keyword">int</span> direction)</span> </span>&#123;</span><br><span class="line">   <span class="keyword">if</span> (isRootNamespace()) &#123;</span><br><span class="line">       <span class="comment">// root namespace means we should consider ourselves the top of the</span></span><br><span class="line">       <span class="comment">// tree for focus searching; otherwise we could be focus searching</span></span><br><span class="line">       <span class="comment">// into other tabs.  see LocalActivityManager and TabHost for more info</span></span><br><span class="line">       <span class="keyword">return</span> FocusFinder.getInstance().findNextFocus(<span class="keyword">this</span>, focused, direction);</span><br><span class="line">   &#125; <span class="keyword">else</span> <span class="keyword">if</span> (mParent != <span class="keyword">null</span>) &#123;</span><br><span class="line">       <span class="keyword">return</span> mParent.focusSearch(focused, direction);</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><span id="FocusFinder.findNextFocus"><br>如果是最顶层，则直接调用<code>FocusFinder::findNextFocus</code>方法进行搜索；否则调用父控件的<code>focusSearch</code>。<code>FocusFinder::findNextFocus</code>如下：</span></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> View <span class="title">findNextFocus</span><span class="params">(ViewGroup root, View focused, Rect focusedRect, <span class="keyword">int</span> direction)</span> </span>&#123;</span><br><span class="line">   View next = <span class="keyword">null</span>;</span><br><span class="line">   <span class="keyword">if</span> (focused != <span class="keyword">null</span>) &#123;</span><br><span class="line">       next = findNextUserSpecifiedFocus(root, focused, direction);</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">if</span> (next != <span class="keyword">null</span>) &#123;</span><br><span class="line">       <span class="keyword">return</span> next;</span><br><span class="line">   &#125;</span><br><span class="line">   ArrayList&lt;View&gt; focusables = mTempList;</span><br><span class="line">   <span class="keyword">try</span> &#123;</span><br><span class="line">       focusables.clear();</span><br><span class="line">       root.addFocusables(focusables, direction);</span><br><span class="line">       <span class="keyword">if</span> (!focusables.isEmpty()) &#123;</span><br><span class="line">           next = findNextFocus(root, focused, focusedRect, direction, focusables);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">       focusables.clear();</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> next;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的<code>root</code>参数代表的是最顶层的view。</p>
+<p>首先，通过尝试通过<code>findNextUserSpecifiedFocus</code>来查找下一个“指定的”可获得焦点的View，这个指定是开发者通过SDK自带的<code>setNextFocusLeftId</code>等方法进行手动设置的。如果查找到指定的下一个可获得焦点的View，则返回该View；否则，执行<code>View::addFocusables</code>方法，通过这个最顶层的View去拿到所有直接或间接的<code>Focusable</code>的子View，并添加到<code>ArrayList&lt;View&gt; focusables</code>中。</p>
+<p><code>View::addFolcusables</code>方法中有4种实现：</p>
+<p>第一种是View中默认实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addFocusables</span><span class="params">(ArrayList&lt;View&gt; views, @FocusDirection <span class="keyword">int</span> direction,</span></span></span><br><span class="line"><span class="function"><span class="params">            @FocusableMode <span class="keyword">int</span> focusableMode)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (views == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (!isFocusable()) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> ((focusableMode &amp; FOCUSABLES_TOUCH_MODE) == FOCUSABLES_TOUCH_MODE</span><br><span class="line">                &amp;&amp; !isFocusableInTouchMode()) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        views.add(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>如果自己是focusable的话，直接把自己添加进去。</p>
+<p>第二种是<code>ViewGroup</code>实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addFocusables</span><span class="params">(ArrayList&lt;View&gt; views, <span class="keyword">int</span> direction, <span class="keyword">int</span> focusableMode)</span> </span>&#123;</span><br><span class="line">   <span class="keyword">final</span> <span class="keyword">int</span> focusableCount = views.size();</span><br><span class="line"></span><br><span class="line">   <span class="keyword">final</span> <span class="keyword">int</span> descendantFocusability = getDescendantFocusability();</span><br><span class="line"></span><br><span class="line">   <span class="keyword">if</span> (descendantFocusability != FOCUS_BLOCK_DESCENDANTS) &#123;</span><br><span class="line">       <span class="keyword">if</span> (shouldBlockFocusForTouchscreen()) &#123;</span><br><span class="line">           focusableMode |= FOCUSABLES_TOUCH_MODE;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">final</span> <span class="keyword">int</span> count = mChildrenCount;</span><br><span class="line">       <span class="keyword">final</span> View[] children = mChildren;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; count; i++) &#123;</span><br><span class="line">           <span class="keyword">final</span> View child = children[i];</span><br><span class="line">           <span class="keyword">if</span> ((child.mViewFlags &amp; VISIBILITY_MASK) == VISIBLE) &#123;</span><br><span class="line">               child.addFocusables(views, direction, focusableMode);</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">// we add ourselves (if focusable) in all cases except for when we are</span></span><br><span class="line">   <span class="comment">// FOCUS_AFTER_DESCENDANTS and there are some descendants focusable.  this is</span></span><br><span class="line">   <span class="comment">// to avoid the focus search finding layouts when a more precise search</span></span><br><span class="line">   <span class="comment">// among the focusable children would be more interesting.</span></span><br><span class="line">   <span class="keyword">if</span> ((descendantFocusability != FOCUS_AFTER_DESCENDANTS</span><br><span class="line">           <span class="comment">// No focusable descendants</span></span><br><span class="line">           || (focusableCount == views.size())) &amp;&amp;</span><br><span class="line">           (isFocusableInTouchMode() || !shouldBlockFocusForTouchscreen())) &#123;</span><br><span class="line">       <span class="keyword">super</span>.addFocusables(views, direction, focusableMode);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>先会处理自身ViewGroup与它后代的关系(descendantFocusability)，前面提到过，可能的几种情况：</p>
+<ul>
+<li><strong>FOCUS_BEFORE_DESCENDANTS</strong>: ViewGroup本身先对焦点进行处理，如果没有处理则分发给child View进行处理</li>
+<li><strong>FOCUS_AFTER_DESCENDANTS</strong>: 先分发给Child View进行处理，如果所有的Child View都没有处理，则自己再处理</li>
+<li><strong>FOCUS_BLOCK_DESCENDANTS</strong>: ViewGroup本身进行处理，不管是否处理成功，都不会分发给ChildView进行处理</li>
+</ul>
+</blockquote>
+<p>所以，以上：</p>
+<p>1. 如果不是<code>FOCUS_BLOCK_DESCENDANTS</code>，则首先检查<code>blockForTouchscreen</code>并重置掉<code>focusableMode</code>，然后遍历所有的子View，调用<code>child::addFocusables</code>。<br>2. 如果不是<code>FOCUS_AFTER_DESCENDANTS</code>或者没有focusable的子View时自己处理，所以把自己加入到<code>views</code>中。</p>
+<p>第三种是<code>ViewPager</code>实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addFocusables</span><span class="params">(ArrayList&lt;View&gt; views, <span class="keyword">int</span> direction, <span class="keyword">int</span> focusableMode)</span> </span>&#123;</span><br><span class="line">   <span class="keyword">final</span> <span class="keyword">int</span> focusableCount = views.size();</span><br><span class="line"></span><br><span class="line">   <span class="keyword">final</span> <span class="keyword">int</span> descendantFocusability = getDescendantFocusability();</span><br><span class="line"></span><br><span class="line">   <span class="keyword">if</span> (descendantFocusability != FOCUS_BLOCK_DESCENDANTS) &#123;</span><br><span class="line">       <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; getChildCount(); i++) &#123;</span><br><span class="line">           <span class="keyword">final</span> View child = getChildAt(i);</span><br><span class="line">           <span class="keyword">if</span> (child.getVisibility() == VISIBLE) &#123;</span><br><span class="line">               ItemInfo ii = infoForChild(child);</span><br><span class="line">               <span class="keyword">if</span> (ii != <span class="keyword">null</span> &amp;&amp; ii.position == mCurItem) &#123;</span><br><span class="line">                   child.addFocusables(views, direction, focusableMode);</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">// we add ourselves (if focusable) in all cases except for when we are</span></span><br><span class="line">   <span class="comment">// FOCUS_AFTER_DESCENDANTS and there are some descendants focusable.  this is</span></span><br><span class="line">   <span class="comment">// to avoid the focus search finding layouts when a more precise search</span></span><br><span class="line">   <span class="comment">// among the focusable children would be more interesting.</span></span><br><span class="line">   <span class="keyword">if</span> (descendantFocusability != FOCUS_AFTER_DESCENDANTS</span><br><span class="line">           || (focusableCount == views.size())) &#123; <span class="comment">// No focusable descendants</span></span><br><span class="line">       <span class="comment">// Note that we can't call the superclass here, because it will</span></span><br><span class="line">       <span class="comment">// add all views in.  So we need to do the same thing View does.</span></span><br><span class="line">       <span class="keyword">if</span> (!isFocusable()) &#123;</span><br><span class="line">           <span class="keyword">return</span>;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">if</span> ((focusableMode &amp; FOCUSABLES_TOUCH_MODE) == FOCUSABLES_TOUCH_MODE</span><br><span class="line">               &amp;&amp; isInTouchMode() &amp;&amp; !isFocusableInTouchMode()) &#123;</span><br><span class="line">           <span class="keyword">return</span>;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">if</span> (views != <span class="keyword">null</span>) &#123;</span><br><span class="line">           views.add(<span class="keyword">this</span>);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>与<code>ViewGroup</code>基本一致，在<code>descendantFocusability</code>不是<code>FOCUS_BLOCK_DESCENDANTS</code>时，遍历子View时判断view是否属于当前的page，如果是才加进去。如果不是<code>FOCUS_AFTER_DESCENDANTS</code>或者没有focusable的子View时自己处理，所以把自己加入到<code>views</code>中。</p>
+<p>第四种是<code>RecyclerView</code>实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addFocusables</span><span class="params">(ArrayList&lt;View&gt; views, <span class="keyword">int</span> direction, <span class="keyword">int</span> focusableMode)</span> </span>&#123;</span><br><span class="line">   <span class="keyword">if</span> (mLayout == <span class="keyword">null</span> || !mLayout.onAddFocusables(<span class="keyword">this</span>, views, direction, focusableMode)) &#123;</span><br><span class="line">       <span class="keyword">super</span>.addFocusables(views, direction, focusableMode);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过<code>LayoutManager::onAddFocusables</code>来进行管理，如果返回false，则直接调用父类<code>ViewGroup</code>的方法，看下<code>LayoutManager::onAddFocusables</code>的实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onAddFocusables</span><span class="params">(RecyclerView recyclerView, ArrayList&lt;View&gt; views,</span></span></span><br><span class="line"><span class="function"><span class="params">      <span class="keyword">int</span> direction, <span class="keyword">int</span> focusableMode)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>直接返回false，并且没有看到相关的<code>LayoutManager</code>对该方法的重写，所以，这里应该是直接调用了父类<code>ViewGroup</code>的方法。</p>
+<p><code>addFocusables</code>方法完毕，回到 <a href="#FocusFinder.findNextFocus">FocusFinder::findNextFocus</a> 方法中通过<code>root.addFocusables(focusables, direction);</code>加入所有可获取焦点的View之后，在非空的情况下调用如下代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">next = findNextFocus(root, focused, focusedRect, direction, focusables);</span><br></pre></td></tr></table></figure>
+<p>所以重点是<code>FocusFinder::findNextFocus</code>方法的实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> View <span class="title">findNextFocus</span><span class="params">(ViewGroup root, View focused, Rect focusedRect,</span></span></span><br><span class="line"><span class="function"><span class="params">       <span class="keyword">int</span> direction, ArrayList&lt;View&gt; focusables)</span> </span>&#123;</span><br><span class="line">   <span class="keyword">if</span> (focused != <span class="keyword">null</span>) &#123;</span><br><span class="line">       <span class="keyword">if</span> (focusedRect == <span class="keyword">null</span>) &#123;</span><br><span class="line">           focusedRect = mFocusedRect;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="comment">// fill in interesting rect from focused</span></span><br><span class="line">       focused.getFocusedRect(focusedRect);</span><br><span class="line">       root.offsetDescendantRectToMyCoords(focused, focusedRect);</span><br><span class="line">   &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">       <span class="keyword">if</span> (focusedRect == <span class="keyword">null</span>) &#123;</span><br><span class="line">           focusedRect = mFocusedRect;</span><br><span class="line">           <span class="comment">// make up a rect at top left or bottom right of root</span></span><br><span class="line">           <span class="keyword">switch</span> (direction) &#123;</span><br><span class="line">               <span class="keyword">case</span> View.FOCUS_RIGHT:</span><br><span class="line">               <span class="keyword">case</span> View.FOCUS_DOWN:</span><br><span class="line">                   setFocusTopLeft(root, focusedRect);</span><br><span class="line">                   <span class="keyword">break</span>;</span><br><span class="line">               <span class="keyword">case</span> View.FOCUS_FORWARD:</span><br><span class="line">                   <span class="keyword">if</span> (root.isLayoutRtl()) &#123;</span><br><span class="line">                       setFocusBottomRight(root, focusedRect);</span><br><span class="line">                   &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                       setFocusTopLeft(root, focusedRect);</span><br><span class="line">                   &#125;</span><br><span class="line">                   <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">               <span class="keyword">case</span> View.FOCUS_LEFT:</span><br><span class="line">               <span class="keyword">case</span> View.FOCUS_UP:</span><br><span class="line">                   setFocusBottomRight(root, focusedRect);</span><br><span class="line">                   <span class="keyword">break</span>;</span><br><span class="line">               <span class="keyword">case</span> View.FOCUS_BACKWARD:</span><br><span class="line">                   <span class="keyword">if</span> (root.isLayoutRtl()) &#123;</span><br><span class="line">                       setFocusTopLeft(root, focusedRect);</span><br><span class="line">                   &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                       setFocusBottomRight(root, focusedRect);</span><br><span class="line">                   <span class="keyword">break</span>;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">switch</span> (direction) &#123;</span><br><span class="line">       <span class="keyword">case</span> View.FOCUS_FORWARD:</span><br><span class="line">       <span class="keyword">case</span> View.FOCUS_BACKWARD:</span><br><span class="line">           <span class="keyword">return</span> findNextFocusInRelativeDirection(focusables, root, focused, focusedRect,</span><br><span class="line">                   direction);</span><br><span class="line">       <span class="keyword">case</span> View.FOCUS_UP:</span><br><span class="line">       <span class="keyword">case</span> View.FOCUS_DOWN:</span><br><span class="line">       <span class="keyword">case</span> View.FOCUS_LEFT:</span><br><span class="line">       <span class="keyword">case</span> View.FOCUS_RIGHT:</span><br><span class="line">           <span class="keyword">return</span> findNextFocusInAbsoluteDirection(focusables, root, focused,</span><br><span class="line">                   focusedRect, direction);</span><br><span class="line">       <span class="keyword">default</span>:</span><br><span class="line">           <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Unknown direction: "</span> + direction);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>如果focused不是null，说明当前获取到焦点的View存在，则获得绘制焦点的Rect到focusedRect，然后根据rootView遍历所有ParentView从子View纠正坐标到根View坐标。</li>
+<li>如果focused是null，则说明当前没有View获取到焦点，则把focusedRect根据不同的direction重置为“一点”。</li>
+</ul>
+<p>最后根据direction调用<code>FocusFinder::findNextFocusInAbsoluteDirection</code>方法进行对比查找“下一个”View。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">View <span class="title">findNextFocusInAbsoluteDirection</span><span class="params">(ArrayList&lt;View&gt; focusables, ViewGroup root, View focused,</span></span></span><br><span class="line"><span class="function"><span class="params">       Rect focusedRect, <span class="keyword">int</span> direction)</span> </span>&#123;</span><br><span class="line">   <span class="comment">// initialize the best candidate to something impossible</span></span><br><span class="line">   <span class="comment">// (so the first plausible view will become the best choice)</span></span><br><span class="line">   mBestCandidateRect.set(focusedRect);</span><br><span class="line">   <span class="keyword">switch</span>(direction) &#123;</span><br><span class="line">       <span class="keyword">case</span> View.FOCUS_LEFT:</span><br><span class="line">           mBestCandidateRect.offset(focusedRect.width() + <span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">           <span class="keyword">break</span>;</span><br><span class="line">       <span class="keyword">case</span> View.FOCUS_RIGHT:</span><br><span class="line">           mBestCandidateRect.offset(-(focusedRect.width() + <span class="number">1</span>), <span class="number">0</span>);</span><br><span class="line">           <span class="keyword">break</span>;</span><br><span class="line">       <span class="keyword">case</span> View.FOCUS_UP:</span><br><span class="line">           mBestCandidateRect.offset(<span class="number">0</span>, focusedRect.height() + <span class="number">1</span>);</span><br><span class="line">           <span class="keyword">break</span>;</span><br><span class="line">       <span class="keyword">case</span> View.FOCUS_DOWN:</span><br><span class="line">           mBestCandidateRect.offset(<span class="number">0</span>, -(focusedRect.height() + <span class="number">1</span>));</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   View closest = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">int</span> numFocusables = focusables.size();</span><br><span class="line">   <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; numFocusables; i++) &#123;</span><br><span class="line">       View focusable = focusables.get(i);</span><br><span class="line"></span><br><span class="line">       <span class="comment">// only interested in other non-root views</span></span><br><span class="line">       <span class="keyword">if</span> (focusable == focused || focusable == root) <span class="keyword">continue</span>;</span><br><span class="line"></span><br><span class="line">       <span class="comment">// get focus bounds of other view in same coordinate system</span></span><br><span class="line">       focusable.getFocusedRect(mOtherRect);</span><br><span class="line">       root.offsetDescendantRectToMyCoords(focusable, mOtherRect);</span><br><span class="line"></span><br><span class="line">       <span class="keyword">if</span> (isBetterCandidate(direction, focusedRect, mOtherRect, mBestCandidateRect)) &#123;</span><br><span class="line">           mBestCandidateRect.set(mOtherRect);</span><br><span class="line">           closest = focusable;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> closest;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>首先把最优选择mBestCandidateRect设置为focusedRect，根据方向做1像素的偏移便于对比。遍历所有刚刚查询出来的<code>focusables</code>，拿到每一个的<code>focusedRect</code>区域并进行转换，然后通过<code>FocusFinder::isBetterCandidate</code>方法进行对比，然后拿到更好的，遍历完成后就是最优选择。接下来看下<code>FocusFinder::isBetterCandidate</code>方法来了解下是怎么做对比的：</p>
+<p>下面代码意思是：以source这个rect来说，作为对应derection上下一个focus view，rect1是否比rect2更优？</p>
+<p><span id="FocusFinder.isBetterCandidate"></span></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">isBetterCandidate</span><span class="params">(<span class="keyword">int</span> direction, Rect source, Rect rect1, Rect rect2)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">   <span class="comment">// to be a better candidate, need to at least be a candidate in the first</span></span><br><span class="line">   <span class="comment">// place :)</span></span><br><span class="line">   <span class="keyword">if</span> (!isCandidate(source, rect1, direction)) &#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">// we know that rect1 is a candidate.. if rect2 is not a candidate,</span></span><br><span class="line">   <span class="comment">// rect1 is better</span></span><br><span class="line">   <span class="keyword">if</span> (!isCandidate(source, rect2, direction)) &#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">// if rect1 is better by beam, it wins</span></span><br><span class="line">   <span class="keyword">if</span> (beamBeats(direction, source, rect1, rect2)) &#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">// if rect2 is better, then rect1 cant' be :)</span></span><br><span class="line">   <span class="keyword">if</span> (beamBeats(direction, source, rect2, rect1)) &#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">// otherwise, do fudge-tastic comparison of the major and minor axis</span></span><br><span class="line">   <span class="keyword">return</span> (getWeightedDistanceFor(</span><br><span class="line">                   majorAxisDistance(direction, source, rect1),</span><br><span class="line">                   minorAxisDistance(direction, source, rect1))</span><br><span class="line">           &lt; getWeightedDistanceFor(</span><br><span class="line">                   majorAxisDistance(direction, source, rect2),</span><br><span class="line">                   minorAxisDistance(direction, source, rect2)));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>首先确定rect1是否<code>isCandidate</code>？<code>isCandidate</code>做的逻辑简单来说就是确定rect是否满足给定的derection作为下一个focus view这个条件，它的判断依据如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">isCandidate</span><span class="params">(Rect srcRect, Rect destRect, <span class="keyword">int</span> direction)</span> </span>&#123;</span><br><span class="line">   <span class="keyword">switch</span> (direction) &#123;</span><br><span class="line">       <span class="keyword">case</span> View.FOCUS_LEFT:</span><br><span class="line">           <span class="keyword">return</span> (srcRect.right &gt; destRect.right || srcRect.left &gt;= destRect.right) </span><br><span class="line">                   &amp;&amp; srcRect.left &gt; destRect.left;</span><br><span class="line">       <span class="keyword">case</span> View.FOCUS_RIGHT:</span><br><span class="line">           <span class="keyword">return</span> (srcRect.left &lt; destRect.left || srcRect.right &lt;= destRect.left)</span><br><span class="line">                   &amp;&amp; srcRect.right &lt; destRect.right;</span><br><span class="line">       <span class="keyword">case</span> View.FOCUS_UP:</span><br><span class="line">           <span class="keyword">return</span> (srcRect.bottom &gt; destRect.bottom || srcRect.top &gt;= destRect.bottom)</span><br><span class="line">                   &amp;&amp; srcRect.top &gt; destRect.top;</span><br><span class="line">       <span class="keyword">case</span> View.FOCUS_DOWN:</span><br><span class="line">           <span class="keyword">return</span> (srcRect.top &lt; destRect.top || srcRect.bottom &lt;= destRect.top)</span><br><span class="line">                   &amp;&amp; srcRect.bottom &lt; destRect.bottom;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"direction must be one of "</span></span><br><span class="line">           + <span class="string">"&#123;FOCUS_UP, FOCUS_DOWN, FOCUS_LEFT, FOCUS_RIGHT&#125;."</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>代码比较简单。再回到 <a href="#FocusFinder.isBetterCandidate">FocusFinder::isBetterCandidate</a> 的代码逻辑：</p>
+<ul>
+<li>如果rect1不满足基本条件，则肯定返回false（基本的条件都不满足）</li>
+<li>如果rect2不满足基本条件，则返回true，认为rect1更优</li>
+<li>如果都满足基本条件的情况下，通过<code>FocusFinder::beamBeats</code>方法来判断哪种更优</li>
+</ul>
+<p>接下来看下<code>FocusFinder::beamBeats</code>的实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">beamBeats</span><span class="params">(<span class="keyword">int</span> direction, Rect source, Rect rect1, Rect rect2)</span> </span>&#123;</span><br><span class="line">   <span class="keyword">final</span> <span class="keyword">boolean</span> rect1InSrcBeam = beamsOverlap(direction, source, rect1);</span><br><span class="line">   <span class="keyword">final</span> <span class="keyword">boolean</span> rect2InSrcBeam = beamsOverlap(direction, source, rect2);</span><br><span class="line"></span><br><span class="line">   <span class="comment">// if rect1 isn't exclusively in the src beam, it doesn't win</span></span><br><span class="line">   <span class="keyword">if</span> (rect2InSrcBeam || !rect1InSrcBeam) &#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">// we know rect1 is in the beam, and rect2 is not</span></span><br><span class="line"></span><br><span class="line">   <span class="comment">// if rect1 is to the direction of, and rect2 is not, rect1 wins.</span></span><br><span class="line">   <span class="comment">// for example, for direction left, if rect1 is to the left of the source</span></span><br><span class="line">   <span class="comment">// and rect2 is below, then we always prefer the in beam rect1, since rect2</span></span><br><span class="line">   <span class="comment">// could be reached by going down.</span></span><br><span class="line">   <span class="keyword">if</span> (!isToDirectionOf(direction, source, rect2)) &#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">// for horizontal directions, being exclusively in beam always wins</span></span><br><span class="line">   <span class="keyword">if</span> ((direction == View.FOCUS_LEFT || direction == View.FOCUS_RIGHT)) &#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">   &#125;        </span><br><span class="line"></span><br><span class="line">   <span class="comment">// for vertical directions, beams only beat up to a point:</span></span><br><span class="line">   <span class="comment">// now, as long as rect2 isn't completely closer, rect1 wins</span></span><br><span class="line">   <span class="comment">// e.g for direction down, completely closer means for rect2's top</span></span><br><span class="line">   <span class="comment">// edge to be closer to the source's top edge than rect1's bottom edge.</span></span><br><span class="line">   <span class="keyword">return</span> (majorAxisDistance(direction, source, rect1)</span><br><span class="line">           &lt; majorAxisDistanceToFarEdge(direction, source, rect2));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>首先通过<code>beamsOverlap</code>方法来判断两个rect与source是否重叠等等。<strong>注意的是，在水平情况下，如果rect1重叠，则就是最优解（为什么？比较奇怪）</strong>，最后<strong>如果是竖直情况</strong>，通过<code>FocusFinder::majorAxisDistance</code>方法来判断哪个离source最近。如果还是比较不出，则通过<code>getWeightedDistanceFor</code>方法来通过“主要距离”和“次要距离”做一个综合的比较。</p>
+<h2 id="RecyclerView"><a href="#RecyclerView" class="headerlink" title="RecyclerView"></a>RecyclerView</h2><p>继续 <a href="#focusSearch">focusSearch</a> 代码的分析，刚刚只跟了<code>ViewGroup</code>，还有一个实现是<code>RecyclerView</code>的实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> View <span class="title">focusSearch</span><span class="params">(View focused, <span class="keyword">int</span> direction)</span> </span>&#123;</span><br><span class="line">   View result = mLayout.onInterceptFocusSearch(focused, direction);</span><br><span class="line">   <span class="keyword">if</span> (result != <span class="keyword">null</span>) &#123;</span><br><span class="line">       <span class="keyword">return</span> result;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>首先通过<code>onInterceptFocusSearch</code>进行拦截，如果返回具体的focus View，则直接返回；否则继续往下；<code>onInterceptFocusSearch</code>实现如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> View <span class="title">onInterceptFocusSearch</span><span class="params">(View focused, <span class="keyword">int</span> direction)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>默认为空实现，返回null，也没有其它的子类进行重写，所以暂时不管这个处理，继续看<code>focusSearch</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> View <span class="title">focusSearch</span><span class="params">(View focused, <span class="keyword">int</span> direction)</span> </span>&#123;</span><br><span class="line">   View result = mLayout.onInterceptFocusSearch(focused, direction);</span><br><span class="line">   <span class="keyword">if</span> (result != <span class="keyword">null</span>) &#123;</span><br><span class="line">       <span class="keyword">return</span> result;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">final</span> <span class="keyword">boolean</span> canRunFocusFailure = mAdapter != <span class="keyword">null</span> &amp;&amp; mLayout != <span class="keyword">null</span></span><br><span class="line">           &amp;&amp; !isComputingLayout() &amp;&amp; !mLayoutFrozen;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">final</span> FocusFinder ff = FocusFinder.getInstance();</span><br><span class="line">   <span class="keyword">if</span> (canRunFocusFailure</span><br><span class="line">           &amp;&amp; (direction == View.FOCUS_FORWARD || direction == View.FOCUS_BACKWARD)) &#123;</span><br><span class="line">       <span class="comment">// convert direction to absolute direction and see if we have a view there and if not</span></span><br><span class="line">       <span class="comment">// tell LayoutManager to add if it can.</span></span><br><span class="line">       <span class="keyword">boolean</span> needsFocusFailureLayout = <span class="keyword">false</span>;</span><br><span class="line">       <span class="keyword">if</span> (mLayout.canScrollVertically()) &#123;</span><br><span class="line">           <span class="keyword">final</span> <span class="keyword">int</span> absDir =</span><br><span class="line">                   direction == View.FOCUS_FORWARD ? View.FOCUS_DOWN : View.FOCUS_UP;</span><br><span class="line">           <span class="keyword">final</span> View found = ff.findNextFocus(<span class="keyword">this</span>, focused, absDir);</span><br><span class="line">           needsFocusFailureLayout = found == <span class="keyword">null</span>;</span><br><span class="line">           <span class="keyword">if</span> (FORCE_ABS_FOCUS_SEARCH_DIRECTION) &#123;</span><br><span class="line">               <span class="comment">// Workaround for broken FOCUS_BACKWARD in API 15 and older devices.</span></span><br><span class="line">               direction = absDir;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">if</span> (!needsFocusFailureLayout &amp;&amp; mLayout.canScrollHorizontally()) &#123;</span><br><span class="line">           <span class="keyword">boolean</span> rtl = mLayout.getLayoutDirection() == ViewCompat.LAYOUT_DIRECTION_RTL;</span><br><span class="line">           <span class="keyword">final</span> <span class="keyword">int</span> absDir = (direction == View.FOCUS_FORWARD) ^ rtl</span><br><span class="line">                   ? View.FOCUS_RIGHT : View.FOCUS_LEFT;</span><br><span class="line">           <span class="keyword">final</span> View found = ff.findNextFocus(<span class="keyword">this</span>, focused, absDir);</span><br><span class="line">           needsFocusFailureLayout = found == <span class="keyword">null</span>;</span><br><span class="line">           <span class="keyword">if</span> (FORCE_ABS_FOCUS_SEARCH_DIRECTION) &#123;</span><br><span class="line">               <span class="comment">// Workaround for broken FOCUS_BACKWARD in API 15 and older devices.</span></span><br><span class="line">               direction = absDir;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">if</span> (needsFocusFailureLayout) &#123;</span><br><span class="line">           consumePendingUpdateOperations();</span><br><span class="line">           <span class="keyword">final</span> View focusedItemView = findContainingItemView(focused);</span><br><span class="line">           <span class="keyword">if</span> (focusedItemView == <span class="keyword">null</span>) &#123;</span><br><span class="line">               <span class="comment">// panic, focused view is not a child anymore, cannot call super.</span></span><br><span class="line">               <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">           &#125;</span><br><span class="line">           eatRequestLayout();</span><br><span class="line">           mLayout.onFocusSearchFailed(focused, direction, mRecycler, mState);</span><br><span class="line">           resumeRequestLayout(<span class="keyword">false</span>);</span><br><span class="line">       &#125;</span><br><span class="line">       result = ff.findNextFocus(<span class="keyword">this</span>, focused, direction);</span><br><span class="line">   &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">       result = ff.findNextFocus(<span class="keyword">this</span>, focused, direction);</span><br><span class="line">       <span class="keyword">if</span> (result == <span class="keyword">null</span> &amp;&amp; canRunFocusFailure) &#123;</span><br><span class="line">           consumePendingUpdateOperations();</span><br><span class="line">           <span class="keyword">final</span> View focusedItemView = findContainingItemView(focused);</span><br><span class="line">           <span class="keyword">if</span> (focusedItemView == <span class="keyword">null</span>) &#123;</span><br><span class="line">               <span class="comment">// panic, focused view is not a child anymore, cannot call super.</span></span><br><span class="line">               <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">           &#125;</span><br><span class="line">           eatRequestLayout();</span><br><span class="line">           result = mLayout.onFocusSearchFailed(focused, direction, mRecycler, mState);</span><br><span class="line">           resumeRequestLayout(<span class="keyword">false</span>);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">if</span> (result != <span class="keyword">null</span> &amp;&amp; !result.hasFocusable()) &#123;</span><br><span class="line">       <span class="keyword">if</span> (getFocusedChild() == <span class="keyword">null</span>) &#123;</span><br><span class="line">           <span class="comment">// Scrolling to this unfocusable view is not meaningful since there is no currently</span></span><br><span class="line">           <span class="comment">// focused view which RV needs to keep visible.</span></span><br><span class="line">           <span class="keyword">return</span> <span class="keyword">super</span>.focusSearch(focused, direction);</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="comment">// If the next view returned by onFocusSearchFailed in layout manager has no focusable</span></span><br><span class="line">       <span class="comment">// views, we still scroll to that view in order to make it visible on the screen.</span></span><br><span class="line">       <span class="comment">// If it's focusable, framework already calls RV's requestChildFocus which handles</span></span><br><span class="line">       <span class="comment">// bringing this newly focused item onto the screen.</span></span><br><span class="line">       requestChildOnScreen(result, <span class="keyword">null</span>);</span><br><span class="line">       <span class="keyword">return</span> focused;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> isPreferredNextFocus(focused, result, direction)</span><br><span class="line">           ? result : <span class="keyword">super</span>.focusSearch(focused, direction);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们暂时只考虑<code>direction</code>为left，top，right，down的情况，则进入最外面if的else分支：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> View <span class="title">focusSearch</span><span class="params">(View focused, <span class="keyword">int</span> direction)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    result = ff.findNextFocus(<span class="keyword">this</span>, focused, direction);</span><br><span class="line">    <span class="keyword">if</span> (result == <span class="keyword">null</span> &amp;&amp; canRunFocusFailure) &#123;</span><br><span class="line">     consumePendingUpdateOperations();</span><br><span class="line">     <span class="keyword">final</span> View focusedItemView = findContainingItemView(focused);</span><br><span class="line">     <span class="keyword">if</span> (focusedItemView == <span class="keyword">null</span>) &#123;</span><br><span class="line">         <span class="comment">// panic, focused view is not a child anymore, cannot call super.</span></span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">     &#125;</span><br><span class="line">     eatRequestLayout();</span><br><span class="line">     result = mLayout.onFocusSearchFailed(focused, direction, mRecycler, mState);</span><br><span class="line">     resumeRequestLayout(<span class="keyword">false</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>首先通过<code>FocusFinder::findNextFocus</code>方法来获取下一个应该获得焦点的View，这里获取的结果与 <a href="#FocusFinder.findNextFocus">FocusFinder::findNextFocus</a> 逻辑一致。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/" rel="next" title="[Android]Android内存泄漏你所要知道的一切（翻译）">
+                <i class="fa fa-chevron-left"></i> [Android]Android内存泄漏你所要知道的一切（翻译）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/25/应朋友死皮白咧地邀请贴一个招聘广告/" rel="prev" title="应朋友死皮白咧地邀请贴一个招聘广告">
+                应朋友死皮白咧地邀请贴一个招聘广告 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/my_avatar.jpg"
+                alt="Wang Jie" />
+            
+              <p class="site-author-name" itemprop="name">Wang Jie</p>
+              <p class="site-description motion-element" itemprop="description">Wang Jie's blog</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">144</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wangjiegulu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:tiantian.china.2@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/+%E5%A4%A9%E5%A4%A9wangjie" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/wangjiegulu" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://stackoverflow.com/users/2124006/wangjie" target="_blank" title="StackOverflow">
+                      
+                        <i class="fa fa-fw fa-stack-overflow"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/wangjiegulu" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.cnblogs.com/tiantianbyconan/" title="cnblog" target="_blank">cnblog</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#RecyclerView"><span class="nav-text">RecyclerView</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wang Jie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://blog-wangjiegulu-com.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://blog.wangjiegulu.com/2017/08/04/Android-Android焦点流程代码分析/';
+          this.page.identifier = '2017/08/04/Android-Android焦点流程代码分析/';
+          this.page.title = '[Android]Android焦点流程代码分析';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://blog-wangjiegulu-com.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "default";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "GooglePlus,Evernote,Twitter,Facebook,Douban,Weibo";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

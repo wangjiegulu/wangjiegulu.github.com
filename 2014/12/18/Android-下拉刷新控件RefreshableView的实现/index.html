@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="WAND JIE" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="以下内容为原创，欢迎转载，转载请注明 来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/4172483.html &amp;nbsp; 需求：自定义一个ViewGroup，实现可以下拉刷新的功能。下拉一定距离后（下拉时显示的界面可以自定义任何复杂的界面）释放手指可以回调刷新的功能，用户处理完刷新的内容后，可以调用方法onCompleteRefresh()通知刷">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Android]下拉刷新控件RefreshableView的实现">
+<meta property="og:url" content="http://blog.wangjiegulu.com/2014/12/18/Android-下拉刷新控件RefreshableView的实现/index.html">
+<meta property="og:site_name" content="WAND JIE">
+<meta property="og:description" content="以下内容为原创，欢迎转载，转载请注明 来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/4172483.html &amp;nbsp; 需求：自定义一个ViewGroup，实现可以下拉刷新的功能。下拉一定距离后（下拉时显示的界面可以自定义任何复杂的界面）释放手指可以回调刷新的功能，用户处理完刷新的内容后，可以调用方法onCompleteRefresh()通知刷">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://raw.githubusercontent.com/wangjiegulu/RefreshableView/master/screenshot/refreshableview.gif">
+<meta property="og:image" content="https://raw.githubusercontent.com/wangjiegulu/RefreshableView/master/screenshot/refreshablelistview.gif">
+<meta property="og:updated_time" content="2018-01-29T12:36:41.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[Android]下拉刷新控件RefreshableView的实现">
+<meta name="twitter:description" content="以下内容为原创，欢迎转载，转载请注明 来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/4172483.html &amp;nbsp; 需求：自定义一个ViewGroup，实现可以下拉刷新的功能。下拉一定距离后（下拉时显示的界面可以自定义任何复杂的界面）释放手指可以回调刷新的功能，用户处理完刷新的内容后，可以调用方法onCompleteRefresh()通知刷">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/wangjiegulu/RefreshableView/master/screenshot/refreshableview.gif">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.wangjiegulu.com/2014/12/18/Android-下拉刷新控件RefreshableView的实现/"/>
+
+
+
+
+
+  <title>[Android]下拉刷新控件RefreshableView的实现 | WAND JIE</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-111189680-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">WAND JIE</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">TO BE AN ARTIST-ENGINNER</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.wangjiegulu.com/2014/12/18/Android-下拉刷新控件RefreshableView的实现/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wang Jie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/my_avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WAND JIE">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">[Android]下拉刷新控件RefreshableView的实现</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-12-18T19:35:00+08:00">
+                2014-12-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2014/12/18/Android-下拉刷新控件RefreshableView的实现/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2014/12/18/Android-下拉刷新控件RefreshableView的实现/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><span style="color: #ff0000;"><strong>以下内容为原创，欢迎转载，转载请注明</strong></span></p>
+<p><span style="color: #ff0000;"><strong>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/4172483.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/4172483.html</a></strong></span></p>
+<p>&nbsp;</p>
+<p>需求：自定义一个ViewGroup，实现可以下拉刷新的功能。下拉一定距离后（下拉时显示的界面可以自定义任何复杂的界面）释放手指可以回调刷新的功能，用户处理完刷新的内容后，可以调用方法onCompleteRefresh()通知刷新完毕，然后回归正常状态。效果如下：</p>
+<p><img src="https://raw.githubusercontent.com/wangjiegulu/RefreshableView/master/screenshot/refreshableview.gif" alt="">&nbsp;&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/wangjiegulu/RefreshableView/master/screenshot/refreshablelistview.gif" alt=""></p>
+<p>&nbsp;</p>
+<p><strong>源代码：<span style="color: #ff0000;"><a href="https://github.com/wangjiegulu/RefreshableView" target="_blank" rel="noopener"><span style="color: #ff0000;">RefreshableView</span></a></span>（<span style="color: #ff0000;"><a href="https://github.com/wangjiegulu/RefreshableView" target="_blank" rel="noopener"><span style="color: #ff0000;">https://github.com/wangjiegulu/RefreshableView</span></a></span>）</strong></p>
+<p><span style="font-size: 18px;"><strong>分析：</strong></span></p>
+<p>我们的目的是不管什么控件，只要在xml中外面包一层标签，那这个标签下面的所有子标签所在的控件都被支持可以下拉刷新了。所以，我们可以使用ViewGroup来实现，这里我选择的是继承LinearLayout，当然其他的（FrameLayout等）也一样了。</p>
+<p>因为根据手指下滑，需要有一个刷新的view被显示出来，所以这里需要添加一个子view（称为refreshHeaderView），并放置在最顶部，使用LinearLayout的好处是可以设置为VERTICAL，这样可以直接&ldquo;this.addView(refreshHeaderView, 0);&rdquo;搞定了。然后就要根据手指滑动的距离，动态地去改变refreshHeaderView的高度。同时检测是否到达了可以刷新的高度了，如果达到了，更新当前的刷新状态。手指放开时，根据之前移动的刷新状态，执行刷新或者回归正常状态。</p>
+<p>RefreshableView代码如下：</p>
+<div class="cnblogs_code"><br><pre><span style="color: #008080;">  1</span> <span style="color: #008000;">/<strong></strong></span><br><span style="color: #008080;">  2</span> <span style="color: #008000;"> <em> 下拉刷新控件<br></em></span><span style="color: #008080;">  3</span> <span style="color: #008000;">  Author: wangjie<br></span><span style="color: #008080;">  4</span> <span style="color: #008000;"> <em> Email: tiantian.china.2@gmail.com<br></em></span><span style="color: #008080;">  5</span> <span style="color: #008000;">  Date: 12/13/14.<br></span><span style="color: #008080;">  6</span>  <span style="color: #008000;">*/</span><br><span style="color: #008080;">  7</span> <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span> RefreshableView <span style="color: #0000ff;">extends</span><span style="color: #000000;"> LinearLayout {<br></span><span style="color: #008080;">  8</span>     <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">final</span> String TAG = RefreshableView.<span style="color: #0000ff;">class</span><span style="color: #000000;">.getSimpleName();<br></span><span style="color: #008080;">  9</span><br><span style="color: #008080;"> 10</span>     <span style="color: #0000ff;">public</span><span style="color: #000000;"> RefreshableView(Context context) {<br></span><span style="color: #008080;"> 11</span>         <span style="color: #0000ff;">super</span><span style="color: #000000;">(context);<br></span><span style="color: #008080;"> 12</span> <span style="color: #000000;">        init(context);<br></span><span style="color: #008080;"> 13</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;"> 14</span><br><span style="color: #008080;"> 15</span>     <span style="color: #0000ff;">public</span><span style="color: #000000;"> RefreshableView(Context context, AttributeSet attrs) {<br></span><span style="color: #008080;"> 16</span>         <span style="color: #0000ff;">super</span><span style="color: #000000;">(context, attrs);<br></span><span style="color: #008080;"> 17</span><br><span style="color: #008080;"> 18</span>         TypedArray a =<span style="color: #000000;"> context.obtainStyledAttributes(attrs, R.styleable.refreshableView);<br></span><span style="color: #008080;"> 19</span>         <span style="color: #0000ff;">for</span> (<span style="color: #0000ff;">int</span> i = 0, len = a.length(); i &lt; len; i++<span style="color: #000000;">) {<br></span><span style="color: #008080;"> 20</span>             <span style="color: #0000ff;">int</span> attrIndex =<span style="color: #000000;"> a.getIndex(i);<br></span><span style="color: #008080;"> 21</span>             <span style="color: #0000ff;">switch</span><span style="color: #000000;"> (attrIndex) {<br></span><span style="color: #008080;"> 22</span>                 <span style="color: #0000ff;">case</span><span style="color: #000000;"> R.styleable.refreshableView_interceptAllMoveEvents:<br></span><span style="color: #008080;"> 23</span>                     interceptAllMoveEvents = a.getBoolean(i, <span style="color: #0000ff;">false</span><span style="color: #000000;">);<br></span><span style="color: #008080;"> 24</span>                     <span style="color: #0000ff;">break</span><span style="color: #000000;">;<br></span><span style="color: #008080;"> 25</span> <span style="color: #000000;">            }<br></span><span style="color: #008080;"> 26</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;"> 27</span> <span style="color: #000000;">        a.recycle();<br></span><span style="color: #008080;"> 28</span><br><span style="color: #008080;"> 29</span> <span style="color: #000000;">        init(context);<br></span><span style="color: #008080;"> 30</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;"> 31</span><br><span style="color: #008080;"> 32</span>     <span style="color: #0000ff;">public</span> RefreshableView(Context context, AttributeSet attrs, <span style="color: #0000ff;">int</span><span style="color: #000000;"> defStyle) {<br></span><span style="color: #008080;"> 33</span>         <span style="color: #0000ff;">super</span><span style="color: #000000;">(context, attrs, defStyle);<br></span><span style="color: #008080;"> 34</span> <span style="color: #000000;">        init(context);<br></span><span style="color: #008080;"> 35</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;"> 36</span><br><span style="color: #008080;"> 37</span>     <span style="color: #008000;">/</span><br><span style="color: #008080;"> 38</span> <span style="color: #008000;">     <em> 刷新状态<br></em></span><span style="color: #008080;"> 39</span>      <span style="color: #008000;">/</span><br><span style="color: #008080;"> 40</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">final</span> <span style="color: #0000ff;">int</span> STATE_REFRESH_NORMAL = 0x21<span style="color: #000000;">;<br></span><span style="color: #008080;"> 41</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">final</span> <span style="color: #0000ff;">int</span> STATE_REFRESH_NOT_ARRIVED = 0x22<span style="color: #000000;">;<br></span><span style="color: #008080;"> 42</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">final</span> <span style="color: #0000ff;">int</span> STATE_REFRESH_ARRIVED = 0x23<span style="color: #000000;">;<br></span><span style="color: #008080;"> 43</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">final</span> <span style="color: #0000ff;">int</span> STATE_REFRESHING = 0x24<span style="color: #000000;">;<br></span><span style="color: #008080;"> 44</span>     <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">int</span><span style="color: #000000;"> refreshState;<br></span><span style="color: #008080;"> 45</span>     <span style="color: #008000;">//</span><span style="color: #008000;"> 刷新状态监听</span><br><span style="color: #008080;"> 46</span>     <span style="color: #0000ff;">private</span><span style="color: #000000;"> RefreshableHelper refreshableHelper;<br></span><span style="color: #008080;"> 47</span><br><span style="color: #008080;"> 48</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> setRefreshableHelper(RefreshableHelper refreshableHelper) {<br></span><span style="color: #008080;"> 49</span>         <span style="color: #0000ff;">this</span>.refreshableHelper =<span style="color: #000000;"> refreshableHelper;<br></span><span style="color: #008080;"> 50</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;"> 51</span><br><span style="color: #008080;"> 52</span>     <span style="color: #0000ff;">private</span><span style="color: #000000;"> Context context;<br></span><span style="color: #008080;"> 53</span>     <span style="color: #008000;">/<strong></strong></span><br><span style="color: #008080;"> 54</span> <span style="color: #008000;">     <em> 刷新的view<br></em></span><span style="color: #008080;"> 55</span>      <span style="color: #008000;">/</span><br><span style="color: #008080;"> 56</span>     <span style="color: #0000ff;">private</span><span style="color: #000000;"> View refreshHeaderView;<br></span><span style="color: #008080;"> 57</span>     <span style="color: #008000;">/</span><br><span style="color: #008080;"> 58</span> <span style="color: #008000;">     <em> 刷新的view的真实高度<br></em></span><span style="color: #008080;"> 59</span>      <span style="color: #008000;">/</span><br><span style="color: #008080;"> 60</span>     <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">int</span><span style="color: #000000;"> originRefreshHeight;<br></span><span style="color: #008080;"> 61</span>     <span style="color: #008000;">/<strong></strong></span><br><span style="color: #008080;"> 62</span> <span style="color: #008000;">     <em> 有效下拉刷新需要达到的高度<br></em></span><span style="color: #008080;"> 63</span>      <span style="color: #008000;">/</span><br><span style="color: #008080;"> 64</span>     <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">int</span><span style="color: #000000;"> refreshArrivedStateHeight;<br></span><span style="color: #008080;"> 65</span>     <span style="color: #008000;">/</span><br><span style="color: #008080;"> 66</span> <span style="color: #008000;">     <em> 刷新时显示的高度<br></em></span><span style="color: #008080;"> 67</span>      <span style="color: #008000;">/</span><br><span style="color: #008080;"> 68</span>     <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">int</span><span style="color: #000000;"> refreshingHeight;<br></span><span style="color: #008080;"> 69</span>     <span style="color: #008000;">/<strong></strong></span><br><span style="color: #008080;"> 70</span> <span style="color: #008000;">     <em> 正常未刷新高度<br></em></span><span style="color: #008080;"> 71</span>      <span style="color: #008000;">/</span><br><span style="color: #008080;"> 72</span>     <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">int</span><span style="color: #000000;"> refreshNormalHeight;<br></span><span style="color: #008080;"> 73</span><br><span style="color: #008080;"> 74</span><br><span style="color: #008080;"> 75</span>     <span style="color: #008000;">/</span><br><span style="color: #008080;"> 76</span> <span style="color: #008000;">     <em> 默认不允许拦截（即，往子view传递事件），该属性只有在interceptAllMoveEvents为false的时候才有效<br></em></span><span style="color: #008080;"> 77</span>      <span style="color: #008000;">/</span><br><span style="color: #008080;"> 78</span>     <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">boolean</span> disallowIntercept = <span style="color: #0000ff;">true</span><span style="color: #000000;">;<br></span><span style="color: #008080;"> 79</span>     <span style="color: #008000;">/<strong></strong></span><br><span style="color: #008080;"> 80</span> <span style="color: #008000;">     <em> xml中可设置它的值为false，表示不把移动的事件传递给子控件<br></em></span><span style="color: #008080;"> 81</span>      <span style="color: #008000;">/</span><br><span style="color: #008080;"> 82</span>     <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">boolean</span><span style="color: #000000;"> interceptAllMoveEvents;<br></span><span style="color: #008080;"> 83</span><br><span style="color: #008080;"> 84</span>     <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> init(Context context) {<br></span><span style="color: #008080;"> 85</span>         <span style="color: #0000ff;">this</span>.context =<span style="color: #000000;"> context;<br></span><span style="color: #008080;"> 86</span>         <span style="color: #0000ff;">this</span><span style="color: #000000;">.setOrientation(VERTICAL);<br></span><span style="color: #008080;"> 87</span><br><span style="color: #008080;"> 88</span> <span style="color: #008000;">//</span><span style="color: #008000;">        Log.d(TAG, “[init]originRefreshHeight: “ + refreshHeaderView.getMeasuredHeight());</span><br><span style="color: #008080;"> 89</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;"> 90</span><br><span style="color: #008080;"> 91</span> <span style="color: #000000;">    @Override<br></span><span style="color: #008080;"> 92</span>     <span style="color: #0000ff;">protected</span> <span style="color: #0000ff;">void</span> onSizeChanged(<span style="color: #0000ff;">int</span> w, <span style="color: #0000ff;">int</span> h, <span style="color: #0000ff;">int</span> oldw, <span style="color: #0000ff;">int</span><span style="color: #000000;"> oldh) {<br></span><span style="color: #008080;"> 93</span>         <span style="color: #0000ff;">super</span><span style="color: #000000;">.onSizeChanged(w, h, oldw, oldh);<br></span><span style="color: #008080;"> 94</span><br><span style="color: #008080;"> 95</span>         <span style="color: #0000ff;">if</span> (<span style="color: #0000ff;">null</span> !=<span style="color: #000000;"> refreshableHelper) {<br></span><span style="color: #008080;"> 96</span>             refreshHeaderView =<span style="color: #000000;"> refreshableHelper.onInitRefreshHeaderView();<br></span><span style="color: #008080;"> 97</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;"> 98</span> <span style="color: #008000;">//</span><span style="color: #008000;">        refreshHeaderView = LayoutInflater.from(context).inflate(R.layout.refresh_head, null);</span><br><span style="color: #008080;"> 99</span>         <span style="color: #0000ff;">if</span> (<span style="color: #0000ff;">null</span> ==<span style="color: #000000;"> refreshHeaderView) {<br></span><span style="color: #008080;">100</span>             Log.e(TAG, “refreshHeaderView is null!”<span style="color: #000000;">);<br></span><span style="color: #008080;">101</span>             <span style="color: #0000ff;">return</span><span style="color: #000000;">;<br></span><span style="color: #008080;">102</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;">103</span>         <span style="color: #0000ff;">this</span><span style="color: #000000;">.removeView(refreshHeaderView);<br></span><span style="color: #008080;">104</span>         <span style="color: #0000ff;">this</span>.addView(refreshHeaderView, 0<span style="color: #000000;">);<br></span><span style="color: #008080;">105</span><br><span style="color: #008080;">106</span>         <span style="color: #008000;">//</span><span style="color: #008000;"> 计算refreshHeadView尺寸</span><br><span style="color: #008080;">107</span>         <span style="color: #0000ff;">int</span> width = View.MeasureSpec.makeMeasureSpec(0<span style="color: #000000;">, View.MeasureSpec.UNSPECIFIED);<br></span><span style="color: #008080;">108</span>         <span style="color: #0000ff;">int</span> expandSpec = View.MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE &gt;&gt; 2<span style="color: #000000;">, View.MeasureSpec.AT_MOST);<br></span><span style="color: #008080;">109</span> <span style="color: #000000;">        refreshHeaderView.measure(width, expandSpec);<br></span><span style="color: #008080;">110</span><br><span style="color: #008080;">111</span>         Log.d(TAG, “[onSizeChanged]w: “ + w + “, h: “ +<span style="color: #000000;"> h);<br></span><span style="color: #008080;">112</span>         Log.d(TAG, “[onSizeChanged]oldw: “ + oldw + “, oldh: “ +<span style="color: #000000;"> oldh);<br></span><span style="color: #008080;">113</span>         Log.d(TAG, “[onSizeChanged]child counts: “ + <span style="color: #0000ff;">this</span><span style="color: #000000;">.getChildCount());<br></span><span style="color: #008080;">114</span>         originRefreshHeight =<span style="color: #000000;"> refreshHeaderView.getMeasuredHeight();<br></span><span style="color: #008080;">115</span><br><span style="color: #008080;">116</span>         <span style="color: #0000ff;">boolean</span> isUseDefault = <span style="color: #0000ff;">true</span><span style="color: #000000;">;<br></span><span style="color: #008080;">117</span>         <span style="color: #0000ff;">if</span> (<span style="color: #0000ff;">null</span> !=<span style="color: #000000;"> refreshableHelper) {<br></span><span style="color: #008080;">118</span>             isUseDefault =<span style="color: #000000;"> refreshableHelper.onInitRefreshHeight(originRefreshHeight);<br></span><span style="color: #008080;">119</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;">120</span><br><span style="color: #008080;">121</span>         <span style="color: #008000;">//</span><span style="color: #008000;"> 初始化各个高度</span><br><span style="color: #008080;">122</span>         <span style="color: #0000ff;">if</span><span style="color: #000000;"> (isUseDefault) {<br></span><span style="color: #008080;">123</span>             refreshArrivedStateHeight =<span style="color: #000000;"> originRefreshHeight;<br></span><span style="color: #008080;">124</span>             refreshingHeight =<span style="color: #000000;"> originRefreshHeight;<br></span><span style="color: #008080;">125</span>             refreshNormalHeight = 0<span style="color: #000000;">;<br></span><span style="color: #008080;">126</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;">127</span>         Log.d(TAG, “[onSizeChanged]refreshHeaderView origin height: “ +<span style="color: #000000;"> originRefreshHeight);<br></span><span style="color: #008080;">128</span> <span style="color: #000000;">        changeViewHeight(refreshHeaderView, refreshNormalHeight);<br></span><span style="color: #008080;">129</span><br><span style="color: #008080;">130</span>         <span style="color: #008000;">//</span><span style="color: #008000;"> 初始化为正常状态</span><br><span style="color: #008080;">131</span> <span style="color: #000000;">        setRefreshState(STATE_REFRESH_NORMAL);<br></span><span style="color: #008080;">132</span><br><span style="color: #008080;">133</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">134</span><br><span style="color: #008080;">135</span> <span style="color: #000000;">    @Override<br></span><span style="color: #008080;">136</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">boolean</span><span style="color: #000000;"> dispatchTouchEvent(MotionEvent ev) {<br></span><span style="color: #008080;">137</span>         Log.d(TAG, “[dispatchTouchEvent]ev action: “ +<span style="color: #000000;"> ev.getAction());<br></span><span style="color: #008080;">138</span>         <span style="color: #0000ff;">return</span> <span style="color: #0000ff;">super</span><span style="color: #000000;">.dispatchTouchEvent(ev);<br></span><span style="color: #008080;">139</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">140</span><br><span style="color: #008080;">141</span> <span style="color: #000000;">    @Override<br></span><span style="color: #008080;">142</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">boolean</span><span style="color: #000000;"> onInterceptTouchEvent(MotionEvent ev) {<br></span><span style="color: #008080;">143</span>         Log.d(TAG, “[onInterceptTouchEvent]ev action: “ +<span style="color: #000000;"> ev.getAction());<br></span><span style="color: #008080;">144</span>         <span style="color: #0000ff;">if</span> (!<span style="color: #000000;">interceptAllMoveEvents) {<br></span><span style="color: #008080;">145</span>             <span style="color: #0000ff;">return</span> !<span style="color: #000000;">disallowIntercept;<br></span><span style="color: #008080;">146</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;">147</span>         <span style="color: #008000;">//</span><span style="color: #008000;"> 如果设置了拦截所有move事件，即interceptAllMoveEvents为true</span><br><span style="color: #008080;">148</span>         <span style="color: #0000ff;">if</span> (MotionEvent.ACTION_MOVE ==<span style="color: #000000;"> ev.getAction()) {<br></span><span style="color: #008080;">149</span>             <span style="color: #0000ff;">return</span> <span style="color: #0000ff;">true</span><span style="color: #000000;">;<br></span><span style="color: #008080;">150</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;">151</span>         <span style="color: #0000ff;">return</span> <span style="color: #0000ff;">false</span><span style="color: #000000;">;<br></span><span style="color: #008080;">152</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">153</span><br><span style="color: #008080;">154</span> <span style="color: #000000;">    @Override<br></span><span style="color: #008080;">155</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span> requestDisallowInterceptTouchEvent(<span style="color: #0000ff;">boolean</span><span style="color: #000000;"> disallowIntercept) {<br></span><span style="color: #008080;">156</span>         <span style="color: #0000ff;">if</span> (<span style="color: #0000ff;">this</span>.disallowIntercept ==<span style="color: #000000;"> disallowIntercept) {<br></span><span style="color: #008080;">157</span>             <span style="color: #0000ff;">return</span><span style="color: #000000;">;<br></span><span style="color: #008080;">158</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;">159</span>         <span style="color: #0000ff;">this</span>.disallowIntercept =<span style="color: #000000;"> disallowIntercept;<br></span><span style="color: #008080;">160</span>         <span style="color: #0000ff;">super</span><span style="color: #000000;">.requestDisallowInterceptTouchEvent(disallowIntercept);<br></span><span style="color: #008080;">161</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">162</span><br><span style="color: #008080;">163</span>     <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">float</span> downY =<span style="color: #000000;"> Float.MAX_VALUE;<br></span><span style="color: #008080;">164</span><br><span style="color: #008080;">165</span> <span style="color: #000000;">    @Override<br></span><span style="color: #008080;">166</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">boolean</span><span style="color: #000000;"> onTouchEvent(MotionEvent event) {<br></span><span style="color: #008080;">167</span> <span style="color: #008000;">//</span><span style="color: #008000;">        super.onTouchEvent(event);</span><br><span style="color: #008080;">168</span>         Log.d(TAG, “[onTouchEvent]ev action: “ +<span style="color: #000000;"> event.getAction());<br></span><span style="color: #008080;">169</span>         <span style="color: #0000ff;">switch</span><span style="color: #000000;"> (event.getAction()) {<br></span><span style="color: #008080;">170</span>             <span style="color: #0000ff;">case</span><span style="color: #000000;"> MotionEvent.ACTION_DOWN:<br></span><span style="color: #008080;">171</span>                 downY =<span style="color: #000000;"> event.getY();<br></span><span style="color: #008080;">172</span>                 Log.d(TAG, “Down –&gt; downY: “ +<span style="color: #000000;"> downY);<br></span><span style="color: #008080;">173</span>                 requestDisallowInterceptTouchEvent(<span style="color: #0000ff;">true</span>); <span style="color: #008000;">//</span><span style="color: #008000;"> 保证事件可往下传递</span><br><span style="color: #008080;">174</span>                 <span style="color: #0000ff;">break</span><span style="color: #000000;">;<br></span><span style="color: #008080;">175</span>             <span style="color: #0000ff;">case</span><span style="color: #000000;"> MotionEvent.ACTION_MOVE:<br></span><span style="color: #008080;">176</span><br><span style="color: #008080;">177</span>                 <span style="color: #0000ff;">float</span> curY =<span style="color: #000000;"> event.getY();<br></span><span style="color: #008080;">178</span>                 <span style="color: #0000ff;">float</span> deltaY = curY -<span style="color: #000000;"> downY;<br></span><span style="color: #008080;">179</span>                 <span style="color: #008000;">//</span><span style="color: #008000;"> 是否是有效的往下拖动事件（则需要显示加载header）</span><br><span style="color: #008080;">180</span>                 <span style="color: #0000ff;">boolean</span> isDropDownValidate = Float.MAX_VALUE !=<span style="color: #000000;"> downY;<br></span><span style="color: #008080;">181</span>                 <span style="color: #008000;">/</span><br><span style="color: #008080;">182</span> <span style="color: #008000;">                 <em> 修改拦截设置<br></em></span><span style="color: #008080;">183</span> <span style="color: #008000;">                  如果是有效往下拖动事件，则事件需要在本ViewGroup中处理，所以需要拦截不往子控件传递，即不允许拦截设为false<br></span><span style="color: #008080;">184</span> <span style="color: #008000;">                 <em> 如果是有效往下拖动事件，则事件传递给子控件处理，所以不需要拦截，并往子控件传递，即不允许拦截设为true<br></em></span><span style="color: #008080;">185</span>                  <span style="color: #008000;">/</span><br><span style="color: #008080;">186</span>                 requestDisallowInterceptTouchEvent(!<span style="color: #000000;">isDropDownValidate);<br></span><span style="color: #008080;">187</span><br><span style="color: #008080;">188</span>                 downY =<span style="color: #000000;"> curY;<br></span><span style="color: #008080;">189</span>                 Log.d(TAG, “Move –&gt; deltaY(curY - downY): “ +<span style="color: #000000;"> deltaY);<br></span><span style="color: #008080;">190</span>                 <span style="color: #0000ff;">int</span> curHeight =<span style="color: #000000;"> refreshHeaderView.getMeasuredHeight();<br></span><span style="color: #008080;">191</span>                 <span style="color: #0000ff;">int</span> exceptHeight = curHeight + (<span style="color: #0000ff;">int</span>) (deltaY / 2<span style="color: #000000;">);<br></span><span style="color: #008080;">192</span><br><span style="color: #008080;">193</span>                 <span style="color: #008000;">//</span><span style="color: #008000;"> 如果当前没有处在正在刷新状态，则更新刷新状态</span><br><span style="color: #008080;">194</span>                 <span style="color: #0000ff;">if</span> (STATE_REFRESHING !=<span style="color: #000000;"> refreshState) {<br></span><span style="color: #008080;">195</span>                     <span style="color: #0000ff;">if</span> (curHeight &gt;= refreshArrivedStateHeight) { <span style="color: #008000;">//</span><span style="color: #008000;"> 达到可刷新状态</span><br><span style="color: #008080;">196</span> <span style="color: #000000;">                        setRefreshState(STATE_REFRESH_ARRIVED);<br></span><span style="color: #008080;">197</span>                     } <span style="color: #0000ff;">else</span> { <span style="color: #008000;">//</span><span style="color: #008000;"> 未达到可刷新状态</span><br><span style="color: #008080;">198</span> <span style="color: #000000;">                        setRefreshState(STATE_REFRESH_NOT_ARRIVED);<br></span><span style="color: #008080;">199</span> <span style="color: #000000;">                    }<br></span><span style="color: #008080;">200</span> <span style="color: #000000;">                }<br></span><span style="color: #008080;">201</span>                 <span style="color: #0000ff;">if</span><span style="color: #000000;"> (isDropDownValidate) {<br></span><span style="color: #008080;">202</span> <span style="color: #000000;">                    changeViewHeight(refreshHeaderView, Math.max(refreshNormalHeight, exceptHeight));<br></span><span style="color: #008080;">203</span>                 } <span style="color: #0000ff;">else</span> { <span style="color: #008000;">//</span><span style="color: #008000;"> 防止从子控件修改拦截后引发的downY为Float.MAX_VALUE的问题</span><br><span style="color: #008080;">204</span> <span style="color: #000000;">                    changeViewHeight(refreshHeaderView, Math.max(curHeight, exceptHeight));<br></span><span style="color: #008080;">205</span> <span style="color: #000000;">                }<br></span><span style="color: #008080;">206</span><br><span style="color: #008080;">207</span>                 <span style="color: #0000ff;">break</span><span style="color: #000000;">;<br></span><span style="color: #008080;">208</span>             <span style="color: #0000ff;">case</span><span style="color: #000000;"> MotionEvent.ACTION_UP:<br></span><span style="color: #008080;">209</span>                 downY =<span style="color: #000000;"> Float.MAX_VALUE;<br></span><span style="color: #008080;">210</span>                 Log.d(TAG, “Up –&gt; downY: “ +<span style="color: #000000;"> downY);<br></span><span style="color: #008080;">211</span>                 requestDisallowInterceptTouchEvent(<span style="color: #0000ff;">true</span>); <span style="color: #008000;">//</span><span style="color: #008000;"> 保证事件可往下传递<br></span><span style="color: #008080;">212</span>                 <span style="color: #008000;">//</span><span style="color: #008000;"> 如果是达到刷新状态，则设置正在刷新状态的高度</span><br><span style="color: #008080;">213</span>                 <span style="color: #0000ff;">if</span> (STATE_REFRESH_ARRIVED == refreshState) { <span style="color: #008000;">//</span><span style="color: #008000;"> 达到了刷新的状态</span><br><span style="color: #008080;">214</span> <span style="color: #000000;">                    startHeightAnimation(refreshHeaderView, refreshHeaderView.getMeasuredHeight(), refreshingHeight);<br></span><span style="color: #008080;">215</span> <span style="color: #000000;">                    setRefreshState(STATE_REFRESHING);<br></span><span style="color: #008080;">216</span>                 } <span style="color: #0000ff;">else</span> <span style="color: #0000ff;">if</span> (STATE_REFRESHING == refreshState) { <span style="color: #008000;">//</span><span style="color: #008000;"> 正在刷新的状态</span><br><span style="color: #008080;">217</span> <span style="color: #000000;">                    startHeightAnimation(refreshHeaderView, refreshHeaderView.getMeasuredHeight(), refreshingHeight);<br></span><span style="color: #008080;">218</span>                 } <span style="color: #0000ff;">else</span><span style="color: #000000;"> {<br></span><span style="color: #008080;">219</span>                     <span style="color: #008000;">//</span><span style="color: #008000;"> 执行动画后回归正常状态</span><br><span style="color: #008080;">220</span> <span style="color: #000000;">                    startHeightAnimation(refreshHeaderView, refreshHeaderView.getMeasuredHeight(), refreshNormalHeight, normalAnimatorListener);<br></span><span style="color: #008080;">221</span> <span style="color: #000000;">                }<br></span><span style="color: #008080;">222</span><br><span style="color: #008080;">223</span>                 <span style="color: #0000ff;">break</span><span style="color: #000000;">;<br></span><span style="color: #008080;">224</span>             <span style="color: #0000ff;">case</span><span style="color: #000000;"> MotionEvent.ACTION_CANCEL:<br></span><span style="color: #008080;">225</span>                 Log.d(TAG, “cancel”<span style="color: #000000;">);<br></span><span style="color: #008080;">226</span>                 <span style="color: #0000ff;">break</span><span style="color: #000000;">;<br></span><span style="color: #008080;">227</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;">228</span>         <span style="color: #0000ff;">return</span> <span style="color: #0000ff;">true</span><span style="color: #000000;">;<br></span><span style="color: #008080;">229</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">230</span><br><span style="color: #008080;">231</span>     <span style="color: #008000;">/<strong></strong></span><br><span style="color: #008080;">232</span> <span style="color: #008000;">     <em> 刷新完毕后调用此方法<br></em></span><span style="color: #008080;">233</span>      <span style="color: #008000;">/</span><br><span style="color: #008080;">234</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> onCompleteRefresh() {<br></span><span style="color: #008080;">235</span>         <span style="color: #0000ff;">if</span> (STATE_REFRESHING ==<span style="color: #000000;"> refreshState) {<br></span><span style="color: #008080;">236</span> <span style="color: #000000;">            setRefreshState(STATE_REFRESH_NORMAL);<br></span><span style="color: #008080;">237</span> <span style="color: #000000;">            startHeightAnimation(refreshHeaderView, refreshHeaderView.getMeasuredHeight(), refreshNormalHeight);<br></span><span style="color: #008080;">238</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;">239</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">240</span><br><span style="color: #008080;">241</span>     <span style="color: #008000;">/</span><br><span style="color: #008080;">242</span> <span style="color: #008000;">     <em> 修改当前的刷新状态<br></em></span><span style="color: #008080;">243</span> <span style="color: #008000;">     <br></span><span style="color: #008080;">244</span> <span style="color: #008000;">     <em> </em></span><span style="color: #808080;">@param</span><span style="color: #008000;"> expectRefreshState<br></span><span style="color: #008080;">245</span>      <span style="color: #008000;">/</span><br><span style="color: #008080;">246</span>     <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">void</span> setRefreshState(<span style="color: #0000ff;">int</span><span style="color: #000000;"> expectRefreshState) {<br></span><span style="color: #008080;">247</span>         <span style="color: #0000ff;">if</span> (expectRefreshState !=<span style="color: #000000;"> refreshState) {<br></span><span style="color: #008080;">248</span>             refreshState =<span style="color: #000000;"> expectRefreshState;<br></span><span style="color: #008080;">249</span>             <span style="color: #0000ff;">if</span> (<span style="color: #0000ff;">null</span> !=<span style="color: #000000;"> refreshableHelper) {<br></span><span style="color: #008080;">250</span> <span style="color: #000000;">                refreshableHelper.onRefreshStateChanged(refreshHeaderView, refreshState);<br></span><span style="color: #008080;">251</span> <span style="color: #000000;">            }<br></span><span style="color: #008080;">252</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;">253</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">254</span><br><span style="color: #008080;">255</span><br><span style="color: #008080;">256</span>     <span style="color: #008000;">/<strong></strong></span><br><span style="color: #008080;">257</span> <span style="color: #008000;">     <em> 改变某控件的高度<br></em></span><span style="color: #008080;">258</span> <span style="color: #008000;">     <br></span><span style="color: #008080;">259</span> <span style="color: #008000;">     <em> </em></span><span style="color: #808080;">@param</span><span style="color: #008000;"> view<br></span><span style="color: #008080;">260</span> <span style="color: #008000;">      </span><span style="color: #808080;">@param</span><span style="color: #008000;"> height<br></span><span style="color: #008080;">261</span>      <span style="color: #008000;">*/</span><br><span style="color: #008080;">262</span>     <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">void</span> changeViewHeight(View view, <span style="color: #0000ff;">int</span><span style="color: #000000;"> height) {<br></span><span style="color: #008080;">263</span>         Log.d(TAG, “[changeViewHeight]change Height: “ +<span style="color: #000000;"> height);<br></span><span style="color: #008080;">264</span>         ViewGroup.LayoutParams lp =<span style="color: #000000;"> view.getLayoutParams();<br></span><span style="color: #008080;">265</span>         lp.height =<span style="color: #000000;"> height;<br></span><span style="color: #008080;">266</span> <span style="color: #000000;">        view.setLayoutParams(lp);<br></span><span style="color: #008080;">267</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">268</span><br><span style="color: #008080;">269</span>     <span style="color: #008000;">/</span><br><span style="color: #008080;">270</span> <span style="color: #008000;">     <em> 改变某控件的高度动画<br></em></span><span style="color: #008080;">271</span> <span style="color: #008000;">     <br></span><span style="color: #008080;">272</span> <span style="color: #008000;">     <em> </em></span><span style="color: #808080;">@param</span><span style="color: #008000;"> view<br></span><span style="color: #008080;">273</span> <span style="color: #008000;">      </span><span style="color: #808080;">@param</span><span style="color: #008000;"> fromHeight<br></span><span style="color: #008080;">274</span> <span style="color: #008000;">     <em> </em></span><span style="color: #808080;">@param</span><span style="color: #008000;"> toHeight<br></span><span style="color: #008080;">275</span>      <span style="color: #008000;">/</span><br><span style="color: #008080;">276</span>     <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">void</span> startHeightAnimation(<span style="color: #0000ff;">final</span> View view, <span style="color: #0000ff;">int</span> fromHeight, <span style="color: #0000ff;">int</span><span style="color: #000000;"> toHeight) {<br></span><span style="color: #008080;">277</span>         startHeightAnimation(view, fromHeight, toHeight, <span style="color: #0000ff;">null</span><span style="color: #000000;">);<br></span><span style="color: #008080;">278</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">279</span><br><span style="color: #008080;">280</span>     <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">void</span> startHeightAnimation(<span style="color: #0000ff;">final</span> View view, <span style="color: #0000ff;">int</span> fromHeight, <span style="color: #0000ff;">int</span><span style="color: #000000;"> toHeight, Animator.AnimatorListener animatorListener) {<br></span><span style="color: #008080;">281</span>         <span style="color: #0000ff;">if</span> (toHeight ==<span style="color: #000000;"> view.getMeasuredHeight()) {<br></span><span style="color: #008080;">282</span>             <span style="color: #0000ff;">return</span><span style="color: #000000;">;<br></span><span style="color: #008080;">283</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;">284</span>         ValueAnimator heightAnimator =<span style="color: #000000;"> ValueAnimator.ofInt(fromHeight, toHeight);<br></span><span style="color: #008080;">285</span>         heightAnimator.addUpdateListener(<span style="color: #0000ff;">new</span><span style="color: #000000;"> ValueAnimator.AnimatorUpdateListener() {<br></span><span style="color: #008080;">286</span> <span style="color: #000000;">            @Override<br></span><span style="color: #008080;">287</span>             <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> onAnimationUpdate(ValueAnimator valueAnimator) {<br></span><span style="color: #008080;">288</span>                 Integer value =<span style="color: #000000;"> (Integer) valueAnimator.getAnimatedValue();<br></span><span style="color: #008080;">289</span>                 <span style="color: #0000ff;">if</span> (<span style="color: #0000ff;">null</span> == value) <span style="color: #0000ff;">return</span><span style="color: #000000;">;<br></span><span style="color: #008080;">290</span> <span style="color: #000000;">                changeViewHeight(view, value);<br></span><span style="color: #008080;">291</span> <span style="color: #000000;">            }<br></span><span style="color: #008080;">292</span> <span style="color: #000000;">        });<br></span><span style="color: #008080;">293</span>         <span style="color: #0000ff;">if</span> (<span style="color: #0000ff;">null</span> !=<span style="color: #000000;"> animatorListener) {<br></span><span style="color: #008080;">294</span> <span style="color: #000000;">            heightAnimator.addListener(animatorListener);<br></span><span style="color: #008080;">295</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;">296</span>         heightAnimator.setInterpolator(<span style="color: #0000ff;">new</span><span style="color: #000000;"> LinearInterpolator());<br></span><span style="color: #008080;">297</span>         heightAnimator.setDuration(300<span style="color: #008000;">/<em></em></span><span style="color: #008000;">ms</span><span style="color: #008000;">/</span><span style="color: #000000;">);<br></span><span style="color: #008080;">298</span> <span style="color: #000000;">        heightAnimator.start();<br></span><span style="color: #008080;">299</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">300</span><br><span style="color: #008080;">301</span>     AnimatorListenerAdapter normalAnimatorListener = <span style="color: #0000ff;">new</span><span style="color: #000000;"> AnimatorListenerAdapter() {<br></span><span style="color: #008080;">302</span> <span style="color: #000000;">        @Override<br></span><span style="color: #008080;">303</span>         <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> onAnimationEnd(Animator animation) {<br></span><span style="color: #008080;">304</span>             <span style="color: #0000ff;">super</span><span style="color: #000000;">.onAnimationEnd(animation);<br></span><span style="color: #008080;">305</span>             setRefreshState(STATE_REFRESH_NORMAL); <span style="color: #008000;">//</span><span style="color: #008000;"> 回归正常状态</span><br><span style="color: #008080;">306</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;">307</span> <span style="color: #000000;">    };<br></span><span style="color: #008080;">308</span><br><span style="color: #008080;">309</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span> setRefreshArrivedStateHeight(<span style="color: #0000ff;">int</span><span style="color: #000000;"> refreshArrivedStateHeight) {<br></span><span style="color: #008080;">310</span>         <span style="color: #0000ff;">this</span>.refreshArrivedStateHeight =<span style="color: #000000;"> refreshArrivedStateHeight;<br></span><span style="color: #008080;">311</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">312</span><br><span style="color: #008080;">313</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span> setRefreshingHeight(<span style="color: #0000ff;">int</span><span style="color: #000000;"> refreshingHeight) {<br></span><span style="color: #008080;">314</span>         <span style="color: #0000ff;">this</span>.refreshingHeight =<span style="color: #000000;"> refreshingHeight;<br></span><span style="color: #008080;">315</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">316</span><br><span style="color: #008080;">317</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span> setRefreshNormalHeight(<span style="color: #0000ff;">int</span><span style="color: #000000;"> refreshNormalHeight) {<br></span><span style="color: #008080;">318</span>         <span style="color: #0000ff;">this</span>.refreshNormalHeight =<span style="color: #000000;"> refreshNormalHeight;<br></span><span style="color: #008080;">319</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">320</span><br><span style="color: #008080;">321</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">int</span><span style="color: #000000;"> getOriginRefreshHeight() {<br></span><span style="color: #008080;">322</span>         <span style="color: #0000ff;">return</span><span style="color: #000000;"> originRefreshHeight;<br></span><span style="color: #008080;">323</span>     }</pre><br></div>
+
+<p>其中：</p>
+<p>originRefreshHeight，表示头部刷新view的实际高度。</p>
+<p>refreshArrivedStateHeight，表示下拉多少距离可以执行刷新了</p>
+<p>refreshingHeight，表示刷新的时候显示的高度时多少</p>
+<p>refreshNormalHeight，表示正常状态下refreshHeaderView显示的高度是多少</p>
+<p>&nbsp;</p>
+<p>主要的核心代码应该是在onTouchEvent方法中，</p>
+<p>先简单分析里面的主要代码：在ACTION_DOWN的时候，纪录当前手指下落的y坐标，然后再ACTION_MOVE的时候，去计算滑动的距离，并且判断如果滑动的距离大于refreshArrivedStateHeight，更新处于已经达到可刷新的状态，反之就更新处于未达到可刷新的状态。然后再ACTION_UP中，如果已经达到了可刷新的状态，则更新当前状态为正在刷新状态，并且回调状态改变的方法。</p>
+<p>&nbsp;</p>
+<p>如果里面有ScrollView等可以滚动的控件的时候，应该怎么处理里面的事件呢？</p>
+<p>就以<a href="https://github.com/wangjiegulu/RefreshableView" target="_blank" rel="noopener">https://github.com/wangjiegulu/RefreshableView</a>&nbsp;为例</p>
+<p>xml布局如下：</p>
+<div class="cnblogs_code"><br><pre><span style="color: #008080;"> 1</span> <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">com.wangjie.refreshableview.RefreshableView<br></span><span style="color: #008080;"> 2</span>             <span style="color: #ff0000;">xmlns:rv</span><span style="color: #0000ff;">=”<a href="http://schemas.android.com/apk/res/com.wangjie.refreshableview" target="_blank" rel="noopener">http://schemas.android.com/apk/res/com.wangjie.refreshableview</a>“</span><br><span style="color: #008080;"> 3</span> <span style="color: #ff0000;">            android:id</span><span style="color: #0000ff;">=”@+id/main_refresh_view”</span><br><span style="color: #008080;"> 4</span> <span style="color: #ff0000;">            android:layout_width</span><span style="color: #0000ff;">=”match_parent”</span><br><span style="color: #008080;"> 5</span> <span style="color: #ff0000;">            android:layout_height</span><span style="color: #0000ff;">=”match_parent”</span><br><span style="color: #008080;"> 6</span> <span style="color: #ff0000;">            rv:interceptAllMoveEvents</span><span style="color: #0000ff;">=”false”</span><br><span style="color: #008080;"> 7</span>             <span style="color: #0000ff;">&gt;</span><br><span style="color: #008080;"> 8</span>         <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">com.wangjie.refreshableview.NestScrollView </span><span style="color: #ff0000;">android:layout_width</span><span style="color: #0000ff;">=”match_parent”</span><span style="color: #ff0000;"> android:layout_height</span><span style="color: #0000ff;">=”wrap_content”</span><br><span style="color: #008080;"> 9</span> <span style="color: #ff0000;">                android:fillViewport</span><span style="color: #0000ff;">=”true”</span><br><span style="color: #008080;">10</span>                 <span style="color: #0000ff;">&gt;</span><br><span style="color: #008080;">11</span><br><span style="color: #008080;">12</span>             <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">TextView<br></span><span style="color: #008080;">13</span>                     <span style="color: #ff0000;">android:id</span><span style="color: #0000ff;">=”@+id/main_tv”</span><br><span style="color: #008080;">14</span> <span style="color: #ff0000;">                    android:layout_width</span><span style="color: #0000ff;">=”fill_parent”</span><br><span style="color: #008080;">15</span> <span style="color: #ff0000;">                    android:layout_height</span><span style="color: #0000ff;">=”wrap_content”</span><br><span style="color: #008080;">16</span> <span style="color: #ff0000;">                    android:gravity</span><span style="color: #0000ff;">=”center”</span><br><span style="color: #008080;">17</span> <span style="color: #ff0000;">                    android:padding</span><span style="color: #0000ff;">=”20dp”</span><br><span style="color: #008080;">18</span> <span style="color: #ff0000;">                    android:textSize</span><span style="color: #0000ff;">=”18sp”</span><br><span style="color: #008080;">19</span> <span style="color: #ff0000;">                    android:text</span><span style="color: #0000ff;">=”Drop Down For Refresh\n\n\n\n\n\n\n\n\n\n\nDrop Down For Refresh\nDrop Down For Refresh\n\n\n\n\n\n\n\n\n\n\nDrop Down For Refresh\nDrop Down For Refresh\n\n\n\n\n\n\n\n\n\n\nDrop Down For Refresh\nDrop Down For Refresh\n\n\n\n\n\n\n\n\n\n\nDrop Down For Refresh”</span><br><span style="color: #008080;">20</span>                     <span style="color: #0000ff;">/&gt;</span><br><span style="color: #008080;">21</span><br><span style="color: #008080;">22</span>         <span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">com.wangjie.refreshableview.NestScrollView</span><span style="color: #0000ff;">&gt;</span><br><span style="color: #008080;">23</span>     <span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">com.wangjie.refreshableview.RefreshableView</span><span style="color: #0000ff;">&gt;</span></pre><br></div>
+
+<p>如上，最外面是一个RefreshableView，然后里面是一个NestScrollView，NestScrollView里面是TextView，其中TextView中因为文字较多，所以使用NestScrollView来实现滚动（NestScrollView扩展自ScrollView，下面会讲到）。这个时候的逻辑应该是，当NestScrollView处于顶部的时候，手指向下滑动，这时这个touch事件应该交给RefreshableView处理；当手指向上滑动时，也就是ScrollView向下滚动，这时，需要把touch事件给RefreshableView来处理。</p>
+<p>&nbsp;</p>
+<p>下面分析里面的代码：</p>
+<p>RefreshableView的interceptAllMoveEvents表示是否需要RefreshableView阻止所有MOVE的事件（也就是说由RefreshableView自己处理所有MOVE事件），如果自控件中没有ScrollView等需要处理MOVE事件的控件，则可以设置为true；如果有类似ScrollView等控件，则需要设置为false，这样的话，RefreshableView会把MOVE事件传递给子类，由子类去处理。显然，现在例子中的情况是需要把interceptAllMoveEvents设置为false。设置的方法可以看上面的xml文件，使用rv:interceptAllMoveEvents=”false”这个属性即可。</p>
+<p>onInterceptTouchEvent()方法中，我们返回的是disallowIntercept，这个disallowIntercept是根据requestDisallowInterceptTouchEvent()方法的调用来动态变化的，这样可以做到切换touch事件的处理对象。</p>
+<p>在手指落下的时候，先调用requestDisallowInterceptTouchEvent()方法，保证当前的事件可以正常往子控件传递，也就是现在的ScrollView。然后手指会开始移动，在ACTION_MOVE中，先计算出当前滑动的距离。</p>
+<p>如果是有效往下拖动事件，则事件需要在RefreshableView中处理，所以需要拦截不往子控件传递，即不允许拦截设为false；如果不是有效往下拖动事件，则事件传递给子控件处理，所以不需要拦截，并往子控件传递，即不允许拦截设为true。</p>
+<p>怎么去判断是否有效呢？根据downY，如果downY是原来的初始值Float.MAX_VALUE，说明，这个MOVE事件刚开始DOWN的时候是被子控件处理的，而不是RefreshableView处理的，说明对于RefreshableView来说，是一个无效的往下拖动事件；如果downY不是原来的初始值Float.MAX_VALUE，说明，这个MOVE事件在DOWN的时候就已经是RefreshableView处理的了，所以是有效的。</p>
+<p>然后，计算refreshHeaderView的高度，根据滑动的差量对refreshHeaderView的高度进行变换。</p>
+<p>如果当前的状态是正在刷新，那MOVE事件直接无效。</p>
+<p>否则，再去判断当前的高度是不是达到了可刷新状态，或者没有达到可刷新状态，更新状态值。</p>
+<p>在UP的时候，还是先保证事件往下传递。并重置downY。然后根据当前的状态，如果达到了刷新的状态，则开始刷新，并更新当前的额状态时正在刷新状态；如果没有达到刷新状态，则执行动画返回到正常状态；如果本来就是正在刷新状态，也执行动画回归到正在刷新的高度。</p>
+<p>&nbsp;</p>
+<p>然后分析下NestScrollView：</p>
+<div class="cnblogs_code"><br><pre><span style="color: #008080;"> 1</span> <span style="color: #008000;">/<strong></strong></span><br><span style="color: #008080;"> 2</span> <span style="color: #008000;"> <em> Author: wangjie<br></em></span><span style="color: #008080;"> 3</span> <span style="color: #008000;">  Email: tiantian.china.2@gmail.com<br></span><span style="color: #008080;"> 4</span> <span style="color: #008000;"> <em> Date: 12/13/14.<br></em></span><span style="color: #008080;"> 5</span>  <span style="color: #008000;">/</span><br><span style="color: #008080;"> 6</span> <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span> NestScrollView <span style="color: #0000ff;">extends</span><span style="color: #000000;"> ScrollView {<br></span><span style="color: #008080;"> 7</span>     <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">final</span> String TAG = NestScrollView.<span style="color: #0000ff;">class</span><span style="color: #000000;">.getSimpleName();<br></span><span style="color: #008080;"> 8</span><br><span style="color: #008080;"> 9</span>     <span style="color: #0000ff;">public</span><span style="color: #000000;"> NestScrollView(Context context) {<br></span><span style="color: #008080;">10</span>         <span style="color: #0000ff;">super</span><span style="color: #000000;">(context);<br></span><span style="color: #008080;">11</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">12</span><br><span style="color: #008080;">13</span>     <span style="color: #0000ff;">public</span><span style="color: #000000;"> NestScrollView(Context context, AttributeSet attrs) {<br></span><span style="color: #008080;">14</span>         <span style="color: #0000ff;">super</span><span style="color: #000000;">(context, attrs);<br></span><span style="color: #008080;">15</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">16</span><br><span style="color: #008080;">17</span>     <span style="color: #0000ff;">public</span> NestScrollView(Context context, AttributeSet attrs, <span style="color: #0000ff;">int</span><span style="color: #000000;"> defStyle) {<br></span><span style="color: #008080;">18</span>         <span style="color: #0000ff;">super</span><span style="color: #000000;">(context, attrs, defStyle);<br></span><span style="color: #008080;">19</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">20</span><br><span style="color: #008080;">21</span> <span style="color: #000000;">    @Override<br></span><span style="color: #008080;">22</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">boolean</span><span style="color: #000000;"> dispatchTouchEvent(MotionEvent ev) {<br></span><span style="color: #008080;">23</span>         Log.d(TAG, “<strong><em>[dispatchTouchEvent]ev action: “ +<span style="color: #000000;"> ev.getAction());<br></span><span style="color: #008080;">24</span>         <span style="color: #0000ff;">return</span> <span style="color: #0000ff;">super</span><span style="color: #000000;">.dispatchTouchEvent(ev);<br></span><span style="color: #008080;">25</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">26</span><br><span style="color: #008080;">27</span> <span style="color: #000000;">    @Override<br></span><span style="color: #008080;">28</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">boolean</span><span style="color: #000000;"> onInterceptTouchEvent(MotionEvent ev) {<br></span><span style="color: #008080;">29</span>         <span style="color: #0000ff;">super</span><span style="color: #000000;">.onInterceptTouchEvent(ev);<br></span><span style="color: #008080;">30</span>         Log.d(TAG, “</em></strong>[onInterceptTouchEvent]ev action: “ +<span style="color: #000000;"> ev.getAction());<br></span><span style="color: #008080;">31</span>         <span style="color: #0000ff;">if</span> (MotionEvent.ACTION_MOVE ==<span style="color: #000000;"> ev.getAction()) {<br></span><span style="color: #008080;">32</span>             <span style="color: #0000ff;">return</span> <span style="color: #0000ff;">true</span><span style="color: #000000;">;<br></span><span style="color: #008080;">33</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;">34</span>         <span style="color: #0000ff;">return</span> <span style="color: #0000ff;">false</span><span style="color: #000000;">;<br></span><span style="color: #008080;">35</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">36</span><br><span style="color: #008080;">37</span>     <span style="color: #0000ff;">float</span><span style="color: #000000;"> lastDownY;<br></span><span style="color: #008080;">38</span><br><span style="color: #008080;">39</span> <span style="color: #000000;">    @Override<br></span><span style="color: #008080;">40</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">boolean</span><span style="color: #000000;"> onTouchEvent(MotionEvent event) {<br></span><span style="color: #008080;">41</span>         <span style="color: #0000ff;">super</span><span style="color: #000000;">.onTouchEvent(event);<br></span><span style="color: #008080;">42</span>         <span style="color: #0000ff;">switch</span><span style="color: #000000;"> (event.getAction()) {<br></span><span style="color: #008080;">43</span>             <span style="color: #0000ff;">case</span><span style="color: #000000;"> MotionEvent.ACTION_DOWN:<br></span><span style="color: #008080;">44</span>                 lastDownY =<span style="color: #000000;"> event.getY();<br></span><span style="color: #008080;">45</span>                 parentRequestDisallowInterceptTouchEvent(<span style="color: #0000ff;">true</span>); <span style="color: #008000;">//</span><span style="color: #008000;"> 保证事件可往下传递</span><br><span style="color: #008080;">46</span>                 Log.d(TAG, “<strong>_Down”<span style="color: #000000;">);<br></span><span style="color: #008080;">47</span>                 <span style="color: #0000ff;">return</span> <span style="color: #0000ff;">true</span><span style="color: #000000;">;<br></span><span style="color: #008080;">48</span> <span style="color: #008000;">//</span><span style="color: #008000;">                break;</span><br><span style="color: #008080;">49</span>             <span style="color: #0000ff;">case</span><span style="color: #000000;"> MotionEvent.ACTION<em>MOVE:<br></em></span><span style="color: #008080;">50</span>                 Log.d(TAG, “</strong>move, this.getScrollY(): “ + <span style="color: #0000ff;">this</span><span style="color: #000000;">.getScrollY());<br></span><span style="color: #008080;">51</span>                 <span style="color: #0000ff;">boolean</span> isTop = event.getY() - lastDownY &gt; 0 &amp;&amp; <span style="color: #0000ff;">this</span>.getScrollY() == 0<span style="color: #000000;">;<br></span><span style="color: #008080;">52</span>                 <span style="color: #0000ff;">if</span> (isTop) { <span style="color: #008000;">//</span><span style="color: #008000;"> 允许父控件拦截，即不允许父控件拦截设为false</span><br><span style="color: #008080;">53</span>                     parentRequestDisallowInterceptTouchEvent(<span style="color: #0000ff;">false</span><span style="color: #000000;">);<br></span><span style="color: #008080;">54</span>                     <span style="color: #0000ff;">return</span> <span style="color: #0000ff;">false</span><span style="color: #000000;">;<br></span><span style="color: #008080;">55</span>                 } <span style="color: #0000ff;">else</span> { <span style="color: #008000;">//</span><span style="color: #008000;"> 不允许父控件拦截，即不允许父控件拦截设为true</span><br><span style="color: #008080;">56</span>                     parentRequestDisallowInterceptTouchEvent(<span style="color: #0000ff;">true</span><span style="color: #000000;">);<br></span><span style="color: #008080;">57</span>                     <span style="color: #0000ff;">return</span> <span style="color: #0000ff;">true</span><span style="color: #000000;">;<br></span><span style="color: #008080;">58</span> <span style="color: #000000;">                }<br></span><span style="color: #008080;">59</span> <span style="color: #008000;">//</span><span style="color: #008000;">                break;</span><br><span style="color: #008080;">60</span>             <span style="color: #0000ff;">case</span><span style="color: #000000;"> MotionEvent.ACTION_UP:<br></span><span style="color: #008080;">61</span>                 Log.d(TAG, “<strong>_up, this.getScrollY(): “ + <span style="color: #0000ff;">this</span><span style="color: #000000;">.getScrollY());<br></span><span style="color: #008080;">62</span>                 parentRequestDisallowInterceptTouchEvent(<span style="color: #0000ff;">true</span>); <span style="color: #008000;">//</span><span style="color: #008000;"> 保证事件可往下传递</span><br><span style="color: #008080;">63</span>                 <span style="color: #0000ff;">break</span><span style="color: #000000;">;<br></span><span style="color: #008080;">64</span>             <span style="color: #0000ff;">case</span><span style="color: #000000;"> MotionEvent.ACTION<em>CANCEL:<br></em></span><span style="color: #008080;">65</span>                 Log.d(TAG, “</strong>cancel”<span style="color: #000000;">);<br></span><span style="color: #008080;">66</span>                 <span style="color: #0000ff;">break</span><span style="color: #000000;">;<br></span><span style="color: #008080;">67</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;">68</span>         <span style="color: #0000ff;">return</span> <span style="color: #0000ff;">false</span><span style="color: #000000;">;<br></span><span style="color: #008080;">69</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">70</span><br><span style="color: #008080;">71</span>     <span style="color: #008000;">/</span><br><span style="color: #008080;">72</span> <span style="color: #008000;">     <em> 是否允许父控件拦截事件<br></em></span><span style="color: #008080;">73</span> <span style="color: #008000;">      </span><span style="color: #808080;">@param</span><span style="color: #008000;"> disallowIntercept<br></span><span style="color: #008080;">74</span>      <span style="color: #008000;">*/</span><br><span style="color: #008080;">75</span>     <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">void</span> parentRequestDisallowInterceptTouchEvent(<span style="color: #0000ff;">boolean</span><span style="color: #000000;"> disallowIntercept) {<br></span><span style="color: #008080;">76</span>         ViewParent vp =<span style="color: #000000;"> getParent();<br></span><span style="color: #008080;">77</span>         <span style="color: #0000ff;">if</span> (<span style="color: #0000ff;">null</span> ==<span style="color: #000000;"> vp) {<br></span><span style="color: #008080;">78</span>             <span style="color: #0000ff;">return</span><span style="color: #000000;">;<br></span><span style="color: #008080;">79</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;">80</span> <span style="color: #000000;">        vp.requestDisallowInterceptTouchEvent(disallowIntercept);<br></span><span style="color: #008080;">81</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">82</span><br><span style="color: #008080;">83</span> }</pre><br></div>
+
+<p>如上所示，也需要重写onInterceptTouchEvent()方法，它需要把除了MOVE事件外的所有事件传递下去，这样最里面的TextView才有OnClick等事件。</p>
+<p>在onTouchEvent方法中，在ACTION_DOWN的时候，先纪录down的y坐标，然后保证parent（即，RefreshableView）的事件可以传递过来，所以需要调用getParent().requestDisallowInterceptTouchEvent()方法。因为下拉刷新只能发生在ScrollView滚动条在顶部的时候，所以在MOVE中，如果当前状态在顶部，那就需要让父控件（RefreshableView）拦截，然后直接返回false，让当前的事件传递到RefreshableView中的onTouchEvent方法中处理。如果不是在top，那就屏蔽调用父控件（RefreshableView）的处理，直接自己处理。最后在UP的时候再确保事件可以传递到ScrollView这里来。</p>
+<p>&nbsp;</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/12/11/基于git的源代码管理模型——git-flow/" rel="next" title="基于git的源代码管理模型——git flow">
+                <i class="fa fa-chevron-left"></i> 基于git的源代码管理模型——git flow
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/12/24/Android-仿新版QQ的tab下面拖拽标记为已读的效果/" rel="prev" title="[Android]仿新版QQ的tab下面拖拽标记为已读的效果">
+                [Android]仿新版QQ的tab下面拖拽标记为已读的效果 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/my_avatar.jpg"
+                alt="Wang Jie" />
+            
+              <p class="site-author-name" itemprop="name">Wang Jie</p>
+              <p class="site-description motion-element" itemprop="description">Wang Jie's blog</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">144</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wangjiegulu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:tiantian.china.2@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/+%E5%A4%A9%E5%A4%A9wangjie" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/wangjiegulu" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://stackoverflow.com/users/2124006/wangjie" target="_blank" title="StackOverflow">
+                      
+                        <i class="fa fa-fw fa-stack-overflow"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/wangjiegulu" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.cnblogs.com/tiantianbyconan/" title="cnblog" target="_blank">cnblog</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wang Jie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://blog-wangjiegulu-com.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://blog.wangjiegulu.com/2014/12/18/Android-下拉刷新控件RefreshableView的实现/';
+          this.page.identifier = '2014/12/18/Android-下拉刷新控件RefreshableView的实现/';
+          this.page.title = '[Android]下拉刷新控件RefreshableView的实现';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://blog-wangjiegulu-com.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "default";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "GooglePlus,Evernote,Twitter,Facebook,Douban,Weibo";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

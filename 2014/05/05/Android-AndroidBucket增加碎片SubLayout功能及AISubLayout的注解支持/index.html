@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="WAND JIE" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="以下内容为原创，转载请注明： 来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/3709957.html &amp;nbsp; 之前写过一篇博客，是使用Fragment来实现TabHost的效果，并且模拟TabHost的切换各个fragment生命周期的调用，见http://www.cnblogs.com/tiantianbyconan/p/3360938.h">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Android]AndroidBucket增加碎片SubLayout功能及AISubLayout的注解支持">
+<meta property="og:url" content="http://blog.wangjiegulu.com/2014/05/05/Android-AndroidBucket增加碎片SubLayout功能及AISubLayout的注解支持/index.html">
+<meta property="og:site_name" content="WAND JIE">
+<meta property="og:description" content="以下内容为原创，转载请注明： 来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/3709957.html &amp;nbsp; 之前写过一篇博客，是使用Fragment来实现TabHost的效果，并且模拟TabHost的切换各个fragment生命周期的调用，见http://www.cnblogs.com/tiantianbyconan/p/3360938.h">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://images.cnitblog.com/i/378300/201405/051955327296296.png">
+<meta property="og:updated_time" content="2018-01-29T12:36:41.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[Android]AndroidBucket增加碎片SubLayout功能及AISubLayout的注解支持">
+<meta name="twitter:description" content="以下内容为原创，转载请注明： 来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/3709957.html &amp;nbsp; 之前写过一篇博客，是使用Fragment来实现TabHost的效果，并且模拟TabHost的切换各个fragment生命周期的调用，见http://www.cnblogs.com/tiantianbyconan/p/3360938.h">
+<meta name="twitter:image" content="http://images.cnitblog.com/i/378300/201405/051955327296296.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.wangjiegulu.com/2014/05/05/Android-AndroidBucket增加碎片SubLayout功能及AISubLayout的注解支持/"/>
+
+
+
+
+
+  <title>[Android]AndroidBucket增加碎片SubLayout功能及AISubLayout的注解支持 | WAND JIE</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-111189680-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">WAND JIE</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">TO BE AN ARTIST-ENGINNER</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.wangjiegulu.com/2014/05/05/Android-AndroidBucket增加碎片SubLayout功能及AISubLayout的注解支持/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wang Jie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/my_avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WAND JIE">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">[Android]AndroidBucket增加碎片SubLayout功能及AISubLayout的注解支持</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-05-05T20:31:00+08:00">
+                2014-05-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2014/05/05/Android-AndroidBucket增加碎片SubLayout功能及AISubLayout的注解支持/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2014/05/05/Android-AndroidBucket增加碎片SubLayout功能及AISubLayout的注解支持/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><span style="color: #ff0000;"><strong>以下内容为原创，转载请注明：</strong></span></p>
+<p><span style="color: #ff0000;"><strong><span style="color: #ff0000;">来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/3709957.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/3709957.html</a></span></strong></span></p>
+<p>&nbsp;</p>
+<p>之前写过一篇博客，是使用Fragment来实现TabHost的效果，并且模拟TabHost的切换各个fragment生命周期的调用，见<a href="http://www.cnblogs.com/tiantianbyconan/p/3360938.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/3360938.html</a></p>
+<p>但是如果要实现的效果是两级的Tab，比如在第一级tab中又有三个子Tab切换不同的布局，</p>
+<p>相当于在Fragment中嵌套来Fragment，这个怎么实现？</p>
+<p>也有个官方的实现方法，通过使用<span>android-support-v13.jar包中的<span>getChildFragmentManager方法来获取一个Manager。</span></span></p>
+<p>这里带来我写的一个新的方案，使用SubLayout来实现。</p>
+<p>相关源码：<a href="https://github.com/wangjiegulu/AndroidBucket/tree/master/src/com/wangjie/androidbucket/customviews/sublayout" target="_blank" rel="noopener">https://github.com/wangjiegulu/AndroidBucket/tree/master/src/com/wangjie/androidbucket/customviews/sublayout</a></p>
+<p>下面使用一个例子来说下使用方法，先看下最后的效果（项目使用了我的开源<strong><a href="https://github.com/wangjiegulu/AndroidBucket" target="_blank" rel="noopener">AndroidBucket</a></strong>和<strong><a href="https://github.com/wangjiegulu/androidInject" target="_blank" rel="noopener">AndroidInject</a>&nbsp;请先添加依赖项目，欢迎star／fork</strong>）：</p>
+<p><img src="http://images.cnitblog.com/i/378300/201405/051955327296296.png" alt=""></p>
+<p>效果跟以前的例子大同小异，点击第一个tab上的TextView，然后Toast提示EditText上的信息，但是使用方式却是不一样的。</p>
+<p>大体的思路是在MainActivity布局中增加一个FrameLayout，然后在切换过程中不停的用相应的布局去替换FrameLayout中。</p>
+<p>main.xml布局如下：</p>
+<div class="cnblogs_code"><br><pre><span style="color: #008080;"> 1</span> <span style="color: #0000ff;">&lt;?</span><span style="color: #ff00ff;">xml version=”1.0” encoding=”utf-8”</span><span style="color: #0000ff;">?&gt;</span><br><span style="color: #008080;"> 2</span> <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">LinearLayout </span><span style="color: #ff0000;">xmlns:android</span><span style="color: #0000ff;">=”<a href="http://schemas.android.com/apk/res/android" target="_blank" rel="noopener">http://schemas.android.com/apk/res/android</a>“</span><br><span style="color: #008080;"> 3</span> <span style="color: #ff0000;">              android:orientation</span><span style="color: #0000ff;">=”vertical”</span><br><span style="color: #008080;"> 4</span> <span style="color: #ff0000;">              android:layout_width</span><span style="color: #0000ff;">=”fill_parent”</span><br><span style="color: #008080;"> 5</span> <span style="color: #ff0000;">              android:layout_height</span><span style="color: #0000ff;">=”fill_parent”</span><br><span style="color: #008080;"> 6</span>         <span style="color: #0000ff;">&gt;</span><br><span style="color: #008080;"> 7</span><br><span style="color: #008080;"> 8</span>     <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">FrameLayout<br></span><span style="color: #008080;"> 9</span>             <span style="color: #ff0000;">android:id</span><span style="color: #0000ff;">=”@+id/main_content_view”</span><br><span style="color: #008080;">10</span> <span style="color: #ff0000;">            android:layout_width</span><span style="color: #0000ff;">=”match_parent”</span><br><span style="color: #008080;">11</span> <span style="color: #ff0000;">            android:layout_height</span><span style="color: #0000ff;">=”0dp”</span><br><span style="color: #008080;">12</span> <span style="color: #ff0000;">            android:layout_weight</span><span style="color: #0000ff;">=”1.0”</span><br><span style="color: #008080;">13</span>             <span style="color: #0000ff;">/&gt;</span><br><span style="color: #008080;">14</span><br><span style="color: #008080;">15</span>     <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">RadioGroup<br></span><span style="color: #008080;">16</span>             <span style="color: #ff0000;">android:id</span><span style="color: #0000ff;">=”@+id/main_tabs_rg”</span><br><span style="color: #008080;">17</span> <span style="color: #ff0000;">            android:layout_width</span><span style="color: #0000ff;">=”fill_parent”</span><br><span style="color: #008080;">18</span> <span style="color: #ff0000;">            android:layout_height</span><span style="color: #0000ff;">=”65dp”</span><br><span style="color: #008080;">19</span> <span style="color: #ff0000;">            android:background</span><span style="color: #0000ff;">=”#aabbcc”</span><br><span style="color: #008080;">20</span> <span style="color: #ff0000;">            android:gravity</span><span style="color: #0000ff;">=”center_vertical”</span><br><span style="color: #008080;">21</span> <span style="color: #ff0000;">            android:orientation</span><span style="color: #0000ff;">=”horizontal”</span> <span style="color: #0000ff;">&gt;</span><br><span style="color: #008080;">22</span><br><span style="color: #008080;">23</span>         <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">RadioButton<br></span><span style="color: #008080;">24</span>                 <span style="color: #ff0000;">android:id</span><span style="color: #0000ff;">=”@+id/main_tab_a_rb”</span><br><span style="color: #008080;">25</span> <span style="color: #ff0000;">                style</span><span style="color: #0000ff;">=”@style/tab_item_background”</span><br><span style="color: #008080;">26</span> <span style="color: #ff0000;">                android:drawableTop</span><span style="color: #0000ff;">=”@drawable/ic_launcher”</span><br><span style="color: #008080;">27</span> <span style="color: #ff0000;">                android:paddingTop</span><span style="color: #0000ff;">=”7dp”</span><br><span style="color: #008080;">28</span> <span style="color: #ff0000;">                android:textSize</span><span style="color: #0000ff;">=”13sp”</span><br><span style="color: #008080;">29</span> <span style="color: #ff0000;">                android:checked</span><span style="color: #0000ff;">=”true”</span><br><span style="color: #008080;">30</span>                 <span style="color: #0000ff;">/&gt;</span><br><span style="color: #008080;">31</span><br><span style="color: #008080;">32</span>         <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">RadioButton<br></span><span style="color: #008080;">33</span>                 <span style="color: #ff0000;">android:id</span><span style="color: #0000ff;">=”@+id/main_tab_b_rb”</span><br><span style="color: #008080;">34</span> <span style="color: #ff0000;">                style</span><span style="color: #0000ff;">=”@style/tab_item_background”</span><br><span style="color: #008080;">35</span> <span style="color: #ff0000;">                android:drawableTop</span><span style="color: #0000ff;">=”@drawable/ic_launcher”</span><br><span style="color: #008080;">36</span> <span style="color: #ff0000;">                android:paddingTop</span><span style="color: #0000ff;">=”7dp”</span><br><span style="color: #008080;">37</span> <span style="color: #ff0000;">                android:textSize</span><span style="color: #0000ff;">=”13sp”</span><br><span style="color: #008080;">38</span>                 <span style="color: #0000ff;">/&gt;</span><br><span style="color: #008080;">39</span><br><span style="color: #008080;">40</span>         <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">RadioButton<br></span><span style="color: #008080;">41</span>                 <span style="color: #ff0000;">android:id</span><span style="color: #0000ff;">=”@+id/main_tab_c_rb”</span><br><span style="color: #008080;">42</span> <span style="color: #ff0000;">                style</span><span style="color: #0000ff;">=”@style/tab_item_background”</span><br><span style="color: #008080;">43</span> <span style="color: #ff0000;">                android:drawableTop</span><span style="color: #0000ff;">=”@drawable/ic_launcher”</span><br><span style="color: #008080;">44</span> <span style="color: #ff0000;">                android:paddingTop</span><span style="color: #0000ff;">=”7dp”</span><br><span style="color: #008080;">45</span> <span style="color: #ff0000;">                android:textSize</span><span style="color: #0000ff;">=”13sp”</span><br><span style="color: #008080;">46</span>                 <span style="color: #0000ff;">/&gt;</span><br><span style="color: #008080;">47</span><br><span style="color: #008080;">48</span>     <span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">RadioGroup</span><span style="color: #0000ff;">&gt;</span><br><span style="color: #008080;">49</span><br><span style="color: #008080;">50</span> <span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">LinearLayout</span><span style="color: #0000ff;">&gt;</span></pre><br></div>
+
+<p>布局很简单，一个FrameLayout用于存放不同界面的布局，3个RadioButton表示下面的每一项Tab按钮。</p>
+<p>在MainActivity中代码如下：</p>
+<div class="cnblogs_code"><br><pre><span style="color: #000000;">@AILayout(R.layout.main)<br></span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span> MainActivity <span style="color: #0000ff;">extends</span><span style="color: #000000;"> AIActivity {<br>    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">final</span> String TAG = MainActivity.<span style="color: #0000ff;">class</span><span style="color: #000000;">.getSimpleName();<br><br>    @AIView(R.id.main_content_view)<br>    ViewGroup contentView;<br><br>    @AIView(R.id.main_tabs_rg)<br>    RadioGroup rg;<br><br>    SubLayoutManager sbManager;<br><br>    @Override<br>    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> onCreate(Bundle savedInstanceState) {<br>        </span><span style="color: #0000ff;">super</span><span style="color: #000000;">.onCreate(savedInstanceState);<br><br>        sbManager </span>= <span style="color: #0000ff;">new</span> SubLayoutManager&lt;SubLayout&gt;(context, contentView, TabASubLayout.<span style="color: #0000ff;">class</span>, TabBSubLayout.<span style="color: #0000ff;">class</span>, TabCSubLayout.<span style="color: #0000ff;">class</span><span style="color: #000000;">);<br><br>        sbManager.setSwitchListener(</span><span style="color: #0000ff;">new</span> SubLayoutManager.LayoutSwitchListener&lt;SubLayout&gt;<span style="color: #000000;">() {<br>            @Override<br>            </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span> switchSelf(SubLayout subLayout, <span style="color: #0000ff;">int</span><span style="color: #000000;"> position) {<br>                Logger.d(TAG, </span>“[switch listener]switchSelf, subLayout: “ + subLayout + “, position: “ +<span style="color: #000000;"> position);<br>            }<br><br>            @Override<br>            </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span> switchCompleted(SubLayout subLayout, <span style="color: #0000ff;">int</span><span style="color: #000000;"> position) {<br>                Logger.d(TAG, </span>“[switch listener]switchCompleted, subLayout: “ + subLayout + “, position: “ +<span style="color: #000000;"> position);<br>            }<br>        });<br><br>        rg.setOnCheckedChangeListener(</span><span style="color: #0000ff;">new</span><span style="color: #000000;"> RadioGroup.OnCheckedChangeListener() {<br>            @Override<br>            </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span> onCheckedChanged(RadioGroup radioGroup, <span style="color: #0000ff;">int</span><span style="color: #000000;"> i) {<br>                </span><span style="color: #0000ff;">int</span> index = -1<span style="color: #000000;">;<br>                </span><span style="color: #0000ff;">switch</span><span style="color: #000000;">(i){<br>                    </span><span style="color: #0000ff;">case</span><span style="color: #000000;"> R.id.main_tab_a_rb:<br>                        index </span>= 0<span style="color: #000000;">;<br>                        </span><span style="color: #0000ff;">break</span><span style="color: #000000;">;<br><br>                    </span><span style="color: #0000ff;">case</span><span style="color: #000000;"> R.id.main_tab_b_rb:<br>                        index </span>= 1<span style="color: #000000;">;<br>                        </span><span style="color: #0000ff;">break</span><span style="color: #000000;">;<br><br>                    </span><span style="color: #0000ff;">case</span><span style="color: #000000;"> R.id.main_tab_c_rb:<br>                        index </span>= 2<span style="color: #000000;">;<br>                        </span><span style="color: #0000ff;">break</span><span style="color: #000000;">;<br>                }<br>                </span><span style="color: #0000ff;">if</span>(index &lt; 0 || index &gt;=<span style="color: #000000;"> sbManager.getSubLayoutSize()){<br>                    </span><span style="color: #0000ff;">return</span><span style="color: #000000;">;<br>                }<br>                sbManager.switchLayout(index);<br>            }<br>        });<br><br>        sbManager.switchLayout(</span>0); <span style="color: #008000;">//</span><span style="color: #008000;"> 默认切换第一页</span><br><span style="color: #000000;"><br>    }<br><br>    @Override<br>    </span><span style="color: #0000ff;">protected</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> onDestroy() {<br>        </span><span style="color: #0000ff;">super</span><span style="color: #000000;">.onDestroy();<br>        sbManager.destoryClear();<br>        sbManager </span>= <span style="color: #0000ff;">null</span><span style="color: #000000;">;<br><br>    }<br><br>}</span></pre><br></div>
+
+<p>上面的SubLayout相当于一个Fragment，SubLayoutManager用于管理多个SubLayout之间的切换。SubLayoutManager可以通过new获取。</p>
+<p>其中构造方法中：</p>
+<p>public SubLayoutManager(Context context, ViewGroup contentView, Class&lt;? extends T&gt;… slszzs) {</p>
+<p>参数二：contentView表示在MainActivity中预留给SubLayout显示的FrameLayout。</p>
+<p>参数三：是个可变长参数，可以在后面（有序）追加所有需要切换的SubLayout的Class对象。</p>
+<p>第一次初始化后各个SubLayout对象不会马上生成，只会在切换到改页面时才会生成该对象，会执行SubLayout的initLayout()方法，这个方法只会调用一次（类似onCreate()方法）</p>
+<p>需要切换页面时只需要执行SubLayoutManager的switchLayout()方法，传入SubLayout的position就可以了，这个position跟参数三的顺序一致。</p>
+<p>&nbsp;</p>
+<p>接下来看下几个SubLayout是怎么去实现的，因为三个SubLayout大致相同，所以只分析一个就可以了：</p>
+<p>TabASubLayout代码如下：</p>
+<div class="cnblogs_code"><br><pre><span style="color: #008080;"> 1</span> <span style="color: #000000;">@AILayout(R.layout.tab_a)<br></span><span style="color: #008080;"> 2</span> <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span> TabASubLayout <span style="color: #0000ff;">extends</span><span style="color: #000000;"> AISubLayout {<br></span><span style="color: #008080;"> 3</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">final</span> String TAG = TabASubLayout.<span style="color: #0000ff;">class</span><span style="color: #000000;">.getSimpleName();<br></span><span style="color: #008080;"> 4</span><br><span style="color: #008080;"> 5</span><br><span style="color: #008080;"> 6</span> <span style="color: #008000;">//</span><span style="color: #008000;">    @AIView(R.id.tab_a_tv)<br></span><span style="color: #008080;"> 7</span> <span style="color: #008000;">//</span><span style="color: #008000;">    TextView tv;</span><br><span style="color: #008080;"> 8</span> <span style="color: #000000;">    @AIView(R.id.tab_a_et)<br></span><span style="color: #008080;"> 9</span> <span style="color: #000000;">    EditText et;<br></span><span style="color: #008080;">10</span><br><span style="color: #008080;">11</span>     <span style="color: #0000ff;">public</span><span style="color: #000000;"> TabASubLayout(Context context) {<br></span><span style="color: #008080;">12</span>         <span style="color: #0000ff;">super</span><span style="color: #000000;">(context);<br></span><span style="color: #008080;">13</span> <span style="color: #008000;">//</span><span style="color: #008000;">        setContentView(R.layout.tab_a);</span><br><span style="color: #008080;">14</span><br><span style="color: #008080;">15</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">16</span><br><span style="color: #008080;">17</span> <span style="color: #000000;">    @Override<br></span><span style="color: #008080;">18</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> initLayout() {<br></span><span style="color: #008080;">19</span>         <span style="color: #0000ff;">super</span><span style="color: #000000;">.initLayout();<br></span><span style="color: #008080;">20</span>         Logger.d(TAG, “initLayout…”<span style="color: #000000;">);<br></span><span style="color: #008080;">21</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">22</span><br><span style="color: #008080;">23</span> <span style="color: #000000;">    @AIClick({R.id.tab_a_tv})<br></span><span style="color: #008080;">24</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> onClickCallbackSample(View view) {<br></span><span style="color: #008080;">25</span>         Toast.makeText(context, “clicked: “ + ((TextView)view).getText() + “, “ +<span style="color: #000000;"> et.getText(), Toast.LENGTH_SHORT).show();<br></span><span style="color: #008080;">26</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">27</span><br><span style="color: #008080;">28</span> <span style="color: #000000;">    @Override<br></span><span style="color: #008080;">29</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> onResume() {<br></span><span style="color: #008080;">30</span>         <span style="color: #0000ff;">super</span><span style="color: #000000;">.onResume();<br></span><span style="color: #008080;">31</span>         Logger.d(TAG, “onResume…”<span style="color: #000000;">);<br></span><span style="color: #008080;">32</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">33</span><br><span style="color: #008080;">34</span> <span style="color: #000000;">    @Override<br></span><span style="color: #008080;">35</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> onPause() {<br></span><span style="color: #008080;">36</span>         <span style="color: #0000ff;">super</span><span style="color: #000000;">.onPause();<br></span><span style="color: #008080;">37</span>         Logger.d(TAG, “onPause…”<span style="color: #000000;">);<br></span><span style="color: #008080;">38</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">39</span><br><span style="color: #008080;">40</span> }</pre><br></div>
+
+<p>代码很简单，继承AISubLayout即可，AISubLayout是AndroidInject中AndroidBucket的子类，实现了SubLayout的注解的支持。当然你也可以直接继承SubLayout，这样的话就不能使用注解了，看上面的被注释的代码，可以通过setContentView来设置对应的布局，可以通过findViewById来获取控件对象。</p>
+<p>它也有onResume和onPause方法，当前页A被切换到B的话会调用A的onPause，然后调用B的onResume（如果之前B没有被初始化过，则先调用initLayout再调用onResume方法）</p>
+<p>下面来看看log打印的日志：</p>
+<p>&nbsp;</p>
+<p>// 以下为启动应用，默认加载TabA</p>
+<p><em>05-05 08:22:32.216 1086-1086/com.wangjie.sublayouttest D/SubLayoutManager﹕ —–switch start———————–<br>05-05 08:22:32.216    1086-1086/com.wangjie.sublayouttest D/SubLayoutManager﹕ switch before………: [DelayObj{clazz=class com.wangjie.sublayouttest.TabASubLayout, delayObj=null}, DelayObj{clazz=class com.wangjie.sublayouttest.TabBSubLayout, delayObj=null}, DelayObj{clazz=class com.wangjie.sublayouttest.TabCSubLayout, delayObj=null}]<br>05-05 08:22:32.336    1086-1086/com.wangjie.sublayouttest D/TabASubLayout﹕ initLayout…<br>05-05 08:22:32.336    1086-1086/com.wangjie.sublayouttest D/TabASubLayout﹕ onResume…<br>05-05 08:22:32.336    1086-1086/com.wangjie.sublayouttest D/MainActivity﹕ [switch listener]switchCompleted, subLayout: com.wangjie.sublayouttest.TabASubLayout@b4dff088, position: 0<br>05-05 08:22:32.336    1086-1086/com.wangjie.sublayouttest D/SubLayoutManager﹕ switch after………: [DelayObj{clazz=class com.wangjie.sublayouttest.TabASubLayout, delayObj=com.wangjie.sublayouttest.TabASubLayout@b4dff088}, DelayObj{clazz=class com.wangjie.sublayouttest.TabBSubLayout, delayObj=null}, DelayObj{clazz=class com.wangjie.sublayouttest.TabCSubLayout, delayObj=null}]<br>05-05 08:22:32.336    1086-1086/com.wangjie.sublayouttest D/SubLayoutManager﹕ —–switch end———————–</em></p>
+<p><em><br>// TabA切换到TabB<br>05-05 08:22:37.926    1086-1086/com.wangjie.sublayouttest D/SubLayoutManager﹕ —–switch start———————–<br>05-05 08:22:37.926    1086-1086/com.wangjie.sublayouttest D/SubLayoutManager﹕ switch before………: [DelayObj{clazz=class com.wangjie.sublayouttest.TabASubLayout, delayObj=com.wangjie.sublayouttest.TabASubLayout@b4dff088}, DelayObj{clazz=class com.wangjie.sublayouttest.TabBSubLayout, delayObj=null}, DelayObj{clazz=class com.wangjie.sublayouttest.TabCSubLayout, delayObj=null}]<br>05-05 08:22:37.946    1086-1086/com.wangjie.sublayouttest D/TabASubLayout﹕ onPause…<br>05-05 08:22:37.986    1086-1086/com.wangjie.sublayouttest D/TabBSubLayout﹕ initLayout…<br>05-05 08:22:37.996    1086-1086/com.wangjie.sublayouttest D/TabBSubLayout﹕ onResume…<br>05-05 08:22:37.996    1086-1086/com.wangjie.sublayouttest D/MainActivity﹕ [switch listener]switchCompleted, subLayout: com.wangjie.sublayouttest.TabBSubLayout@b4de1d80, position: 1<br>05-05 08:22:37.996    1086-1086/com.wangjie.sublayouttest D/SubLayoutManager﹕ switch after………: [DelayObj{clazz=class com.wangjie.sublayouttest.TabASubLayout, delayObj=com.wangjie.sublayouttest.TabASubLayout@b4dff088}, DelayObj{clazz=class com.wangjie.sublayouttest.TabBSubLayout, delayObj=com.wangjie.sublayouttest.TabBSubLayout@b4de1d80}, DelayObj{clazz=class com.wangjie.sublayouttest.TabCSubLayout, delayObj=null}]<br>05-05 08:22:37.996    1086-1086/com.wangjie.sublayouttest D/SubLayoutManager﹕ —–switch end———————–</em></p>
+<p><em><br>// TabB切换到TabC<br>05-05 08:22:41.486    1086-1086/com.wangjie.sublayouttest D/SubLayoutManager﹕ —–switch start———————–<br>05-05 08:22:41.486    1086-1086/com.wangjie.sublayouttest D/SubLayoutManager﹕ switch before………: [DelayObj{clazz=class com.wangjie.sublayouttest.TabASubLayout, delayObj=com.wangjie.sublayouttest.TabASubLayout@b4dff088}, DelayObj{clazz=class com.wangjie.sublayouttest.TabBSubLayout, delayObj=com.wangjie.sublayouttest.TabBSubLayout@b4de1d80}, DelayObj{clazz=class com.wangjie.sublayouttest.TabCSubLayout, delayObj=null}]<br>05-05 08:22:41.496    1086-1086/com.wangjie.sublayouttest D/TabBSubLayout﹕ onPause…<br>05-05 08:22:41.516    1086-1086/com.wangjie.sublayouttest D/TabCSubLayout﹕ initLayout…<br>05-05 08:22:41.516    1086-1086/com.wangjie.sublayouttest D/TabCSubLayout﹕ onResume…<br>05-05 08:22:41.516    1086-1086/com.wangjie.sublayouttest D/MainActivity﹕ [switch listener]switchCompleted, subLayout: com.wangjie.sublayouttest.TabCSubLayout@b4e17840, position: 2<br>05-05 08:22:41.516    1086-1086/com.wangjie.sublayouttest D/SubLayoutManager﹕ switch after………: [DelayObj{clazz=class com.wangjie.sublayouttest.TabASubLayout, delayObj=com.wangjie.sublayouttest.TabASubLayout@b4dff088}, DelayObj{clazz=class com.wangjie.sublayouttest.TabBSubLayout, delayObj=com.wangjie.sublayouttest.TabBSubLayout@b4de1d80}, DelayObj{clazz=class com.wangjie.sublayouttest.TabCSubLayout, delayObj=com.wangjie.sublayouttest.TabCSubLayout@b4e17840}]<br>05-05 08:22:41.526    1086-1086/com.wangjie.sublayouttest D/SubLayoutManager﹕ —–switch end———————–</em></p>
+<p>&nbsp;</p>
+<p>_// TabC切换到TabA<br>05-05 08:22:44.086    1086-1086/com.wangjie.sublayouttest D/SubLayoutManager﹕ —–switch start———————–<br>05-05 08:22:44.086    1086-1086/com.wangjie.sublayouttest D/SubLayoutManager﹕ switch before………: [DelayObj{clazz=class com.wangjie.sublayouttest.TabASubLayout, delayObj=com.wangjie.sublayouttest.TabASubLayout@b4dff088}, DelayObj{clazz=class com.wangjie.sublayouttest.TabBSubLayout, delayObj=com.wangjie.sublayouttest.TabBSubLayout@b4de1d80}, DelayObj{clazz=class com.wangjie.sublayouttest.TabCSubLayout, delayObj=com.wangjie.sublayouttest.TabCSubLayout@b4e17840}]<br>05-05 08:22:44.086    1086-1086/com.wangjie.sublayouttest D/TabCSubLayout﹕ onPause…<br>05-05 08:22:44.136    1086-1086/com.wangjie.sublayouttest D/TabASubLayout﹕ onResume…<br>05-05 08:22:44.136    1086-1086/com.wangjie.sublayouttest D/MainActivity﹕ [switch listener]switchCompleted, subLayout: com.wangjie.sublayouttest.TabASubLayout@b4dff088, position: 0<br>05-05 08:22:44.136    1086-1086/com.wangjie.sublayouttest D/SubLayoutManager﹕ switch after………: [DelayObj{clazz=class com.wangjie.sublayouttest.TabASubLayout, delayObj=com.wangjie.sublayouttest.TabASubLayout@b4dff088}, DelayObj{clazz=class com.wangjie.sublayouttest.TabBSubLayout, delayObj=com.wangjie.sublayouttest.TabBSubLayout@b4de1d80}, DelayObj{clazz=class com.wangjie.sublayouttest.TabCSubLayout, delayObj=com.wangjie.sublayouttest.TabCSubLayout@b4e17840}]<br>05-05 08:22:44.136    1086-1086/com.wangjie.sublayouttest D/SubLayoutManager﹕ —–switch end———————–</p>
+<p>_</p>
+<p>&nbsp;</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/04/22/关于Android-的内存泄露及分析/" rel="next" title="关于Android 的内存泄露及分析">
+                <i class="fa fa-chevron-left"></i> 关于Android 的内存泄露及分析
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/05/19/Android-Property-Animation动画/" rel="prev" title="Android Property Animation动画">
+                Android Property Animation动画 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/my_avatar.jpg"
+                alt="Wang Jie" />
+            
+              <p class="site-author-name" itemprop="name">Wang Jie</p>
+              <p class="site-description motion-element" itemprop="description">Wang Jie's blog</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">144</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wangjiegulu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:tiantian.china.2@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/+%E5%A4%A9%E5%A4%A9wangjie" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/wangjiegulu" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://stackoverflow.com/users/2124006/wangjie" target="_blank" title="StackOverflow">
+                      
+                        <i class="fa fa-fw fa-stack-overflow"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/wangjiegulu" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.cnblogs.com/tiantianbyconan/" title="cnblog" target="_blank">cnblog</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wang Jie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://blog-wangjiegulu-com.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://blog.wangjiegulu.com/2014/05/05/Android-AndroidBucket增加碎片SubLayout功能及AISubLayout的注解支持/';
+          this.page.identifier = '2014/05/05/Android-AndroidBucket增加碎片SubLayout功能及AISubLayout的注解支持/';
+          this.page.title = '[Android]AndroidBucket增加碎片SubLayout功能及AISubLayout的注解支持';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://blog-wangjiegulu-com.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "default";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "GooglePlus,Evernote,Twitter,Facebook,Douban,Weibo";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

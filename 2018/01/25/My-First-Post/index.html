@@ -1,0 +1,1426 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="android,CI,mvp,unit test,espresso,jUnit," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="WAND JIE" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="注意：为了区分MVP中的View与Android中控件的View，以下MVP中的View使用Viewer来表示。  这里暂时先只讨论 Viewer 和 Presenter，Model暂时不去涉及。 1.1 MVP 基础框架1.1.1 前提首先需要解决以下问题：  MVP中把Layout布局和Activity等组件作为Viewer层，增加了Presenter，Presenter层与Model层进">
+<meta name="keywords" content="android,CI,mvp,unit test,espresso,jUnit">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android MVP&amp;依赖注入&amp;单元测试">
+<meta property="og:url" content="http://blog.wangjiegulu.com/2018/01/25/My-First-Post/index.html">
+<meta property="og:site_name" content="WAND JIE">
+<meta property="og:description" content="注意：为了区分MVP中的View与Android中控件的View，以下MVP中的View使用Viewer来表示。  这里暂时先只讨论 Viewer 和 Presenter，Model暂时不去涉及。 1.1 MVP 基础框架1.1.1 前提首先需要解决以下问题：  MVP中把Layout布局和Activity等组件作为Viewer层，增加了Presenter，Presenter层与Model层进">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-01-25T07:20:26.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android MVP&amp;依赖注入&amp;单元测试">
+<meta name="twitter:description" content="注意：为了区分MVP中的View与Android中控件的View，以下MVP中的View使用Viewer来表示。  这里暂时先只讨论 Viewer 和 Presenter，Model暂时不去涉及。 1.1 MVP 基础框架1.1.1 前提首先需要解决以下问题：  MVP中把Layout布局和Activity等组件作为Viewer层，增加了Presenter，Presenter层与Model层进">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.wangjiegulu.com/2018/01/25/My-First-Post/"/>
+
+
+
+
+
+  <title>Android MVP&依赖注入&单元测试 | WAND JIE</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-111189680-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">WAND JIE</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">TO BE AN ARTIST-ENGINNER</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.wangjiegulu.com/2018/01/25/My-First-Post/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wang Jie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/my_avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WAND JIE">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android MVP&依赖注入&单元测试</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-25T13:29:58+08:00">
+                2018-01-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/android/mvp/" itemprop="url" rel="index">
+                    <span itemprop="name">mvp</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/01/25/My-First-Post/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/01/25/My-First-Post/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <!--<font color="#ff0000"><strong>
+以下内容为原创，欢迎转载，转载请注明
+来自天天博客：<http://www.cnblogs.com/tiantianbyconan/p/5422443.html>
+</strong></font>-->
+<blockquote>
+<p><strong>注意</strong>：为了区分<code>MVP</code>中的<code>View</code>与<code>Android</code>中控件的<code>View</code>，以下<code>MVP</code>中的<code>View</code>使用<code>Viewer</code>来表示。</p>
+</blockquote>
+<p>这里暂时先只讨论 <code>Viewer</code> 和 <code>Presenter</code>，<code>Model</code>暂时不去涉及。</p>
+<h2 id="1-1-MVP-基础框架"><a href="#1-1-MVP-基础框架" class="headerlink" title="1.1 MVP 基础框架"></a>1.1 MVP 基础框架</h2><h3 id="1-1-1-前提"><a href="#1-1-1-前提" class="headerlink" title="1.1.1 前提"></a>1.1.1 前提</h3><p>首先需要解决以下问题：</p>
+<blockquote>
+<p><code>MVP</code>中把Layout布局和<code>Activity</code>等组件作为<code>Viewer</code>层，增加了<code>Presenter</code>，<code>Presenter</code>层与<code>Model</code>层进行业务的交互，完成后再与<code>Viewer</code>层交互,进行回调来刷新UI。这样一来，业务逻辑的工作都交给了<code>Presenter</code>中进行，使得<code>Viewer</code>层与<code>Model</code>层的耦合度降低，<code>Viewer</code>中的工作也进行了简化。但是在实际项目中，随着逻辑的复杂度越来越大，<code>Viewer</code>（如<code>Activity</code>）臃肿的缺点仍然体现出来了，因为<code>Activity</code>中还是充满了大量与<code>Viewer</code>层无关的代码，比如各种事件的处理派发，就如<code>MVC</code>中的那样<code>Viewer</code>层和<code>Controller</code>代码耦合在一起无法自拔。</p>
+</blockquote>
+<p>转自我之前的博客（<strong><a href="http://www.cnblogs.com/tiantianbyconan/p/5036289.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/5036289.html</a></strong>）中第二阶段所引发的问题。</p>
+<p>解决的方法之一在上述文章中也有提到 —— 加入<code>Controller</code>层来分担<code>Viewer</code>的职责。</p>
+<a id="more"></a>
+<h3 id="1-1-2-Contract"><a href="#1-1-2-Contract" class="headerlink" title="1.1.2 Contract"></a>1.1.2 Contract</h3><p>根据以上的解决方案，首先考虑到<code>Viewer</code>直接交互的对象可能是<code>Presenter</code>（原来的方式），也有可能是<code>Controller</code>。</p>
+<ul>
+<li><p>如果直接交互的对象是<code>Presenter</code>，由于<code>Presenter</code>中可能会进行很多同步、异步操作来调用<code>Model</code>层的代码，并且会回调到UI来进行UI的更新，所以，我们需要在<code>Viewer</code>层对象销毁时能够停止<code>Presenter</code>中执行的任务，或者执行完成后拦截UI的相关回调。因此，<code>Presenter</code>中应该绑定<code>Viewer</code>对象的生命周期（至少<code>Viewer</code>销毁的生命周期是需要关心的）</p>
+</li>
+<li><p>如果直接交互的对象是<code>Controller</code>，由于<code>Controller</code>中会承担<code>Viewer</code>中的事件回调并派发的职责（比如，ListView item 的点击回调和点击之后对相应的逻辑进行派发、或者<code>Viewer</code>生命周期方法回调后的处理），所以<code>Controller</code>层也是需要绑定<code>Viewer</code>对象的生命周期的。</p>
+</li>
+</ul>
+<p>这里，使用<code>Viewer</code>生命周期回调进行抽象：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">OnViewerDestroyListener</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onViewerDestroy</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">OnViewerLifecycleListener</span> <span class="keyword">extends</span> <span class="title">OnViewerDestroyListener</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onViewerResume</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onViewerPause</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>OnViewerDestroyListener</code>接口提供给需要关心<code>Viewer</code>层销毁时期的组件，如上，应该是<code>Presenter</code>所需要关心的。</p>
+<p><code>OnViewerLifecycleListener</code>接口提供给需要关心<code>Viewer</code>层生命周期回调的组件，可以根据项目需求增加更多的生命周期的方法，这里我们只关心<code>Viewer</code>的<code>resume</code>和<code>pause</code>。</p>
+<h3 id="1-1-3-Viewer层"><a href="#1-1-3-Viewer层" class="headerlink" title="1.1.3 Viewer层"></a>1.1.3 Viewer层</h3><h4 id="1-1-3-1-Viewer-抽象"><a href="#1-1-3-1-Viewer-抽象" class="headerlink" title="1.1.3.1 Viewer 抽象"></a>1.1.3.1 Viewer 抽象</h4><p><code>Viewer</code>层，也就是表现层，当然有相关常用的UI操作，比如显示一个<code>toast</code>、显示/取消一个加载进度条等等。除此之外，由于<code>Viewer</code>层可能会直接与<code>Presenter</code>或者<code>Controller</code>层交互，所以应该还提供对这两者的绑定操作，所以如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Viewer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function">Viewer <span class="title">bind</span><span class="params">(OnViewerLifecycleListener onViewerLifecycleListener)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function">Viewer <span class="title">bind</span><span class="params">(OnViewerDestroyListener onViewerDestroyListener)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function">Context <span class="title">context</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">showToast</span><span class="params">(String message)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">showToast</span><span class="params">(<span class="keyword">int</span> resStringId)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">showLoadingDialog</span><span class="params">(String message)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">showLoadingDialog</span><span class="params">(<span class="keyword">int</span> resStringId)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">cancelLoadingDialog</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如上代码，两个<code>bind()</code>方法就是用于跟<code>Presenter</code>/<code>Controller</code>的绑定。</p>
+<h4 id="1-1-3-2-Viewer-委托实现"><a href="#1-1-3-2-Viewer-委托实现" class="headerlink" title="1.1.3.2 Viewer 委托实现"></a>1.1.3.2 Viewer 委托实现</h4><p>又因为，在Android中<code>Viewer</code>层对象可能是<code>Activity</code>、<code>Fragment</code>、<code>View</code>（包括<code>ViewGroup</code>），甚至还有自己实现的组件，当然实现的方式一般不外乎上面这几种。所以我们需要使用统一的<code>Activity</code>、<code>Fragment</code>、<code>View</code>，每个都需要实现<code>Viewer</code>接口。为了复用相关代码，这里提供默认的委托实现<code>ViewerDelegate</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ViewerDelegate</span> <span class="keyword">implements</span> <span class="title">Viewer</span>, <span class="title">OnViewerLifecycleListener</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Context mContext;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ViewerDelegate</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">        mContext = context;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> List&lt;OnViewerDestroyListener&gt; mOnViewerDestroyListeners;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> List&lt;OnViewerLifecycleListener&gt; mOnViewerLifecycleListeners;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Toast toast;</span><br><span class="line">    <span class="keyword">private</span> ProgressDialog loadingDialog;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Viewer <span class="title">bind</span><span class="params">(OnViewerLifecycleListener onViewerLifecycleListener)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">null</span> == mOnViewerLifecycleListeners) &#123;</span><br><span class="line">            mOnViewerLifecycleListeners = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">            mOnViewerLifecycleListeners.add(onViewerLifecycleListener);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (!mOnViewerLifecycleListeners.contains(onViewerLifecycleListener)) &#123;</span><br><span class="line">                mOnViewerLifecycleListeners.add(onViewerLifecycleListener);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Viewer <span class="title">bind</span><span class="params">(OnViewerDestroyListener onViewerDestroyListener)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">null</span> == mOnViewerDestroyListeners) &#123;</span><br><span class="line">            mOnViewerDestroyListeners = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">            mOnViewerDestroyListeners.add(onViewerDestroyListener);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (!mOnViewerDestroyListeners.contains(onViewerDestroyListener)) &#123;</span><br><span class="line">                mOnViewerDestroyListeners.add(onViewerDestroyListener);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Context <span class="title">context</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> mContext;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showToast</span><span class="params">(String message)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!checkViewer()) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">null</span> == toast) &#123;</span><br><span class="line">            toast = Toast.makeText(mContext, <span class="string">""</span>, Toast.LENGTH_SHORT);</span><br><span class="line">            toast.setGravity(Gravity.CENTER, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        toast.setText(message);</span><br><span class="line">        toast.show();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showToast</span><span class="params">(<span class="keyword">int</span> resStringId)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!checkViewer()) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        showToast(mContext.getString(resStringId));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showLoadingDialog</span><span class="params">(String message)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!checkViewer()) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">null</span> == loadingDialog) &#123;</span><br><span class="line">            loadingDialog = <span class="keyword">new</span> ProgressDialog(mContext);</span><br><span class="line">            loadingDialog.setCanceledOnTouchOutside(<span class="keyword">false</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        loadingDialog.setMessage(message);</span><br><span class="line">        loadingDialog.show();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showLoadingDialog</span><span class="params">(<span class="keyword">int</span> resStringId)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!checkViewer()) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        showLoadingDialog(mContext.getString(resStringId));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">cancelLoadingDialog</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!checkViewer()) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">null</span> != loadingDialog) &#123;</span><br><span class="line">            loadingDialog.cancel();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">checkViewer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span> != mContext;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onViewerResume</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">null</span> != mOnViewerLifecycleListeners) &#123;</span><br><span class="line">            <span class="keyword">for</span> (OnViewerLifecycleListener oll : mOnViewerLifecycleListeners) &#123;</span><br><span class="line">                oll.onViewerResume();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onViewerPause</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">null</span> != mOnViewerLifecycleListeners) &#123;</span><br><span class="line">            <span class="keyword">for</span> (OnViewerLifecycleListener oll : mOnViewerLifecycleListeners) &#123;</span><br><span class="line">                oll.onViewerPause();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onViewerDestroy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">null</span> != mOnViewerLifecycleListeners) &#123;</span><br><span class="line">            <span class="keyword">for</span> (OnViewerLifecycleListener oll : mOnViewerLifecycleListeners) &#123;</span><br><span class="line">                oll.onViewerDestroy();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">null</span> != mOnViewerDestroyListeners) &#123;</span><br><span class="line">            <span class="keyword">for</span> (OnViewerDestroyListener odl : mOnViewerDestroyListeners) &#123;</span><br><span class="line">                odl.onViewerDestroy();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        mContext = <span class="keyword">null</span>;</span><br><span class="line">        mOnViewerDestroyListeners = <span class="keyword">null</span>;</span><br><span class="line">        mOnViewerLifecycleListeners = <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如上代码：</p>
+<ul>
+<li><p>它提供了默认基本的<code>toast</code>、和显示/隐藏加载进度条的方法。</p>
+</li>
+<li><p>它实现了两个重载<code>bind()</code>方法，并把需要回调的<code>OnViewerLifecycleListener</code>和<code>OnViewerDestroyListener</code>对应保存在<code>mOnViewerDestroyListeners</code>和<code>mOnViewerLifecycleListeners</code>中。</p>
+</li>
+<li><p>它实现了<code>OnViewerLifecycleListener</code>接口，在回调方法中回调到每个<code>mOnViewerDestroyListeners</code>和<code>mOnViewerLifecycleListeners</code>。</p>
+</li>
+</ul>
+<p><code>mOnViewerDestroyListeners</code>：Viewer destroy 时的回调，一般情况下只会有Presenter一个对象，但是由于一个Viewer是可以有多个Presenter的,所以可能会维护一个Presenter列表，还有可能是其他需要关心 Viewer destroy 的组件</p>
+<p><code>mOnViewerLifecycleListeners</code>：Viewer 简单的生命周期监听对象，一般情况下只有一个Controller一个对象，但是一个Viewer并不限制只有一个Controller对象,所以可能会维护一个Controller列表，还有可能是其他关心 Viewer 简单生命周期的组件</p>
+<h4 id="1-1-3-3-真实-Viewer-实现"><a href="#1-1-3-3-真实-Viewer-实现" class="headerlink" title="1.1.3.3 真实 Viewer 实现"></a>1.1.3.3 真实 Viewer 实现</h4><p>然后在真实的<code>Viewer</code>中（这里以<code>Activity</code>为例，其他<code>Fragment</code>/<code>View</code>等也是一样），首先，应该实现<code>Viewer</code>接口，并且应该维护一个委托对象<code>mViewerDelegate</code>，在实现的<code>Viewer</code>方法中使用<code>mViewerDelegate</code>的具体实现。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BaseActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> <span class="keyword">implements</span> <span class="title">Viewer</span></span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> ViewerDelegate mViewerDelegate;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">    	<span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">    	<span class="comment">// ...</span></span><br><span class="line">    	mViewerDelegate = <span class="keyword">new</span> ViewerDelegate(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onResume</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        mViewerDelegate.onViewerResume();</span><br><span class="line">        <span class="keyword">super</span>.onResume();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onPause</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        mViewerDelegate.onViewerPause();</span><br><span class="line">        <span class="keyword">super</span>.onPause();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onDestroy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        mViewerDelegate.onViewerDestroy();</span><br><span class="line">        <span class="keyword">super</span>.onDestroy();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Viewer <span class="title">bind</span><span class="params">(OnViewerDestroyListener onViewerDestroyListener)</span> </span>&#123;</span><br><span class="line">        mViewerDelegate.bind(onViewerDestroyListener);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Viewer <span class="title">bind</span><span class="params">(OnViewerLifecycleListener onViewerLifecycleListener)</span> </span>&#123;</span><br><span class="line">        mViewerDelegate.bind(onViewerLifecycleListener);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Context <span class="title">context</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> mViewerDelegate.context();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showToast</span><span class="params">(String message)</span> </span>&#123;</span><br><span class="line">        mViewerDelegate.showToast(message);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showToast</span><span class="params">(<span class="keyword">int</span> resStringId)</span> </span>&#123;</span><br><span class="line">        mViewerDelegate.showToast(resStringId);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showLoadingDialog</span><span class="params">(String message)</span> </span>&#123;</span><br><span class="line">        mViewerDelegate.showLoadingDialog(message);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showLoadingDialog</span><span class="params">(<span class="keyword">int</span> resStringId)</span> </span>&#123;</span><br><span class="line">        mViewerDelegate.showLoadingDialog(resStringId);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">cancelLoadingDialog</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        mViewerDelegate.cancelLoadingDialog();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如上，<code>BaseActivity</code>构建完成。</p>
+<p><strong>在具体真实的<code>Viewer</code>实现中，包含的方法应该都是类似<code>onXxxYyyZzz()</code>的回调方法，并且这些回调方法应该只进行UI操作，比如<code>onLoadMessage(List&lt;Message&gt; message)</code>方法在加载完<code>Message</code>数据后回调该方法来进行UI的更新。</strong></p>
+<p>在项目中使用时，应该使用依赖注入来把<code>Controller</code>对象注入到<code>Viewer</code>中（这个后面会提到）。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RInject</span></span><br><span class="line">IBuyingRequestPostSucceedController controller;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    BuyingRequestPostSucceedView_Rapier</span><br><span class="line">            .create()</span><br><span class="line">            .inject(<span class="keyword">module</span>, <span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line">    controller.bind(<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用<code>RInject</code>通过<code>BuyingRequestPostSucceedView_Rapier</code>扩展类来进行注入<code>Controller</code>对象，然后调用<code>Controller</code>的<code>bind</code>方法进行生命周期的绑定。</p>
+<h3 id="1-1-4-Controller-层"><a href="#1-1-4-Controller-层" class="headerlink" title="1.1.4 Controller 层"></a>1.1.4 Controller 层</h3><h4 id="1-1-4-1-Controller-抽象"><a href="#1-1-4-1-Controller-抽象" class="headerlink" title="1.1.4.1 Controller 抽象"></a>1.1.4.1 Controller 抽象</h4><p>前面讲过，<code>Controller</code>是需要关心<code>Viewer</code>生命周期的，所以需要实现<code>OnViewerLifecycleListener</code>接口。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Controller</span> <span class="keyword">extends</span> <span class="title">OnViewerLifecycleListener</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">bind</span><span class="params">(Viewer bindViewer)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>又提供一个<code>bind()</code>方法来进行对自身进行绑定到对应的<code>Viewer</code>上面。</p>
+<h4 id="1-1-4-2-Controller-实现"><a href="#1-1-4-2-Controller-实现" class="headerlink" title="1.1.4.2 Controller 实现"></a>1.1.4.2 Controller 实现</h4><p>调用<code>Viewer</code>层的<code>bind()</code>方法来进行绑定，对生命周期进行空实现。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BaseController</span> <span class="keyword">implements</span> <span class="title">Controller</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">bind</span><span class="params">(Viewer bindViewer)</span> </span>&#123;</span><br><span class="line">        bindViewer.bind(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onViewerResume</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// empty</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onViewerPause</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// empty</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onViewerDestroy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// empty</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>该<code>bind()</code>方法除了用于绑定<code>Viewer</code>之外，还可以让子类重写用于做为Controller的初始化方法,但是注意重写的时候必须要调用<code>super.bind()</code>。</p>
+<p><strong>具体<code>Controller</code>实现中，应该只包含类似<code>onXxxYyyZzz()</code>的回调方法，并且这些回调方法应该都是各种事件回调，比如<code>onClick()</code>用于View点击事件的回调，<code>onItemClick()</code>表示AdapterView item点击事件的回调。</strong></p>
+<h3 id="1-1-5-Presenter-层"><a href="#1-1-5-Presenter-层" class="headerlink" title="1.1.5 Presenter 层"></a>1.1.5 Presenter 层</h3><h4 id="1-1-5-1-Presenter-抽象"><a href="#1-1-5-1-Presenter-抽象" class="headerlink" title="1.1.5.1 Presenter 抽象"></a>1.1.5.1 Presenter 抽象</h4><blockquote>
+<p><code>Presenter</code>层，作为沟通 <code>View</code> 和 <code>Model</code> 的桥梁，它从 <code>Model</code> 层检索数据后，返回给 <code>View</code> 层，它也可以决定与 <code>View</code> 层的交互操作。</p>
+</blockquote>
+<p>前面讲到过，<code>View</code>也是与<code>Presenter</code>直接交互的，Presenter中可能会进行很多同步、异步操作来调用Model层的代码，并且会回调到UI来进行UI的更新，所以，我们需要在Viewer层对象销毁时能够停止Presenter中执行的任务，或者执行完成后拦截UI的相关回调。</p>
+<p>因此：</p>
+<ul>
+<li><code>Presenter</code> 中应该也有<code>bind()</code>方法来进行与<code>Viewer</code>层的生命周期的绑定</li>
+<li><code>Presenter</code> 中应该提供一个方法<code>closeAllTask()</code>来终止或拦截掉UI相关的异步任务。</li>
+</ul>
+<p>如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Presenter</span> <span class="keyword">extends</span> <span class="title">OnViewerDestroyListener</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">bind</span><span class="params">(Viewer bindViewer)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">closeAllTask</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="1-1-5-2-Presenter-RxJava-抽象"><a href="#1-1-5-2-Presenter-RxJava-抽象" class="headerlink" title="1.1.5.2 Presenter RxJava 抽象"></a>1.1.5.2 Presenter RxJava 抽象</h4><p>因为项目技术需求，需要实现对<code>RxJava</code>的支持，因此，这里对<code>Presenter</code>进行相关的扩展，提供两个方法以便于<code>Presenter</code>对任务的扩展。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">RxPresenter</span> <span class="keyword">extends</span> <span class="title">Presenter</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">goSubscription</span><span class="params">(Subscription subscription)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">removeSubscription</span><span class="params">(Subscription subscription)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>goSubscription()</code>方法主要用处是，订阅时缓存该订阅对象到<code>Presenter</code>中，便于管理（怎么管理，下面会讲到）。</p>
+<p><code>removeSubscription()</code>方法可以从<code>Presenter</code>中管理的订阅缓存中移除掉该订阅。</p>
+<h4 id="1-1-5-3-Presenter-RxJava-实现"><a href="#1-1-5-3-Presenter-RxJava-实现" class="headerlink" title="1.1.5.3 Presenter RxJava 实现"></a>1.1.5.3 Presenter RxJava 实现</h4><p>在Presenter RxJava 实现（<code>RxBasePresenter</code>）中，我们使用<code>WeakHashMap</code>来构建一个弱引用的<code>Set</code>，用它来缓存所有订阅。在调用<code>goSubscription()</code>方法中，把对应的<code>Subscription</code>加入到<code>Set</code>中，在<code>removeSubscription()</code>方法中，把对应的<code>Subscription</code>从<code>Set</code>中移除掉。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RxBasePresenter</span> <span class="keyword">implements</span> <span class="title">RxPresenter</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG = RxBasePresenter.class.getSimpleName();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Set&lt;Subscription&gt; subscriptions = Collections.newSetFromMap(<span class="keyword">new</span> WeakHashMap&lt;Subscription, Boolean&gt;());</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">closeAllTask</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">synchronized</span> (subscriptions) &#123;</span><br><span class="line">            Iterator iter = <span class="keyword">this</span>.subscriptions.iterator();</span><br><span class="line">            <span class="keyword">while</span> (iter.hasNext()) &#123;</span><br><span class="line">                Subscription subscription = (Subscription) iter.next();</span><br><span class="line">                XLog.i(TAG, <span class="string">"closeAllTask[subscriptions]: "</span> + subscription);</span><br><span class="line">                <span class="keyword">if</span> (<span class="keyword">null</span> != subscription &amp;&amp; !subscription.isUnsubscribed()) &#123;</span><br><span class="line">                    subscription.unsubscribe();</span><br><span class="line">                &#125;</span><br><span class="line">                iter.remove();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">goSubscription</span><span class="params">(Subscription subscription)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">synchronized</span> (subscriptions) &#123;</span><br><span class="line">            <span class="keyword">this</span>.subscriptions.add(subscription);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">removeSubscription</span><span class="params">(Subscription subscription)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">synchronized</span> (subscriptions) &#123;</span><br><span class="line">            XLog.i(TAG, <span class="string">"removeSubscription: "</span> + subscription);</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">null</span> != subscription &amp;&amp; !subscription.isUnsubscribed()) &#123;</span><br><span class="line">                subscription.unsubscribe();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">this</span>.subscriptions.remove(subscription);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">bind</span><span class="params">(Viewer bindViewer)</span> </span>&#123;</span><br><span class="line">        bindViewer.bind(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onViewerDestroy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        closeAllTask();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如上代码，在<code>onViewerDestroy()</code>回调时（因为跟<code>Viewer</code>生命周期进行了绑定），会调用<code>closeAllTask</code>把所有缓存中的<code>Subscription</code>取消订阅。</p>
+<blockquote>
+<p><strong>注意</strong>：因为缓存中使用了弱引用，所以上面的<code>removeSubscription</code>不需要再去手动调用，在订阅completed后，gc自然会回收掉没有强引用指向的<code>Subscription</code>对象。</p>
+</blockquote>
+<h4 id="1-1-5-4-Presenter-具体实现"><a href="#1-1-5-4-Presenter-具体实现" class="headerlink" title="1.1.5.4 Presenter 具体实现"></a>1.1.5.4 Presenter 具体实现</h4><p>在<code>Presenter</code>具体的实现中，同样依赖注入各种来自<code>Model</code>层的<code>Interactor/Api</code>（网络、数据库、文件等等），然后订阅这些对象返回的<code>Observable</code>，然后进行订阅，并调用<code>goSubscription()</code>缓存<code>Subscription</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BuyingRequestPostSucceedPresenter</span> <span class="keyword">extends</span> <span class="title">RxBasePresenter</span> <span class="keyword">implements</span> <span class="title">IBuyingRequestPostSucceedPresenter</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> IBuyingRequestPostSucceedView viewer;</span><br><span class="line">	<span class="meta">@RInject</span></span><br><span class="line">    ApiSearcher apiSearcher;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BuyingRequestPostSucceedPresenter</span><span class="params">(IBuyingRequestPostSucceedView viewer, BuyingRequestPostSucceedPresenterModule <span class="keyword">module</span>)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.viewer = viewer;</span><br><span class="line">        <span class="comment">// inject</span></span><br><span class="line">        BuyingRequestPostSucceedPresenter_Rapier</span><br><span class="line">                .create()</span><br><span class="line">                .inject(<span class="keyword">module</span>, <span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">loadSomeThing</span><span class="params">(<span class="keyword">final</span> String foo, <span class="keyword">final</span> String bar)</span> </span>&#123;</span><br><span class="line">        goSubscription(</span><br><span class="line">                apiSearcher.searcherSomeThing(foo, bar)</span><br><span class="line">                        .compose(TransformerBridge.&lt;OceanServerResponse&lt;SomeThing&gt;&gt;subscribeOnNet())</span><br><span class="line">                        .map(<span class="keyword">new</span> Func1&lt;OceanServerResponse&lt;SomeThing&gt;, SomeThing&gt;() &#123;</span><br><span class="line">                            <span class="meta">@Override</span></span><br><span class="line">                            <span class="function"><span class="keyword">public</span> SomeThing <span class="title">call</span><span class="params">(OceanServerResponse&lt;SomeThing&gt; response)</span> </span>&#123;</span><br><span class="line">                                <span class="keyword">return</span> response.getBody();</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;)</span><br><span class="line">                        .compose(TransformerBridge.&lt;SomeThing&gt;observableOnMain())</span><br><span class="line">                        .subscribe(<span class="keyword">new</span> Subscriber&lt;SomeThing&gt;() &#123;</span><br><span class="line"></span><br><span class="line">                            <span class="meta">@Override</span></span><br><span class="line">                            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable e)</span> </span>&#123;</span><br><span class="line">                                XLog.e(TAG, <span class="string">""</span>, e);</span><br><span class="line">                            &#125;</span><br><span class="line"></span><br><span class="line">                            <span class="meta">@Override</span></span><br><span class="line">                            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onNext</span><span class="params">(SomeThing someThing)</span> </span>&#123;</span><br><span class="line">                                XLog.d(TAG, <span class="string">"XLog onNext..."</span>);</span><br><span class="line">                                viewer.onLoadSomeThing(someThing);</span><br><span class="line">                            &#125;</span><br><span class="line">                            </span><br><span class="line">                            <span class="meta">@Override</span></span><br><span class="line">                            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCompleted</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                            &#125;</span><br><span class="line"></span><br><span class="line">                        &#125;)</span><br><span class="line">        );</span><br><span class="line">	&#125;</span><br><span class="line">    <span class="comment">// ... </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="1-1-6-Model-层"><a href="#1-1-6-Model-层" class="headerlink" title="1.1.6 Model 层"></a>1.1.6 Model 层</h3><p>暂不讨论。</p>
+<h2 id="1-2-针对-MVP-进行依赖注入"><a href="#1-2-针对-MVP-进行依赖注入" class="headerlink" title="1.2 针对 MVP 进行依赖注入"></a>1.2 针对 MVP 进行依赖注入</h2><p>上面提到，<code>Viewer</code>、<code>Controller</code>和<code>Presenter</code>中都使用了<code>RInject</code>注解来进行依赖的注入。</p>
+<p>这里并没有使用其他第三方实现的<code>DI</code>框架，比如<code>Dagger/Dagger2</code>等，而是自己实现的<a href="https://github.com/wangjiegulu/Rapier" target="_blank" rel="noopener">Rapier</a>，它的原理与<code>Dagger2</code>类似，会在编译时期生成一些扩展扩展类来简化代码，比如前面的<code>BuyingRequestPostSucceedView_Rapier</code>、<code>BuyingRequestPostSucceedPresenter_Rapier</code>、<code>BuyingRequestPostSucceedController_Rapier</code>等。它也支持<code>Named</code>、<code>Lazy</code>等功能，但是它比<code>Dagger2</code>更加轻量，<code>Module</code>的使用方式更加简单，更加倾向于对<code>Module</code>的复用，更强的可控性，但是由于这次的重构主要是基于在兼容旧版本的情况下使用，暂时没有加上<code>Scope</code>的支持。</p>
+<p>之后再针对这个<code>Rapier</code>库进行详细讨论。</p>
+<h2 id="1-3-针对-MVP-进行单元测试"><a href="#1-3-针对-MVP-进行单元测试" class="headerlink" title="1.3 针对 MVP 进行单元测试"></a>1.3 针对 MVP 进行单元测试</h2><p>这里主要还是讨论针对<code>Viewer</code>和<code>Presenter</code>的单元测试。</p>
+<h3 id="1-3-1-针对-Viewer-进行单元测试"><a href="#1-3-1-针对-Viewer-进行单元测试" class="headerlink" title="1.3.1 针对 Viewer 进行单元测试"></a>1.3.1 针对 Viewer 进行单元测试</h3><p>针对<code>Viewer</code>进行单元测试，这里不涉及任何业务相关的逻辑，而且，<code>Viewer</code>层的测试都是UI相关，必须要Android环境，所以需要在手机或者模拟器安装一个<code>test</code> apk，然后进行测试。</p>
+<p>为了不被<code>Viewer</code>中的<code>Controller</code>和<code>Presenter</code>的逻辑所干扰，我们必须要mock掉<code>Viewer</code>中的<code>Controller</code>和<code>Presenter</code>对象，又因为<code>Controller</code>对象是通过依赖注入的方式提供的，也就是来自<code>Rapier</code>中的<code>Module</code>，所以，我们只需要mock掉<code>Viewer</code>对应的<code>module</code>。</p>
+<h3 id="1-3-1-1-如果-Viewer-是-View"><a href="#1-3-1-1-如果-Viewer-是-View" class="headerlink" title="1.3.1.1 如果 Viewer 是 View"></a>1.3.1.1 如果 Viewer 是 View</h3><p>如果<code>Viewer</code>层是由<code>View</code>实现的，比如继承<code>FrameLayout</code>。这个时候，测试时，就必须要放在一个<code>Activity</code>中测试（<code>Fragment</code>也一样，也必须依赖于<code>Activity</code>），所以我们应该有一个专门用于测试<code>View/Fragment</code>的<code>Activity</code> —— <code>TestContainerActivity</code>，如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestContainerActivity</span> <span class="keyword">extends</span> <span class="title">BaseActivity</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>记得在<code>AndroidManifest.xml</code>中注册。</p>
+<p>前面说过，我们需要mock掉<code>Module</code>。</p>
+<p>如果<code>Viewer</code>是<code>View</code>，mock掉<code>Module</code>就非常容易了，只要在<code>View</code>中提供一个传入mock的<code>Module</code>的构造方法即可，如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@VisibleForTesting</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">BuyingRequestPostSucceedView</span><span class="params">(Context context, BuyingRequestPostSucceedModule <span class="keyword">module</span>)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">super</span>(context);</span><br><span class="line">	<span class="comment">// inject</span></span><br><span class="line">	BuyingRequestPostSucceedView_Rapier</span><br><span class="line">	        .create()</span><br><span class="line">	        .inject(<span class="keyword">module</span>, <span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如上代码，这里为测试专门提供了一个构造方法来进行对<code>Module</code>的mock，之后的测试如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">BuyingRequestPostSucceedView requestPostSucceedView;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Rule</span></span><br><span class="line"><span class="keyword">public</span> ActivityTestRule&lt;TestContainerActivity&gt; mActivityTestRule = <span class="keyword">new</span> ActivityTestRule&lt;TestContainerActivity&gt;(TestContainerActivity.class) &#123;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">afterActivityLaunched</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">super</span>.afterActivityLaunched();</span><br><span class="line">            <span class="keyword">final</span> TestContainerActivity activity = getActivity();</span><br><span class="line">            logger(<span class="string">"afterActivityLaunched"</span>);</span><br><span class="line">            activity.runOnUiThread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                    BuyingRequestPostSucceedModule <span class="keyword">module</span> = mock(BuyingRequestPostSucceedModule.class);</span><br><span class="line">                    when(<span class="keyword">module</span>.pickController()).thenReturn(mock(IBuyingRequestPostSucceedController.class));</span><br><span class="line">                    requestPostSucceedView = <span class="keyword">new</span> BuyingRequestPostSucceedView(activity, <span class="keyword">module</span>);</span><br><span class="line">                    activity.setContentView(requestPostSucceedView);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testOnLoadSomeThings</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> SomeThings products = mock(SomeThings.class);</span><br><span class="line">        ArrayList&lt;SomeThing&gt; list = mock(ArrayList.class);</span><br><span class="line"></span><br><span class="line">        SomeThing product = mock(SomeThing.class);</span><br><span class="line"></span><br><span class="line">        when(list.get(anyInt())).thenReturn(product);</span><br><span class="line">        products.productList = list;</span><br><span class="line"></span><br><span class="line">        TestContainerActivity activity = mActivityTestRule.getActivity();</span><br><span class="line"></span><br><span class="line">        when(list.size()).thenReturn(<span class="number">1</span>);</span><br><span class="line">        when(list.isEmpty()).thenReturn(<span class="keyword">false</span>);</span><br><span class="line">        activity.runOnUiThread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                requestPostSucceedView.onLoadSomeThing(products);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        onView(withId(R.id.id_tips_you_may_also_like_tv)).check(matches(isDisplayed()));</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>如上代码，在<code>TestContainerActivity</code>启动后，构造一个mock了<code>Module</code>的待测试<code>View</code>，并增加到<code>Activity</code>的content view中。</p>
+<h3 id="1-3-1-2-如果-Viewer-是-Activity"><a href="#1-3-1-2-如果-Viewer-是-Activity" class="headerlink" title="1.3.1.2 如果 Viewer 是 Activity"></a>1.3.1.2 如果 Viewer 是 Activity</h3><p>如果<code>Viewer</code>是<code>Activity</code>，由于它本来就是Activity，所以它不需要借助<code>TestContainerActivity</code>来测试；mock <code>module</code>时就不能使用构造方法的方式了，因为我们是不能直接对<code>Activity</code>进行实例化的，那应该怎么办呢？</p>
+<p>一般情况下，我们会在调用<code>onCreate</code>方法的时候去进行对依赖的注入，也就是调用<code>XxxYyyZzz_Rapier</code>扩展类，而且，如果这个<code>Activity</code>需要在一启动就去进行一些数据请求，我们要拦截掉这个请求，因为这个请求返回的数据可能会对我们的UI测试造成干扰，所以我们需要在<code>onCreate</code>在被调用之前把<code>module</code> mock掉。</p>
+<p>首先看test support 中的 <code>ActivityTestRule</code>这个类，它提供了以下几个方法：</p>
+<ul>
+<li><p><code>getActivityIntent()</code>：这个方法只能在Intent中增加携带的参数，我们要mock的是整个<code>Module</code>，无法序列化，所以也无法通过这个传入。</p>
+</li>
+<li><p><code>beforeActivityLaunched()</code>：这个方法回调时，<code>Activity</code>实例还没有生成，所以无法拿到<code>Activity</code>实例，并进行<code>Module</code>的替换。</p>
+</li>
+<li><p><code>afterActivityFinished()</code>：这个方法就更不可能了-.-</p>
+</li>
+<li><p><code>afterActivityLaunched()</code>：这个方法看它的源码（无关代码已省略）：</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> T <span class="title">launchActivity</span><span class="params">(@Nullable Intent startIntent)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">        beforeActivityLaunched();</span><br><span class="line">        <span class="comment">// The following cast is correct because the activity we're creating is of the same type as</span></span><br><span class="line">        <span class="comment">// the one passed in</span></span><br><span class="line">        mActivity = mActivityClass.cast(mInstrumentation.startActivitySync(startIntent));</span><br><span class="line"></span><br><span class="line">        mInstrumentation.waitForIdleSync();</span><br><span class="line"></span><br><span class="line">        afterActivityLaunched();</span><br><span class="line">        <span class="keyword">return</span> mActivity;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>如上代码，<code>afterActivityLaunched()</code>方法是在真正启动<code>Activity</code>（<code>mInstrumentation.startActivitySync(startIntent)</code>）后调用的。但是显然这个方法是同步的，之后再进入源码，来查看启动的流程，整个流程有些复杂我就不赘述了，可以查看我以前写的分析启动流程的博客（<strong><a href="http://www.cnblogs.com/tiantianbyconan/p/5017056.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/5017056.html</a></strong>），最后会调用<code>mInstrumentation.callActivityOnCreate(...)</code>。</p>
+<p>但是因为测试时，启动<code>Activity</code>的过程也是同步的，所以显然这个方法是在<code>onCreate()</code>被调用后才会被回调的，所以，这个方法也不行。</p>
+<p>既然貌似已经找到了mock的正确位置，那就继续分析下去：</p>
+<p>这里的<code>mInstrumentation</code>是哪个<code>Instrumentation</code>实例呢？</p>
+<p>我们回到<code>ActivityTestRule</code>中：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ActivityTestRule</span><span class="params">(Class&lt;T&gt; activityClass, <span class="keyword">boolean</span> initialTouchMode,</span></span></span><br><span class="line"><span class="function"><span class="params">            <span class="keyword">boolean</span> launchActivity)</span> </span>&#123;</span><br><span class="line">        mActivityClass = activityClass;</span><br><span class="line">        mInitialTouchMode = initialTouchMode;</span><br><span class="line">        mLaunchActivity = launchActivity;</span><br><span class="line">        mInstrumentation = InstrumentationRegistry.getInstrumentation();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>继续进入<code>InstrumentationRegistry.getInstrumentation()</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Instrumentation <span class="title">getInstrumentation</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Instrumentation instance = sInstrumentationRef.get();</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">null</span> == instance) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">"No instrumentation registered! "</span></span><br><span class="line">                    + <span class="string">"Must run under a registering instrumentation."</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>继续查找<code>sInstrumentationRef</code>是在哪里<code>set</code>进去的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">registerInstance</span><span class="params">(Instrumentation instrumentation, Bundle arguments)</span> </span>&#123;</span><br><span class="line">        sInstrumentationRef.set(instrumentation);</span><br><span class="line">        sArguments.set(<span class="keyword">new</span> Bundle(arguments));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>继续查找调用，终于在<code>MonitoringInstrumentation</code>中找到：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle arguments)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    InstrumentationRegistry.registerInstance(<span class="keyword">this</span>, arguments);</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>所以，测试使用的<code>MonitoringInstrumentation</code>，然后进入<code>MonitoringInstrumentation</code>的<code>callActivityOnCreate()</code>方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">callActivityOnCreate</span><span class="params">(Activity activity, Bundle bundle)</span> </span>&#123;</span><br><span class="line">        mLifecycleMonitor.signalLifecycleChange(Stage.PRE_ON_CREATE, activity);</span><br><span class="line">        <span class="keyword">super</span>.callActivityOnCreate(activity, bundle);</span><br><span class="line">        mLifecycleMonitor.signalLifecycleChange(Stage.CREATED, activity);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>既然我们需要在<code>Activity</code>真正执行<code>onCreate()</code>方法时拦截掉，那如上代码，只要关心<code>signalLifecycleChange()</code>方法，发现了<code>ActivityLifecycleCallback</code>的回调：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">signalLifecycleChange</span><span class="params">(Stage stage, Activity activity)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	Iterator&lt;WeakReference&lt;ActivityLifecycleCallback&gt;&gt; refIter = mCallbacks.iterator();</span><br><span class="line">    <span class="keyword">while</span> (refIter.hasNext()) &#123;</span><br><span class="line">        ActivityLifecycleCallback callback = refIter.next().get();</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">null</span> == callback) &#123;</span><br><span class="line">            refIter.remove();</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        		<span class="comment">// ...</span></span><br><span class="line">        		callback.onActivityLifecycleChanged(activity, stage);</span><br><span class="line">        		<span class="comment">// ...</span></span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>所以，问题解决了，我们只要添加一个<code>Activity</code>生命周期回调就搞定了，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">ActivityLifecycleMonitorRegistry.getInstance().addLifecycleCallback(<span class="keyword">new</span> ActivityLifecycleCallback() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onActivityLifecycleChanged</span><span class="params">(Activity activity, Stage stage)</span> </span>&#123;</span><br><span class="line">        logger(<span class="string">"onActivityLifecycleChanged, activity"</span> + activity + <span class="string">", stage: "</span> + stage);</span><br><span class="line">        <span class="keyword">if</span>(activity <span class="keyword">instanceof</span> SomethingActivity &amp;&amp; Stage.PRE_ON_CREATE == stage)&#123;</span><br><span class="line">            logger(<span class="string">"onActivityLifecycleChanged, got it!!!"</span>);</span><br><span class="line">            ((SomethingActivity)activity).setModule(mock(SomethingModule.class));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>至此，<code>Activity</code>的 mock <code>module</code>成功了。</p>
+<h3 id="1-3-2-针对-Presenter-进行单元测试"><a href="#1-3-2-针对-Presenter-进行单元测试" class="headerlink" title="1.3.2 针对 Presenter 进行单元测试"></a>1.3.2 针对 Presenter 进行单元测试</h3><h4 id="1-3-2-1-测试与-Android-SDK-分离"><a href="#1-3-2-1-测试与-Android-SDK-分离" class="headerlink" title="1.3.2.1 测试与 Android SDK 分离"></a>1.3.2.1 测试与 Android SDK 分离</h4><p><code>Presenter</code> 的单元测试与 <code>Viewer</code> 不一样，在<code>Presenter</code>中不应该有<code>Android SDK</code>相关存在，所有的<code>Inteactor/Api</code>等都是与<code>Android</code>解耦的。显然更加不能有<code>TextView</code>等存在。正是因为这个，使得它可以基于PC上的JVM来进行单元测试，也就是说，<code>Presenter</code>测试不需要Android环境，省去了安装到手机或者模拟器的步骤。</p>
+<p>怎么去避免<code>Anroid</code>相关的SDK在<code>Presenter</code>中存在？</p>
+<p>的确有极个别的SDK很难避免，比如<code>Log</code>。</p>
+<h5 id="1-3-2-1-1-使用-XLog-与-Log-分离"><a href="#1-3-2-1-1-使用-XLog-与-Log-分离" class="headerlink" title="1.3.2.1.1 使用 XLog 与 Log 分离"></a>1.3.2.1.1 使用 XLog 与 Log 分离</h5><p>所以，我们需要一个<code>XLog</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">XLog</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> IXLog delegate;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">boolean</span> DEBUG = <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">setDebug</span><span class="params">(<span class="keyword">boolean</span> debug)</span> </span>&#123;</span><br><span class="line">        XLog.DEBUG = debug;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">setDelegate</span><span class="params">(IXLog delegate)</span> </span>&#123;</span><br><span class="line">        XLog.delegate = delegate;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">v</span><span class="params">(String tag, String msg)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (DEBUG &amp;&amp; <span class="keyword">null</span> != delegate) &#123;</span><br><span class="line">            delegate.v(tag, msg);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">v</span><span class="params">(String tag, String msg, Throwable tr)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (DEBUG &amp;&amp; <span class="keyword">null</span> != delegate) &#123;</span><br><span class="line">            delegate.v(tag, msg, tr);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">d</span><span class="params">(String tag, String msg)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (DEBUG &amp;&amp; <span class="keyword">null</span> != delegate) &#123;</span><br><span class="line">            delegate.d(tag, msg);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">// ...</span></span><br></pre></td></tr></table></figure>
+<p>在Android环境中使用的策略：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">XLog.setDelegate(<span class="keyword">new</span> XLogDef());</span><br></pre></td></tr></table></figure>
+<p>其中<code>XLogDef</code>类中的实现为原生Androd SDK的Log实现。</p>
+<p>在测试环境中使用的策略：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">logDelegateSpy = Mockito.spy(<span class="keyword">new</span> XLogJavaTest());</span><br><span class="line">XLog.setDelegate(logDelegateSpy);</span><br></pre></td></tr></table></figure>
+<p>其中<code>XLogJavaTest</code>使用的是纯Java的<code>System.out.println()</code></p>
+<h4 id="1-3-2-2-异步操作同步化"><a href="#1-3-2-2-异步操作同步化" class="headerlink" title="1.3.2.2 异步操作同步化"></a>1.3.2.2 异步操作同步化</h4><p>因为<code>Presenter</code>中会有很多的异步任务存在，但是在细粒度的单元测试中，没有异步任务存在的必要性，相应反而增加了测试复杂度。所以，我们应该把所有异步任务切换成同步操作。</p>
+<p>调度的切换使用的是<code>RxJava</code>，所以所有切换到主线程也是使用了<code>Android SDK</code>。这里也要采用策略进行处理。</p>
+<p>首先定义了几种不同的<code>ScheduleType</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SchedulerType</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> MAIN = <span class="number">0x3783</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> NET = <span class="number">0x8739</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> DB = <span class="number">0x1385</span>;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在<code>Schedule</code>选择器中根据<code>ScheduleType</code>进行对应类型的实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">SchedulerSelector schedulerSelector = SchedulerSelector.get();</span><br><span class="line"></span><br><span class="line">schedulerSelector.putScheduler(SchedulerType.MAIN, <span class="keyword">new</span> SchedulerSelector.SchedulerCreation&lt;Scheduler&gt;() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Scheduler <span class="title">create</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> AndroidSchedulers.mainThread();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">schedulerSelector.putScheduler(SchedulerType.NET, <span class="keyword">new</span> SchedulerSelector.SchedulerCreation&lt;Scheduler&gt;() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Scheduler <span class="title">create</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Schedulers.from(THREAD_POOL_EXECUTOR_NETWORK);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">schedulerSelector.putScheduler(SchedulerType.DB, <span class="keyword">new</span> SchedulerSelector.SchedulerCreation&lt;Scheduler&gt;() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Scheduler <span class="title">create</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Schedulers.from(THREAD_POOL_EXECUTOR_DATABASE);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// ...</span></span><br></pre></td></tr></table></figure>
+<p>当测试时，对调度选择器中的不同类型的实现进行如下替换：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">SchedulerSelector.get().putScheduler(SchedulerType.NET, <span class="keyword">new</span> SchedulerSelector.SchedulerCreation&lt;Scheduler&gt;() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Scheduler <span class="title">create</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Schedulers.immediate();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">SchedulerSelector.get().putScheduler(SchedulerType.MAIN, <span class="keyword">new</span> SchedulerSelector.SchedulerCreation&lt;Scheduler&gt;() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Scheduler <span class="title">create</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Schedulers.immediate();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>把所有调度都改成当前线程执行即可。</p>
+<p>最后<code>Presenter</code>测试几个范例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Mock</span></span><br><span class="line">    AccountContract.IAccountViewer viewer;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Mock</span></span><br><span class="line">    UserInteractor userInteractor;</span><br><span class="line"></span><br><span class="line">    AccountPresenter presenter;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Before</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUp</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        MockitoAnnotations.initMocks(<span class="keyword">this</span>);</span><br><span class="line">        presenter = <span class="keyword">new</span> AccountPresenter(viewer);</span><br><span class="line">        presenter.userInteractor = userInteractor;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">requestEditUserInfo</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">// case 1, succeed</span></span><br><span class="line">        reset(viewer);</span><br><span class="line">        resetLog();</span><br><span class="line"></span><br><span class="line">        when(userInteractor.requestEditUserInfo(any(User.class))).thenReturn(Observable.just(anyBoolean()));</span><br><span class="line">        presenter.requestEditUserInfo(<span class="keyword">new</span> User());</span><br><span class="line"></span><br><span class="line">        verifyOnce(viewer).onRequestEditUserInfo();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// case 2, null</span></span><br><span class="line">        reset(viewer);</span><br><span class="line">        resetLog();</span><br><span class="line">        when(userInteractor.requestEditUserInfo(any(User.class))).thenReturn(Observable.just(<span class="keyword">null</span>));</span><br><span class="line">        presenter.requestEditUserInfo(<span class="keyword">new</span> User());</span><br><span class="line"></span><br><span class="line">        verifyOnce(viewer).onRequestEditUserInfo();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// case 3, error</span></span><br><span class="line">        assertFailedAndError(() -&gt; userInteractor.requestEditUserInfo(any(User.class)), () -&gt; presenter.requestEditUserInfo(<span class="keyword">new</span> User()));</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SBuyingRequestPostSucceedViewPresenterTest</span> <span class="keyword">extends</span> <span class="title">BaseJavaTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Mock</span></span><br><span class="line">    <span class="keyword">public</span> IBuyingRequestPostSucceedView viewer;</span><br><span class="line">    <span class="meta">@Mock</span></span><br><span class="line">    <span class="keyword">public</span> BuyingRequestPostSucceedPresenterModule <span class="keyword">module</span>;</span><br><span class="line">    <span class="meta">@Mock</span></span><br><span class="line">    <span class="keyword">public</span> ApiSearcher apiSearcher;</span><br><span class="line">    <span class="keyword">public</span> IBuyingRequestPostSucceedPresenter presenter;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Before</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUp</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        MockitoAnnotations.initMocks(<span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line">        when(<span class="keyword">module</span>.pickApiSearcher()).thenReturn(apiSearcher);</span><br><span class="line">        presenter = <span class="keyword">new</span> BuyingRequestPostSucceedPresenter(viewer, <span class="keyword">module</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testLoadSomethingSuccess</span><span class="params">()</span> <span class="keyword">throws</span> TimeoutException </span>&#123;</span><br><span class="line">        <span class="comment">// Mock success observable</span></span><br><span class="line">        when(apiSearcher.searcherSomething(anyString(), anyString(), anyString()))</span><br><span class="line">                .thenReturn(Observable.create(<span class="keyword">new</span> Observable.OnSubscribe&lt;OceanServerResponse&lt;Something&gt;&gt;() &#123;</span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">call</span><span class="params">(Subscriber&lt;? <span class="keyword">super</span> OceanServerResponse&lt;Something&gt;&gt; subscriber)</span> </span>&#123;</span><br><span class="line">                        <span class="keyword">try</span> &#123;</span><br><span class="line">                            OceanServerResponse&lt;Something&gt; oceanServerResponse = mock(OceanServerResponse.class);</span><br><span class="line">                            when(oceanServerResponse.getBody(any(Class.class))).thenReturn(mock(Something.class));</span><br><span class="line">                            subscriber.onNext(oceanServerResponse);</span><br><span class="line">                            subscriber.onCompleted();</span><br><span class="line">                        &#125; <span class="keyword">catch</span> (Throwable throwable) &#123;</span><br><span class="line">                            subscriber.onError(throwable);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;I</span><br><span class="line">                &#125;));</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> ExecuteStuff executeStuff = <span class="keyword">new</span> ExecuteStuff();</span><br><span class="line">        Answer succeedAnswer = <span class="keyword">new</span> Answer() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> Object <span class="title">answer</span><span class="params">(InvocationOnMock invocationOnMock)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">                loggerMockAnswer(invocationOnMock);</span><br><span class="line">                executeStuff.setSucceed(<span class="keyword">true</span>);</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        doAnswer(succeedAnswer).when(viewer).onLoadSomething(Matchers.any(Something.class));</span><br><span class="line"></span><br><span class="line">        presenter.loadSomething(<span class="string">"whatever"</span>, <span class="string">"whatever"</span>);</span><br><span class="line"></span><br><span class="line">        logger(<span class="string">"loadSomething result: "</span> + executeStuff.isSucceed());</span><br><span class="line">        Assert.assertTrue(<span class="string">"testLoadSomethingSuccess result true"</span>, executeStuff.isSucceed());</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testLoadSomethingFailed</span><span class="params">()</span> <span class="keyword">throws</span> TimeoutException </span>&#123;</span><br><span class="line">        <span class="comment">// Mock error observable</span></span><br><span class="line">        when(apiSearcher.searcherRFQInterestedProductsSuggestion(anyString(), anyString(), anyString()))</span><br><span class="line">                .thenReturn(Observable.&lt;OceanServerResponse&lt;Something&gt;&gt;error(<span class="keyword">new</span> RuntimeException(<span class="string">"mock error observable"</span>)));</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> ExecuteStuff executeStuff = <span class="keyword">new</span> ExecuteStuff();</span><br><span class="line">        Answer failedAnswer = <span class="keyword">new</span> Answer() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> Object <span class="title">answer</span><span class="params">(InvocationOnMock invocationOnMock)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">                loggerMockAnswer(invocationOnMock);</span><br><span class="line">                executeStuff.setSucceed(<span class="keyword">false</span>);</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        doAnswerWhenLogError(failedAnswer);</span><br><span class="line"></span><br><span class="line">        presenter.loadSomething(<span class="string">"whatever"</span>, <span class="string">"whatever"</span>);</span><br><span class="line"></span><br><span class="line">        logger(<span class="string">"testLoadSomethingFailed result: "</span> + executeStuff.isSucceed());</span><br><span class="line">        Assert.assertFalse(<span class="string">"testLoadSomethingFailed result false"</span>, executeStuff.isSucceed());</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/android/" rel="tag"># android</a>
+          
+            <a href="/tags/CI/" rel="tag"># CI</a>
+          
+            <a href="/tags/mvp/" rel="tag"># mvp</a>
+          
+            <a href="/tags/unit-test/" rel="tag"># unit test</a>
+          
+            <a href="/tags/espresso/" rel="tag"># espresso</a>
+          
+            <a href="/tags/jUnit/" rel="tag"># jUnit</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/24/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/my_avatar.jpg"
+                alt="Wang Jie" />
+            
+              <p class="site-author-name" itemprop="name">Wang Jie</p>
+              <p class="site-description motion-element" itemprop="description">Wang Jie's blog</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wangjiegulu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:tiantian.china.2@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/+%E5%A4%A9%E5%A4%A9wangjie" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/wangjiegulu" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://stackoverflow.com/users/2124006/wangjie" target="_blank" title="StackOverflow">
+                      
+                        <i class="fa fa-fw fa-stack-overflow"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/wangjiegulu" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.cnblogs.com/tiantianbyconan/" title="cnblog" target="_blank">cnblog</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-MVP-基础框架"><span class="nav-text">1.1 MVP 基础框架</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-1-前提"><span class="nav-text">1.1.1 前提</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-2-Contract"><span class="nav-text">1.1.2 Contract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-3-Viewer层"><span class="nav-text">1.1.3 Viewer层</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-3-1-Viewer-抽象"><span class="nav-text">1.1.3.1 Viewer 抽象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-3-2-Viewer-委托实现"><span class="nav-text">1.1.3.2 Viewer 委托实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-3-3-真实-Viewer-实现"><span class="nav-text">1.1.3.3 真实 Viewer 实现</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-4-Controller-层"><span class="nav-text">1.1.4 Controller 层</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-4-1-Controller-抽象"><span class="nav-text">1.1.4.1 Controller 抽象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-4-2-Controller-实现"><span class="nav-text">1.1.4.2 Controller 实现</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-5-Presenter-层"><span class="nav-text">1.1.5 Presenter 层</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-5-1-Presenter-抽象"><span class="nav-text">1.1.5.1 Presenter 抽象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-5-2-Presenter-RxJava-抽象"><span class="nav-text">1.1.5.2 Presenter RxJava 抽象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-5-3-Presenter-RxJava-实现"><span class="nav-text">1.1.5.3 Presenter RxJava 实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-5-4-Presenter-具体实现"><span class="nav-text">1.1.5.4 Presenter 具体实现</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-6-Model-层"><span class="nav-text">1.1.6 Model 层</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-针对-MVP-进行依赖注入"><span class="nav-text">1.2 针对 MVP 进行依赖注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-针对-MVP-进行单元测试"><span class="nav-text">1.3 针对 MVP 进行单元测试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-1-针对-Viewer-进行单元测试"><span class="nav-text">1.3.1 针对 Viewer 进行单元测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-1-1-如果-Viewer-是-View"><span class="nav-text">1.3.1.1 如果 Viewer 是 View</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-1-2-如果-Viewer-是-Activity"><span class="nav-text">1.3.1.2 如果 Viewer 是 Activity</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-2-针对-Presenter-进行单元测试"><span class="nav-text">1.3.2 针对 Presenter 进行单元测试</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-2-1-测试与-Android-SDK-分离"><span class="nav-text">1.3.2.1 测试与 Android SDK 分离</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3-2-1-1-使用-XLog-与-Log-分离"><span class="nav-text">1.3.2.1.1 使用 XLog 与 Log 分离</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-2-2-异步操作同步化"><span class="nav-text">1.3.2.2 异步操作同步化</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wang Jie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://blog-wangjiegulu-com.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://blog.wangjiegulu.com/2018/01/25/My-First-Post/';
+          this.page.identifier = '2018/01/25/My-First-Post/';
+          this.page.title = 'Android MVP&依赖注入&单元测试';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://blog-wangjiegulu-com.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "default";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "GooglePlus,Evernote,Twitter,Facebook,Douban,Weibo";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1521 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="WAND JIE" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="来自:&amp;nbsp;https://www.zybuluo.com/yangfch3/note/167490&amp;nbsp;HTTP协议详解http  *&amp;nbsp;  http？ 全称：超文本传输协议(HyperText Transfer Protocol) 作用：设计之初是为了将超文本标记语言(HTML)文档从Web服务器传送到客户端的浏览器。现在http的作用已不局限于HTML的传输。 版本：ht">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTTP协议详解">
+<meta property="og:url" content="http://blog.wangjiegulu.com/2016/08/29/HTTP协议详解/index.html">
+<meta property="og:site_name" content="WAND JIE">
+<meta property="og:description" content="来自:&amp;nbsp;https://www.zybuluo.com/yangfch3/note/167490&amp;nbsp;HTTP协议详解http  *&amp;nbsp;  http？ 全称：超文本传输协议(HyperText Transfer Protocol) 作用：设计之初是为了将超文本标记语言(HTML)文档从Web服务器传送到客户端的浏览器。现在http的作用已不局限于HTML的传输。 版本：ht">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-01-29T12:36:41.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HTTP协议详解">
+<meta name="twitter:description" content="来自:&amp;nbsp;https://www.zybuluo.com/yangfch3/note/167490&amp;nbsp;HTTP协议详解http  *&amp;nbsp;  http？ 全称：超文本传输协议(HyperText Transfer Protocol) 作用：设计之初是为了将超文本标记语言(HTML)文档从Web服务器传送到客户端的浏览器。现在http的作用已不局限于HTML的传输。 版本：ht">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.wangjiegulu.com/2016/08/29/HTTP协议详解/"/>
+
+
+
+
+
+  <title>HTTP协议详解 | WAND JIE</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-111189680-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">WAND JIE</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">TO BE AN ARTIST-ENGINNER</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.wangjiegulu.com/2016/08/29/HTTP协议详解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wang Jie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/my_avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WAND JIE">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">HTTP协议详解</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-08-29T14:13:00+08:00">
+                2016-08-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/08/29/HTTP协议详解/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2016/08/29/HTTP协议详解/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <div id="editor-reader-full" class="editor-reader-full-shown"><br><div class="reader-full-topInfo-shown">来自:&nbsp;<a href="https://www.zybuluo.com/yangfch3/note/167490" target="_blank" rel="noopener">https://www.zybuluo.com/yangfch3/note/167490</a></div><br><div class="reader-full-topInfo-shown">&nbsp;</div><br><div id="reader-full-topInfo" class="reader-full-topInfo-shown">HTTP协议详解</div><br><div id="wmd-preview" class="wmd-preview wmd-preview-full-reader" data-medium-element="true"><br><br><code>http</code><br><br><em> </em> *<br><br><div class="md-section-divider">&nbsp;</div>
+
+<h3 id="http？"><a href="#http？" class="headerlink" title="http？"></a><code>http</code>？</h3><ul>
+<li>全称：超文本传输协议<code>(HyperText Transfer Protocol)</code></li>
+<li>作用：设计之初是为了将超文本标记语言<code>(HTML)</code>文档从Web服务器传送到客户端的浏览器。现在<code>http</code>的作用已不局限于<code>HTML</code>的传输。</li>
+<li>版本：<code>http/1.0</code>&nbsp;<code>http/1.1*</code>&nbsp;<code>http/2.0</code></li>
+</ul>
+<hr>
+<div class="md-section-divider">&nbsp;</div>
+
+<h3 id="两篇佳文"><a href="#两篇佳文" class="headerlink" title="两篇佳文"></a>两篇佳文</h3><p><a href="https://www.zybuluo.com/yangfch3/note/113028" target="_blank" rel="noopener">输入网址之后发生了什么</a>&nbsp;<br><a href="http://rapheal.sinaapp.com/" target="_blank" rel="noopener">Web开发新人培训系列</a></p>
+<hr>
+<div class="md-section-divider">&nbsp;</div>
+
+<h3 id="URL详解"><a href="#URL详解" class="headerlink" title="URL详解"></a>URL详解</h3><p>一个示例URL</p>
+<pre><code>http://www.mywebsite.com/sj/test;id=8079?name=sviergn&amp;amp;x=true#stuff
+
+Schema: http
+host: www.mywebsite.com
+path: /sj/test
+URL params: id=8079
+Query String: name=sviergn&amp;amp;x=true
+Anchor: stuff
+</code></pre><ul>
+<li><code>scheme</code>：指定低层使用的协议(例如：<code>http</code>,&nbsp;<code>https</code>,&nbsp;<code>ftp</code>)</li>
+<li><code>host</code>：<code>HTTP</code>服务器的<code>IP</code>地址或者域名</li>
+<li><code>port#</code>：<code>HTTP</code>服务器的默认端口是<code>80</code>，这种情况下端口号可以省略。如果使用了别的端口，必须指明，例如<code>http://www.mywebsite.com:8080/</code></li>
+<li><code>path</code>：访问资源的路径</li>
+<li><code>url-params</code></li>
+<li><code>query-string</code>：发送给<code>http</code>服务器的数据</li>
+<li><code>anchor</code>：锚</li>
+</ul>
+<hr>
+<div class="md-section-divider">&nbsp;</div>
+
+<h3 id="无状态的协议"><a href="#无状态的协议" class="headerlink" title="无状态的协议"></a>无状态的协议</h3><p><code>http</code>协议是无状态的：</p>
+<blockquote>
+<p>同一个客户端的这次请求和上次请求是没有对应关系，对http服务器来说，它并不知道这两个请求来自同一个客户端。</p>
+</blockquote>
+<p>解决方法：<code>Cookie</code>机制来维护状态</p>
+<p>既然Http协议是无状态的，那么<code>Connection:keep-alive</code>&nbsp;又是怎样一回事？</p>
+<blockquote>
+<p>无状态是指协议对于事务处理没有记忆能力，服务器不知道客户端是什么状态。从另一方面讲，打开一个服务器上的网页和你之前打开这个服务器上的网页之间没有任何联系。</p>
+</blockquote>
+<hr>
+<div class="md-section-divider">&nbsp;</div>
+
+<h3 id="http消息结构"><a href="#http消息结构" class="headerlink" title="http消息结构"></a><code>http</code>消息结构</h3><ol>
+<li><code>Request</code>&nbsp;消息的结构：三部分</li>
+</ol>
+<blockquote>
+<p>第一部分叫<code>Request line</code>（请求行）， 第二部分叫<code>http header</code>, 第三部分是<code>body</code></p>
+<pre><code>*   请求行：包括`http`请求的种类，请求资源的路径，`http`协议版本
+*   `http header`：`http`头部信息
+*   `body`：发送给服务器的`query`信息&amp;nbsp;
+</code></pre><p>当使用的是”<code>GET</code>“ 方法的时候，<code>body</code>是为空的（<code>GET</code>只能读取服务器上的信息，<code>post</code>能写入）&nbsp;</p>
+<pre><code>    1.  `&lt;span class=&quot;pln&quot;&gt;GET &lt;span class=&quot;pun&quot;&gt;/&lt;span class=&quot;pln&quot;&gt;hope&lt;span class=&quot;pun&quot;&gt;/&lt;span class=&quot;pln&quot;&gt; HTTP&lt;span class=&quot;pun&quot;&gt;/&lt;span class=&quot;lit&quot;&gt;1.1&lt;span class=&quot;pln&quot;&gt;   &lt;span class=&quot;com&quot;&gt;//---请求行&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;`
+2.  `&lt;span class=&quot;typ&quot;&gt;Host&lt;span class=&quot;pun&quot;&gt;:&lt;span class=&quot;pln&quot;&gt; ce&lt;span class=&quot;pun&quot;&gt;.&lt;span class=&quot;pln&quot;&gt;sysu&lt;span class=&quot;pun&quot;&gt;.&lt;span class=&quot;pln&quot;&gt;edu&lt;span class=&quot;pun&quot;&gt;.&lt;span class=&quot;pln&quot;&gt;cn&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;`
+3.  `&lt;span class=&quot;typ&quot;&gt;Accept&lt;span class=&quot;pun&quot;&gt;:&lt;span class=&quot;pln&quot;&gt; &lt;span class=&quot;pun&quot;&gt;*&lt;span class=&quot;com&quot;&gt;/*&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;`
+4.  `&lt;span class=&quot;com&quot;&gt;Accept-Encoding: gzip, deflate, sdch&lt;/span&gt;`
+5.  `&lt;span class=&quot;com&quot;&gt;Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.6&lt;/span&gt;`
+6.  `&lt;span class=&quot;com&quot;&gt;Cache-Control: max-age=0&lt;/span&gt;`
+7.  `&lt;span class=&quot;com&quot;&gt;Cookie:.........&lt;/span&gt;`
+8.  `&lt;span class=&quot;com&quot;&gt;Referer: http://ce.sysu.edu.cn/hope/&lt;/span&gt;`
+9.  `&lt;span class=&quot;com&quot;&gt;User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.130 Safari/537.36&lt;/span&gt;`
+</code></pre><p>10.11.  <code>&lt;span class=&quot;com&quot;&gt;---分割线---&lt;/span&gt;</code><br>12.13.  <code>&lt;span class=&quot;com&quot;&gt;POST /hope/ HTTP/1.1   //---请求行&lt;/span&gt;</code></p>
+<pre><code>14.  `&lt;span class=&quot;com&quot;&gt;Host: ce.sysu.edu.cn&lt;/span&gt;`
+15.  `&lt;span class=&quot;com&quot;&gt;Accept: */&lt;span class=&quot;pun&quot;&gt;*&lt;/span&gt;&lt;/span&gt;`
+16.  `&lt;span class=&quot;typ&quot;&gt;Accept&lt;span class=&quot;pun&quot;&gt;-&lt;span class=&quot;typ&quot;&gt;Encoding&lt;span class=&quot;pun&quot;&gt;:&lt;span class=&quot;pln&quot;&gt; gzip&lt;span class=&quot;pun&quot;&gt;,&lt;span class=&quot;pln&quot;&gt; deflate&lt;span class=&quot;pun&quot;&gt;,&lt;span class=&quot;pln&quot;&gt; sdch&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;`
+17.  `&lt;span class=&quot;typ&quot;&gt;Accept&lt;span class=&quot;pun&quot;&gt;-&lt;span class=&quot;typ&quot;&gt;Language&lt;span class=&quot;pun&quot;&gt;:&lt;span class=&quot;pln&quot;&gt; zh&lt;span class=&quot;pun&quot;&gt;-&lt;span class=&quot;pln&quot;&gt;CN&lt;span class=&quot;pun&quot;&gt;,&lt;span class=&quot;pln&quot;&gt;zh&lt;span class=&quot;pun&quot;&gt;;&lt;span class=&quot;pln&quot;&gt;q&lt;span class=&quot;pun&quot;&gt;=&lt;span class=&quot;lit&quot;&gt;0.8&lt;span class=&quot;pun&quot;&gt;,&lt;span class=&quot;pln&quot;&gt;zh&lt;span class=&quot;pun&quot;&gt;-&lt;span class=&quot;pln&quot;&gt;TW&lt;span class=&quot;pun&quot;&gt;;&lt;span class=&quot;pln&quot;&gt;q&lt;span class=&quot;pun&quot;&gt;=&lt;span class=&quot;lit&quot;&gt;0.6&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;`
+18.  `&lt;span class=&quot;typ&quot;&gt;Cache&lt;span class=&quot;pun&quot;&gt;-&lt;span class=&quot;typ&quot;&gt;Control&lt;span class=&quot;pun&quot;&gt;:&lt;span class=&quot;pln&quot;&gt; max&lt;span class=&quot;pun&quot;&gt;-&lt;span class=&quot;pln&quot;&gt;age&lt;span class=&quot;pun&quot;&gt;=&lt;span class=&quot;lit&quot;&gt;0&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;`
+19.  `&lt;span class=&quot;typ&quot;&gt;Cookie&lt;span class=&quot;pun&quot;&gt;:.........&lt;/span&gt;&lt;/span&gt;`
+20.  `&lt;span class=&quot;typ&quot;&gt;Referer&lt;span class=&quot;pun&quot;&gt;:&lt;span class=&quot;pln&quot;&gt; http&lt;span class=&quot;pun&quot;&gt;:&lt;span class=&quot;com&quot;&gt;//ce.sysu.edu.cn/hope/&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;`
+21.  `&lt;span class=&quot;typ&quot;&gt;User&lt;span class=&quot;pun&quot;&gt;-&lt;span class=&quot;typ&quot;&gt;Agent&lt;span class=&quot;pun&quot;&gt;:&lt;span class=&quot;pln&quot;&gt; &lt;span class=&quot;typ&quot;&gt;Mozilla&lt;span class=&quot;pun&quot;&gt;/&lt;span class=&quot;lit&quot;&gt;5.0&lt;span class=&quot;pln&quot;&gt; &lt;span class=&quot;pun&quot;&gt;(&lt;span class=&quot;typ&quot;&gt;Windows&lt;span class=&quot;pln&quot;&gt; NT &lt;span class=&quot;lit&quot;&gt;10.0&lt;span class=&quot;pun&quot;&gt;;&lt;span class=&quot;pln&quot;&gt; WOW64&lt;span class=&quot;pun&quot;&gt;)&lt;span class=&quot;pln&quot;&gt; &lt;span class=&quot;typ&quot;&gt;AppleWebKit&lt;span class=&quot;pun&quot;&gt;/&lt;span class=&quot;lit&quot;&gt;537.36&lt;span class=&quot;pln&quot;&gt; &lt;span class=&quot;pun&quot;&gt;(&lt;span class=&quot;pln&quot;&gt;KHTML&lt;span class=&quot;pun&quot;&gt;,&lt;span class=&quot;pln&quot;&gt; like &lt;span class=&quot;typ&quot;&gt;Gecko&lt;span class=&quot;pun&quot;&gt;)&lt;span class=&quot;pln&quot;&gt; &lt;span class=&quot;typ&quot;&gt;Chrome&lt;span class=&quot;pun&quot;&gt;/&lt;span class=&quot;lit&quot;&gt;44.0&lt;span class=&quot;pun&quot;&gt;.&lt;span class=&quot;lit&quot;&gt;2403.130&lt;span class=&quot;pln&quot;&gt; &lt;span class=&quot;typ&quot;&gt;Safari&lt;span class=&quot;pun&quot;&gt;/&lt;span class=&quot;lit&quot;&gt;537.36&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;`
+</code></pre><p>22.23.  <code>&lt;span class=&quot;pun&quot;&gt;...&lt;span class=&quot;pln&quot;&gt;body&lt;span class=&quot;pun&quot;&gt;...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;</code></p>
+</blockquote>
+<ol>
+<li>Response消息的结构</li>
+</ol>
+<blockquote>
+<p>也分为三部分，第一部分叫request line, 第二部分叫request header，第三部分是body</p>
+<pre><code>*   `request line`：协议版本、状态码、`message`
+*   `request header`：`request`头信息
+*   `body`：返回的请求资源主体&amp;nbsp;
+
+    1.  `&lt;span class=&quot;pln&quot;&gt;HTTP&lt;span class=&quot;pun&quot;&gt;/&lt;span class=&quot;lit&quot;&gt;1.1&lt;span class=&quot;pln&quot;&gt; &lt;span class=&quot;lit&quot;&gt;200&lt;span class=&quot;pln&quot;&gt; OK&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;`
+    2.  `&lt;span class=&quot;typ&quot;&gt;Accept&lt;span class=&quot;pun&quot;&gt;-&lt;span class=&quot;typ&quot;&gt;Ranges&lt;span class=&quot;pun&quot;&gt;:&lt;span class=&quot;pln&quot;&gt; bytes&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;`
+    3.  `&lt;span class=&quot;typ&quot;&gt;Content&lt;span class=&quot;pun&quot;&gt;-&lt;span class=&quot;typ&quot;&gt;Encoding&lt;span class=&quot;pun&quot;&gt;:&lt;span class=&quot;pln&quot;&gt; gzip&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;`
+    4.  `&lt;span class=&quot;typ&quot;&gt;Content&lt;span class=&quot;pun&quot;&gt;-&lt;span class=&quot;typ&quot;&gt;Length&lt;span class=&quot;pun&quot;&gt;:&lt;span class=&quot;pln&quot;&gt; &lt;span class=&quot;lit&quot;&gt;4533&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;`
+    5.  `&lt;span class=&quot;typ&quot;&gt;Content&lt;span class=&quot;pun&quot;&gt;-&lt;span class=&quot;typ&quot;&gt;Type&lt;span class=&quot;pun&quot;&gt;:&lt;span class=&quot;pln&quot;&gt; text&lt;span class=&quot;pun&quot;&gt;/&lt;span class=&quot;pln&quot;&gt;html&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;`
+    6.  `&lt;span class=&quot;typ&quot;&gt;Date&lt;span class=&quot;pun&quot;&gt;:&lt;span class=&quot;pln&quot;&gt; &lt;span class=&quot;typ&quot;&gt;Sun&lt;span class=&quot;pun&quot;&gt;,&lt;span class=&quot;pln&quot;&gt; &lt;span class=&quot;lit&quot;&gt;06&lt;span class=&quot;pln&quot;&gt; &lt;span class=&quot;typ&quot;&gt;Sep&lt;span class=&quot;pln&quot;&gt; &lt;span class=&quot;lit&quot;&gt;2015&lt;span class=&quot;pln&quot;&gt; &lt;span class=&quot;lit&quot;&gt;07&lt;span class=&quot;pun&quot;&gt;:&lt;span class=&quot;lit&quot;&gt;56&lt;span class=&quot;pun&quot;&gt;:&lt;span class=&quot;lit&quot;&gt;07&lt;span class=&quot;pln&quot;&gt; GMT&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;`
+    7.  `&lt;span class=&quot;typ&quot;&gt;ETag&lt;span class=&quot;pun&quot;&gt;:&lt;span class=&quot;pln&quot;&gt; &lt;span class=&quot;str&quot;&gt;&quot;2788e6e716e7d01:0&quot;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;`
+    8.  `&lt;span class=&quot;typ&quot;&gt;Last&lt;span class=&quot;pun&quot;&gt;-&lt;span class=&quot;typ&quot;&gt;Modified&lt;span class=&quot;pun&quot;&gt;:&lt;span class=&quot;pln&quot;&gt; &lt;span class=&quot;typ&quot;&gt;Fri&lt;span class=&quot;pun&quot;&gt;,&lt;span class=&quot;pln&quot;&gt; &lt;span class=&quot;lit&quot;&gt;04&lt;span class=&quot;pln&quot;&gt; &lt;span class=&quot;typ&quot;&gt;Sep&lt;span class=&quot;pln&quot;&gt; &lt;span class=&quot;lit&quot;&gt;2015&lt;span class=&quot;pln&quot;&gt; &lt;span class=&quot;lit&quot;&gt;13&lt;span class=&quot;pun&quot;&gt;:&lt;span class=&quot;lit&quot;&gt;37&lt;span class=&quot;pun&quot;&gt;:&lt;span class=&quot;lit&quot;&gt;55&lt;span class=&quot;pln&quot;&gt; GMT&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;`
+    9.  `&lt;span class=&quot;typ&quot;&gt;Server&lt;span class=&quot;pun&quot;&gt;:&lt;span class=&quot;pln&quot;&gt; &lt;span class=&quot;typ&quot;&gt;Microsoft&lt;span class=&quot;pun&quot;&gt;-&lt;span class=&quot;pln&quot;&gt;IIS&lt;span class=&quot;pun&quot;&gt;/&lt;span class=&quot;lit&quot;&gt;7.5&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;`
+    10.  `&lt;span class=&quot;typ&quot;&gt;Vary&lt;span class=&quot;pun&quot;&gt;:&lt;span class=&quot;pln&quot;&gt; &lt;span class=&quot;typ&quot;&gt;Accept&lt;span class=&quot;pun&quot;&gt;-&lt;span class=&quot;typ&quot;&gt;Encoding&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;`
+    11.  `&lt;span class=&quot;pln&quot;&gt;X&lt;span class=&quot;pun&quot;&gt;-&lt;span class=&quot;typ&quot;&gt;Powered&lt;span class=&quot;pun&quot;&gt;-&lt;span class=&quot;typ&quot;&gt;By&lt;span class=&quot;pun&quot;&gt;:&lt;span class=&quot;pln&quot;&gt; ASP&lt;span class=&quot;pun&quot;&gt;.&lt;span class=&quot;pln&quot;&gt;NET&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;`
+</code></pre><p>12.13.  <code>&lt;span class=&quot;pun&quot;&gt;&amp;lt;!&lt;span class=&quot;pln&quot;&gt;DOCTYPE html&lt;span class=&quot;pun&quot;&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;</code></p>
+<pre><code>14.  `&lt;span class=&quot;pun&quot;&gt;...&lt;/span&gt;`
+15.  `&lt;span class=&quot;pun&quot;&gt;&amp;lt;&amp;gt;&lt;/span&gt;`
+16.  `&lt;span class=&quot;pun&quot;&gt;...&lt;/span&gt;`
+</code></pre></blockquote>
+<hr>
+<div class="md-section-divider">&nbsp;</div>
+
+<h3 id="get-nbsp-和-nbsp-post-nbsp-区别"><a href="#get-nbsp-和-nbsp-post-nbsp-区别" class="headerlink" title="get&nbsp;和&nbsp;post&nbsp;区别"></a><code>get</code>&nbsp;和&nbsp;<code>post</code>&nbsp;区别</h3><p><code>http</code>协议定义了很多与服务器交互的方法，最基本的有4种，分别是<code>GET</code>,<code>POST</code>,<code>PUT</code>,<code>DELETE</code>。 一个<code>URL</code>地址用于描述一个网络上的资源，而<code>HTTP</code>中的<code>GET</code>,&nbsp;<code>POST</code>,&nbsp;<code>PUT</code>,&nbsp;<code>DELETE</code>&nbsp;就对应着对这个资源的查，改，增，删4个操作。 我们最常见的就是<code>GET</code>和<code>POST</code>了。<code>GET</code>一般用于获取/查询资源信息，而POST一般用于更新资源信息.</p>
+<ol>
+<li><p><code>GET</code>&nbsp;提交的数据会放在<code>URL</code>之后，以<code>?</code>分割<code>URL</code>和传输数据，参数之间以<code>&amp;amp;</code>相连，如<code>EditPosts.aspx?name=test1&amp;amp;id=123456</code>。<code>POST</code>&nbsp;方法是把提交的数据放在<code>HTTP</code>包的<code>Body</code>中。</p>
+</li>
+<li><p><code>GET</code>&nbsp;提交的数据大小有限制（因为浏览器对<code>URL</code>的长度有限制），而<code>POST</code>方法提交的数据没有限制.</p>
+</li>
+<li><p><code>GET</code>&nbsp;方式需要使用<code>Request.QueryString</code>&nbsp;来取得变量的值，而<code>POST</code>方式通过<code>Request.Form</code>来获取变量的值。</p>
+</li>
+<li><p><code>GET</code>&nbsp;方式提交数据，会带来安全问题，比如一个登录页面，通过<code>GET</code>方式提交数据时，用户名和密码将出现在<code>URL</code>上，如果页面可以被缓存或者其他人可以访问这台机器，就可以从历史记录获得该用户的账号和密码.&nbsp;</p>
+<p><a href="https://www.zybuluo.com/yangfch3/note/123476" target="_blank" rel="noopener">HTTP请求的Get与Post</a></p>
+</li>
+</ol>
+<hr>
+<div class="md-section-divider">&nbsp;</div>
+
+<h3 id="状态码"><a href="#状态码" class="headerlink" title="状态码"></a>状态码</h3><p><code>Response</code>&nbsp;消息中的第一行叫做状态行，由<code>HTTP</code>协议版本号，&nbsp;状态码，&nbsp;状态消息&nbsp;三部分组成。</p>
+<p>状态码用来告诉<code>HTTP</code>客户端，<code>HTTP</code>服务器是否产生了预期的<code>Response</code>.</p>
+<p><code>HTTP/1.1</code>中定义了 5 类状态码。</p>
+<p>状态码由三位数字组成，第一个数字定义了响应的类别</p>
+<ul>
+<li><code>1XX</code>&nbsp;提示信息 - 表示请求已被成功接收，继续处理</li>
+<li><code>2XX</code>&nbsp;成功 - 表示请求已被成功接收，理解，接受</li>
+<li><code>3XX</code>&nbsp;重定向 - 要完成请求必须进行更进一步的处理</li>
+<li><code>4XX</code>&nbsp;客户端错误 - 请求有语法错误或请求无法实现</li>
+<li><p><code>5XX</code>&nbsp;服务器端错误 - 服务器未能实现合法的请求</p>
+<ol>
+<li><code>200 OK</code>&nbsp;<br>请求被成功地完成，所请求的资源发送回客户端</li>
+<li><code>302 Found</code>&nbsp;<br>重定向，新的<code>URL</code>会在<code>response</code>中的<code>Location</code>中返回，浏览器将会使用新的<code>URL</code>发出新的<code>Request</code></li>
+<li><code>304 Not Modified</code>&nbsp;<br>文档已经被缓存，直接从缓存调用</li>
+<li><code>400 Bad Request</code>&nbsp;<br>客户端请求与语法错误，不能被服务器所理解&nbsp;<br><code>403 Forbidden</code>&nbsp;<br>服务器收到请求，但是拒绝提供服务&nbsp;<br><code>404 Not Found</code>&nbsp;<br>请求资源不存在</li>
+<li><code>500 Internal Server Error</code>&nbsp;<br>服务器发生了不可预期的错误&nbsp;<br><code>503 Server Unavailable</code>&nbsp;<br>服务器当前不能处理客户端的请求，一段时间后可能恢复正常</li>
+</ol>
+</li>
+</ul>
+<hr>
+<div class="md-section-divider">&nbsp;</div>
+
+<h3 id="http-reauest-header"><a href="#http-reauest-header" class="headerlink" title="http reauest header"></a>http reauest header</h3><p><code>http</code>&nbsp;请求头包括很多键值对，这些键值对有什么意义与作用？如何根据功能为他们分一下组呢？</p>
+<ol>
+<li><p><code>cache</code>&nbsp;头域</p>
+<ul>
+<li><code>If-Modified-Since</code>&nbsp;<br>用法：<code>If-Modified-Since: Thu, 09 Feb 2012 09:07:57 GMT</code></li>
+</ul>
+<p>把浏览器端缓存页面的最后修改时间发送到服务器去，服务器会把这个时间与服务器上实际文件的最后修改时间进行对比。如果时间一致，那么返回304，客户端就直接使用本地缓存文件。如果时间不一致，就会返回200和新的文件内容。客户端接到之后，会丢弃旧文件，把新文件缓存起来，并显示在浏览器中。&nbsp;</p>
+<pre><code>*   `If-None-Match`&amp;nbsp;
+</code></pre><p>用法：<code>If-None-Match: &quot;03f2b33c0bfcc1:0&quot;</code></p>
+<p><code>If-None-Match</code>和<code>ETag</code>一起工作，工作原理是在<code>HTTP Response</code>中添加<code>ETag</code>信息。 当用户再次请求该资源时，将在<code>HTTP Request</code>&nbsp;中加入<code>If-None-Match</code>信息(<code>ETag</code>的值)。如果服务器验证资源的<code>ETag</code>没有改变（该资源没有更新），将返回一个<code>304</code>状态告诉客户端使用本地缓存文件。否则将返回<code>200</code>状态和新的资源和<code>Etag</code>. 使用这样的机制将提高网站的性能&nbsp;</p>
+<pre><code>*   `Pragma`：`Pragma: no-cache`&amp;nbsp;
+</code></pre><p><code>Pargma</code>只有一个用法， 例如：&nbsp;<code>Pragma: no-cache</code></p>
+<p>作用： 防止页面被缓存， 在<code>HTTP/1.1</code>版本中，它和<code>Cache-Control:no-cache</code>作用一模一样&nbsp;</p>
+<pre><code>*   `Cache-Control`&amp;nbsp;
+</code></pre><p>用法：</p>
+<pre><code>    *   `Cache-Control:Public`&amp;nbsp;可以被任何缓存所缓存（）
+*   `Cache-Control:Private`&amp;nbsp;内容只缓存到私有缓存中
+*   `Cache-Control:no-cache`&amp;nbsp;所有内容都不会被缓存
+</code></pre><p>作用：用来指定<code>Response-Request</code>遵循的缓存机制</p>
+</li>
+<li><p><code>Client</code>&nbsp;头域</p>
+<ul>
+<li><code>Accept</code>&nbsp;<br>用法：<code>Accept: */*</code>，<code>Accept: text/html</code></li>
+</ul>
+<p>作用： 浏览器端可以接受的媒体类型；&nbsp;<br><code>Accept: */*</code>&nbsp;代表浏览器可以处理所有回发的类型，(一般浏览器发给服务器都是发这个）&nbsp;<br><code>Accept: text/html</code>&nbsp;代表浏览器可以接受服务器回发的类型为&nbsp;<code>text/html</code>&nbsp;；如果服务器无法返回<code>text/html</code>类型的数据，服务器应该返回一个<code>406</code>错误(<code>non acceptable</code>)&nbsp;</p>
+<pre><code>*   `Accept-Encoding`&amp;nbsp;
+</code></pre><p>用法：<code>Accept-Encoding: gzip, deflate</code></p>
+<p>作用： 浏览器申明自己接收的文件编码方法，通常指定压缩方法，是否支持压缩，支持什么压缩方法（<code>gzip</code>，<code>deflate</code>），（注意：这不是指字符编码）&nbsp;</p>
+<pre><code>*   `Accept-Language`&amp;nbsp;
+</code></pre><p>用法：<code>Accept-Language: en-us</code></p>
+<p>作用： 浏览器申明自己接收的语言。&nbsp;</p>
+<pre><code>语言跟字符集的区别：中文是语言，中文有多种字符集，比如`big5`，`gb2312`，`gbk`等等；&amp;nbsp;
+
+*   `User-Agent`&amp;nbsp;
+</code></pre><p>用法：&nbsp;<code>User-Agent: Mozilla/4.0......</code></p>
+<p>作用：告诉<code>HTTP</code>服务器， 客户端使用的操作系统和浏览器的名称和版本.&nbsp;</p>
+<pre><code>*   `Accept-Charset`&amp;nbsp;
+</code></pre><p>用法：<code>Accept-Charset：utf-8</code></p>
+<p>作用：浏览器申明自己接收的字符集，这就是本文前面介绍的各种字符集和字符编码，如gb2312，utf-8（通常我们说Charset包括了相应的字符编码方案）&nbsp;</p>
+</li>
+<li><p><code>Cookie/Login</code>&nbsp;头域</p>
+<ul>
+<li><p><code>Cookie</code></p>
+<pre><code>1.  `&lt;span class=&quot;typ&quot;&gt;Cookie&lt;span class=&quot;pun&quot;&gt;:&lt;span class=&quot;pln&quot;&gt; bdshare_firstime&lt;span class=&quot;pun&quot;&gt;=&lt;span class=&quot;lit&quot;&gt;1439081296143&lt;span class=&quot;pun&quot;&gt;;&lt;span class=&quot;pln&quot;&gt; ASP&lt;span class=&quot;pun&quot;&gt;.&lt;span class=&quot;pln&quot;&gt;NET_SessionId&lt;span class=&quot;pun&quot;&gt;=&lt;span class=&quot;pln&quot;&gt;rcqayd4ufldcke0wkbm1vhxb&lt;span class=&quot;pun&quot;&gt;;&lt;span class=&quot;pln&quot;&gt; pgv_pvi&lt;span class=&quot;pun&quot;&gt;=&lt;span class=&quot;lit&quot;&gt;7361416192&lt;span class=&quot;pun&quot;&gt;;&lt;span class=&quot;pln&quot;&gt; pgv_si&lt;span class=&quot;pun&quot;&gt;=&lt;span class=&quot;pln&quot;&gt;s6686106624&lt;span class=&quot;pun&quot;&gt;;&lt;span class=&quot;pln&quot;&gt; ce&lt;span class=&quot;pun&quot;&gt;.&lt;span class=&quot;pln&quot;&gt;sysu&lt;span class=&quot;pun&quot;&gt;.&lt;span class=&quot;pln&quot;&gt;edu&lt;span class=&quot;pun&quot;&gt;.&lt;span class=&quot;pln&quot;&gt;cn80&lt;span class=&quot;pun&quot;&gt;.&lt;span class=&quot;pln&quot;&gt;ASPXAUTH&lt;span class=&quot;pun&quot;&gt;=&lt;span class=&quot;lit&quot;&gt;9E099592DD5A414BEECD8CF43CFC71664&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;`
+</code></pre></li>
+</ul>
+<p>作用：&nbsp;最重要的header, 将<code>cookie</code>的值发送给<code>HTTP</code>&nbsp;服务器</p>
+</li>
+<li><p><code>Entity</code>&nbsp;头域</p>
+<ul>
+<li><code>Content-Length</code>&nbsp;<br>用法：<code>Content-Length: 38</code></li>
+</ul>
+<p>作用：发送给HTTP服务器数据的长度。&nbsp;</p>
+<pre><code>*   `Content-Type`&amp;nbsp;
+</code></pre><p>用法：<code>Content-Type: application/x-www-form-urlencoded</code></p>
+<p>不常出现，一般出现在<code>response</code>头部，用于指定数据文件类型&nbsp;</p>
+</li>
+<li><p><code>Miscellaneous</code>&nbsp;头域</p>
+<ul>
+<li><code>Referer</code>&nbsp;<br>用法：<code>Referer: http://ce.sysu.edu.cn/hope/</code></li>
+</ul>
+<p>作用：提供了<code>Request</code>的上下文信息的服务器，告诉服务器我是从哪个链接过来的，比如从我主页上链接到一个朋友那里，他的服务器就能够从<code>HTTP Referer</code>中统计出每天有多少用户点击我主页上的链接访问他的网站。&nbsp;</p>
+</li>
+<li><p><code>Transport</code>&nbsp;头域</p>
+<ul>
+<li><code>Connection</code>&nbsp;<br><code>Connection: keep-alive</code>： 当一个网页打开完成后，客户端和服务器之间用于传输HTTP数据的TCP连接不会关闭，如果客户端再次访问这个服务器上的网页，会继续使用这一条已经建立的连接</li>
+</ul>
+<p><code>Connection: close</code>： 代表一个<code>Request</code>完成后，客户端和服务器之间用于传输<code>HTTP</code>数据的<code>TCP</code>连接会关闭， 当客户端再次发送<code>Request</code>，需要重新建立<code>TCP</code>连接&nbsp;</p>
+<pre><code>*   `Host`&amp;nbsp;
+</code></pre><p>用法：<code>Host: ce.sysu.edu.cn</code></p>
+<p>作用: 请求报头域主要用于指定被请求资源的<code>Internet</code>主机和端口号（默认80），它通常从<code>HTTP URL</code>中提取出来的</p>
+<div class="md-section-divider">&nbsp;</div>
+
+</li>
+</ol>
+<hr>
+<div class="md-section-divider">&nbsp;</div>
+
+<h3 id="HTTP-Response-header"><a href="#HTTP-Response-header" class="headerlink" title="HTTP Response header"></a>HTTP Response header</h3><ol>
+<li><p><code>Cache</code>&nbsp;头域</p>
+<ul>
+<li><code>Date</code>&nbsp;<br>用法：<code>Date: Sat, 11 Feb 2012 11:35:14 GMT</code></li>
+</ul>
+<p>作用: 生成消息的具体时间和日期&nbsp;</p>
+<pre><code>*   `Expires`&amp;nbsp;
+</code></pre><p>用法：<code>Expires: Tue, 08 Feb 2022 11:35:14 GMT</code>&nbsp;<br>作用: 浏览器会在指定过期时间内使用本地缓存&nbsp;</p>
+<pre><code>*   `Vary`&amp;nbsp;
+</code></pre><p>用法：Vary: Accept-Encoding&nbsp;</p>
+</li>
+<li><p><code>Cookie/Login</code>&nbsp;头域</p>
+<ul>
+<li><code>P3P</code>&nbsp;<br>用法：&nbsp;<br><code>P3P: CP=CURa ADMa DEVa PSAo PSDo OUR BUS UNI PUR INT DEM STA PRE COM NAV OTC NOI DSP COR</code></li>
+</ul>
+<p>作用: 用于跨域设置Cookie, 这样可以解决<code>iframe</code>跨域访问<code>cookie</code>的问题&nbsp;</p>
+<pre><code>*   `Set-Cookie`&amp;nbsp;
+</code></pre><p>用法：&nbsp;<br><code>Set-Cookie: sc=4c31523a; path=/; domain=.acookie.taobao.com</code></p>
+<p>作用：非常重要的<code>header</code>, 用于把<code>cookie</code>&nbsp;发送到客户端浏览器， 每一个写入<code>cookie</code>都会生成一个<code>Set-Cookie</code>.</p>
+</li>
+<li><p><code>Entity</code>&nbsp;头域</p>
+<ul>
+<li><code>ETag</code>&nbsp;<br>用法：<code>ETag: &quot;03f2b33c0bfcc1:0&quot;</code></li>
+</ul>
+<p>作用: 和<code>request header</code>的<code>If-None-Match</code>&nbsp;配合使用&nbsp;</p>
+<pre><code>*   `Last-Modified`&amp;nbsp;
+</code></pre><p>用法：<code>Last-Modified: Wed, 21 Dec 2011 09:09:10 GMT</code></p>
+<p>作用：用于指示资源的最后修改日期和时间。（实例请看上节的<code>If-Modified-Since</code>的实例）&nbsp;</p>
+<pre><code>*   `Content-Type`&amp;nbsp;
+</code></pre><p>用法：</p>
+<pre><code>    *   Content-Type: text/html; charset=utf-8
+*   Content-Type:text/html;charset=GB2312
+*   Content-Type: image/jpeg
+</code></pre><p>作用：WEB服务器告诉浏览器自己响应的对象的类型和字符集&nbsp;</p>
+<pre><code>*   Content-Encoding&amp;nbsp;
+</code></pre><p>用法：<code>Content-Encoding：gzip</code></p>
+<p>作用：WEB服务器表明自己使用了什么压缩方法（<code>gzip</code>，<code>deflate</code>）压缩响应中的对象。&nbsp;</p>
+<pre><code>*   `Content-Language`&amp;nbsp;
+</code></pre><p>用法：&nbsp;<code>Content-Language:da</code></p>
+<p>WEB服务器告诉浏览器自己响应的对象的语言</p>
+</li>
+<li><p><code>Miscellaneous</code>&nbsp;头域</p>
+<ul>
+<li><code>Server</code>&nbsp;<br>用法：<code>Server: Microsoft-IIS/7.5</code></li>
+</ul>
+<p>作用：指明HTTP服务器的软件信息&nbsp;</p>
+<pre><code>*   `X-AspNet-Version`&amp;nbsp;
+</code></pre><p>用法：<code>X-AspNet-Version: 4.0.30319</code></p>
+<p>作用：如果网站是用<code>ASP.NET</code>开发的，这个<code>header</code>用来表示<code>ASP.NET</code>的版本&nbsp;</p>
+<pre><code>*   X-Powered-By&amp;nbsp;
+</code></pre><p>用法：<code>X-Powered-By: ASP.NET</code></p>
+<p>作用：表示网站是用什么技术开发的&nbsp;</p>
+</li>
+<li><p><code>Transport</code>头域</p>
+<ul>
+<li><p><code>Connection</code>&nbsp;<br>用法与作用：&nbsp;</p>
+<pre><code>*   `Connection: keep-alive`：当一个网页打开完成后，客户端和服务器之间用于传输HTTP数据的TCP连接不会关闭，如果客户端再次访问这个服务器上的网页，会继续使用这一条已经建立的连接
+</code></pre><ul>
+<li><code>Connection: close</code>：代表一个Request完成后，客户端和服务器之间用于传输HTTP数据的TCP连接会关闭， 当客户端再次发送Request，需要重新建立TCP连接</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Location头域</p>
+<ul>
+<li>Location&nbsp;<br>用法：<code>Location：http://ce.sysu.edu.cn/hope/</code>&nbsp;<br>作用： 用于重定向一个新的位置， 包含新的<code>URL</code>地址</li></ul></li></ol></div><div class="remark-icons"><br><div class="remark-icon unselectable remark-icon-empty" data-anchor-id="1xa3"><span class="icon-stack"><span class="glyph-comment"><span class="remark-count">+</span></span></span></div>
+
+
+
+
+
+<p></p></div><p></p>
+<p></p></div><p></p>
+<div class="in-page-preview-buttons in-page-preview-buttons-full-reader">&nbsp;</div><br><div id="reader-full-toolbar" class="reader-full-toolbar-shown">&nbsp;</div>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/29/网络基础/" rel="next" title="网络基础">
+                <i class="fa fa-chevron-left"></i> 网络基础
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/09/01/Android-异步-layout-inflation（翻译）/" rel="prev" title="[Android]异步 layout inflation（翻译）">
+                [Android]异步 layout inflation（翻译） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/my_avatar.jpg"
+                alt="Wang Jie" />
+            
+              <p class="site-author-name" itemprop="name">Wang Jie</p>
+              <p class="site-description motion-element" itemprop="description">Wang Jie's blog</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">144</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wangjiegulu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:tiantian.china.2@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/+%E5%A4%A9%E5%A4%A9wangjie" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/wangjiegulu" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://stackoverflow.com/users/2124006/wangjie" target="_blank" title="StackOverflow">
+                      
+                        <i class="fa fa-fw fa-stack-overflow"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/wangjiegulu" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.cnblogs.com/tiantianbyconan/" title="cnblog" target="_blank">cnblog</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#http？"><span class="nav-text">http？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#两篇佳文"><span class="nav-text">两篇佳文</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#URL详解"><span class="nav-text">URL详解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#无状态的协议"><span class="nav-text">无状态的协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#http消息结构"><span class="nav-text">http消息结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#get-nbsp-和-nbsp-post-nbsp-区别"><span class="nav-text">get 和 post 区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#状态码"><span class="nav-text">状态码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#http-reauest-header"><span class="nav-text">http reauest header</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP-Response-header"><span class="nav-text">HTTP Response header</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wang Jie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://blog-wangjiegulu-com.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://blog.wangjiegulu.com/2016/08/29/HTTP协议详解/';
+          this.page.identifier = '2016/08/29/HTTP协议详解/';
+          this.page.title = 'HTTP协议详解';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://blog-wangjiegulu-com.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "default";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "GooglePlus,Evernote,Twitter,Facebook,Douban,Weibo";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

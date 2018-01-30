@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="WAND JIE" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="以下内容为原创，欢迎转载，转载请注明 来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/4182929.html 可拖拽的红点，（仿新版QQ，tab下面拖拽标记为已读的效果），拖拽一定的距离可以消失回调。  &amp;nbsp;&amp;nbsp; &amp;nbsp; GitHub：DraggableFlagView（https://github.com/wangjiegu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Android]仿新版QQ的tab下面拖拽标记为已读的效果">
+<meta property="og:url" content="http://blog.wangjiegulu.com/2014/12/24/Android-仿新版QQ的tab下面拖拽标记为已读的效果/index.html">
+<meta property="og:site_name" content="WAND JIE">
+<meta property="og:description" content="以下内容为原创，欢迎转载，转载请注明 来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/4182929.html 可拖拽的红点，（仿新版QQ，tab下面拖拽标记为已读的效果），拖拽一定的距离可以消失回调。  &amp;nbsp;&amp;nbsp; &amp;nbsp; GitHub：DraggableFlagView（https://github.com/wangjiegu">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://raw.githubusercontent.com/wangjiegulu/DraggableFlagView/master/screenshot/draggableflagview.gif">
+<meta property="og:image" content="https://raw.githubusercontent.com/wangjiegulu/DraggableFlagView/master/screenshot/draggableflagview_b.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wangjiegulu/DraggableFlagView/master/screenshot/draggableflagview_d.png">
+<meta property="og:updated_time" content="2018-01-29T12:36:41.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[Android]仿新版QQ的tab下面拖拽标记为已读的效果">
+<meta name="twitter:description" content="以下内容为原创，欢迎转载，转载请注明 来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/4182929.html 可拖拽的红点，（仿新版QQ，tab下面拖拽标记为已读的效果），拖拽一定的距离可以消失回调。  &amp;nbsp;&amp;nbsp; &amp;nbsp; GitHub：DraggableFlagView（https://github.com/wangjiegu">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/wangjiegulu/DraggableFlagView/master/screenshot/draggableflagview.gif">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.wangjiegulu.com/2014/12/24/Android-仿新版QQ的tab下面拖拽标记为已读的效果/"/>
+
+
+
+
+
+  <title>[Android]仿新版QQ的tab下面拖拽标记为已读的效果 | WAND JIE</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-111189680-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">WAND JIE</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">TO BE AN ARTIST-ENGINNER</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.wangjiegulu.com/2014/12/24/Android-仿新版QQ的tab下面拖拽标记为已读的效果/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wang Jie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/my_avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WAND JIE">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">[Android]仿新版QQ的tab下面拖拽标记为已读的效果</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-12-24T17:39:00+08:00">
+                2014-12-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2014/12/24/Android-仿新版QQ的tab下面拖拽标记为已读的效果/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2014/12/24/Android-仿新版QQ的tab下面拖拽标记为已读的效果/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><span style="color: #ff0000;"><strong>以下内容为原创，欢迎转载，转载请注明</strong></span></p>
+<p><span style="color: #ff0000;"><strong>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/4182929.html" title="view: [Android]仿新版QQ的tab下面拖拽标记为已读的效果" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/4182929.html</a></strong></span></p>
+<p>可拖拽的红点，（仿新版QQ，tab下面拖拽标记为已读的效果），拖拽一定的距离可以消失回调。</p>
+<p><img src="https://raw.githubusercontent.com/wangjiegulu/DraggableFlagView/master/screenshot/draggableflagview.gif" alt=""></p>
+<p>&nbsp;<img src="https://raw.githubusercontent.com/wangjiegulu/DraggableFlagView/master/screenshot/draggableflagview_b.png" alt=""><span style="line-height: 1.5;">&nbsp;</span><img src="https://raw.githubusercontent.com/wangjiegulu/DraggableFlagView/master/screenshot/draggableflagview_d.png" alt=""></p>
+<p>&nbsp;</p>
+<p><strong>GitHub：<a href="https://github.com/wangjiegulu/DraggableFlagView" target="_blank" rel="noopener">DraggableFlagView</a>（<a href="https://github.com/wangjiegulu/DraggableFlagView" target="_blank" rel="noopener">https://github.com/wangjiegulu/DraggableFlagView</a>）</strong></p>
+<p>实现原理：</p>
+<p>当根据touch事件的移动，不断调用onDraw()方法进行刷新绘制。</p>
+<p><span style="color: #ff0000;">*注意：这里原来的小红点称为红点A；根据手指移动绘制的小红点称为红点B。</span></p>
+<p>touch事件移动的时候需要处理的逻辑：</p>
+<p>1. <span style="color: #000000;">红点A的半径根据滑动的距离会不断地变小。</span></p>
+<p><span style="color: #000000;">2. 红点B会紧随手指的位置移动。</span></p>
+<p><span style="color: #000000;">3. 在红点A和红点B之间需要用贝塞尔曲线绘制连接区域。</span></p>
+<p><span style="color: #000000;">4. 如果红点A和红点B之间的间距达到了设置的最大的距离，则表示，这次的拖拽会有效，一旦放手红点就会消失。</span></p>
+<p><span style="color: #000000;">5. 如果达到了第4中情况，则红点A和中间连接的贝塞尔曲线不会被绘制。</span></p>
+<p><span style="color: #000000;">6. 如果红点A和红点B之间的距离没有达到设置的最大的距离，则放手后，红点B消失，红点A从原来变小的半径使用反弹动画变换到原来最初的状态</span></p>
+<p>一些工具类需要依赖&nbsp;<strong><a href="https://github.com/wangjiegulu/AndroidBucket" target="_blank" rel="noopener">AndroidBucket</a>(<a href="https://github.com/wangjiegulu/AndroidBucket" target="_blank" rel="noopener">https://github.com/wangjiegulu/AndroidBucket</a>)，nineoldandroid</strong></p>
+<p><span style="font-size: 16px;"><strong><span style="color: #000000;">使用方式：</span></strong></span></p>
+<div class="cnblogs_code"><br><pre><span style="color: #0000ff;">&lt;</span><span style="color: #800000;">com.wangjie.draggableflagview.DraggableFlagView<br>　　　　　　　</span><span style="color: #ff0000;">xmlns:dfv</span><span style="color: #0000ff;">=”<a href="http://schemas.android.com/apk/res/com.wangjie.draggableflagview" target="_blank" rel="noopener">http://schemas.android.com/apk/res/com.wangjie.draggableflagview</a>“</span><span style="color: #ff0000;"><br>            android:id</span><span style="color: #0000ff;">=”@+id/main_dfv”</span><span style="color: #ff0000;"><br>            android:layout_width</span><span style="color: #0000ff;">=”20dp”</span><span style="color: #ff0000;"><br>            android:layout_height</span><span style="color: #0000ff;">=”20dp”</span><span style="color: #ff0000;"><br>            android:layout_alignParentBottom</span><span style="color: #0000ff;">=”true”</span><span style="color: #ff0000;"><br>            android:layout_margin</span><span style="color: #0000ff;">=”15dp”</span><span style="color: #ff0000;"><br>            dfv:color</span><span style="color: #0000ff;">=”#FF3B30”</span><br>            <span style="color: #0000ff;">/&gt;</span></pre><br></div>
+
+<p>&nbsp;</p>
+<div class="cnblogs_code"><br><pre><span style="color: #008080;"> 1</span> <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span> MainActivity <span style="color: #0000ff;">extends</span> Activity <span style="color: #0000ff;">implements</span><span style="color: #000000;"> DraggableFlagView.OnDraggableFlagViewListener, View.OnClickListener {<br></span><span style="color: #008080;"> 2</span><br><span style="color: #008080;"> 3</span> <span style="color: #000000;">    @Override<br></span><span style="color: #008080;"> 4</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> onCreate(Bundle savedInstanceState) {<br></span><span style="color: #008080;"> 5</span>         <span style="color: #0000ff;">super</span><span style="color: #000000;">.onCreate(savedInstanceState);<br></span><span style="color: #008080;"> 6</span> <span style="color: #000000;">        setContentView(R.layout.main);<br></span><span style="color: #008080;"> 7</span>         findViewById(R.id.main_btn).setOnClickListener(<span style="color: #0000ff;">this</span><span style="color: #000000;">);<br></span><span style="color: #008080;"> 8</span><br><span style="color: #008080;"> 9</span>         DraggableFlagView draggableFlagView =<span style="color: #000000;"> (DraggableFlagView) findViewById(R.id.main_dfv);<br></span><span style="color: #008080;">10</span>         draggableFlagView.setOnDraggableFlagViewListener(<span style="color: #0000ff;">this</span><span style="color: #000000;">);<br></span><span style="color: #008080;">11</span>         draggableFlagView.setText(“7”<span style="color: #000000;">);<br></span><span style="color: #008080;">12</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">13</span><br><span style="color: #008080;">14</span> <span style="color: #000000;">    @Override<br></span><span style="color: #008080;">15</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> onFlagDismiss(DraggableFlagView view) {<br></span><span style="color: #008080;">16</span>         Toast.makeText(<span style="color: #0000ff;">this</span>, “onFlagDismiss”<span style="color: #000000;">, Toast.LENGTH_SHORT).show();<br></span><span style="color: #008080;">17</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">18</span><br><span style="color: #008080;">19</span> <span style="color: #000000;">    @Override<br></span><span style="color: #008080;">20</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> onClick(View v) {<br></span><span style="color: #008080;">21</span>         <span style="color: #0000ff;">switch</span><span style="color: #000000;"> (v.getId()) {<br></span><span style="color: #008080;">22</span>             <span style="color: #0000ff;">case</span><span style="color: #000000;"> R.id.main_btn:<br></span><span style="color: #008080;">23</span>                 Toast.makeText(<span style="color: #0000ff;">this</span>, “hello world”<span style="color: #000000;">, Toast.LENGTH_SHORT).show();<br></span><span style="color: #008080;">24</span>                 <span style="color: #0000ff;">break</span><span style="color: #000000;">;<br></span><span style="color: #008080;">25</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;">26</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">27</span> }</pre><br></div>
+
+<p><span style="font-size: 16px;"><strong>DraggableFlagView代码：</strong></span></p>
+<p>&nbsp;</p>
+<div class="cnblogs_code"><br><pre><span style="color: #008080;">  1</span> <span style="color: #008000;">/<strong></strong></span><br><span style="color: #008080;">  2</span> <span style="color: #008000;"> <em> Author: wangjie<br></em></span><span style="color: #008080;">  3</span> <span style="color: #008000;">  Email: tiantian.china.2@gmail.com<br></span><span style="color: #008080;">  4</span> <span style="color: #008000;"> <em> Date: 12/23/14.<br></em></span><span style="color: #008080;">  5</span>  <span style="color: #008000;">/</span><br><span style="color: #008080;">  6</span> <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span> DraggableFlagView <span style="color: #0000ff;">extends</span><span style="color: #000000;"> View {<br></span><span style="color: #008080;">  7</span>     <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">final</span> String TAG = DraggableFlagView.<span style="color: #0000ff;">class</span><span style="color: #000000;">.getSimpleName();<br></span><span style="color: #008080;">  8</span><br><span style="color: #008080;">  9</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">interface</span><span style="color: #000000;"> OnDraggableFlagViewListener {<br></span><span style="color: #008080;"> 10</span>         <span style="color: #008000;">/</span><br><span style="color: #008080;"> 11</span> <span style="color: #008000;">         <em> 拖拽销毁圆点后的回调<br></em></span><span style="color: #008080;"> 12</span> <span style="color: #008000;">         <br></span><span style="color: #008080;"> 13</span> <span style="color: #008000;">         <em> </em></span><span style="color: #808080;">@param</span><span style="color: #008000;"> view<br></span><span style="color: #008080;"> 14</span>          <span style="color: #008000;">/</span><br><span style="color: #008080;"> 15</span>         <span style="color: #0000ff;">void</span><span style="color: #000000;"> onFlagDismiss(DraggableFlagView view);<br></span><span style="color: #008080;"> 16</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;"> 17</span><br><span style="color: #008080;"> 18</span>     <span style="color: #0000ff;">private</span><span style="color: #000000;"> OnDraggableFlagViewListener onDraggableFlagViewListener;<br></span><span style="color: #008080;"> 19</span><br><span style="color: #008080;"> 20</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> setOnDraggableFlagViewListener(OnDraggableFlagViewListener onDraggableFlagViewListener) {<br></span><span style="color: #008080;"> 21</span>         <span style="color: #0000ff;">this</span>.onDraggableFlagViewListener =<span style="color: #000000;"> onDraggableFlagViewListener;<br></span><span style="color: #008080;"> 22</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;"> 23</span><br><span style="color: #008080;"> 24</span>     <span style="color: #0000ff;">public</span><span style="color: #000000;"> DraggableFlagView(Context context) {<br></span><span style="color: #008080;"> 25</span>         <span style="color: #0000ff;">super</span><span style="color: #000000;">(context);<br></span><span style="color: #008080;"> 26</span> <span style="color: #000000;">        init(context);<br></span><span style="color: #008080;"> 27</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;"> 28</span><br><span style="color: #008080;"> 29</span>     <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">int</span> patientColor =<span style="color: #000000;"> Color.RED;<br></span><span style="color: #008080;"> 30</span><br><span style="color: #008080;"> 31</span>     <span style="color: #0000ff;">public</span><span style="color: #000000;"> DraggableFlagView(Context context, AttributeSet attrs) {<br></span><span style="color: #008080;"> 32</span>         <span style="color: #0000ff;">super</span><span style="color: #000000;">(context, attrs);<br></span><span style="color: #008080;"> 33</span>         TypedArray a =<span style="color: #000000;"> context.obtainStyledAttributes(attrs, R.styleable.DraggableFlagView);<br></span><span style="color: #008080;"> 34</span>         <span style="color: #0000ff;">int</span> indexCount =<span style="color: #000000;"> a.getIndexCount();<br></span><span style="color: #008080;"> 35</span>         <span style="color: #0000ff;">for</span> (<span style="color: #0000ff;">int</span> i = 0; i &lt; indexCount; i++<span style="color: #000000;">) {<br></span><span style="color: #008080;"> 36</span>             <span style="color: #0000ff;">int</span> attrIndex =<span style="color: #000000;"> a.getIndex(i);<br></span><span style="color: #008080;"> 37</span>             <span style="color: #0000ff;">if</span> (attrIndex ==<span style="color: #000000;"> R.styleable.DraggableFlagView_color) {<br></span><span style="color: #008080;"> 38</span>                 patientColor =<span style="color: #000000;"> a.getColor(attrIndex, Color.RED);<br></span><span style="color: #008080;"> 39</span> <span style="color: #000000;">            }<br></span><span style="color: #008080;"> 40</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;"> 41</span> <span style="color: #000000;">        a.recycle();<br></span><span style="color: #008080;"> 42</span> <span style="color: #000000;">        init(context);<br></span><span style="color: #008080;"> 43</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;"> 44</span><br><span style="color: #008080;"> 45</span>     <span style="color: #0000ff;">public</span> DraggableFlagView(Context context, AttributeSet attrs, <span style="color: #0000ff;">int</span><span style="color: #000000;"> defStyle) {<br></span><span style="color: #008080;"> 46</span>         <span style="color: #0000ff;">super</span><span style="color: #000000;">(context, attrs, defStyle);<br></span><span style="color: #008080;"> 47</span> <span style="color: #000000;">        init(context);<br></span><span style="color: #008080;"> 48</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;"> 49</span><br><span style="color: #008080;"> 50</span>     <span style="color: #0000ff;">private</span><span style="color: #000000;"> Context context;<br></span><span style="color: #008080;"> 51</span>     <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">int</span> originRadius; <span style="color: #008000;">//</span><span style="color: #008000;"> 初始的圆的半径</span><br><span style="color: #008080;"> 52</span>     <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">int</span><span style="color: #000000;"> originWidth;<br></span><span style="color: #008080;"> 53</span>     <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">int</span><span style="color: #000000;"> originHeight;<br></span><span style="color: #008080;"> 54</span><br><span style="color: #008080;"> 55</span>     <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">int</span> maxMoveLength; <span style="color: #008000;">//</span><span style="color: #008000;"> 最大的移动拉长距离</span><br><span style="color: #008080;"> 56</span>     <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">boolean</span> isArrivedMaxMoved; <span style="color: #008000;">//</span><span style="color: #008000;"> 达到了最大的拉长距离（松手可以触发事件）</span><br><span style="color: #008080;"> 57</span><br><span style="color: #008080;"> 58</span>     <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">int</span> curRadius; <span style="color: #008000;">//</span><span style="color: #008000;"> 当前点的半径</span><br><span style="color: #008080;"> 59</span>     <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">int</span> touchedPointRadius; <span style="color: #008000;">//</span><span style="color: #008000;"> touch的圆的半径</span><br><span style="color: #008080;"> 60</span>     <span style="color: #0000ff;">private</span> Point startPoint = <span style="color: #0000ff;">new</span><span style="color: #000000;"> Point();<br></span><span style="color: #008080;"> 61</span>     <span style="color: #0000ff;">private</span> Point endPoint = <span style="color: #0000ff;">new</span><span style="color: #000000;"> Point();<br></span><span style="color: #008080;"> 62</span><br><span style="color: #008080;"> 63</span>     <span style="color: #0000ff;">private</span> Paint paint; <span style="color: #008000;">//</span><span style="color: #008000;"> 绘制圆形图形</span><br><span style="color: #008080;"> 64</span>     <span style="color: #0000ff;">private</span> Paint textPaint; <span style="color: #008000;">//</span><span style="color: #008000;"> 绘制圆形图形</span><br><span style="color: #008080;"> 65</span>     <span style="color: #0000ff;">private</span><span style="color: #000000;"> Paint.FontMetrics textFontMetrics;<br></span><span style="color: #008080;"> 66</span><br><span style="color: #008080;"> 67</span>     <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">int</span><span style="color: #000000;">[] location;<br></span><span style="color: #008080;"> 68</span><br><span style="color: #008080;"> 69</span>     <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">boolean</span> isTouched; <span style="color: #008000;">//</span><span style="color: #008000;"> 是否是触摸状态</span><br><span style="color: #008080;"> 70</span><br><span style="color: #008080;"> 71</span>     <span style="color: #0000ff;">private</span> Triangle triangle = <span style="color: #0000ff;">new</span><span style="color: #000000;"> Triangle();<br></span><span style="color: #008080;"> 72</span><br><span style="color: #008080;"> 73</span>     <span style="color: #0000ff;">private</span> String text = “”; <span style="color: #008000;">//</span><span style="color: #008000;"> 正常状态下显示的文字</span><br><span style="color: #008080;"> 74</span><br><span style="color: #008080;"> 75</span>     <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> init(Context context) {<br></span><span style="color: #008080;"> 76</span>         <span style="color: #0000ff;">this</span>.context =<span style="color: #000000;"> context;<br></span><span style="color: #008080;"> 77</span><br><span style="color: #008080;"> 78</span> <span style="color: #000000;">        setBackgroundColor(Color.TRANSPARENT);<br></span><span style="color: #008080;"> 79</span><br><span style="color: #008080;"> 80</span>         <span style="color: #008000;">//</span><span style="color: #008000;"> 设置绘制flag的paint</span><br><span style="color: #008080;"> 81</span>         paint = <span style="color: #0000ff;">new</span><span style="color: #000000;"> Paint();<br></span><span style="color: #008080;"> 82</span> <span style="color: #000000;">        paint.setColor(patientColor);<br></span><span style="color: #008080;"> 83</span>         paint.setAntiAlias(<span style="color: #0000ff;">true</span><span style="color: #000000;">);<br></span><span style="color: #008080;"> 84</span><br><span style="color: #008080;"> 85</span>         <span style="color: #008000;">//</span><span style="color: #008000;"> 设置绘制文字的paint</span><br><span style="color: #008080;"> 86</span>         textPaint = <span style="color: #0000ff;">new</span><span style="color: #000000;"> Paint();<br></span><span style="color: #008080;"> 87</span>         textPaint.setAntiAlias(<span style="color: #0000ff;">true</span><span style="color: #000000;">);<br></span><span style="color: #008080;"> 88</span> <span style="color: #000000;">        textPaint.setColor(Color.WHITE);<br></span><span style="color: #008080;"> 89</span>         textPaint.setTextSize(ABTextUtil.sp2px(context, 12<span style="color: #000000;">));<br></span><span style="color: #008080;"> 90</span> <span style="color: #000000;">        textPaint.setTextAlign(Paint.Align.CENTER);<br></span><span style="color: #008080;"> 91</span>         textFontMetrics =<span style="color: #000000;"> paint.getFontMetrics();<br></span><span style="color: #008080;"> 92</span><br><span style="color: #008080;"> 93</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;"> 94</span><br><span style="color: #008080;"> 95</span>     RelativeLayout.LayoutParams originLp; <span style="color: #008000;">//</span><span style="color: #008000;"> 实际的layoutparams</span><br><span style="color: #008080;"> 96</span>     RelativeLayout.LayoutParams newLp; <span style="color: #008000;">//</span><span style="color: #008000;"> 触摸时候的LayoutParams</span><br><span style="color: #008080;"> 97</span><br><span style="color: #008080;"> 98</span>     <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">boolean</span> isFirst = <span style="color: #0000ff;">true</span><span style="color: #000000;">;<br></span><span style="color: #008080;"> 99</span><br><span style="color: #008080;">100</span> <span style="color: #000000;">    @Override<br></span><span style="color: #008080;">101</span>     <span style="color: #0000ff;">protected</span> <span style="color: #0000ff;">void</span> onSizeChanged(<span style="color: #0000ff;">int</span> w, <span style="color: #0000ff;">int</span> h, <span style="color: #0000ff;">int</span> oldw, <span style="color: #0000ff;">int</span><span style="color: #000000;"> oldh) {<br></span><span style="color: #008080;">102</span>         <span style="color: #0000ff;">super</span><span style="color: #000000;">.onSizeChanged(w, h, oldw, oldh);<br></span><span style="color: #008080;">103</span> <span style="color: #008000;">//</span><span style="color: #008000;">        Logger.d(TAG, String.format(“onSizeChanged, w: %s, h: %s, oldw: %s, oldh: %s”, w, h, oldw, oldh));</span><br><span style="color: #008080;">104</span>         <span style="color: #0000ff;">if</span> (isFirst &amp;&amp; w &gt; 0 &amp;&amp; h &gt; 0<span style="color: #000000;">) {<br></span><span style="color: #008080;">105</span>             isFirst = <span style="color: #0000ff;">false</span><span style="color: #000000;">;<br></span><span style="color: #008080;">106</span><br><span style="color: #008080;">107</span>             originWidth =<span style="color: #000000;"> w;<br></span><span style="color: #008080;">108</span>             originHeight =<span style="color: #000000;"> h;<br></span><span style="color: #008080;">109</span><br><span style="color: #008080;">110</span>             originRadius = Math.min(originWidth, originHeight) / 2<span style="color: #000000;">;<br></span><span style="color: #008080;">111</span>             curRadius =<span style="color: #000000;"> originRadius;<br></span><span style="color: #008080;">112</span>             touchedPointRadius =<span style="color: #000000;"> originRadius;<br></span><span style="color: #008080;">113</span><br><span style="color: #008080;">114</span>             maxMoveLength = ABAppUtil.getDeviceHeight(context) / 6<span style="color: #000000;">;<br></span><span style="color: #008080;">115</span><br><span style="color: #008080;">116</span> <span style="color: #000000;">            refreshStartPoint();<br></span><span style="color: #008080;">117</span><br><span style="color: #008080;">118</span>             ViewGroup.LayoutParams lp = <span style="color: #0000ff;">this</span><span style="color: #000000;">.getLayoutParams();<br></span><span style="color: #008080;">119</span>             <span style="color: #0000ff;">if</span> (RelativeLayout.LayoutParams.<span style="color: #0000ff;">class</span><span style="color: #000000;">.isAssignableFrom(lp.getClass())) {<br></span><span style="color: #008080;">120</span>                 originLp =<span style="color: #000000;"> (RelativeLayout.LayoutParams) lp;<br></span><span style="color: #008080;">121</span> <span style="color: #000000;">            }<br></span><span style="color: #008080;">122</span>             newLp = <span style="color: #0000ff;">new</span><span style="color: #000000;"> RelativeLayout.LayoutParams(lp.width, lp.height);<br></span><span style="color: #008080;">123</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;">124</span><br><span style="color: #008080;">125</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">126</span><br><span style="color: #008080;">127</span> <span style="color: #000000;">    @Override<br></span><span style="color: #008080;">128</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> setLayoutParams(ViewGroup.LayoutParams params) {<br></span><span style="color: #008080;">129</span>         <span style="color: #0000ff;">super</span><span style="color: #000000;">.setLayoutParams(params);<br></span><span style="color: #008080;">130</span> <span style="color: #000000;">        refreshStartPoint();<br></span><span style="color: #008080;">131</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">132</span><br><span style="color: #008080;">133</span>     <span style="color: #008000;">/<strong></strong></span><br><span style="color: #008080;">134</span> <span style="color: #008000;">     <em> 修改layoutParams后，需要重新设置startPoint<br></em></span><span style="color: #008080;">135</span>      <span style="color: #008000;">/</span><br><span style="color: #008080;">136</span>     <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> refreshStartPoint() {<br></span><span style="color: #008080;">137</span>         location = <span style="color: #0000ff;">new</span> <span style="color: #0000ff;">int</span>[2<span style="color: #000000;">];<br></span><span style="color: #008080;">138</span>         <span style="color: #0000ff;">this</span><span style="color: #000000;">.getLocationInWindow(location);<br></span><span style="color: #008080;">139</span> <span style="color: #008000;">//</span><span style="color: #008000;">        Logger.d(TAG, “location on screen: “ + Arrays.toString(location));<br></span><span style="color: #008080;">140</span> <span style="color: #008000;">//</span><span style="color: #008000;">            startPoint.set(location[0], location[1] + h);</span><br><span style="color: #008080;">141</span>         <span style="color: #0000ff;">try</span><span style="color: #000000;"> {<br></span><span style="color: #008080;">142</span>             location[1] = location[1] -<span style="color: #000000;"> ABAppUtil.getTopBarHeight((Activity) context);<br></span><span style="color: #008080;">143</span>         } <span style="color: #0000ff;">catch</span><span style="color: #000000;"> (Exception ex) {<br></span><span style="color: #008080;">144</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;">145</span><br><span style="color: #008080;">146</span>         startPoint.set(location[0], location[1] +<span style="color: #000000;"> getMeasuredHeight());<br></span><span style="color: #008080;">147</span> <span style="color: #008000;">//</span><span style="color: #008000;">        Logger.d(TAG, “startPoint: “ + startPoint);</span><br><span style="color: #008080;">148</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">149</span><br><span style="color: #008080;">150</span>     Path path = <span style="color: #0000ff;">new</span><span style="color: #000000;"> Path();<br></span><span style="color: #008080;">151</span><br><span style="color: #008080;">152</span> <span style="color: #000000;">    @Override<br></span><span style="color: #008080;">153</span>     <span style="color: #0000ff;">protected</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> onDraw(Canvas canvas) {<br></span><span style="color: #008080;">154</span>         <span style="color: #0000ff;">super</span><span style="color: #000000;">.onDraw(canvas);<br></span><span style="color: #008080;">155</span> <span style="color: #000000;">        canvas.drawColor(Color.TRANSPARENT);<br></span><span style="color: #008080;">156</span><br><span style="color: #008080;">157</span>         <span style="color: #0000ff;">int</span> startCircleX = 0, startCircleY = 0<span style="color: #000000;">;<br></span><span style="color: #008080;">158</span>         <span style="color: #0000ff;">if</span> (isTouched) { <span style="color: #008000;">//</span><span style="color: #008000;"> 触摸状态</span><br><span style="color: #008080;">159</span><br><span style="color: #008080;">160</span>             startCircleX = startPoint.x +<span style="color: #000000;"> curRadius;<br></span><span style="color: #008080;">161</span>             startCircleY = startPoint.y -<span style="color: #000000;"> curRadius;<br></span><span style="color: #008080;">162</span>             <span style="color: #008000;">//</span><span style="color: #008000;"> 绘制原来的圆形（触摸移动的时候半径会不断变化）</span><br><span style="color: #008080;">163</span> <span style="color: #000000;">            canvas.drawCircle(startCircleX, startCircleY, curRadius, paint);<br></span><span style="color: #008080;">164</span>             <span style="color: #008000;">//</span><span style="color: #008000;"> 绘制手指跟踪的圆形</span><br><span style="color: #008080;">165</span>             <span style="color: #0000ff;">int</span> endCircleX =<span style="color: #000000;"> endPoint.x;<br></span><span style="color: #008080;">166</span>             <span style="color: #0000ff;">int</span> endCircleY =<span style="color: #000000;"> endPoint.y;<br></span><span style="color: #008080;">167</span> <span style="color: #000000;">            canvas.drawCircle(endCircleX, endCircleY, originRadius, paint);<br></span><span style="color: #008080;">168</span><br><span style="color: #008080;">169</span>             <span style="color: #0000ff;">if</span> (!isArrivedMaxMoved) { <span style="color: #008000;">//</span><span style="color: #008000;"> 没有达到拉伸最大值</span><br><span style="color: #008080;">170</span> <span style="color: #000000;">                path.reset();<br></span><span style="color: #008080;">171</span>                 <span style="color: #0000ff;">double</span> sin = triangle.deltaY /<span style="color: #000000;"> triangle.hypotenuse;<br></span><span style="color: #008080;">172</span>                 <span style="color: #0000ff;">double</span> cos = triangle.deltaX /<span style="color: #000000;"> triangle.hypotenuse;<br></span><span style="color: #008080;">173</span><br><span style="color: #008080;">174</span>                 <span style="color: #008000;">//</span><span style="color: #008000;"> A点</span><br><span style="color: #008080;">175</span> <span style="color: #000000;">                path.moveTo(<br></span><span style="color: #008080;">176</span>                         (<span style="color: #0000ff;">float</span>) (startCircleX - curRadius <em><span style="color: #000000;"> sin),<br></span><span style="color: #008080;">177</span>                         (<span style="color: #0000ff;">float</span>) (startCircleY - curRadius </em><span style="color: #000000;"> cos)<br></span><span style="color: #008080;">178</span> <span style="color: #000000;">                );<br></span><span style="color: #008080;">179</span>                 <span style="color: #008000;">//</span><span style="color: #008000;"> B点</span><br><span style="color: #008080;">180</span> <span style="color: #000000;">                path.lineTo(<br></span><span style="color: #008080;">181</span>                         (<span style="color: #0000ff;">float</span>) (startCircleX + curRadius <em><span style="color: #000000;"> sin),<br></span><span style="color: #008080;">182</span>                         (<span style="color: #0000ff;">float</span>) (startCircleY + curRadius </em><span style="color: #000000;"> cos)<br></span><span style="color: #008080;">183</span> <span style="color: #000000;">                );<br></span><span style="color: #008080;">184</span>                 <span style="color: #008000;">//</span><span style="color: #008000;"> C点</span><br><span style="color: #008080;">185</span> <span style="color: #000000;">                path.quadTo(<br></span><span style="color: #008080;">186</span>                         (startCircleX + endCircleX) / 2, (startCircleY + endCircleY) / 2<span style="color: #000000;">,<br></span><span style="color: #008080;">187</span>                         (<span style="color: #0000ff;">float</span>) (endCircleX + originRadius <em> sin), (<span style="color: #0000ff;">float</span>) (endCircleY + originRadius </em><span style="color: #000000;"> cos)<br></span><span style="color: #008080;">188</span> <span style="color: #000000;">                );<br></span><span style="color: #008080;">189</span>                 <span style="color: #008000;">//</span><span style="color: #008000;"> D点</span><br><span style="color: #008080;">190</span> <span style="color: #000000;">                path.lineTo(<br></span><span style="color: #008080;">191</span>                         (<span style="color: #0000ff;">float</span>) (endCircleX - originRadius <em><span style="color: #000000;"> sin),<br></span><span style="color: #008080;">192</span>                         (<span style="color: #0000ff;">float</span>) (endCircleY - originRadius </em><span style="color: #000000;"> cos)<br></span><span style="color: #008080;">193</span> <span style="color: #000000;">                );<br></span><span style="color: #008080;">194</span>                 <span style="color: #008000;">//</span><span style="color: #008000;"> A点</span><br><span style="color: #008080;">195</span> <span style="color: #000000;">                path.quadTo(<br></span><span style="color: #008080;">196</span>                         (startCircleX + endCircleX) / 2, (startCircleY + endCircleY) / 2<span style="color: #000000;">,<br></span><span style="color: #008080;">197</span>                         (<span style="color: #0000ff;">float</span>) (startCircleX - curRadius <em> sin), (<span style="color: #0000ff;">float</span>) (startCircleY - curRadius </em><span style="color: #000000;"> cos)<br></span><span style="color: #008080;">198</span> <span style="color: #000000;">                );<br></span><span style="color: #008080;">199</span> <span style="color: #000000;">                canvas.drawPath(path, paint);<br></span><span style="color: #008080;">200</span> <span style="color: #000000;">            }<br></span><span style="color: #008080;">201</span><br><span style="color: #008080;">202</span><br><span style="color: #008080;">203</span>         } <span style="color: #0000ff;">else</span> { <span style="color: #008000;">//</span><span style="color: #008000;"> 非触摸状态</span><br><span style="color: #008080;">204</span>             <span style="color: #0000ff;">if</span> (curRadius &gt; 0<span style="color: #000000;">) {<br></span><span style="color: #008080;">205</span>                 startCircleX =<span style="color: #000000;"> curRadius;<br></span><span style="color: #008080;">206</span>                 startCircleY = originHeight -<span style="color: #000000;"> curRadius;<br></span><span style="color: #008080;">207</span> <span style="color: #000000;">                canvas.drawCircle(startCircleX, startCircleY, curRadius, paint);<br></span><span style="color: #008080;">208</span>                 <span style="color: #0000ff;">if</span> (curRadius == originRadius) { <span style="color: #008000;">//</span><span style="color: #008000;"> 只有在恢复正常的情况下才显示文字<br></span><span style="color: #008080;">209</span>                     <span style="color: #008000;">//</span><span style="color: #008000;"> 绘制文字</span><br><span style="color: #008080;">210</span>                     <span style="color: #0000ff;">float</span> textH = textFontMetrics.bottom -<span style="color: #000000;"> textFontMetrics.top;<br></span><span style="color: #008080;">211</span>                     canvas.drawText(text, startCircleX, startCircleY + textH / 2<span style="color: #000000;">, textPaint);<br></span><span style="color: #008080;">212</span> <span style="color: #008000;">//</span><span style="color: #008000;">                    canvas.drawText(text, startCircleX, startCircleY, textPaint);</span><br><span style="color: #008080;">213</span> <span style="color: #000000;">                }<br></span><span style="color: #008080;">214</span> <span style="color: #000000;">            }<br></span><span style="color: #008080;">215</span><br><span style="color: #008080;">216</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;">217</span><br><span style="color: #008080;">218</span> <span style="color: #008000;">//</span><span style="color: #008000;">        Logger.d(TAG, “circleX: “ + startCircleX + “, circleY: “ + startCircleY + “, curRadius: “ + curRadius);</span><br><span style="color: #008080;">219</span><br><span style="color: #008080;">220</span><br><span style="color: #008080;">221</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">222</span><br><span style="color: #008080;">223</span>     <span style="color: #0000ff;">float</span> downX =<span style="color: #000000;"> Float.MAX_VALUE;<br></span><span style="color: #008080;">224</span>     <span style="color: #0000ff;">float</span> downY =<span style="color: #000000;"> Float.MAX_VALUE;<br></span><span style="color: #008080;">225</span><br><span style="color: #008080;">226</span> <span style="color: #000000;">    @Override<br></span><span style="color: #008080;">227</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">boolean</span><span style="color: #000000;"> onTouchEvent(MotionEvent event) {<br></span><span style="color: #008080;">228</span>         <span style="color: #0000ff;">super</span><span style="color: #000000;">.onTouchEvent(event);<br></span><span style="color: #008080;">229</span> <span style="color: #008000;">//</span><span style="color: #008000;">        Logger.d(TAG, “onTouchEvent: “ + event);</span><br><span style="color: #008080;">230</span>         <span style="color: #0000ff;">switch</span><span style="color: #000000;"> (event.getAction()) {<br></span><span style="color: #008080;">231</span>             <span style="color: #0000ff;">case</span><span style="color: #000000;"> MotionEvent.ACTION_DOWN:<br></span><span style="color: #008080;">232</span>                 isTouched = <span style="color: #0000ff;">true</span><span style="color: #000000;">;<br></span><span style="color: #008080;">233</span>                 <span style="color: #0000ff;">this</span><span style="color: #000000;">.setLayoutParams(newLp);<br></span><span style="color: #008080;">234</span>                 endPoint.x = (<span style="color: #0000ff;">int</span><span style="color: #000000;">) downX;<br></span><span style="color: #008080;">235</span>                 endPoint.y = (<span style="color: #0000ff;">int</span><span style="color: #000000;">) downY;<br></span><span style="color: #008080;">236</span><br><span style="color: #008080;">237</span>                 changeViewHeight(<span style="color: #0000ff;">this</span><span style="color: #000000;">, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);<br></span><span style="color: #008080;">238</span> <span style="color: #000000;">                postInvalidate();<br></span><span style="color: #008080;">239</span><br><span style="color: #008080;">240</span>                 downX = event.getX() + location[0<span style="color: #000000;">];<br></span><span style="color: #008080;">241</span>                 downY = event.getY() + location[1<span style="color: #000000;">];<br></span><span style="color: #008080;">242</span> <span style="color: #008000;">//</span><span style="color: #008000;">                Logger.d(TAG, String.format(“downX: %f, downY: %f”, downX, downY));</span><br><span style="color: #008080;">243</span><br><span style="color: #008080;">244</span>                 <span style="color: #0000ff;">break</span><span style="color: #000000;">;<br></span><span style="color: #008080;">245</span>             <span style="color: #0000ff;">case</span><span style="color: #000000;"> MotionEvent.ACTION_MOVE:<br></span><span style="color: #008080;">246</span>                 <span style="color: #008000;">//</span><span style="color: #008000;"> 计算直角边和斜边（用于计算绘制两圆之间的填充去）</span><br><span style="color: #008080;">247</span>                 triangle.deltaX = event.getX() -<span style="color: #000000;"> downX;<br></span><span style="color: #008080;">248</span>                 triangle.deltaY = -1 <em> (event.getY() - downY); <span style="color: #008000;">//</span><span style="color: #008000;"> y轴方向相反，所有需要取反</span><br><span style="color: #008080;">249</span>                 <span style="color: #0000ff;">double</span> distance = Math.sqrt(triangle.deltaX </em> triangle.deltaX + triangle.deltaY <em><span style="color: #000000;"> triangle.deltaY);<br></span><span style="color: #008080;">250</span>                 triangle.hypotenuse =<span style="color: #000000;"> distance;<br></span><span style="color: #008080;">251</span> <span style="color: #008000;">//</span><span style="color: #008000;">                Logger.d(TAG, “triangle: “ + triangle);</span><br><span style="color: #008080;">252</span>                 refreshCurRadiusByMoveDistance((<span style="color: #0000ff;">int</span><span style="color: #000000;">) distance);<br></span><span style="color: #008080;">253</span><br><span style="color: #008080;">254</span>                 endPoint.x = (<span style="color: #0000ff;">int</span><span style="color: #000000;">) event.getX();<br></span><span style="color: #008080;">255</span>                 endPoint.y = (<span style="color: #0000ff;">int</span><span style="color: #000000;">) event.getY();<br></span><span style="color: #008080;">256</span><br><span style="color: #008080;">257</span> <span style="color: #000000;">                postInvalidate();<br></span><span style="color: #008080;">258</span><br><span style="color: #008080;">259</span>                 <span style="color: #0000ff;">break</span><span style="color: #000000;">;<br></span><span style="color: #008080;">260</span>             <span style="color: #0000ff;">case</span><span style="color: #000000;"> MotionEvent.ACTION_UP:<br></span><span style="color: #008080;">261</span>                 isTouched = <span style="color: #0000ff;">false</span><span style="color: #000000;">;<br></span><span style="color: #008080;">262</span>                 <span style="color: #0000ff;">this</span><span style="color: #000000;">.setLayoutParams(originLp);<br></span><span style="color: #008080;">263</span><br><span style="color: #008080;">264</span>                 <span style="color: #0000ff;">if</span> (isArrivedMaxMoved) { <span style="color: #008000;">//</span><span style="color: #008000;"> 触发事件</span><br><span style="color: #008080;">265</span>                     changeViewHeight(<span style="color: #0000ff;">this</span><span style="color: #000000;">, originWidth, originHeight);<br></span><span style="color: #008080;">266</span> <span style="color: #000000;">                    postInvalidate();<br></span><span style="color: #008080;">267</span>                     <span style="color: #0000ff;">if</span> (<span style="color: #0000ff;">null</span> !=<span style="color: #000000;"> onDraggableFlagViewListener) {<br></span><span style="color: #008080;">268</span>                         onDraggableFlagViewListener.onFlagDismiss(<span style="color: #0000ff;">this</span><span style="color: #000000;">);<br></span><span style="color: #008080;">269</span> <span style="color: #000000;">                    }<br></span><span style="color: #008080;">270</span>                     Logger.d(TAG, “触发事件…”<span style="color: #000000;">);<br></span><span style="color: #008080;">271</span> <span style="color: #000000;">                    resetAfterDismiss();<br></span><span style="color: #008080;">272</span>                 } <span style="color: #0000ff;">else</span> { <span style="color: #008000;">//</span><span style="color: #008000;"> 还原</span><br><span style="color: #008080;">273</span>                     changeViewHeight(<span style="color: #0000ff;">this</span><span style="color: #000000;">, originWidth, originHeight);<br></span><span style="color: #008080;">274</span>                     startRollBackAnimation(500<span style="color: #008000;">/</span></em><span style="color: #008000;">ms</span><span style="color: #008000;">*/</span><span style="color: #000000;">);<br></span><span style="color: #008080;">275</span> <span style="color: #000000;">                }<br></span><span style="color: #008080;">276</span><br><span style="color: #008080;">277</span>                 downX =<span style="color: #000000;"> Float.MAX_VALUE;<br></span><span style="color: #008080;">278</span>                 downY =<span style="color: #000000;"> Float.MAX_VALUE;<br></span><span style="color: #008080;">279</span>                 <span style="color: #0000ff;">break</span><span style="color: #000000;">;<br></span><span style="color: #008080;">280</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;">281</span><br><span style="color: #008080;">282</span>         <span style="color: #0000ff;">return</span> <span style="color: #0000ff;">true</span><span style="color: #000000;">;<br></span><span style="color: #008080;">283</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">284</span><br><span style="color: #008080;">285</span>     <span style="color: #008000;">/</span><br><span style="color: #008080;">286</span> <span style="color: #008000;">     <em> 触发事件之后重置<br></em></span><span style="color: #008080;">287</span>      <span style="color: #008000;">/</span><br><span style="color: #008080;">288</span>     <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> resetAfterDismiss() {<br></span><span style="color: #008080;">289</span>         <span style="color: #0000ff;">this</span><span style="color: #000000;">.setVisibility(GONE);<br></span><span style="color: #008080;">290</span>         text = “”<span style="color: #000000;">;<br></span><span style="color: #008080;">291</span>         isArrivedMaxMoved = <span style="color: #0000ff;">false</span><span style="color: #000000;">;<br></span><span style="color: #008080;">292</span>         curRadius =<span style="color: #000000;"> originRadius;<br></span><span style="color: #008080;">293</span> <span style="color: #000000;">        postInvalidate();<br></span><span style="color: #008080;">294</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">295</span><br><span style="color: #008080;">296</span>     <span style="color: #008000;">/<strong></strong></span><br><span style="color: #008080;">297</span> <span style="color: #008000;">     <em> 根据移动的距离来刷新原来的圆半径大小<br></em></span><span style="color: #008080;">298</span> <span style="color: #008000;">     <br></span><span style="color: #008080;">299</span> <span style="color: #008000;">     <em> </em></span><span style="color: #808080;">@param</span><span style="color: #008000;"> distance<br></span><span style="color: #008080;">300</span>      <span style="color: #008000;">/</span><br><span style="color: #008080;">301</span>     <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">void</span> refreshCurRadiusByMoveDistance(<span style="color: #0000ff;">int</span><span style="color: #000000;"> distance) {<br></span><span style="color: #008080;">302</span>         <span style="color: #0000ff;">if</span> (distance &gt;<span style="color: #000000;"> maxMoveLength) {<br></span><span style="color: #008080;">303</span>             isArrivedMaxMoved = <span style="color: #0000ff;">true</span><span style="color: #000000;">;<br></span><span style="color: #008080;">304</span>             curRadius = 0<span style="color: #000000;">;<br></span><span style="color: #008080;">305</span>         } <span style="color: #0000ff;">else</span><span style="color: #000000;"> {<br></span><span style="color: #008080;">306</span>             isArrivedMaxMoved = <span style="color: #0000ff;">false</span><span style="color: #000000;">;<br></span><span style="color: #008080;">307</span>             <span style="color: #0000ff;">float</span> calcRadius = (1 - 1f <em> distance / maxMoveLength) </em><span style="color: #000000;"> originRadius;<br></span><span style="color: #008080;">308</span>             <span style="color: #0000ff;">float</span> maxRadius = ABTextUtil.dip2px(context, 2<span style="color: #000000;">);<br></span><span style="color: #008080;">309</span>             curRadius = (<span style="color: #0000ff;">int</span><span style="color: #000000;">) Math.max(calcRadius, maxRadius);<br></span><span style="color: #008080;">310</span> <span style="color: #008000;">//</span><span style="color: #008000;">            Logger.d(TAG, “[refreshCurRadiusByMoveDistance]curRadius: “ + curRadius + “, calcRadius: “ + calcRadius + “, maxRadius: “ + maxRadius);</span><br><span style="color: #008080;">311</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;">312</span><br><span style="color: #008080;">313</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">314</span><br><span style="color: #008080;">315</span><br><span style="color: #008080;">316</span>     <span style="color: #008000;">/</span><br><span style="color: #008080;">317</span> <span style="color: #008000;">     <em> 改变某控件的高度<br></em></span><span style="color: #008080;">318</span> <span style="color: #008000;">     <br></span><span style="color: #008080;">319</span> <span style="color: #008000;">     <em> </em></span><span style="color: #808080;">@param</span><span style="color: #008000;"> view<br></span><span style="color: #008080;">320</span> <span style="color: #008000;">      </span><span style="color: #808080;">@param</span><span style="color: #008000;"> height<br></span><span style="color: #008080;">321</span>      <span style="color: #008000;"><em>/</em></span><br><span style="color: #008080;">322</span>     <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">void</span> changeViewHeight(View view, <span style="color: #0000ff;">int</span> width, <span style="color: #0000ff;">int</span><span style="color: #000000;"> height) {<br></span><span style="color: #008080;">323</span>         ViewGroup.LayoutParams lp =<span style="color: #000000;"> view.getLayoutParams();<br></span><span style="color: #008080;">324</span>         <span style="color: #0000ff;">if</span> (<span style="color: #0000ff;">null</span> ==<span style="color: #000000;"> lp) {<br></span><span style="color: #008080;">325</span>             lp =<span style="color: #000000;"> originLp;<br></span><span style="color: #008080;">326</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;">327</span>         lp.width =<span style="color: #000000;"> width;<br></span><span style="color: #008080;">328</span>         lp.height =<span style="color: #000000;"> height;<br></span><span style="color: #008080;">329</span> <span style="color: #000000;">        view.setLayoutParams(lp);<br></span><span style="color: #008080;">330</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">331</span><br><span style="color: #008080;">332</span>     <span style="color: #008000;">/**</span><br><span style="color: #008080;">333</span> <span style="color: #008000;">      回滚状态动画<br></span><span style="color: #008080;">334</span>      <span style="color: #008000;"><em>/</em></span><br><span style="color: #008080;">335</span>     <span style="color: #0000ff;">private</span><span style="color: #000000;"> ValueAnimator rollBackAnim;<br></span><span style="color: #008080;">336</span><br><span style="color: #008080;">337</span>     <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">void</span> startRollBackAnimation(<span style="color: #0000ff;">long</span><span style="color: #000000;"> duration) {<br></span><span style="color: #008080;">338</span>         <span style="color: #0000ff;">if</span> (<span style="color: #0000ff;">null</span> ==<span style="color: #000000;"> rollBackAnim) {<br></span><span style="color: #008080;">339</span>             rollBackAnim =<span style="color: #000000;"> ValueAnimator.ofFloat(curRadius, originRadius);<br></span><span style="color: #008080;">340</span>             rollBackAnim.addUpdateListener(<span style="color: #0000ff;">new</span><span style="color: #000000;"> ValueAnimator.AnimatorUpdateListener() {<br></span><span style="color: #008080;">341</span> <span style="color: #000000;">                @Override<br></span><span style="color: #008080;">342</span>                 <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> onAnimationUpdate(ValueAnimator animation) {<br></span><span style="color: #008080;">343</span>                     <span style="color: #0000ff;">float</span> value = (<span style="color: #0000ff;">float</span><span style="color: #000000;">) animation.getAnimatedValue();<br></span><span style="color: #008080;">344</span>                     curRadius = (<span style="color: #0000ff;">int</span><span style="color: #000000;">) value;<br></span><span style="color: #008080;">345</span> <span style="color: #000000;">                    postInvalidate();<br></span><span style="color: #008080;">346</span> <span style="color: #000000;">                }<br></span><span style="color: #008080;">347</span> <span style="color: #000000;">            });<br></span><span style="color: #008080;">348</span>             rollBackAnim.setInterpolator(<span style="color: #0000ff;">new</span> BounceInterpolator()); <span style="color: #008000;">//</span><span style="color: #008000;"> 反弹效果</span><br><span style="color: #008080;">349</span>             rollBackAnim.addListener(<span style="color: #0000ff;">new</span><span style="color: #000000;"> AnimatorListenerAdapter() {<br></span><span style="color: #008080;">350</span> <span style="color: #000000;">                @Override<br></span><span style="color: #008080;">351</span>                 <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> onAnimationEnd(Animator animation) {<br></span><span style="color: #008080;">352</span>                     <span style="color: #0000ff;">super</span><span style="color: #000000;">.onAnimationEnd(animation);<br></span><span style="color: #008080;">353</span>                     DraggableFlagView.<span style="color: #0000ff;">this</span><span style="color: #000000;">.clearAnimation();<br></span><span style="color: #008080;">354</span> <span style="color: #000000;">                }<br></span><span style="color: #008080;">355</span> <span style="color: #000000;">            });<br></span><span style="color: #008080;">356</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;">357</span> <span style="color: #000000;">        rollBackAnim.setDuration(duration);<br></span><span style="color: #008080;">358</span> <span style="color: #000000;">        rollBackAnim.start();<br></span><span style="color: #008080;">359</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">360</span><br><span style="color: #008080;">361</span><br><span style="color: #008080;">362</span>     <span style="color: #008000;">/**</span><br><span style="color: #008080;">363</span> <span style="color: #008000;">      计算四个坐标的三角边关系<br></span><span style="color: #008080;">364</span>      <span style="color: #008000;">*/</span><br><span style="color: #008080;">365</span>     <span style="color: #0000ff;">class</span><span style="color: #000000;"> Triangle {<br></span><span style="color: #008080;">366</span>         <span style="color: #0000ff;">double</span><span style="color: #000000;"> deltaX;<br></span><span style="color: #008080;">367</span>         <span style="color: #0000ff;">double</span><span style="color: #000000;"> deltaY;<br></span><span style="color: #008080;">368</span>         <span style="color: #0000ff;">double</span><span style="color: #000000;"> hypotenuse;<br></span><span style="color: #008080;">369</span><br><span style="color: #008080;">370</span> <span style="color: #000000;">        @Override<br></span><span style="color: #008080;">371</span>         <span style="color: #0000ff;">public</span><span style="color: #000000;"> String toString() {<br></span><span style="color: #008080;">372</span>             <span style="color: #0000ff;">return</span> “Triangle{“ +<br><span style="color: #008080;">373</span>                     “deltaX=” + deltaX +<br><span style="color: #008080;">374</span>                     “, deltaY=” + deltaY +<br><span style="color: #008080;">375</span>                     “, hypotenuse=” + hypotenuse +<br><span style="color: #008080;">376</span>                     ‘}’<span style="color: #000000;">;<br></span><span style="color: #008080;">377</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;">378</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">379</span><br><span style="color: #008080;">380</span>     <span style="color: #0000ff;">public</span><span style="color: #000000;"> String getText() {<br></span><span style="color: #008080;">381</span>         <span style="color: #0000ff;">return</span><span style="color: #000000;"> text;<br></span><span style="color: #008080;">382</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">383</span><br><span style="color: #008080;">384</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> setText(String text) {<br></span><span style="color: #008080;">385</span>         <span style="color: #0000ff;">this</span>.text =<span style="color: #000000;"> text;<br></span><span style="color: #008080;">386</span> <span style="color: #000000;">        postInvalidate();<br></span><span style="color: #008080;">387</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">388</span> }</pre><br></div>
+
+<p>&nbsp;</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/12/18/Android-下拉刷新控件RefreshableView的实现/" rel="next" title="[Android]下拉刷新控件RefreshableView的实现">
+                <i class="fa fa-chevron-left"></i> [Android]下拉刷新控件RefreshableView的实现
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/01/18/Android-使用RecyclerView替代ListView（一）/" rel="prev" title="[Android]使用RecyclerView替代ListView（一）">
+                [Android]使用RecyclerView替代ListView（一） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/my_avatar.jpg"
+                alt="Wang Jie" />
+            
+              <p class="site-author-name" itemprop="name">Wang Jie</p>
+              <p class="site-description motion-element" itemprop="description">Wang Jie's blog</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">144</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wangjiegulu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:tiantian.china.2@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/+%E5%A4%A9%E5%A4%A9wangjie" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/wangjiegulu" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://stackoverflow.com/users/2124006/wangjie" target="_blank" title="StackOverflow">
+                      
+                        <i class="fa fa-fw fa-stack-overflow"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/wangjiegulu" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.cnblogs.com/tiantianbyconan/" title="cnblog" target="_blank">cnblog</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wang Jie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://blog-wangjiegulu-com.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://blog.wangjiegulu.com/2014/12/24/Android-仿新版QQ的tab下面拖拽标记为已读的效果/';
+          this.page.identifier = '2014/12/24/Android-仿新版QQ的tab下面拖拽标记为已读的效果/';
+          this.page.title = '[Android]仿新版QQ的tab下面拖拽标记为已读的效果';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://blog-wangjiegulu-com.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "default";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "GooglePlus,Evernote,Twitter,Facebook,Douban,Weibo";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

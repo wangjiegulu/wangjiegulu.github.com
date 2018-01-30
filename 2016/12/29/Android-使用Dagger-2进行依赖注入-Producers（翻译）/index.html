@@ -1,0 +1,1342 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="WAND JIE" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/6234811.html   使用Dagger 2进行依赖注入 - Producers 原文：http://frogermcs.github.io/dependency-injection-with-dagger-2-producers/  本文是在Android中使">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Android]使用Dagger 2进行依赖注入 - Producers（翻译）">
+<meta property="og:url" content="http://blog.wangjiegulu.com/2016/12/29/Android-使用Dagger-2进行依赖注入-Producers（翻译）/index.html">
+<meta property="og:site_name" content="WAND JIE">
+<meta property="og:description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/6234811.html   使用Dagger 2进行依赖注入 - Producers 原文：http://frogermcs.github.io/dependency-injection-with-dagger-2-producers/  本文是在Android中使">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://frogermcs.github.io/images/24/example_dependencies.png">
+<meta property="og:image" content="http://frogermcs.github.io/images/24/before_update.png">
+<meta property="og:image" content="http://frogermcs.github.io/images/24/after_update.png">
+<meta property="og:updated_time" content="2018-01-29T12:36:41.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[Android]使用Dagger 2进行依赖注入 - Producers（翻译）">
+<meta name="twitter:description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/6234811.html   使用Dagger 2进行依赖注入 - Producers 原文：http://frogermcs.github.io/dependency-injection-with-dagger-2-producers/  本文是在Android中使">
+<meta name="twitter:image" content="http://frogermcs.github.io/images/24/example_dependencies.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.wangjiegulu.com/2016/12/29/Android-使用Dagger-2进行依赖注入-Producers（翻译）/"/>
+
+
+
+
+
+  <title>[Android]使用Dagger 2进行依赖注入 - Producers（翻译） | WAND JIE</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-111189680-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">WAND JIE</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">TO BE AN ARTIST-ENGINNER</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.wangjiegulu.com/2016/12/29/Android-使用Dagger-2进行依赖注入-Producers（翻译）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wang Jie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/my_avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WAND JIE">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">[Android]使用Dagger 2进行依赖注入 - Producers（翻译）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-29T21:08:00+08:00">
+                2016-12-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/12/29/Android-使用Dagger-2进行依赖注入-Producers（翻译）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2016/12/29/Android-使用Dagger-2进行依赖注入-Producers（翻译）/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <font color="#ff0000"><strong><br>以下内容为原创，欢迎转载，转载请注明<br>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/6234811.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/6234811.html</a>
+</strong></font>
+
+<h1 id="使用Dagger-2进行依赖注入-Producers"><a href="#使用Dagger-2进行依赖注入-Producers" class="headerlink" title="使用Dagger 2进行依赖注入 - Producers"></a>使用Dagger 2进行依赖注入 - Producers</h1><blockquote>
+<p>原文：<a href="http://frogermcs.github.io/dependency-injection-with-dagger-2-producers/" target="_blank" rel="noopener">http://frogermcs.github.io/dependency-injection-with-dagger-2-producers/</a></p>
+</blockquote>
+<p>本文是在Android中使用Dagger 2框架进行依赖注入的系列文章中的一部分。今天我们将探索下Dagger Producers - 使用Java实现异步依赖注入的Dagger2的一个扩展。</p>
+<h2 id="初始化性能问题"><a href="#初始化性能问题" class="headerlink" title="初始化性能问题"></a>初始化性能问题</h2><p>我们都知道Dagger 2是一个优化得很好的依赖注入框架。但是即使有这些全部的微优化，仍然在依赖注入的时候存在可能的性能问题 - “笨重”的第三方库和/或我们那些主线程阻塞的代码。</p>
+<p>依赖注入是在尽可能短的时间内在正确的地方传递所请求的依赖的过程 - 这些都是Dagger 2做得很好的。但是DI也会去创建各种依赖。如果我们需要花费几百毫秒创建它们，那么以纳秒级的时间去提供依赖还有什么意义呢？</p>
+<p>当我们的app创建了一系列繁重的单例并立即由Dagger2提供服务之后也许可能没有这么重要。但是在我们创建它们的时候仍然需要一个时间成本 - 大多数情况下决定了app启动的时间。</p>
+<p>这问题（已经给了提示怎么去调适它）已经在我之前的一篇博客中描述地很详细了：<a href="http://frogermcs.github.io/dagger-graph-creation-performance/" target="_blank" rel="noopener">Dagger 2 - graph creation performance</a>。</p>
+<p>在很短的时间内，让我们想象这么一个场景 - 你的app有一个初始化的界面（SplashScreen），需要在app启动后立即做一些需要的事情：</p>
+<ul>
+<li>初始化所有tracking libs（Goole Analytics, Crashlytics）然后发送第一份数据给它们。</li>
+<li>创建用于API和/或数据库通信的整个栈。</li>
+<li>我们试图的交互逻辑（MVP中的Presenters，MVVM中的ViewModels等等）。</li>
+</ul>
+<p>即使我们的代码是优化地非常好的，但是仍然有可能有些额外的库需要几十或者几百毫秒的时间来初始化。在我们启动界面之前将展示必须初始化和交付的所有请求的依赖（和它们的依赖）。这意味着启动时间将会是它们每一个初始化时间的总和。</p>
+<p>由 <a href="https://github.com/frogermcs/androiddevmetrics" target="_blank" rel="noopener">AndroidDevMetrics</a> 测量的示例堆栈可能如下所示：</p>
+<p><img src="http://frogermcs.github.io/images/24/example_dependencies.png" alt=""></p>
+<p>用户将会在600ms（＋额外的系统work）内看到SplashActivity - 所有初始化时间的总和。</p>
+<h2 id="Producers-异步依赖注入"><a href="#Producers-异步依赖注入" class="headerlink" title="Producers - 异步依赖注入"></a>Producers - 异步依赖注入</h2><p>Dagger 2 有一个名为 <strong>Producers</strong> 的扩展，或多或少能为我们解决这些问题。</p>
+<p>思路很简单 - 整个初始化流程可以在一个或多个后台线程中被执行，然后延后再交付给app的主线程。</p>
+<h4 id="ProducerModule"><a href="#ProducerModule" class="headerlink" title="@ProducerModule"></a>@ProducerModule</h4><p>类似于<code>@Module</code>，这个被用来标记用于传递依赖的类。多亏于它，Dagger将会知道去哪里找到被请求的依赖。</p>
+<h4 id="Produces"><a href="#Produces" class="headerlink" title="@Produces"></a>@Produces</h4><p>类似于<code>@Provide</code>，这个注解用来标记带有<code>@ProducerModule</code>注解的类中的返回依赖的方法。<code>@Produces</code>注解的方法可以返回<code>ListenableFuture&lt;T&gt;</code>或者自身的对象（也会在所给的后台线程中进行初始化）。</p>
+<h4 id="ProductionComponent"><a href="#ProductionComponent" class="headerlink" title="@ProductionComponent"></a>@ProductionComponent</h4><p>类似于<code>@Component</code>，它负责依赖的传递。它是我们代码与<code>@ProducerModule</code>之间的桥梁。唯一跟<code>@Component</code>的不同之处是我们不能决定依赖的scope。这意味着提供给 <em>component</em> 的每一个 <em>Produces 方法</em> 在 <em>每个component 实例</em> 中最多只会被调用一次，不管它作为一个 <em>依赖</em> 用于多少次绑定。</p>
+<p>也就是说，每一个服务于<code>@ProductionComponent</code>的对象都是一个单例（只要我们从这个特殊的component中获取）。</p>
+<hr>
+<p>Producers的文档已经足够详细了，所以这里没有必要去拷贝到这里。直接看：<a href="http://google.github.io/dagger/producers.html" target="_blank" rel="noopener">Dagger 2 Producers docs</a>。</p>
+<h3 id="Producers的代价"><a href="#Producers的代价" class="headerlink" title="Producers的代价"></a>Producers的代价</h3><p>在我们开始实践前，有一些值得提醒的事情。Producers相比Dagger 2本身有一点更复杂。它看起来手机端app不是他们它们主要使用的目标，而且知道这些事情很重要：</p>
+<ul>
+<li>Producers使用了Guava库，并且建立在ListenableFuture类之上。这意味着你不得不处理15k的额外方法在你的app中。这可能导致你不得不使用<em>Proguard</em>来处理并且需要一个更长的编译时间。</li>
+<li>就如你将看到的，创建<code>ListenableFutures</code>并不是没有成本的。所以如果你指望Producers会帮你从10ms优化到0ms那你可能就错了。但是如果规模更大（100ms –&gt; 10ms），你就能有所发现。</li>
+<li>现在无法使用<code>@Inject</code>注解，所以你必须要手动处理ProductionComponents。它会使得你的标准整洁的代码变得混乱。</li>
+</ul>
+<p><a href="http://stackoverflow.com/questions/35617378/injects-after-produces" target="_blank" rel="noopener">这里</a>你可以针对<code>@Inject</code>注解找到好的间接的解决方案的尝试。</p>
+<h2 id="Example-app"><a href="#Example-app" class="headerlink" title="Example app"></a>Example app</h2><p>如果你仍然希望使用Producers来处理，那就让我们更新 <a href="https://github.com/frogermcs/GithubClient/" target="_blank" rel="noopener">GithubClient</a> 这个app使得它在注入过程使用Producers。在实现之前和之后我们将会使用 <a href="https://github.com/frogermcs/androiddevmetrics" target="_blank" rel="noopener">AndroidDevMetrics</a> 来测量启动时间和对比结果。</p>
+<p><a href="https://github.com/frogermcs/GithubClient/tree/1c14683691e0e7af17b26055a0fd041d4a7df424" target="_blank" rel="noopener">这里</a>是一个在使用producers更新之前的 GithubClient app的版本。并且它测量的平均启动时间如下：</p>
+<p><img src="http://frogermcs.github.io/images/24/before_update.png" alt=""></p>
+<p>我们的计划是处理UserManager让它的所有的依赖来自Producers。</p>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>我们将给一个Dagger v2.1的尝试（但是当前2.0版本的Producers也是可用的）。</p>
+<p>让我们在项目中加入一个Dagger新的版本：</p>
+<p><strong><em>app/build.gradle：</em></strong></p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">apply <span class="string">plugin:</span> <span class="string">'com.android.application'</span></span><br><span class="line">apply <span class="string">plugin:</span> <span class="string">'com.neenbedankt.android-apt'</span></span><br><span class="line">apply <span class="string">plugin:</span> <span class="string">'com.frogermcs.androiddevmetrics'</span></span><br><span class="line"></span><br><span class="line">repositories &#123;</span><br><span class="line">    maven &#123;</span><br><span class="line">        url <span class="string">"https://oss.sonatype.org/content/repositories/snapshots"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//...</span></span><br><span class="line"></span><br><span class="line">dependencies &#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//Dagger 2</span></span><br><span class="line">    compile <span class="string">'com.google.dagger:dagger:2.1-SNAPSHOT'</span></span><br><span class="line">    compile <span class="string">'com.google.dagger:dagger-producers:2.1-SNAPSHOT'</span></span><br><span class="line">    apt <span class="string">'com.google.dagger:dagger-compiler:2.1-SNAPSHOT'</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如你所见，Producers 作为一个新的依赖，在dagger 2库的下面。还有值得一说的是Dagger v2.1终于不需要<code>org.glassfish:javax.annotation:10.0-b28</code>的依赖了。</p>
+<h3 id="Producer-Module"><a href="#Producer-Module" class="headerlink" title="Producer Module"></a>Producer Module</h3><p>现在，让我们移动代码从<code>GithubApiModule</code>到新创建的<code>GithubApiProducerModule</code>中。原来的代码可以在这里找到：<a href="https://github.com/frogermcs/GithubClient/blob/1c14683691e0e7af17b26055a0fd041d4a7df424/app/src/main/java/frogermcs/io/githubclient/data/api/GithubApiModule.java" target="_blank" rel="noopener">GithubApiModule</a></p>
+<p><strong><em>GithubApiProducerModule.java</em></strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ProducerModule</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GithubApiProducerModule</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Produces</span></span><br><span class="line">    <span class="function"><span class="keyword">static</span> OkHttpClient <span class="title">produceOkHttpClient</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> OkHttpClient.Builder builder = <span class="keyword">new</span> OkHttpClient.Builder();</span><br><span class="line">        <span class="keyword">if</span> (BuildConfig.DEBUG) &#123;</span><br><span class="line">            HttpLoggingInterceptor logging = <span class="keyword">new</span> HttpLoggingInterceptor();</span><br><span class="line">            logging.setLevel(HttpLoggingInterceptor.Level.BODY);</span><br><span class="line">            builder.addInterceptor(logging);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        builder.connectTimeout(<span class="number">60</span> * <span class="number">1000</span>, TimeUnit.MILLISECONDS)</span><br><span class="line">                .readTimeout(<span class="number">60</span> * <span class="number">1000</span>, TimeUnit.MILLISECONDS);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> builder.build();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Produces</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Retrofit <span class="title">produceRestAdapter</span><span class="params">(Application application, OkHttpClient okHttpClient)</span> </span>&#123;</span><br><span class="line">        Retrofit.Builder builder = <span class="keyword">new</span> Retrofit.Builder();</span><br><span class="line">        builder.client(okHttpClient)</span><br><span class="line">                .baseUrl(application.getString(R.string.endpoint))</span><br><span class="line">                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())</span><br><span class="line">                .addConverterFactory(GsonConverterFactory.create());</span><br><span class="line">        <span class="keyword">return</span> builder.build();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Produces</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> GithubApiService <span class="title">produceGithubApiService</span><span class="params">(Retrofit restAdapter)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> restAdapter.create(GithubApiService.class);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Produces</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> UserManager <span class="title">produceUserManager</span><span class="params">(GithubApiService githubApiService)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> UserManager(githubApiService);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Produces</span></span><br><span class="line">    <span class="keyword">public</span> UserModule.<span class="function">Factory <span class="title">produceUserModuleFactory</span><span class="params">(GithubApiService githubApiService)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> UserModule.Factory(githubApiService);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>看起来很像？没错，我们只是修改了：</p>
+<ul>
+<li><code>@Module</code> 改为 <code>@ProducerModule</code></li>
+<li><code>@Provides @Singleton</code> 改为 <code>@Produces</code>。<em>你还记得吗？在Producers中我们默认就有一个单例</em></li>
+</ul>
+<p><code>UserModule.Factory</code> 依赖只是因为app的逻辑原因而添加。</p>
+<h2 id="Production-Component"><a href="#Production-Component" class="headerlink" title="Production Component"></a>Production Component</h2><p>现在让我们创建<code>@ProductionComponent</code>，它将会为<code>UserManager</code>实例提供服务：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ProductionComponent</span>(</span><br><span class="line">        dependencies = AppComponent.class,</span><br><span class="line">        modules = GithubApiProducerModule.class</span><br><span class="line">)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">AppProductionComponent</span> </span>&#123;</span><br><span class="line">    <span class="function">ListenableFuture&lt;UserManager&gt; <span class="title">userManager</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    ListenableFuture&lt;UserModule.Factory&gt; userModuleFactory();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>又一次，非常类似原来的<a href="https://github.com/frogermcs/GithubClient/blob/master/app/src/main/java/frogermcs/io/githubclient/AppComponent.java" target="_blank" rel="noopener">Dagger’s @Component</a>。</p>
+<p>ProductionComponent的构建也是与标准的Component非常相似：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">AppProductionComponent appProductionComponent = DaggerAppProductionComponent.builder()</span><br><span class="line">    .executor(Executors.newSingleThreadExecutor())</span><br><span class="line">    .appComponent(appComponent)</span><br><span class="line">    .build();</span><br></pre></td></tr></table></figure>
+<p>额外附加的参数是<code>Executor</code>实例，它告诉ProductionComponent依赖应该在哪里（哪个线程）被创建。在我们的例子中我们使用了一个single-thread executor，但是当然增加并行级别并使用多线程执行不是一个问题。</p>
+<h2 id="获取依赖"><a href="#获取依赖" class="headerlink" title="获取依赖"></a>获取依赖</h2><p>就像我说的，当前我们不能去使用<code>@Inject</code>注解。相反，我们必须直接询问ProductionComponent（你可以在<a href="https://github.com/frogermcs/GithubClient/blob/master/app/src/main/java/frogermcs/io/githubclient/ui/activity/presenter/SplashActivityPresenter.java" target="_blank" rel="noopener">SplashActivityPresenter</a>找到这些代码）：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">appProductionComponent = splashActivity.getAppProductionComponent();</span><br><span class="line">Futures.addCallback(appProductionComponent.userManager(), <span class="keyword">new</span> FutureCallback&lt;UserManager&gt;() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSuccess</span><span class="params">(UserManager result)</span> </span>&#123;</span><br><span class="line">        SplashActivityPresenter.<span class="keyword">this</span>.userManager = result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onFailure</span><span class="params">(Throwable t)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>这里重要的是，对象初始化是在你第一次调用<code>appProductionComponent.userManager()</code>的时候开始的。在这之后<code>UserManager</code>对象将会被缓存。这表示每一个绑定都拥有跟component实例相同的生命周期。</p>
+<p>以上几乎就是所有了。当然你应该知道在<code>Future.onSuccess()</code>方法被调用之前userManager实例会时<code>null</code>。</p>
+<h2 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h2><p>在最后让我们来看下现在注入的性能是怎么样的：</p>
+<p><img src="http://frogermcs.github.io/images/24/after_update.png" alt=""></p>
+<p>是的，没错 - 这时平均值大约是15ms。它小于同步注入（平均. 25ms）但是并不如你期望的那样少。这时因为Producers并不像Dagger本身那样轻量。</p>
+<p>所以现在取决于你了 - 是否值得使用Guava, Proguard和代码复杂度来做<strong>这种</strong>优化。</p>
+<p>请记住，如果你觉得Producers并不是最适合你的app的，你可以在你的app中尝试使用RxJava或者其他异步代码来包装你的注入。</p>
+<p>感谢阅读！</p>
+<h3 id="代码："><a href="#代码：" class="headerlink" title="代码："></a>代码：</h3><p>以上描述的完整代码可见Github <a href="https://github.com/frogermcs/GithubClient" target="_blank" rel="noopener">repository</a>。</p>
+<h2 id="作者"><a href="#作者" class="headerlink" title="作者"></a>作者</h2><p><a href="http://about.me/froger_mcs" target="_blank" rel="noopener">Miroslaw Stanek</a></p>
+<p>Head of Mobile Development @ <a href="https://azimo.com/" target="_blank" rel="noopener">Azimo</a></p>
+<blockquote>
+<p><strong>[Android]使用Dagger 2依赖注入 - DI介绍（翻译）:</strong></p>
+</blockquote>
+<p><a href="http://www.cnblogs.com/tiantianbyconan/p/5092083.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/5092083.html</a></p>
+<blockquote>
+<p><strong>[Android]使用Dagger 2依赖注入 - API（翻译）:</strong></p>
+</blockquote>
+<p><a href="http://www.cnblogs.com/tiantianbyconan/p/5092525.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/5092525.html</a></p>
+<blockquote>
+<p><strong>[Android]使用Dagger 2依赖注入 - 自定义Scope（翻译）:</strong></p>
+</blockquote>
+<p><a href="http://www.cnblogs.com/tiantianbyconan/p/5095426.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/5095426.html</a></p>
+<blockquote>
+<p><strong>[Android]使用Dagger 2依赖注入 - 图表创建的性能（翻译）:</strong></p>
+</blockquote>
+<p><a href="http://www.cnblogs.com/tiantianbyconan/p/5098943.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/5098943.html</a></p>
+<blockquote>
+<p><strong>[Android]Dagger2Metrics - 测量DI图表初始化的性能（翻译）:</strong></p>
+</blockquote>
+<p><a href="http://www.cnblogs.com/tiantianbyconan/p/5193437.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/5193437.html</a></p>
+<blockquote>
+<p><strong>[Android]使用Dagger 2进行依赖注入 - Producers（翻译）:</strong></p>
+</blockquote>
+<p><a href="http://www.cnblogs.com/tiantianbyconan/p/6234811.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/6234811.html</a></p>
+<blockquote>
+<p><strong>[Android]在Dagger 2中使用RxJava来进行异步注入（翻译）:</strong></p>
+</blockquote>
+<p><a href="http://www.cnblogs.com/tiantianbyconan/p/6236646.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/6236646.html</a></p>
+<blockquote>
+<p><strong>[Android]使用Dagger 2来构建UserScope（翻译）:</strong></p>
+</blockquote>
+<p><a href="http://www.cnblogs.com/tiantianbyconan/p/6237731.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/6237731.html</a></p>
+<blockquote>
+<p><strong>[Android]在Dagger 2中Activities和Subcomponents的多绑定（翻译）:</strong></p>
+</blockquote>
+<p><a href="http://www.cnblogs.com/tiantianbyconan/p/6266442.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/6266442.html</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/11/01/Android-Android端ORM框架——RapidORM-v2-1/" rel="next" title="[Android]Android端ORM框架——RapidORM(v2.1)">
+                <i class="fa fa-chevron-left"></i> [Android]Android端ORM框架——RapidORM(v2.1)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/12/30/Android-在Dagger-2中使用RxJava来进行异步注入（翻译）/" rel="prev" title="[Android]在Dagger 2中使用RxJava来进行异步注入（翻译）">
+                [Android]在Dagger 2中使用RxJava来进行异步注入（翻译） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/my_avatar.jpg"
+                alt="Wang Jie" />
+            
+              <p class="site-author-name" itemprop="name">Wang Jie</p>
+              <p class="site-description motion-element" itemprop="description">Wang Jie's blog</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">144</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wangjiegulu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:tiantian.china.2@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/+%E5%A4%A9%E5%A4%A9wangjie" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/wangjiegulu" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://stackoverflow.com/users/2124006/wangjie" target="_blank" title="StackOverflow">
+                      
+                        <i class="fa fa-fw fa-stack-overflow"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/wangjiegulu" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.cnblogs.com/tiantianbyconan/" title="cnblog" target="_blank">cnblog</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#使用Dagger-2进行依赖注入-Producers"><span class="nav-text">使用Dagger 2进行依赖注入 - Producers</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#初始化性能问题"><span class="nav-text">初始化性能问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Producers-异步依赖注入"><span class="nav-text">Producers - 异步依赖注入</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ProducerModule"><span class="nav-text">@ProducerModule</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Produces"><span class="nav-text">@Produces</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ProductionComponent"><span class="nav-text">@ProductionComponent</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Producers的代价"><span class="nav-text">Producers的代价</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Example-app"><span class="nav-text">Example app</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置"><span class="nav-text">配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Producer-Module"><span class="nav-text">Producer Module</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Production-Component"><span class="nav-text">Production Component</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取依赖"><span class="nav-text">获取依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#性能"><span class="nav-text">性能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#代码："><span class="nav-text">代码：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#作者"><span class="nav-text">作者</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wang Jie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://blog-wangjiegulu-com.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://blog.wangjiegulu.com/2016/12/29/Android-使用Dagger-2进行依赖注入-Producers（翻译）/';
+          this.page.identifier = '2016/12/29/Android-使用Dagger-2进行依赖注入-Producers（翻译）/';
+          this.page.title = '[Android]使用Dagger 2进行依赖注入 - Producers（翻译）';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://blog-wangjiegulu-com.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "default";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "GooglePlus,Evernote,Twitter,Facebook,Douban,Weibo";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

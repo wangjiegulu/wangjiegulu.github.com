@@ -1,0 +1,1755 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="WAND JIE" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="来自：https://www.zybuluo.com/yangfch3/note/140188&amp;nbsp;&amp;lt;span style=&amp;quot;font-size: 2em; font-family: verdana, Arial, Helvetica, sans-serif; line-height: 1.5;&amp;quot;&amp;gt;网络基础&amp;lt;/span&amp;gt;  *&amp;nbsp;  一次完">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网络基础">
+<meta property="og:url" content="http://blog.wangjiegulu.com/2016/08/29/网络基础/index.html">
+<meta property="og:site_name" content="WAND JIE">
+<meta property="og:description" content="来自：https://www.zybuluo.com/yangfch3/note/140188&amp;nbsp;&amp;lt;span style=&amp;quot;font-size: 2em; font-family: verdana, Arial, Helvetica, sans-serif; line-height: 1.5;&amp;quot;&amp;gt;网络基础&amp;lt;/span&amp;gt;  *&amp;nbsp;  一次完">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://7xjv7y.com1.z0.glb.clouddn.com/OSI_seven.jpg">
+<meta property="og:image" content="http://jellythink.u.qiniudn.com/jellythinkTCP1.jpg">
+<meta property="og:image" content="http://jellythink.u.qiniudn.com/jellythinkTCP2.gif">
+<meta property="og:image" content="http://image.beekka.com/blog/201205/bg2012052902.png">
+<meta property="og:image" content="http://static.zybuluo.com/yangfch3/wv1xh5qhgg969odokvs9t94h/2016-03-27_140636.jpg">
+<meta property="og:image" content="http://image.beekka.com/blog/201205/bg2012052904.png">
+<meta property="og:image" content="http://image.beekka.com/blog/201205/bg2012052910.png">
+<meta property="og:image" content="http://image.beekka.com/blog/201205/bg2012052913.png">
+<meta property="og:image" content="http://image.beekka.com/blog/201205/bg2012052913.png">
+<meta property="og:image" content="http://image.beekka.com/blog/201206/bg2012061101.jpg">
+<meta property="og:image" content="http://image.beekka.com/blog/201206/bg2012061102.png">
+<meta property="og:image" content="http://image.beekka.com/blog/201206/bg2012061105.png">
+<meta property="og:image" content="http://image.beekka.com/blog/201206/bg2012061106.png">
+<meta property="og:image" content="http://image.beekka.com/blog/201206/bg2012061107.png">
+<meta property="og:image" content="http://image.beekka.com/blog/201206/bg2012061104.jpg">
+<meta property="og:image" content="http://rapheal-wordpress.stor.sinaapp.com/uploads/2014/10/%E6%A6%82%E8%A7%88.png">
+<meta property="og:image" content="http://rapheal-wordpress.stor.sinaapp.com/uploads/2014/10/DNS%E8%B4%9F%E8%BD%BD.png">
+<meta property="og:image" content="http://rapheal-wordpress.stor.sinaapp.com/uploads/2014/10/%E4%BB%A3%E7%90%86%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86.png">
+<meta property="og:image" content="http://rapheal-wordpress.stor.sinaapp.com/uploads/2014/10/%E6%AD%A3%E5%90%91%E4%BB%A3%E7%90%86.png">
+<meta property="og:image" content="http://rapheal-wordpress.stor.sinaapp.com/uploads/2014/10/Web-server.png">
+<meta property="og:image" content="http://rapheal-wordpress.stor.sinaapp.com/uploads/2014/10/CDN.png">
+<meta property="og:image" content="http://rapheal-wordpress.stor.sinaapp.com/uploads/2014/10/CDN%E6%8E%A8%E9%80%81%E5%86%85%E5%AE%B9.png">
+<meta property="og:image" content="http://rapheal-wordpress.stor.sinaapp.com/uploads/2015/01/%E4%B8%8A%E7%BA%BF%E2%80%94%E2%80%94proxy%E8%B7%AF%E7%94%B1.png">
+<meta property="og:image" content="http://rapheal-wordpress.stor.sinaapp.com/uploads/2015/01/%E4%B8%8A%E7%BA%BF%E2%80%94%E2%80%94%E5%A4%9A%E5%8F%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%BA%BF.png">
+<meta property="og:image" content="http://rapheal-wordpress.stor.sinaapp.com/uploads/2015/01/%E4%B8%8A%E7%BA%BF%E2%80%94%E2%80%94%E4%B8%8A%E7%BA%BF%E5%BC%82%E5%B8%B8.png">
+<meta property="og:updated_time" content="2018-01-29T12:36:41.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="网络基础">
+<meta name="twitter:description" content="来自：https://www.zybuluo.com/yangfch3/note/140188&amp;nbsp;&amp;lt;span style=&amp;quot;font-size: 2em; font-family: verdana, Arial, Helvetica, sans-serif; line-height: 1.5;&amp;quot;&amp;gt;网络基础&amp;lt;/span&amp;gt;  *&amp;nbsp;  一次完">
+<meta name="twitter:image" content="http://7xjv7y.com1.z0.glb.clouddn.com/OSI_seven.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.wangjiegulu.com/2016/08/29/网络基础/"/>
+
+
+
+
+
+  <title>网络基础 | WAND JIE</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-111189680-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">WAND JIE</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">TO BE AN ARTIST-ENGINNER</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.wangjiegulu.com/2016/08/29/网络基础/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wang Jie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/my_avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WAND JIE">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">网络基础</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-08-29T14:10:00+08:00">
+                2016-08-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/08/29/网络基础/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2016/08/29/网络基础/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <div id="editor-reader-full" class="editor-reader-full-shown"><br><div class="reader-full-topInfo-shown"><span style="font-size: 14px; font-family: verdana, Arial, Helvetica, sans-serif; line-height: 1.5;">来自：<a href="https://www.zybuluo.com/yangfch3/note/140188" target="_blank" rel="noopener">https://www.zybuluo.com/yangfch3/note/140188</a></span></div><br><div class="reader-full-topInfo-shown">&nbsp;</div><br><div id="reader-full-topInfo" class="reader-full-topInfo-shown"><code>&lt;span style=&quot;font-size: 2em; font-family: verdana, Arial, Helvetica, sans-serif; line-height: 1.5;&quot;&gt;网络基础&lt;/span&gt;</code></div><br><div id="wmd-preview" class="wmd-preview wmd-preview-full-reader" data-medium-element="true"><br><br><em> </em> *<br><br><div class="md-section-divider">&nbsp;</div>
+
+<h2 id="一次完整的HTTP请求"><a href="#一次完整的HTTP请求" class="headerlink" title="一次完整的HTTP请求"></a>一次完整的HTTP请求</h2><ol>
+<li>域名DNS解析，获取对方IP，运算判断是否同一子网&nbsp;<br>hosts –&gt; DNS缓存 –&gt; DNS递归</li>
+<li>发起TCP的3次握手，建立TCP连接&nbsp;<br>构建连接请求报文，封装成数据包，路由、ARP到达（不在同一子网时路由+ARP，在同一子网时ARP）</li>
+<li>发起http请求&nbsp;<br>构建 HTTP/TCP/IP数据包，路由、ARP到达（同上）</li>
+<li>服务器响应http请求，返回数据包&nbsp;<br>构建 HTTP/TCP/IP数据包，路由、ARP到达（同上）</li>
+<li>浏览器得到html代码</li>
+<li>浏览器解析html代码并再次发起HTTP请求，请求html代码中的资源（如js、css、图片等</li>
+<li>浏览器对页面进行渲染呈现给用户</li>
+<li>发起TCP四次分手</li>
+<li>断开连接</li>
+</ol>
+<hr>
+<div class="md-section-divider">&nbsp;</div>
+
+<h2 id="从握手到分手"><a href="#从握手到分手" class="headerlink" title="从握手到分手"></a>从握手到分手</h2><hr>
+<div class="md-section-divider">&nbsp;</div>
+
+<h3 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手"></a>三次握手</h3><p>三次握手：建立连接前的&nbsp;<code>B/S</code>&nbsp;或&nbsp;<code>C/S</code>&nbsp;交流</p>
+<blockquote>
+<p>第一次握手：建立连接。客户端发送连接请求报文段，将<code>SYN</code>位置为<code>1</code>，<code>Sequence Number</code>为<code>&#39;xxx&#39;</code>；然后，客户端进入<code>SYN_SEND</code>状态，等待服务器的确认；</p>
+<p>第二次握手：服务器收到<code>SYN</code>报文段。服务器收到客户端的<code>SYN</code>报文段，需要对这个<code>SYN</code>报文段进行确认，设置<code>Acknowledgment Number</code>为<code>xxx+1</code>(<code>Sequence Number</code>+1)；同时，自己自己还要发送<code>SYN</code>请求信息，将<code>SYN</code>位置为<code>1</code>，<code>Sequence Number</code>为<code>&#39;yyy&#39;</code>；服务器端将上述所有信息放到一个报文段（即SYN+ACK报文段）中，一并发送给客户端，此时服务器进入<code>SYN_RECV</code>状态；</p>
+<p>第三次握手：客户端收到服务器的<code>SYN+ACK</code>报文段。然后将<code>Acknowledgment Number</code>设置为<code>yyy+1</code>(服务器<code>Sequence Number</code>+1)，向服务器发送<code>ACK</code>报文段，这个报文段发送完毕以后，客户端和服务器端都进入<code>ESTABLISHED</code>状态，完成<code>TCP</code>三次握手。连接建立成功。</p>
+<p>完成三次握手，主机A与主机B开始传送数据。</p>
+</blockquote>
+<p>实例:</p>
+<blockquote>
+<p>IP 192.168.1.116.3337 &gt; 192.168.1.123.7788: S 3626544836:3626544836&nbsp;<br>IP 192.168.1.123.7788 &gt; 192.168.1.116.3337: S 1739326486:1739326486 ack 3626544837&nbsp;<br>IP 192.168.1.116.3337 &gt; 192.168.1.123.7788: ack 1739326487,ack 1</p>
+<p>第一次握手：192.168.1.116发送位码<code>SYN</code>＝1,随机产生<code>Sequence number</code>=3626544836的数据包到192.168.1.123,192.168.1.123由<code>SYN</code>=1知道192.168.1.116要求建立联机;</p>
+<p>第二次握手：192.168.1.123收到请求后要确认联机信息，向192.168.1.116发送<code>Acknowledgment Number</code>=3626544837,<code>SYN</code>=1,<code>ACK</code>=1,随机产生<code>Sequence Number</code>=1739326486的包;</p>
+<p>第三次握手：192.168.1.116收到后检查<code>Acknowledgment Number</code>是否正确，即第一次发送的<code>Sequence Number+1</code>,以及位码<code>ACK</code>是否为1，若正确，192.168.1.116会再发送<code>Acknowledgment Number</code>=1739326487,<code>ACK</code>=1，192.168.1.123收到后确认<code>Sequence Number=Sequence Number+1</code>,<code>ACK</code>=1则连接建立成功。</p>
+</blockquote>
+<hr>
+<div class="md-section-divider">&nbsp;</div>
+
+<h3 id="四次分手"><a href="#四次分手" class="headerlink" title="四次分手"></a>四次分手</h3><p>当客户端和服务器通过三次握手建立了TCP连接以后，当数据传送完毕，肯定是要断开TCP连接的啊。那对于TCP的断开连接，这里就有了神秘的&ldquo;四次分手&rdquo;。</p>
+<blockquote>
+<p>第一次分手：主机1（可以是客户端，也可以是服务器端），设置<code>Sequence Number</code>和<code>Acknowledgment Number</code>，向主机2发送一个<code>FIN</code>报文段；此时，主机1进入<code>FIN_WAIT_1</code>状态；这表示主机1没有数据要发送给主机2了；</p>
+<p>第二次分手：主机2收到了主机1发送的<code>FIN</code>报文段，向主机1回一个<code>ACK</code>报文段，<code>Acknowledgment Number</code>为<code>Sequence Number</code>加1；主机1进入<code>FIN_WAIT_2</code>状态；主机2告诉主机1，我也没有数据要发送了，可以进行关闭连接了；</p>
+<p>第三次分手：主机2向主机1发送<code>FIN</code>报文段，请求关闭连接，同时主机2进入<code>CLOSE_WAIT</code>状态；</p>
+<p>第四次分手：主机1收到主机2发送的FIN报文段，向主机2发送<code>ACK</code>报文段，然后主机1进入<code>TIME_WAIT</code>状态；主机2收到主机1的<code>ACK</code>报文段以后，就关闭连接；此时，主机1等待<code>2MSL</code>后依然没有收到回复，则证明<code>Server</code>端已正常关闭，那好，主机1也可以关闭连接了。</p>
+</blockquote>
+<hr>
+<div class="md-section-divider">&nbsp;</div>
+
+<h3 id="为什么要三次握手"><a href="#为什么要三次握手" class="headerlink" title="为什么要三次握手"></a>为什么要三次握手</h3><p>引自：谢希仁的《计算机网络》</p>
+<blockquote>
+<p>为了防止已失效的连接请求报文段突然又传送到了服务端，因而产生错误。</p>
+</blockquote>
+<p>例子：</p>
+<blockquote>
+<p>&ldquo;已失效的连接请求报文段&rdquo;的产生在这样一种情况下：client发出的第一个连接请求报文段并没有丢失，而是在某个网络结点长时间的滞留了，以致延误到连接释放以后的某个时间才到达server。本来这是一个早已失效的报文段。但server收到此失效的连接请求报文段后，就误认为是client再次发出的一个新的连接请求。于是就向client发出确认报文段，同意建立连接。假设不采用&ldquo;三次握手&rdquo;，那么只要server发出确认，新的连接就建立了。由于现在client并没有发出建立连接的请求，因此不会理睬server的确认，也不会向server发送数据。但server却以为新的运输连接已经建立，并一直等待client发来数据。这样，server的很多资源就白白浪费掉了。采用&ldquo;三次握手&rdquo;的办法可以防止上述现象发生。例如刚才那种情况，client不会向server的确认发出确认。server由于收不到确认，就知道client并没有要求建立连接。&rdquo;</p>
+</blockquote>
+<p>所以，三次握手的目的是：防止服务器端一直等待而浪费资源</p>
+<hr>
+<div class="md-section-divider">&nbsp;</div>
+
+<h3 id="为什么要四次分手"><a href="#为什么要四次分手" class="headerlink" title="为什么要四次分手"></a>为什么要四次分手</h3><p>那四次分手又是为何呢？<code>TCP</code>协议是一种面向连接的、可靠的、基于字节流的运输层通信协议。<code>TCP</code>是全双工模式，这就意味着，当主机1发出<code>FIN</code>报文段时，只是表示主机1已经没有数据要发送了，主机1告诉主机2，它的数据已经全部发送完毕了；但是，这个时候主机1还是可以接受来自主机2的数据；当主机2返回<code>ACK</code>报文段时，表示它已经知道主机1没有数据发送了，但是主机2还是可以发送数据到主机1的；当主机2也发送了<code>FIN</code>报文段时，这个时候就表示主机2也没有数据要发送了，就会告诉主机1，我也没有数据要发送了，之后彼此就会愉快的中断这次<code>TCP</code>连接。如果要正确的理解四次分手的原理，就需要了解四次分手过程中的状态变化。</p>
+<blockquote>
+<ul>
+<li><p><code>FIN_WAIT_1</code>: 这个状态要好好解释一下，其实<code>FIN_WAIT_1</code>和<code>FIN_WAIT_2</code>状态的真正含义都是表示等待对方的<code>FIN</code>报文。而这两种状态的区别是：<code>FIN_WAIT_1</code>状态实际上是当<code>SOCKET</code>在<code>ESTABLISHED</code>状态时，它想主动关闭连接，向对方发送了<code>FIN</code>报文，此时该<code>SOCKET</code>即进入到<code>FIN_WAIT_1</code>状态。而当对方回应<code>ACK</code>报文后，则进入到<code>FIN_WAIT_2</code>状态，当然在实际的正常情况下，无论对方何种情况下，都应该马上回应<code>ACK</code>报文，所以<code>FIN_WAIT_1</code>状态一般是比较难见到的，而<code>FIN_WAIT_2</code>状态还有时常常可以用<code>netstat</code>看到。（主动方）&nbsp;</p>
+</li>
+<li><p><code>FIN_WAIT_2</code>：上面已经详细解释了这种状态，实际上<code>FIN_WAIT_2</code>状态下的<code>SOCKET</code>，表示半连接，也即有一方要求<code>close</code>连接，但另外还告诉对方，我暂时还有点数据需要传送给你(<code>ACK</code>信息)，稍后再关闭连接。（主动方）&nbsp;</p>
+</li>
+<li><p><code>CLOSE_WAIT</code>：这种状态的含义其实是表示在等待关闭。怎么理解呢？当对方<code>close</code>一个<code>SOCKET</code>后发送<code>FIN</code>报文给自己，你系统毫无疑问地会回应一个<code>ACK</code>报文给对方，此时则进入到<code>CLOSE_WAIT</code>状态。接下来呢，实际上你真正需要考虑的事情是察看你是否还有数据发送给对方，如果没有的话，那么你也就可以&nbsp;<code>close</code>这个<code>SOCKET</code>，发送<code>FIN</code>报文给对方，也即关闭连接。所以你在<code>CLOSE_WAIT</code>状态下，需要完成的事情是等待你去关闭连接。（被动方）&nbsp;</p>
+</li>
+<li><p><code>LAST_ACK</code>: 这个状态还是比较容易好理解的，它是被动关闭一方在发送<code>FIN</code>报文后，最后等待对方的<code>ACK</code>报文。当收到<code>ACK</code>报文后，也即可以进入到<code>CLOSED</code>可用状态了。（被动方）&nbsp;</p>
+</li>
+<li><p><code>TIME_WAIT</code>: 表示收到了对方的<code>FIN</code>报文，并发送出了<code>ACK</code>报文，就等<code>2MSL</code>后即可回到<code>CLOSED</code>可用状态了。如果<code>FINWAIT1</code>状态下，收到了对方同时带<code>FIN</code>标志和<code>ACK</code>标志的报文时，可以直接进入到<code>TIME_WAIT</code>状态，而无须经过<code>FIN_WAIT_2</code>状态。（主动方）&nbsp;</p>
+</li>
+<li><p><code>CLOSED</code>: 表示连接中断。</p>
+</li>
+</ul>
+</blockquote>
+<p><a href="http://www.jellythink.com/archives/705" target="_blank" rel="noopener">简析TCP的三次握手与四次分手</a></p>
+<hr>
+<div class="md-section-divider">&nbsp;</div>
+
+<h2 id="互联网协议入门（一）"><a href="#互联网协议入门（一）" class="headerlink" title="互联网协议入门（一）"></a>互联网协议入门（一）</h2><div class="md-section-divider">&nbsp;</div>
+
+<h3 id="七层模型与五层模型"><a href="#七层模型与五层模型" class="headerlink" title="七层模型与五层模型"></a>七层模型与五层模型</h3><hr>
+<div class="md-section-divider">&nbsp;</div>
+
+<h4 id="七层模型"><a href="#七层模型" class="headerlink" title="七层模型"></a>七层模型</h4><p>七层模型，经典却不实用&nbsp;<br><img src="http://7xjv7y.com1.z0.glb.clouddn.com/OSI_seven.jpg" alt=""></p>
+<p>各层的数据封装情况&nbsp;<br><img src="http://jellythink.u.qiniudn.com/jellythinkTCP1.jpg" alt=""></p>
+<p>各层的功能与遵从协议&nbsp;<br><img src="http://jellythink.u.qiniudn.com/jellythinkTCP2.gif" alt=""></p>
+<p><code>TCP</code>工作在网络<code>OSI</code>的七层模型中的第四层&mdash;&mdash;<code>Transport</code>层，<code>IP</code>在第三层&mdash;&mdash;<code>Network</code>层，<code>ARP</code>在第二层&mdash;&mdash;<code>Data Link</code>层。</p>
+<p>在第二层上的数据，我们把它叫<code>Frame</code>，在第三层上的数据叫<code>Packet</code>，第四层的数据叫<code>Segment</code>。</p>
+<p>我们需要简单的知道，数据从应用层发下来，会在每一层都会加上头部信息，进行封装，然后再发送到数据接收端。这个基本的流程你需要知道，就是每个数据都会经过数据的封装和解封装的过程。</p>
+<hr>
+<div class="md-section-divider">&nbsp;</div>
+
+<h4 id="五层模型"><a href="#五层模型" class="headerlink" title="五层模型"></a>五层模型</h4><p>把应用层、表示层和会话层合并到应用层，简化为五层模型，原因是为了更加地通俗易懂。&nbsp;<br><img src="http://image.beekka.com/blog/201205/bg2012052902.png" alt=""></p>
+<hr>
+<div class="md-section-divider">&nbsp;</div>
+
+<h5 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h5><p>由于互联网是开放架构，数据来源五花八门，必须事先规定好格式，否则根本无法解读。</p>
+<p>“应用层”的作用，就是处理并规定应用程序的数据格式。所以在应用层规定了一系列我们最常用，也很容易看得见的协议，我们的普通用户也许不知道底层的协议情况，但是一定知道这些应用层的协议</p>
+<ul>
+<li><code>HTTP/HTTPS</code></li>
+<li><code>FTP</code></li>
+<li><code>SMTP</code></li>
+<li><code>DNS</code></li>
+</ul>
+<p>有不同协议规定&nbsp;电子邮件、网页、FTP 数据&nbsp;的格式，这些应用程序协议就构成了&ldquo;应用层&rdquo;。</p>
+<p>这是最高的一层，直接面对用户。它的数据一般包含规范的应用层协议头&nbsp;<br><img src="http://static.zybuluo.com/yangfch3/wv1xh5qhgg969odokvs9t94h/2016-03-27_140636.jpg" alt="2016-03-27_140636.jpg-7kB"></p>
+<hr>
+<div class="md-section-divider">&nbsp;</div>
+
+<h5 id="传输层"><a href="#传输层" class="headerlink" title="传输层"></a>传输层</h5><ul>
+<li><p>端口：一台主机上运行多个程序，每个需要网络服务的程序都会有自己的主机端口，用于决定到底哪个程序使用那个端口来发送和接收数据包？（不可能每个程序都接收数据包，性能和安全上都划不来）</p>
+</li>
+<li><p>网卡的不同端口对应不同程序的数据传递</p>
+<ol>
+<li>1-1023端口是系统占用</li>
+<li>1024-65535端口会被应用程序随机分配（在程序没有明确要求用哪个端口的情况下）</li>
+</ol>
+</li>
+<li><p>主机+端口=socket（套接字）</p>
+</li>
+<li><p>传输层协议：在数据包中加入传输层协议头（TCP/UDP 端口信息)</p>
+<ol>
+<li>UDP协议&nbsp;<br>在&nbsp;应用层数据&nbsp;中加入&nbsp;端口信息&nbsp;最简单的实现方式，如何个简单法：它的格式几乎就是在数据前面，加上端口号，封装成为&nbsp;<code>UDP</code>&nbsp;数据包。</li>
+</ol>
+<p>UDP 数据包&nbsp;的总长度不超过&nbsp;<code>65535</code>&nbsp;字节</p>
+<pre><code>    *   标头（Head）：定义了发出端口和接收端口，长度只有8字节
+*   数据（Data）：来自应用层的具体的数据
+</code></pre><blockquote>
+<p>缺点：可靠性较差，一旦数据包发出，无法知道对方是否收到，没有确认机制</p>
+</blockquote>
+<pre><code>2.  TCP 协议&amp;nbsp;
+</code></pre><p>近似认为，它就是&nbsp;有确认机制&nbsp;的&nbsp;<code>UDP</code>&nbsp;协议，每发出一个数据包都&nbsp;要求确认。如果有一个数据包遗失，就收不到确认，发出方就知道有必要重发这个数据包。</p>
+<p><code>TCP</code>&nbsp;协议能够确保数据不会遗失。它的缺点是过程复杂、实现困难、消耗较多的资源。</p>
+<p><code>TCP</code>&nbsp;数据包和&nbsp;<code>UDP</code>&nbsp;数据包一样，但&nbsp;<code>TCP</code>&nbsp;数据包没有长度限制，理论上&nbsp;可以无限长。</p>
+</li>
+</ul>
+<blockquote>
+<p>但是为了保证网络的效率，通常&nbsp;<code>TCP</code>&nbsp;数据包的长度不会超过&nbsp;网络层&nbsp;<code>IP</code>&nbsp;数据包&nbsp;的长度，以确保单个&nbsp;<code>TCP</code>数据包不必在下一级的封装中被分割。</p>
+</blockquote>
+<p>就放在TCP数据包的”数据”部分。因此，现在的以太网的数据包就变成下面这样：</p>
+<blockquote>
+<p>TCP 数据头&nbsp;&gt;&gt;&nbsp;应用层数据包&nbsp;<br><img src="http://image.beekka.com/blog/201205/bg2012052904.png" alt=""></p>
+</blockquote>
+<hr>
+<div class="md-section-divider">&nbsp;</div>
+
+<h5 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h5><ul>
+<li><p>传输层已经为我们的数据区分了不同的端口（应用程序）</p>
+</li>
+<li><p>网络层引进一套新的网络地址协议（<code>Internet Protocol</code>），能区分不同计算机是否属于同一子网</p>
+</li>
+<li><p>路由：实现不同&nbsp;<code>IP</code>&nbsp;的主机（或服务器）之间的数据包传输</p>
+</li>
+<li><p><code>IP</code>&nbsp;数据包标头：</p>
+<ol>
+<li>包含协议版本、长度、<code>IP</code>&nbsp;地址等信息</li>
+<li>长度：20-60 字节</li>
+</ol>
+</li>
+<li><p><code>IP</code>&nbsp;数据包整体长度最长不超过&nbsp;<code>65515</code>&nbsp;字节，如果数据包超过了&nbsp;<code>65515</code>&nbsp;字节将会被分割为多个&nbsp;<code>IP</code>&nbsp;数据包发送</p>
+</li>
+<li><p>数据形式：</p>
+</li>
+</ul>
+<blockquote>
+<p>IP 协议头&nbsp;&gt;&gt;&nbsp;TCP 协议头&nbsp;&gt;&gt;&nbsp;应用层数据&nbsp;<br><img src="http://image.beekka.com/blog/201205/bg2012052910.png" alt=""></p>
+</blockquote>
+<hr>
+<div class="md-section-divider">&nbsp;</div>
+
+<h5 id="数据链路层"><a href="#数据链路层" class="headerlink" title="数据链路层"></a>数据链路层</h5><ul>
+<li><p>遵循协议：<code>以太网协议</code></p>
+</li>
+<li><p>数据帧：<code>IP</code>&nbsp;数据包&nbsp;到达&nbsp;数据链路层&nbsp;后会进行分割，变为多个小型的数据包，又叫做&nbsp;数据帧</p>
+</li>
+<li><p>单个数据帧最长为&nbsp;1518&nbsp;字节，最短为&nbsp;64&nbsp;字节</p>
+</li>
+<li><p><code>数据帧</code>分为两部分：</p>
+<ul>
+<li>标头（Head）</li>
+<li>数据（Data）</li>
+</ul>
+</li>
+<li><p>定位准确地址的方案：<code>MAC</code>&nbsp;地址</p>
+</li>
+<li><p>数据帧&nbsp;标头：</p>
+<ol>
+<li>固定&nbsp;<code>18</code>&nbsp;字节</li>
+<li>包含数据帧说明项：发送者（MAC地址），接受者（MAC地址），数据类型</li>
+</ol>
+</li>
+<li><p>数据帧&nbsp;最短&nbsp;<code>46</code>&nbsp;字节，最长&nbsp;<code>1500</code>&nbsp;字节</p>
+</li>
+<li><p>MAC 地址：每块网卡独一无二；48 个二进制&nbsp;===&gt;&nbsp;12 个十六进制&nbsp;===&gt;&nbsp;6 个厂商编码 +6 位网卡流水号</p>
+</li>
+<li><p><code>ARP</code>（<code>Address Resolution Protocol</code>）：网卡的&nbsp;<code>MAC</code>&nbsp;地址寻址依靠&nbsp;<code>ARP</code>&nbsp;协议 &mdash;&mdash; 同一子网，即数据帧&nbsp;<code>广播</code>，全部网卡接收，比对数据帧标头，符合者接收，不符者丢弃</p>
+</li>
+<li><p>数据链路层数据格式&nbsp;</p>
+</li>
+</ul>
+<blockquote>
+<p><img src="http://image.beekka.com/blog/201205/bg2012052913.png" alt=""></p>
+</blockquote>
+<p>&nbsp;</p>
+<hr>
+<div class="md-section-divider">&nbsp;</div>
+
+<h5 id="实体层"><a href="#实体层" class="headerlink" title="实体层"></a>实体层</h5><ul>
+<li><p>把电脑连接起来的物理手段</p>
+</li>
+<li><p>在这个层面里，数据帧转换为 传输 0 和 1 的电信号</p>
+</li>
+</ul>
+<hr>
+<div class="md-section-divider">&nbsp;</div>
+
+<h5 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h5><ul>
+<li><p>上面的讲述了数据从上到下，层层&nbsp;分割，层层&nbsp;包装&nbsp;的过程</p>
+</li>
+<li><p>解包的过程与上面的过程刚好相反</p>
+</li>
+<li><p>路由协议用于不同 IP 之间传递数据</p>
+</li>
+<li><p>ARP 协议用于同一局域网下不同网卡接收数据</p>
+</li>
+</ul>
+<hr>
+<div class="md-section-divider">&nbsp;</div>
+
+<h2 id="互联网协议入门（二）"><a href="#互联网协议入门（二）" class="headerlink" title="互联网协议入门（二）"></a>互联网协议入门（二）</h2><p>从用户的角度从上至下看互联网协议</p>
+<div class="md-section-divider">&nbsp;</div>
+
+<h3 id="上节小结"><a href="#上节小结" class="headerlink" title="上节小结"></a>上节小结</h3><p>网络通信就是交换数据包。电脑A向电脑B发送一个数据包，后者收到了，回复一个数据包，从而实现两台电脑之间的通信。数据包的结构，基本上是下面这样：</p>
+<p><img src="http://image.beekka.com/blog/201205/bg2012052913.png" alt=""></p>
+<p>发送这个包，需要知道两个地址：</p>
+<blockquote>
+<ul>
+<li>对方的MAC地址</li>
+<li>对方的IP地址</li>
+</ul>
+</blockquote>
+<p>有了这两个地址，数据包才能准确送到接收者手中。但是，前面说过，MAC地址有局限性，如果两台电脑不在同一个子网络，就无法知道对方的MAC地址，必须通过网关（gateway）转发。</p>
+<p><img src="http://image.beekka.com/blog/201206/bg2012061101.jpg" alt=""></p>
+<p>上图中，1号电脑要向4号电脑发送一个数据包。它先判断4号电脑是否在同一个子网络，结果发现不是（判断方法见下面），于是就把这个数据包发到网关A。网关A通过路由协议，发现4号电脑位于子网络B，又把数据包发给网关B，网关B再转发到4号电脑。</p>
+<p>1号电脑把数据包发到网关A，必须知道网关A的MAC地址。所以，数据包的目标地址，实际上分成两种情况：</p>
+<table class="table table-striped-white table-bordered" data-anchor-id="qtxz"><br><thead><br><tr><th>场景</th><th>数据包地址</th></tr><br><br></thead><br><tbody><br><tr><br><td>同一个子网络</td><br><td>对方的MAC地址（通过ARP获得），对方的IP地址</td><br><br></tr><br><tr><br><td>非同一个子网络</td><br><td>网关的MAC地址，对方的IP地址</td><br><br></tr><br><br></tbody><br><br></table>
+
+<p>发送数据包之前，电脑必须判断对方是否在同一个子网络，然后选择相应的MAC地址：对方的MAC地址还是网关的MAC地址</p>
+<hr>
+<div class="md-section-divider">&nbsp;</div>
+
+<h3 id="用户上网设置"><a href="#用户上网设置" class="headerlink" title="用户上网设置"></a>用户上网设置</h3><p>分为静态IP地址上网和动态IP地址上网&nbsp;</p>
+<div class="md-section-divider">&nbsp;</div>
+
+<h4 id="动态IP地址"><a href="#动态IP地址" class="headerlink" title="动态IP地址"></a>动态IP地址</h4><p>所谓”动态IP地址”，指计算机开机后，会自动分配到一个IP地址，不用人为设定。它使用的协议叫做DHCP协议。</p>
+<p>这个协议规定，每一个子网络中，有一台计算机负责管理本网络的所有IP地址，它叫做”DHCP服务器”。新的计算机加入网络，必须向”DHCP服务器”发送一个”DHCP请求”数据包，申请IP地址和相关的网络参数。</p>
+<p>如果两台计算机在同一个子网络，必须知道对方的MAC地址和IP地址，才能发送数据包。但是，新加入的计算机不知道这两个地址，怎么发送数据包呢？&nbsp;</p>
+<div class="md-section-divider">&nbsp;</div>
+
+<h4 id="DHCP-协议"><a href="#DHCP-协议" class="headerlink" title="DHCP 协议"></a>DHCP 协议</h4><p>DHCP（Dynamic Host Configuration Protocol）是一个局域网的网络协议，使用&nbsp;<code>UDP</code>&nbsp;协议工作.</p>
+<p>首先，它是一种应用层协议，建立在&nbsp;<code>UDP</code>&nbsp;协议之上，所以整个数据包是这样的：&nbsp;<br><img src="http://image.beekka.com/blog/201206/bg2012061102.png" alt=""></p>
+<p>（1）最前面的&nbsp;以太网标头，设置发出方（本机）的&nbsp;<code>MAC</code>&nbsp;地址和接收方（<code>DHCP</code>&nbsp;服务器）的&nbsp;<code>MAC</code>&nbsp;地址。前者就是本机网卡的&nbsp;<code>MAC</code>&nbsp;地址，后者&nbsp;这时不知道，就填入一个广播地址：<code>FF-FF-FF-FF-FF-FF</code>。</p>
+<p>（2）后面的&nbsp;IP 标头，设置发出方的 IP 地址和接收方的 IP 地址。这时，对于这两者，本机都不知道。于是，发出方的 IP 地址就设为&nbsp;<code>0.0.0.0</code>，接收方的 IP 地址设为&nbsp;<code>255.255.255.255</code>。</p>
+<p>（3）最后的&nbsp;UDP 标头，设置发出方的端口和接收方的端口。这一部分是&nbsp;<code>DHCP</code>&nbsp;协议规定好的，发出方是&nbsp;<code>68</code>&nbsp;端口，接收方是&nbsp;<code>67</code>&nbsp;端口。</p>
+<p>这个数据包构造完成后，就可以发出了。</p>
+<p>以太网是广播发送，同一个子网络的每台计算机都收到了这个包。因为接收方的MAC地址是FF-FF-FF-FF-FF-FF，看不出是发给谁的，所以每台收到这个包的计算机，还必须分析这个包的 IP 地址，才能确定是不是发给自己的。当看到发出方 IP 地址是&nbsp;<code>0.0.0.0</code>，接收方是&nbsp;<code>255.255.255.255</code>，于是DHCP服务器知道 这个包是发给我的，而其他计算机就可以丢弃这个包。</p>
+<p>接下来，DHCP 服务器读出这个包的数据内容，分配好 IP 地址，发送回去一个&nbsp;”DHCP响应”数据包。这个响应包的结构也是类似的，以太网标头的 MAC 地址是双方的网卡地址，IP 标头的 IP 地址是 DHCP 服务器的 IP 地址（发出方）和<code>255.255.255.255</code>（接收方），UDP 标头的端口是 67（发出方）和 68（接收方），分配给请求端的IP地址和本网络的具体参数则包含在Data部分。</p>
+<p>新加入的计算机收到这个响应包，于是就知道了自己的IP地址、子网掩码、网关地址、DNS服务器等等参数。</p>
+<hr>
+<div class="md-section-divider">&nbsp;</div>
+
+<h3 id="实例：访问页面"><a href="#实例：访问页面" class="headerlink" title="实例：访问页面"></a>实例：访问页面</h3><p>假定用户已经动态设置好了自己的网络参数：</p>
+<blockquote>
+<ul>
+<li>本机的IP地址：192.168.1.100</li>
+<li>子网掩码：255.255.255.0</li>
+<li>网关的IP地址：192.168.1.1</li>
+<li>DNS的IP地址：8.8.8.8</li>
+</ul>
+</blockquote>
+<p>打开浏览器，访问 Google，在地址栏输入了网址：www.google.com。</p>
+<p>这意味着，浏览器要向 Google 发送一个&nbsp;网页请求&nbsp;的数据包。</p>
+<div class="md-section-divider">&nbsp;</div>
+
+<h4 id="DNS协议"><a href="#DNS协议" class="headerlink" title="DNS协议"></a>DNS协议</h4><p>DNS 协议可以帮助我们，将这个网址转换成 IP 地址。已知 DNS 服务器为 8.8.8.8，于是我们向这个地址发送一个DNS数据包（53 端口）。</p>
+<p><img src="http://image.beekka.com/blog/201206/bg2012061105.png" alt=""></p>
+<p>然后，DNS 服务器做出响应，告诉我们 Google 的IP地址是 172.194.72.105。于是，我们知道了对方的 IP 地址。</p>
+<div class="md-section-divider">&nbsp;</div>
+
+<h4 id="子网掩码"><a href="#子网掩码" class="headerlink" title="子网掩码"></a>子网掩码</h4><p>接下来，我们要判断，这个IP地址是不是在同一个子网络，这就要用到子网掩码。</p>
+<p>已知子网掩码是 255.255.255.0，本机用它对自己的IP地址 192.168.1.100，做一个二进制的AND运算（两个数位都为 1，结果为 1，否则为 0），计算结果为 192.168.1.0；然后对 Google 的 IP 地址 172.194.72.105 也做一个 AND 运算，计算结果为 172.194.72.0。这两个结果不相等，所以结论是，Google 与本机不在同一个子网络。</p>
+<hr>
+<div class="md-section-divider">&nbsp;</div>
+
+<h4 id="应用层协议"><a href="#应用层协议" class="headerlink" title="应用层协议"></a>应用层协议</h4><p>浏览网页的浏览器用的是HTTP协议，它的整个数据包构造是这样的：&nbsp;<br><img src="http://image.beekka.com/blog/201206/bg2012061106.png" alt=""></p>
+<p>HTTP部分的内容，类似于下面这样：</p>
+<pre><code>GET / HTTP/1.1
+Host: www.google.com
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (Windows NT 6.1) ......
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Encoding: gzip,deflate,sdch
+Accept-Language: zh-CN,zh;q=0.8
+Accept-Charset: GBK,utf-8;q=0.7,*;q=0.3
+Cookie: ... ...
+</code></pre><p>我们假定这个部分的长度为 4960 字节，它会被嵌在TCP数据包之中。</p>
+<div class="md-section-divider">&nbsp;</div>
+
+<h4 id="TCP协议"><a href="#TCP协议" class="headerlink" title="TCP协议"></a>TCP协议</h4><p>TCP 数据包需要设置端口，接收方（Google）的&nbsp;HTTP端口默认是80，发送方（本机）的端口是一个&nbsp;随机生成的1024-65535之间的整数，假定为 51775。</p>
+<p>TCP 数据包的标头长度为 20 字节，加上嵌入 HTTP 的数据包，总长度变为4980字节。</p>
+<div class="md-section-divider">&nbsp;</div>
+
+<h4 id="IP协议"><a href="#IP协议" class="headerlink" title="IP协议"></a>IP协议</h4><p>然后，TCP 数据包再嵌入 IP 数据包。IP 数据包需要设置双方的 IP 地址，这是已知的，发送方是 192.168.1.100（本机），接收方是 172.194.72.105（Google）。</p>
+<p>IP 数据包的标头长度为 20 字节，加上嵌入的 TCP 数据包，总长度变为 5000 字节。</p>
+<div class="md-section-divider">&nbsp;</div>
+
+<h4 id="以太网协议"><a href="#以太网协议" class="headerlink" title="以太网协议"></a>以太网协议</h4><p>最后，IP 数据包嵌入以太网数据包。以太网数据包需要设置双方的 MAC 地址，发送方为本机的网卡 MAC 地址，接收方为网关 192.168.1.1 的 MAC 地址（通过 ARP 协议得到）。</p>
+<p>以太网数据包的数据部分，最大长度为 1500 字节，而现在的IP数据包长度为 5000 字节。因此，IP 数据包必须分割成四个包。因为每个包都有自己的 IP 标头（20 字节），所以四个包的 IP数据包的长度分别为 1500、1500、1500、560。</p>
+<p><img src="http://image.beekka.com/blog/201206/bg2012061107.png" alt=""></p>
+<div class="md-section-divider">&nbsp;</div>
+
+<h4 id="服务器响应"><a href="#服务器响应" class="headerlink" title="服务器响应"></a>服务器响应</h4><p>经过多个网关的转发，Google 的服务器 172.194.72.105，收到了这四个以太网数据包。</p>
+<p>根据 IP 标头的序号，Google 将四个包拼起来，取出完整的 TCP 数据包，然后读出里面的”HTTP请求”，接着做出”HTTP响应”，再用TCP协议发回来。</p>
+<p>本机收到HTTP响应以后，就可以将网页显示出来，完成一次网络通信。</p>
+<p><img src="http://image.beekka.com/blog/201206/bg2012061104.jpg" alt=""></p>
+<hr>
+<div class="md-section-divider">&nbsp;</div>
+
+<h2 id="Web开发新人培训系列备忘"><a href="#Web开发新人培训系列备忘" class="headerlink" title="Web开发新人培训系列备忘"></a>Web开发新人培训系列备忘</h2><div class="md-section-divider">&nbsp;</div>
+
+<h3 id="协议"><a href="#协议" class="headerlink" title="协议"></a>协议</h3><ul>
+<li><p>进程a发送数据是通过socket发出去，socket需要绑定一个端口，用于区分计算机内的不同进程。进程a使用的socket绑定了2048端口，进程b使用的socket绑定了4096端口。</p>
+</li>
+<li><p>真正想要数据的进程才是最终应用层。</p>
+</li>
+<li><p>协议的目的就是让通信的双方知道当前这个数据包是怎么样一个组成格式，一般：包头就是双方约定好的一些信息，包体就是这次通信传输的数据。&nbsp;<br>协议 == 包头 + 包体。</p>
+</li>
+<li><p>HTTP协议</p>
+</li>
+</ul>
+<blockquote>
+<p>HTTP请求包的HTTP包头格式：</p>
+<pre><code>*   GET / HTTP/1.1&amp;nbsp;
+</code></pre><p>获取的路径以及HTTP版本</p>
+<pre><code>*   Host: www.qq.com:8080&amp;nbsp;
+</code></pre><p>服务器主机名字&amp;端口号</p>
+<pre><code>*   Connection: keep-alive&amp;nbsp;
+</code></pre><p>用于长连</p>
+<pre><code>*   User-Agent: Chrome/35.0.1916.153&amp;nbsp;
+</code></pre><p>浏览器基本信息</p>
+<pre><code>*   Accept-Encoding: gzip,deflate,sdch&amp;nbsp;
+</code></pre><p>告诉服务器支持的编码</p>
+<pre><code>*   Accept-Language: zh-CN,zh;q=0.8,en;q=0.6,nl;q=0.4,zh-TW;q=0.2&amp;nbsp;
+</code></pre><p>告诉服务器优先支持的语言</p>
+<pre><code>*   Cookie: id=1;username=raphealguo;&amp;nbsp;
+</code></pre><p>解决HTTP无状态重要的Cookie，里边是key=value对</p>
+</blockquote>
+<ul>
+<li>服务器收到HTTP请求，经过&nbsp;CGI处理&nbsp;之后回复一个HTTP响应包</li>
+</ul>
+<blockquote>
+<p>HTTP响应包包头常见格式</p>
+<pre><code>*   HTTP/1.1 200 OK&amp;nbsp;
+</code></pre><p>HTTP版本以及状态码</p>
+<pre><code>*   Server: nginx/1.4.1&amp;nbsp;
+</code></pre><p>服务器版本</p>
+<pre><code>*   Date: Mon, 30 Jun 2014 09:44:10 GMT&amp;nbsp;
+</code></pre><p>回包时间</p>
+<pre><code>*   Content-Type: text/html; charset=UTF-8&amp;nbsp;
+</code></pre><p>包里边的类型</p>
+<pre><code>*   Content-Length: 14534&amp;nbsp;
+</code></pre><p>包体的长度</p>
+<pre><code>*   Connection: keep-alive&amp;nbsp;
+</code></pre><p>用于长连</p>
+<pre><code>*   Cache-Control: no-cache, must-revalidate&amp;nbsp;
+</code></pre><p>用于缓存控制</p>
+</blockquote>
+<ul>
+<li><p>HTTPS协议&nbsp;</p>
+<ol>
+<li>HTTPS=HTTP协议+SSL</li>
+<li>HTTP传输是明文传输，易被劫持篡改</li>
+<li>HTTPS采用非对称加密：两边的加密、解密不是完全一样的</li>
+</ol>
+<p>&nbsp;</p>
+</li>
+</ul>
+<blockquote>
+<p>非对称加密示例：</p>
+<pre><code>Bob将衣服放到一个保险箱里边锁起来，他打了个电话告诉Alice保险箱开柜密码是1234，而黑客H不知道密码，所以他看不到保险箱里边的东西，Alice收到快递后用预先沟通好的密码就可以打开保险箱了。
+
+    这里保护的手段就是Bob对物品进行加密，同时给了告诉Alice解密的方法！
+
+    那如果现在要求Bob的密码只能通过快递传给Alice呢？如果Bob直接传密码给Alice，H如果嗅探到这个快递，那H也知道密码了，这就无法保护快递的安全性了。因此还需要有个方案，让Bob能够告诉Alice密码的同时，H又无法查看到Bob跟Alice通信的数据。
+
+    非对称加密在这个时候就发挥作用了，来看看怎么回事：Bob拥有两把钥匙，一把叫做公钥，一把叫做私钥。公钥是公开让全社会都知道，没关系，Bob告诉所有人，你们要传递数据给我的时候请先用这个密钥去加密一下你们的数据，加密后的数据只能通过Bob私自藏着的私钥才能解密。
+
+    回到刚刚例子，Bob先发给保险柜（Bob公钥）给Alice，接着Alice把自己的保险柜（Alice公钥）放到Bob的保险柜里边发还给Bob，接着Bob拿到Alice的回包后，用自己的私钥解开了外层保险柜，拿到了里边Alice保险柜。此时Alice跟Bob都有了各自的公钥，接着只要保证每次互相传递数据的时候，把数据放在对方的保险柜里边即可，这样无论如何，H都无法解开保险柜（因为只有各自的私钥才能解开各自的保险柜）。
+</code></pre></blockquote>
+<pre><code>4.  HTTPS隧道
+</code></pre><blockquote>
+<p>HTTPS通信会有如下的过程：</p>
+<pre><code>    1.  客户端先跟服务器做一次SSL握手，也就是刚刚Bob跟Alice交换公钥的过程。
+2.  此时客户端跟服务器都有了各自的公钥，这时他们中间相当于有了一条安全的HTTPS隧道。
+3.  客户端要发送请求时，采用服务器给的公钥对请求包进行加密，然后发出去。
+4.  服务器收到请求后，使用自己的私钥解开了这个请求包得到其内容。
+5.  服务器响应的时候，采用客户端给的公钥进行加密，然后发还给客户端。
+6.  客户端收到响应后，使用自己的私钥解开响应包得到其内容。
+7.  结束的时候，双方关闭SSL隧道，丢掉上次交换的公钥。
+</code></pre></blockquote>
+<pre><code>5.  HTTPS也不安全的情况：&amp;nbsp;
+</code></pre><blockquote>
+<p>&nbsp;</p>
+<pre><code>    1.  私钥被窃取；
+2.  HTTPS是无法保证端内安全（HTTP就更不能了），电脑已经被病毒侵入，病毒可以监听到你开锁的时候，也可以知道你的私钥；
+3.  HTTPS下的页面引用了HTTP下的资源，例如HTTPS下的页面引用了HTTP下的Javascript文件，此时如果这个Javascript文件被篡改了，那通过这个JS文件就可以在执行的时候获取到整个网页内容，在这种情况下，某些浏览器会阻止你去加载这些非HTTP资源，有些则会提示错误或者给出警告信息。
+</code></pre><div class="md-section-divider">&nbsp;</div>
+
+</blockquote>
+<hr>
+<div class="md-section-divider">&nbsp;</div>
+
+<h3 id="经典的Web应用网络模型"><a href="#经典的Web应用网络模型" class="headerlink" title="经典的Web应用网络模型"></a>经典的Web应用网络模型</h3><p>总体模型概览：&nbsp;<br><img src="http://rapheal-wordpress.stor.sinaapp.com/uploads/2014/10/%E6%A6%82%E8%A7%88.png" alt=""></p>
+<div class="md-section-divider">&nbsp;</div>
+
+<h4 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h4><ul>
+<li><p>浏览器会先询问本地Hosts，如果没有映射则再询问DNS缓存，如果没有记录过这个域名映射的IP，那就向本地的DNS网关询问，如果网关也不知道，就继续往上一层的DNS服务器询问，直到拿到这个IP地址。</p>
+</li>
+<li><p>一般来说，一台服务器处理的请求是有限的，因此大型的应用都会有多台<code>proxy</code>机器，我们可以让DNS服务器在第一个请求返回IP1，第二个请求返回IP2&hellip;&hellip;这样用户的请求就会均匀的落在这些机器上，这个就是<code>DNS</code>负载均衡。<code>CDN</code>就是通过智能<code>DNS</code>算出离用户最近的<code>CDN</code>节点的<code>IP</code>地址，这样用户可以访问一台离他最近的机器，大大节约连接时间。&nbsp;<br><img src="http://rapheal-wordpress.stor.sinaapp.com/uploads/2014/10/DNS%E8%B4%9F%E8%BD%BD.png" alt=""></p>
+<div class="md-section-divider">&nbsp;</div>
+
+</li>
+</ul>
+<h4 id="代理与反向代理"><a href="#代理与反向代理" class="headerlink" title="代理与反向代理"></a>代理与反向代理</h4><ul>
+<li>一般来说，浏览器跟真正提供Web服务的机器是没有直接连接的，他们中间都会有代理跟反向代理。</li>
+<li>代理可以是公司内部的代理服务器、各级<code>ISP</code>转发服务器、VPN代理服务器&nbsp;<br><img src="http://rapheal-wordpress.stor.sinaapp.com/uploads/2014/10/%E4%BB%A3%E7%90%86%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86.png" alt=""></li>
+<li><p>代理服务器的作用：恶意请求/响应的拦截、缓存内部网络所需的公共资源、GFW与反GFW&nbsp;<br><img src="http://rapheal-wordpress.stor.sinaapp.com/uploads/2014/10/%E6%AD%A3%E5%90%91%E4%BB%A3%E7%90%86.png" alt=""></p>
+</li>
+<li><p>反向代理就是以代理服务器来接收网络连接请求，我们上下文称Proxy机器指的就是反向代理机器，Proxy机器收到请求后会经过一定的分析最后把请求内容转发给内网对应的Web服务器，Web服务器的HTTP响应包会先到Proxy机器，然后再到用户机器。</p>
+</li>
+</ul>
+<p>反向代理的好处是可以负载均衡，在它后边可以有多台工作的Web服务器，这样分层次之后，很多职责就明确很多了：Proxy机器负责负载均衡、拦截恶意请求、维持长连接，还可以屏蔽不工作的Web服务器；而Web服务器就只要关心自己处理的Web业务逻辑即可。</p>
+<p>往往Proxy服务器跟用户机器保持长连接，这样可以节省用户每次跟服务器建立连接的消耗，而Proxy服务器跟Web服务器采用短连接的方式，这样可以有效节约Web服务器的资源。&nbsp;</p>
+<div class="md-section-divider">&nbsp;</div>
+
+<h4 id="Web-server"><a href="#Web-server" class="headerlink" title="Web server"></a>Web server</h4><ul>
+<li>Web server的职责就是根据用户的请求，返回其所需要的响应内容。往往Web server只涉及业务测逻辑的判断以及数据的组装，而真正的数据位于后端的存储Server。</li>
+</ul>
+<p>对于一般应用来说，Web server返回的是动态产生的内容（每个用户都不一致的动态内容或者经常编辑变动的内容），如页面的HTML内容、JSON数据、XML数据等。而Javascript文件、CSS文件、图片这些静态资源（不根据用户而变动的资源）往往存放在CDN中。&nbsp;<br><img src="http://rapheal-wordpress.stor.sinaapp.com/uploads/2014/10/Web-server.png" alt="">&nbsp;</p>
+<div class="md-section-divider">&nbsp;</div>
+
+<h4 id="CDN"><a href="#CDN" class="headerlink" title="CDN"></a>CDN</h4><ul>
+<li><p>对于动态的内容，请求总是到Web server去动态计算获取内容，但是对于不随用户状态变化的内容我们把内容推送到CDN节点上。</p>
+</li>
+<li><p>静态资源的域名跟页面HTML的域名一般来说是不一样的，因为静态资源的请求需要解析到CDN节点去。我们假设主请求是：www.qq.com/index.html；CDN请求是cdn.qq.com/index.css。&nbsp;<br><img src="http://rapheal-wordpress.stor.sinaapp.com/uploads/2014/10/CDN.png" alt=""></p>
+</li>
+<li><p>一般Web应用把静态内容推到CDN有两种模式，一种是在上线前主动将内容推送到CDN节点，一种是CDN发现本地没有该文件时，回源到Web server机器取内容，然后缓存在他本地。&nbsp;<br><img src="http://rapheal-wordpress.stor.sinaapp.com/uploads/2014/10/CDN%E6%8E%A8%E9%80%81%E5%86%85%E5%AE%B9.png" alt=""></p>
+<div class="md-section-divider">&nbsp;</div>
+
+</li>
+</ul>
+<h4 id="上线"><a href="#上线" class="headerlink" title="上线"></a>上线</h4><ul>
+<li><p>像JS文件、CSS文件这些资源对于所有用户来说都是一样的，我们把它们归类到静态资源。对于不同用户，它们看到的网页其实是不一致的（例如页面里边有他们各自的昵称，id等信息），这是通过CGI程序实时计算，为不同用户生成不同的HTML产生，我们把这样的HTML资源归类为动态资源。</p>
+</li>
+<li><p>由于动态资源是需要实时获取的，因此请求最后都需要落到我们的CGI程序上。而对于静态资源来说，所有请求都是一样的，不需要通过CGI去实时获取文件内容做响应。</p>
+</li>
+<li><p>一般我们需要多台Web服务器，在它们上层的proxy机器把用户的请求平摊在这些机器上。我们现实的网络结构大多数是这样的：&nbsp;<br><img src="http://rapheal-wordpress.stor.sinaapp.com/uploads/2015/01/%E4%B8%8A%E7%BA%BF%E2%80%94%E2%80%94proxy%E8%B7%AF%E7%94%B1.png" alt=""></p>
+</li>
+<li><p>刚刚我们在只有一台服务器的情况下，我们只需要把文件传输到这台服务器就算此次上线完毕。同样道理在多台服务器的网络结构下，我们把文件依次上传到这些服务器上，对于所有服务器都传输完毕后才算此次上线完毕。&nbsp;<br><img src="http://rapheal-wordpress.stor.sinaapp.com/uploads/2015/01/%E4%B8%8A%E7%BA%BF%E2%80%94%E2%80%94%E5%A4%9A%E5%8F%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%BA%BF.png" alt=""></p>
+</li>
+<li><p>在上线的过程中，有一些服务器是新资源，有一些服务器是旧资源。问题就来了：</p>
+</li>
+</ul>
+<blockquote>
+<p>服务器1已经部署上新的资源，而服务器2上还是旧资源。假设这样一个场景，用户第一个HTML请求到了服务器1，然后返回一个新的HTML，接着用户第二个JS请求又跑到服务器2。&nbsp;</p>
+<pre><code>在用户侧的表现就是一个旧的JS文件作用在一个新的HTML上，这样可能就引发了异常。&amp;nbsp;
+</code></pre><p><img src="http://rapheal-wordpress.stor.sinaapp.com/uploads/2015/01/%E4%B8%8A%E7%BA%BF%E2%80%94%E2%80%94%E4%B8%8A%E7%BA%BF%E5%BC%82%E5%B8%B8.png" alt=""></p>
+</blockquote>
+<ul>
+<li><p>没法做到资源的实时一致，多台服务器的网络结构下必然会存在某小段时间间隙存在资源不一致的现象。</p>
+</li>
+<li><p>解决方案：让同一个用户的多次请求永远都在同一台机器上，用户要么访问到的全部都是旧资源，要么全部都是新资源。（这样还能达到灰度测试的作用）</p>
+</li>
+<li><p>怎么让同一个用户的请求一直都落在同一台机器上?</p>
+</li>
+</ul>
+<blockquote>
+<p>通过proxy把同一个用户的请求转发到同一个Web服务器：</p>
+<pre><code>1.  proxy反向代理机器收到用户请求
+2.  proxy通过这个请求某些flagid标记得知当前这个请求是A用户的
+3.  接着proxy定义一个hash算法getServer，通过计算svr = getServer(flag)得到最后这个请求要去到的Web服务器svr&amp;nbsp;
+
+    只要保证getServer这个hash算法每次输出是唯一即可，这个很容易做到。问题：用户的请求带上的flagid是怎么带的？我们先不纠结这个怎么做，我们只要在用户登陆我们系统后，在cookies种上一个能标记出这个用户的id即可。
+</code></pre><div class="md-section-divider">&nbsp;</div><br><div class="md-section-divider">&nbsp;</div>
+
+</blockquote>
+<p>&nbsp;</p>
+<p></p></div><p></p>
+<p></p></div><p></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/24/Git-Note/" rel="next" title="Git Note">
+                <i class="fa fa-chevron-left"></i> Git Note
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/08/29/HTTP协议详解/" rel="prev" title="HTTP协议详解">
+                HTTP协议详解 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/my_avatar.jpg"
+                alt="Wang Jie" />
+            
+              <p class="site-author-name" itemprop="name">Wang Jie</p>
+              <p class="site-description motion-element" itemprop="description">Wang Jie's blog</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">144</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wangjiegulu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:tiantian.china.2@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/+%E5%A4%A9%E5%A4%A9wangjie" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/wangjiegulu" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://stackoverflow.com/users/2124006/wangjie" target="_blank" title="StackOverflow">
+                      
+                        <i class="fa fa-fw fa-stack-overflow"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/wangjiegulu" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.cnblogs.com/tiantianbyconan/" title="cnblog" target="_blank">cnblog</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一次完整的HTTP请求"><span class="nav-text">一次完整的HTTP请求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从握手到分手"><span class="nav-text">从握手到分手</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#三次握手"><span class="nav-text">三次握手</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四次分手"><span class="nav-text">四次分手</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么要三次握手"><span class="nav-text">为什么要三次握手</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么要四次分手"><span class="nav-text">为什么要四次分手</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#互联网协议入门（一）"><span class="nav-text">互联网协议入门（一）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#七层模型与五层模型"><span class="nav-text">七层模型与五层模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#七层模型"><span class="nav-text">七层模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#五层模型"><span class="nav-text">五层模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#应用层"><span class="nav-text">应用层</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#传输层"><span class="nav-text">传输层</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#网络层"><span class="nav-text">网络层</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#数据链路层"><span class="nav-text">数据链路层</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#实体层"><span class="nav-text">实体层</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#小结"><span class="nav-text">小结</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#互联网协议入门（二）"><span class="nav-text">互联网协议入门（二）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#上节小结"><span class="nav-text">上节小结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用户上网设置"><span class="nav-text">用户上网设置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#动态IP地址"><span class="nav-text">动态IP地址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DHCP-协议"><span class="nav-text">DHCP 协议</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实例：访问页面"><span class="nav-text">实例：访问页面</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#DNS协议"><span class="nav-text">DNS协议</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#子网掩码"><span class="nav-text">子网掩码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#应用层协议"><span class="nav-text">应用层协议</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TCP协议"><span class="nav-text">TCP协议</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IP协议"><span class="nav-text">IP协议</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#以太网协议"><span class="nav-text">以太网协议</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#服务器响应"><span class="nav-text">服务器响应</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Web开发新人培训系列备忘"><span class="nav-text">Web开发新人培训系列备忘</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#协议"><span class="nav-text">协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#经典的Web应用网络模型"><span class="nav-text">经典的Web应用网络模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#DNS"><span class="nav-text">DNS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代理与反向代理"><span class="nav-text">代理与反向代理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Web-server"><span class="nav-text">Web server</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CDN"><span class="nav-text">CDN</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#上线"><span class="nav-text">上线</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wang Jie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://blog-wangjiegulu-com.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://blog.wangjiegulu.com/2016/08/29/网络基础/';
+          this.page.identifier = '2016/08/29/网络基础/';
+          this.page.title = '网络基础';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://blog-wangjiegulu-com.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "default";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "GooglePlus,Evernote,Twitter,Facebook,Douban,Weibo";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

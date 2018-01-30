@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="WAND JIE" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/6237731.html   使用Dagger 2来构建UserScope 原文：http://frogermcs.github.io/building-userscope-with-dagger2/  在Dagger 2中自定义scopes可以在不寻常存活时间（与A">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Android]使用Dagger 2来构建UserScope（翻译）">
+<meta property="og:url" content="http://blog.wangjiegulu.com/2016/12/30/Android-使用Dagger-2来构建UserScope（翻译）/index.html">
+<meta property="og:site_name" content="WAND JIE">
+<meta property="og:description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/6237731.html   使用Dagger 2来构建UserScope 原文：http://frogermcs.github.io/building-userscope-with-dagger2/  在Dagger 2中自定义scopes可以在不寻常存活时间（与A">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://frogermcs.github.io/images/15/scopes-lifecycle.png">
+<meta property="og:image" content="http://frogermcs.github.io/images/28/scopes.png">
+<meta property="og:updated_time" content="2018-01-29T12:36:41.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[Android]使用Dagger 2来构建UserScope（翻译）">
+<meta name="twitter:description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/6237731.html   使用Dagger 2来构建UserScope 原文：http://frogermcs.github.io/building-userscope-with-dagger2/  在Dagger 2中自定义scopes可以在不寻常存活时间（与A">
+<meta name="twitter:image" content="http://frogermcs.github.io/images/15/scopes-lifecycle.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.wangjiegulu.com/2016/12/30/Android-使用Dagger-2来构建UserScope（翻译）/"/>
+
+
+
+
+
+  <title>[Android]使用Dagger 2来构建UserScope（翻译） | WAND JIE</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-111189680-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">WAND JIE</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">TO BE AN ARTIST-ENGINNER</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.wangjiegulu.com/2016/12/30/Android-使用Dagger-2来构建UserScope（翻译）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wang Jie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/my_avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WAND JIE">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">[Android]使用Dagger 2来构建UserScope（翻译）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-30T17:23:00+08:00">
+                2016-12-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/12/30/Android-使用Dagger-2来构建UserScope（翻译）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2016/12/30/Android-使用Dagger-2来构建UserScope（翻译）/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <font color="#ff0000"><strong><br>以下内容为原创，欢迎转载，转载请注明<br>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/6237731.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/6237731.html</a>
+</strong></font>
+
+<h1 id="使用Dagger-2来构建UserScope"><a href="#使用Dagger-2来构建UserScope" class="headerlink" title="使用Dagger 2来构建UserScope"></a>使用Dagger 2来构建UserScope</h1><blockquote>
+<p>原文：<a href="http://frogermcs.github.io/building-userscope-with-dagger2/" target="_blank" rel="noopener">http://frogermcs.github.io/building-userscope-with-dagger2/</a></p>
+</blockquote>
+<p>在Dagger 2中自定义scopes可以在不寻常存活时间（与Application和界面生命周期不同的）的依赖上给我带来更好的控制。但是在Android app中正确地实现它需要记住几个事情：scope不能存活比application进程更长的周期，进程可以被系统杀死并且在更多的对象实例的用户流中恢复过来。今天我们将介绍所有这些，并尝试实现可用于生产的UserScope。</p>
+<p>在我的其中一篇博客中<a href="http://frogermcs.github.io/dependency-injection-with-dagger-2-custom-scopes/" target="_blank" rel="noopener">写了</a>关于<strong>自定义scopes</strong>和<strong>Subcomponents</strong>。作为一个例子，我使用了<code>UserScope</code>，只要用户是登录状态就应该存活。一个scopes生命周期的例子：</p>
+<p><img src="http://frogermcs.github.io/images/15/scopes-lifecycle.png" alt=""></p>
+<p>虽然它看起来非常简单，它的实现在那篇文章中已经展示，但是它的代码是脱离与生产环境的。这就是为什么我想要又一次深入这个话题 - 但是会有更多实现的上下文细节。</p>
+<h2 id="Example-app"><a href="#Example-app" class="headerlink" title="Example app"></a>Example app</h2><p>我们将构建3个界面的应用，它可以从<a href="https://developer.github.com/v3/" target="_blank" rel="noopener">Github API</a>获取用户详情（让我们假设这在生产环境app中作为一个认证的事件）。</p>
+<p>App将会有3个scopes：</p>
+<ul>
+<li>(Application scope, <strong>@Singleton</strong>) - 只要application存活依赖就存活。</li>
+<li><strong>@UserScope</strong> - 只要用户会话是激活状态依赖就存活（在单个应用程序中启动）。<strong>重要的是：</strong>这个scope存活时间不会超过application本身。每一个新的app实例都会创建一个新的@UserScope（甚至app不同的启动间用户会话没有关闭）。</li>
+<li><strong>@ActivityScope</strong> - 只要Activity界面存活依赖就存活。</li>
+</ul>
+<h3 id="它怎么工作的呢？"><a href="#它怎么工作的呢？" class="headerlink" title="它怎么工作的呢？"></a>它怎么工作的呢？</h3><p>当app从Github API得到特定用户名的数据，新的界面会被打开（UserDetails）。在内部，<code>LoginActivityPresenter</code>访问<code>UserManager</code>来开启一个会话（从Github API获取数据）。当操作成功，用户保存到<code>UserDataStore</code>，并且<code>UserManager</code>创建<code>UserComponent</code>。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//UserManager</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Observable&lt;User&gt; <span class="title">startSessionForUser</span><span class="params">(String username)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> githubApiService.getUser(username)</span><br><span class="line">            .map(User.UserResponseToUser())</span><br><span class="line">            .doOnNext(<span class="keyword">new</span> Action1&lt;User&gt;() &#123;</span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">call</span><span class="params">(User user)</span> </span>&#123;</span><br><span class="line">                    userDataStore.createUser(user);</span><br><span class="line">                    startUserSession();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;)</span><br><span class="line">            .subscribeOn(Schedulers.io())</span><br><span class="line">            .observeOn(AndroidSchedulers.mainThread());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">startUserSession</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    User user = userDataStore.getUser();</span><br><span class="line">    <span class="keyword">if</span> (user != <span class="keyword">null</span>) &#123;</span><br><span class="line">        Timber.i(<span class="string">"Session started, user: %s"</span>, user);</span><br><span class="line">        userComponent = userComponentBuilder.sessionModule(<span class="keyword">new</span> UserModule(user)).build();</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>UserManager</strong>是一个单例，所以它的存活时间与Applicaiton一致，而且它对生命周期与用户会话一样的<code>UserComponet</code>负责。当用户决定去关闭会话，component会被移除，这样所有<code>@UserScope</code>注解了的对象应该准备被GC回收。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//UserManager</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">closeUserSession</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Timber.i(<span class="string">"Close session for user: %s"</span>, userDataStore.getUser());</span><br><span class="line">    userComponent.logoutManager().startLogoutProcess();</span><br><span class="line">    userDataStore.clearUser();</span><br><span class="line">    userComponent = <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Components的层次结构"><a href="#Components的层次结构" class="headerlink" title="Components的层次结构"></a>Components的层次结构</h3><p>在我们的app中所有的subcomponents使用了一个<code>AppComponent</code>作为一个根component。显示用户相关内容的Subcomponents使用保持了带<code>@Userscope</code>注解的对象（一个用户会话一个实例）的<code>UserComponent</code>。</p>
+<p><img src="http://frogermcs.github.io/images/28/scopes.png" alt=""></p>
+<p><code>UserDetailsActivityComponent</code>组件层次结构示例如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// AppComponent.java </span></span><br><span class="line"></span><br><span class="line"><span class="meta">@Singleton</span></span><br><span class="line"><span class="meta">@Component</span>(modules = &#123;</span><br><span class="line">        AppModule.class,</span><br><span class="line">        GithubApiModule.class</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">AppComponent</span> </span>&#123;</span><br><span class="line">    UserComponent.<span class="function">Builder <span class="title">userComponentBuilder</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// UserComponent.java </span></span><br><span class="line"></span><br><span class="line"><span class="meta">@UserScope</span></span><br><span class="line"><span class="meta">@Subcomponent</span>(modules = UserModule.class)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserComponent</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Subcomponent</span>.Builder</span><br><span class="line">    <span class="class"><span class="keyword">interface</span> <span class="title">Builder</span> </span>&#123;</span><br><span class="line">        UserComponent.<span class="function">Builder <span class="title">sessionModule</span><span class="params">(UserModule userModule)</span></span>;</span><br><span class="line">        <span class="function">UserComponent <span class="title">build</span><span class="params">()</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">UserDetailsActivityComponent <span class="title">plus</span><span class="params">(UserDetailsActivityComponent.UserDetailsActivityModule <span class="keyword">module</span>)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// UserDetailsActivityComponent.java </span></span><br><span class="line"></span><br><span class="line"><span class="meta">@ActivityScope</span></span><br><span class="line"><span class="meta">@Subcomponent</span>(modules = UserDetailsActivityComponent.UserDetailsActivityModule.class)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserDetailsActivityComponent</span> </span>&#123;</span><br><span class="line">    <span class="function">UserDetailsActivity <span class="title">inject</span><span class="params">(UserDetailsActivity activity)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于<code>UserComponent</code>，我们使用<a href="http://google.github.io/dagger/subcomponents.html#subcomponent-builders" target="_blank" rel="noopener">Subcomponent builder</a>模式来让我们的代码更加整洁，有可能注入这个Builder到<code>UserModule</code>（<code>UserComponent.Builder</code>用于创建组件<code>UserModule.startUserSession</code>方法如上所示）。</p>
+<h3 id="在app的多次启动中恢复UserScope"><a href="#在app的多次启动中恢复UserScope" class="headerlink" title="在app的多次启动中恢复UserScope"></a>在app的多次启动中恢复UserScope</h3><p>就像我之前提到的UserScope的存活时间不能超过application进程。所以如果我们假设用户会话可以在app的多次启动之间保存，我们需要为我们的<code>UserScope</code>去处理状态恢复操作。有两种场景我们需要记住：</p>
+<h4 id="用户从头开始启动程序"><a href="#用户从头开始启动程序" class="headerlink" title="用户从头开始启动程序"></a>用户从头开始启动程序</h4><p>这是最常见的情况，应该很简单地去处理。用户从头开始启动app（比如，通过点击app icon）。<code>Application</code>对象被创建，然后第一个<code>Activity</code>（<strong>LAUNCHER</strong>）被启动。我们需要提供简单的逻辑检查我们是否有保存的用户在我们的数据存储中。如果是则将用户传送到UserComponent自动创建的正确的界面（在我们案例中是<code>UserDetailsActivity</code>）。</p>
+<h4 id="用户进程被系统kill"><a href="#用户进程被系统kill" class="headerlink" title="用户进程被系统kill"></a>用户进程被系统kill</h4><p>但是还有一种情况我们经常会忘记。Application进程可以被系统杀死（比如，因为内存不足）。这意味着所有application数据被销毁（application，activities，static fields）。不幸的是这不能被很好的处理 - 我们在Applicaiton生命周期中没有任何回调。令它更复杂的是，android保存了activity栈。也就是说，当用户决定启动之前被杀死于流中间的应用程序时，系统将试图带用户回到此界面。</p>
+<p>对于我们而言我们需要准备在任何被使用的屏幕中去恢复<code>UserComponent</code>。</p>
+<p>让我们考虑这个例子：</p>
+<p>1. 用户在<code>UserDetailsActivity</code>界面最小化app。<br>2. 整个app被系统杀死（稍后我会展示如何模拟它）<br>3. 用户打开任务切换栏，点击我们的app界面。<br>4. 系统创建了一个新的<code>Application</code>实例。也就是说有一个新的<code>AppComponent</code>被创建。然后系统并不会打开<code>LoginActivity</code>（我们的启动activity），而是立即打开<code>UserDetailsActivity</code>。</p>
+<p>对于我们而言，<code>UserComponent</code>被恢复回来（新的实例被创建）。然后这是我们的责任。例子的解决方案看起来如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">BaseUserActivity</span> <span class="keyword">extends</span> <span class="title">BaseActivity</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Inject</span></span><br><span class="line">    UserManager userManager;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">setupActivityComponent</span><span class="params">(AppComponent appComponent)</span> </span>&#123;</span><br><span class="line">        appComponent.inject(<span class="keyword">this</span>);</span><br><span class="line">        setupUserComponent();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">setupUserComponent</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    isUserSessionStarted = userManager.isUserSessionStartedOrStartSessionIfPossible();</span><br><span class="line">    onUserComponentSetup(userManager.getUserComponent());</span><br><span class="line"></span><br><span class="line">    <span class="comment">//This screen cannot work when user session is not started.</span></span><br><span class="line">    <span class="keyword">if</span> (!isUserSessionStarted) &#123;</span><br><span class="line">        finish();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">onUserComponentSetup</span><span class="params">(UserComponent userComponent)</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>每一个使用了UserComponent的Activity都继承了我们的<code>BaseUserActivity</code>类（<code>setupActivityComponent()</code>方法在<code>BaseActivity</code>的<code>onCreate()</code>方法中调用）。</p>
+<p><code>UserManager</code>从Application创建的<code>AppComponent</code>中被注入。会话通过这种方式开启：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isUserSessionStartedOrStartSessionIfPossible</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> userComponent != <span class="keyword">null</span> || startUserSession();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">startUserSession</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//This method was described earlier</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="如果用户不再存在怎么办？"><a href="#如果用户不再存在怎么办？" class="headerlink" title="如果用户不再存在怎么办？"></a>如果用户不再存在怎么办？</h4><p>这里有另外一种方式来处理 - 如果用户登出（比如，通过<code>SyncAdapter</code>），然后<code>UserComponent</code>不能被创建怎么办？这就是为什么在我们的<code>BaseUserActivity</code>中有这几行：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">setupUserComponent</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//This screen cannot work when user session is not started.</span></span><br><span class="line">    <span class="keyword">if</span> (!isUserSessionStarted) &#123;</span><br><span class="line">        finish();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但是这里有一个情况时当UserComponent不能被创建时我们必须要记住依赖注入将不会发生。这就是为什么我每次需要在<code>onCreate()</code>方法中检查来防止来自依赖注入的NullPointerExceptions。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//UserDetailsActivity</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">    setContentView(R.layout.activity_user_details);</span><br><span class="line">    tvUser = (TextView) findViewById(R.id.tvUser);</span><br><span class="line">    tvUserUrl = (TextView) findViewById(R.id.tvUserUrl);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//This check has to be called. Otherwise, when user is not logged in, presenter won't be injected and this line will cause NPE</span></span><br><span class="line">    <span class="keyword">if</span> (isUserSessionStarted()) &#123;</span><br><span class="line">        presenter.onCreate();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="怎么去模拟应用进程被系统杀死"><a href="#怎么去模拟应用进程被系统杀死" class="headerlink" title="怎么去模拟应用进程被系统杀死"></a>怎么去模拟应用进程被系统杀死</h3><p>1. 打开你想测试的用户界面<br>2. 通过系统Home键最小化app。<br>3. 在Android Studio，Android Monitor 选中你的应用，然后点击Terminate<br>4. 现在在你的设备上打开任务切换栏，找到你的app（你应该仍然能在最后一个可见的界面上预览到）。<br>5. 你的app被启动，新的Application实例被创建，并且Activity被恢复。</p>
+<h2 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h2><p>例子中展示怎么样去创建和使用<code>UserComponent</code>的可用的源码已经在Github上：<a href="https://github.com/frogermcs/Dagger2Recipes-UserScope" target="_blank" rel="noopener">Dagger 2 recipes - UserScope</a>。</p>
+<p>感谢阅读！</p>
+<h2 id="作者"><a href="#作者" class="headerlink" title="作者"></a>作者</h2><p><a href="http://about.me/froger_mcs" target="_blank" rel="noopener">Miroslaw Stanek</a></p>
+<p>Head of Mobile Development @ <a href="https://azimo.com/" target="_blank" rel="noopener">Azimo</a></p>
+<blockquote>
+<p><strong>[Android]使用Dagger 2依赖注入 - DI介绍（翻译）:</strong></p>
+</blockquote>
+<p><a href="http://www.cnblogs.com/tiantianbyconan/p/5092083.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/5092083.html</a></p>
+<blockquote>
+<p><strong>[Android]使用Dagger 2依赖注入 - API（翻译）:</strong></p>
+</blockquote>
+<p><a href="http://www.cnblogs.com/tiantianbyconan/p/5092525.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/5092525.html</a></p>
+<blockquote>
+<p><strong>[Android]使用Dagger 2依赖注入 - 自定义Scope（翻译）:</strong></p>
+</blockquote>
+<p><a href="http://www.cnblogs.com/tiantianbyconan/p/5095426.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/5095426.html</a></p>
+<blockquote>
+<p><strong>[Android]使用Dagger 2依赖注入 - 图表创建的性能（翻译）:</strong></p>
+</blockquote>
+<p><a href="http://www.cnblogs.com/tiantianbyconan/p/5098943.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/5098943.html</a></p>
+<blockquote>
+<p><strong>[Android]Dagger2Metrics - 测量DI图表初始化的性能（翻译）:</strong></p>
+</blockquote>
+<p><a href="http://www.cnblogs.com/tiantianbyconan/p/5193437.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/5193437.html</a></p>
+<blockquote>
+<p><strong>[Android]使用Dagger 2进行依赖注入 - Producers（翻译）:</strong></p>
+</blockquote>
+<p><a href="http://www.cnblogs.com/tiantianbyconan/p/6234811.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/6234811.html</a></p>
+<blockquote>
+<p><strong>[Android]在Dagger 2中使用RxJava来进行异步注入（翻译）:</strong></p>
+</blockquote>
+<p><a href="http://www.cnblogs.com/tiantianbyconan/p/6236646.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/6236646.html</a></p>
+<blockquote>
+<p><strong>[Android]使用Dagger 2来构建UserScope（翻译）:</strong></p>
+</blockquote>
+<p><a href="http://www.cnblogs.com/tiantianbyconan/p/6237731.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/6237731.html</a></p>
+<blockquote>
+<p><strong>[Android]在Dagger 2中Activities和Subcomponents的多绑定（翻译）:</strong></p>
+</blockquote>
+<p><a href="http://www.cnblogs.com/tiantianbyconan/p/6266442.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/6266442.html</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/30/Android-在Dagger-2中使用RxJava来进行异步注入（翻译）/" rel="next" title="[Android]在Dagger 2中使用RxJava来进行异步注入（翻译）">
+                <i class="fa fa-chevron-left"></i> [Android]在Dagger 2中使用RxJava来进行异步注入（翻译）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/01/09/Android-在Dagger-2中Activities和Subcomponents的多绑定（翻译）/" rel="prev" title="[Android]在Dagger 2中Activities和Subcomponents的多绑定（翻译）">
+                [Android]在Dagger 2中Activities和Subcomponents的多绑定（翻译） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/my_avatar.jpg"
+                alt="Wang Jie" />
+            
+              <p class="site-author-name" itemprop="name">Wang Jie</p>
+              <p class="site-description motion-element" itemprop="description">Wang Jie's blog</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">144</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wangjiegulu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:tiantian.china.2@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/+%E5%A4%A9%E5%A4%A9wangjie" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/wangjiegulu" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://stackoverflow.com/users/2124006/wangjie" target="_blank" title="StackOverflow">
+                      
+                        <i class="fa fa-fw fa-stack-overflow"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/wangjiegulu" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.cnblogs.com/tiantianbyconan/" title="cnblog" target="_blank">cnblog</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#使用Dagger-2来构建UserScope"><span class="nav-text">使用Dagger 2来构建UserScope</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Example-app"><span class="nav-text">Example app</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#它怎么工作的呢？"><span class="nav-text">它怎么工作的呢？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Components的层次结构"><span class="nav-text">Components的层次结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在app的多次启动中恢复UserScope"><span class="nav-text">在app的多次启动中恢复UserScope</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#用户从头开始启动程序"><span class="nav-text">用户从头开始启动程序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#用户进程被系统kill"><span class="nav-text">用户进程被系统kill</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如果用户不再存在怎么办？"><span class="nav-text">如果用户不再存在怎么办？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#怎么去模拟应用进程被系统杀死"><span class="nav-text">怎么去模拟应用进程被系统杀死</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#源码"><span class="nav-text">源码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#作者"><span class="nav-text">作者</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wang Jie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://blog-wangjiegulu-com.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://blog.wangjiegulu.com/2016/12/30/Android-使用Dagger-2来构建UserScope（翻译）/';
+          this.page.identifier = '2016/12/30/Android-使用Dagger-2来构建UserScope（翻译）/';
+          this.page.title = '[Android]使用Dagger 2来构建UserScope（翻译）';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://blog-wangjiegulu-com.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "default";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "GooglePlus,Evernote,Twitter,Facebook,Douban,Weibo";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

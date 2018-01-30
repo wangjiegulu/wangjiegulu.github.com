@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="WAND JIE" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/5013863.html   Android系统启动流程源码分析首先我们知道，Android是基于Linux的，当Linux内核加载完成时就会自动启动一个init的进程。又因为我们每当我们启动一个App时，就会生成一个新的dalvik实例，并处于一个新的进程（当然一个">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Android]Android系统启动流程源码分析">
+<meta property="og:url" content="http://blog.wangjiegulu.com/2015/12/02/Android-Android系统启动流程源码分析/index.html">
+<meta property="og:site_name" content="WAND JIE">
+<meta property="og:description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/5013863.html   Android系统启动流程源码分析首先我们知道，Android是基于Linux的，当Linux内核加载完成时就会自动启动一个init的进程。又因为我们每当我们启动一个App时，就会生成一个新的dalvik实例，并处于一个新的进程（当然一个">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-01-29T12:36:41.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[Android]Android系统启动流程源码分析">
+<meta name="twitter:description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/5013863.html   Android系统启动流程源码分析首先我们知道，Android是基于Linux的，当Linux内核加载完成时就会自动启动一个init的进程。又因为我们每当我们启动一个App时，就会生成一个新的dalvik实例，并处于一个新的进程（当然一个">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.wangjiegulu.com/2015/12/02/Android-Android系统启动流程源码分析/"/>
+
+
+
+
+
+  <title>[Android]Android系统启动流程源码分析 | WAND JIE</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-111189680-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">WAND JIE</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">TO BE AN ARTIST-ENGINNER</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.wangjiegulu.com/2015/12/02/Android-Android系统启动流程源码分析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wang Jie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/my_avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WAND JIE">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">[Android]Android系统启动流程源码分析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-12-02T18:58:00+08:00">
+                2015-12-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/12/02/Android-Android系统启动流程源码分析/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2015/12/02/Android-Android系统启动流程源码分析/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <font color="#ff0000"><strong><br>以下内容为原创，欢迎转载，转载请注明<br>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/5013863.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/5013863.html</a>
+</strong></font>
+
+<h3 id="Android系统启动流程源码分析"><a href="#Android系统启动流程源码分析" class="headerlink" title="Android系统启动流程源码分析"></a>Android系统启动流程源码分析</h3><p>首先我们知道，<code>Android</code>是基于<code>Linux</code>的，当<code>Linux</code>内核加载完成时就会自动启动一个<code>init</code>的进程。<br>又因为我们每当我们启动一个App时，就会生成一个新的<code>dalvik</code>实例，并处于一个新的进程（当然一个App也可能是多进程的）。<br>当我们打开第一个App的时候，就会通过<code>init</code>进程fork出一个<code>zygote</code>进程。之后打开新的App的时候都会<code>fork</code>之前的<code>zygote</code>进程。</p>
+<p>当<code>fork</code>一个<code>zygote</code>进程时，会进入<code>com.android.internal.os.ZygoteInit</code>的<code>main</code>方法进行初始化操作：</p>
+<ul>
+<li><p>预加载资源</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ...</span></span><br><span class="line">preloadClasses();</span><br><span class="line">preloadResources();</span><br><span class="line">preloadOpenGL();</span><br><span class="line">preloadSharedLibraries();</span><br><span class="line">preloadTextResources();</span><br><span class="line"><span class="comment">// Ask the WebViewFactory to do any initialization that must run in the zygote process,</span></span><br><span class="line"><span class="comment">// for memory sharing purposes.</span></span><br><span class="line">WebViewFactory.prepareWebViewInZygote();</span><br><span class="line"><span class="comment">// ...</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>从第一个<code>zygote</code>进程<code>fork</code>出<code>SystemServer</code>进程，这个进程提供各种<code>ManagerService</code>。</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">startSystemServer(abiList, socketName);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">startSystemServer</span><span class="params">(String abiList, String socketName)</span></span></span><br><span class="line"><span class="function">            <span class="keyword">throws</span> MethodAndArgsCaller, RuntimeException </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> pid;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	String args[] = &#123;</span><br><span class="line">            <span class="string">"--setuid=1000"</span>,</span><br><span class="line">            <span class="string">"--setgid=1000"</span>,</span><br><span class="line">            <span class="string">"--setgroups=1001,1002,1003,1004,1005,1006,1007,1008,1009,1010,1018,1021,1032,3001,3002,3003,3006,3007"</span>,</span><br><span class="line">            <span class="string">"--capabilities="</span> + capabilities + <span class="string">","</span> + capabilities,</span><br><span class="line">            <span class="string">"--nice-name=system_server"</span>,</span><br><span class="line">            <span class="string">"--runtime-args"</span>,</span><br><span class="line">            <span class="string">"com.android.server.SystemServer"</span>,</span><br><span class="line">        &#125;;</span><br><span class="line">    <span class="comment">/* Request to fork the system server process */</span></span><br><span class="line">    pid = Zygote.forkSystemServer(</span><br><span class="line">            parsedArgs.uid, parsedArgs.gid,</span><br><span class="line">            parsedArgs.gids,</span><br><span class="line">            parsedArgs.debugFlags,</span><br><span class="line">            <span class="keyword">null</span>,</span><br><span class="line">            parsedArgs.permittedCapabilities,</span><br><span class="line">            parsedArgs.effectiveCapabilities);</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Fork完<code>SystemServer</code>进程之后，继续接下来在<code>handleSystemServerProcess</code>方法中传入参数到<code>SystemServer</code>：</li>
+<li><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RuntimeInit.zygoteInit(parsedArgs.targetSdkVersion, parsedArgs.remainingArgs, cl);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>注意，这里传入的参数是fork<code>SystemServer</code>进程后剩下的参数（<code>parsedArgs.remainingArgs</code>），其实只剩下了<code>com.android.server.SystemServer</code>这个参数了。</p>
+<p>接下来继续调用<code>applicationInit</code> ，传入参数：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">applicationInit</span><span class="params">(<span class="keyword">int</span> targetSdkVersion, String[] argv, ClassLoader classLoader)</span></span></span><br><span class="line"><span class="function">            <span class="keyword">throws</span> ZygoteInit.MethodAndArgsCaller </span>&#123;</span><br><span class="line">	<span class="keyword">final</span> Arguments args;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	args = <span class="keyword">new</span> Arguments(argv);</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>解析成<code>Arguments</code>后，得到了一个<code>startClass</code>对象，这个<code>startClass</code>其实就是刚刚的那个<code>com.android.server.SystemServer</code>。</p>
+<p>接下来，继续调用 <code>invokeStaticMain</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">invokeStaticMain</span><span class="params">(String className, String[] argv, ClassLoader classLoader)</span> <span class="keyword">throws</span> ZygoteInit.MethodAndArgsCaller </span>&#123;</span><br><span class="line">	Class&lt;?&gt; cl;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	cl = Class.forName(className, <span class="keyword">true</span>, classLoader);</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	m = cl.getMethod(<span class="string">"main"</span>, <span class="keyword">new</span> Class[] &#123; String[].class &#125;);</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	<span class="keyword">throw</span> <span class="keyword">new</span> ZygoteInit.MethodAndArgsCaller(m, argv);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>就是调用通过反射得到<code>com.android.server.SystemServer</code>（也就是上面的<code>startClass</code>）的<code>main(argv[])</code>方法，然后手动抛一个携带了这个<code>main(argv[])</code>方法的<code>MethodAndArgsCaller</code>异常，但是这个异常是在<code>ZygoteInit.main()</code>方法中被catch，然后去调用它的<code>run()</code>方法，当然这个<code>run()</code>方法中会再去通过反射调用携带的<code>main()</code>方法（这个绕法真是有点坑爹－－。）：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">MethodAndArgsCaller</span> <span class="keyword">extends</span> <span class="title">Exception</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">// ...</span></span><br><span class="line">	    mMethod.invoke(<span class="keyword">null</span>, <span class="keyword">new</span> Object[] &#123; mArgs &#125;);</span><br><span class="line">		<span class="comment">// ...</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>绕了这么一大圈，终于通过<code>MethodAndArgsCaller</code>调用<code>SystemServer</code>的<code>main()</code>方法了，代码很简单，直接<code>new</code>了之后<code>run</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> SystemServer().run();</span><br></pre></td></tr></table></figure>
+<p>接着，我们看<code>SystemServer</code>的<code>run</code>方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ... (省略初始化当前的language、locale、country、指纹、用户等信息的初始化准备工作)</span></span><br><span class="line"><span class="comment">// 设置当前进程设置优先级为THREAD_PRIORITY_FOREGROUND（-2）</span></span><br><span class="line">android.os.Process.setThreadPriority(</span><br><span class="line">    android.os.Process.THREAD_PRIORITY_FOREGROUND);</span><br><span class="line">android.os.Process.setCanSelfBackground(<span class="keyword">false</span>);</span><br><span class="line"><span class="comment">// 初始化主线程Looper</span></span><br><span class="line">Looper.prepareMainLooper();</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="comment">// 启动消息循环</span></span><br><span class="line">Looper.loop()</span><br></pre></td></tr></table></figure>
+<p>然后调用<code>createSystemContext()</code>方法创建初始化<code>system context</code>，这个待会再展开。</p>
+<p>创建<code>SystemServiceManager</code>：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mSystemServiceManager = <span class="keyword">new</span> SystemServiceManager(mSystemContext);</span><br><span class="line">LocalServices.addService(SystemServiceManager.class, mSystemServiceManager);</span><br></pre></td></tr></table></figure></p>
+<p>使用<code>SystemServiceManager</code>去通过以下方法创建启动各个<code>Service</code>：<br>1. startBootstrapServices()：</p>
+<ul>
+<li><code>com.android.server.pm.Installer</code>：提供安装、卸载App等服务</li>
+<li><code>com.android.server.am.ActivityServiceManager</code>：提供Activity等组件的管理的服务，这个比较复杂暂且再挖个坑。</li>
+<li><code>com.android.server.power.PowerManagerService</code>：电源管理的服务。</li>
+<li><code>com.android.server.lights.LightsService</code>：LED管理和背光显示的服务。</li>
+<li><code>com.android.server.display.DisplayManagerService</code>：提供显示的生命周期管理，根据物理显示设备当前的情况决定显示配置，在状态改变时发送通知给系统和应用等服务。</li>
+<li><code>com.android.server.pm.PackageManagerService</code>：管理所有的<code>.apk</code>。</li>
+<li><code>com.android.server.pm.UserManagerService</code>：提供用户相关服务。</li>
+<li>通过<code>startSensorService()</code>本地方法启动Sensor服务。</li>
+</ul>
+<p>2. startCoreServices();</p>
+<ul>
+<li><code>com.android.server.BatteryService</code>：电量服务，需要<code>LightService</code>。</li>
+<li><code>com.android.server.usage.UsageStatsService</code>：提供收集统计应用程序数据使用状态的服务。</li>
+<li><code>com.android.server.webkit.WebViewUpdateService</code>：私有的服务（@hide），用于<code>WebView</code>的更新。</li>
+</ul>
+<p>3. startOtherServices();</p>
+<ul>
+<li><code>com.android.server.accounts.AccountManagerService</code>：提供所有账号、密码、认证管理等等的服务。</li>
+<li><code>com.android.server.content.ContentService</code>：用户数据同步的服务。</li>
+<li><code>com.android.server.VibratorService</code>：震动服务。</li>
+<li><code>IAlarmManager</code>：提醒服务。</li>
+<li><code>android.os.storage.IMountService</code>：存储管理服务。</li>
+<li><code>com.android.server.NetworkManagementService</code>：系统网络连接管理服务。</li>
+<li><code>com.android.server.net.NetworkStatsService</code>：收集统计详细的网络数据服务。</li>
+<li><code>com.android.server.net.NetworkPolicyManagerService</code>：提供低网络策略规则管理服务。</li>
+<li><code>com.android.server.ConnectivityService</code>：提供数据连接服务。</li>
+<li><code>com.android.server.NetworkScoreService</code>：<code>android.net.NetworkScoreManager</code>的备份服务。</li>
+<li><code>com.android.server.NsdService</code>：网络发现服务（Network Service Discovery Service）。</li>
+<li><code>com.android.server.wm.WindowManagerService</code>：窗口管理服务。</li>
+<li><code>com.android.server.usb.UsbService</code>：USB服务。</li>
+<li><code>com.android.server.SerialService</code>：串口服务。</li>
+<li><code>com.android.server.NetworkTimeUpdateService</code>：网络时间同步服务。</li>
+<li><code>com.android.server.CommonTimeManagementService</code>：管理本地常见的时间配置的服务，当网络配置变化时会重新配置本地服务。</li>
+<li><code>com.android.server.input.InputManagerService</code>：事件传递分发服务。</li>
+<li><code>com.android.server.TelephonyRegistry</code>：提供电话注册管理的服务。</li>
+<li><code>com.android.server.ConsumerIrService</code>：远程控制服务。</li>
+<li><code>com.android.server.audio.AudioService</code>：音量、铃声、声道等管理服务。</li>
+<li><code>com.android.server.MmsServiceBroker</code>：<code>MmsService</code>的代理，因为<code>MmsService</code>运行在电话进程中，可能随时crash，它会通过一个<code>connection</code>与<code>MmsService</code>建立一个桥梁，<code>MmsService</code>实现了公开的<code>SMS/MMS</code>的API。</li>
+<li><code>TelecomLoaderService</code></li>
+<li><code>CameraService</code></li>
+<li><code>AlarmManagerService</code></li>
+<li><code>BluetoothService</code></li>
+<li>还有其它很多很多Service，这方法竟然有近1000行……</li>
+</ul>
+<p>在<code>startOtherServices()</code>方法的最后：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mActivityManagerService.systemReady(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">// 下面仍然是各种Service的启动...</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>调用这个方法用来告诉<code>ActivityManagerService</code>，此时可以运行第三方的代码了（注意：这里的Home界面、Launcher等内置的App也算是第三方的App）。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">systemReady</span><span class="params">(<span class="keyword">final</span> Runnable goingCallback)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	<span class="keyword">if</span> (mSystemReady) &#123;</span><br><span class="line">		<span class="comment">// 回调到SystemServer，继续启动各种Service</span></span><br><span class="line">		<span class="keyword">if</span> (goingCallback != <span class="keyword">null</span>) &#123;</span><br><span class="line">		    goingCallback.run();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">	ResolveInfo ri = mContext.getPackageManager().resolveActivity(<span class="keyword">new</span> Intent(Intent.ACTION_FACTORY_TEST), STOCK_PM_FLAGS);</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	ActivityInfo ai = ri.activityInfo;</span><br><span class="line">	ApplicationInfo app = ai.applicationInfo;</span><br><span class="line">	<span class="comment">// ...从PackageManager中获取要打开的HomeActivity</span></span><br><span class="line">	mTopComponent = <span class="keyword">new</span> ComponentName(app.packageName, ai.name);</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	<span class="comment">// 启动第一个Home界面</span></span><br><span class="line">	startHomeActivityLocked(mCurrentUserId, <span class="string">"systemReady"</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	<span class="comment">// 广播通知启动完成</span></span><br><span class="line">	broadcastIntentLocked(<span class="comment">/*...*/</span>, mCurrentUserId);</span><br><span class="line">	broadcastIntentLocked(<span class="comment">/*...*/</span>, UserHandle.USER_ALL);</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>启动Home界面的<code>startHomeActivityLocked</code>方法，调用<code>mStackSupervisor</code>启动<code>HomeActivity</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">startHomeActivityLocked</span><span class="params">(<span class="keyword">int</span> userId, String reason)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	Intent intent = getHomeIntent();</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	intent.setFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_NEW_TASK);</span><br><span class="line">	mStackSupervisor.startHomeActivity(intent, aInfo, reason);</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Intent <span class="title">getHomeIntent</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	Intent intent = <span class="keyword">new</span> Intent(mTopAction, mTopData != <span class="keyword">null</span> ? Uri.parse(mTopData) : <span class="keyword">null</span>);</span><br><span class="line">	<span class="comment">// 设置前面获取到的mTopComponent</span></span><br><span class="line">	intent.setComponent(mTopComponent);</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	intent.addCategory(Intent.CATEGORY_HOME);</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>到此为止，<code>SystemServer</code> start完毕，并且启动了Home界面。</p>
+<p>然后我们再回过头去看看在我们前面创建系统级的<code>Context</code>（<code>createSystemContext</code>）的时候做了什么：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ActivityThread activityThread = ActivityThread.systemMain();</span><br><span class="line">mSystemContext = activityThread.getSystemContext();</span><br><span class="line">mSystemContext.setTheme(android.R.style.Theme_DeviceDefault_Light_DarkActionBar);</span><br></pre></td></tr></table></figure></p>
+<p>首先调用了<code>ActivityThread</code>的静态方法<code>systemMain()</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ActivityThread <span class="title">systemMain</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">    ActivityThread thread = <span class="keyword">new</span> ActivityThread();</span><br><span class="line">    thread.attach(<span class="keyword">true</span>);</span><br><span class="line">    <span class="keyword">return</span> thread;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>创建一个<code>ActivityThread</code>，然后调用它的<code>attach()</code>方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">thread.attach(<span class="keyword">true</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">attach</span><span class="params">(<span class="keyword">boolean</span> system)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (!system) &#123;</span><br><span class="line">		<span class="comment">// ...</span></span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="comment">// ...</span></span><br><span class="line">		mInstrumentation = <span class="keyword">new</span> Instrumentation();</span><br><span class="line">        ContextImpl context = ContextImpl.createAppContext(<span class="keyword">this</span>, getSystemContext().mPackageInfo);</span><br><span class="line">        mInitialApplication = context.mPackageInfo.makeApplication(<span class="keyword">true</span>, <span class="keyword">null</span>);</span><br><span class="line">        mInitialApplication.onCreate();</span><br><span class="line">		<span class="comment">// ...</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>参数<code>system</code>表示，是否是系统级的线程，现在我们是启动整个Android系统，显然当前传入的参数为<code>true</code>。所以进入else，首先，创建一个<code>Instrumentation</code>，<code>Instrumentation</code>是什么？暂时先挖个坑。接着通过<code>System Context</code>创建一个<code>ContextImpl</code>，然后使用它的<code>LoadedApk::makeApplication</code>方法来创建整个应用的<code>Application</code>对象，然后调用<code>Application</code>的<code>onCreate</code>方法。</p>
+<p>然后看下<code>LoadedApk::makeApplication</code>方法的实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Application <span class="title">makeApplication</span><span class="params">(<span class="keyword">boolean</span> forceDefaultAppClass,</span></span></span><br><span class="line"><span class="function"><span class="params">            Instrumentation instrumentation)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 只有第一次调用makeApplication才会往下执行</span></span><br><span class="line">	<span class="keyword">if</span> (mApplication != <span class="keyword">null</span>) &#123;</span><br><span class="line">	    <span class="keyword">return</span> mApplication;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 初始化系统的Application，所以appClass是"android.app.Application"</span></span><br><span class="line">	String appClass = mApplicationInfo.className;</span><br><span class="line">    <span class="keyword">if</span> (forceDefaultAppClass || (appClass == <span class="keyword">null</span>)) &#123;</span><br><span class="line">        appClass = <span class="string">"android.app.Application"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	ContextImpl appContext = ContextImpl.createAppContext(mActivityThread, <span class="keyword">this</span>);</span><br><span class="line">    app = mActivityThread.mInstrumentation.newApplication(</span><br><span class="line">            cl, appClass, appContext);</span><br><span class="line">    appContext.setOuterContext(app);</span><br><span class="line">	<span class="comment">// ...	</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>创建<code>appContext</code>，然后通过<code>Instrumentation</code>生成<code>Application</code>对象，并给<code>appContext</code>设置外部引用。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/11/26/Android小技巧/" rel="next" title="Android小技巧">
+                <i class="fa fa-chevron-left"></i> Android小技巧
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/12/03/Android-从Launcher开始启动App流程源码分析/" rel="prev" title="[Android]从Launcher开始启动App流程源码分析">
+                [Android]从Launcher开始启动App流程源码分析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/my_avatar.jpg"
+                alt="Wang Jie" />
+            
+              <p class="site-author-name" itemprop="name">Wang Jie</p>
+              <p class="site-description motion-element" itemprop="description">Wang Jie's blog</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">144</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wangjiegulu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:tiantian.china.2@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/+%E5%A4%A9%E5%A4%A9wangjie" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/wangjiegulu" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://stackoverflow.com/users/2124006/wangjie" target="_blank" title="StackOverflow">
+                      
+                        <i class="fa fa-fw fa-stack-overflow"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/wangjiegulu" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.cnblogs.com/tiantianbyconan/" title="cnblog" target="_blank">cnblog</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Android系统启动流程源码分析"><span class="nav-text">Android系统启动流程源码分析</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wang Jie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://blog-wangjiegulu-com.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://blog.wangjiegulu.com/2015/12/02/Android-Android系统启动流程源码分析/';
+          this.page.identifier = '2015/12/02/Android-Android系统启动流程源码分析/';
+          this.page.title = '[Android]Android系统启动流程源码分析';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://blog-wangjiegulu-com.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "default";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "GooglePlus,Evernote,Twitter,Facebook,Douban,Weibo";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

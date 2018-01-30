@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="WAND JIE" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/6266442.html   在Dagger 2中Activities和Subcomponents的多绑定 原文：http://frogermcs.github.io/activities-multibinding-in-dagger-2  几个月前，在MCE^3会议">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Android]在Dagger 2中Activities和Subcomponents的多绑定（翻译）">
+<meta property="og:url" content="http://blog.wangjiegulu.com/2017/01/09/Android-在Dagger-2中Activities和Subcomponents的多绑定（翻译）/index.html">
+<meta property="og:site_name" content="WAND JIE">
+<meta property="og:description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/6266442.html   在Dagger 2中Activities和Subcomponents的多绑定 原文：http://frogermcs.github.io/activities-multibinding-in-dagger-2  几个月前，在MCE^3会议">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-01-29T13:11:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[Android]在Dagger 2中Activities和Subcomponents的多绑定（翻译）">
+<meta name="twitter:description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/6266442.html   在Dagger 2中Activities和Subcomponents的多绑定 原文：http://frogermcs.github.io/activities-multibinding-in-dagger-2  几个月前，在MCE^3会议">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.wangjiegulu.com/2017/01/09/Android-在Dagger-2中Activities和Subcomponents的多绑定（翻译）/"/>
+
+
+
+
+
+  <title>[Android]在Dagger 2中Activities和Subcomponents的多绑定（翻译） | WAND JIE</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-111189680-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">WAND JIE</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">TO BE AN ARTIST-ENGINNER</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.wangjiegulu.com/2017/01/09/Android-在Dagger-2中Activities和Subcomponents的多绑定（翻译）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wang Jie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/my_avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WAND JIE">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">[Android]在Dagger 2中Activities和Subcomponents的多绑定（翻译）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-09T20:23:00+08:00">
+                2017-01-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/01/09/Android-在Dagger-2中Activities和Subcomponents的多绑定（翻译）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/01/09/Android-在Dagger-2中Activities和Subcomponents的多绑定（翻译）/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <font color="#ff0000"><strong><br>以下内容为原创，欢迎转载，转载请注明<br>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/6266442.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/6266442.html</a>
+</strong></font>
+
+<h1 id="在Dagger-2中Activities和Subcomponents的多绑定"><a href="#在Dagger-2中Activities和Subcomponents的多绑定" class="headerlink" title="在Dagger 2中Activities和Subcomponents的多绑定"></a>在Dagger 2中Activities和Subcomponents的多绑定</h1><blockquote>
+<p>原文：<a href="http://frogermcs.github.io/activities-multibinding-in-dagger-2" target="_blank" rel="noopener">http://frogermcs.github.io/activities-multibinding-in-dagger-2</a></p>
+</blockquote>
+<p>几个月前，在<a href="http://2016.mceconf.com/" target="_blank" rel="noopener">MCE^3</a>会议中，Gregory Kick在他的<a href="https://www.youtube.com/watch?v=iwjXqRlEevg" target="_blank" rel="noopener">演讲</a>中展示了一个提供Subcomponents（比如，为Activity）的新概念。新的方式给我们带来了一个创建不使用AppComponent对象引用（以前时Activities Subcomponents的工厂）的方式。为了让它成为现实，我们不得不等到了新的Dagger release版本：<a href="https://github.com/google/dagger/releases/tag/dagger-2.7" target="_blank" rel="noopener">version 2.7</a>。</p>
+<a id="more"></a>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>在Dagger 2.7之前，创建Subcomponent（比如，<code>AppComponent</code>的subcomponent <code>MainActivityComponent</code>）我们必须要在父Component中声明它的工厂：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Singleton</span></span><br><span class="line"><span class="meta">@Component</span>(</span><br><span class="line">    modules = &#123;</span><br><span class="line">        AppModule.class</span><br><span class="line">    &#125;</span><br><span class="line">)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">AppComponent</span> </span>&#123;</span><br><span class="line">    <span class="function">MainActivityComponent <span class="title">plus</span><span class="params">(MainActivityComponent.ModuleImpl <span class="keyword">module</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>多亏Dagger理解这个声明，<code>MainActivityComponent</code>能够访问从<code>AppComponent</code>的依赖。</p>
+<p>有了这个，<code>MainActivity</code>中的注入看起来如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> ActivityComponent <span class="title">onCreateComponent</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ((MyApplication) getApplication()).getComponent().plus(<span class="keyword">new</span> MainActivityComponent.ModuleImpl(<span class="keyword">this</span>));</span><br><span class="line">    component.inject(<span class="keyword">this</span>);</span><br><span class="line">    <span class="keyword">return</span> component;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个代码的问题在于：</p>
+<ul>
+<li><p>Activity依赖于<code>AppComponent</code>（通过<code>((MyApplication) getApplication()).getComponent())</code>返回 - 我们是否想要去创建Subcomponent，我们需要去访问父Component的对象）。</p>
+</li>
+<li><p><code>AppComponent</code>必须要去声明所有Subcomponents（或者它们的builders），比如：<code>MainActivityComponent plus(MainActivityComponent.ModuleImpl module);</code>。</p>
+</li>
+</ul>
+<h2 id="Modules-subcomponents"><a href="#Modules-subcomponents" class="headerlink" title="Modules.subcomponents"></a>Modules.subcomponents</h2><p>从Dagger 2.7开始，我们有了一个新的方法来声明subcomponents的父级。<code>@Module</code>注解有一个可选的<a href="http://google.github.io/dagger/api/2.7/dagger/Module.html#subcomponents--" target="_blank" rel="noopener">subcomponents</a>属性，它可以得到subcomponents类的列表，它们应该是安装此module组件的子component。</p>
+<h3 id="Example："><a href="#Example：" class="headerlink" title="Example："></a>Example：</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Module</span>(</span><br><span class="line">        subcomponents = &#123;</span><br><span class="line">                MainActivityComponent.class,</span><br><span class="line">                SecondActivityComponent.class</span><br><span class="line">        &#125;)</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">ActivityBindingModule</span> </span>&#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>ActivityBindingModule</code>在<code>AppComponent</code>中被安装。这表示<code>MainActivityComponent</code>和<code>SecondActivityComponent</code>两者都是<code>AppComponent</code>的Subcomponents。</p>
+<p>Subcomponents的声明在这种方法中不需要明确地在<code>AppComponent</code>中进行声明（就像本章开头的代码）。</p>
+<h2 id="Activities的多绑定"><a href="#Activities的多绑定" class="headerlink" title="Activities的多绑定"></a>Activities的多绑定</h2><p>让我们来看看我们怎么样使用<code>Modules.subcomponents</code>来构建Activities多绑定并且摆脱AppComponent对象传入Activity（这在<a href="https://www.youtube.com/watch?v=iwjXqRlEevg&amp;feature=youtu.be&amp;t=1693" target="_blank" rel="noopener">这个演讲</a>中也解释到）。我将只浏览代码中最重要的部分。整个实现已在Github中可用：<a href="https://github.com/frogermcs/Dagger2Recipes-ActivitiesMultibinding" target="_blank" rel="noopener">Dagger2Recipes-ActivitiesMultibinding</a>。</p>
+<p>我们的app包含两个屏幕：<code>MainActivity</code>和<code>SecondActivity</code>。我们想要去给它们两者提供Subcomponents且并不传入<code>AppComponent</code>对象。</p>
+<p>让我们从为所有Activity Components builders构建一个基本的接口来开始：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ActivityComponentBuilder</span>&lt;<span class="title">M</span> <span class="keyword">extends</span> <span class="title">ActivityModule</span>, <span class="title">C</span> <span class="keyword">extends</span> <span class="title">ActivityComponent</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function">ActivityComponentBuilder&lt;M, C&gt; <span class="title">activityModule</span><span class="params">(M activityModule)</span></span>;</span><br><span class="line">    <span class="function">C <span class="title">build</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Subcomponents：<code>MainActivityComponent</code>的例子看起来如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ActivityScope</span></span><br><span class="line"><span class="meta">@Subcomponent</span>(</span><br><span class="line">        modules = MainActivityComponent.MainActivityModule.class</span><br><span class="line">)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">MainActivityComponent</span> <span class="keyword">extends</span> <span class="title">ActivityComponent</span>&lt;<span class="title">MainActivity</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Subcomponent</span>.Builder</span><br><span class="line">    <span class="class"><span class="keyword">interface</span> <span class="title">Builder</span> <span class="keyword">extends</span> <span class="title">ActivityComponentBuilder</span>&lt;<span class="title">MainActivityModule</span>, <span class="title">MainActivityComponent</span>&gt; </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Module</span></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">MainActivityModule</span> <span class="keyword">extends</span> <span class="title">ActivityModule</span>&lt;<span class="title">MainActivity</span>&gt; </span>&#123;</span><br><span class="line">        MainActivityModule(MainActivity activity) &#123;</span><br><span class="line">            <span class="keyword">super</span>(activity);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>现在我们可以使用Subcomponents builders的<code>Map</code>来得到每一个Activity类的意图builder。让我们如下使用<code>Multibinding</code>特性：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Module</span>(</span><br><span class="line">        subcomponents = &#123;</span><br><span class="line">                MainActivityComponent.class,</span><br><span class="line">                SecondActivityComponent.class</span><br><span class="line">        &#125;)</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">ActivityBindingModule</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Binds</span></span><br><span class="line">    <span class="meta">@IntoMap</span></span><br><span class="line">    <span class="meta">@ActivityKey</span>(MainActivity.class)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> ActivityComponentBuilder <span class="title">mainActivityComponentBuilder</span><span class="params">(MainActivityComponent.Builder impl)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Binds</span></span><br><span class="line">    <span class="meta">@IntoMap</span></span><br><span class="line">    <span class="meta">@ActivityKey</span>(SecondActivity.class)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> ActivityComponentBuilder <span class="title">secondActivityComponentBuilder</span><span class="params">(SecondActivityComponent.Builder impl)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>ActivityBindingModule</code>在<code>AppComponent</code>中被安装。就如它被解释的那样，多亏<code>MainActivityComponent</code>和<code>SecondActivityComponent</code>将会是<code>AppComponent</code>的Subcomponent。</p>
+<p>现在我们可以注入<code>Subcomponents</code> builder的Map（比如，注入到<code>MyApplication</code> class）：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyApplication</span> <span class="keyword">extends</span> <span class="title">Application</span> <span class="keyword">implements</span> <span class="title">HasActivitySubcomponentBuilders</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Inject</span></span><br><span class="line">    Map&lt;Class&lt;? extends Activity&gt;, ActivityComponentBuilder&gt; activityComponentBuilders;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> AppComponent appComponent;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> HasActivitySubcomponentBuilders <span class="title">get</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> ((HasActivitySubcomponentBuilders) context.getApplicationContext());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate();</span><br><span class="line">        appComponent = DaggerAppComponent.create();</span><br><span class="line">        appComponent.inject(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ActivityComponentBuilder <span class="title">getActivityComponentBuilder</span><span class="params">(Class&lt;? extends Activity&gt; activityClass)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> activityComponentBuilders.get(activityClass);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们创建了<code>HashActivitySubcomponentBuilders</code>接口作为额外的抽象（因为builders的<code>Map</code>不一定是注入到<code>Appliction</code>类的）：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">HasActivitySubcomponentBuilders</span> </span>&#123;</span><br><span class="line">    <span class="function">ActivityComponentBuilder <span class="title">getActivityComponentBuilder</span><span class="params">(Class&lt;? extends Activity&gt; activityClass)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后最后在Activity class中进行注入的实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">BaseActivity</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">injectMembers</span><span class="params">(HasActivitySubcomponentBuilders hasActivitySubcomponentBuilders)</span> </span>&#123;</span><br><span class="line">        ((MainActivityComponent.Builder) hasActivitySubcomponentBuilders.getActivityComponentBuilder(MainActivity.class))</span><br><span class="line">                .activityModule(<span class="keyword">new</span> MainActivityComponent.MainActivityModule(<span class="keyword">this</span>))</span><br><span class="line">                .build().injectMembers(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>它非常类似于我们的第一个实现，但如上，最重要的事是我们不再传入<code>ActivityComponent</code>对象到我们的Activities中。</p>
+<h2 id="用例example-——-instrumentation-tests-mocking"><a href="#用例example-——-instrumentation-tests-mocking" class="headerlink" title="用例example —— instrumentation tests mocking"></a>用例example —— instrumentation tests mocking</h2><p>除了解耦和解决循环依赖（Activity &lt;-&gt; Application），这不是一个大的问题，尤其是在较小的项目/团队中，让我们思考一个这个实现有帮助的真实用例 —— 在instrumentation testing中的mocking依赖。</p>
+<p>目前在Android Instrumentation测试中mocking依赖最著名的方式之一是使用<a href="https://medium.com/@fabioCollini/android-testing-using-dagger-2-mockito-and-a-custom-junit-rule-c8487ed01b56#.eh5zfyou5" target="_blank" rel="noopener">DaggerMock</a>（Github <a href="https://github.com/fabioCollini/DaggerMock" target="_blank" rel="noopener">项目地址</a>）。虽然DaggerMock是一个强大的工具，但是非常难理解它面具之下是怎么工作的。其中有一些反射代码不容易被追踪。</p>
+<p>在Activity中直接构建Subcomponent，而不需要访问AppComponent类给了我们一个方式来测试单独的Activity并从我们app的其它部分解耦。</p>
+<p>听起来很酷，现在我们来看下代码。</p>
+<p>在我们的instrumentation test中使用Applicaton类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ApplicationMock</span> <span class="keyword">extends</span> <span class="title">MyApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">putActivityComponentBuilder</span><span class="params">(ActivityComponentBuilder builder, Class&lt;? extends Activity&gt; cls)</span> </span>&#123;</span><br><span class="line">        Map&lt;Class&lt;? extends Activity&gt;, ActivityComponentBuilder&gt; activityComponentBuilders = <span class="keyword">new</span> HashMap&lt;&gt;(<span class="keyword">this</span>.activityComponentBuilders);</span><br><span class="line">        activityComponentBuilders.put(cls, builder);</span><br><span class="line">        <span class="keyword">this</span>.activityComponentBuilders = activityComponentBuilders;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>putActivityComponentBuilder()</code>方法给我们一个对给定Activity类替换ActivityComponentBuilder的实现的方法。</p>
+<p>现在来看下我们Espresso Instrumentation Test例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RunWith</span>(AndroidJUnit4.class)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivityUITest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Rule</span></span><br><span class="line">    <span class="keyword">public</span> MockitoRule mockitoRule = MockitoJUnit.rule();</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Rule</span></span><br><span class="line">    <span class="keyword">public</span> ActivityTestRule&lt;MainActivity&gt; activityRule = <span class="keyword">new</span> ActivityTestRule&lt;&gt;(MainActivity.class, <span class="keyword">true</span>, <span class="keyword">false</span>);</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Mock</span></span><br><span class="line">    MainActivityComponent.Builder builder;</span><br><span class="line">    <span class="meta">@Mock</span></span><br><span class="line">    Utils utilsMock;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> MainActivityComponent mainActivityComponent = <span class="keyword">new</span> MainActivityComponent() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">injectMembers</span><span class="params">(MainActivity instance)</span> </span>&#123;</span><br><span class="line">            instance.mainActivityPresenter = <span class="keyword">new</span> MainActivityPresenter(instance, utilsMock);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Before</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUp</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        when(builder.build()).thenReturn(mainActivityComponent);</span><br><span class="line">        when(builder.activityModule(any(MainActivityComponent.MainActivityModule.class))).thenReturn(builder);</span><br><span class="line"></span><br><span class="line">        ApplicationMock app = (ApplicationMock) InstrumentationRegistry.getTargetContext().getApplicationContext();</span><br><span class="line">        app.putActivityComponentBuilder(builder, MainActivity.class);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>一步一步来：</p>
+<ul>
+<li><p>我们提供了<code>MainActivityComponent.Builder</code>的Mock和所有我们必须要mock的依赖（在本例中只是<code>Utils</code>）。我们mocked<code>Builder</code>返回一个<code>MainActivityComponent</code>的一个自定义实现，它用于注入<code>MainActivityPresenter</code>（其中使用了mocked <code>Utils</code>）。</p>
+</li>
+<li><p>然后我们的<code>MainActivityComponent.Builder</code>替换了在<code>MyApplication</code>（28行）中被注入的原始Builder：<code>app.putActivityComponentBuilder(builder, MainActivity.class);</code></p>
+</li>
+<li><p>最后测试 —— 我们mock<code>Util.getHardcodedText()</code>方法。注入过程发生在Activity被创建（36行）：<code>activityRule.launchActivity(new Intent());</code>接着在最后我们使用Espresso来检验结果。</p>
+</li>
+</ul>
+<p>以上就是全部。如你所见，几乎一切都发生在<code>MainActivityUITest</code>类中，而且代码相当简单和可读。</p>
+<h2 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h2><p>如果你想自己去测试这个实现，源码与工作例子展示怎么去创建<strong>Activities Multibinding</strong>和在Instrumentation Tests中mock依赖见Github：<a href="https://github.com/frogermcs/Dagger2Recipes-ActivitiesMultibinding" target="_blank" rel="noopener">Dagger2Recipes-ActivitiesMultibinding</a></p>
+<p>感谢阅读！</p>
+<h2 id="作者"><a href="#作者" class="headerlink" title="作者"></a>作者</h2><p><a href="http://about.me/froger_mcs" target="_blank" rel="noopener">Miroslaw Stanek</a></p>
+<p>Head of Mobile Development @ <a href="https://azimo.com/" target="_blank" rel="noopener">Azimo</a></p>
+<blockquote>
+<p><strong>[Android]使用Dagger 2依赖注入 - DI介绍（翻译）:</strong></p>
+</blockquote>
+<p><a href="http://www.cnblogs.com/tiantianbyconan/p/5092083.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/5092083.html</a></p>
+<blockquote>
+<p><strong>[Android]使用Dagger 2依赖注入 - API（翻译）:</strong></p>
+</blockquote>
+<p><a href="http://www.cnblogs.com/tiantianbyconan/p/5092525.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/5092525.html</a></p>
+<blockquote>
+<p><strong>[Android]使用Dagger 2依赖注入 - 自定义Scope（翻译）:</strong></p>
+</blockquote>
+<p><a href="http://www.cnblogs.com/tiantianbyconan/p/5095426.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/5095426.html</a></p>
+<blockquote>
+<p><strong>[Android]使用Dagger 2依赖注入 - 图表创建的性能（翻译）:</strong></p>
+</blockquote>
+<p><a href="http://www.cnblogs.com/tiantianbyconan/p/5098943.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/5098943.html</a></p>
+<blockquote>
+<p><strong>[Android]Dagger2Metrics - 测量DI图表初始化的性能（翻译）:</strong></p>
+</blockquote>
+<p><a href="http://www.cnblogs.com/tiantianbyconan/p/5193437.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/5193437.html</a></p>
+<blockquote>
+<p><strong>[Android]使用Dagger 2进行依赖注入 - Producers（翻译）:</strong></p>
+</blockquote>
+<p><a href="http://www.cnblogs.com/tiantianbyconan/p/6234811.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/6234811.html</a></p>
+<blockquote>
+<p><strong>[Android]在Dagger 2中使用RxJava来进行异步注入（翻译）:</strong></p>
+</blockquote>
+<p><a href="http://www.cnblogs.com/tiantianbyconan/p/6236646.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/6236646.html</a></p>
+<blockquote>
+<p><strong>[Android]使用Dagger 2来构建UserScope（翻译）:</strong></p>
+</blockquote>
+<p><a href="http://www.cnblogs.com/tiantianbyconan/p/6237731.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/6237731.html</a></p>
+<blockquote>
+<p><strong>[Android]在Dagger 2中Activities和Subcomponents的多绑定（翻译）:</strong></p>
+</blockquote>
+<p><a href="http://www.cnblogs.com/tiantianbyconan/p/6266442.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/6266442.html</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/30/Android-使用Dagger-2来构建UserScope（翻译）/" rel="next" title="[Android]使用Dagger 2来构建UserScope（翻译）">
+                <i class="fa fa-chevron-left"></i> [Android]使用Dagger 2来构建UserScope（翻译）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/02/04/Lottie简介（翻译）/" rel="prev" title="Lottie简介（翻译）">
+                Lottie简介（翻译） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/my_avatar.jpg"
+                alt="Wang Jie" />
+            
+              <p class="site-author-name" itemprop="name">Wang Jie</p>
+              <p class="site-description motion-element" itemprop="description">Wang Jie's blog</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">144</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wangjiegulu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:tiantian.china.2@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/+%E5%A4%A9%E5%A4%A9wangjie" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/wangjiegulu" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://stackoverflow.com/users/2124006/wangjie" target="_blank" title="StackOverflow">
+                      
+                        <i class="fa fa-fw fa-stack-overflow"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/wangjiegulu" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.cnblogs.com/tiantianbyconan/" title="cnblog" target="_blank">cnblog</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#在Dagger-2中Activities和Subcomponents的多绑定"><span class="nav-text">在Dagger 2中Activities和Subcomponents的多绑定</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题"><span class="nav-text">问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Modules-subcomponents"><span class="nav-text">Modules.subcomponents</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Example："><span class="nav-text">Example：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Activities的多绑定"><span class="nav-text">Activities的多绑定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用例example-——-instrumentation-tests-mocking"><span class="nav-text">用例example —— instrumentation tests mocking</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#源码"><span class="nav-text">源码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#作者"><span class="nav-text">作者</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wang Jie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://blog-wangjiegulu-com.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://blog.wangjiegulu.com/2017/01/09/Android-在Dagger-2中Activities和Subcomponents的多绑定（翻译）/';
+          this.page.identifier = '2017/01/09/Android-在Dagger-2中Activities和Subcomponents的多绑定（翻译）/';
+          this.page.title = '[Android]在Dagger 2中Activities和Subcomponents的多绑定（翻译）';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://blog-wangjiegulu-com.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "default";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "GooglePlus,Evernote,Twitter,Facebook,Douban,Weibo";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Title</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+      body { font-family: 'Droid Serif'; }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+	  
+      .dark h1, .dark h2 {
+        color: #f3f3f3;
+        line-height: 0.8em;
+      }
+      a:link, a:visited{
+   		color:inherit;
+	  }
+	  a{text-decoration:none}
+
+
+	  .dark {
+        background: #272822;
+        color: #777872;
+        text-shadow: 0 0 20px #333;
+      }
+	  .blue   { color: #41C8F0; }
+
+
+</style>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle, dark
+background-image: url()
+# Title
+
+--
+.left.blue[haha]
+.right[[I'm right](http://github.com/wangjiegulu)]
+
+---
+
+# Agenda
+
+--
+1. Introduction
+
+--
+2. Deep-dive
+
+--
+3. ...
+
+.center[<img src="http://c.hiphotos.baidu.com/image/w%3D400/sign=0edb46925ddf8db1bc2e7d643922dddb/bba1cd11728b4710eba9bac6c0cec3fdfc032331.jpg" width="500">]
+
+---
+
+# Introduction
+
+    # Taken from Guido's slides from “Tulip: Async I/O for Python 3” by Guido
+    # van Rossum, at LinkedIn, Mountain View, Jan 23, 2014
+    @coroutine
+    def fetch(host, port):
+        r,w = yield from open_connection(host,port)
+        w.write(b'GET /HTTP/1.0\r\n\r\n ')
+        while (yield from r.readline()).decode('latin-1').strip():
+            pass
+        body=yield from r.read()
+        return body
+
+    @coroutine
+    def start():
+        data = yield from fetch('python.org', 80)
+        print(data.decode('utf-8'))
+    
+```java
+    @Override
+    protected void initCrashHandler() {
+        
+    }
+```
+
+
+    </textarea>
+    
+    <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js">
+    </script>
+    </script>
+    
+    
+    <script>
+    // https://highlightjs.org/static/demo/
+      var slideshow = remark.create({
+        highlightLanguage: 'py',
+        highlightStyle: 'github' // monokai, monokai sublime, 
+      });
+    </script>
+  </body>
+</html>

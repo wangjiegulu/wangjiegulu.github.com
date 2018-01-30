@@ -1,0 +1,1403 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="WAND JIE" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="3.0以前，android支持两种动画模式，tween animation,frame animation，在android3.0中又引入了一个新的动画系统：property animation，这三种动画模式在SDK中被称为property animation,view animation,drawable animation。 可通过NineOldAndroids项目在3.0之前的系统中使用P">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android Property Animation动画">
+<meta property="og:url" content="http://blog.wangjiegulu.com/2014/05/19/Android-Property-Animation动画/index.html">
+<meta property="og:site_name" content="WAND JIE">
+<meta property="og:description" content="3.0以前，android支持两种动画模式，tween animation,frame animation，在android3.0中又引入了一个新的动画系统：property animation，这三种动画模式在SDK中被称为property animation,view animation,drawable animation。 可通过NineOldAndroids项目在3.0之前的系统中使用P">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://pic002.cnblogs.com/images/2011/168097/2011120119185844.png">
+<meta property="og:image" content="http://pic002.cnblogs.com/images/2011/168097/2011120119190666.png">
+<meta property="og:image" content="http://pic002.cnblogs.com/images/2011/168097/2011120119191590.png">
+<meta property="og:updated_time" content="2018-01-29T12:36:41.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android Property Animation动画">
+<meta name="twitter:description" content="3.0以前，android支持两种动画模式，tween animation,frame animation，在android3.0中又引入了一个新的动画系统：property animation，这三种动画模式在SDK中被称为property animation,view animation,drawable animation。 可通过NineOldAndroids项目在3.0之前的系统中使用P">
+<meta name="twitter:image" content="http://pic002.cnblogs.com/images/2011/168097/2011120119185844.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.wangjiegulu.com/2014/05/19/Android-Property-Animation动画/"/>
+
+
+
+
+
+  <title>Android Property Animation动画 | WAND JIE</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-111189680-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">WAND JIE</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">TO BE AN ARTIST-ENGINNER</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.wangjiegulu.com/2014/05/19/Android-Property-Animation动画/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wang Jie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/my_avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WAND JIE">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android Property Animation动画</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-05-19T23:18:00+08:00">
+                2014-05-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2014/05/19/Android-Property-Animation动画/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2014/05/19/Android-Property-Animation动画/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>3.0以前，android支持两种动画模式，tween animation,frame animation，在android3.0中又引入了一个新的动画系统：property animation，这三种动画模式在SDK中被称为property animation,view animation,drawable animation。 可通过<a href="http://nineoldandroids.com/" title="NineOldAndroids" target="_blank" rel="noopener">NineOldAndroids</a>项目在3.0之前的系统中使用Property Animation</p>
+<h1 id="1-View-Animation（Tween-Animation）"><a href="#1-View-Animation（Tween-Animation）" class="headerlink" title="1. View Animation（Tween Animation）"></a>1. View Animation（Tween Animation）</h1><p>　　View Animation（Tween Animation）：补间动画，给出两个关键帧，通过一些算法将给定属性值在给定的时间内在两个关键帧间渐变。</p>
+<p>　　View animation只能应用于View对象，而且只支持一部分属性，如支持缩放旋转而不支持背景颜色的改变。</p>
+<p>　　而且对于View animation，它只是改变了View对象绘制的位置，而没有改变View对象本身，比如，你有一个Button，坐标（100,100），Width:200,Height:50，而你有一个动画使其变为Width：100，Height：100，你会发现动画过程中触发按钮点击的区域仍是(100,100)-(300,150)。</p>
+<p>　　View Animation就是一系列View形状的变换，如大小的缩放，透明度的改变，位置的改变，动画的定义既可以用代码定义也可以用XML定义，当然，建议用XML定义。</p>
+<p>　　可以给一个View同时设置多个动画，比如从透明至不透明的淡入效果，与从小到大的放大效果，这些动画可以同时进行，也可以在一个完成之后开始另一个。</p>
+<p>　　用XML定义的动画放在/res/anim/文件夹内，XML文件的根元素可以为&lt;alpha&gt;,&lt;scale&gt;,&lt;translate&gt;,&lt;rotate&gt;,interpolator元素或&lt;set&gt;(表示以上几个动画的集合，set可以嵌套)。默认情况下，所有动画是同时进行的，可以通过startOffset属性设置各个动画的开始偏移（开始时间）来达到动画顺序播放的效果。</p>
+<p>　　可以通过设置interpolator属性改变动画渐变的方式，如AccelerateInterpolator，开始时慢，然后逐渐加快。默认为AccelerateDecelerateInterpolator。</p>
+<p>　　定义好动画的XML文件后，可以通过类似下面的代码对指定View应用动画。</p>
+<div class="cnblogs_code"><br><pre>ImageView spaceshipImage = (ImageView)findViewById(R.id.spaceshipImage);<br>Animation hyperspaceJumpAnimation=AnimationUtils.loadAnimation(<span>this</span>, R.anim.hyperspace_jump);<br>spaceshipImage.startAnimation(hyperspaceJumpAnimation);</pre><br></div>
+
+<h1 id="2-Drawable-Animation（Frame-Animation）"><a href="#2-Drawable-Animation（Frame-Animation）" class="headerlink" title="2. Drawable Animation（Frame Animation）"></a>2. Drawable Animation（Frame Animation）</h1><p>　　Drawable Animation（Frame Animation）：帧动画，就像GIF图片，通过一系列Drawable依次显示来模拟动画的效果。在XML中的定义方式如下：</p>
+<pre class="brush: xml; auto-links: true; collapse: false; first-line: 1; gutter: true; html-script: false; light: false; ruler: false; smart-tabs: true; tab-size: 4; toolbar: true;">&lt;animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="true"&gt;
+    &lt;item android:drawable="@drawable/rocket_thrust1" android:duration="200" /&gt;
+    &lt;item android:drawable="@drawable/rocket_thrust2" android:duration="200" /&gt;
+    &lt;item android:drawable="@drawable/rocket_thrust3" android:duration="200" /&gt;
+&lt;/animation-list&gt;</pre>
+
+<p>　　必须以&lt;animation-list&gt;为根元素，以&lt;item&gt;表示要轮换显示的图片，duration属性表示各项显示的时间。XML文件要放在/res/drawable/目录下。示例：</p>
+<div class="cnblogs_code"><br><pre><span>protected</span> <span>void</span> onCreate(Bundle savedInstanceState) {<br>        <span>//</span><span> TODO Auto-generated method stub</span><span><br></span>        <span>super</span>.onCreate(savedInstanceState);<br>        setContentView(R.layout.main);<br>        imageView = (ImageView) findViewById(R.id.imageView1);<br>        imageView.setBackgroundResource(R.drawable.drawable_anim);<br>        anim = (AnimationDrawable) imageView.getBackground();<br>    }<br><br>    <span>public</span> <span>boolean</span> onTouchEvent(MotionEvent event) {<br>        <span>if</span> (event.getAction() == MotionEvent.ACTION_DOWN) {<br>            anim.stop();<br>            anim.start();<br>            <span>return</span> <span>true</span>;<br>        }<br>        <span>return</span> <span>super</span>.onTouchEvent(event);<br>    }</pre><br></div>
+
+<p>　　我在实验中遇到两点问题：</p>
+<ol>
+<li>要在代码中调用Imageview的setBackgroundResource方法，如果直接在XML布局文件中设置其src属性当触发动画时会FC。</li>
+<li>在动画start()之前要先stop()，不然在第一次动画之后会停在最后一帧，这样动画就只会触发一次。</li>
+<li>最后一点是SDK中提到的，不要在onCreate中调用start，因为AnimationDrawable还没有完全跟Window相关联，如果想要界面显示时就开始动画的话，可以在onWindowFoucsChanged()中调用start()。</li>
+</ol>
+<h1 id="3-Property-Animation"><a href="#3-Property-Animation" class="headerlink" title="3. Property Animation"></a>3. Property Animation</h1><p>　　属性动画，这个是在Android 3.0中才引进的，以前学WPF时里面的动画机制好像就是这个，它更改的是对象的实际属性，在View Animation（Tween Animation）中，其改变的是View的绘制效果，真正的View的属性保持不变，比如无论你在对话中如何缩放Button的大小，Button的有效点击区域还是没有应用动画时的区域，其位置与大小都不变。而在Property Animation中，改变的是对象的实际属性，如Button的缩放，Button的位置与大小属性值都改变了。而且Property Animation不止可以应用于View，还可以应用于任何对象。Property Animation只是表示一个值在一段时间内的改变，当值改变时要做什么事情完全是你自己决定的。</p>
+<p>在Property Animation中，可以对动画应用以下属性：</p>
+<ul>
+<li>Duration：动画的持续时间</li>
+<li>TimeInterpolation：属性值的计算方式，如先快后慢</li>
+<li>TypeEvaluator：根据属性的开始、结束值与TimeInterpolation计算出的因子计算出当前时间的属性值</li>
+<li>Repeat Count and behavoir：重复次数与方式，如播放3次、5次、无限循环，可以此动画一直重复，或播放完时再反向播放</li>
+<li>Animation sets：动画集合，即可以同时对一个对象应用几个动画，这些动画可以同时播放也可以对不同动画设置不同开始偏移</li>
+<li>Frame refreash delay：多少时间刷新一次，即每隔多少时间计算一次属性值，默认为10ms，最终刷新时间还受系统进程调度与硬件的影响</li>
+</ul>
+<h2 id="3-1-Property-Animation的工作方式"><a href="#3-1-Property-Animation的工作方式" class="headerlink" title="3.1 Property Animation的工作方式"></a>3.1 Property Animation的工作方式</h2><p>　　对于下图的动画，这个对象的X坐标在40ms内从0移动到40 pixel.按默认的10ms刷新一次，这个对象会移动4次，每次移动40/4=10pixel。</p>
+<p><img src="http://pic002.cnblogs.com/images/2011/168097/2011120119185844.png" alt=""></p>
+<p>　　也可以改变属性值的改变方法，即设置不同的interpolation，在下图中运动速度先逐渐增大再逐渐减小</p>
+<p><img src="http://pic002.cnblogs.com/images/2011/168097/2011120119190666.png" alt=""></p>
+<p>　　下图显示了与上述动画相关的关键对象</p>
+<p><img src="http://pic002.cnblogs.com/images/2011/168097/2011120119191590.png" alt=""></p>
+<p>ValueAnimator &nbsp;表示一个动画，包含动画的开始值，结束值，持续时间等属性。</p>
+<p>ValueAnimator封装了一个TimeInterpolator，TimeInterpolator定义了属性值在开始值与结束值之间的插值方法。</p>
+<p>ValueAnimator还封装了一个TypeAnimator，根据开始、结束值与TimeIniterpolator计算得到的值计算出属性值。</p>
+<p>ValueAnimator根据动画已进行的时间跟动画总时间（duration）的比计算出一个时间因子（0~1），然后根据TimeInterpolator计算出另一个因子，最后TypeAnimator通过这个因子计算出属性值，如上例中10ms时：</p>
+<p>首先计算出时间因子，即经过的时间百分比：t=10ms/40ms=0.25</p>
+<p>经插值计算(inteplator)后的插值因子:大约为0.15，上述例子中用了AccelerateDecelerateInterpolator，计算公式为（input即为时间因子）：</p>
+<div class="cnblogs_code"><br><pre>(Math.cos((input + 1) * Math.PI) / 2.0f) + 0.5f;  </pre><br></div>
+
+<p>最后根据TypeEvaluator计算出在10ms时的属性值：0.15*（40-0）=6pixel。上例中TypeEvaluator为FloatEvaluator，计算方法为 ：</p>
+<div class="cnblogs_code"><br><pre>public Float evaluate(<span>float</span><span> fraction, Number startValue, Number endValue) {<br>    </span><span>float</span> startFloat =<span> startValue.floatValue();<br>    </span><span>return</span> startFloat + fraction * (endValue.floatValue() -<span> startFloat);<br>}</span></pre><br></div>
+
+<p>参数分别为上一步的插值因子，开始值与结束值。</p>
+<h2 id="3-2-ValueAnimator"><a href="#3-2-ValueAnimator" class="headerlink" title="3.2 ValueAnimator"></a>3.2 ValueAnimator</h2><p>　　ValueAnimator包含Property Animation动画的所有核心功能，如动画时间，开始、结束属性值，相应时间属性值计算方法等。应用Property Animation有两个步聚：</p>
+<ol>
+<li>计算属性值</li>
+<li>根据属性值执行相应的动作，如改变对象的某一属性。</li>
+</ol>
+<p>　　ValuAnimiator只完成了第一步工作，如果要完成第二步，需要实现ValueAnimator.onUpdateListener接口，这个接口只有一个函数onAnimationUpdate()，在这个函数中会传入ValueAnimator对象做为参数，通过这个ValueAnimator对象的getAnimatedValue()函数可以得到当前的属性值如：</p>
+<div class="cnblogs_code"><br><pre>ValueAnimator animation = ValueAnimator.ofFloat(0f, 1f);<br>animation.setDuration(1000);<br>animation.addUpdateListener(<span>new</span> AnimatorUpdateListener() {<br>    @Override<br>    <span>public</span> <span>void</span> onAnimationUpdate(ValueAnimator animation) {<br>        Log.i(“update”, ((Float) animation.getAnimatedValue()).toString());<br>    }<br>});<br>animation.setInterpolator(<span>new</span> CycleInterpolator(3));<br>animation.start();</pre><br></div>
+
+<p>此示例中只是向Logcat输出了一些信息，可以改为想做的工作。</p>
+<p><strong>Animator.AnimatorListener</strong></p>
+<div class="cnblogs_code"><br><pre><span>onAnimationStart()<br><br>onAnimationEnd()<br><br>onAnimationRepeat()<br><br></span><span>//</span><span>当动画被取消时调用，同时会调用onAnimationEnd().</span><br>onAnimationCancel()</pre><br></div>
+
+<p><strong>ValueAnimator.AnimatorUpdateListener</strong></p>
+<div class="cnblogs_code"><br><pre>onAnimationUpdate()　　<span>//</span><span>通过监听这个事件在属性的值更新时执行相应的操作，对于ValueAnimator一般要监听此事件执行相应的动作，不然Animation没意义，在ObjectAnimator（继承自ValueAnimator）中会自动更新属性，如无必要不必监听。在函数中会传递一个ValueAnimator参数，通过此参数的getAnimatedValue()取得当前动画属性值。</span></pre><br></div>
+
+<p>　　可以继承AnimatorListenerAdapter而不是实现AnimatorListener接口来简化操作，这个类对AnimatorListener中的函数都定义了一个空函数体，这样我们就只用定义想监听的事件而不用实现每个函数却只定义一空函数体。</p>
+<div class="cnblogs_code"><br><pre>ObjectAnimator oa=ObjectAnimator.ofFloat(tv, “alpha”<span>, 0f, 1f);<br>oa.setDuration(</span>3000<span>);<br>oa.addListener(</span><span>new</span><span> AnimatorListenerAdapter(){<br>    </span><span>public</span> <span>void</span><span> on AnimationEnd(Animator animation){<br>        Log.i(</span>“Animation”,”end”<span>);<br>    }<br>});<br>oa.start();</span></pre><br></div>
+
+<h2 id="3-3-ObjectAnimator"><a href="#3-3-ObjectAnimator" class="headerlink" title="3.3 ObjectAnimator"></a>3.3 ObjectAnimator</h2><p>　　继承自ValueAnimator，要指定一个对象及该对象的一个属性，当属性值计算完成时自动设置为该对象的相应属性，即完成了Property Animation的全部两步操作。实际应用中一般都会用ObjectAnimator来改变某一对象的某一属性，但用ObjectAnimator有一定的限制，要想使用ObjectAnimator，应该满足以下条件：</p>
+<ul>
+<li>对象应该有一个setter函数：set&lt;PropertyName&gt;（驼峰命名法）</li>
+<li>如上面的例子中，像ofFloat之类的工场方法，第一个参数为对象名，第二个为属性名，后面的参数为可变参数，如果values&hellip;参数只设置了一个值的话，那么会假定为目的值，属性值的变化范围为当前值到目的值，为了获得当前值，该对象要有相应属性的getter方法：get&lt;PropertyName&gt;</li>
+<li>如果有getter方法，其应返回值类型应与相应的setter方法的参数类型一致。</li>
+</ul>
+<p>　　如果上述条件不满足，则不能用ObjectAnimator，应用ValueAnimator代替。</p>
+<div class="cnblogs_code"><br><pre>tv=<span>(TextView)findViewById(R.id.textview1);<br>btn</span>=<span>(Button)findViewById(R.id.button1);<br>btn.setOnClickListener(</span><span>new</span><span> OnClickListener() {<br>　　@Override<br>　　</span><span>public</span> <span>void</span><span> onClick(View v) {<br>　　　　ObjectAnimator oa</span>=ObjectAnimator.ofFloat(tv, “alpha”<span>, 0f, 1f);<br>　　　　oa.setDuration(</span>3000<span>);<br>　　　　oa.start();<br>　　}<br>});</span></pre><br></div>
+
+<p>　　把一个TextView的透明度在3秒内从0变至1。</p>
+<p><strong>　　根据应用动画的对象或属性的不同，可能需要在onAnimationUpdate函数中调用invalidate()函数刷新视图。</strong></p>
+<h2 id="3-4-通过AnimationSet应用多个动画"><a href="#3-4-通过AnimationSet应用多个动画" class="headerlink" title="3.4 通过AnimationSet应用多个动画"></a>3.4 通过AnimationSet应用多个动画</h2><p>　　AnimationSet提供了一个把多个动画组合成一个组合的机制，并可设置组中动画的时序关系，如同时播放，顺序播放等。</p>
+<p>　　以下例子同时应用5个动画：</p>
+<ol>
+<li>播放anim1；</li>
+<li>同时播放anim2,anim3,anim4；</li>
+<li>播放anim5。<div class="cnblogs_code"><br><pre>AnimatorSet bouncer = <span>new</span><span> AnimatorSet();<br>bouncer.play(anim1).before(anim2);<br>bouncer.play(anim2).with(anim3);<br>bouncer.play(anim2).with(anim4)<br>bouncer.play(anim5).after(amin2);<br>animatorSet.start();</span></pre><br></div>
+
+</li>
+</ol>
+<h2 id="3-5-TypeEvalutors"><a href="#3-5-TypeEvalutors" class="headerlink" title="3.5 TypeEvalutors"></a>3.5 TypeEvalutors</h2><p>　　根据属性的开始、结束值与TimeInterpolation计算出的因子计算出当前时间的属性值，android提供了以下几个evalutor：</p>
+<ul>
+<li>IntEvaluator：属性的值类型为int；</li>
+<li>FloatEvaluator：属性的值类型为float；</li>
+<li>ArgbEvaluator：属性的值类型为十六进制颜色值；</li>
+<li>TypeEvaluator：一个接口，可以通过实现该接口自定义Evaluator。</li>
+</ul>
+<p>　　自定义TypeEvalutor很简单，只需要实现一个方法，如FloatEvalutor的定义：</p>
+<div class="cnblogs_code"><br><pre><span>public</span> <span>class</span> FloatEvaluator <span>implements</span><span> TypeEvaluator {<br>    </span><span>public</span> Object evaluate(<span>float</span><span> fraction, Object startValue, Object endValue) {<br>        </span><span>float</span> startFloat =<span> ((Number) startValue).floatValue();<br>        </span><span>return</span> startFloat + fraction * (((Number) endValue).floatValue() -<span> startFloat);<br>    }<br>}</span></pre><br></div>
+
+<p>　　根据动画执行的时间跟应用的Interplator，会计算出一个0~1之间的因子，即evalute函数中的fraction参数，通过上述FloatEvaluator应该很好看出其意思。</p>
+<h2 id="3-6-TimeInterplator"><a href="#3-6-TimeInterplator" class="headerlink" title="3.6 TimeInterplator"></a>3.6 TimeInterplator</h2><p>　　Time interplator定义了属性值变化的方式，如线性均匀改变，开始慢然后逐渐快等。在Property Animation中是TimeInterplator，在View Animation中是Interplator，这两个是一样的，在3.0之前只有Interplator，3.0之后实现代码转移至了TimeInterplator。Interplator继承自TimeInterplator，内部没有任何其他代码。</p>
+<ul>
+<li>AccelerateInterpolator　　　　　 &nbsp; &nbsp; 加速，开始时慢中间加速</li>
+<li>DecelerateInterpolator　　　 　　 &nbsp; 减速，开始时快然后减速</li>
+<li>AccelerateDecelerateInterolator　 &nbsp; 先加速后减速，开始结束时慢，中间加速</li>
+<li>AnticipateInterpolator　　　　　　 &nbsp;反向 ，先向相反方向改变一段再加速播放</li>
+<li>AnticipateOvershootInterpolator　 &nbsp; 反向加回弹，先向相反方向改变，再加速播放，会超出目的值然后缓慢移动至目的值</li>
+<li>BounceInterpolator　　　　　　　 &nbsp;跳跃，快到目的值时值会跳跃，如目的值100，后面的值可能依次为85，77，70，80，90，100</li>
+<li>CycleIinterpolator　　　　　　　　 循环，动画循环一定次数，值的改变为一正弦函数：Math.sin(2 <em> mCycles </em> Math.PI * input)</li>
+<li>LinearInterpolator　　　　　　　　 线性，线性均匀改变</li>
+<li>OvershottInterpolator　　　　　　 &nbsp;回弹，最后超出目的值然后缓慢改变到目的值</li>
+<li>TimeInterpolator　　　　　　　　 &nbsp; 一个接口，允许你自定义interpolator，以上几个都是实现了这个接口</li>
+</ul>
+<h2 id="3-7-当Layout改变时应用动画"><a href="#3-7-当Layout改变时应用动画" class="headerlink" title="3.7 当Layout改变时应用动画"></a>3.7 当Layout改变时应用动画</h2><p>　　ViewGroup中的子元素可以通过setVisibility使其Visible、Invisible或Gone，当有子元素可见性改变时(VISIBLE、GONE)，可以向其应用动画，通过LayoutTransition类应用此类动画：</p>
+<div class="cnblogs_code"><br><pre>transition.setAnimator(LayoutTransition.DISAPPEARING, customDisappearingAnim);</pre><br></div>
+
+<p>　　通过setAnimator应用动画，第一个参数表示应用的情境，可以以下4种类型：</p>
+<ul>
+<li>APPEARING　　　　　　　　当一个元素在其父元素中变为Visible时对这个元素应用动画</li>
+<li>CHANGE_APPEARING　　　 当一个元素在其父元素中变为Visible时，因系统要重新布局有一些元素需要移动，对这些要移动的元素应用动画</li>
+<li>DISAPPEARING　　　　　　 当一个元素在其父元素中变为GONE时对其应用动画</li>
+<li>CHANGE_DISAPPEARING　 &nbsp;当一个元素在其父元素中变为GONE时，因系统要重新布局有一些元素需要移动，这些要移动的元素应用动画.</li>
+</ul>
+<p>　　第二个参数为一Animator。</p>
+<div class="cnblogs_code"><br><pre>mTransitioner.setStagger(LayoutTransition.CHANGE_APPEARING, 30);</pre><br></div>
+
+<p>　　此函数设置动画延迟时间，参数分别为类型与时间。</p>
+<h2 id="3-8-Keyframes"><a href="#3-8-Keyframes" class="headerlink" title="3.8 Keyframes"></a>3.8 Keyframes</h2><p>　　keyFrame是一个 时间/值 对，通过它可以定义一个在特定时间的特定状态，即关键帧，而且在两个keyFrame之间可以定义不同的Interpolator，就好像多个动画的拼接，第一个动画的结束点是第二个动画的开始点。KeyFrame是抽象类，要通过ofInt(),ofFloat(),ofObject()获得适当的KeyFrame，然后通过PropertyValuesHolder.ofKeyframe获得PropertyValuesHolder对象，如以下例子：</p>
+<div class="cnblogs_code"><br><pre>Keyframe kf0 = Keyframe.ofInt(0, 400<span>);<br>Keyframe kf1 </span>= Keyframe.ofInt(0.25f, 200<span>);<br>Keyframe kf2 </span>= Keyframe.ofInt(0.5f, 400<span>);<br>Keyframe kf4 </span>= Keyframe.ofInt(0.75f, 100<span>);<br>Keyframe kf3 </span>= Keyframe.ofInt(1f, 500<span>);<br>PropertyValuesHolder pvhRotation </span>= PropertyValuesHolder.ofKeyframe(“width”<span>, kf0, kf1, kf2, kf4, kf3);<br>ObjectAnimator rotationAnim </span>=<span> ObjectAnimator.ofPropertyValuesHolder(btn2, pvhRotation);<br>rotationAnim.setDuration(</span>2000);</pre><br></div>
+
+<p>　　上述代码的意思为：设置btn对象的width属性值使其：</p>
+<ul>
+<li>开始时 Width=400</li>
+<li>动画开始1/4时 Width=200</li>
+<li>动画开始1/2时 Width=400</li>
+<li>动画开始3/4时 Width=100</li>
+<li>动画结束时 Width=500<div>　　第一个参数为时间百分比，第二个参数是在第一个参数的时间时的属性值。</div><br><div>　　定义了一些Keyframe后，通过PropertyValuesHolder类的方法ofKeyframe一个PropertyValuesHolder对象，然后通过ObjectAnimator.ofPropertyValuesHolder获得一个Animator对象。</div><br><div>　　用下面的代码可以实现同样的效果（上述代码时间值是线性，变化均匀）：</div><br><div><br><div class="cnblogs_code"><br><pre>ObjectAnimator oa=ObjectAnimator.ofInt(btn2, “width”, 400,200,400,100,500);<br>oa.setDuration(2000);<br>oa.start();</pre><br></div><br></div>
+
+</li>
+</ul>
+<h2 id="3-9-Animating-Views"><a href="#3-9-Animating-Views" class="headerlink" title="3.9 Animating Views"></a>3.9 Animating Views</h2><p>　　在View Animation中，对View应用Animation并没有改变View的属性，动画的实现是通过其Parent View实现的，在View被drawn时Parents View改变它的绘制参数，draw后再改变参数invalidate，这样虽然View的大小或旋转角度等改变了，但View的实际属性没变，所以有效区域还是应用动画之前的区域，比如你把一按钮放大两倍，但还是放大这前的区域可以触发点击事件。为了改变这一点，在Android 3.0中给View增加了一些参数并对这些参数增加了相应的getter/setter函数（ObjectAnimator要用这些函数改变这些属性）：</p>
+<ul>
+<li>translationX,translationY: View相对于原始位置的偏移量</li>
+<li>rotation,rotationX,rotationY: 旋转，rotation用于2D旋转角度，3D中用到后两个</li>
+<li>scaleX,scaleY: 缩放比</li>
+<li>x,y: View的最终坐标，是View的left，top位置加上translationX，translationY</li>
+<li>alpha: 透明度<div>　　跟位置有关的参数有3个，以X坐标为例，可以通过getLeft(),getX(),getTranslateX()获得，若有一Button btn2，布局时其坐标为（40,0）：</div><br><div><br><div class="cnblogs_code"><br><pre><span>//</span><span>应用动画之前</span><span><br></span>btn2.getLeft();    <span>//</span><span>40</span><span><br></span>btn2.getX();    <span>//</span><span>40</span><span><br></span>btn2.getTranslationX();    <span>//</span><span>0<br></span><span>//</span><span>应用translationX动画</span><span><br></span>ObjectAnimator oa=ObjectAnimator.ofFloat(btn2,”translationX”, 200);<br>oa.setDuration(2000);<br>oa.start();<br><span>/<em></em></span><span>应用translationX动画后<br>btn2.getLeft();    //40<br>btn2.getX();    //240<br>btn2.getTranslationX();    //200<br></span><span>/</span><br><span>//</span><span>应用X动画，假设没有应用之前的translationX动画</span><span><br></span>ObjectAnimator oa=ObjectAnimator.ofFloat(btn2, “x”, 200);<br>oa.setDuration(2000);<br>oa.start();<br><span>/<em></em></span><span>应用X动画后<br>btn2.getLeft();    //40<br>btn2.getX();    //200<br>btn2.getTranslationX();    //160<br></span><span>/</span></pre><br></div><br></div><br><div>　　无论怎样应用动画，原来的布局时的位置通过getLeft()获得，保持不变；</div><br><div>　　X是View最终的位置；</div><br><div>　　translationX为最终位置与布局时初始位置这差。</div><br><div>　　所以若就用translationX即为在原来基础上移动多少，X为最终多少</div><br><div>　　getX()的值为getLeft()与getTranslationX()的和</div><br><div>　　对于X动画，源代码是这样的：</div><br><div><br><div class="cnblogs_code"><br><pre><span>case</span> X:<br>   info.mTranslationX = value - mView.mLeft;<br>   <span>break</span>;</pre><br></div><br></div>
+
+</li>
+</ul>
+<p>　　Property Animation也可以在XML中定义</p>
+<ul>
+<li>&lt;set&gt; - AnimatorSet</li>
+<li>&lt;animator&gt; -&nbsp;ValueAnimator</li>
+<li>&lt;objectAnimator&gt; -&nbsp;ObjectAnimator<div>　　XML文件应放大/res/animator/中，通过以下方式应用动画：</div><br><div><br><div class="cnblogs_code"><br><pre>AnimatorSet set = (AnimatorSet) AnimatorInflater.loadAnimator(myContext, R.anim.property_animator);<br>set.setTarget(myObject);<br>set.start();</pre><br></div><br></div>
+
+</li>
+</ul>
+<h2 id="3-10-ViewPropertyAnimator"><a href="#3-10-ViewPropertyAnimator" class="headerlink" title="3.10 ViewPropertyAnimator"></a>3.10 ViewPropertyAnimator</h2><p>　　如果需要对一个View的多个属性进行动画可以用ViewPropertyAnimator类，该类对多属性动画进行了优化，会合并一些invalidate()来减少刷新视图，该类在3.1中引入。</p>
+<p>　　以下两段代码实现同样的效果：　</p>
+<div class="cnblogs_code"><br><pre>PropertyValuesHolder pvhX = PropertyValuesHolder.ofFloat(“x”, 50f);<br>PropertyValuesHolder pvhY = PropertyValuesHolder.ofFloat(“y”, 100f);<br>ObjectAnimator.ofPropertyValuesHolder(myView, pvhX, pvyY).start();</pre><br></div><br><div class="cnblogs_code"><br><pre>myView.animate().x(50f).y(100f);</pre><br></div>
+
+<p>&nbsp;</p>
+<p>作者：AngelDevil<br>出处：www.cnblogs.com/angeldevil</p>
+<p>&nbsp;</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/05/05/Android-AndroidBucket增加碎片SubLayout功能及AISubLayout的注解支持/" rel="next" title="[Android]AndroidBucket增加碎片SubLayout功能及AISubLayout的注解支持">
+                <i class="fa fa-chevron-left"></i> [Android]AndroidBucket增加碎片SubLayout功能及AISubLayout的注解支持
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/06/04/IOS-《A-Swift-Tour》翻译（一）/" rel="prev" title="[IOS]《A Swift Tour》翻译（一）">
+                [IOS]《A Swift Tour》翻译（一） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/my_avatar.jpg"
+                alt="Wang Jie" />
+            
+              <p class="site-author-name" itemprop="name">Wang Jie</p>
+              <p class="site-description motion-element" itemprop="description">Wang Jie's blog</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">144</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wangjiegulu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:tiantian.china.2@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/+%E5%A4%A9%E5%A4%A9wangjie" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/wangjiegulu" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://stackoverflow.com/users/2124006/wangjie" target="_blank" title="StackOverflow">
+                      
+                        <i class="fa fa-fw fa-stack-overflow"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/wangjiegulu" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.cnblogs.com/tiantianbyconan/" title="cnblog" target="_blank">cnblog</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-View-Animation（Tween-Animation）"><span class="nav-text">1. View Animation（Tween Animation）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Drawable-Animation（Frame-Animation）"><span class="nav-text">2. Drawable Animation（Frame Animation）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Property-Animation"><span class="nav-text">3. Property Animation</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-Property-Animation的工作方式"><span class="nav-text">3.1 Property Animation的工作方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-ValueAnimator"><span class="nav-text">3.2 ValueAnimator</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-ObjectAnimator"><span class="nav-text">3.3 ObjectAnimator</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-通过AnimationSet应用多个动画"><span class="nav-text">3.4 通过AnimationSet应用多个动画</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-5-TypeEvalutors"><span class="nav-text">3.5 TypeEvalutors</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-6-TimeInterplator"><span class="nav-text">3.6 TimeInterplator</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-7-当Layout改变时应用动画"><span class="nav-text">3.7 当Layout改变时应用动画</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-8-Keyframes"><span class="nav-text">3.8 Keyframes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-9-Animating-Views"><span class="nav-text">3.9 Animating Views</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-10-ViewPropertyAnimator"><span class="nav-text">3.10 ViewPropertyAnimator</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wang Jie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://blog-wangjiegulu-com.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://blog.wangjiegulu.com/2014/05/19/Android-Property-Animation动画/';
+          this.page.identifier = '2014/05/19/Android-Property-Animation动画/';
+          this.page.title = 'Android Property Animation动画';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://blog-wangjiegulu-com.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "default";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "GooglePlus,Evernote,Twitter,Facebook,Douban,Weibo";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
