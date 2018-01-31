@@ -1,1192 +1,3216 @@
 <!DOCTYPE html>
+<html lang="en">
 
-
-
-
-<html class="theme-next muse" lang="en">
+<!-- Head tag -->
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-<meta name="theme-color" content="#222">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Wang Jie&#39;s blog">
+    <meta name="keyword" content="">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="http://avatars3.githubusercontent.com/u/5423194?s=460&v=4">
+    <link rel="alternate" type="application/atom+xml" title="WANG JIE&#39;s BLOG" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        Wang Jie&#39;s Blog|Android|Java|Huginn
+        
+    </title>
 
+    <link rel="canonical" href="http://blog.wangjiegulu.com/tags/java-web/">
 
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
 
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
 
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
 
+<style>
 
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="Hexo, NexT" />
-
-
-
-
-
-  <link rel="alternate" href="/atom.xml" title="WAND JIE" type="application/atom+xml" />
-
-
-
-
-
-
-<meta name="description" content="Wang Jie&apos;s blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="WAND JIE">
-<meta property="og:url" content="http://blog.wangjiegulu.com/tags/java-web/index.html">
-<meta property="og:site_name" content="WAND JIE">
-<meta property="og:description" content="Wang Jie&apos;s blog">
-<meta property="og:locale" content="en">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="WAND JIE">
-<meta name="twitter:description" content="Wang Jie&apos;s blog">
-
-
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Muse',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: 'Author'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    header.intro-header {
+        background-image: url('//o7bkkhiex.bkt.clouddn.com/lion-blur-bg.jpg')
     }
-  };
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "false" data-istags="true
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    WANG JIE&#39;s BLOG
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <!-- <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+								
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/categories/">categories</a>
+                        </li>
+							
+						
+                    
+                        
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+						<li>
+							<a href="/about">About</a>
+						</li>
+					
+                </ul>
+            </div>
+        </div> -->
+
+
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    <li>
+                        <a href="/archives">Archives</a>
+                    </li>
+                    <li>
+                        <a href="/tags">Tags</a>
+                    </li>
+                    <li>
+                        <a href="/about">About</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+
+
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
 </script>
 
+<!-- Main Content -->
+<style>
+    .intro-header .site-heading {
+        margin: 50px;
+    }
+    
+    header.intro-header {
+        background-image: url('https://oco8bvfr8.qnssl.com/blog-bg-black-run.jpg?imageView2/1/w/1400/h/400/interlace/1/q/80')
+    }
+    
+</style>
 
+<!-- Page Header -->
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
+                <div class="site-heading text-center">
+                    <h1>archives</h1>
+                    <span class="subheading">可以根据归档日期检索所有文件</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
 
-  <link rel="canonical" href="http://blog.wangjiegulu.com/tags/java-web/"/>
+<!-- Main Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <!-- archive list -->
+            
+				
+				
+				
+					
+					
+					<div class="archive archive-year" data-date="2017">
+						<h2 class="archive-title">
+						<span class="fa fa-archive">
+							<a href="/archives/2017">2017</a>
+						</span>
+						</h2>
+				
+				
+					
+					
+					<div class="archive archive-month" data-date="201712">
+						<h3 class="archive-title">
+							<a href="/archives/2017/12">12</a>
+						</h3>
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2017/12/20/Android-App-IFCTT，即If-Copy-Then-That，一个基于IFTTT的-This-实现/">
+                        <h4 class="post-title">
+                            IFCTT，即If Copy Then That，一个基于IFTTT的`This`实现
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+					
+					</div><!--month-->
+					
+					
+					<div class="archive archive-month" data-date="201709">
+						<h3 class="archive-title">
+							<a href="/archives/2017/09">09</a>
+						</h3>
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2017/09/25/应朋友死皮白咧地邀请贴一个招聘广告/">
+                        <h4 class="post-title">
+                            应朋友死皮白咧地邀请贴一个招聘广告
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+					
+					</div><!--month-->
+					
+					
+					<div class="archive archive-month" data-date="201708">
+						<h3 class="archive-title">
+							<a href="/archives/2017/08">08</a>
+						</h3>
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2017/08/04/Android-Android焦点流程代码分析/">
+                        <h4 class="post-title">
+                            Android焦点流程代码分析
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+					
+					</div><!--month-->
+					
+					
+					<div class="archive archive-month" data-date="201707">
+						<h3 class="archive-title">
+							<a href="/archives/2017/07">07</a>
+						</h3>
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/">
+                        <h4 class="post-title">
+                            Android内存泄漏你所要知道的一切（翻译）
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+					
+					</div><!--month-->
+					
+					
+					<div class="archive archive-month" data-date="201704">
+						<h3 class="archive-title">
+							<a href="/archives/2017/04">04</a>
+						</h3>
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2017/04/19/Android-Gradle-插件-DiscardFilePlugin（class注入-清空类和方法）/">
+                        <h4 class="post-title">
+                            Gradle 插件 DiscardFilePlugin（class注入&清空类和方法）
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2017/04/11/NDK配置/">
+                        <h4 class="post-title">
+                            NDK配置
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2017/04/10/CPP-Note/">
+                        <h4 class="post-title">
+                            CPP Note
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+					
+					</div><!--month-->
+					
+					
+					<div class="archive archive-month" data-date="201703">
+						<h3 class="archive-title">
+							<a href="/archives/2017/03">03</a>
+						</h3>
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2017/03/29/Android-使用RecyclerView替代ListView（四：SeizeRecyclerView）/">
+                        <h4 class="post-title">
+                            [Android]使用RecyclerView替代ListView（四：SeizeRecyclerView）
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+					
+					</div><!--month-->
+					
+					
+					<div class="archive archive-month" data-date="201702">
+						<h3 class="archive-title">
+							<a href="/archives/2017/02">02</a>
+						</h3>
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2017/02/04/Lottie简介（翻译）/">
+                        <h4 class="post-title">
+                            Lottie简介（翻译）
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+					
+					</div><!--month-->
+					
+					
+					<div class="archive archive-month" data-date="201701">
+						<h3 class="archive-title">
+							<a href="/archives/2017/01">01</a>
+						</h3>
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2017/01/09/Android-在Dagger-2中Activities和Subcomponents的多绑定（翻译）/">
+                        <h4 class="post-title">
+                            在Dagger 2中Activities和Subcomponents的多绑定（翻译）
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+					
+					</div><!--month-->
+					</div><!--year-->
+					
+					
+					
+					<div class="archive archive-year" data-date="2016">
+						<h2 class="archive-title">
+						<span class="fa fa-archive">
+							<a href="/archives/2016">2016</a>
+						</span>
+						</h2>
+				
+				
+					
+					
+					<div class="archive archive-month" data-date="201612">
+						<h3 class="archive-title">
+							<a href="/archives/2016/12">12</a>
+						</h3>
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2016/12/30/Android-使用Dagger-2来构建UserScope（翻译）/">
+                        <h4 class="post-title">
+                            使用Dagger 2来构建UserScope（翻译）
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2016/12/30/Android-在Dagger-2中使用RxJava来进行异步注入（翻译）/">
+                        <h4 class="post-title">
+                            在Dagger 2中使用RxJava来进行异步注入（翻译）
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2016/12/29/Android-使用Dagger-2进行依赖注入-Producers（翻译）/">
+                        <h4 class="post-title">
+                            使用Dagger 2进行依赖注入 - Producers（翻译）
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+					
+					</div><!--month-->
+					
+					
+					<div class="archive archive-month" data-date="201611">
+						<h3 class="archive-title">
+							<a href="/archives/2016/11">11</a>
+						</h3>
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2016/11/01/Android-Android端ORM框架——RapidORM-v2-1/">
+                        <h4 class="post-title">
+                            [Android]Android端ORM框架——RapidORM(v2.1)
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+					
+					</div><!--month-->
+					
+					
+					<div class="archive archive-month" data-date="201609">
+						<h3 class="archive-title">
+							<a href="/archives/2016/09">09</a>
+						</h3>
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2016/09/21/Android-使用MVP解决技术债务（翻译）/">
+                        <h4 class="post-title">
+                            [Android]使用MVP解决技术债务（翻译）
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2016/09/01/Android-异步-layout-inflation（翻译）/">
+                        <h4 class="post-title">
+                            [Android]异步 layout inflation（翻译）
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+					
+					</div><!--month-->
+					
+					
+					<div class="archive archive-month" data-date="201608">
+						<h3 class="archive-title">
+							<a href="/archives/2016/08">08</a>
+						</h3>
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2016/08/29/HTTP协议详解/">
+                        <h4 class="post-title">
+                            HTTP协议详解
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2016/08/29/网络基础/">
+                        <h4 class="post-title">
+                            网络基础
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2016/08/24/Git-Note/">
+                        <h4 class="post-title">
+                            Git Note
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2016/08/22/Android-使用自定义JUnit-Rules、annotations和Resources进行单元测试（翻译）/">
+                        <h4 class="post-title">
+                            [Android]使用自定义JUnit Rules、annotations和Resources进行单元测试（翻译）
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+					
+					</div><!--month-->
+					
+					
+					<div class="archive archive-month" data-date="201606">
+						<h3 class="archive-title">
+							<a href="/archives/2016/06">06</a>
+						</h3>
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2016/06/29/Android-Android端ORM框架——RapidORM-v2-0/">
+                        <h4 class="post-title">
+                            [Android]Android端ORM框架——RapidORM(v2.0)
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+					
+					</div><!--month-->
+					
+					
+					<div class="archive archive-month" data-date="201605">
+						<h3 class="archive-title">
+							<a href="/archives/2016/05">05</a>
+						</h3>
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2016/05/31/Android-Google-开源的-Android-排版库：FlexboxLayout/">
+                        <h4 class="post-title">
+                            [Android]Google 开源的 Android 排版库：FlexboxLayout
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+					
+					</div><!--month-->
+					
+					
+					<div class="archive archive-month" data-date="201604">
+						<h3 class="archive-title">
+							<a href="/archives/2016/04">04</a>
+						</h3>
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2016/04/22/Android-Android-MVP-依赖注入-单元测试/">
+                        <h4 class="post-title">
+                            Android MVP&依赖注入&单元测试
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+					
+					</div><!--month-->
+					
+					
+					<div class="archive archive-month" data-date="201603">
+						<h3 class="archive-title">
+							<a href="/archives/2016/03">03</a>
+						</h3>
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2016/03/14/Android-一个干净的架构（翻译）/">
+                        <h4 class="post-title">
+                            [Android]一个干净的架构（翻译）
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+					
+					</div><!--month-->
+					
+					
+					<div class="archive archive-month" data-date="201602">
+						<h3 class="archive-title">
+							<a href="/archives/2016/02">02</a>
+						</h3>
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2016/02/16/Android-Dagger2Metrics-测量DI图表初始化的性能（翻译）/">
+                        <h4 class="post-title">
+                            Dagger2Metrics - 测量DI图表初始化的性能（翻译）
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+					
+					</div><!--month-->
+					
+					
+					<div class="archive archive-month" data-date="201601">
+						<h3 class="archive-title">
+							<a href="/archives/2016/01">01</a>
+						</h3>
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2016/01/04/Android-使用Dagger-2依赖注入-图表创建的性能（翻译）/">
+                        <h4 class="post-title">
+                            使用Dagger 2依赖注入 - 图表创建的性能（翻译）
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2016/01/02/Android-使用Dagger-2依赖注入-自定义Scope（翻译）/">
+                        <h4 class="post-title">
+                            使用Dagger 2依赖注入 - 自定义Scope（翻译）
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+					
+					</div><!--month-->
+					</div><!--year-->
+					
+					
+					
+					<div class="archive archive-year" data-date="2015">
+						<h2 class="archive-title">
+						<span class="fa fa-archive">
+							<a href="/archives/2015">2015</a>
+						</span>
+						</h2>
+				
+				
+					
+					
+					<div class="archive archive-month" data-date="201512">
+						<h3 class="archive-title">
+							<a href="/archives/2015/12">12</a>
+						</h3>
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2015/12/31/Android-使用Dagger-2依赖注入-API（翻译）/">
+                        <h4 class="post-title">
+                            使用Dagger 2依赖注入 - API（翻译）
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2015/12/31/Android-使用Dagger-2依赖注入-DI介绍（翻译）/">
+                        <h4 class="post-title">
+                            使用Dagger 2依赖注入 - DI介绍（翻译）
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2015/12/16/Android-官网《monkeyrunner》中文翻译/">
+                        <h4 class="post-title">
+                            [Android]官网《monkeyrunner》中文翻译
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2015/12/15/Android-官网《UI-Application-Exerciser-Monkey》中文翻译/">
+                        <h4 class="post-title">
+                            [Android]官网《UI/Application Exerciser Monkey》中文翻译
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2015/12/15/Android-官网《Testing-Support-Library》中文翻译/">
+                        <h4 class="post-title">
+                            [Android]官网《Testing Support Library》中文翻译
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2015/12/10/Android-对MVC和MVP的总结/">
+                        <h4 class="post-title">
+                            [Android]对MVC和MVP的总结
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2015/12/03/Android-从Launcher开始启动App流程源码分析/">
+                        <h4 class="post-title">
+                            [Android]从Launcher开始启动App流程源码分析
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2015/12/02/Android-Android系统启动流程源码分析/">
+                        <h4 class="post-title">
+                            [Android]Android系统启动流程源码分析
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+					
+					</div><!--month-->
+					
+					
+					<div class="archive archive-month" data-date="201511">
+						<h3 class="archive-title">
+							<a href="/archives/2015/11">11</a>
+						</h3>
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2015/11/26/Android小技巧/">
+                        <h4 class="post-title">
+                            Android小技巧
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2015/11/10/Android-Activity启动过程/">
+                        <h4 class="post-title">
+                            [Android]Activity启动过程
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2015/11/05/《Kotli­n-for-­androi­d-Deve­lopers­》中文翻译/">
+                        <h4 class="post-title">
+                            《Kotli­n for ­androi­d Deve­lopers­》中文翻译
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+					
+					</div><!--month-->
+					
+					
+					<div class="archive archive-month" data-date="201509">
+						<h3 class="archive-title">
+							<a href="/archives/2015/09">09</a>
+						</h3>
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2015/09/22/Android-使用Kotlin开发Android（二）/">
+                        <h4 class="post-title">
+                            [Android]使用Kotlin开发Android（二）
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2015/09/13/Kotlin语法（其他）/">
+                        <h4 class="post-title">
+                            Kotlin语法（其他）
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2015/09/11/Kotlin语法（函数和lambda表达式）/">
+                        <h4 class="post-title">
+                            Kotlin语法（函数和lambda表达式）
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2015/09/11/Kotlin语法（类和对象）/">
+                        <h4 class="post-title">
+                            Kotlin语法（类和对象）
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2015/09/11/Kotlin语法（基础）/">
+                        <h4 class="post-title">
+                            Kotlin语法（基础）
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2015/09/11/Android-使用Kotlin-Anko开发Android（一）/">
+                        <h4 class="post-title">
+                            [Android]使用Kotlin+Anko开发Android（一）
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2015/09/09/Kotlin：Android世界的Swift/">
+                        <h4 class="post-title">
+                            Kotlin：Android世界的Swift
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+					
+					</div><!--month-->
+					
+					
+					<div class="archive archive-month" data-date="201508">
+						<h3 class="archive-title">
+							<a href="/archives/2015/08">08</a>
+						</h3>
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2015/08/21/Android-Android端ORM框架——RapidORM-v1-0/">
+                        <h4 class="post-title">
+                            [Android]Android端ORM框架——RapidORM(v1.0)
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+					
+					</div><!--month-->
+					
+					
+					<div class="archive archive-month" data-date="201506">
+						<h3 class="archive-title">
+							<a href="/archives/2015/06">06</a>
+						</h3>
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2015/06/15/Android-基于RxJava、RxAndroid的EventBus实现/">
+                        <h4 class="post-title">
+                            [Android]基于RxJava、RxAndroid的EventBus实现
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+					
+					</div><!--month-->
+					
+					
+					<div class="archive archive-month" data-date="201505">
+						<h3 class="archive-title">
+							<a href="/archives/2015/05">05</a>
+						</h3>
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2015/05/11/Learn-RxJava/">
+                        <h4 class="post-title">
+                            Learn RxJava
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2015/05/03/Android-RapidFloatingActionButton框架正式出炉/">
+                        <h4 class="post-title">
+                            [Android]RapidFloatingActionButton框架正式出炉
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+					
+					</div><!--month-->
+					
+					
+					<div class="archive archive-month" data-date="201504">
+						<h3 class="archive-title">
+							<a href="/archives/2015/04">04</a>
+						</h3>
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2015/04/03/Android-Activity跳转传递任意类型的数据、Activity为SingleTask时代替StartActivityForResult的解决方案/">
+                        <h4 class="post-title">
+                            [Android]Activity跳转传递任意类型的数据、Activity为SingleTask时代替StartActivityForResult的解决方案
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2015/04/02/Android-使用Gradle提交自己开源Android库到Maven中心库/">
+                        <h4 class="post-title">
+                            [Android]使用Gradle提交自己开源Android库到Maven中心库
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+					
+					</div><!--month-->
+					
+					
+					<div class="archive archive-month" data-date="201502">
+						<h3 class="archive-title">
+							<a href="/archives/2015/02">02</a>
+						</h3>
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2015/02/28/100个高质量Java开发者博客/">
+                        <h4 class="post-title">
+                            100个高质量Java开发者博客
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2015/02/27/Android-实现类似微信的延迟加载的Fragment——LazyFragment/">
+                        <h4 class="post-title">
+                            [Android]实现类似微信的延迟加载的Fragment——LazyFragment
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2015/02/02/android多分辨率多屏幕密度下UI适配方案/">
+                        <h4 class="post-title">
+                            android多分辨率多屏幕密度下UI适配方案
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2015/02/02/Android-使用RecyclerView替代ListView（三）/">
+                        <h4 class="post-title">
+                            [Android]使用RecyclerView替代ListView（三）
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+					
+					</div><!--month-->
+					
+					
+					<div class="archive archive-month" data-date="201501">
+						<h3 class="archive-title">
+							<a href="/archives/2015/01">01</a>
+						</h3>
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2015/01/22/Android-使用RecyclerView替代ListView（二）/">
+                        <h4 class="post-title">
+                            [Android]使用RecyclerView替代ListView（二）
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2015/01/18/Android-使用RecyclerView替代ListView（一）/">
+                        <h4 class="post-title">
+                            [Android]使用RecyclerView替代ListView（一）
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+					
+					</div><!--month-->
+					</div><!--year-->
+					
+					
+					
+					<div class="archive archive-year" data-date="2014">
+						<h2 class="archive-title">
+						<span class="fa fa-archive">
+							<a href="/archives/2014">2014</a>
+						</span>
+						</h2>
+				
+				
+					
+					
+					<div class="archive archive-month" data-date="201412">
+						<h3 class="archive-title">
+							<a href="/archives/2014/12">12</a>
+						</h3>
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2014/12/24/Android-仿新版QQ的tab下面拖拽标记为已读的效果/">
+                        <h4 class="post-title">
+                            [Android]仿新版QQ的tab下面拖拽标记为已读的效果
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2014/12/18/Android-下拉刷新控件RefreshableView的实现/">
+                        <h4 class="post-title">
+                            [Android]下拉刷新控件RefreshableView的实现
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2014/12/11/基于git的源代码管理模型——git-flow/">
+                        <h4 class="post-title">
+                            基于git的源代码管理模型——git flow
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2014/12/05/Android-在Adapter的getView方法中绑定OnClickListener比较好的方法/">
+                        <h4 class="post-title">
+                            [Android]在Adapter的getView方法中绑定OnClickListener比较好的方法
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2014/12/03/Android-ListView的Adapter-getView-方法中延迟加载图片的优化/">
+                        <h4 class="post-title">
+                            [Android]ListView的Adapter.getView()方法中延迟加载图片的优化
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+					
+					</div><!--month-->
+					
+					
+					<div class="archive archive-month" data-date="201411">
+						<h3 class="archive-title">
+							<a href="/archives/2014/11">11</a>
+						</h3>
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2014/11/23/直接拿来用！十大Material-Design开源项目/">
+                        <h4 class="post-title">
+                            直接拿来用！十大Material Design开源项目
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+					
+					</div><!--month-->
+					
+					
+					<div class="archive archive-month" data-date="201409">
+						<h3 class="archive-title">
+							<a href="/archives/2014/09">09</a>
+						</h3>
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2014/09/25/Android-使用AdapterTypeRender对不同类型的item数据到UI的渲染/">
+                        <h4 class="post-title">
+                            [Android]使用AdapterTypeRender对不同类型的item数据到UI的渲染
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+					
+					</div><!--month-->
+					
+					
+					<div class="archive archive-month" data-date="201407">
+						<h3 class="archive-title">
+							<a href="/archives/2014/07">07</a>
+						</h3>
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2014/07/13/Android上的MVP：如何组织显示层的内容/">
+                        <h4 class="post-title">
+                            Android上的MVP：如何组织显示层的内容
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2014/07/03/Android-解决ClickableSpan中点击后ListView中item的长按冲突的问题/">
+                        <h4 class="post-title">
+                            [Android]解决ClickableSpan中点击后ListView中item的长按冲突的问题
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2014/07/01/Android-竖直滑动选择器WheelView的实现/">
+                        <h4 class="post-title">
+                            [Android]竖直滑动选择器WheelView的实现
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+					
+					</div><!--month-->
+					
+					
+					<div class="archive archive-month" data-date="201406">
+						<h3 class="archive-title">
+							<a href="/archives/2014/06">06</a>
+						</h3>
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2014/06/07/Android无线调试/">
+                        <h4 class="post-title">
+                            Android无线调试
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2014/06/04/IOS-《A-Swift-Tour》翻译（一）/">
+                        <h4 class="post-title">
+                            [IOS]《A Swift Tour》翻译（一）
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+					
+					</div><!--month-->
+					
+					
+					<div class="archive archive-month" data-date="201405">
+						<h3 class="archive-title">
+							<a href="/archives/2014/05">05</a>
+						</h3>
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2014/05/19/Android-Property-Animation动画/">
+                        <h4 class="post-title">
+                            Android Property Animation动画
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2014/05/05/Android-AndroidBucket增加碎片SubLayout功能及AISubLayout的注解支持/">
+                        <h4 class="post-title">
+                            [Android]AndroidBucket增加碎片SubLayout功能及AISubLayout的注解支持
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+					
+					</div><!--month-->
+					
+					
+					<div class="archive archive-month" data-date="201404">
+						<h3 class="archive-title">
+							<a href="/archives/2014/04">04</a>
+						</h3>
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2014/04/22/关于Android-的内存泄露及分析/">
+                        <h4 class="post-title">
+                            关于Android 的内存泄露及分析
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2014/04/03/Android-对BaseAdapter中ViewHolder编写简化/">
+                        <h4 class="post-title">
+                            [Android]对BaseAdapter中ViewHolder编写简化
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+					
+					</div><!--month-->
+					
+					
+					<div class="archive archive-month" data-date="201403">
+						<h3 class="archive-title">
+							<a href="/archives/2014/03">03</a>
+						</h3>
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2014/03/28/Android高级模糊技术-转/">
+                        <h4 class="post-title">
+                            Android高级模糊技术[转]
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2014/03/25/Android-AndroidInject增加sqlite3数据库映射注解-ORM/">
+                        <h4 class="post-title">
+                            [Android]AndroidInject增加sqlite3数据库映射注解(ORM)
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2014/03/20/Java8-Lambda表达式教程/">
+                        <h4 class="post-title">
+                            Java8 Lambda表达式教程
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+					
+					</div><!--month-->
+					
+					
+					<div class="archive archive-month" data-date="201402">
+						<h3 class="archive-title">
+							<a href="/archives/2014/02">02</a>
+						</h3>
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2014/02/28/Android-异步加载图片，内存缓存，文件缓存，imageview显示图片时增加淡入淡出动画/">
+                        <h4 class="post-title">
+                            [Android]异步加载图片，内存缓存，文件缓存，imageview显示图片时增加淡入淡出动画
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2014/02/20/Hbase-Java-API详解/">
+                        <h4 class="post-title">
+                            Hbase Java API详解
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2014/02/17/在Ubuntu上安装Hadoop（单机模式）步骤/">
+                        <h4 class="post-title">
+                            在Ubuntu上安装Hadoop（单机模式）步骤
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2014/02/11/android-亲自破解Flappy-Bird（去广告-永生）/">
+                        <h4 class="post-title">
+                            [android]亲自破解Flappy Bird（去广告+永生）
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2014/02/08/AndroidInject项目使用动态代理增加对网络请求的支持/">
+                        <h4 class="post-title">
+                            AndroidInject项目使用动态代理增加对网络请求的支持
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+					
+					</div><!--month-->
+					</div><!--year-->
+					
+					
+					
+					<div class="archive archive-year" data-date="2013">
+						<h2 class="archive-title">
+						<span class="fa fa-archive">
+							<a href="/archives/2013">2013</a>
+						</span>
+						</h2>
+				
+				
+					
+					
+					<div class="archive archive-month" data-date="201312">
+						<h3 class="archive-title">
+							<a href="/archives/2013/12">12</a>
+						</h3>
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2013/12/05/android-AndroidInject框架——我的第一个android小型框架/">
+                        <h4 class="post-title">
+                            [android]AndroidInject框架——我的第一个android小型框架
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+					
+					</div><!--month-->
+					
+					
+					<div class="archive archive-month" data-date="201311">
+						<h3 class="archive-title">
+							<a href="/archives/2013/11">11</a>
+						</h3>
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2013/11/08/ios7-tableview被navigationbar挡住/">
+                        <h4 class="post-title">
+                            ios7 tableview被navigationbar挡住
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2013/11/06/【ios】使用Block对POST异步操作的简单封装/">
+                        <h4 class="post-title">
+                            【ios】使用Block对POST异步操作的简单封装
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2013/11/03/【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比/">
+                        <h4 class="post-title">
+                            【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2013/11/02/【IOS】从android角度来实现-理解-IOS的UITableView/">
+                        <h4 class="post-title">
+                            【IOS】从android角度来实现(理解)IOS的UITableView
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+					
+					</div><!--month-->
+					
+					
+					<div class="archive archive-month" data-date="201310">
+						<h3 class="archive-title">
+							<a href="/archives/2013/10">10</a>
+						</h3>
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2013/10/30/Android-NDK环境搭建及调用JNI的简单步骤/">
+                        <h4 class="post-title">
+                            Android NDK环境搭建及调用JNI的简单步骤
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2013/10/12/Android使用Fragment来实现ViewPager的功能（解决切换Fragment状态不保存）以及各个Fragment之间的通信/">
+                        <h4 class="post-title">
+                            Android使用Fragment来实现ViewPager的功能（解决切换Fragment状态不保存）以及各个Fragment之间的通信
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2013/10/10/Android使用Fragment来实现TabHost的功能（解决切换Fragment状态不保存）以及各个Fragment之间的通信/">
+                        <h4 class="post-title">
+                            Android使用Fragment来实现TabHost的功能（解决切换Fragment状态不保存）以及各个Fragment之间的通信
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2013/10/08/Hibernate3注解-转/">
+                        <h4 class="post-title">
+                            Hibernate3注解[转]
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+					
+					</div><!--month-->
+					
+					
+					<div class="archive archive-month" data-date="201309">
+						<h3 class="archive-title">
+							<a href="/archives/2013/09">09</a>
+						</h3>
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2013/09/24/java使用动态代理来实现AOP（日志记录）/">
+                        <h4 class="post-title">
+                            java使用动态代理来实现AOP（日志记录）
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2013/09/10/Android自定义ScrollView分段加载大文本数据到TextView/">
+                        <h4 class="post-title">
+                            Android自定义ScrollView分段加载大文本数据到TextView
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+					
+					</div><!--month-->
+					
+					
+					<div class="archive archive-month" data-date="201306">
+						<h3 class="archive-title">
+							<a href="/archives/2013/06">06</a>
+						</h3>
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2013/06/06/IOS推送功能的实现（javapns）/">
+                        <h4 class="post-title">
+                            IOS推送功能的实现（javapns）
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+					
+					</div><!--month-->
+					
+					
+					<div class="archive archive-month" data-date="201305">
+						<h3 class="archive-title">
+							<a href="/archives/2013/05">05</a>
+						</h3>
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2013/05/18/IntelliJ-IDEA-12-创建Web项目-教程-超详细版/">
+                        <h4 class="post-title">
+                            IntelliJ IDEA 12 创建Web项目 教程 超详细版
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+					
+					</div><!--month-->
+					
+					
+					<div class="archive archive-month" data-date="201304">
+						<h3 class="archive-title">
+							<a href="/archives/2013/04">04</a>
+						</h3>
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2013/04/11/Java-Collection/">
+                        <h4 class="post-title">
+                            Java Collection
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+					
+					</div><!--month-->
+					
+					
+					<div class="archive archive-month" data-date="201303">
+						<h3 class="archive-title">
+							<a href="/archives/2013/03">03</a>
+						</h3>
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2013/03/04/Java数据结构和算法——汉诺塔问题/">
+                        <h4 class="post-title">
+                            Java数据结构和算法——汉诺塔问题
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2013/03/03/Struts-iBatis-Spring-mysql整合开发/">
+                        <h4 class="post-title">
+                            Struts+iBatis+Spring+mysql整合开发
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+					
+					</div><!--month-->
+					
+					
+					<div class="archive archive-month" data-date="201302">
+						<h3 class="archive-title">
+							<a href="/archives/2013/02">02</a>
+						</h3>
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2013/02/27/svn的使用/">
+                        <h4 class="post-title">
+                            svn的使用
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2013/02/24/看书笔记-《深入java虚拟机》——java体系结构（二）/">
+                        <h4 class="post-title">
+                            [看书笔记]《深入java虚拟机》——java体系结构（二）
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2013/02/24/lucene-使用教程/">
+                        <h4 class="post-title">
+                            lucene 使用教程
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2013/02/23/看书笔记-《深入java虚拟机》——java体系结构（一）/">
+                        <h4 class="post-title">
+                            [看书笔记]《深入java虚拟机》——java体系结构（一）
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2013/02/20/工具库-JFileDownloader工具类——多线程下载网络文件，并保存在本地/">
+                        <h4 class="post-title">
+                            [工具库]JFileDownloader工具类——多线程下载网络文件，并保存在本地
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2013/02/19/工具库-JOJSONBuilder工具类——一键把多个bean对象数据转换为JSON格式数据/">
+                        <h4 class="post-title">
+                            [工具库]JOJSONBuilder工具类——一键把多个bean对象数据转换为JSON格式数据
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2013/02/19/工具库-JOXMLBuilder工具类——一键把多个bean对象数据转换为XML格式数据/">
+                        <h4 class="post-title">
+                            [工具库]JOXMLBuilder工具类——一键把多个bean对象数据转换为XML格式数据
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+					
+					</div><!--month-->
+					
+					
+					<div class="archive archive-month" data-date="201301">
+						<h3 class="archive-title">
+							<a href="/archives/2013/01">01</a>
+						</h3>
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2013/01/29/java-二、八、十、十六进制之间的转换/">
+                        <h4 class="post-title">
+                            [java]二、八、十、十六进制之间的转换
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2013/01/07/Java垃圾回收器工作原理/">
+                        <h4 class="post-title">
+                            Java垃圾回收器工作原理
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+					
+					</div><!--month-->
+					</div><!--year-->
+					
+					
+					
+					<div class="archive archive-year" data-date="2012">
+						<h2 class="archive-title">
+						<span class="fa fa-archive">
+							<a href="/archives/2012">2012</a>
+						</span>
+						</h2>
+				
+				
+					
+					
+					<div class="archive archive-month" data-date="201212">
+						<h3 class="archive-title">
+							<a href="/archives/2012/12">12</a>
+						</h3>
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2012/12/27/一刻钟精通正则表达式/">
+                        <h4 class="post-title">
+                            一刻钟精通正则表达式
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2012/12/26/JVM原理/">
+                        <h4 class="post-title">
+                            JVM原理
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2012/12/26/Java-Stack栈和Heap堆的区别（终结篇）-转/">
+                        <h4 class="post-title">
+                            [Java]Stack栈和Heap堆的区别（终结篇）[转]
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+					
+					</div><!--month-->
+					
+					
+					<div class="archive archive-month" data-date="201211">
+						<h3 class="archive-title">
+							<a href="/archives/2012/11">11</a>
+						</h3>
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2012/11/30/WEB项目的分层结构/">
+                        <h4 class="post-title">
+                            WEB项目的分层结构
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2012/11/21/java-适配器模式/">
+                        <h4 class="post-title">
+                            java 适配器模式
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2012/11/20/java-观察者模式/">
+                        <h4 class="post-title">
+                            java 观察者模式
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2012/11/20/java-装饰者模式/">
+                        <h4 class="post-title">
+                            java 装饰者模式
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2012/11/20/java-代理模式（静态代理-动态代理）/">
+                        <h4 class="post-title">
+                            java 代理模式（静态代理+动态代理）
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2012/11/20/Java-单例模式/">
+                        <h4 class="post-title">
+                            Java 单例模式
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2012/11/19/java-工厂模式/">
+                        <h4 class="post-title">
+                            java 工厂模式
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2012/11/19/java-策略模式/">
+                        <h4 class="post-title">
+                            java 策略模式
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+					
+					</div><!--month-->
+					
+					
+					<div class="archive archive-month" data-date="201210">
+						<h3 class="archive-title">
+							<a href="/archives/2012/10">10</a>
+						</h3>
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2012/10/23/Zxing-android-解析流程/">
+                        <h4 class="post-title">
+                            Zxing android 解析流程
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2012/10/15/EditText的属性介绍/">
+                        <h4 class="post-title">
+                            EditText的属性介绍
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2012/10/15/TextView的属性详解/">
+                        <h4 class="post-title">
+                            TextView的属性详解
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+					
+					</div><!--month-->
+					
+					
+					<div class="archive archive-month" data-date="201206">
+						<h3 class="archive-title">
+							<a href="/archives/2012/06">06</a>
+						</h3>
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2012/06/19/Android使用ListView应该注意的地方/">
+                        <h4 class="post-title">
+                            Android使用ListView应该注意的地方
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2012/06/15/设置EditText是否可编辑/">
+                        <h4 class="post-title">
+                            设置EditText是否可编辑
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2012/06/14/Android中Application设置全局变量以及传值/">
+                        <h4 class="post-title">
+                            Android中Application设置全局变量以及传值
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2012/06/06/Android自定义属性，format详解/">
+                        <h4 class="post-title">
+                            Android自定义属性，format详解
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+					
+					</div><!--month-->
+					
+					
+					<div class="archive archive-month" data-date="201205">
+						<h3 class="archive-title">
+							<a href="/archives/2012/05">05</a>
+						</h3>
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2012/05/28/问题Re-installation-failed-due-to-different-application-signatures-解决/">
+                        <h4 class="post-title">
+                            问题Re-installation failed due to different application signatures.解决
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2012/05/22/android-ellipsize属性的含义/">
+                        <h4 class="post-title">
+                            android:ellipsize属性的含义
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2012/05/22/android-异常：ScrollView-can-host-only-one-direct-child/">
+                        <h4 class="post-title">
+                            android 异常：ScrollView can host only one direct child
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2012/05/09/android真机调试时无法显示logcat信息的解决办法/">
+                        <h4 class="post-title">
+                            android真机调试时无法显示logcat信息的解决办法
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2012/05/03/Java中的强引用、软引用、弱引用和虚引用/">
+                        <h4 class="post-title">
+                            Java中的强引用、软引用、弱引用和虚引用
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+					
+					</div><!--month-->
+					
+					
+					<div class="archive archive-month" data-date="201204">
+						<h3 class="archive-title">
+							<a href="/archives/2012/04">04</a>
+						</h3>
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2012/04/18/Java集合框架List，Map，Set等全面介绍/">
+                        <h4 class="post-title">
+                            Java集合框架List，Map，Set等全面介绍
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+					
+					</div><!--month-->
+					
+					
+					<div class="archive archive-month" data-date="201203">
+						<h3 class="archive-title">
+							<a href="/archives/2012/03">03</a>
+						</h3>
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2012/03/08/android屏蔽返回键和home键/">
+                        <h4 class="post-title">
+                            android屏蔽返回键和home键
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2012/03/08/Android的单位及屏幕分辨率/">
+                        <h4 class="post-title">
+                            Android的单位及屏幕分辨率
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2012/03/08/Android读取用户号码，手机串号，SIM卡序列号/">
+                        <h4 class="post-title">
+                            Android读取用户号码，手机串号，SIM卡序列号
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2012/03/08/Android退出程序的若干方法/">
+                        <h4 class="post-title">
+                            Android退出程序的若干方法
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2012/03/07/Activity与Service之间交互并播放歌曲/">
+                        <h4 class="post-title">
+                            Activity与Service之间交互并播放歌曲
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2012/03/03/Android应用签名详解-Eclipse-ADT/">
+                        <h4 class="post-title">
+                            Android应用签名详解 Eclipse+ADT
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2012/03/03/Android读写文件汇总/">
+                        <h4 class="post-title">
+                            Android读写文件汇总
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2012/03/03/Android绘图操作onDraw/">
+                        <h4 class="post-title">
+                            Android绘图操作onDraw
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2012/03/03/TimePicker-SharedPreferences实现android小闹钟/">
+                        <h4 class="post-title">
+                            TimePicker,SharedPreferences实现android小闹钟
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2012/03/01/android中DatePicker-TimePicker的应用/">
+                        <h4 class="post-title">
+                            android中DatePicker&TimePicker的应用
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2012/03/01/Android通过VideoView实现视频播放/">
+                        <h4 class="post-title">
+                            Android通过VideoView实现视频播放
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2012/03/01/android通过BroadcastReceiver拦截短信转发/">
+                        <h4 class="post-title">
+                            android通过BroadcastReceiver拦截短信转发
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+					
+					</div><!--month-->
+					
+					
+					<div class="archive archive-month" data-date="201202">
+						<h3 class="archive-title">
+							<a href="/archives/2012/02">02</a>
+						</h3>
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2012/02/24/用RadioGroup来自定义TabHost-Gallery应用/">
+                        <h4 class="post-title">
+                            用RadioGroup来自定义TabHost+Gallery应用
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2012/02/24/Activity的四种加载模式/">
+                        <h4 class="post-title">
+                            Activity的四种加载模式
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+        </div>
+    </div>
 
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
 
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/wangjiegulu">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
 
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/wangjiegulu">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
 
+                
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/wangjiegulu">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
 
-  <title>Tag: java web | WAND JIE</title>
-  
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/tiantianbyconan">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
 
+                
 
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; WANG JIE&#39;s BLOG 2018
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://blog.wangjiegulu.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
 
 
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-111189680-2', 'auto');
-  ga('send', 'pageview');
+    // dynamic User by Hux
+    var _gaId = 'UA-111189680-2';
+    var _gaDomain = 'blog.wangjiegulu.com';
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
 </script>
 
 
+<!-- Baidu Tongji -->
 
 
-
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="en">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left ">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">WAND JIE</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
-    </div>
-      
-        <p class="site-subtitle">TO BE AN ARTIST-ENGINNER</p>
-      
-  </div>
-
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
-  </div>
-</div>
-
-<nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            Home
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            About
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            Tags
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            Categories
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            Archives
-          </a>
-        </li>
-      
-
-      
-        <li class="menu-item menu-item-search">
-          
-            <a href="javascript:;" class="popup-trigger">
-          
-            
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
-            
-            Search
-          </a>
-        </li>
-      
-    </ul>
-  
-
-  
-    <div class="site-search">
-      
-  <div class="popup search-popup local-search-popup">
-  <div class="local-search-header clearfix">
-    <span class="search-icon">
-      <i class="fa fa-search"></i>
-    </span>
-    <span class="popup-btn-close">
-      <i class="fa fa-times-circle"></i>
-    </span>
-    <div class="local-search-input-wrapper">
-      <input autocomplete="off"
-             placeholder="Searching..." spellcheck="false"
-             type="text" id="local-search-input">
-    </div>
-  </div>
-  <div id="local-search-result"></div>
-</div>
-
-
-
-    </div>
-  
-</nav>
-
-
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-
-  
-  
-  
-  <div class="post-block tag">
-
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>java web<small>Tag</small>
-        </h1>
-      </div>
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2014/02/20/Hbase-Java-API详解/" itemprop="url">
-              
-                <span itemprop="name">Hbase Java API详解</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2014-02-20T14:23:00+08:00"
-              content="2014-02-20" >
-          02-20
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2014/02/17/在Ubuntu上安装Hadoop（单机模式）步骤/" itemprop="url">
-              
-                <span itemprop="name">在Ubuntu上安装Hadoop（单机模式）步骤</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2014-02-17T15:49:00+08:00"
-              content="2014-02-17" >
-          02-17
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2013/10/08/Hibernate3注解-转/" itemprop="url">
-              
-                <span itemprop="name">Hibernate3注解[转]</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2013-10-08T14:40:00+08:00"
-              content="2013-10-08" >
-          10-08
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2013/05/18/IntelliJ-IDEA-12-创建Web项目-教程-超详细版/" itemprop="url">
-              
-                <span itemprop="name">IntelliJ IDEA 12 创建Web项目 教程 超详细版</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2013-05-18T11:00:00+08:00"
-              content="2013-05-18" >
-          05-18
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2013/03/03/Struts-iBatis-Spring-mysql整合开发/" itemprop="url">
-              
-                <span itemprop="name">Struts+iBatis+Spring+mysql整合开发</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2013-03-03T14:54:00+08:00"
-              content="2013-03-03" >
-          03-03
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2012/11/30/WEB项目的分层结构/" itemprop="url">
-              
-                <span itemprop="name">WEB项目的分层结构</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2012-11-30T11:04:00+08:00"
-              content="2012-11-30" >
-          11-30
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-    </div>
-
-  </div>
-  
-  
-  
-
-  
-
-
-          </div>
-          
-
-
-          
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <img class="site-author-image" itemprop="image"
-                src="/images/my_avatar.jpg"
-                alt="Wang Jie" />
-            
-              <p class="site-author-name" itemprop="name">Wang Jie</p>
-              <p class="site-description motion-element" itemprop="description">Wang Jie's blog</p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">144</span>
-                  <span class="site-state-item-name">posts</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">2</span>
-                  <span class="site-state-item-name">categories</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">196</span>
-                  <span class="site-state-item-name">tags</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-            <div class="feed-link motion-element">
-              <a href="/atom.xml" rel="alternate">
-                <i class="fa fa-rss"></i>
-                RSS
-              </a>
-            </div>
-          
-
-          
-            <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/wangjiegulu" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i></a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="mailto:tiantian.china.2@gmail.com" target="_blank" title="E-Mail">
-                      
-                        <i class="fa fa-fw fa-envelope"></i></a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://plus.google.com/+%E5%A4%A9%E5%A4%A9wangjie" target="_blank" title="Google">
-                      
-                        <i class="fa fa-fw fa-google"></i></a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://twitter.com/wangjiegulu" target="_blank" title="Twitter">
-                      
-                        <i class="fa fa-fw fa-twitter"></i></a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://stackoverflow.com/users/2124006/wangjie" target="_blank" title="StackOverflow">
-                      
-                        <i class="fa fa-fw fa-stack-overflow"></i></a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://instagram.com/wangjiegulu" target="_blank" title="Instagram">
-                      
-                        <i class="fa fa-fw fa-instagram"></i></a>
-                  </span>
-                
-            </div>
-          
-
-          
-          
-
-          
-          
-            <div class="links-of-blogroll motion-element links-of-blogroll-block">
-              <div class="links-of-blogroll-title">
-                <i class="fa  fa-fw fa-link"></i>
-                Links
-              </div>
-              <ul class="links-of-blogroll-list">
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="http://www.cnblogs.com/tiantianbyconan/" title="cnblog" target="_blank">cnblog</a>
-                  </li>
-                
-              </ul>
-            </div>
-          
-
-          
-
-        </div>
-      </section>
-
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Wang Jie</span>
-
-  
-</div>
-
-
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
-
-
-
-
-
-
-
-
-        
-<div class="busuanzi-count">
-  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-  
-    <span class="site-uv">
-      <i class="fa fa-user"></i>
-      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
-      
-    </span>
-  
-
-  
-    <span class="site-pv">
-      <i class="fa fa-eye"></i>
-      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
-      
-    </span>
-  
-</div>
-
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-  </div>
-
-  
-
+<!-- swiftype -->
 <script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','MeGy6NW2x6vGFz7Hy7SW','2.0.0');
 </script>
 
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-  
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-    
-      <script id="dsq-count-scr" src="https://blog-wangjiegulu-com.disqus.com/count.js" async></script>
-    
-
-    
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  <script type="text/javascript">
-    // Popup Window;
-    var isfetched = false;
-    var isXml = true;
-    // Search DB path;
-    var search_path = "search.xml";
-    if (search_path.length === 0) {
-      search_path = "search.xml";
-    } else if (/json$/i.test(search_path)) {
-      isXml = false;
-    }
-    var path = "/" + search_path;
-    // monitor main search box;
-
-    var onPopupClose = function (e) {
-      $('.popup').hide();
-      $('#local-search-input').val('');
-      $('.search-result-list').remove();
-      $('#no-result').remove();
-      $(".local-search-pop-overlay").remove();
-      $('body').css('overflow', '');
-    }
-
-    function proceedsearch() {
-      $("body")
-        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
-        .css('overflow', 'hidden');
-      $('.search-popup-overlay').click(onPopupClose);
-      $('.popup').toggle();
-      var $localSearchInput = $('#local-search-input');
-      $localSearchInput.attr("autocapitalize", "none");
-      $localSearchInput.attr("autocorrect", "off");
-      $localSearchInput.focus();
-    }
-
-    // search function;
-    var searchFunc = function(path, search_id, content_id) {
-      'use strict';
-
-      // start loading animation
-      $("body")
-        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
-          '<div id="search-loading-icon">' +
-          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
-          '</div>' +
-          '</div>')
-        .css('overflow', 'hidden');
-      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
-
-      $.ajax({
-        url: path,
-        dataType: isXml ? "xml" : "json",
-        async: true,
-        success: function(res) {
-          // get the contents from search data
-          isfetched = true;
-          $('.popup').detach().appendTo('.header-inner');
-          var datas = isXml ? $("entry", res).map(function() {
-            return {
-              title: $("title", this).text(),
-              content: $("content",this).text(),
-              url: $("url" , this).text()
-            };
-          }).get() : res;
-          var input = document.getElementById(search_id);
-          var resultContent = document.getElementById(content_id);
-          var inputEventFunction = function() {
-            var searchText = input.value.trim().toLowerCase();
-            var keywords = searchText.split(/[\s\-]+/);
-            if (keywords.length > 1) {
-              keywords.push(searchText);
-            }
-            var resultItems = [];
-            if (searchText.length > 0) {
-              // perform local searching
-              datas.forEach(function(data) {
-                var isMatch = false;
-                var hitCount = 0;
-                var searchTextCount = 0;
-                var title = data.title.trim();
-                var titleInLowerCase = title.toLowerCase();
-                var content = data.content.trim().replace(/<[^>]+>/g,"");
-                var contentInLowerCase = content.toLowerCase();
-                var articleUrl = decodeURIComponent(data.url);
-                var indexOfTitle = [];
-                var indexOfContent = [];
-                // only match articles with not empty titles
-                if(title != '') {
-                  keywords.forEach(function(keyword) {
-                    function getIndexByWord(word, text, caseSensitive) {
-                      var wordLen = word.length;
-                      if (wordLen === 0) {
-                        return [];
-                      }
-                      var startPosition = 0, position = [], index = [];
-                      if (!caseSensitive) {
-                        text = text.toLowerCase();
-                        word = word.toLowerCase();
-                      }
-                      while ((position = text.indexOf(word, startPosition)) > -1) {
-                        index.push({position: position, word: word});
-                        startPosition = position + wordLen;
-                      }
-                      return index;
-                    }
-
-                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
-                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
-                  });
-                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
-                    isMatch = true;
-                    hitCount = indexOfTitle.length + indexOfContent.length;
-                  }
-                }
-
-                // show search results
-
-                if (isMatch) {
-                  // sort index by position of keyword
-
-                  [indexOfTitle, indexOfContent].forEach(function (index) {
-                    index.sort(function (itemLeft, itemRight) {
-                      if (itemRight.position !== itemLeft.position) {
-                        return itemRight.position - itemLeft.position;
-                      } else {
-                        return itemLeft.word.length - itemRight.word.length;
-                      }
-                    });
-                  });
-
-                  // merge hits into slices
-
-                  function mergeIntoSlice(text, start, end, index) {
-                    var item = index[index.length - 1];
-                    var position = item.position;
-                    var word = item.word;
-                    var hits = [];
-                    var searchTextCountInSlice = 0;
-                    while (position + word.length <= end && index.length != 0) {
-                      if (word === searchText) {
-                        searchTextCountInSlice++;
-                      }
-                      hits.push({position: position, length: word.length});
-                      var wordEnd = position + word.length;
-
-                      // move to next position of hit
-
-                      index.pop();
-                      while (index.length != 0) {
-                        item = index[index.length - 1];
-                        position = item.position;
-                        word = item.word;
-                        if (wordEnd > position) {
-                          index.pop();
-                        } else {
-                          break;
-                        }
-                      }
-                    }
-                    searchTextCount += searchTextCountInSlice;
-                    return {
-                      hits: hits,
-                      start: start,
-                      end: end,
-                      searchTextCount: searchTextCountInSlice
-                    };
-                  }
-
-                  var slicesOfTitle = [];
-                  if (indexOfTitle.length != 0) {
-                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
-                  }
-
-                  var slicesOfContent = [];
-                  while (indexOfContent.length != 0) {
-                    var item = indexOfContent[indexOfContent.length - 1];
-                    var position = item.position;
-                    var word = item.word;
-                    // cut out 100 characters
-                    var start = position - 20;
-                    var end = position + 80;
-                    if(start < 0){
-                      start = 0;
-                    }
-                    if (end < position + word.length) {
-                      end = position + word.length;
-                    }
-                    if(end > content.length){
-                      end = content.length;
-                    }
-                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
-                  }
-
-                  // sort slices in content by search text's count and hits' count
-
-                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
-                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
-                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
-                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
-                      return sliceRight.hits.length - sliceLeft.hits.length;
-                    } else {
-                      return sliceLeft.start - sliceRight.start;
-                    }
-                  });
-
-                  // select top N slices in content
-
-                  var upperBound = parseInt('1');
-                  if (upperBound >= 0) {
-                    slicesOfContent = slicesOfContent.slice(0, upperBound);
-                  }
-
-                  // highlight title and content
-
-                  function highlightKeyword(text, slice) {
-                    var result = '';
-                    var prevEnd = slice.start;
-                    slice.hits.forEach(function (hit) {
-                      result += text.substring(prevEnd, hit.position);
-                      var end = hit.position + hit.length;
-                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
-                      prevEnd = end;
-                    });
-                    result += text.substring(prevEnd, slice.end);
-                    return result;
-                  }
-
-                  var resultItem = '';
-
-                  if (slicesOfTitle.length != 0) {
-                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
-                  } else {
-                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
-                  }
-
-                  slicesOfContent.forEach(function (slice) {
-                    resultItem += "<a href='" + articleUrl + "'>" +
-                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
-                      "...</p>" + "</a>";
-                  });
-
-                  resultItem += "</li>";
-                  resultItems.push({
-                    item: resultItem,
-                    searchTextCount: searchTextCount,
-                    hitCount: hitCount,
-                    id: resultItems.length
-                  });
-                }
-              })
-            };
-            if (keywords.length === 1 && keywords[0] === "") {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
-            } else if (resultItems.length === 0) {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
-            } else {
-              resultItems.sort(function (resultLeft, resultRight) {
-                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
-                  return resultRight.searchTextCount - resultLeft.searchTextCount;
-                } else if (resultLeft.hitCount !== resultRight.hitCount) {
-                  return resultRight.hitCount - resultLeft.hitCount;
-                } else {
-                  return resultRight.id - resultLeft.id;
-                }
-              });
-              var searchResultList = '<ul class=\"search-result-list\">';
-              resultItems.forEach(function (result) {
-                searchResultList += result.item;
-              })
-              searchResultList += "</ul>";
-              resultContent.innerHTML = searchResultList;
-            }
-          }
-
-          if ('auto' === 'auto') {
-            input.addEventListener('input', inputEventFunction);
-          } else {
-            $('.search-icon').click(inputEventFunction);
-            input.addEventListener('keypress', function (event) {
-              if (event.keyCode === 13) {
-                inputEventFunction();
-              }
-            });
-          }
-
-          // remove loading animation
-          $(".local-search-pop-overlay").remove();
-          $('body').css('overflow', '');
-
-          proceedsearch();
-        }
-      });
-    }
-
-    // handle and trigger popup window;
-    $('.popup-trigger').click(function(e) {
-      e.stopPropagation();
-      if (isfetched === false) {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-      } else {
-        proceedsearch();
-      };
-    });
-
-    $('.popup-btn-close').click(onPopupClose);
-    $('.popup').click(function(e){
-      e.stopPropagation();
-    });
-    $(document).on('keyup', function (event) {
-      var shouldDismissSearchPopup = event.which === 27 &&
-        $('.search-popup').is(':visible');
-      if (shouldDismissSearchPopup) {
-        onPopupClose();
-      }
-    });
-  </script>
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-  
-  
-  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
-
-  
-  
-  <script src="/lib/needsharebutton/needsharebutton.js"></script>
-
-  <script>
-    
-      pbOptions = {};
-      
-          pbOptions.iconStyle = "default";
-      
-          pbOptions.boxForm = "horizontal";
-      
-          pbOptions.position = "bottomCenter";
-      
-          pbOptions.networks = "GooglePlus,Evernote,Twitter,Facebook,Douban,Weibo";
-      
-      new needShareButton('#needsharebutton-postbottom', pbOptions);
-    
-    
-  </script>
-
-  
-
-  
-
-  
-
-  
-
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://avatars3.githubusercontent.com/u/5423194?s=460&amp;v=4">
 </body>
+
 </html>
