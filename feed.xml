@@ -609,9 +609,9 @@
     
       <category term="android" scheme="http://blog.wangjiegulu.com/tags/android/"/>
     
-      <category term="annotations" scheme="http://blog.wangjiegulu.com/tags/annotations/"/>
-    
       <category term="unit test" scheme="http://blog.wangjiegulu.com/tags/unit-test/"/>
+    
+      <category term="annotations" scheme="http://blog.wangjiegulu.com/tags/annotations/"/>
     
       <category term="JUnit" scheme="http://blog.wangjiegulu.com/tags/JUnit/"/>
     
