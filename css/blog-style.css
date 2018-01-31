@@ -44,7 +44,9 @@ hr{
 }
 
 .sidebar-container .short-about img {
-    width: 100%;
+    width: 50%;
+    margin-left: auto; 
+    margin-right: auto;
     display: block;
     border-radius: 50%;
     margin-bottom: 20px;
