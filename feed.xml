@@ -6,7 +6,7 @@
   <link href="/feed.xml" rel="self"/>
   
   <link href="http://blog.wangjiegulu.com/"/>
-  <updated>2018-01-31T08:53:47.000Z</updated>
+  <updated>2018-02-01T10:16:29.000Z</updated>
   <id>http://blog.wangjiegulu.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://blog.wangjiegulu.com/2017/12/20/Android-App-IFCTT%EF%BC%8C%E5%8D%B3If-Copy-Then-That%EF%BC%8C%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8EIFTTT%E7%9A%84-This-%E5%AE%9E%E7%8E%B0/"/>
     <id>http://blog.wangjiegulu.com/2017/12/20/Android-App-IFCTT，即If-Copy-Then-That，一个基于IFTTT的-This-实现/</id>
     <published>2017-12-20T04:41:00.000Z</published>
-    <updated>2018-01-31T08:53:47.000Z</updated>
+    <updated>2018-02-01T10:16:29.000Z</updated>
     
     <summary type="html">
     
@@ -302,11 +302,11 @@
     
       <category term="翻译" scheme="http://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
     
-      <category term="google" scheme="http://blog.wangjiegulu.com/tags/google/"/>
-    
       <category term="dagger2" scheme="http://blog.wangjiegulu.com/tags/dagger2/"/>
     
       <category term="DI" scheme="http://blog.wangjiegulu.com/tags/DI/"/>
+    
+      <category term="google" scheme="http://blog.wangjiegulu.com/tags/google/"/>
     
   </entry>
   
@@ -336,11 +336,11 @@
     
       <category term="翻译" scheme="http://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
     
-      <category term="google" scheme="http://blog.wangjiegulu.com/tags/google/"/>
-    
       <category term="dagger2" scheme="http://blog.wangjiegulu.com/tags/dagger2/"/>
     
       <category term="DI" scheme="http://blog.wangjiegulu.com/tags/DI/"/>
+    
+      <category term="google" scheme="http://blog.wangjiegulu.com/tags/google/"/>
     
   </entry>
   
@@ -370,11 +370,11 @@
     
       <category term="翻译" scheme="http://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
     
-      <category term="google" scheme="http://blog.wangjiegulu.com/tags/google/"/>
-    
       <category term="dagger2" scheme="http://blog.wangjiegulu.com/tags/dagger2/"/>
     
       <category term="DI" scheme="http://blog.wangjiegulu.com/tags/DI/"/>
+    
+      <category term="google" scheme="http://blog.wangjiegulu.com/tags/google/"/>
     
       <category term="RxJava" scheme="http://blog.wangjiegulu.com/tags/RxJava/"/>
     
@@ -408,11 +408,11 @@
     
       <category term="翻译" scheme="http://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
     
-      <category term="google" scheme="http://blog.wangjiegulu.com/tags/google/"/>
-    
       <category term="dagger2" scheme="http://blog.wangjiegulu.com/tags/dagger2/"/>
     
       <category term="DI" scheme="http://blog.wangjiegulu.com/tags/DI/"/>
+    
+      <category term="google" scheme="http://blog.wangjiegulu.com/tags/google/"/>
     
   </entry>
   
