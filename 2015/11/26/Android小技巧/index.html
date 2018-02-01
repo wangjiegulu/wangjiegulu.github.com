@@ -86,6 +86,8 @@
 						
                     
                         
+                    
+                        
 							
                         <li>
                             <a href="/categories/">categories</a>
@@ -100,8 +102,6 @@
                         </li>
 							
 						
-                    
-                        
                     
 					
 					
@@ -170,6 +170,11 @@
 
 <!-- Main Content -->
 
+<head>
+<!-- <script type='text/javascript' src='//platform-api.sharethis.com/js/sharethis.js#property=5a72df492fd34b00134b0dc1&product=sop' async='async'></script> -->
+<script type='text/javascript' src='//platform-api.sharethis.com/js/sharethis.js#property=5a72df492fd34b00134b0dc1&product=sop' async='async'></script>
+</head>
+
 <!--only post-->
 
 
@@ -208,6 +213,8 @@
                            title="tips">tips</a>
                         
                     </div>
+                    <!-- Sharethis 分享 -->
+                    <!-- <div class="sharethis-inline-share-buttons" style="margin-top: 18px; opacity: 0.1;"></div> -->
                 </div>
             </div>
         </div>
@@ -232,6 +239,11 @@
 <p>ViewDragHelper ——视图拖动是一个比较复杂的问题。这个类可以帮助解决不少问题。如果你需要一个例子，DrawerLayout就是利用它实现扫滑。Flavient Laurent 还写了一些关于这方面的优秀文章。<br>PopupWindow——Android到处都在使用PopupWindow ，甚至你都没有意识到（标题导航条ActionBar，自动补全AutoComplete，编辑框错误提醒Edittext Errors）。这个类是创建浮层内容的主要方法。<br>Actionbar.getThemrContext()——导航栏的主题化是很复杂的（不同于Activity其他部分的主题化）。你可以得到一个上下文（Context），用这个上下文创建的自定义组件可以得到正确的主题。<br>ThumbnailUtils——帮助创建缩略图。通常我都是用现有的图片加载库（比如，Picasso 或者 Volley），不过这个ThumbnaiUtils可以创建视频缩略图。译者注：该API从V8才开始支持。<br>Context.getExternalFilesDir()———— 申请了SD卡写权限后，你可以在SD的任何地方写数据，把你的数据写在设计好的合适位置会更加有礼貌。这样数据可以及时被清理，也会有更好的用户体验。此外，Android 4.0 Kitkat中在这个文件夹下写数据是不需要权限的，每个用户有自己的独立的数据存储路径。译者注：该API从V8才开始支持。<br>SparseArray——Map的高效优化版本。推荐了解姐妹类SparseBooleanArray、SparseIntArray和SparseLongArray。<br>PackageManager.setComponentEnabledSetting()——可以用来启动或者禁用程序清单中的组件。对于关闭不需要的功能组件是非常赞的，比如关掉一个当前不用的广播接收器。<br>SQLiteDatabase.yieldIfContendedSafely()——让你暂时停止一个数据库事务， 这样你可以就不会占用太多的系统资源。<br>Environment.getExternalStoragePublicDirectory()——还是那句话，用户期望在SD卡上得到统一的用户体验。用这个方法可以获得在用户设备上放置指定类型文件（音乐、图片等）的正确目录。<br>View.generateViewId()——每次我都想要推荐动态生成控件的ID。需要注意的是，不要和已经存在的控件ID或者其他已经生成的控件ID重复。<br>ActivityManager.clearApplicationUserData()—— 一键清理你的app产生的用户数据，可能是做用户退出登录功能，有史以来最简单的方式了。<br>Context.createConfigurationContext() ——自定义你的配置环境信息。我通常会遇到这样的问题：强制让一部分显示在某个特定的环境下（倒不是我一直这样瞎整，说来话长，你很难理解）。用这个实现起来可以稍微简单一点。<br>ActivityOptions ——方便的定义两个Activity切换的动画。 使用ActivityOptionsCompat 可以很好解决旧版本的兼容问题。<br>AdapterViewFlipper.fyiWillBeAdvancedByHostKThx()——仅仅因为很好玩，没有其他原因。在整个安卓开源项目中（AOSP the Android ——pen Source Project Android开放源代码项目）中还有其他很有意思的东西（比如<br>GRAVITY_DEATH_STAR_I）。不过，都不像这个这样，这个确实有用<br>ViewParent.requestDisallowInterceptTouchEvent() ——Android系统触摸事件机制大多时候能够默认处理，不过有时候你需要使用这个方法来剥夺父级控件的控制权（顺便说一下，如果你想对Android触摸机制了解更多，这个演讲会令你惊叹不已。）</p>
 
                 <hr>
+
+                <!-- Sharethis 分享 -->
+                <div class="sharethis-inline-share-buttons" style="margin-top: 18px"></div>
+
+
                 
 
                 <ul class="pager">
@@ -248,6 +260,7 @@
                     </li>
                     
                 </ul>
+
 
                 
 

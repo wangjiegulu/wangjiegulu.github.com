@@ -86,6 +86,8 @@
 						
                     
                         
+                    
+                        
 							
                         <li>
                             <a href="/categories/">categories</a>
@@ -100,8 +102,6 @@
                         </li>
 							
 						
-                    
-                        
                     
 					
 					
@@ -170,6 +170,11 @@
 
 <!-- Main Content -->
 
+<head>
+<!-- <script type='text/javascript' src='//platform-api.sharethis.com/js/sharethis.js#property=5a72df492fd34b00134b0dc1&product=sop' async='async'></script> -->
+<script type='text/javascript' src='//platform-api.sharethis.com/js/sharethis.js#property=5a72df492fd34b00134b0dc1&product=sop' async='async'></script>
+</head>
+
 <!--only post-->
 
 
@@ -211,6 +216,8 @@
                            title="anko">anko</a>
                         
                     </div>
+                    <!-- Sharethis 分享 -->
+                    <!-- <div class="sharethis-inline-share-buttons" style="margin-top: 18px; opacity: 0.1;"></div> -->
                 </div>
             </div>
         </div>
@@ -250,6 +257,11 @@
 <p>为了方便调用，又在Obserable中扩展了几个方法：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="type">&lt;T&gt;</span> Observable<span class="type">&lt;T&gt;</span>.<span class="title">observeOnMain</span><span class="params">()</span></span>: Observable&lt;T&gt; = <span class="keyword">this</span>.observeOn(AndroidSchedulers.mainThread())</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="type">&lt;T&gt;</span> Observable<span class="type">&lt;T&gt;</span>.<span class="title">subscribeSafeNext</span><span class="params">(onNext: (<span class="type">T</span>)</span></span> -&gt; <span class="built_in">Unit</span>): Subscription = <span class="keyword">this</span>.subscribe(onNext, &#123; t -&gt; Log.e(TAG, <span class="string">""</span>, t) &#125;, &#123;&#125;);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="type">&lt;T&gt;</span> Observable<span class="type">&lt;T&gt;</span>.<span class="title">subscribeSafeCompleted</span><span class="params">(onCompleted: ()</span></span> -&gt; <span class="built_in">Unit</span>): Subscription = <span class="keyword">this</span>.subscribe(&#123;&#125;, &#123; t -&gt; Log.e(TAG, <span class="string">""</span>, t) &#125;, onCompleted);</span><br></pre></td></tr></table></figure></p>
 
                 <hr>
+
+                <!-- Sharethis 分享 -->
+                <div class="sharethis-inline-share-buttons" style="margin-top: 18px"></div>
+
+
                 
 
                 <ul class="pager">
@@ -266,6 +278,7 @@
                     </li>
                     
                 </ul>
+
 
                 
 

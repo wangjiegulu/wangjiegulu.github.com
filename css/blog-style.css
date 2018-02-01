@@ -26,12 +26,14 @@ hr{
 }
 
 .sidebar-container a {
-    color: #bfbfbf !important;
+    /*color: #bfbfbf !important;*/
+    color: #666 !important;
 }
 
 .sidebar-container a:hover,
 .sidebar-container a:active {
-    color: #0085a1 !important;
+    /*color: #0085a1 !important;*/
+    color: #428bca !important;
 }
 
 .sidebar-container .tags a {
@@ -40,7 +42,8 @@ hr{
 
 .sidebar-container .tags a:hover,
 .sidebar-container .tags a:active {
-    border-color: #0085a1;
+    /*border-color: #0085a1;*/
+    border-color: #428bca;
 }
 
 .sidebar-container .short-about img {
