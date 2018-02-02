@@ -9,18 +9,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="description" content="Wang Jie&#39;s blog">
-    <meta name="keyword" content="">
+    <meta name="keyword" content="tiantianbyconan, tiantian.china.2, wangjiegulu, Android, Java, J2EE, Huginn, Geek, Github, Git, Gradle, Maven, Google, iOS, JVM, Activity, View, Javascript, Python, code, developer, programer, tech, technology">
     <meta name="theme-color" content="#600090">
     <meta name="msapplication-navbutton-color" content="#600090">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
     <link rel="shortcut icon" href="http://avatars3.githubusercontent.com/u/5423194?s=460&v=4">
-    <link rel="alternate" type="application/atom+xml" title="WANG JIE" href="/atom.xml">
+    <link rel="alternate" type="application/atom+xml" title="Wang Jie" href="/atom.xml">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
         
-        Android绘图操作onDraw｜Wang Jie&#39;s Blog|Android|Java|Huginn
+        Android绘图操作onDraw｜Wang Jie&#39;s Blog|Android|Java|Huginn|Geek|code|developer|programer
         
     </title>
 
@@ -58,7 +58,7 @@
             </button>
             <a class="navbar-brand animated pulse" href="/">
                 <span class="brand-logo">
-                    WANG JIE
+                    Wang Jie
                 </span>
                 's Blog
             </a>
@@ -231,7 +231,8 @@
     <div class="container">
         <div class="row">
             <!-- Post Container -->
-            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container" style="word-wrap:break-word;overflow:hidden;">
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container" 
+                 style="word-wrap:break-word;overflow:hidden;">
                 <p><span>做java的都知道，绘图肯定首先需要一个Canvas，然后在用Graphics在上面绘制自己想要图案。不错，Android上面也类似，你可以从一个Bitmap得到它的Canvas，进行绘制，也可以自定义一个View，用它的 Canvas。不同的时，Android里没有Graphics，而用 Paint代之，当然用法也稍有不同。以下是自定义View的一段代码：&nbsp;</span><br><span>@Override&nbsp;</span><br><span>public void onDraw(Canvas canvas) {&nbsp;</span><br><span>// 首先定义一个paint&nbsp;</span><br><span>Paint paint = new Paint();&nbsp;</span><br><span>// 绘制矩形区域-实心矩形&nbsp;</span><br><span>// 设置颜色&nbsp;</span><br><span>paint.setColor(Color.WHITE);&nbsp;</span><br><span>// 设置样式-填充&nbsp;</span><br><span>paint.setStyle(Style.FILL);&nbsp;</span><br><span>// 绘制一个矩形&nbsp;</span><br><span>canvas.drawRect(new Rect(0, 0, getWidth(), getHeight()), paint);&nbsp;</span><br><span>// 绘空心矩形&nbsp;</span><br><span>// 设置颜色&nbsp;</span><br><span>paint.setColor(Color.RED);&nbsp;</span><br><span>// 设置样式-空心矩形&nbsp;</span><br><span>paint.setStyle(Style.STROKE);&nbsp;</span><br><span>// 绘制一个矩形&nbsp;</span><br><span>canvas.drawRect(new Rect(10, 10, 50, 20), paint);&nbsp;</span><br><span>// 绘文字&nbsp;</span><br><span>// 设置颜色&nbsp;</span><br><span>paint.setColor(Color.GREEN);&nbsp;</span><br><span>// 绘文字&nbsp;</span><br><span>canvas.drawText(str, 30, 30, paint);&nbsp;</span><br><span>// 绘图&nbsp;</span><br><span>// 从资源文件中生成位图&nbsp;</span><br><span>Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.icon);&nbsp;</span><br><span>// 绘图&nbsp;</span><br><span>canvas.drawBitmap(bitmap, 10, 10, paint);&nbsp;</span><br><span>}&nbsp;</span><br><span>以上需要注意的有三点：&nbsp;</span><br><span>1、Android中的Rect和java中的可能稍有区别，前两个参数是左上角的坐标，后两个参数是右下角的坐标（不是宽度和高度）；&nbsp;</span><br><span>2、Style.STROKE和Style.FILL外边的像素数是有区别的，这点和java里一样；&nbsp;</span><br><span>3、绘文字时，设置的坐标点为(30,30)，但绘出来后你会发现，文字的左上角坐标要比你设置的偏上，不知道是android设置的bug，还是我们有理解到坐标点的意义。</span></p>
 <p>Android绘图操作onDraw | 自由库&nbsp;<a href="http://www.ziyouku.com/archives/android-operating-ondraw-drawing.html" target="_blank" rel="noopener">http://www.ziyouku.com/archives/android-operating-ondraw-drawing.html</a></p>
 
@@ -453,7 +454,7 @@
 
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; WANG JIE 2018
+                    Copyright &copy; Wang Jie 2018
                     <br>
                     <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv">
                     <br>

@@ -9,18 +9,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="description" content="Wang Jie&#39;s blog">
-    <meta name="keyword" content="">
+    <meta name="keyword" content="tiantianbyconan, tiantian.china.2, wangjiegulu, Android, Java, J2EE, Huginn, Geek, Github, Git, Gradle, Maven, Google, iOS, JVM, Activity, View, Javascript, Python, code, developer, programer, tech, technology">
     <meta name="theme-color" content="#600090">
     <meta name="msapplication-navbutton-color" content="#600090">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
     <link rel="shortcut icon" href="http://avatars3.githubusercontent.com/u/5423194?s=460&v=4">
-    <link rel="alternate" type="application/atom+xml" title="WANG JIE" href="/atom.xml">
+    <link rel="alternate" type="application/atom+xml" title="Wang Jie" href="/atom.xml">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
         
-        Android读写文件汇总｜Wang Jie&#39;s Blog|Android|Java|Huginn
+        Android读写文件汇总｜Wang Jie&#39;s Blog|Android|Java|Huginn|Geek|code|developer|programer
         
     </title>
 
@@ -58,7 +58,7 @@
             </button>
             <a class="navbar-brand animated pulse" href="/">
                 <span class="brand-logo">
-                    WANG JIE
+                    Wang Jie
                 </span>
                 's Blog
             </a>
@@ -237,7 +237,8 @@
     <div class="container">
         <div class="row">
             <!-- Post Container -->
-            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container" style="word-wrap:break-word;overflow:hidden;">
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container" 
+                 style="word-wrap:break-word;overflow:hidden;">
                 <h3 id="一、-从resource中的raw文件夹中获取文件并读取数据（资源文件只能读不能写）"><a href="#一、-从resource中的raw文件夹中获取文件并读取数据（资源文件只能读不能写）" class="headerlink" title="一、 从resource中的raw文件夹中获取文件并读取数据（资源文件只能读不能写）"></a>一、 从resource中的raw文件夹中获取文件并读取数据（资源文件只能读不能写）</h3><div class="cnblogs_code"><br><pre><span style="color: #008080;"> 1</span> String res = “”;<br><span style="color: #008080;"> 2</span><br><span style="color: #008080;"> 3</span> <span style="color: #0000ff;">try</span>{<br><span style="color: #008080;"> 4</span><br><span style="color: #008080;"> 5</span> InputStream in = getResources().openRawResource(R.raw.bbi);<br><span style="color: #008080;"> 6</span><br><span style="color: #008080;"> 7</span> <span style="color: #008000;">//</span><span style="color: #008000;">在\Test\res\raw\bbi.txt,</span><span style="color: #008000;"><br></span><span style="color: #008080;"> 8</span><br><span style="color: #008080;"> 9</span> <span style="color: #0000ff;">int</span> length = in.available();<br><span style="color: #008080;">10</span><br><span style="color: #008080;">11</span> <span style="color: #0000ff;">byte</span> [] buffer = <span style="color: #0000ff;">new</span> <span style="color: #0000ff;">byte</span>[length];<br><span style="color: #008080;">12</span><br><span style="color: #008080;">13</span> in.read(buffer);<br><span style="color: #008080;">14</span><br><span style="color: #008080;">15</span> <span style="color: #008000;">//</span><span style="color: #008000;">res = EncodingUtils.getString(buffer, “UTF-8”);<br></span><span style="color: #008080;">16</span> <span style="color: #008000;"><br></span><span style="color: #008080;">17</span> <span style="color: #008000;">//</span><span style="color: #008000;">res = EncodingUtils.getString(buffer, “UNICODE”);</span><span style="color: #008000;"><br></span><span style="color: #008080;">18</span><br><span style="color: #008080;">19</span> res = EncodingUtils.getString(buffer, “BIG5”);<br><span style="color: #008080;">20</span><br><span style="color: #008080;">21</span> <span style="color: #008000;">//</span><span style="color: #008000;">依bbi.txt的编码类型选择合适的编码，如果不调整会乱码</span><span style="color: #008000;"><br></span><span style="color: #008080;">22</span><br><span style="color: #008080;">23</span> in.close();<br><span style="color: #008080;">24</span><br><span style="color: #008080;">25</span> }<span style="color: #0000ff;">catch</span>(Exception e){<br><span style="color: #008080;">26</span><br><span style="color: #008080;">27</span> e.printStackTrace();<br><span style="color: #008080;">28</span><br><span style="color: #008080;">29</span> }</pre><br></div>
 
 <p><span>myTextView.setText(res);//把得到的内容显示在TextView上</span></p>
@@ -479,7 +480,7 @@
 
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; WANG JIE 2018
+                    Copyright &copy; Wang Jie 2018
                     <br>
                     <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv">
                     <br>

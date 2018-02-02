@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>WANG JIE</title>
+  <title>Wang Jie</title>
   <icon>https://www.gravatar.com/avatar/52f9d74c40ffd53bc52dc7fd56e6555c</icon>
   <subtitle>TO BE AN ARTIST-ENGINNER</subtitle>
   <link href="/feed.xml" rel="self"/>
@@ -609,9 +609,9 @@
     
       <category term="android" scheme="http://blog.wangjiegulu.com/tags/android/"/>
     
-      <category term="unit test" scheme="http://blog.wangjiegulu.com/tags/unit-test/"/>
-    
       <category term="annotations" scheme="http://blog.wangjiegulu.com/tags/annotations/"/>
+    
+      <category term="unit test" scheme="http://blog.wangjiegulu.com/tags/unit-test/"/>
     
       <category term="JUnit" scheme="http://blog.wangjiegulu.com/tags/JUnit/"/>
     

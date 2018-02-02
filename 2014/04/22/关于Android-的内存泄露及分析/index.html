@@ -9,18 +9,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="description" content="Wang Jie&#39;s blog">
-    <meta name="keyword" content="">
+    <meta name="keyword" content="tiantianbyconan, tiantian.china.2, wangjiegulu, Android, Java, J2EE, Huginn, Geek, Github, Git, Gradle, Maven, Google, iOS, JVM, Activity, View, Javascript, Python, code, developer, programer, tech, technology">
     <meta name="theme-color" content="#600090">
     <meta name="msapplication-navbutton-color" content="#600090">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
     <link rel="shortcut icon" href="http://avatars3.githubusercontent.com/u/5423194?s=460&v=4">
-    <link rel="alternate" type="application/atom+xml" title="WANG JIE" href="/atom.xml">
+    <link rel="alternate" type="application/atom+xml" title="Wang Jie" href="/atom.xml">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
         
-        关于Android 的内存泄露及分析｜Wang Jie&#39;s Blog|Android|Java|Huginn
+        关于Android 的内存泄露及分析｜Wang Jie&#39;s Blog|Android|Java|Huginn|Geek|code|developer|programer
         
     </title>
 
@@ -58,7 +58,7 @@
             </button>
             <a class="navbar-brand animated pulse" href="/">
                 <span class="brand-logo">
-                    WANG JIE
+                    Wang Jie
                 </span>
                 's Blog
             </a>
@@ -231,7 +231,8 @@
     <div class="container">
         <div class="row">
             <!-- Post Container -->
-            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container" style="word-wrap:break-word;overflow:hidden;">
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container" 
+                 style="word-wrap:break-word;overflow:hidden;">
                 <p>一、 Android的内存机制<br>Android的程序由Java语言编写，所以Android的内存管理与Java的内存管理相似。程序员通过new为对象分配内存，所有对象在java堆内分配空间；然而对象的释放是由垃圾回收器来完成的.<br>那么GC怎么能够确认某一个对象是不是已经被废弃了呢？Java采用了有向图的原理。Java将引用关系考虑为图的有向边，有向边从引用者指向引用对象。线程对象可以作为有向图的起始顶点，该图就是从起始顶点开始的一棵树，根顶点可以到达的对象都是有效对象，GC不会回收这些对象。如果某个对象 (连通子图)与这个根顶点不可达(注意，该图为有向图)，那么我们认为这个(这些)对象不再被引用，可以被GC回收。</p>
 <p>二、Android的内存溢出</p>
 <p>1、内存泄露导致</p>
@@ -505,7 +506,7 @@
 
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; WANG JIE 2018
+                    Copyright &copy; Wang Jie 2018
                     <br>
                     <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv">
                     <br>

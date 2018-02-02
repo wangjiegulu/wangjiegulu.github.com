@@ -9,18 +9,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="description" content="Wang Jie&#39;s blog">
-    <meta name="keyword" content="">
+    <meta name="keyword" content="tiantianbyconan, tiantian.china.2, wangjiegulu, Android, Java, J2EE, Huginn, Geek, Github, Git, Gradle, Maven, Google, iOS, JVM, Activity, View, Javascript, Python, code, developer, programer, tech, technology">
     <meta name="theme-color" content="#600090">
     <meta name="msapplication-navbutton-color" content="#600090">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
     <link rel="shortcut icon" href="http://avatars3.githubusercontent.com/u/5423194?s=460&v=4">
-    <link rel="alternate" type="application/atom+xml" title="WANG JIE" href="/atom.xml">
+    <link rel="alternate" type="application/atom+xml" title="Wang Jie" href="/atom.xml">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
         
-        基于git的源代码管理模型——git flow｜Wang Jie&#39;s Blog|Android|Java|Huginn
+        基于git的源代码管理模型——git flow｜Wang Jie&#39;s Blog|Android|Java|Huginn|Geek|code|developer|programer
         
     </title>
 
@@ -58,7 +58,7 @@
             </button>
             <a class="navbar-brand animated pulse" href="/">
                 <span class="brand-logo">
-                    WANG JIE
+                    Wang Jie
                 </span>
                 's Blog
             </a>
@@ -231,7 +231,8 @@
     <div class="container">
         <div class="row">
             <!-- Post Container -->
-            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container" style="word-wrap:break-word;overflow:hidden;">
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container" 
+                 style="word-wrap:break-word;overflow:hidden;">
                 <p><strong>说明：</strong>&nbsp;本文以nvie的&ldquo;<a href="http://nvie.com/posts/a-successful-git-branching-model/" target="_blank" rel="noopener">a successful git branching model</a>&rdquo;为蓝本，结合我个人理解写成。如有谬误，还请各位指出。多谢！</p>
 <p><strong>Note:</strong>&nbsp;This article is highly based on nvie’s&nbsp;<a href="http://nvie.com/posts/a-successful-git-branching-model/" target="_blank" rel="noopener">a successful git branching model</a>. Thanks nvie.</p>
 <div class="post-text"><br><br># Git Flow 是什么<br><br>Git Flow是构建在Git之上的一个组织软件开发活动的模型，是在Git之上构建的一项软件开发最佳实践。Git Flow是一套使用Git进行源代码管理时的一套行为规范和简化部分Git操作的工具。<br><br>2010年5月，在一篇名为&ldquo;<a href="http://nvie.com/posts/a-successful-git-branching-model/" target="_blank" rel="noopener">一种成功的Git分支模型</a>&rdquo;的博文中，@nvie介绍了一种在Git之上的软件开发模型。通过利用Git创建和管理分支的能力，为每个分支设定具有特定的含义名称，并将软件生命周期中的各类活动归并到不同的分支上。实现了软件开发过程不同操作的相互隔离。这种软件开发的活动模型被nwie称为&ldquo;Git Flow&rdquo;。<br><br>一般而言，软件开发模型有常见的瀑布模型、迭代开发模型、以及最近出现的敏捷开发模型等不同的模型。每种模型有各自应用场景。Git Flow重点解决的是由于源代码在开发过程中的各种冲突导致开发活动混乱的问题。因此，Git flow可以很好的于各种现有开发模型相结合使用。<br><br>在开始研究Git Flow的具体内容前，下面这张图可以看到模型的全貌（引自nvie的<a href="http://nvie.com/posts/a-successful-git-branching-model/" target="_blank" rel="noopener">博文</a>)：<br><br>&nbsp;<br><br># Git Flow中的分支<br><br>Git Flow模型中定义了主分支和辅助分支两类分支。其中主分支用于组织与软件开发、部署相关的活动；辅助分支组织为了解决特定的问题而进行的各种开发活动。<br><br>## 主分支<br><br>主分支是所有开发活动的核心分支。所有的开发活动产生的输出物最终都会反映到主分支的代码中。主分支分为master分支和development分支。<br><br>&nbsp;<br><br>### master分支<br><br>master分支上存放的应该是随时可供在生产环境中部署的代码（Production Ready state）。当开发活动告一段落，产生了一份新的可供部署的代码时，master分支上的代码会被更新。同时，每一次更新，最好添加对应的版本号标签（TAG）。<br><br>### develop分支<br><br>develop分支是保存当前最新开发成果的分支。通常这个分支上的代码也是可进行每日夜间发布的代码（Nightly build）。因此这个分支有时也可以被称作&ldquo;integration branch&rdquo;。<br><br>当develop分支上的代码已实现了软件需求说明书中所有的功能，通过了所有的测试后，并且代码已经足够稳定时，就可以将所有的开发成果合并回master分支了。对于master分支上的新提交的代码建议都打上一个新的版本号标签（TAG），供后续代码跟踪使用。<br><br>因此，每次将develop分支上的代码合并回master分支时，我们都可以认为一个新的可供在生产环境中部署的版本就产生了。通常而言，&ldquo;仅在发布新的可供部署的代码时才更新master分支上的代码&rdquo;是推荐所有人都遵守的行为准则。基于此，理论上说，每当有代码提交到master分支时，我们可以使用Git Hook触发软件自动测试以及生产环境代码的自动更新工作。这些自动化操作将有利于减少新代码发布之后的一些事务性工作。<br><br>## 辅助分支<br><br>辅助分支是用于组织解决特定问题的各种软件开发活动的分支。辅助分支主要用于组织软件新功能的并行开发、简化新功能开发代码的跟踪、辅助完成版本发布工作以及对生产代码的缺陷进行紧急修复工作。这些分支与主分支不同，通常只会在有限的时间范围内存在。<br><br>辅助分支包括：<br><br><em>   用于开发新功能时所使用的feature分支；
@@ -498,7 +499,7 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
 
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; WANG JIE 2018
+                    Copyright &copy; Wang Jie 2018
                     <br>
                     <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv">
                     <br>

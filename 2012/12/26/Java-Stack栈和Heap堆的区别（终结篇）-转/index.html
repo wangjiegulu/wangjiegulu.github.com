@@ -9,18 +9,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="description" content="Wang Jie&#39;s blog">
-    <meta name="keyword" content="">
+    <meta name="keyword" content="tiantianbyconan, tiantian.china.2, wangjiegulu, Android, Java, J2EE, Huginn, Geek, Github, Git, Gradle, Maven, Google, iOS, JVM, Activity, View, Javascript, Python, code, developer, programer, tech, technology">
     <meta name="theme-color" content="#600090">
     <meta name="msapplication-navbutton-color" content="#600090">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
     <link rel="shortcut icon" href="http://avatars3.githubusercontent.com/u/5423194?s=460&v=4">
-    <link rel="alternate" type="application/atom+xml" title="WANG JIE" href="/atom.xml">
+    <link rel="alternate" type="application/atom+xml" title="Wang Jie" href="/atom.xml">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
         
-        [Java]Stack栈和Heap堆的区别（终结篇）[转]｜Wang Jie&#39;s Blog|Android|Java|Huginn
+        [Java]Stack栈和Heap堆的区别（终结篇）[转]｜Wang Jie&#39;s Blog|Android|Java|Huginn|Geek|code|developer|programer
         
     </title>
 
@@ -58,7 +58,7 @@
             </button>
             <a class="navbar-brand animated pulse" href="/">
                 <span class="brand-logo">
-                    WANG JIE
+                    Wang Jie
                 </span>
                 's Blog
             </a>
@@ -234,7 +234,8 @@
     <div class="container">
         <div class="row">
             <!-- Post Container -->
-            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container" style="word-wrap:break-word;overflow:hidden;">
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container" 
+                 style="word-wrap:break-word;overflow:hidden;">
                 <div>首先分清楚Stack，Heap的中文翻译：Stack&mdash;栈，Heap&mdash;堆。</div><br><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在中文里，Stack可以翻译为&ldquo;堆栈&rdquo;，所以我直接查找了计算机术语里面堆和栈开头的词语：</div><br><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>堆存储： heapstorage&nbsp;&nbsp;&nbsp; 堆存储分配： heapstorage allocation&nbsp; 堆存储管理： heap storage management</strong></div><br><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&nbsp;栈编址： stack addressing&nbsp; &nbsp;栈变换：stack transformation&nbsp; 栈存储器：stack memory&nbsp; 栈单元： stack cell</strong></div><br><div>&nbsp;</div><br><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;接着，总结在Java里面Heap和Stack分别存储数据的不同。</div><br><div>&nbsp;</div><br><div><br><table border="1" cellspacing="0" cellpadding="0"><br><tbody><br><tr><br><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><br><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Heap(堆)</td><br><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Stack(栈)</td><br></tr><br><tr><br><td>&nbsp;JVM中的功能</td><br><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;内存数据区&nbsp;&nbsp;&nbsp;&nbsp;</td><br><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 内存指令区</td><br></tr><br><tr><br><td>&nbsp;存储数据</td><br><td>&nbsp;&nbsp;&nbsp;&nbsp; 对象实例(1)</td><br><td>&nbsp;基本数据类型, 指令代码,常量,对象的引用地址(2)</td><br></tr><br></tbody><br></table><br></div><br><div>1. 保存对象实例，实际上是保存对象实例的属性值，属性的类型和对象本身的类型标记等，并不保存对象的方法（方法是指令，保存在stack中）。<br>&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp; 对象实例在heap中分配好以后，需要在stack中保存一个4字节的heap内存地址，用来定位该对象实例在heap中的位置，便于找到该对象实例。</div><br><div>&nbsp;</div><br><div>2. 基本数据类型包括byte、int、char、long、float、double、boolean和short。<br>&nbsp;&nbsp;&nbsp; 函数方法属于指令.</div><br><div>&nbsp;</div><br><div>&nbsp;=======================&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><br><div>&nbsp; 引用网上广泛流传的&ldquo;Java堆和栈的区别&rdquo;里面对堆和栈的介绍；</div><br><div><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; “Java 的堆是一个运行时数据区,类的(对象从中分配空间。这些对象通过new、newarray、anewarray和multianewarray等指令建立，它们不需要程序代码来显式的释放。堆是由垃圾回收来负责的，堆的优势是可以动态地分配内存大小，生存期也不必事先告诉编译器，因为它是在运行时动态分配内存的，Java的垃圾收集器会自动收走这些不再使用的数据。但缺点是，由于要在运行时动态分配内存，存取速度较慢。”</strong></div><br><div><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &ldquo;栈的优势是，存取速度比堆要快，仅次于寄存器，栈数据可以共享。但缺点是，存在栈中的数据大小与生存期必须是确定的，缺乏灵活性。栈中主要存放一些基本类型的变量（,int, short, long, byte, float, double, boolean, char）和对象句柄。</strong>&nbsp;<strong>&rdquo;</strong></div><br><div><strong>&nbsp;&nbsp;&nbsp;</strong></div><br><div><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;</strong>可见，垃圾回收GC是针对堆Heap的，而栈因为本身是FILO - first in, last out. 先进后出，能够自动释放。 这样就能明白到new创建的，都是放到堆Heap！</div>
 
 <p>本文出自 &ldquo;<a href="http://android.blog.51cto.com/" target="_blank" rel="noopener">学习Android</a>&rdquo; 博客，请务必保留此出处<a href="http://android.blog.51cto.com/268543/50100" target="_blank" rel="noopener">http://android.blog.51cto.com/268543/50100</a></p>
@@ -460,7 +461,7 @@
 
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; WANG JIE 2018
+                    Copyright &copy; Wang Jie 2018
                     <br>
                     <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv">
                     <br>
