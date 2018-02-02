@@ -234,7 +234,7 @@
     <div class="container">
         <div class="row">
             <!-- Post Container -->
-            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container" style="word-wrap:break-word;overflow:hidden;">
                 <p><pre class="lang-c prettyprint prettyprinted"><span>用ego下拉刷新的时候，每次在ios7时，tableview都会上移。。。导致被navagationbar挡住。<br>ios6是正常的，于是在init的时候添加如下代码。。。</span></pre></p>
 <div class="cnblogs_code"><br><pre><span style="color: #008080;">1</span> NSComparisonResult order = [[UIDevice currentDevice].systemVersion compare: <span style="color: #800000;">@”</span><span style="color: #800000;">7.0</span><span style="color: #800000;">“</span><span style="color: #000000;"> options: NSNumericSearch];<br></span><span style="color: #008080;">2</span> <span style="color: #0000ff;">if</span> (order == NSOrderedSame || order ==<span style="color: #000000;"> NSOrderedDescending)<br></span><span style="color: #008080;">3</span> <span style="color: #000000;">{<br></span><span style="color: #008080;">4</span>     <span style="color: #008000;">//</span><span style="color: #008000;"> OS version &gt;= 7.0</span><br><span style="color: #008080;">5</span>     self.edgesForExtendedLayout =<span style="color: #000000;"> UIRectEdgeNone;<br></span><span style="color: #008080;">6</span> }</pre><br></div>
 

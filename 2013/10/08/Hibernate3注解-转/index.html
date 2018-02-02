@@ -237,7 +237,7 @@
     <div class="container">
         <div class="row">
             <!-- Post Container -->
-            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container" style="word-wrap:break-word;overflow:hidden;">
                 <p>&nbsp;Hibernate3注解 收藏&nbsp;<br>1、@Entity(name=”EntityName”)&nbsp;<br>必须,name为可选,对应数据库中一的个表</p>
 <p>2、@Table(name=””,catalog=””,schema=””)&nbsp;<br>可选,通常和@Entity配合使用,只能标注在实体的class定义处,表示实体对应的数据库表的信息&nbsp;<br>name:可选,表示表的名称.默认地,表名和实体名称一致,只有在不一致的情况下才需要指定表名&nbsp;<br>catalog:可选,表示Catalog名称,默认为Catalog(“”).&nbsp;<br>schema:可选,表示Schema名称,默认为Schema(“”).</p>
 <p>3、@id&nbsp;<br>必须&nbsp;<br>@id定义了映射到数据库表的主键的属性,一个实体只能有一个属性被映射为主键.置于getXxxx()前.</p>

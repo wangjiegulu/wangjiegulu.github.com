@@ -237,7 +237,7 @@
     <div class="container">
         <div class="row">
             <!-- Post Container -->
-            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container" style="word-wrap:break-word;overflow:hidden;">
                 <p><span>在ListView中设置Selector为null会报空指针？</span>&nbsp;<br>mListView.setSelector(null);//空指针&nbsp;<br>试试下面这种：&nbsp;<br>mListView.setSelector(new ColorDrawable(Color.TRANSPARENT));&nbsp;</p>
 <p><span>如何让ListView初始化的时候就选中一项?</span>&nbsp;<br>ListView需要在初始化好数据后,其中一项需要呈选中状态。所谓”选中状态”就是该项底色与其它项不同,setSelection(position)只能定位到某个item，但是无法改变底色呈高亮。setSelection(position)只能让某个item显示在可见Item的最上面(如果Item超过一屏的话)! 就是所谓的firstVisibleItem啦！&nbsp;<br>如果想要实现效果可以在listview所绑定的adapter里的getView函数里去完成一些具体的工作。可以记下你要高亮的那个item的index，在getView函数里判断index（也就是position），如果满足条件则加载不同的背景。&nbsp;</p>
 <p><span>ListView的右边滚动滑块启用方法？</span>&nbsp;<br>&nbsp;&nbsp;&nbsp; 很多开发者不知道ListView列表控件的快速滚动滑块是如何启用的，其实辅助滚动滑块只需要一行代码就可以搞定，如果你使用XML布局只需要在ListView节点中加入&nbsp; android:fastScrollEnabled=”true” 这个属性即可，而对于Java代码可以通过myListView.setFastScrollEnabled(true); 来控制启用，参数false为隐藏。&nbsp;<br>&nbsp;&nbsp;&nbsp; 还有一点就是当你的滚动内容较小，不到当前ListView的3个屏幕高度时则不会出现这个快速滚动滑块，该方法是AbsListView的基础方法，可以在ListView或GridView等子类中使用快速滚动辅助。&nbsp;</p>

@@ -228,7 +228,7 @@
     <div class="container">
         <div class="row">
             <!-- Post Container -->
-            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container" style="word-wrap:break-word;overflow:hidden;">
                 <div>Java Collections Framework是Java提供的对集合进行定义，操作，和管理的包含一组接口，类的体系结构。</div><br><div>&nbsp;</div><br><div>Java集合框架的基本接口/类层次结构：</div><br><div><br>java.util.Collection [I]<br>+–java.util.List [I]<br>&nbsp;&nbsp; +–java.util.ArrayList [C]<br>&nbsp;&nbsp; +–java.util.LinkedList [C]<br>&nbsp;&nbsp; +–java.util.Vector [C]<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +–java.util.Stack [C]<br>+–java.util.Set [I]<br>&nbsp;&nbsp; +–java.util.HashSet [C]<br>&nbsp;&nbsp; +–java.util.SortedSet [I]<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +–java.util.TreeSet [C]</div><br><div><br>java.util.Map [I]<br>+–java.util.SortedMap [I]<br>&nbsp;&nbsp; +–java.util.TreeMap [C]<br>+–java.util.Hashtable [C]<br>+–java.util.HashMap [C]<br>+–java.util.LinkedHashMap [C]<br>+–java.util.WeakHashMap [C]</div><br><div>&nbsp;</div><br><div>[I]：接口</div><br><div>[C]：类</div><br><div>&nbsp;</div><br><div><span><strong>Collection接口</strong></span><br>&nbsp;&nbsp; &nbsp;Collection是最基本的集合接口，一个Collection代表一组Object的集合，这些Object被称作Collection的元素。</div><br><div>&nbsp;&nbsp; &nbsp;所有实现Collection接口的类都必须提供两个标准的构造函数：无参数的构造函数用于创建一个空的Collection，有一个Collection参数的构造函数用于创建一个新的Collection，这 个新的Collection与传入的Collection有相同的元素。后一个构造函数允许用户复制一个Collection。<br><div>&nbsp;&nbsp; &nbsp;如何遍历Collection中的每一个元素？不论Collection的实际类型如何，它都支持一个iterator()的方法，该方法返回一个迭代子，使用该迭代子即可逐一访问Collection中每一个元素。典型的用法如下：</div>
 
 <ol>
