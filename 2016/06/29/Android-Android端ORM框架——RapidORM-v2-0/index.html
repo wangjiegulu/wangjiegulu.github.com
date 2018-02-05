@@ -8,14 +8,14 @@
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
-    <meta name="description" content="Wang Jie&#39;s blog">
+    <meta name="description" content="Wang Jie&#39;s Blog -- TO BE AN ARTIST-ENGINNER">
     <meta name="keyword" content="tiantianbyconan, tiantian.china.2, wangjiegulu, Android, Java, J2EE, Huginn, Geek, Github, Git, Gradle, Maven, Google, iOS, JVM, Activity, View, Javascript, Python, code, developer, programer, tech, technology">
     <meta name="theme-color" content="#600090">
     <meta name="msapplication-navbutton-color" content="#600090">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
     <link rel="shortcut icon" href="http://avatars3.githubusercontent.com/u/5423194?s=460&v=4">
-    <link rel="alternate" type="application/atom+xml" title="Wang Jie" href="/atom.xml">
+    <link rel="alternate" type="application/atom+xml" title="Wang Jie&#39;s Blog" href="/atom.xml">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
@@ -58,7 +58,7 @@
             </button>
             <a class="navbar-brand animated pulse" href="/">
                 <span class="brand-logo">
-                    Wang Jie
+                    Wang Jie&#39;s Blog
                 </span>
                 's Blog
             </a>
@@ -86,14 +86,14 @@
 						
                     
                         
+                    
+                        
 							
                         <li>
                             <a href="/categories/">categories</a>
                         </li>
 							
 						
-                    
-                        
                     
                         
 							
@@ -209,9 +209,6 @@
                         <a class="tag" href="/tags/#android"
                            title="android">android</a>
                         
-                        <a class="tag" href="/tags/#library"
-                           title="library">library</a>
-                        
                         <a class="tag" href="/tags/#sqlite"
                            title="sqlite">sqlite</a>
                         
@@ -220,6 +217,9 @@
                         
                         <a class="tag" href="/tags/#orm"
                            title="orm">orm</a>
+                        
+                        <a class="tag" href="/tags/#library"
+                           title="library">library</a>
                         
                         <a class="tag" href="/tags/#rapidorm"
                            title="rapidorm">rapidorm</a>
@@ -245,6 +245,7 @@
             <!-- Post Container -->
             <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container" 
                  style="word-wrap:break-word;overflow:hidden;">
+
                 <font color="#ff0000"><strong><br>以下内容为原创，欢迎转载，转载请注明<br><br>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/5626716.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/5626716.html</a>
 </strong></font>
 
@@ -279,7 +280,15 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> List&lt;Person&gt; <span class="title">findPersonsByWhere</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> queryBuilder()</span><br><span class="line">            .addSelectColumn(Person_RORM.ID, Person_RORM.TYPE_ID, Person_RORM.NAME,</span><br><span class="line">                    Person_RORM.AGE, Person_RORM.BIRTH, Person_RORM.ADDRESS)</span><br><span class="line">            .setWhere(</span><br><span class="line">            	Where.and(</span><br><span class="line">	                Where.like(Person_RORM.NAME, <span class="string">"%wangjie%"</span>),</span><br><span class="line">	                Where.lt(Person_RORM.ID, <span class="number">200</span>),</span><br><span class="line">	                Where.or(</span><br><span class="line">	                        Where.between(Person_RORM.AGE, <span class="number">19</span>, <span class="number">39</span>),</span><br><span class="line">	                        Where.isNull(Person_RORM.ADDRESS)</span><br><span class="line">	                ),</span><br><span class="line">	                Where.eq(Person_RORM.TYPE_ID, <span class="number">1</span>)</span><br><span class="line">        		)</span><br><span class="line">            )</span><br><span class="line">            .addOrder(Person_RORM.ID, <span class="keyword">false</span>)</span><br><span class="line">            .addOrder(Person_RORM.NAME, <span class="keyword">true</span>)</span><br><span class="line">            .setLimit(<span class="number">10</span>)</span><br><span class="line">            .query(<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="2-1-5-兼容SqlCipher"><a href="#2-1-5-兼容SqlCipher" class="headerlink" title="2.1.5 兼容SqlCipher"></a>2.1.5 兼容SqlCipher</h4><p>与<code>v1.0</code>一致.</p>
 
+
                 <hr>
+
+                
+                <div class="post-copyright" style="margin-top: 20px;">
+                     <strong>本文来源：</strong>Wang Jie&#39;s Blog（<a href="http://blog.wangjiegulu.com/2016/06/29/Android-Android端ORM框架——RapidORM-v2-0/">http://blog.wangjiegulu.com/2016/06/29/Android-Android端ORM框架——RapidORM-v2-0/</a>）<br/>
+                     <strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处。
+                </div>
+                
 
                 <!-- Sharethis 分享 -->
                 <div class="sharethis-inline-share-buttons" style="margin-top: 18px"></div>
@@ -345,9 +354,6 @@
                         <a class="tag" href="/tags/#android"
                            title="android">android</a>
                         
-                        <a class="tag" href="/tags/#library"
-                           title="library">library</a>
-                        
                         <a class="tag" href="/tags/#sqlite"
                            title="sqlite">sqlite</a>
                         
@@ -356,6 +362,9 @@
                         
                         <a class="tag" href="/tags/#orm"
                            title="orm">orm</a>
+                        
+                        <a class="tag" href="/tags/#library"
+                           title="library">library</a>
                         
                         <a class="tag" href="/tags/#rapidorm"
                            title="rapidorm">rapidorm</a>
@@ -509,7 +518,7 @@
 
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; Wang Jie 2018
+                    Copyright &copy; Wang Jie&#39;s Blog 2018
                     <br>
                     <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv">
                     <br>

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Wang Jie</title>
+  <title>Wang Jie&#39;s Blog</title>
   <icon>https://www.gravatar.com/avatar/52f9d74c40ffd53bc52dc7fd56e6555c</icon>
   <subtitle>TO BE AN ARTIST-ENGINNER</subtitle>
   <link href="/feed.xml" rel="self"/>
   
   <link href="http://blog.wangjiegulu.com/"/>
-  <updated>2018-02-01T10:16:29.000Z</updated>
+  <updated>2018-02-05T10:11:16.000Z</updated>
   <id>http://blog.wangjiegulu.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://blog.wangjiegulu.com/2017/12/20/Android-App-IFCTT%EF%BC%8C%E5%8D%B3If-Copy-Then-That%EF%BC%8C%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8EIFTTT%E7%9A%84-This-%E5%AE%9E%E7%8E%B0/"/>
     <id>http://blog.wangjiegulu.com/2017/12/20/Android-App-IFCTT，即If-Copy-Then-That，一个基于IFTTT的-This-实现/</id>
     <published>2017-12-20T04:41:00.000Z</published>
-    <updated>2018-02-01T10:16:29.000Z</updated>
+    <updated>2018-02-05T10:11:16.000Z</updated>
     
     <summary type="html">
     
@@ -114,14 +114,11 @@
     <link href="http://blog.wangjiegulu.com/2017/07/25/Android-Android%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E4%BD%A0%E6%89%80%E8%A6%81%E7%9F%A5%E9%81%93%E7%9A%84%E4%B8%80%E5%88%87%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/"/>
     <id>http://blog.wangjiegulu.com/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/</id>
     <published>2017-07-25T09:58:00.000Z</published>
-    <updated>2018-01-31T05:37:00.000Z</updated>
+    <updated>2018-02-05T09:30:05.000Z</updated>
     
     <summary type="html">
     
-      &lt;font color=&quot;#ff0000&quot;&gt;&lt;strong&gt;&lt;br&gt;以下内容为原创，欢迎转载，转载请注明&lt;br&gt;来自天天博客：&lt;a href=&quot;http://www.cnblogs.com/tiantianbyconan/p/7235616.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://www.cnblogs.com/tiantianbyconan/p/7235616.html&lt;/a&gt;
-&lt;/strong&gt;&lt;/font&gt;
-
-&lt;h1 id=&quot;Android内存泄漏你所要知道的一切&quot;&gt;&lt;a href=&quot;#Android内存泄漏你所要知道的一切&quot; class=&quot;headerlink&quot; title=&quot;Android内存泄漏你所要知道的一切&quot;&gt;&lt;/a&gt;Android内存泄漏你所要知道的一切&lt;/h1&gt;&lt;blockquote&gt;
+      &lt;h1 id=&quot;Android内存泄漏你所要知道的一切&quot;&gt;&lt;a href=&quot;#Android内存泄漏你所要知道的一切&quot; class=&quot;headerlink&quot; title=&quot;Android内存泄漏你所要知道的一切&quot;&gt;&lt;/a&gt;Android内存泄漏你所要知道的一切&lt;/h1&gt;&lt;blockquote&gt;
 &lt;p&gt;原文：&lt;a href=&quot;https://blog.aritraroy.in/everything-you-need-to-know-about-memory-leaks-in-android-apps-655f191ca859&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.aritraroy.in/everything-you-need-to-know-about-memory-leaks-in-android-apps-655f191ca859&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;写一个Android app很简单，但是&lt;strong&gt;写一个超高品质的内存高效的Android app并不简单&lt;/strong&gt;。从我的个人经验来说，我曾经比较关注和感兴趣构建我app的新特性，功能和UI组件。&lt;/p&gt;
@@ -201,7 +198,7 @@
     <link href="http://blog.wangjiegulu.com/2017/04/10/CPP-Note/"/>
     <id>http://blog.wangjiegulu.com/2017/04/10/CPP-Note/</id>
     <published>2017-04-10T07:05:00.000Z</published>
-    <updated>2018-01-30T03:32:57.000Z</updated>
+    <updated>2018-02-05T09:50:06.000Z</updated>
     
     <summary type="html">
     
@@ -438,13 +435,13 @@
     
       <category term="android" scheme="http://blog.wangjiegulu.com/tags/android/"/>
     
-      <category term="library" scheme="http://blog.wangjiegulu.com/tags/library/"/>
-    
       <category term="sqlite" scheme="http://blog.wangjiegulu.com/tags/sqlite/"/>
     
       <category term="database" scheme="http://blog.wangjiegulu.com/tags/database/"/>
     
       <category term="orm" scheme="http://blog.wangjiegulu.com/tags/orm/"/>
+    
+      <category term="library" scheme="http://blog.wangjiegulu.com/tags/library/"/>
     
       <category term="rapidorm" scheme="http://blog.wangjiegulu.com/tags/rapidorm/"/>
     
@@ -609,9 +606,9 @@
     
       <category term="android" scheme="http://blog.wangjiegulu.com/tags/android/"/>
     
-      <category term="annotations" scheme="http://blog.wangjiegulu.com/tags/annotations/"/>
-    
       <category term="unit test" scheme="http://blog.wangjiegulu.com/tags/unit-test/"/>
+    
+      <category term="annotations" scheme="http://blog.wangjiegulu.com/tags/annotations/"/>
     
       <category term="JUnit" scheme="http://blog.wangjiegulu.com/tags/JUnit/"/>
     

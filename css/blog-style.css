@@ -1217,7 +1217,6 @@ img::-moz-selection {
     width:0;
 }
 
-
 .index-post-tag {
     /*color: #bfbfbf !important;*/
     color: #ddd !important;
@@ -1229,6 +1228,20 @@ img::-moz-selection {
     color: #428bca !important;
     font-size: 13px; 
 }
+
+.post-copyright{
+    font-size: 12px;
+    background: #f9f9f9;
+    padding: 10px;
+    
+    border-left: 3px solid #eee;
+    border-right: 1px solid #eee;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+
+
+
 
 
 
