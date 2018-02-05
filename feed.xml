@@ -435,13 +435,13 @@
     
       <category term="android" scheme="http://blog.wangjiegulu.com/tags/android/"/>
     
+      <category term="library" scheme="http://blog.wangjiegulu.com/tags/library/"/>
+    
       <category term="sqlite" scheme="http://blog.wangjiegulu.com/tags/sqlite/"/>
     
       <category term="database" scheme="http://blog.wangjiegulu.com/tags/database/"/>
     
       <category term="orm" scheme="http://blog.wangjiegulu.com/tags/orm/"/>
-    
-      <category term="library" scheme="http://blog.wangjiegulu.com/tags/library/"/>
     
       <category term="rapidorm" scheme="http://blog.wangjiegulu.com/tags/rapidorm/"/>
     

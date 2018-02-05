@@ -1234,7 +1234,7 @@ img::-moz-selection {
     background: #f9f9f9;
     padding: 10px;
     
-    border-left: 3px solid #eee;
+    border-left: 4px solid #eee;
     border-right: 1px solid #eee;
     border-top: 1px solid #eee;
     border-bottom: 1px solid #eee;
