@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="description" content="Wang Jie&#39;s Blog -- TO BE AN ARTIST-ENGINNER">
+    <meta name="keyword" content="tiantianbyconan, tiantian.china.2, wangjiegulu, Android, Java, J2EE, Huginn, Geek, Github, Git, Gradle, Maven, Google, iOS, JVM, Activity, View, Javascript, Python, code, developer, programer, tech, technology">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="http://avatars3.githubusercontent.com/u/5423194?s=460&v=4">
+    <link rel="alternate" type="application/atom+xml" title="Wang Jie&#39;s Blog" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        Android端生成META-INF信息文件的Gradle插件 RapidMetaInfPlugin｜Wang Jie&#39;s Blog|Android|Java|Huginn|Geek|code|developer|programer
+        
+    </title>
+
+    <link rel="canonical" href="http://blog.wangjiegulu.com/2018/02/05/Android端生成META-INF信息文件的Gradle插件 RapidMetaInfPlugin/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('//o7bkkhiex.bkt.clouddn.com/lion-blur-bg.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Wang Jie&#39;s Blog
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <!-- <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+								
+							
+						
+                    
+                        
+                    
+                        
+							
+                        <li>
+                            <a href="/categories/">categories</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+						<li>
+							<a href="/about">About</a>
+						</li>
+					
+                </ul>
+            </div>
+        </div> -->
+
+
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    <li>
+                        <a href="/archives">Archives</a>
+                    </li>
+                    <li>
+                        <a href="/tags">Tags</a>
+                    </li>
+                    <li>
+                        <a href="/about">About</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+
+
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<head>
+<!-- <script type='text/javascript' src='//platform-api.sharethis.com/js/sharethis.js#property=5a72df492fd34b00134b0dc1&product=sop' async='async'></script> -->
+<script type='text/javascript' src='//platform-api.sharethis.com/js/sharethis.js#property=5a72df492fd34b00134b0dc1&product=sop' async='async'></script>
+</head>
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://otnnps88s.bkt.clouddn.com/image/xingkong.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('http://otnnps88s.bkt.clouddn.com/image/xingkong.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>Android端生成META-INF信息文件的Gradle插件 RapidMetaInfPlugin</h1>
+                    
+                    <span class="meta">
+                         作者 Wang Jie
+                        <span>
+                          日期 2018-02-05
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#android"
+                           title="android">android</a>
+                        
+                        <a class="tag" href="/tags/#gradle"
+                           title="gradle">gradle</a>
+                        
+                        <a class="tag" href="/tags/#gradle plugin"
+                           title="gradle plugin">gradle plugin</a>
+                        
+                        <a class="tag" href="/tags/#Android Studio"
+                           title="Android Studio">Android Studio</a>
+                        
+                        <a class="tag" href="/tags/#META-INF"
+                           title="META-INF">META-INF</a>
+                        
+                    </div>
+                    <!-- Sharethis 分享 -->
+                    <!-- <div class="sharethis-inline-share-buttons" style="margin-top: 18px; opacity: 0.1;"></div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            Android端生成META-INF信息文件的Gradle插件 RapidMetaInfPlugin
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container" 
+                 style="word-wrap:break-word;overflow:hidden;">
+
+                <h1 id="Android端生成META-INF信息文件的Gradle插件-RapidMetaInfPlugin"><a href="#Android端生成META-INF信息文件的Gradle插件-RapidMetaInfPlugin" class="headerlink" title="Android端生成META-INF信息文件的Gradle插件 RapidMetaInfPlugin"></a>Android端生成META-INF信息文件的Gradle插件 RapidMetaInfPlugin</h1><h2 id="1-需求背景"><a href="#1-需求背景" class="headerlink" title="1. 需求背景"></a>1. 需求背景</h2><p>最近新遇到了一个需求，想在自己的一些库中写入版本信息，在别人使用了我的库后，我可以通过apk文件检测出依赖了我的哪个版本的库。感觉这个需求有点多余？那就举个例子吧。</p>
+<p>比如，我编写了一个开源库：<a href="https://github.com/wangjiegulu/RapidORM" target="_blank" rel="noopener">RapidORM</a>，并<a href="http://blog.wangjiegulu.com/2015/04/02/Android-%E4%BD%BF%E7%94%A8Gradle%E6%8F%90%E4%BA%A4%E8%87%AA%E5%B7%B1%E5%BC%80%E6%BA%90Android%E5%BA%93%E5%88%B0Maven%E4%B8%AD%E5%BF%83%E5%BA%93/">上传到了Maven中心库</a> ，假设一个我不认识的开发者（暂且称它为<code>X</code>）在编写app，这个app中的代码对我来说是完全未知的，但是他通过在<code>build.gradle</code>中添加了如下依赖：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">compile <span class="string">"com.github.wangjiegulu:rapidorm:1.0.0"</span></span><br><span class="line">compile <span class="string">"com.github.wangjiegulu:rapidorm-api:1.0.0"</span></span><br><span class="line">apt <span class="string">"com.github.wangjiegulu:rapidorm-compiler:1.0.0"</span></span><br></pre></td></tr></table></figure>
+<p>很明显，<code>X</code>依赖了我写的<code>RapidORM</code>库。并且打包成了Apk文件然后发布。这时我下载了这个apk，并且希望得到这个apk中依赖的<code>RapidORM</code>版本是多少？这个<code>RapidORM</code>在构建这个aar时的开发环境是怎么样的？反编译可能有希望能拿到<code>RapidORM</code>具体的版本号，但是aar当时的构建环境就无法得知了。</p>
+<p>这时，我就希望在我发布<code>RapidORM</code>的Release版本的时候能够在aar中携带好一些自定义的参数，并且这些信息会在依赖了这个库的开发者<code>X</code>构建apk的时候跟随保存到apk文件中。</p>
+<p>比较典型的一个例子当你依赖了<code>RxJava</code>这个库，我们构建apk完成之后，会发现在我们的apk文件中的<code>META-INF</code>文件夹下面会有一个<code>rxjava.properties</code>文件，打开这个文件就会发现如下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">Manifest-Version=1.0</span><br><span class="line">Implementation-Title=io.reactivex.rxjava2#rxjava;2.1.2</span><br><span class="line">Implementation-Version=2.1.2</span><br><span class="line">Built-Status=integration</span><br><span class="line">Built-By=travis</span><br><span class="line">Built-OS=Linux</span><br><span class="line">Build-Date=2017-07-23_08:21:58</span><br><span class="line">Gradle-Version=2.14</span><br><span class="line">Module-Owner=benjchristensen@netflix.com</span><br><span class="line">Module-Email=benjchristensen@netflix.com</span><br><span class="line">Module-Source=</span><br><span class="line">Module-Origin=https://github.com/ReactiveX/RxJava.git</span><br><span class="line">Change=e4fbe4c</span><br><span class="line">Branch=e4fbe4cfcb3c240d14a42a586eecbbd74cb379d2</span><br><span class="line">Build-Host=testing-gce-361876de-b66f-4569-b841-e037b0fee9af</span><br><span class="line">Build-Job=LOCAL</span><br><span class="line">Build-Number=LOCAL</span><br><span class="line">Build-Id=LOCAL</span><br><span class="line">Created-By=1.7.0_80-b15 (Oracle Corporation)</span><br><span class="line">Build-Java-Version=1.7.0_80</span><br><span class="line">X-Compile-Target-JDK=1.6</span><br><span class="line">X-Compile-Source-JDK=1.6</span><br></pre></td></tr></table></figure>
+<p>很显然，这个文件中包含了：<code>RxJava版本号</code>, <code>构建的CI信息</code>，<code>构建时间</code>, <code>Gradle版本</code>, <code>模块负责人信息</code>, <code>git分支</code>, <code>JDK版本</code>等等。</p>
+<p>通过这个方式，我可以在任意的apk中拿到它依赖的<code>RxJava</code>的信息。</p>
+<p>当然，你可以通过在<code>build.gradle</code>进行如下配置来过排除这个<code>rxjava.properties</code>文件（但是不建议这么做，这个文件也许能在你遇到问题时给你帮助）：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">android &#123;</span><br><span class="line">    ...</span><br><span class="line">    packagingOptions &#123;</span><br><span class="line">        exclude <span class="string">'META-INF/rxjava.properties'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="2-RapidMetaInfPlugin-Gradle-插件"><a href="#2-RapidMetaInfPlugin-Gradle-插件" class="headerlink" title="2. RapidMetaInfPlugin Gradle 插件"></a>2. RapidMetaInfPlugin Gradle 插件</h2><blockquote>
+<p><strong>RapidMetaInfPlugin:</strong> <a href="https://github.com/wangjiegulu/RapidMetaInfPlugin" target="_blank" rel="noopener">https://github.com/wangjiegulu/RapidMetaInfPlugin</a></p>
+</blockquote>
+<p>因此，写了 <a href="https://github.com/wangjiegulu/RapidMetaInfPlugin" target="_blank" rel="noopener">RapidMetaInfPlugin</a> 这个 Gradle 插件。</p>
+<p>这次先说说怎么使用这个插件，以后抽时间再写一篇 Gradle 插件编写教程。之前也写过一个Gradle插件（详情见<a href="http://blog.wangjiegulu.com/2017/04/19/Android-Gradle-%E6%8F%92%E4%BB%B6-DiscardFilePlugin%EF%BC%88class%E6%B3%A8%E5%85%A5-%E6%B8%85%E7%A9%BA%E7%B1%BB%E5%92%8C%E6%96%B9%E6%B3%95%EF%BC%89/">Android Gradle 插件 DiscardFilePlugin（清空类和方法）</a>）也挺实用的。</p>
+<h3 id="2-1-最终效果"><a href="#2-1-最终效果" class="headerlink" title="2.1 最终效果"></a>2.1 最终效果</h3><p>通过这个插件，我们可以在<code>apk</code>或者<code>aar</code>（<code>app</code>依赖后合并到<code>apk</code>）中写入任意信息。</p>
+<p><img src="https://github.com/wangjiegulu/RapidMetaInfPlugin/raw/master/images/apk_meta_inf.png" width="600px"></p>
+<p>以上在这个<code>apk</code>的<code>META-INF</code>中生成了一个名为<code>DAL_REQUEST.properties</code>的文件，内容中包含了<code>dal_request</code>这个库的名字、版本号和url。</p>
+<h3 id="2-2-如何使用"><a href="#2-2-如何使用" class="headerlink" title="2.2 如何使用"></a>2.2 如何使用</h3><p>在你的<code>buildscript</code>的<code>dependencies</code>中添加<code>classpath</code>依赖（<a href="http://search.maven.org/#search%7Cga%7C1%7CRapidMetaInf" target="_blank" rel="noopener">点击这里获取最新版本</a>）：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">buildscript &#123;</span><br><span class="line">    repositories &#123;</span><br><span class="line">        jcenter()</span><br><span class="line">        google()</span><br><span class="line">    &#125;</span><br><span class="line">    dependencies &#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">        classpath (<span class="string">'com.github.wangjiegulu:rapidmetainf:x.x.x'</span>)&#123;</span><br><span class="line">            exclude <span class="string">group:</span> <span class="string">'com.android.tools.build'</span>, <span class="string">module:</span> <span class="string">'gradle'</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后在你的apk或者aar的<code>build.gradle</code>文件的顶部写入以下代码来使用插件：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apply <span class="string">plugin:</span> <span class="string">'com.github.wangjiegulu.plg.rapidmetainf'</span></span><br></pre></td></tr></table></figure>
+<p>然后通过如下方式填写你需要写进<code>META-INF</code>目录中的文件信息：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">rapidmetainf &#123;</span><br><span class="line">    metaInfName <span class="string">'DAL_REQUEST.properties'</span></span><br><span class="line">    metaInfProperties <span class="string">"archiveName=$dbarchiveName"</span>,</span><br><span class="line">            <span class="string">"archiveVersion=$dbarchiveVersion"</span>,</span><br><span class="line">            <span class="string">"archiveUrl=$dbarchiveUrl"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如上，<code>metaInfName</code>表示在<code>META-INF</code>目录中生成的文件名称（文件名任意取，但是不能以”.”开头），<code>metaInfProperties</code>表示要写入文件的数据，这个变量为数组类型，可通过Groovy语法来编写，比如通过<code>$符号来引用ext</code>，通过如下命令参数的方式等等：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">rapidmetainf &#123;</span><br><span class="line">    metaInfName <span class="string">'DAL_REQUEST_DEMO.properties'</span></span><br><span class="line"></span><br><span class="line">    String[] infArray = <span class="keyword">new</span> String[<span class="number">10</span>]</span><br><span class="line">    <span class="comment">// ./gradlew clean build -PcommandKey=commandValue</span></span><br><span class="line">    infArray[<span class="number">0</span>] = <span class="string">"propertyFromCommand=$&#123;getParameter('commandKey')&#125;"</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; infArray.length; i++)&#123;</span><br><span class="line">        infArray[i] = <span class="string">"array_item_key_$i=array_item_value_$i"</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    metaInfProperties infArray</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> getParameter(String key) &#123;</span><br><span class="line">    <span class="comment">// -D</span></span><br><span class="line">    String value = System.getProperty(key)</span><br><span class="line">    <span class="keyword">if</span> (<span class="literal">null</span> != value &amp;&amp; value.length() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> value</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// -P</span></span><br><span class="line">    <span class="keyword">if</span> (hasProperty(key)) &#123;</span><br><span class="line">        <span class="keyword">return</span> getProperty(key)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上，CI构建时就可使用命令<code>./gradlew clean build -PcommandKey=commandValue</code>来把<code>commandValue</code>写入到文件中。</p>
+
+
+                <hr>
+
+                
+                <div class="post-copyright" style="margin-top: 20px;">
+                    <strong>来源博客：</strong><a href="http://blog.wangjiegulu.com">Wang Jie&#39;s Blog</a><br/>
+                     <strong>本文链接：</strong><a href="http://blog.wangjiegulu.com/2018/02/05/Android端生成META-INF信息文件的Gradle插件 RapidMetaInfPlugin/">http://blog.wangjiegulu.com/2018/02/05/Android端生成META-INF信息文件的Gradle插件 RapidMetaInfPlugin/</a><br/>
+                     <strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处。
+                </div>
+                
+
+                <!-- Sharethis 分享 -->
+                <div class="sharethis-inline-share-buttons" style="margin-top: 18px"></div>
+
+
+                
+
+                <ul class="pager">
+                    
+                    
+                    <li class="next">
+                        <a href="/2017/12/20/Android-App-IFCTT，即If-Copy-Then-That，一个基于IFTTT的-This-实现/" data-toggle="tooltip" data-placement="top"
+                           title="IFCTT，即If Copy Then That，一个基于IFTTT的`This`实现">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+
+                
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+
+                <!--加入新的评论系统-->
+                
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Android端生成META-INF信息文件的Gradle插件-RapidMetaInfPlugin"><span class="toc-text">Android端生成META-INF信息文件的Gradle插件 RapidMetaInfPlugin</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-需求背景"><span class="toc-text">1. 需求背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-RapidMetaInfPlugin-Gradle-插件"><span class="toc-text">2. RapidMetaInfPlugin Gradle 插件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-最终效果"><span class="toc-text">2.1 最终效果</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-如何使用"><span class="toc-text">2.2 如何使用</span></a></li></ol></li></ol></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#android"
+                           title="android">android</a>
+                        
+                        <a class="tag" href="/tags/#gradle"
+                           title="gradle">gradle</a>
+                        
+                        <a class="tag" href="/tags/#gradle plugin"
+                           title="gradle plugin">gradle plugin</a>
+                        
+                        <a class="tag" href="/tags/#Android Studio"
+                           title="Android Studio">Android Studio</a>
+                        
+                        <a class="tag" href="/tags/#META-INF"
+                           title="META-INF">META-INF</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="http://www.cnblogs.com/tiantianbyconan/">cnblog</a></li>
+                        
+                        <li><a href="http://h.wangjiegulu.com">Huginn</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "blog-wangjiegulu-com";
+    var disqus_identifier = "http://blog.wangjiegulu.com/2018/02/05/Android端生成META-INF信息文件的Gradle插件 RapidMetaInfPlugin/";
+    var disqus_url = "http://blog.wangjiegulu.com/2018/02/05/Android端生成META-INF信息文件的Gradle插件 RapidMetaInfPlugin/";
+
+    (function () {
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/wangjiegulu">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://instagram.com/wangjiegulu">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://plus.google.com/+%E5%A4%A9%E5%A4%A9wangjie">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-google fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/wangjiegulu">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://stackoverflow.com/users/2124006/wangjie">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/wangjiegulu">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/tiantianbyconan">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Wang Jie&#39;s Blog 2018
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv">
+                    <br>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://blog.wangjiegulu.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-111189680-2';
+    var _gaDomain = 'blog.wangjiegulu.com';
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','MeGy6NW2x6vGFz7Hy7SW','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://avatars3.githubusercontent.com/u/5423194?s=460&amp;v=4">
+</body>
+
+</html>

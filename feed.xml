@@ -6,7 +6,7 @@
   <link href="/feed.xml" rel="self"/>
   
   <link href="http://blog.wangjiegulu.com/"/>
-  <updated>2018-02-05T10:11:16.000Z</updated>
+  <updated>2018-02-05T12:58:38.000Z</updated>
   <id>http://blog.wangjiegulu.com/</id>
   
   <author>
@@ -15,6 +15,42 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Android端生成META-INF信息文件的Gradle插件 RapidMetaInfPlugin</title>
+    <link href="http://blog.wangjiegulu.com/2018/02/05/Android%E7%AB%AF%E7%94%9F%E6%88%90META-INF%E4%BF%A1%E6%81%AF%E6%96%87%E4%BB%B6%E7%9A%84Gradle%E6%8F%92%E4%BB%B6%20RapidMetaInfPlugin/"/>
+    <id>http://blog.wangjiegulu.com/2018/02/05/Android端生成META-INF信息文件的Gradle插件 RapidMetaInfPlugin/</id>
+    <published>2018-02-05T12:54:04.000Z</published>
+    <updated>2018-02-05T12:58:38.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;Android端生成META-INF信息文件的Gradle插件-RapidMetaInfPlugin&quot;&gt;&lt;a href=&quot;#Android端生成META-INF信息文件的Gradle插件-RapidMetaInfPlugin&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="android" scheme="http://blog.wangjiegulu.com/categories/android/"/>
+    
+      <category term="gradle plugin" scheme="http://blog.wangjiegulu.com/categories/android/gradle-plugin/"/>
+    
+    
+      <category term="android" scheme="http://blog.wangjiegulu.com/tags/android/"/>
+    
+      <category term="gradle" scheme="http://blog.wangjiegulu.com/tags/gradle/"/>
+    
+      <category term="gradle plugin" scheme="http://blog.wangjiegulu.com/tags/gradle-plugin/"/>
+    
+      <category term="Android Studio" scheme="http://blog.wangjiegulu.com/tags/Android-Studio/"/>
+    
+      <category term="META-INF" scheme="http://blog.wangjiegulu.com/tags/META-INF/"/>
+    
+  </entry>
   
   <entry>
     <title>IFCTT，即If Copy Then That，一个基于IFTTT的`This`实现</title>
@@ -299,11 +335,11 @@
     
       <category term="翻译" scheme="http://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
     
+      <category term="google" scheme="http://blog.wangjiegulu.com/tags/google/"/>
+    
       <category term="dagger2" scheme="http://blog.wangjiegulu.com/tags/dagger2/"/>
     
       <category term="DI" scheme="http://blog.wangjiegulu.com/tags/DI/"/>
-    
-      <category term="google" scheme="http://blog.wangjiegulu.com/tags/google/"/>
     
   </entry>
   
@@ -333,11 +369,11 @@
     
       <category term="翻译" scheme="http://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
     
+      <category term="google" scheme="http://blog.wangjiegulu.com/tags/google/"/>
+    
       <category term="dagger2" scheme="http://blog.wangjiegulu.com/tags/dagger2/"/>
     
       <category term="DI" scheme="http://blog.wangjiegulu.com/tags/DI/"/>
-    
-      <category term="google" scheme="http://blog.wangjiegulu.com/tags/google/"/>
     
   </entry>
   
@@ -367,11 +403,11 @@
     
       <category term="翻译" scheme="http://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
     
+      <category term="google" scheme="http://blog.wangjiegulu.com/tags/google/"/>
+    
       <category term="dagger2" scheme="http://blog.wangjiegulu.com/tags/dagger2/"/>
     
       <category term="DI" scheme="http://blog.wangjiegulu.com/tags/DI/"/>
-    
-      <category term="google" scheme="http://blog.wangjiegulu.com/tags/google/"/>
     
       <category term="RxJava" scheme="http://blog.wangjiegulu.com/tags/RxJava/"/>
     
@@ -405,11 +441,11 @@
     
       <category term="翻译" scheme="http://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
     
+      <category term="google" scheme="http://blog.wangjiegulu.com/tags/google/"/>
+    
       <category term="dagger2" scheme="http://blog.wangjiegulu.com/tags/dagger2/"/>
     
       <category term="DI" scheme="http://blog.wangjiegulu.com/tags/DI/"/>
-    
-      <category term="google" scheme="http://blog.wangjiegulu.com/tags/google/"/>
     
   </entry>
   
@@ -435,13 +471,13 @@
     
       <category term="android" scheme="http://blog.wangjiegulu.com/tags/android/"/>
     
+      <category term="library" scheme="http://blog.wangjiegulu.com/tags/library/"/>
+    
       <category term="sqlite" scheme="http://blog.wangjiegulu.com/tags/sqlite/"/>
     
       <category term="database" scheme="http://blog.wangjiegulu.com/tags/database/"/>
     
       <category term="orm" scheme="http://blog.wangjiegulu.com/tags/orm/"/>
-    
-      <category term="library" scheme="http://blog.wangjiegulu.com/tags/library/"/>
     
       <category term="rapidorm" scheme="http://blog.wangjiegulu.com/tags/rapidorm/"/>
     
@@ -581,38 +617,6 @@
       <category term="tips" scheme="http://blog.wangjiegulu.com/tags/tips/"/>
     
       <category term="git" scheme="http://blog.wangjiegulu.com/tags/git/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>[Android]使用自定义JUnit Rules、annotations和Resources进行单元测试（翻译）</title>
-    <link href="http://blog.wangjiegulu.com/2016/08/22/Android-%E4%BD%BF%E7%94%A8%E8%87%AA%E5%AE%9A%E4%B9%89JUnit-Rules%E3%80%81annotations%E5%92%8CResources%E8%BF%9B%E8%A1%8C%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/"/>
-    <id>http://blog.wangjiegulu.com/2016/08/22/Android-使用自定义JUnit-Rules、annotations和Resources进行单元测试（翻译）/</id>
-    <published>2016-08-22T04:00:00.000Z</published>
-    <updated>2018-01-30T03:19:33.000Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;font color=&quot;#ff0000&quot;&gt;&lt;strong&gt;&lt;br&gt;以下内容为原创，欢迎转载，转载请注明&lt;br&gt;来自天天博客：&lt;a href=&quot;http://www.cnblogs.com/tiantianbyconan/p/5795091.html&quot;
-        
-      
-    
-    </summary>
-    
-    
-      <category term="android" scheme="http://blog.wangjiegulu.com/tags/android/"/>
-    
-      <category term="unit test" scheme="http://blog.wangjiegulu.com/tags/unit-test/"/>
-    
-      <category term="annotations" scheme="http://blog.wangjiegulu.com/tags/annotations/"/>
-    
-      <category term="JUnit" scheme="http://blog.wangjiegulu.com/tags/JUnit/"/>
-    
-      <category term="Junit Rules" scheme="http://blog.wangjiegulu.com/tags/Junit-Rules/"/>
     
   </entry>
   

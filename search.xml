@@ -3,6 +3,64 @@
   
     
     <entry>
+      <title><![CDATA[Android端生成META-INF信息文件的Gradle插件 RapidMetaInfPlugin]]></title>
+      <url>/2018/02/05/Android%E7%AB%AF%E7%94%9F%E6%88%90META-INF%E4%BF%A1%E6%81%AF%E6%96%87%E4%BB%B6%E7%9A%84Gradle%E6%8F%92%E4%BB%B6%20RapidMetaInfPlugin/</url>
+      <content type="html"><![CDATA[<h1 id="Android端生成META-INF信息文件的Gradle插件-RapidMetaInfPlugin"><a href="#Android端生成META-INF信息文件的Gradle插件-RapidMetaInfPlugin" class="headerlink" title="Android端生成META-INF信息文件的Gradle插件 RapidMetaInfPlugin"></a>Android端生成META-INF信息文件的Gradle插件 RapidMetaInfPlugin</h1><h2 id="1-需求背景"><a href="#1-需求背景" class="headerlink" title="1. 需求背景"></a>1. 需求背景</h2><p>最近新遇到了一个需求，想在自己的一些库中写入版本信息，在别人使用了我的库后，我可以通过apk文件检测出依赖了我的哪个版本的库。感觉这个需求有点多余？那就举个例子吧。</p>
+<p>比如，我编写了一个开源库：<a href="https://github.com/wangjiegulu/RapidORM" target="_blank" rel="noopener">RapidORM</a>，并<a href="http://blog.wangjiegulu.com/2015/04/02/Android-%E4%BD%BF%E7%94%A8Gradle%E6%8F%90%E4%BA%A4%E8%87%AA%E5%B7%B1%E5%BC%80%E6%BA%90Android%E5%BA%93%E5%88%B0Maven%E4%B8%AD%E5%BF%83%E5%BA%93/">上传到了Maven中心库</a> ，假设一个我不认识的开发者（暂且称它为<code>X</code>）在编写app，这个app中的代码对我来说是完全未知的，但是他通过在<code>build.gradle</code>中添加了如下依赖：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">compile <span class="string">"com.github.wangjiegulu:rapidorm:1.0.0"</span></span><br><span class="line">compile <span class="string">"com.github.wangjiegulu:rapidorm-api:1.0.0"</span></span><br><span class="line">apt <span class="string">"com.github.wangjiegulu:rapidorm-compiler:1.0.0"</span></span><br></pre></td></tr></table></figure>
+<p>很明显，<code>X</code>依赖了我写的<code>RapidORM</code>库。并且打包成了Apk文件然后发布。这时我下载了这个apk，并且希望得到这个apk中依赖的<code>RapidORM</code>版本是多少？这个<code>RapidORM</code>在构建这个aar时的开发环境是怎么样的？反编译可能有希望能拿到<code>RapidORM</code>具体的版本号，但是aar当时的构建环境就无法得知了。</p>
+<p>这时，我就希望在我发布<code>RapidORM</code>的Release版本的时候能够在aar中携带好一些自定义的参数，并且这些信息会在依赖了这个库的开发者<code>X</code>构建apk的时候跟随保存到apk文件中。</p>
+<p>比较典型的一个例子当你依赖了<code>RxJava</code>这个库，我们构建apk完成之后，会发现在我们的apk文件中的<code>META-INF</code>文件夹下面会有一个<code>rxjava.properties</code>文件，打开这个文件就会发现如下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">Manifest-Version=1.0</span><br><span class="line">Implementation-Title=io.reactivex.rxjava2#rxjava;2.1.2</span><br><span class="line">Implementation-Version=2.1.2</span><br><span class="line">Built-Status=integration</span><br><span class="line">Built-By=travis</span><br><span class="line">Built-OS=Linux</span><br><span class="line">Build-Date=2017-07-23_08:21:58</span><br><span class="line">Gradle-Version=2.14</span><br><span class="line">Module-Owner=benjchristensen@netflix.com</span><br><span class="line">Module-Email=benjchristensen@netflix.com</span><br><span class="line">Module-Source=</span><br><span class="line">Module-Origin=https://github.com/ReactiveX/RxJava.git</span><br><span class="line">Change=e4fbe4c</span><br><span class="line">Branch=e4fbe4cfcb3c240d14a42a586eecbbd74cb379d2</span><br><span class="line">Build-Host=testing-gce-361876de-b66f-4569-b841-e037b0fee9af</span><br><span class="line">Build-Job=LOCAL</span><br><span class="line">Build-Number=LOCAL</span><br><span class="line">Build-Id=LOCAL</span><br><span class="line">Created-By=1.7.0_80-b15 (Oracle Corporation)</span><br><span class="line">Build-Java-Version=1.7.0_80</span><br><span class="line">X-Compile-Target-JDK=1.6</span><br><span class="line">X-Compile-Source-JDK=1.6</span><br></pre></td></tr></table></figure>
+<p>很显然，这个文件中包含了：<code>RxJava版本号</code>, <code>构建的CI信息</code>，<code>构建时间</code>, <code>Gradle版本</code>, <code>模块负责人信息</code>, <code>git分支</code>, <code>JDK版本</code>等等。</p>
+<p>通过这个方式，我可以在任意的apk中拿到它依赖的<code>RxJava</code>的信息。</p>
+<p>当然，你可以通过在<code>build.gradle</code>进行如下配置来过排除这个<code>rxjava.properties</code>文件（但是不建议这么做，这个文件也许能在你遇到问题时给你帮助）：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">android &#123;</span><br><span class="line">    ...</span><br><span class="line">    packagingOptions &#123;</span><br><span class="line">        exclude <span class="string">'META-INF/rxjava.properties'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="2-RapidMetaInfPlugin-Gradle-插件"><a href="#2-RapidMetaInfPlugin-Gradle-插件" class="headerlink" title="2. RapidMetaInfPlugin Gradle 插件"></a>2. RapidMetaInfPlugin Gradle 插件</h2><blockquote>
+<p><strong>RapidMetaInfPlugin:</strong> <a href="https://github.com/wangjiegulu/RapidMetaInfPlugin" target="_blank" rel="noopener">https://github.com/wangjiegulu/RapidMetaInfPlugin</a></p>
+</blockquote>
+<p>因此，写了 <a href="https://github.com/wangjiegulu/RapidMetaInfPlugin" target="_blank" rel="noopener">RapidMetaInfPlugin</a> 这个 Gradle 插件。</p>
+<p>这次先说说怎么使用这个插件，以后抽时间再写一篇 Gradle 插件编写教程。之前也写过一个Gradle插件（详情见<a href="http://blog.wangjiegulu.com/2017/04/19/Android-Gradle-%E6%8F%92%E4%BB%B6-DiscardFilePlugin%EF%BC%88class%E6%B3%A8%E5%85%A5-%E6%B8%85%E7%A9%BA%E7%B1%BB%E5%92%8C%E6%96%B9%E6%B3%95%EF%BC%89/">Android Gradle 插件 DiscardFilePlugin（清空类和方法）</a>）也挺实用的。</p>
+<h3 id="2-1-最终效果"><a href="#2-1-最终效果" class="headerlink" title="2.1 最终效果"></a>2.1 最终效果</h3><p>通过这个插件，我们可以在<code>apk</code>或者<code>aar</code>（<code>app</code>依赖后合并到<code>apk</code>）中写入任意信息。</p>
+<p><img src="https://github.com/wangjiegulu/RapidMetaInfPlugin/raw/master/images/apk_meta_inf.png" width="600px"></p>
+<p>以上在这个<code>apk</code>的<code>META-INF</code>中生成了一个名为<code>DAL_REQUEST.properties</code>的文件，内容中包含了<code>dal_request</code>这个库的名字、版本号和url。</p>
+<h3 id="2-2-如何使用"><a href="#2-2-如何使用" class="headerlink" title="2.2 如何使用"></a>2.2 如何使用</h3><p>在你的<code>buildscript</code>的<code>dependencies</code>中添加<code>classpath</code>依赖（<a href="http://search.maven.org/#search%7Cga%7C1%7CRapidMetaInf" target="_blank" rel="noopener">点击这里获取最新版本</a>）：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">buildscript &#123;</span><br><span class="line">    repositories &#123;</span><br><span class="line">        jcenter()</span><br><span class="line">        google()</span><br><span class="line">    &#125;</span><br><span class="line">    dependencies &#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">        classpath (<span class="string">'com.github.wangjiegulu:rapidmetainf:x.x.x'</span>)&#123;</span><br><span class="line">            exclude <span class="string">group:</span> <span class="string">'com.android.tools.build'</span>, <span class="string">module:</span> <span class="string">'gradle'</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后在你的apk或者aar的<code>build.gradle</code>文件的顶部写入以下代码来使用插件：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apply <span class="string">plugin:</span> <span class="string">'com.github.wangjiegulu.plg.rapidmetainf'</span></span><br></pre></td></tr></table></figure>
+<p>然后通过如下方式填写你需要写进<code>META-INF</code>目录中的文件信息：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">rapidmetainf &#123;</span><br><span class="line">    metaInfName <span class="string">'DAL_REQUEST.properties'</span></span><br><span class="line">    metaInfProperties <span class="string">"archiveName=$dbarchiveName"</span>,</span><br><span class="line">            <span class="string">"archiveVersion=$dbarchiveVersion"</span>,</span><br><span class="line">            <span class="string">"archiveUrl=$dbarchiveUrl"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如上，<code>metaInfName</code>表示在<code>META-INF</code>目录中生成的文件名称（文件名任意取，但是不能以”.”开头），<code>metaInfProperties</code>表示要写入文件的数据，这个变量为数组类型，可通过Groovy语法来编写，比如通过<code>$符号来引用ext</code>，通过如下命令参数的方式等等：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">rapidmetainf &#123;</span><br><span class="line">    metaInfName <span class="string">'DAL_REQUEST_DEMO.properties'</span></span><br><span class="line"></span><br><span class="line">    String[] infArray = <span class="keyword">new</span> String[<span class="number">10</span>]</span><br><span class="line">    <span class="comment">// ./gradlew clean build -PcommandKey=commandValue</span></span><br><span class="line">    infArray[<span class="number">0</span>] = <span class="string">"propertyFromCommand=$&#123;getParameter('commandKey')&#125;"</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; infArray.length; i++)&#123;</span><br><span class="line">        infArray[i] = <span class="string">"array_item_key_$i=array_item_value_$i"</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    metaInfProperties infArray</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> getParameter(String key) &#123;</span><br><span class="line">    <span class="comment">// -D</span></span><br><span class="line">    String value = System.getProperty(key)</span><br><span class="line">    <span class="keyword">if</span> (<span class="literal">null</span> != value &amp;&amp; value.length() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> value</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// -P</span></span><br><span class="line">    <span class="keyword">if</span> (hasProperty(key)) &#123;</span><br><span class="line">        <span class="keyword">return</span> getProperty(key)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上，CI构建时就可使用命令<code>./gradlew clean build -PcommandKey=commandValue</code>来把<code>commandValue</code>写入到文件中。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> android </category>
+            
+            <category> gradle plugin </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> android </tag>
+            
+            <tag> gradle </tag>
+            
+            <tag> gradle plugin </tag>
+            
+            <tag> Android Studio </tag>
+            
+            <tag> META-INF </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[IFCTT，即If Copy Then That，一个基于IFTTT的`This`实现]]></title>
       <url>/2017/12/20/Android-App-IFCTT%EF%BC%8C%E5%8D%B3If-Copy-Then-That%EF%BC%8C%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8EIFTTT%E7%9A%84-This-%E5%AE%9E%E7%8E%B0/</url>
       <content type="html"><![CDATA[<p>IFCTT，即：<code>If Copy Then That</code>，是一个基于IFTTT（<code>If This Then That</code>）的”This”实现，它打通了”用户手机端操作”与”This条件触发”之间的桥梁，让这个过程更具方便性和快捷性。通过手机端的Copy动作，以”Tagged Email”的方式连接到IFTTT，从而触发IFTTT中所有支持的”That”行为。用户只需要复制然后选择触发IFTTT的”Hash Tag”即可，它支持用户配置多种”Hash Tag”来进行多种自定义方式内容传输，比如：</p>
@@ -1376,11 +1434,11 @@
             
             <tag> 翻译 </tag>
             
+            <tag> google </tag>
+            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
-            
-            <tag> google </tag>
             
         </tags>
         
@@ -1482,11 +1540,11 @@
             
             <tag> 翻译 </tag>
             
+            <tag> google </tag>
+            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
-            
-            <tag> google </tag>
             
         </tags>
         
@@ -1591,11 +1649,11 @@
             
             <tag> 翻译 </tag>
             
+            <tag> google </tag>
+            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
-            
-            <tag> google </tag>
             
             <tag> RxJava </tag>
             
@@ -1728,11 +1786,11 @@
             
             <tag> 翻译 </tag>
             
+            <tag> google </tag>
+            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
-            
-            <tag> google </tag>
             
         </tags>
         
@@ -1782,13 +1840,13 @@
             
             <tag> android </tag>
             
+            <tag> library </tag>
+            
             <tag> sqlite </tag>
             
             <tag> database </tag>
             
             <tag> orm </tag>
-            
-            <tag> library </tag>
             
             <tag> rapidorm </tag>
             
@@ -1867,7 +1925,7 @@
 </strong></font>
 
 <h1 id="异步-layout-inflation"><a href="#异步-layout-inflation" class="headerlink" title="异步 layout inflation"></a>异步 layout inflation</h1><blockquote>
-<p>原文：<a href="&#x6d;&#x61;&#x69;&#108;&#x74;&#x6f;&#58;&#104;&#x74;&#116;&#x70;&#x73;&#58;&#47;&#47;&#109;&#101;&#x64;&#x69;&#x75;&#109;&#x2e;&#x63;&#111;&#x6d;&#x2f;&#64;&#108;&#117;&#112;&#x61;&#106;&#122;&#x2f;&#x61;&#115;&#x79;&#x6e;&#x63;&#x68;&#114;&#x6f;&#110;&#111;&#117;&#115;&#x2d;&#x6c;&#x61;&#121;&#x6f;&#117;&#x74;&#45;&#105;&#110;&#x66;&#108;&#x61;&#116;&#105;&#111;&#x6e;&#x2d;&#55;&#99;&#x62;&#x63;&#97;&#50;&#54;&#x35;&#x33;&#x62;&#102;&#35;&#x2e;&#113;&#x32;&#x32;&#118;&#x70;&#101;&#122;&#103;&#52;">&#104;&#x74;&#116;&#x70;&#x73;&#58;&#47;&#47;&#109;&#101;&#x64;&#x69;&#x75;&#109;&#x2e;&#x63;&#111;&#x6d;&#x2f;&#64;&#108;&#117;&#112;&#x61;&#106;&#122;&#x2f;&#x61;&#115;&#x79;&#x6e;&#x63;&#x68;&#114;&#x6f;&#110;&#111;&#117;&#115;&#x2d;&#x6c;&#x61;&#121;&#x6f;&#117;&#x74;&#45;&#105;&#110;&#x66;&#108;&#x61;&#116;&#105;&#111;&#x6e;&#x2d;&#55;&#99;&#x62;&#x63;&#97;&#50;&#54;&#x35;&#x33;&#x62;&#102;&#35;&#x2e;&#113;&#x32;&#x32;&#118;&#x70;&#101;&#122;&#103;&#52;</a></p>
+<p>原文：<a href="&#x6d;&#x61;&#x69;&#x6c;&#x74;&#x6f;&#x3a;&#104;&#116;&#116;&#x70;&#x73;&#x3a;&#47;&#47;&#x6d;&#101;&#100;&#105;&#x75;&#x6d;&#x2e;&#x63;&#x6f;&#x6d;&#47;&#64;&#108;&#117;&#112;&#97;&#x6a;&#122;&#x2f;&#x61;&#x73;&#x79;&#x6e;&#x63;&#104;&#x72;&#111;&#x6e;&#x6f;&#117;&#115;&#x2d;&#x6c;&#97;&#121;&#x6f;&#x75;&#x74;&#45;&#105;&#x6e;&#102;&#x6c;&#97;&#116;&#105;&#x6f;&#110;&#45;&#55;&#x63;&#98;&#99;&#97;&#x32;&#x36;&#x35;&#x33;&#x62;&#x66;&#35;&#46;&#113;&#50;&#50;&#118;&#x70;&#101;&#122;&#103;&#x34;">&#104;&#116;&#116;&#x70;&#x73;&#x3a;&#47;&#47;&#x6d;&#101;&#100;&#105;&#x75;&#x6d;&#x2e;&#x63;&#x6f;&#x6d;&#47;&#64;&#108;&#117;&#112;&#97;&#x6a;&#122;&#x2f;&#x61;&#x73;&#x79;&#x6e;&#x63;&#104;&#x72;&#111;&#x6e;&#x6f;&#117;&#115;&#x2d;&#x6c;&#97;&#121;&#x6f;&#x75;&#x74;&#45;&#105;&#x6e;&#102;&#x6c;&#97;&#116;&#105;&#x6f;&#110;&#45;&#55;&#x63;&#98;&#99;&#97;&#x32;&#x36;&#x35;&#x33;&#x62;&#x66;&#35;&#46;&#113;&#50;&#50;&#118;&#x70;&#101;&#122;&#103;&#x34;</a></p>
 </blockquote>
 <p>随着最近发布的<a href="https://developer.android.com/topic/libraries/support-library/revisions.html" target="_blank" rel="noopener">Android Support Library, revision 24</a>，Google开发者在v4包中增加了一个用来异步inflate layouts的帮助类。</p>
 <h2 id="进入-AsyncLayoutInflater"><a href="#进入-AsyncLayoutInflater" class="headerlink" title="进入 AsyncLayoutInflater"></a>进入 AsyncLayoutInflater</h2><p>你会发现AsyncLayoutInflater可以使用在当你想要去懒加载你应用中部分UI或者用户行为的响应。这个帮助类将会允许你的UI线程在执行繁重的inflate时继续保持响应。</p>
@@ -3032,9 +3090,9 @@ Cookie: ... ...
             
             <tag> android </tag>
             
-            <tag> unit test </tag>
-            
             <tag> annotations </tag>
+            
+            <tag> unit test </tag>
             
             <tag> JUnit </tag>
             
@@ -3087,13 +3145,13 @@ Cookie: ... ...
             
             <tag> android </tag>
             
+            <tag> library </tag>
+            
             <tag> sqlite </tag>
             
             <tag> database </tag>
             
             <tag> orm </tag>
-            
-            <tag> library </tag>
             
             <tag> rapidorm </tag>
             
@@ -3665,11 +3723,11 @@ Cookie: ... ...
             
             <tag> 翻译 </tag>
             
+            <tag> google </tag>
+            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
-            
-            <tag> google </tag>
             
         </tags>
         
@@ -3789,11 +3847,11 @@ Cookie: ... ...
             
             <tag> 翻译 </tag>
             
+            <tag> google </tag>
+            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
-            
-            <tag> google </tag>
             
         </tags>
         
@@ -3932,11 +3990,11 @@ Cookie: ... ...
             
             <tag> 翻译 </tag>
             
+            <tag> google </tag>
+            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
-            
-            <tag> google </tag>
             
         </tags>
         
@@ -4032,11 +4090,11 @@ Cookie: ... ...
             
             <tag> 翻译 </tag>
             
+            <tag> google </tag>
+            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
-            
-            <tag> google </tag>
             
         </tags>
         
@@ -4130,9 +4188,9 @@ Cookie: ... ...
             
             <tag> 翻译 </tag>
             
-            <tag> monkey </tag>
-            
             <tag> testing </tag>
+            
+            <tag> monkey </tag>
             
             <tag> MonkeyRunner </tag>
             
@@ -4307,9 +4365,9 @@ Cookie: ... ...
             
             <tag> 翻译 </tag>
             
-            <tag> monkey </tag>
-            
             <tag> testing </tag>
+            
+            <tag> monkey </tag>
             
             <tag> adb </tag>
             
@@ -5775,13 +5833,13 @@ for (name in names) {
             
             <tag> android </tag>
             
+            <tag> library </tag>
+            
             <tag> sqlite </tag>
             
             <tag> database </tag>
             
             <tag> orm </tag>
-            
-            <tag> library </tag>
             
             <tag> rapidorm </tag>
             
@@ -7440,11 +7498,11 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
         
         <tags>
             
-            <tag> library </tag>
-            
             <tag> android bucket </tag>
             
             <tag> annotations </tag>
+            
+            <tag> library </tag>
             
         </tags>
         
@@ -7730,6 +7788,8 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> android </tag>
             
+            <tag> library </tag>
+            
             <tag> inject </tag>
             
             <tag> sqlite </tag>
@@ -7739,8 +7799,6 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             <tag> database </tag>
             
             <tag> orm </tag>
-            
-            <tag> library </tag>
             
         </tags>
         
@@ -8083,15 +8141,15 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
         
         <tags>
             
-            <tag> android </tag>
-            
             <tag> java </tag>
             
-            <tag> Hbase </tag>
+            <tag> android </tag>
             
             <tag> j2ee </tag>
             
             <tag> java web </tag>
+            
+            <tag> Hbase </tag>
             
         </tags>
         
@@ -8276,9 +8334,9 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> android </tag>
             
-            <tag> library </tag>
-            
             <tag> annotations </tag>
+            
+            <tag> library </tag>
             
             <tag> proxy </tag>
             
@@ -8351,9 +8409,9 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> android </tag>
             
-            <tag> inject </tag>
-            
             <tag> library </tag>
+            
+            <tag> inject </tag>
             
         </tags>
         
@@ -8839,11 +8897,11 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> orm </tag>
             
+            <tag> Hibernate </tag>
+            
             <tag> j2ee </tag>
             
             <tag> java web </tag>
-            
-            <tag> Hibernate </tag>
             
         </tags>
         
