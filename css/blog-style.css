@@ -1241,7 +1241,9 @@ img::-moz-selection {
 }
 
 
-
+.post-container > h1{
+    display:none;
+}
 
 
 
