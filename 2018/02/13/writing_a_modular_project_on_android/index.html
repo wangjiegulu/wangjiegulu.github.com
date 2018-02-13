@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="description" content="Wang Jie&#39;s blog -- TO BE AN ARTIST-ENGINNER">
+    <meta name="keyword" content="tiantianbyconan, tiantian.china.2, wangjiegulu, Android, Java, J2EE, Huginn, Geek, Github, Git, Gradle, Maven, Google, iOS, JVM, Activity, View, Javascript, Python, code, developer, programer, tech, technology">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="http://avatars3.githubusercontent.com/u/5423194?s=460&v=4">
+    <link rel="alternate" type="application/atom+xml" title="Wang Jie" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        在Android上编写模块化项目（翻译）｜Wang Jie&#39;s Blog|Android|Java|Huginn|Geek|code|developer|programer
+        
+    </title>
+
+    <link rel="canonical" href="http://blog.wangjiegulu.com/2018/02/13/writing_a_modular_project_on_android/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('//o7bkkhiex.bkt.clouddn.com/lion-blur-bg.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Wang Jie
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <!-- <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/categories/">categories</a>
+                        </li>
+							
+						
+                    
+                        
+							
+								
+							
+						
+                    
+                        
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+						<li>
+							<a href="/about">About</a>
+						</li>
+					
+                </ul>
+            </div>
+        </div> -->
+
+
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    <li>
+                        <a href="/archives">Archives</a>
+                    </li>
+                    <li>
+                        <a href="/tags">Tags</a>
+                    </li>
+                    <li>
+                        <a href="/about">About</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+
+
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<head>
+<!-- <script type='text/javascript' src='//platform-api.sharethis.com/js/sharethis.js#property=5a72df492fd34b00134b0dc1&product=sop' async='async'></script> -->
+<script type='text/javascript' src='//platform-api.sharethis.com/js/sharethis.js#property=5a72df492fd34b00134b0dc1&product=sop' async='async'></script>
+</head>
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://otnnps88s.bkt.clouddn.com/image/xingkong.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('http://otnnps88s.bkt.clouddn.com/image/xingkong.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>在Android上编写模块化项目（翻译）</h1>
+                    
+                    <span class="meta">
+                         作者 Wang Jie
+                        <span>
+                          日期 2018-02-13
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#android"
+                           title="android">android</a>
+                        
+                        <a class="tag" href="/tags/#framework"
+                           title="framework">framework</a>
+                        
+                        <a class="tag" href="/tags/#翻译"
+                           title="翻译">翻译</a>
+                        
+                        <a class="tag" href="/tags/#dagger2"
+                           title="dagger2">dagger2</a>
+                        
+                        <a class="tag" href="/tags/#kotlin"
+                           title="kotlin">kotlin</a>
+                        
+                        <a class="tag" href="/tags/#architecture"
+                           title="architecture">architecture</a>
+                        
+                        <a class="tag" href="/tags/#modular"
+                           title="modular">modular</a>
+                        
+                        <a class="tag" href="/tags/#room"
+                           title="room">room</a>
+                        
+                    </div>
+                    <!-- Sharethis 分享 -->
+                    <!-- <div class="sharethis-inline-share-buttons" style="margin-top: 18px; opacity: 0.1;"></div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            在Android上编写模块化项目（翻译）
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container" 
+                 style="word-wrap:break-word;overflow:hidden;">
+
+                <blockquote>
+<p>原文：<a href="https://medium.com/mindorks/writing-a-modular-project-on-android-304f3b09cb37" target="_blank" rel="noopener">https://medium.com/mindorks/writing-a-modular-project-on-android-304f3b09cb37</a></p>
+</blockquote>
+<h1 id="在Android上编写模块化项目（翻译）"><a href="#在Android上编写模块化项目（翻译）" class="headerlink" title="在Android上编写模块化项目（翻译）"></a>在Android上编写模块化项目（翻译）</h1><p>当我们在 Android Studio 上创建一个新的项目时，自带一个 <code>app</code> module。这时我们大多数人编写整个应用的地方。每次点击 <code>run</code> 按钮都会触发我们整个所有 module 上的 gradle 构建，并检查所有文件是否有变化。这就是为什么 gradle 构建会在更大的应用程序上花费 <a href="https://eng.uber.com/android-monorepo/" target="_blank" rel="noopener">10分钟</a>的时间，并且减慢开发者的<a href="https://imgs.xkcd.com/comics/compiling.png" target="_blank" rel="noopener">输出</a>。</p>
+<p>要解决这个问题，复杂的应用程序，如 Uber 决定对它们的应用程序进行模块化并从中<a href="https://www.youtube.com/watch?v=j6CiHlapado" target="_blank" rel="noopener">获得</a>了很多。下面是试用模块化项目的一些优势：</p>
+<a id="more"></a>
+<ul>
+<li><a href="https://proandroiddev.com/modular-architecture-for-faster-build-time-d58397cb7bfe" target="_blank" rel="noopener">更快</a>的 gradle 构建</li>
+<li>跨应用/模块复用通用的功能</li>
+<li>易于插拔到<a href="https://developer.android.com/topic/instant-apps/overview.html#features" target="_blank" rel="noopener">Instant apps</a></li>
+<li>更好的团队工作，一个人可以单独负责一个模块</li>
+<li>更流畅地git flows</li>
+</ul>
+<p>由于上述优势，当我刚开始<a href="https://github.com/karntrehan/Posts/" target="_blank" rel="noopener">Posts</a>这个应用时，我就在始终坚持使用模块化方法。对此，Android 团队已经给我们提供了一些<a href="https://developer.android.com/google/play/publishing/multiple-apks.html#CreatingApks" target="_blank" rel="noopener">工具</a>，但是我确实遇到了一些障碍，一下是我学习到的内容：</p>
+<h2 id="我该怎么分割我的-modules-？"><a href="#我该怎么分割我的-modules-？" class="headerlink" title="我该怎么分割我的 modules ？"></a>我该怎么分割我的 modules ？</h2><p>你的应用程序是流程集构成的，比如，Google Play 有<strong>应用详情</strong>流，它包含了简要，描述详情，应用截图，评论活动等。</p>
+<p><img src="https://user-images.githubusercontent.com/5423194/36140651-ed8f0d6c-10dc-11e8-9733-e306fd72f9d0.jpeg" alt=""></p>
+<p>所有这些都可以归为同一模块 —— <code>app-details</code>。</p>
+<p>你的应用会包含多个类似流程的模块，有 <code>authentication</code>, <code>settings</code>, <code>on-boarding</code>等等。当然还有一些不需要UI元素呈现的模块如 —— <code>notifications</code>, <code>analytics</code>, <code>first-fetch</code>等等。这些模块包含与流程有关的 activities, repositories, entities和依赖注入相关东西。</p>
+<div style="text-align: center;"><br><img src="https://user-images.githubusercontent.com/5423194/36140945-09253f5a-10de-11e8-8ded-003e53fd78b6.png"><br></div>
+
+<p>但是这些模块中总是有一些共同的功能和工具。这就是为什么你需要一个 core 模块。</p>
+<h2 id="什么是-core-模块-？"><a href="#什么是-core-模块-？" class="headerlink" title="什么是 core 模块 ？"></a>什么是 core 模块 ？</h2><p><code>Core</code> 模块是一个你项目中简单的 module 库。core 库可以（除其它外），</p>
+<ul>
+<li>给你的依赖注入框架提供全局依赖，如 <a href="https://github.com/karntrehan/Posts/blob/master/core/src/main/java/com/karntrehan/posts/core/di/NetworkModule.kt" target="_blank" rel="noopener">Retrofit</a>, <a href="https://github.com/karntrehan/Posts/blob/master/core/src/main/java/com/karntrehan/posts/core/di/StorageModule.kt" target="_blank" rel="noopener">SharedPreferences</a>等等。</li>
+<li>包含工具类和<a href="https://github.com/karntrehan/Posts/tree/master/core/src/main/java/com/karntrehan/posts/core/extensions" target="_blank" rel="noopener">扩展方法</a></li>
+<li>包含<a href="https://github.com/karntrehan/Posts/blob/master/core/src/main/java/com/karntrehan/posts/core/networking/Outcome.kt" target="_blank" rel="noopener">全局类</a>和回调</li>
+<li>在 application 类中的<a href="https://github.com/karntrehan/Posts/blob/master/core/src/main/java/com/karntrehan/posts/core/application/CoreApp.kt" target="_blank" rel="noopener">初始化库</a>，如 Firebase Analytics，Crashlytics，LeakCanary，Stetho等等</li>
+</ul>
+<h2 id="怎么使用第三方库？"><a href="#怎么使用第三方库？" class="headerlink" title="怎么使用第三方库？"></a>怎么使用第三方库？</h2><p>核心(<code>core</code>)模块的其中一个职责是为你的功能(<code>feature</code>)模块提供外部依赖。这使得很容易实现在你的 <code>feature</code> 模块中共享相同版本的库。只需要在你的 <code>core</code> 模块的 dependencies 中使用 <code>api</code>，这样你就能在所有 <code>feature</code> 模块中使用它们。</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">    api fileTree(<span class="string">include:</span> [<span class="string">'*.jar'</span>], <span class="string">dir:</span> <span class="string">'libs'</span>)</span><br><span class="line">    api deps.support.appCompat</span><br><span class="line">    api deps.support.recyclerView</span><br><span class="line">    api deps.support.cardView</span><br><span class="line">    api deps.support.support</span><br><span class="line">    api deps.support.designSupport</span><br><span class="line"></span><br><span class="line">    api deps.android.lifecycleExt</span><br><span class="line">    api deps.android.lifecycleCommon</span><br><span class="line">    api deps.android.roomRuntime</span><br><span class="line">    api deps.android.roomRx</span><br><span class="line"></span><br><span class="line">    api deps.kotlin.stdlib</span><br><span class="line"></span><br><span class="line">    api deps.reactivex.rxJava</span><br><span class="line">    api deps.reactivex.rxAndroid</span><br><span class="line"></span><br><span class="line">    api deps.google.dagger</span><br><span class="line">    kapt deps.google.daggerProcessor</span><br><span class="line"></span><br><span class="line">    api deps.square.picasso</span><br><span class="line">    api deps.square.okhttpDownloader</span><br><span class="line"></span><br><span class="line">    api deps.square.retrofit</span><br><span class="line">    api deps.square.okhttp</span><br><span class="line">    api deps.square.gsonConverter</span><br><span class="line">    api deps.square.retrofitRxAdapter</span><br><span class="line"></span><br><span class="line">    implementation deps.facebook.stetho</span><br><span class="line">    implementation deps.facebook.networkInterceptor</span><br><span class="line"></span><br><span class="line">    testApi deps.test.junit</span><br><span class="line">    androidTestApi deps.test.testRunner</span><br><span class="line">    androidTestApi deps.test.espressoCore</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>有种依赖的可能性是只有对 <code>feature-a</code> 模块有用，但是在 <code>feature-b</code> 中无用。对于这种情况，我推荐在你的 core 的依赖中使用 <code>api</code>，因为 proguard 注意到而不会包含在 <code>feature-b</code> instant app 中。</p>
+<h2 id="怎么使用-Room-？"><a href="#怎么使用-Room-？" class="headerlink" title="怎么使用 Room ？"></a>怎么使用 Room ？</h2><p>这个困扰我挺久的时间。我们希望把我们的数据库定义到 <code>core</code> 模块中，因为它是我们应用程序要共享的通用的功能。为了让 Room 工作，你需要一个包含了所有 entity 类的数据库文件。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Database(entities = [Post::class, User::class, Comment::class], version = 1,exportSchema = false)</span></span><br><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">PostDb</span> : <span class="type">RoomDatabase</span></span>() &#123;</span><br><span class="line">    <span class="keyword">abstract</span> <span class="function"><span class="keyword">fun</span> <span class="title">postDao</span><span class="params">()</span></span>: PostDao</span><br><span class="line">    <span class="keyword">abstract</span> <span class="function"><span class="keyword">fun</span> <span class="title">userDao</span><span class="params">()</span></span>: UserDao</span><br><span class="line">    <span class="keyword">abstract</span> <span class="function"><span class="keyword">fun</span> <span class="title">commentDao</span><span class="params">()</span></span>: CommentDao</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但是，如上面提到的，我们的 entity 类是被定义在 <code>feature</code> 模块中，而且 <code>core</code> 模块不能去访问它们。这是我碰到障碍的地方，经过一番思考后，你做了一件最棒的事，寻求 <a href="https://github.com/yigit" target="_blank" rel="noopener">Yigit</a> 的帮助。</p>
+<p>Yigit 阐明了观点，你必须要在每个 <code>feature</code>模块中都创建一个新的 db 文件，然后每个模块一个数据库。</p>
+<p>这有几个好处：</p>
+<ul>
+<li><a href="https://medium.com/google-developers/understanding-migrations-with-room-f01e04b07929" target="_blank" rel="noopener">迁移</a>是模块化的</li>
+<li>即时 app 仅包含它们需要的表</li>
+<li>查询会更快</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>跨模块数据关系将不可能</li>
+</ul>
+<p><em>注意：为了 Room 的注解能够工作，不要忘记在你的 <code>feature</code> 模块中增加下面依赖</em></p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kapt <span class="string">"android.arch.persistence.room:compiler:$&#123;versions.room&#125;"</span></span><br></pre></td></tr></table></figure>
+<h2 id="怎么使用-Dagger-2-？"><a href="#怎么使用-Dagger-2-？" class="headerlink" title="怎么使用 Dagger 2 ？"></a>怎么使用 Dagger 2 ？</h2><p>同样的问题 Dagger 也遇到了。我的 core 模块中的 application 类不能访问和初始化我 <code>feature</code> 模块中的组件。这是从属组件完美的用例。</p>
+<p>你的 core 组件定义了它想要暴露给依赖组件的依赖关系</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Singleton</span></span><br><span class="line"><span class="meta">@Component(modules = [AppModule::class, NetworkModule::class, StorageModule::class, ImageModule::class])</span></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">CoreComponent</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">context</span><span class="params">()</span></span>: Context</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">retrofit</span><span class="params">()</span></span>: Retrofit</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">picasso</span><span class="params">()</span></span>: Picasso</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">sharedPreferences</span><span class="params">()</span></span>: SharedPreferences</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">scheduler</span><span class="params">()</span></span>: Scheduler</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>您的模块组件将 <code>CoreComponent</code> 定义为依赖项，并使用传递的依赖</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ListScope</span></span><br><span class="line"><span class="meta">@Component(dependencies = [CoreComponent::class], modules = [ListModule::class])</span></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">ListComponent</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">inject</span><span class="params">(listActivity: <span class="type">ListActivity</span>)</span></span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Module</span></span><br><span class="line"><span class="meta">@ListScope</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ListModule</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*Uses parent's provided dependencies like Picasso, Context and Retrofit*/</span></span><br><span class="line">    <span class="meta">@Provides</span></span><br><span class="line">    <span class="meta">@ListScope</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">adapter</span><span class="params">(picasso: <span class="type">Picasso</span>)</span></span>: ListAdapter = ListAdapter(picasso)</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Provides</span></span><br><span class="line">    <span class="meta">@ListScope</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">postDb</span><span class="params">(context: <span class="type">Context</span>)</span></span>: PostDb = Room.databaseBuilder(context, PostDb::<span class="class"><span class="keyword">class</span>.<span class="title">java</span>, <span class="type">Constants.Posts.DB_NAME).build</span></span>()</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Provides</span></span><br><span class="line">    <span class="meta">@ListScope</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">postService</span><span class="params">(retrofit: <span class="type">Retrofit</span>)</span></span>: PostService = retrofit.create(PostService::<span class="class"><span class="keyword">class</span>.<span class="title">java</span>)</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="在哪里初始化我的-components-？"><a href="#在哪里初始化我的-components-？" class="headerlink" title="在哪里初始化我的 components ？"></a>在哪里初始化我的 components ？</h2><p>我为我的功能的所有组件创建了一个单例 holder。这个 holder 用于创建，维护和销毁我的 component 实例。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Singleton</span></span><br><span class="line"><span class="keyword">object</span> PostDH &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> listComponent: ListComponent? = <span class="literal">null</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">listComponent</span><span class="params">()</span></span>: ListComponent &#123;</span><br><span class="line">        <span class="keyword">if</span> (listComponent == <span class="literal">null</span>)</span><br><span class="line">            listComponent = DaggerListComponent.builder().coreComponent(CoreApp.coreComponent).build()</span><br><span class="line">        <span class="keyword">return</span> listComponent <span class="keyword">as</span> ListComponent</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">destroyListComponent</span><span class="params">()</span></span> &#123;</span><br><span class="line">        listComponent = <span class="literal">null</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>注意：为了 Dagger 的注解能够工作，不要忘记在你的 <code>feature</code> 模块中增加下面依赖</em></p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kapt <span class="string">"com.google.dagger:dagger-compiler:$&#123;versions.dagger&#125;"</span></span><br></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>尽管把你的单独的 application 转成模块化有一些棘手，其中一些我试图通过上面的方法来解决，优点是深刻的。如果您在模块中遇到任何障碍，请随时在下面提及它们，我们可以一起讨论解决方案。</p>
+<p>谢谢。</p>
+
+
+                <hr>
+
+                
+                <div class="post-copyright" style="margin-top: 20px;">
+                    <strong>来源博客：</strong><a href="http://blog.wangjiegulu.com">Wang Jie's Blog</a><br/>
+                     <strong>本文链接：</strong><a href="http://blog.wangjiegulu.com/2018/02/13/writing_a_modular_project_on_android/">http://blog.wangjiegulu.com/2018/02/13/writing_a_modular_project_on_android/</a><br/>
+                     <strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处。
+                </div>
+                
+
+                <!-- Sharethis 分享 -->
+                <div class="sharethis-inline-share-buttons" style="margin-top: 18px"></div>
+
+
+                
+
+                <ul class="pager">
+                    
+                    
+                    <li class="next">
+                        <a href="/2018/02/05/Android端生成META-INF信息文件的Gradle插件 RapidMetaInfPlugin/" data-toggle="tooltip" data-placement="top"
+                           title="Android端生成META-INF信息文件的Gradle插件 RapidMetaInfPlugin">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+
+                
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+
+                <!--加入新的评论系统-->
+                
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#在Android上编写模块化项目（翻译）"><span class="toc-text">在Android上编写模块化项目（翻译）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#我该怎么分割我的-modules-？"><span class="toc-text">我该怎么分割我的 modules ？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是-core-模块-？"><span class="toc-text">什么是 core 模块 ？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#怎么使用第三方库？"><span class="toc-text">怎么使用第三方库？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#怎么使用-Room-？"><span class="toc-text">怎么使用 Room ？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#怎么使用-Dagger-2-？"><span class="toc-text">怎么使用 Dagger 2 ？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在哪里初始化我的-components-？"><span class="toc-text">在哪里初始化我的 components ？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li></ol></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#android"
+                           title="android">android</a>
+                        
+                        <a class="tag" href="/tags/#framework"
+                           title="framework">framework</a>
+                        
+                        <a class="tag" href="/tags/#翻译"
+                           title="翻译">翻译</a>
+                        
+                        <a class="tag" href="/tags/#dagger2"
+                           title="dagger2">dagger2</a>
+                        
+                        <a class="tag" href="/tags/#kotlin"
+                           title="kotlin">kotlin</a>
+                        
+                        <a class="tag" href="/tags/#architecture"
+                           title="architecture">architecture</a>
+                        
+                        <a class="tag" href="/tags/#modular"
+                           title="modular">modular</a>
+                        
+                        <a class="tag" href="/tags/#room"
+                           title="room">room</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="http://www.cnblogs.com/tiantianbyconan/">cnblog</a></li>
+                        
+                        <li><a href="http://h.wangjiegulu.com">Huginn</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "blog-wangjiegulu-com";
+    var disqus_identifier = "http://blog.wangjiegulu.com/2018/02/13/writing_a_modular_project_on_android/";
+    var disqus_url = "http://blog.wangjiegulu.com/2018/02/13/writing_a_modular_project_on_android/";
+
+    (function () {
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/wangjiegulu">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://instagram.com/wangjiegulu">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://plus.google.com/+%E5%A4%A9%E5%A4%A9wangjie">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-google fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/wangjiegulu">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://stackoverflow.com/users/2124006/wangjie">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/wangjiegulu">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/tiantianbyconan">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Wang Jie 2018
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv">
+                    <br>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://blog.wangjiegulu.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-111189680-2';
+    var _gaDomain = 'blog.wangjiegulu.com';
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','MeGy6NW2x6vGFz7Hy7SW','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://avatars3.githubusercontent.com/u/5423194?s=460&amp;v=4">
+</body>
+
+</html>

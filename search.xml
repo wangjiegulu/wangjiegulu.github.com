@@ -3,6 +3,100 @@
   
     
     <entry>
+      <title><![CDATA[在Android上编写模块化项目（翻译）]]></title>
+      <url>/2018/02/13/writing_a_modular_project_on_android/</url>
+      <content type="html"><![CDATA[<blockquote>
+<p>原文：<a href="https://medium.com/mindorks/writing-a-modular-project-on-android-304f3b09cb37" target="_blank" rel="noopener">https://medium.com/mindorks/writing-a-modular-project-on-android-304f3b09cb37</a></p>
+</blockquote>
+<h1 id="在Android上编写模块化项目（翻译）"><a href="#在Android上编写模块化项目（翻译）" class="headerlink" title="在Android上编写模块化项目（翻译）"></a>在Android上编写模块化项目（翻译）</h1><p>当我们在 Android Studio 上创建一个新的项目时，自带一个 <code>app</code> module。这时我们大多数人编写整个应用的地方。每次点击 <code>run</code> 按钮都会触发我们整个所有 module 上的 gradle 构建，并检查所有文件是否有变化。这就是为什么 gradle 构建会在更大的应用程序上花费 <a href="https://eng.uber.com/android-monorepo/" target="_blank" rel="noopener">10分钟</a>的时间，并且减慢开发者的<a href="https://imgs.xkcd.com/comics/compiling.png" target="_blank" rel="noopener">输出</a>。</p>
+<p>要解决这个问题，复杂的应用程序，如 Uber 决定对它们的应用程序进行模块化并从中<a href="https://www.youtube.com/watch?v=j6CiHlapado" target="_blank" rel="noopener">获得</a>了很多。下面是试用模块化项目的一些优势：</p>
+<a id="more"></a>
+<ul>
+<li><a href="https://proandroiddev.com/modular-architecture-for-faster-build-time-d58397cb7bfe" target="_blank" rel="noopener">更快</a>的 gradle 构建</li>
+<li>跨应用/模块复用通用的功能</li>
+<li>易于插拔到<a href="https://developer.android.com/topic/instant-apps/overview.html#features" target="_blank" rel="noopener">Instant apps</a></li>
+<li>更好的团队工作，一个人可以单独负责一个模块</li>
+<li>更流畅地git flows</li>
+</ul>
+<p>由于上述优势，当我刚开始<a href="https://github.com/karntrehan/Posts/" target="_blank" rel="noopener">Posts</a>这个应用时，我就在始终坚持使用模块化方法。对此，Android 团队已经给我们提供了一些<a href="https://developer.android.com/google/play/publishing/multiple-apks.html#CreatingApks" target="_blank" rel="noopener">工具</a>，但是我确实遇到了一些障碍，一下是我学习到的内容：</p>
+<h2 id="我该怎么分割我的-modules-？"><a href="#我该怎么分割我的-modules-？" class="headerlink" title="我该怎么分割我的 modules ？"></a>我该怎么分割我的 modules ？</h2><p>你的应用程序是流程集构成的，比如，Google Play 有<strong>应用详情</strong>流，它包含了简要，描述详情，应用截图，评论活动等。</p>
+<p><img src="https://user-images.githubusercontent.com/5423194/36140651-ed8f0d6c-10dc-11e8-9733-e306fd72f9d0.jpeg" alt=""></p>
+<p>所有这些都可以归为同一模块 —— <code>app-details</code>。</p>
+<p>你的应用会包含多个类似流程的模块，有 <code>authentication</code>, <code>settings</code>, <code>on-boarding</code>等等。当然还有一些不需要UI元素呈现的模块如 —— <code>notifications</code>, <code>analytics</code>, <code>first-fetch</code>等等。这些模块包含与流程有关的 activities, repositories, entities和依赖注入相关东西。</p>
+<div style="text-align: center;"><br><img src="https://user-images.githubusercontent.com/5423194/36140945-09253f5a-10de-11e8-8ded-003e53fd78b6.png"><br></div>
+
+<p>但是这些模块中总是有一些共同的功能和工具。这就是为什么你需要一个 core 模块。</p>
+<h2 id="什么是-core-模块-？"><a href="#什么是-core-模块-？" class="headerlink" title="什么是 core 模块 ？"></a>什么是 core 模块 ？</h2><p><code>Core</code> 模块是一个你项目中简单的 module 库。core 库可以（除其它外），</p>
+<ul>
+<li>给你的依赖注入框架提供全局依赖，如 <a href="https://github.com/karntrehan/Posts/blob/master/core/src/main/java/com/karntrehan/posts/core/di/NetworkModule.kt" target="_blank" rel="noopener">Retrofit</a>, <a href="https://github.com/karntrehan/Posts/blob/master/core/src/main/java/com/karntrehan/posts/core/di/StorageModule.kt" target="_blank" rel="noopener">SharedPreferences</a>等等。</li>
+<li>包含工具类和<a href="https://github.com/karntrehan/Posts/tree/master/core/src/main/java/com/karntrehan/posts/core/extensions" target="_blank" rel="noopener">扩展方法</a></li>
+<li>包含<a href="https://github.com/karntrehan/Posts/blob/master/core/src/main/java/com/karntrehan/posts/core/networking/Outcome.kt" target="_blank" rel="noopener">全局类</a>和回调</li>
+<li>在 application 类中的<a href="https://github.com/karntrehan/Posts/blob/master/core/src/main/java/com/karntrehan/posts/core/application/CoreApp.kt" target="_blank" rel="noopener">初始化库</a>，如 Firebase Analytics，Crashlytics，LeakCanary，Stetho等等</li>
+</ul>
+<h2 id="怎么使用第三方库？"><a href="#怎么使用第三方库？" class="headerlink" title="怎么使用第三方库？"></a>怎么使用第三方库？</h2><p>核心(<code>core</code>)模块的其中一个职责是为你的功能(<code>feature</code>)模块提供外部依赖。这使得很容易实现在你的 <code>feature</code> 模块中共享相同版本的库。只需要在你的 <code>core</code> 模块的 dependencies 中使用 <code>api</code>，这样你就能在所有 <code>feature</code> 模块中使用它们。</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">    api fileTree(<span class="string">include:</span> [<span class="string">'*.jar'</span>], <span class="string">dir:</span> <span class="string">'libs'</span>)</span><br><span class="line">    api deps.support.appCompat</span><br><span class="line">    api deps.support.recyclerView</span><br><span class="line">    api deps.support.cardView</span><br><span class="line">    api deps.support.support</span><br><span class="line">    api deps.support.designSupport</span><br><span class="line"></span><br><span class="line">    api deps.android.lifecycleExt</span><br><span class="line">    api deps.android.lifecycleCommon</span><br><span class="line">    api deps.android.roomRuntime</span><br><span class="line">    api deps.android.roomRx</span><br><span class="line"></span><br><span class="line">    api deps.kotlin.stdlib</span><br><span class="line"></span><br><span class="line">    api deps.reactivex.rxJava</span><br><span class="line">    api deps.reactivex.rxAndroid</span><br><span class="line"></span><br><span class="line">    api deps.google.dagger</span><br><span class="line">    kapt deps.google.daggerProcessor</span><br><span class="line"></span><br><span class="line">    api deps.square.picasso</span><br><span class="line">    api deps.square.okhttpDownloader</span><br><span class="line"></span><br><span class="line">    api deps.square.retrofit</span><br><span class="line">    api deps.square.okhttp</span><br><span class="line">    api deps.square.gsonConverter</span><br><span class="line">    api deps.square.retrofitRxAdapter</span><br><span class="line"></span><br><span class="line">    implementation deps.facebook.stetho</span><br><span class="line">    implementation deps.facebook.networkInterceptor</span><br><span class="line"></span><br><span class="line">    testApi deps.test.junit</span><br><span class="line">    androidTestApi deps.test.testRunner</span><br><span class="line">    androidTestApi deps.test.espressoCore</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>有种依赖的可能性是只有对 <code>feature-a</code> 模块有用，但是在 <code>feature-b</code> 中无用。对于这种情况，我推荐在你的 core 的依赖中使用 <code>api</code>，因为 proguard 注意到而不会包含在 <code>feature-b</code> instant app 中。</p>
+<h2 id="怎么使用-Room-？"><a href="#怎么使用-Room-？" class="headerlink" title="怎么使用 Room ？"></a>怎么使用 Room ？</h2><p>这个困扰我挺久的时间。我们希望把我们的数据库定义到 <code>core</code> 模块中，因为它是我们应用程序要共享的通用的功能。为了让 Room 工作，你需要一个包含了所有 entity 类的数据库文件。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Database(entities = [Post::class, User::class, Comment::class], version = 1,exportSchema = false)</span></span><br><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">PostDb</span> : <span class="type">RoomDatabase</span></span>() &#123;</span><br><span class="line">    <span class="keyword">abstract</span> <span class="function"><span class="keyword">fun</span> <span class="title">postDao</span><span class="params">()</span></span>: PostDao</span><br><span class="line">    <span class="keyword">abstract</span> <span class="function"><span class="keyword">fun</span> <span class="title">userDao</span><span class="params">()</span></span>: UserDao</span><br><span class="line">    <span class="keyword">abstract</span> <span class="function"><span class="keyword">fun</span> <span class="title">commentDao</span><span class="params">()</span></span>: CommentDao</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但是，如上面提到的，我们的 entity 类是被定义在 <code>feature</code> 模块中，而且 <code>core</code> 模块不能去访问它们。这是我碰到障碍的地方，经过一番思考后，你做了一件最棒的事，寻求 <a href="https://github.com/yigit" target="_blank" rel="noopener">Yigit</a> 的帮助。</p>
+<p>Yigit 阐明了观点，你必须要在每个 <code>feature</code>模块中都创建一个新的 db 文件，然后每个模块一个数据库。</p>
+<p>这有几个好处：</p>
+<ul>
+<li><a href="https://medium.com/google-developers/understanding-migrations-with-room-f01e04b07929" target="_blank" rel="noopener">迁移</a>是模块化的</li>
+<li>即时 app 仅包含它们需要的表</li>
+<li>查询会更快</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>跨模块数据关系将不可能</li>
+</ul>
+<p><em>注意：为了 Room 的注解能够工作，不要忘记在你的 <code>feature</code> 模块中增加下面依赖</em></p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kapt <span class="string">"android.arch.persistence.room:compiler:$&#123;versions.room&#125;"</span></span><br></pre></td></tr></table></figure>
+<h2 id="怎么使用-Dagger-2-？"><a href="#怎么使用-Dagger-2-？" class="headerlink" title="怎么使用 Dagger 2 ？"></a>怎么使用 Dagger 2 ？</h2><p>同样的问题 Dagger 也遇到了。我的 core 模块中的 application 类不能访问和初始化我 <code>feature</code> 模块中的组件。这是从属组件完美的用例。</p>
+<p>你的 core 组件定义了它想要暴露给依赖组件的依赖关系</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Singleton</span></span><br><span class="line"><span class="meta">@Component(modules = [AppModule::class, NetworkModule::class, StorageModule::class, ImageModule::class])</span></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">CoreComponent</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">context</span><span class="params">()</span></span>: Context</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">retrofit</span><span class="params">()</span></span>: Retrofit</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">picasso</span><span class="params">()</span></span>: Picasso</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">sharedPreferences</span><span class="params">()</span></span>: SharedPreferences</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">scheduler</span><span class="params">()</span></span>: Scheduler</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>您的模块组件将 <code>CoreComponent</code> 定义为依赖项，并使用传递的依赖</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ListScope</span></span><br><span class="line"><span class="meta">@Component(dependencies = [CoreComponent::class], modules = [ListModule::class])</span></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">ListComponent</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">inject</span><span class="params">(listActivity: <span class="type">ListActivity</span>)</span></span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Module</span></span><br><span class="line"><span class="meta">@ListScope</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ListModule</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*Uses parent's provided dependencies like Picasso, Context and Retrofit*/</span></span><br><span class="line">    <span class="meta">@Provides</span></span><br><span class="line">    <span class="meta">@ListScope</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">adapter</span><span class="params">(picasso: <span class="type">Picasso</span>)</span></span>: ListAdapter = ListAdapter(picasso)</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Provides</span></span><br><span class="line">    <span class="meta">@ListScope</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">postDb</span><span class="params">(context: <span class="type">Context</span>)</span></span>: PostDb = Room.databaseBuilder(context, PostDb::<span class="class"><span class="keyword">class</span>.<span class="title">java</span>, <span class="type">Constants.Posts.DB_NAME).build</span></span>()</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Provides</span></span><br><span class="line">    <span class="meta">@ListScope</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">postService</span><span class="params">(retrofit: <span class="type">Retrofit</span>)</span></span>: PostService = retrofit.create(PostService::<span class="class"><span class="keyword">class</span>.<span class="title">java</span>)</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="在哪里初始化我的-components-？"><a href="#在哪里初始化我的-components-？" class="headerlink" title="在哪里初始化我的 components ？"></a>在哪里初始化我的 components ？</h2><p>我为我的功能的所有组件创建了一个单例 holder。这个 holder 用于创建，维护和销毁我的 component 实例。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Singleton</span></span><br><span class="line"><span class="keyword">object</span> PostDH &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> listComponent: ListComponent? = <span class="literal">null</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">listComponent</span><span class="params">()</span></span>: ListComponent &#123;</span><br><span class="line">        <span class="keyword">if</span> (listComponent == <span class="literal">null</span>)</span><br><span class="line">            listComponent = DaggerListComponent.builder().coreComponent(CoreApp.coreComponent).build()</span><br><span class="line">        <span class="keyword">return</span> listComponent <span class="keyword">as</span> ListComponent</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">destroyListComponent</span><span class="params">()</span></span> &#123;</span><br><span class="line">        listComponent = <span class="literal">null</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>注意：为了 Dagger 的注解能够工作，不要忘记在你的 <code>feature</code> 模块中增加下面依赖</em></p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kapt <span class="string">"com.google.dagger:dagger-compiler:$&#123;versions.dagger&#125;"</span></span><br></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>尽管把你的单独的 application 转成模块化有一些棘手，其中一些我试图通过上面的方法来解决，优点是深刻的。如果您在模块中遇到任何障碍，请随时在下面提及它们，我们可以一起讨论解决方案。</p>
+<p>谢谢。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> android </category>
+            
+            <category> gradle plugin </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> android </tag>
+            
+            <tag> framework </tag>
+            
+            <tag> 翻译 </tag>
+            
+            <tag> dagger2 </tag>
+            
+            <tag> kotlin </tag>
+            
+            <tag> architecture </tag>
+            
+            <tag> modular </tag>
+            
+            <tag> room </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Android端生成META-INF信息文件的Gradle插件 RapidMetaInfPlugin]]></title>
       <url>/2018/02/05/Android%E7%AB%AF%E7%94%9F%E6%88%90META-INF%E4%BF%A1%E6%81%AF%E6%96%87%E4%BB%B6%E7%9A%84Gradle%E6%8F%92%E4%BB%B6%20RapidMetaInfPlugin/</url>
       <content type="html"><![CDATA[<h1 id="Android端生成META-INF信息文件的Gradle插件-RapidMetaInfPlugin"><a href="#Android端生成META-INF信息文件的Gradle插件-RapidMetaInfPlugin" class="headerlink" title="Android端生成META-INF信息文件的Gradle插件 RapidMetaInfPlugin"></a>Android端生成META-INF信息文件的Gradle插件 RapidMetaInfPlugin</h1><h2 id="1-需求背景"><a href="#1-需求背景" class="headerlink" title="1. 需求背景"></a>1. 需求背景</h2><p>最近新遇到了一个需求，想在自己的一些库中写入版本信息，在别人使用了我的库后，我可以通过apk文件检测出依赖了我的哪个版本的库。感觉这个需求有点多余？那就举个例子吧。</p>
@@ -1842,13 +1936,13 @@
             
             <tag> library </tag>
             
-            <tag> sqlite </tag>
-            
-            <tag> database </tag>
-            
             <tag> orm </tag>
             
             <tag> rapidorm </tag>
+            
+            <tag> database </tag>
+            
+            <tag> sqlite </tag>
             
         </tags>
         
@@ -1925,7 +2019,7 @@
 </strong></font>
 
 <h1 id="异步-layout-inflation"><a href="#异步-layout-inflation" class="headerlink" title="异步 layout inflation"></a>异步 layout inflation</h1><blockquote>
-<p>原文：<a href="&#109;&#97;&#x69;&#108;&#x74;&#111;&#58;&#x68;&#x74;&#116;&#112;&#x73;&#x3a;&#47;&#47;&#x6d;&#101;&#100;&#105;&#117;&#x6d;&#x2e;&#x63;&#x6f;&#109;&#x2f;&#x40;&#x6c;&#117;&#x70;&#97;&#x6a;&#122;&#47;&#x61;&#x73;&#121;&#110;&#x63;&#x68;&#x72;&#x6f;&#110;&#111;&#x75;&#115;&#45;&#108;&#97;&#121;&#111;&#x75;&#x74;&#45;&#105;&#x6e;&#x66;&#108;&#97;&#x74;&#105;&#111;&#110;&#45;&#x37;&#x63;&#98;&#99;&#97;&#x32;&#x36;&#x35;&#51;&#x62;&#x66;&#35;&#x2e;&#113;&#x32;&#50;&#118;&#x70;&#101;&#122;&#x67;&#52;">&#x68;&#x74;&#116;&#112;&#x73;&#x3a;&#47;&#47;&#x6d;&#101;&#100;&#105;&#117;&#x6d;&#x2e;&#x63;&#x6f;&#109;&#x2f;&#x40;&#x6c;&#117;&#x70;&#97;&#x6a;&#122;&#47;&#x61;&#x73;&#121;&#110;&#x63;&#x68;&#x72;&#x6f;&#110;&#111;&#x75;&#115;&#45;&#108;&#97;&#121;&#111;&#x75;&#x74;&#45;&#105;&#x6e;&#x66;&#108;&#97;&#x74;&#105;&#111;&#110;&#45;&#x37;&#x63;&#98;&#99;&#97;&#x32;&#x36;&#x35;&#51;&#x62;&#x66;&#35;&#x2e;&#113;&#x32;&#50;&#118;&#x70;&#101;&#122;&#x67;&#52;</a></p>
+<p>原文：<a href="&#109;&#97;&#105;&#x6c;&#x74;&#111;&#58;&#104;&#x74;&#x74;&#x70;&#115;&#58;&#47;&#x2f;&#109;&#x65;&#100;&#x69;&#117;&#x6d;&#46;&#99;&#x6f;&#109;&#47;&#64;&#x6c;&#x75;&#112;&#x61;&#106;&#122;&#47;&#97;&#x73;&#121;&#x6e;&#x63;&#104;&#114;&#111;&#110;&#x6f;&#x75;&#115;&#45;&#108;&#97;&#121;&#111;&#x75;&#x74;&#x2d;&#105;&#110;&#x66;&#108;&#97;&#x74;&#105;&#x6f;&#110;&#45;&#55;&#x63;&#x62;&#99;&#x61;&#x32;&#54;&#53;&#x33;&#98;&#x66;&#x23;&#46;&#x71;&#x32;&#50;&#x76;&#x70;&#101;&#x7a;&#x67;&#x34;">&#104;&#x74;&#x74;&#x70;&#115;&#58;&#47;&#x2f;&#109;&#x65;&#100;&#x69;&#117;&#x6d;&#46;&#99;&#x6f;&#109;&#47;&#64;&#x6c;&#x75;&#112;&#x61;&#106;&#122;&#47;&#97;&#x73;&#121;&#x6e;&#x63;&#104;&#114;&#111;&#110;&#x6f;&#x75;&#115;&#45;&#108;&#97;&#121;&#111;&#x75;&#x74;&#x2d;&#105;&#110;&#x66;&#108;&#97;&#x74;&#105;&#x6f;&#110;&#45;&#55;&#x63;&#x62;&#99;&#x61;&#x32;&#54;&#53;&#x33;&#98;&#x66;&#x23;&#46;&#x71;&#x32;&#50;&#x76;&#x70;&#101;&#x7a;&#x67;&#x34;</a></p>
 </blockquote>
 <p>随着最近发布的<a href="https://developer.android.com/topic/libraries/support-library/revisions.html" target="_blank" rel="noopener">Android Support Library, revision 24</a>，Google开发者在v4包中增加了一个用来异步inflate layouts的帮助类。</p>
 <h2 id="进入-AsyncLayoutInflater"><a href="#进入-AsyncLayoutInflater" class="headerlink" title="进入 AsyncLayoutInflater"></a>进入 AsyncLayoutInflater</h2><p>你会发现AsyncLayoutInflater可以使用在当你想要去懒加载你应用中部分UI或者用户行为的响应。这个帮助类将会允许你的UI线程在执行繁重的inflate时继续保持响应。</p>
@@ -3147,13 +3241,13 @@ Cookie: ... ...
             
             <tag> library </tag>
             
-            <tag> sqlite </tag>
-            
-            <tag> database </tag>
-            
             <tag> orm </tag>
             
             <tag> rapidorm </tag>
+            
+            <tag> database </tag>
+            
+            <tag> sqlite </tag>
             
         </tags>
         
@@ -4188,9 +4282,9 @@ Cookie: ... ...
             
             <tag> 翻译 </tag>
             
-            <tag> testing </tag>
-            
             <tag> monkey </tag>
+            
+            <tag> testing </tag>
             
             <tag> MonkeyRunner </tag>
             
@@ -4365,9 +4459,9 @@ Cookie: ... ...
             
             <tag> 翻译 </tag>
             
-            <tag> testing </tag>
-            
             <tag> monkey </tag>
+            
+            <tag> testing </tag>
             
             <tag> adb </tag>
             
@@ -5835,13 +5929,13 @@ for (name in names) {
             
             <tag> library </tag>
             
-            <tag> sqlite </tag>
-            
-            <tag> database </tag>
-            
             <tag> orm </tag>
             
             <tag> rapidorm </tag>
+            
+            <tag> database </tag>
+            
+            <tag> sqlite </tag>
             
         </tags>
         
@@ -6003,11 +6097,11 @@ for (name in names) {
             
             <tag> android </tag>
             
-            <tag> view </tag>
-            
             <tag> FloatingActionButton </tag>
             
             <tag> FAB </tag>
+            
+            <tag> view </tag>
             
         </tags>
         
@@ -6528,9 +6622,9 @@ for (name in names) {
             
             <tag> android </tag>
             
-            <tag> DaggerableFlagView </tag>
-            
             <tag> view </tag>
+            
+            <tag> DaggerableFlagView </tag>
             
             <tag> qq </tag>
             
@@ -7790,15 +7884,15 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> library </tag>
             
-            <tag> inject </tag>
-            
-            <tag> sqlite </tag>
-            
-            <tag> sqlite3 </tag>
+            <tag> orm </tag>
             
             <tag> database </tag>
             
-            <tag> orm </tag>
+            <tag> sqlite </tag>
+            
+            <tag> inject </tag>
+            
+            <tag> sqlite3 </tag>
             
         </tags>
         
