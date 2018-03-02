@@ -6,7 +6,7 @@
   <link href="/feed.xml" rel="self"/>
   
   <link href="http://blog.wangjiegulu.com/"/>
-  <updated>2018-02-13T09:45:46.000Z</updated>
+  <updated>2018-03-02T15:40:44.000Z</updated>
   <id>http://blog.wangjiegulu.com/</id>
   
   <author>
@@ -15,6 +15,50 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>编写第一个Flutter App</title>
+    <link href="http://blog.wangjiegulu.com/2018/03/01/write_your_first_flutter_app/"/>
+    <id>http://blog.wangjiegulu.com/2018/03/01/write_your_first_flutter_app/</id>
+    <published>2018-03-01T12:05:58.000Z</published>
+    <updated>2018-03-02T15:40:44.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&lt;strong&gt;以下代码 Github 地址：&lt;a href=&quot;https://github.com/wangjiegulu/flutter_test_01&quot; target=&quot;_blank&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="flutter" scheme="http://blog.wangjiegulu.com/categories/flutter/"/>
+    
+      <category term="dart" scheme="http://blog.wangjiegulu.com/categories/flutter/dart/"/>
+    
+    
+      <category term="android" scheme="http://blog.wangjiegulu.com/tags/android/"/>
+    
+      <category term="翻译" scheme="http://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
+    
+      <category term="flutter" scheme="http://blog.wangjiegulu.com/tags/flutter/"/>
+    
+      <category term="ios" scheme="http://blog.wangjiegulu.com/tags/ios/"/>
+    
+      <category term="dart" scheme="http://blog.wangjiegulu.com/tags/dart/"/>
+    
+      <category term="widget" scheme="http://blog.wangjiegulu.com/tags/widget/"/>
+    
+      <category term="fuchsia" scheme="http://blog.wangjiegulu.com/tags/fuchsia/"/>
+    
+      <category term="Google" scheme="http://blog.wangjiegulu.com/tags/Google/"/>
+    
+      <category term="codelab" scheme="http://blog.wangjiegulu.com/tags/codelab/"/>
+    
+  </entry>
   
   <entry>
     <title>在Android上编写模块化项目（翻译）</title>
@@ -40,9 +84,9 @@
     
       <category term="android" scheme="http://blog.wangjiegulu.com/tags/android/"/>
     
-      <category term="framework" scheme="http://blog.wangjiegulu.com/tags/framework/"/>
-    
       <category term="翻译" scheme="http://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
+    
+      <category term="framework" scheme="http://blog.wangjiegulu.com/tags/framework/"/>
     
       <category term="dagger2" scheme="http://blog.wangjiegulu.com/tags/dagger2/"/>
     
@@ -371,9 +415,9 @@
     
       <category term="android" scheme="http://blog.wangjiegulu.com/tags/android/"/>
     
-      <category term="dependency injection" scheme="http://blog.wangjiegulu.com/tags/dependency-injection/"/>
-    
       <category term="翻译" scheme="http://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
+    
+      <category term="dependency injection" scheme="http://blog.wangjiegulu.com/tags/dependency-injection/"/>
     
       <category term="dagger2" scheme="http://blog.wangjiegulu.com/tags/dagger2/"/>
     
@@ -405,9 +449,9 @@
     
       <category term="android" scheme="http://blog.wangjiegulu.com/tags/android/"/>
     
-      <category term="dependency injection" scheme="http://blog.wangjiegulu.com/tags/dependency-injection/"/>
-    
       <category term="翻译" scheme="http://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
+    
+      <category term="dependency injection" scheme="http://blog.wangjiegulu.com/tags/dependency-injection/"/>
     
       <category term="dagger2" scheme="http://blog.wangjiegulu.com/tags/dagger2/"/>
     
@@ -439,9 +483,9 @@
     
       <category term="android" scheme="http://blog.wangjiegulu.com/tags/android/"/>
     
-      <category term="dependency injection" scheme="http://blog.wangjiegulu.com/tags/dependency-injection/"/>
-    
       <category term="翻译" scheme="http://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
+    
+      <category term="dependency injection" scheme="http://blog.wangjiegulu.com/tags/dependency-injection/"/>
     
       <category term="dagger2" scheme="http://blog.wangjiegulu.com/tags/dagger2/"/>
     
@@ -477,9 +521,9 @@
     
       <category term="android" scheme="http://blog.wangjiegulu.com/tags/android/"/>
     
-      <category term="dependency injection" scheme="http://blog.wangjiegulu.com/tags/dependency-injection/"/>
-    
       <category term="翻译" scheme="http://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
+    
+      <category term="dependency injection" scheme="http://blog.wangjiegulu.com/tags/dependency-injection/"/>
     
       <category term="dagger2" scheme="http://blog.wangjiegulu.com/tags/dagger2/"/>
     
@@ -513,13 +557,13 @@
     
       <category term="library" scheme="http://blog.wangjiegulu.com/tags/library/"/>
     
-      <category term="orm" scheme="http://blog.wangjiegulu.com/tags/orm/"/>
-    
-      <category term="rapidorm" scheme="http://blog.wangjiegulu.com/tags/rapidorm/"/>
+      <category term="sqlite" scheme="http://blog.wangjiegulu.com/tags/sqlite/"/>
     
       <category term="database" scheme="http://blog.wangjiegulu.com/tags/database/"/>
     
-      <category term="sqlite" scheme="http://blog.wangjiegulu.com/tags/sqlite/"/>
+      <category term="orm" scheme="http://blog.wangjiegulu.com/tags/orm/"/>
+    
+      <category term="rapidorm" scheme="http://blog.wangjiegulu.com/tags/rapidorm/"/>
     
   </entry>
   
@@ -608,28 +652,6 @@
     
     
       <category term="http" scheme="http://blog.wangjiegulu.com/tags/http/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>网络基础</title>
-    <link href="http://blog.wangjiegulu.com/2016/08/29/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/"/>
-    <id>http://blog.wangjiegulu.com/2016/08/29/网络基础/</id>
-    <published>2016-08-29T06:10:00.000Z</published>
-    <updated>2018-01-29T12:36:41.000Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;div id=&quot;editor-reader-full&quot; class=&quot;editor-reader-full-shown&quot;&gt;&lt;br&gt;&lt;div class=&quot;reader-full-topInfo-shown&quot;&gt;&lt;span style=&quot;font-size: 14px;
-        
-      
-    
-    </summary>
-    
     
   </entry>
   

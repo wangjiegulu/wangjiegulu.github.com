@@ -3,6 +3,311 @@
   
     
     <entry>
+      <title><![CDATA[编写第一个Flutter App]]></title>
+      <url>/2018/03/01/write_your_first_flutter_app/</url>
+      <content type="html"><![CDATA[<p><strong>以下代码 Github 地址：<a href="https://github.com/wangjiegulu/flutter_test_01" target="_blank" rel="noopener">https://github.com/wangjiegulu/flutter_test_01</a></strong></p>
+<h1 id="编写你的第一个Flutter-App"><a href="#编写你的第一个Flutter-App" class="headerlink" title="编写你的第一个Flutter App"></a>编写你的第一个Flutter App</h1><blockquote>
+<p>原文：<a href="https://flutter.io/get-started/codelab/" target="_blank" rel="noopener">https://flutter.io/get-started/codelab/</a></p>
+</blockquote>
+<p>这个你创建第一个Flutter app的指南。如果你熟悉面向对象的代码，基本的编程概念，比如变量，循环，和条件，你就可以完成本教程。你不需要之前有Dart或者手机的编程经验。</p>
+<ul>
+<li><a href="#step-1-create-the-starting-flutter-app">第1步：创建启动 Flutter app</a></li>
+<li><a href="#step-2-use-an-external-package">第2步：使用外部包</a></li>
+<li><a href="#step-3-add-a-stateful-widget">第3步：增加一个 Stateful widget</a></li>
+<li><a href="#step-4-create-an-infinite-scrolling-listview">第4步：创建一个无限滚动的 ListView</a></li>
+<li><a href="#step-5-add-interactivity">第5步：增加交互</a></li>
+<li><a href="#step-6-navigate-to-a-new-screen">第6步：导航到一个新的页面</a></li>
+<li><a href="#step-7-change-the-ui-using-themes">第7步：使用 Theme 来改变 UI</a></li>
+<li><a href="#well-done">干得不错！</a></li>
+</ul>
+<p><strong>你将构建什么</strong></p>
+<p>你将要实现一个简单的手机 app，为一个初创公司去生成一些推荐的名字。用户可以选择和取消选择这些名字，并保存最好的一些名字。代码一次生成10个名字。当用户滚动时，新的一批名字就会被生成。用户可以点击 app bar 右上角的按钮进入一个新的页面来仅展示被喜欢的名字。</p>
+<p>Gif 动图展示了 app 完成之后的运行效果。</p>
+<div style="text-align: center;"><br><img src="https://flutter.io/get-started/codelab/images/startup-namer-app.gif"><br></div>
+
+<p><strong>你将学到什么</strong></p>
+<ul>
+<li>Flutter app 的基础结构。</li>
+<li>查询和使用包来扩展特性。</li>
+<li>使用热重载来实现快速的开发周期。</li>
+<li>怎么去实现一个 stateful widget 。</li>
+<li>怎么去创建一个无限，懒加载的列表。</li>
+<li>怎么去创建和导航到第二个页面。</li>
+<li>怎么去使用 Theme 来改变 app 的外观。</li>
+</ul>
+<p><strong>你将使用什么</strong></p>
+<ul>
+<li>Flutter SDK：Flutter SDK 包括 Flutter 的引擎，framework， widget ，工具和 Dart SDK。这个 codelab 需要 v0.1.4 或者更新。</li>
+<li>Android Studio IDE：这个 codelab 具备 Android Studio IDE，但是你也可以使用其它的 IDE，或者使用命令行工作。</li>
+<li>你的 IDE 插件：你的 IDE 上面必须分别安装 Flutter 和 Dart 插件。除了 Android Studio，Flutter 和 Dart 插件在 <a href="https://code.visualstudio.com/download" target="_blank" rel="noopener">VS Code</a> 和 <a href="https://www.jetbrains.com/idea/download/#section=mac" target="_blank" rel="noopener">IntelliJ</a> IDE。</li>
+</ul>
+<p>关于怎么搭建你的环境，可以在 <a href="https://flutter.io/get-started/install/" target="_blank" rel="noopener"></a> 查看更多信息。</p>
+<p><span id="step-1-create-the-starting-flutter-app"></span></p>
+<h2 id="第1步：创建启动-Flutter-app"><a href="#第1步：创建启动-Flutter-app" class="headerlink" title="第1步：创建启动 Flutter app"></a>第1步：创建启动 Flutter app</h2><p>根据 <a href="https://flutter.io/get-started/test-drive/#create-app" target="_blank" rel="noopener">开始你的第一个 Flutter app</a> 的介绍，创建一个简单，模版的 Flutter app。给项目取名为 <strong>startup_namer</strong> (替换掉 <em>myapp</em>)。您将修改这个 app 来创建完成的 app。</p>
+<p>在这个 codelab 中，你主要编辑 dart 代码存放处的 <strong>lib/main.dart</strong>。</p>
+<blockquote>
+<p><strong>提示：</strong>当复制代码到你的 app 中，缩进可能会歪斜。你可以使用 Flutter 工具来自动修正它们：</p>
+<ul>
+<li>Android Studio / IntelliJ IDEA: 在 dart 代码上右键并选择 <strong>Reformat Code with dartfmt</strong>。</li>
+<li>VS Code: 右键并选择 <strong>Format Document</strong>。</li>
+<li>Ternimal: 运行 flutter format <filename>。</filename></li>
+</ul>
+</blockquote>
+<ol>
+<li><p>替换 lib/main.dart。</p>
+<p> 删除 <strong>lib/main.dart</strong> 中的所有代码。使用下面的代码进行替换，它会在屏幕的中央展示 “Hello World”。</p>
+ <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'package:flutter/material.dart'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> main() =&gt; runApp(<span class="keyword">new</span> MyApp());</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyApp</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> MaterialApp(</span><br><span class="line">      title: <span class="string">'Welcome to Flutter'</span>,</span><br><span class="line">      home: <span class="keyword">new</span> Scaffold(</span><br><span class="line">        appBar: <span class="keyword">new</span> AppBar(</span><br><span class="line">          title: <span class="keyword">new</span> Text(<span class="string">'Welcome to Flutter'</span>),</span><br><span class="line">        ),</span><br><span class="line">        body: <span class="keyword">new</span> Center(</span><br><span class="line">          child: <span class="keyword">new</span> Text(<span class="string">'Hello World'</span>),</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>运行App，你将会看到如下的屏幕</p>
+</li>
+</ol>
+<div style="text-align: center;"><br><img src="https://flutter.io/get-started/codelab/images/hello-world-screenshot.png"><br></div>
+
+<h3 id="观察"><a href="#观察" class="headerlink" title="观察"></a>观察</h3><ul>
+<li>这个例子创建了一个 Material app。<a href="https://material.io/guidelines/" target="_blank" rel="noopener">Material</a> 是手机和 web 上的标准的设计语言。Flutter 提供了丰富的 Material   widget 。</li>
+<li>main 方法制定了一个宽箭头（<code>=&gt;</code>）标志，这是一行函数或者方法的简写。</li>
+<li>App 继承了 StatelessWidget，这使得 app 本身称为了一个 widget。在 Flutter 中，几乎所有一切都是 widget，包括 alignment, padding, 和 layout。</li>
+<li>Material 库中的 Scaffold，提供了一个默认的 app bar，title，和一个 body 属性，它持有了主页面的 widget 树。widget 的子树可能相当复杂。</li>
+<li>Widget 的主要的工作是提供一个 <code>build()</code> 方法，它描述了如何根据其他较低级别的 widget 显示 widget。</li>
+<li>这个例子中的 widget 树的构成是一个中心的 widget 包含了一个文本的子 child widget。中心 widget 将它的 widget 子树对齐到屏幕的中心。</li>
+</ul>
+<hr>
+<p><span id="step-2-use-an-external-package"></span></p>
+<h2 id="第2步：使用外部包"><a href="#第2步：使用外部包" class="headerlink" title="第2步：使用外部包"></a>第2步：使用外部包</h2><p>在这一步，我将使用一个名为 <strong>english_words</strong> 的开源包，它包含了几千个最常用的英文单词和常用的工具方法。</p>
+<p>在 <a href="https://pub.dartlang.org/flutter/" target="_blank" rel="noopener">pub.dartlang.org</a>，你可以找到 <a href="https://pub.dartlang.org/packages/english_words" target="_blank" rel="noopener">english_words</a>，以及很多其它的开源包。</p>
+<ol>
+<li><p>pubspec 文件为 Flutter app 管理 assets。在 <strong>pubspec.yaml</strong>，增加 <strong>english_words</strong> (3.1.0或者更高) 到依赖列表。新增行在下面已被高亮：</p>
+ <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">dependencies:</span></span><br><span class="line"><span class="attr">flutter:</span></span><br><span class="line"><span class="attr">sdk:</span> <span class="string">flutter</span></span><br><span class="line">    </span><br><span class="line"><span class="attr">cupertino_icons:</span> <span class="string">^0.1.0</span></span><br><span class="line"><span class="attr">english_words:</span> <span class="string">^3.1.0</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在 Android Studio’s editor 视图查看 pubspec，点击右上角的 <strong>Packages get</strong>。这会把包拉取到你的项目中。你会在控制台上看到以下信息：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">flutter packages get</span><br><span class="line">Running &quot;flutter packages get&quot; in startup_namer...</span><br><span class="line">Process finished with exit code 0</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在 <strong>lib/main.dart</strong>，增加一个 <code>english_words</code> 的导入，就如高亮展示的那样：</p>
+ <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'package:flutter/material.dart'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'package:english_words/english_words.dart'</span>;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<pre><code>由于你的输入，Android Studio 针对库会给你一些导入的建议。然后将导入字符串呈现为灰色，让你知道倒入的库你没有使用它（目前为止）。
+</code></pre><ol>
+<li><p>使用 English words 包生成文本，用来替换掉之前的 “Hello World” 字符串。</p>
+<blockquote>
+<p><strong>提示：</strong>“Pascal case” （也称为 “大驼峰式命名法”），表示字符串中的每个单词，包括第一个单词，首字母大写。所以，“uppercamelcase” 就变成 “UpperCamelCase”。</p>
+</blockquote>
+<p> 做以下改变，如下面高亮处：</p>
+ <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'package:flutter/material.dart'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'package:english_words/english_words.dart'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> main() =&gt; runApp(<span class="keyword">new</span> MyApp());</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyApp</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">final</span> wordPair = <span class="keyword">new</span> WordPair.random();</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> MaterialApp(</span><br><span class="line">      title: <span class="string">'Welcome to Flutter'</span>,</span><br><span class="line">      home: <span class="keyword">new</span> Scaffold(</span><br><span class="line">        appBar: <span class="keyword">new</span> AppBar(</span><br><span class="line">          title: <span class="keyword">new</span> Text(<span class="string">'Welcome to Flutter'</span>),</span><br><span class="line">        ),</span><br><span class="line">        body: <span class="keyword">new</span> Center(</span><br><span class="line">          <span class="comment">//child: new Text('Hello World'), // Replace the highlighted text...</span></span><br><span class="line">          child: <span class="keyword">new</span> Text(wordPair.asPascalCase),  <span class="comment">// With this highlighted text.</span></span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li>如果 app 正在运行中，使用热重载按钮（<img src="https://flutter.io/get-started/codelab/images/hot-reload-button.png" alt="">）来更新运行中的 app。每一次你点击了热重载，或者保存了项目，你将会看见不同的词对，它在运行的 app 中是随机的。这是因为词对在 build 方法中被生成。在每次 MaterialApp 需要渲染或者在 Flutter Inspector 中切换平台的时候。</li>
+</ol>
+<div style="text-align: center;"><br><img src="https://flutter.io/get-started/codelab/images/step2-screenshot.png"><br></div>
+
+<h3 id="问题？"><a href="#问题？" class="headerlink" title="问题？"></a>问题？</h3><p>如果你的 app 没有正确运行，排查错误。如果需要，请使用以下链接的代码来追踪。</p>
+<ul>
+<li><a href="https://gist.githubusercontent.com/Sfshaza/bb51e3b7df4ebbf3dfd02a4a38db2655/raw/57c25b976ec34d56591cb898a3df0b320e903b99/pubspec.yaml" target="_blank" rel="noopener"><strong>pubspec.yaml</strong></a> (<strong>pubspec.yaml</strong> 不会再次修改了。)</li>
+<li><a href="https://gist.githubusercontent.com/Sfshaza/bb51e3b7df4ebbf3dfd02a4a38db2655/raw/57c25b976ec34d56591cb898a3df0b320e903b99/main.dart" target="_blank" rel="noopener"><strong>lib/main.dart</strong></a></li>
+</ul>
+<hr>
+<p><span id="step-3-add-a-stateful-widget"></span></p>
+<h2 id="第3步：增加一个-Stateful-widget"><a href="#第3步：增加一个-Stateful-widget" class="headerlink" title="第3步：增加一个 Stateful widget"></a>第3步：增加一个 Stateful widget</h2><p>State<em>less</em> widget 是不可改变的，意味着它们的属性不能被修改 —— 所有值都是 final 的。</p>
+<p>State<em>ful</em> widgets 维护了状态，它可能会在 widget 的生命周期内被修改。实现一个 statful widget 需要两个类：1）一个 StatefulWidget 类，用来创建一个实例 2）一个 State 类。StatefulWidget 类本身是不可变的，但 State 类在整个 widget 的生命周期中保持不变。</p>
+<p>在这一步中，你将会增加一个 stateful widget，RandomWords，增加它的 State class，RandomWordsState。State 类中将最终维护这个 widget 中推荐喜欢的词对。</p>
+<ol>
+<li><p>增加  stateful RandomWords widget 到你的 main.dart 中。它可以被放在任何地方，甚至 MyApp 之外，但是这里的解决方案放在了文件的底部。RandomWords widget 除了创建它的 State 类没有什么特别的。</p>
+ <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RandomWords</span> <span class="keyword">extends</span> <span class="title">StatefulWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  createState() =&gt; <span class="keyword">new</span> RandomWordsState();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>增加 RandomWordsState 类。app 的大部分代码将会写在这个类中，它维护拉这个 widget 中的 state。这个类会保存生成的词对，会被用户无限滚动，用户通过列表切换中的心图标来添加或删除它们。</p>
+<p> 你将逐步编写这个类。作为开始，通过以下高亮的文本来创建一个最小的 class：</p>
+ <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RandomWordsState</span> <span class="keyword">extends</span> <span class="title">State</span>&lt;<span class="title">RandomWords</span>&gt; </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在增加了 state class 之后，IDE 警告这个类缺少一个 build 方法。然后，你将增加一个基本的 build 方法通过从 MyApp 转移生成词对的代码到 RandomWordsState 来生成词对：</p>
+ <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RandomWordsState</span> <span class="keyword">extends</span> <span class="title">State</span>&lt;<span class="title">RandomWords</span>&gt; </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">final</span> wordPair = <span class="keyword">new</span> WordPair.random();</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Text(wordPair.asPascalCase);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li><p>通过以下高亮改变，从 MyApp 中移除生成词对的代码：</p>
+ <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyApp</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">final</span> wordPair = <span class="keyword">new</span> WordPair.random();  <span class="comment">// Delete this line</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> MaterialApp(</span><br><span class="line">      title: <span class="string">'Welcome to Flutter'</span>,</span><br><span class="line">      home: <span class="keyword">new</span> Scaffold(</span><br><span class="line">        appBar: <span class="keyword">new</span> AppBar(</span><br><span class="line">          title: <span class="keyword">new</span> Text(<span class="string">'Welcome to Flutter'</span>),</span><br><span class="line">       ),</span><br><span class="line">        body: <span class="keyword">new</span> Center(</span><br><span class="line">          <span class="comment">//child: new Text(wordPair.asPascalCase), // Change the highlighted text to...</span></span><br><span class="line">          child: <span class="keyword">new</span> RandomWords(), <span class="comment">// ... this highlighted text</span></span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>重启 app，如果你尝试去热重载，你可能会看到一个警告：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Reloading...</span><br><span class="line">Not all changed program elements ran during view reassembly; consider</span><br><span class="line">restarting.</span><br></pre></td></tr></table></figure>
+<p>这可能是误报，但考虑重新启动以确保你的更改反映在 app UI 中。</p>
+<p>app 应该会跟以前一样，每次你热重载或者保存的时候展示一个词对。</p>
+<div style="text-align: center;"><br><img src="https://flutter.io/get-started/codelab/images/step3-screenshot.png"><br></div>
+
+<h3 id="问题？-1"><a href="#问题？-1" class="headerlink" title="问题？"></a>问题？</h3><p>如果你的 app 没有正确运行，排查错误。如果需要，请使用以下链接的代码来追踪。</p>
+<ul>
+<li><a href="https://gist.githubusercontent.com/Sfshaza/d7f13ddd8888556232476be8578efe40/raw/329c397b97309ce99f834bf70ebb90778baa5cfe/main.dart" target="_blank" rel="noopener">lib/main.dart</a></li>
+</ul>
+<hr>
+<p><span id="step-4-create-an-infinite-scrolling-listview"></span></p>
+<h2 id="第4步：创建一个无限滚动的-ListView"><a href="#第4步：创建一个无限滚动的-ListView" class="headerlink" title="第4步：创建一个无限滚动的 ListView"></a>第4步：创建一个无限滚动的 ListView</h2><p>在这一步，你将扩展 RandomWordsState 来生成和展示一个列表的词对。当用户滚动时，展示在 ListView widget 的列表会无限滚动。ListView 的 <code>builder</code> factory 构造方法允许你根据需要实现懒加载。</p>
+<ol>
+<li><p>在 RandomWordsState 类中增加一个 <code>_suggestions</code> list 来保存推荐的词对。注意变量以下划线（<code>_</code>）开头。在 Dart 语言中，以下划线作为前缀标志代表私有。</p>
+<p> 也增加一个 <code>biggerFont</code> 变量来使字体变大。</p>
+ <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RandomWordsState</span> <span class="keyword">extends</span> <span class="title">State</span>&lt;<span class="title">RandomWords</span>&gt; </span>&#123;</span><br><span class="line">  <span class="keyword">final</span> _suggestions = &lt;WordPair&gt;[];</span><br><span class="line"></span><br><span class="line">  <span class="keyword">final</span> _biggerFont = <span class="keyword">const</span> TextStyle(fontSize: <span class="number">18.0</span>);</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在 RandomWordsState 类中增加一个 <code>_buildSuggestions()</code> 方法。这个方法构建展示词对的 ListView。</p>
+<p> ListView 类提供了一个 builder 属性，<code>itemBuilder</code>，以匿名方法的方式指定一个工厂构造器和回调方法。两个参数会被传入到方法中 —— BuildContext，和行迭代器，<code>i</code>。迭代器从0开始，每一次方法被调用时递增，每个推荐词对配对一次。这个模型允许在用户滚动时推荐列表无限滚动。</p>
+<p> 增加以下高亮行：</p>
+ <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RandomWordsState</span> <span class="keyword">extends</span> <span class="title">State</span>&lt;<span class="title">RandomWords</span>&gt; </span>&#123;</span><br><span class="line">  ...</span><br><span class="line">  Widget _buildSuggestions() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ListView.builder(</span><br><span class="line">      padding: <span class="keyword">const</span> EdgeInsets.all(<span class="number">16.0</span>),</span><br><span class="line">      <span class="comment">// The itemBuilder callback is called, once per suggested word pairing,</span></span><br><span class="line">      <span class="comment">// and places each suggestion into a ListTile row.</span></span><br><span class="line">      <span class="comment">// For even rows, the function adds a ListTile row for the word pairing.</span></span><br><span class="line">      <span class="comment">// For odd rows, the function adds a Divider widget to visually</span></span><br><span class="line">      <span class="comment">// separate the entries. Note that the divider may be difficult</span></span><br><span class="line">      <span class="comment">// to see on smaller devices.</span></span><br><span class="line">      itemBuilder: (context, i) &#123;</span><br><span class="line">        <span class="comment">// Add a one-pixel-high divider widget before each row in theListView.</span></span><br><span class="line">        <span class="keyword">if</span> (i.isOdd) <span class="keyword">return</span> <span class="keyword">new</span> Divider();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// The syntax "i ~/ 2" divides i by 2 and returns an integer result.</span></span><br><span class="line">        <span class="comment">// For example: 1, 2, 3, 4, 5 becomes 0, 1, 1, 2, 2.</span></span><br><span class="line">        <span class="comment">// This calculates the actual number of word pairings in the ListView,</span></span><br><span class="line">        <span class="comment">// minus the divider widgets.</span></span><br><span class="line">        <span class="keyword">final</span> index = i ~/ <span class="number">2</span>;</span><br><span class="line">        <span class="comment">// If you've reached the end of the available word pairings...</span></span><br><span class="line">        <span class="keyword">if</span> (index &gt;= _suggestions.length) &#123;</span><br><span class="line">          <span class="comment">// ...then generate 10 more and add them to the suggestions list.</span></span><br><span class="line">          _suggestions.addAll(generateWordPairs().take(<span class="number">10</span>));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> _buildRow(_suggestions[index]);</span><br><span class="line">      &#125;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>_buildSuggestions</code> 方法在每个词配对时调用。这个方法在一个 ListTile 中展示一个新的配对，在下一步中它允许你在行中增加交互。</p>
+<p> 在 <code>RandomWordsState</code> 中增加一个 <code>_buildRow</code> 方法：</p>
+ <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RandomWordsState</span> <span class="keyword">extends</span> <span class="title">State</span>&lt;<span class="title">RandomWords</span>&gt; </span>&#123;</span><br><span class="line">  ...</span><br><span class="line"></span><br><span class="line">  Widget _buildRow(WordPair pair) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ListTile(</span><br><span class="line">      title: <span class="keyword">new</span> Text(</span><br><span class="line">        pair.asPascalCase,</span><br><span class="line">        style: _biggerFont,</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用 <code>_buildSuggestions()</code> 来更新 RandomWordsState 的 build 方法，而不是直接调用生成词对的库。修改以下高亮改变：</p>
+ <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RandomWordsState</span> <span class="keyword">extends</span> <span class="title">State</span>&lt;<span class="title">RandomWords</span>&gt; </span>&#123;</span><br><span class="line">  ...</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">final</span> wordPair = <span class="keyword">new</span> WordPair.random(); <span class="comment">// Delete these two lines.</span></span><br><span class="line">    Return <span class="keyword">new</span> Text(wordPair.asPascalCase);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Scaffold (</span><br><span class="line">      appBar: <span class="keyword">new</span> AppBar(</span><br><span class="line">        title: <span class="keyword">new</span> Text(<span class="string">'Startup Name Generator'</span>),</span><br><span class="line">      ),</span><br><span class="line">    body: _buildSuggestions(),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>更新 MyApp 的 build 方法。在 MyApp 中移除 Scaffold 和 AppBar 实例。这些应该由 RandomWordsState 去管理，这让在下一步中导航到另一个页面时修改 app bar 的名字更简单。</p>
+<p> 用下面高亮的 build 方法替换原生的方法：</p>
+ <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyApp</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> MaterialApp(</span><br><span class="line">      title: <span class="string">'Startup Name Generator'</span>,</span><br><span class="line">      home: <span class="keyword">new</span> RandomWords(),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>重启 app，你将看到一个词对列表。按你想要的去滚动列表，你会看到新的词对。</p>
+<div style="text-align: center;"><br><img src="https://flutter.io/get-started/codelab/images/step4-screenshot.png"><br></div>
+
+<h3 id="问题？-2"><a href="#问题？-2" class="headerlink" title="问题？"></a>问题？</h3><p>如果你的 app 没有正确运行，排查错误。如果需要，请使用以下链接的代码来追踪。</p>
+<ul>
+<li><a href="https://gist.githubusercontent.com/Sfshaza/d7f13ddd8888556232476be8578efe40/raw/329c397b97309ce99f834bf70ebb90778baa5cfe/main.dart" target="_blank" rel="noopener">lib/main.dart</a></li>
+</ul>
+<hr>
+<p><span id="step-5-add-interactivity"></span></p>
+<h2 id="第5步：增加交互"><a href="#第5步：增加交互" class="headerlink" title="第5步：增加交互"></a>第5步：增加交互</h2><p>在这一步，你将在没行增加一个可点击的心型图标。当用户点击 list 中的每行时，切换它的 “喜欢” 状态，这会触发词对在保存的集合中增加或者删除。</p>
+<ol>
+<li><p>在 RandomWordsState 中增加一个 <code>_saved</code> 集合。这个集合存储了用户喜欢了的词对。集合首选 List，因为正确的实现是 Set 不允许重复的条目。</p>
+ <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RandomWordsState</span> <span class="keyword">extends</span> <span class="title">State</span>&lt;<span class="title">RandomWords</span>&gt; </span>&#123;</span><br><span class="line">  <span class="keyword">final</span> _suggestions = &lt;WordPair&gt;[];</span><br><span class="line"></span><br><span class="line">  <span class="keyword">final</span> _saved = <span class="keyword">new</span> <span class="built_in">Set</span>&lt;WordPair&gt;();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">final</span> _biggerFont = <span class="keyword">const</span> TextStyle(fontSize: <span class="number">18.0</span>);</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在 <code>_buildRow</code> 方法中，增加一个 <code>alreadySaved</code> 检查来确保词对是否已经添加到喜欢集合中了。</p>
+ <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Widget _buildRow(WordPair pair) &#123;</span><br><span class="line">  <span class="keyword">final</span> alreadySaved = _saved.contains(pair);</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在 <code>_buildRow()</code>，增加一个心型的图标到 ListTile 来启用喜欢状态。稍后，你会在这个心型图标上增加一个交互。</p>
+<p> 增加以下高亮：</p>
+ <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Widget _buildRow(WordPair pair) &#123;</span><br><span class="line">  <span class="keyword">final</span> alreadySaved = _saved.contains(pair);</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> ListTile(</span><br><span class="line">    title: <span class="keyword">new</span> Text(</span><br><span class="line">      pair.asPascalCase,</span><br><span class="line">      style: _biggerFont,</span><br><span class="line">    ),</span><br><span class="line">    trailing: <span class="keyword">new</span> Icon(</span><br><span class="line">      alreadySaved ? Icons.favorite : Icons.favorite_border,</span><br><span class="line">      color: alreadySaved ? Colors.red : <span class="keyword">null</span>,</span><br><span class="line">    ),</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重启 app，现在你会看到每行都有心型图标，但是它们还不能交互。</p>
+</li>
+<li><p>在 <code>_buildRow</code> 方法中让心形图标可点击。如果一个词对已经被添加到喜欢集合，再次点击会从喜欢集合中删除。当心形图标被点击，调用<code>setState()</code>方法来通知系统状态被改变。</p>
+<p> 增加高亮行：</p>
+ <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">Widget _buildRow(WordPair pair) &#123;</span><br><span class="line">  <span class="keyword">final</span> alreadySaved = _saved.contains(pair);</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> ListTile(</span><br><span class="line">    title: <span class="keyword">new</span> Text(</span><br><span class="line">      pair.asPascalCase,</span><br><span class="line">      style: _biggerFont,</span><br><span class="line">    ),</span><br><span class="line">    trailing: <span class="keyword">new</span> Icon(</span><br><span class="line">      alreadySaved ? Icons.favorite : Icons.favorite_border,</span><br><span class="line">      color: alreadySaved ? Colors.red : <span class="keyword">null</span>,</span><br><span class="line">    ),</span><br><span class="line">    onTap: () &#123;</span><br><span class="line">      setState(() &#123;</span><br><span class="line">        <span class="keyword">if</span> (alreadySaved) &#123;</span><br><span class="line">          _saved.remove(pair);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          _saved.add(pair);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;,</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<blockquote>
+<p><strong>提示：</strong>在 Flutter 响应式风格框架中，调用 <strong>setState()</strong> 触发 State 对象的 <strong>build()</strong> 方法的调用，结果更新在 UI 中。</p>
+</blockquote>
+<p>热重载 app，你应该会看到点击任意行来喜欢，取消喜欢条目。注意，点击一行会生成从心型图标发出的隐式墨迹飞溅动画。</p>
+<div style="text-align: center;"><br><img src="https://flutter.io/get-started/codelab/images/step5-screenshot.png"><br></div>
+
+<h3 id="问题？-3"><a href="#问题？-3" class="headerlink" title="问题？"></a>问题？</h3><p>如果你的 app 没有正确运行，排查错误。如果需要，请使用以下链接的代码来追踪。</p>
+<ul>
+<li><a href="https://gist.githubusercontent.com/Sfshaza/d7f13ddd8888556232476be8578efe40/raw/329c397b97309ce99f834bf70ebb90778baa5cfe/main.dart" target="_blank" rel="noopener">lib/main.dart</a></li>
+</ul>
+<hr>
+<p><span id="step-6-navigate-to-a-new-screen"></span></p>
+<h2 id="第6步：导航到新的页面"><a href="#第6步：导航到新的页面" class="headerlink" title="第6步：导航到新的页面"></a>第6步：导航到新的页面</h2><p>在这一步，你将增加一个新的页面（在 Flutter 被称为 <em>router</em>）用来展示喜欢的集合。你将会学习到怎么从首页导航到一个新的页面。</p>
+<p>在 Fluter，Navigator 管理包含了 app 路由页面的栈。压入一个页面到 Navigator 的栈，更新展示那个页面。从 Navigator 弹出一个页面，返回展示上一个页面。</p>
+<ol>
+<li><p>在 RandomWordsState 的 build 方法中增加一个列表图标到 AppBar 上。当用户点击这个列表图标，一个包含了喜欢的条目的新页面被压入到 Navigator，展示图标。</p>
+<blockquote>
+<p><strong>提示：</strong>一些widget属性接收单个 widget（<strong>child</strong>），其它的属性，如 <strong>action</strong>，接收一个数组 widgets（<strong>children</strong>），通过中括号（[]）标明。</p>
+</blockquote>
+<p> 在 build 方法中增加图标和它对应的 action：</p>
+ <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RandomWordsState</span> <span class="keyword">extends</span> <span class="title">State</span>&lt;<span class="title">RandomWords</span>&gt; </span>&#123;</span><br><span class="line">  ...</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Scaffold(</span><br><span class="line">      appBar: <span class="keyword">new</span> AppBar(</span><br><span class="line">        title: <span class="keyword">new</span> Text(<span class="string">'Startup Name Generator'</span>),</span><br><span class="line">        actions: &lt;Widget&gt;[</span><br><span class="line">          <span class="keyword">new</span> IconButton(icon: <span class="keyword">new</span> Icon(Icons.list), onPressed: _pushSaved),</span><br><span class="line">        ],</span><br><span class="line">      ),</span><br><span class="line">      body: _buildSuggestions(),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在 RandomWordsState 类中增加一个 <code>_pushSaved()</code> 方法。</p>
+ <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RandomWordsState</span> <span class="keyword">extends</span> <span class="title">State</span>&lt;<span class="title">RandomWords</span>&gt; </span>&#123;</span><br><span class="line">  ...</span><br><span class="line">  <span class="keyword">void</span> _pushSaved() &#123;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 热重载 app，列表图标出现在 app bar 上。点击它还不会发生任何事情，因为 <code>_pushSaved</code> 方法是空的。</p>
+</li>
+<li><p>当用户点击 app bar 上的列表图标，构建一个页面并压入 Navigator 的栈中。这个 action 会改变屏幕去展示新的页面。</p>
+<p> 新页面的内容在 MaterialPageRoute 的 <code>builder</code> 属性中通过匿名方法构建。</p>
+<p> 增加调用 <code>Navigator.push</code>，如下高亮代码展示，把页面压入到 Navigator 的栈里。</p>
+ <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> _pushSaved() &#123;</span><br><span class="line">  Navigator.of(context).push(</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>增加 MaterialPageRoute 和它的 builder。现在，增加生成 ListTile 行的代码。ListTile 的 <code>divideTiles()</code> 方法在每个 ListTile 之间添加水平间距。分割变量保存最后一行，由 convienice 函数 <code>toList()</code> 转换为列表。</p>
+ <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> _pushSaved() &#123;</span><br><span class="line">  Navigator.of(context).push(</span><br><span class="line">    <span class="keyword">new</span> MaterialPageRoute(</span><br><span class="line">      builder: (context) &#123;</span><br><span class="line">        <span class="keyword">final</span> tiles = _saved.map(</span><br><span class="line">              (pair) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> ListTile(</span><br><span class="line">              title: <span class="keyword">new</span> Text(</span><br><span class="line">                pair.asPascalCase,</span><br><span class="line">                style: _biggerFont,</span><br><span class="line">              ),</span><br><span class="line">            );</span><br><span class="line">          &#125;,</span><br><span class="line">        );</span><br><span class="line">        <span class="keyword">final</span> divided = ListTile</span><br><span class="line">            .divideTiles(</span><br><span class="line">          context: context,</span><br><span class="line">          tiles: tiles,</span><br><span class="line">        )</span><br><span class="line">            .toList();</span><br><span class="line">      &#125;,</span><br><span class="line">    ),</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>builder 属性返回一个 Scaffold，包含了新页面的 app bar，名为 “Save Suggestions”。新页面 body 的构成是一个 ListView 包含了 ListTiles 行；每行由分隔符分割。</p>
+<p> 增加以下高亮代码：</p>
+ <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> _pushSaved() &#123;</span><br><span class="line">  Navigator.of(context).push(</span><br><span class="line">    <span class="keyword">new</span> MaterialPageRoute(</span><br><span class="line">      builder: (context) &#123;</span><br><span class="line">        <span class="keyword">final</span> tiles = _saved.map(</span><br><span class="line">              (pair) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> ListTile(</span><br><span class="line">              title: <span class="keyword">new</span> Text(</span><br><span class="line">                pair.asPascalCase,</span><br><span class="line">                style: _biggerFont,</span><br><span class="line">              ),</span><br><span class="line">            );</span><br><span class="line">          &#125;,</span><br><span class="line">        );</span><br><span class="line">        <span class="keyword">final</span> divided = ListTile</span><br><span class="line">            .divideTiles(</span><br><span class="line">          context: context,</span><br><span class="line">          tiles: tiles,</span><br><span class="line">        )</span><br><span class="line">            .toList();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Scaffold(</span><br><span class="line">          appBar: <span class="keyword">new</span> AppBar(</span><br><span class="line">            title: <span class="keyword">new</span> Text(<span class="string">'Saved Suggestions'</span>),</span><br><span class="line">          ),</span><br><span class="line">          body: <span class="keyword">new</span> ListView(children: divided),</span><br><span class="line">        );</span><br><span class="line">      &#125;,</span><br><span class="line">    ),</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>热重载 app，喜欢其中的一些条目并点击 app bar 上的列表图标。新页面展示出来，且包含了喜欢的条目。注意 Navigator 在 app bar 上增加了一个 “Back” 按钮。你不需要明确地实现 Navigator.pop。点击返回按钮来返回首页。</p>
+ <div style="text-align: center;"><br> <img src="https://flutter.io/get-started/codelab/images/step6a-screenshot.png"><br> <img src="https://flutter.io/get-started/codelab/images/step6b-screenshot.png"><br> </div>
+
+</li>
+</ol>
+<h3 id="问题？-4"><a href="#问题？-4" class="headerlink" title="问题？"></a>问题？</h3><p>如果你的 app 没有正确运行，排查错误。如果需要，请使用以下链接的代码来追踪。</p>
+<ul>
+<li><a href="https://gist.githubusercontent.com/Sfshaza/d7f13ddd8888556232476be8578efe40/raw/329c397b97309ce99f834bf70ebb90778baa5cfe/main.dart" target="_blank" rel="noopener">lib/main.dart</a></li>
+</ul>
+<hr>
+<p><span id="step-7-change-the-ui-using-themes"></span></p>
+<h2 id="第7步：使用-Theme-来改变-UI"><a href="#第7步：使用-Theme-来改变-UI" class="headerlink" title="第7步：使用 Theme 来改变 UI"></a>第7步：使用 Theme 来改变 UI</h2><p>在这一步，你将玩转 app 的 theme。<strong>Theme</strong>会控制你的 app 的视觉和感觉。你可以使用默认的 theme，这依赖于物理设备或者模拟器，或者你可以自定义 theme 来反映出你的品牌。</p>
+<ol>
+<li><p>你可以很简单地通过配置 ThemeData 类来改变 app 的主题。你的 app当前使用的是默认的主题，但是你将修改主要颜色为白色。</p>
+<p> 通过增加高亮的代码到 MyApop 来改变 app 的主题为白色：</p>
+ <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyApp</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> MaterialApp(</span><br><span class="line">      title: <span class="string">'Startup Name Generator'</span>,</span><br><span class="line">      theme: <span class="keyword">new</span> ThemeData(</span><br><span class="line">        primaryColor: Colors.white,</span><br><span class="line">      ),</span><br><span class="line">      home: <span class="keyword">new</span> RandomWords(),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li><p>热重载 app，注意，整个背景都是白色的，甚至是 app bar。</p>
+</li>
+<li><p>作为读者的联系，使用 <a href="https://docs.flutter.io/flutter/material/ThemeData-class.html" target="_blank" rel="noopener">ThemeData</a> 来改变 UI 的其它方面。Material 库中的 <a href="https://docs.flutter.io/flutter/material/Colors-class.html" target="_blank" rel="noopener">Colors</a> 类提供了很多颜色常量可以使用，然后热重载使得 UI 实验变的又快又简单。</p>
+ <div style="text-align: center;"><br> <img src="https://flutter.io/get-started/codelab/images/step7-themes.png"><br> </div>
+
+</li>
+</ol>
+<h3 id="问题？-5"><a href="#问题？-5" class="headerlink" title="问题？"></a>问题？</h3><p>如果你的 app 没有正确运行，排查错误。如果需要，请使用以下链接的代码来追踪。</p>
+<ul>
+<li><a href="https://gist.githubusercontent.com/Sfshaza/d7f13ddd8888556232476be8578efe40/raw/329c397b97309ce99f834bf70ebb90778baa5cfe/main.dart" target="_blank" rel="noopener">lib/main.dart</a></li>
+</ul>
+<hr>
+<p><span id="well-done"></span></p>
+<h2 id="干得不错"><a href="#干得不错" class="headerlink" title="干得不错"></a>干得不错</h2><p>你已写了一个运行在 iOS 和 Android 的具有交互性的 Flutter app。在这个 codelab，你已经：</p>
+<ul>
+<li>从头创建了一个 Flutter app。</li>
+<li>编写 Dart 代码。</li>
+<li>使用外部第三方库。</li>
+<li>使用热重载来进行快速的开发周期。</li>
+<li>实现了 stateful widget，给你的 app 增加了互动性。</li>
+<li>使用 ListView 和 ListTiles 创建了一个懒加载，无限滚动的列表。</li>
+<li>创建了一个页面，且增加了在主页和新的页面之前移动的逻辑。</li>
+<li>学习改变 app 主题外观和主题</li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> flutter </category>
+            
+            <category> dart </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> android </tag>
+            
+            <tag> 翻译 </tag>
+            
+            <tag> flutter </tag>
+            
+            <tag> ios </tag>
+            
+            <tag> dart </tag>
+            
+            <tag> widget </tag>
+            
+            <tag> fuchsia </tag>
+            
+            <tag> Google </tag>
+            
+            <tag> codelab </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[在Android上编写模块化项目（翻译）]]></title>
       <url>/2018/02/13/writing_a_modular_project_on_android/</url>
       <content type="html"><![CDATA[<blockquote>
@@ -78,9 +383,9 @@
             
             <tag> android </tag>
             
-            <tag> framework </tag>
-            
             <tag> 翻译 </tag>
+            
+            <tag> framework </tag>
             
             <tag> dagger2 </tag>
             
@@ -1524,9 +1829,9 @@
             
             <tag> android </tag>
             
-            <tag> dependency injection </tag>
-            
             <tag> 翻译 </tag>
+            
+            <tag> dependency injection </tag>
             
             <tag> dagger2 </tag>
             
@@ -1630,9 +1935,9 @@
             
             <tag> android </tag>
             
-            <tag> dependency injection </tag>
-            
             <tag> 翻译 </tag>
+            
+            <tag> dependency injection </tag>
             
             <tag> dagger2 </tag>
             
@@ -1739,9 +2044,9 @@
             
             <tag> android </tag>
             
-            <tag> dependency injection </tag>
-            
             <tag> 翻译 </tag>
+            
+            <tag> dependency injection </tag>
             
             <tag> dagger2 </tag>
             
@@ -1876,9 +2181,9 @@
             
             <tag> android </tag>
             
-            <tag> dependency injection </tag>
-            
             <tag> 翻译 </tag>
+            
+            <tag> dependency injection </tag>
             
             <tag> dagger2 </tag>
             
@@ -1936,13 +2241,13 @@
             
             <tag> library </tag>
             
-            <tag> orm </tag>
-            
-            <tag> rapidorm </tag>
+            <tag> sqlite </tag>
             
             <tag> database </tag>
             
-            <tag> sqlite </tag>
+            <tag> orm </tag>
+            
+            <tag> rapidorm </tag>
             
         </tags>
         
@@ -2019,7 +2324,7 @@
 </strong></font>
 
 <h1 id="异步-layout-inflation"><a href="#异步-layout-inflation" class="headerlink" title="异步 layout inflation"></a>异步 layout inflation</h1><blockquote>
-<p>原文：<a href="&#109;&#97;&#105;&#x6c;&#x74;&#111;&#58;&#104;&#x74;&#x74;&#x70;&#115;&#58;&#47;&#x2f;&#109;&#x65;&#100;&#x69;&#117;&#x6d;&#46;&#99;&#x6f;&#109;&#47;&#64;&#x6c;&#x75;&#112;&#x61;&#106;&#122;&#47;&#97;&#x73;&#121;&#x6e;&#x63;&#104;&#114;&#111;&#110;&#x6f;&#x75;&#115;&#45;&#108;&#97;&#121;&#111;&#x75;&#x74;&#x2d;&#105;&#110;&#x66;&#108;&#97;&#x74;&#105;&#x6f;&#110;&#45;&#55;&#x63;&#x62;&#99;&#x61;&#x32;&#54;&#53;&#x33;&#98;&#x66;&#x23;&#46;&#x71;&#x32;&#50;&#x76;&#x70;&#101;&#x7a;&#x67;&#x34;">&#104;&#x74;&#x74;&#x70;&#115;&#58;&#47;&#x2f;&#109;&#x65;&#100;&#x69;&#117;&#x6d;&#46;&#99;&#x6f;&#109;&#47;&#64;&#x6c;&#x75;&#112;&#x61;&#106;&#122;&#47;&#97;&#x73;&#121;&#x6e;&#x63;&#104;&#114;&#111;&#110;&#x6f;&#x75;&#115;&#45;&#108;&#97;&#121;&#111;&#x75;&#x74;&#x2d;&#105;&#110;&#x66;&#108;&#97;&#x74;&#105;&#x6f;&#110;&#45;&#55;&#x63;&#x62;&#99;&#x61;&#x32;&#54;&#53;&#x33;&#98;&#x66;&#x23;&#46;&#x71;&#x32;&#50;&#x76;&#x70;&#101;&#x7a;&#x67;&#x34;</a></p>
+<p>原文：<a href="&#x6d;&#x61;&#x69;&#x6c;&#116;&#x6f;&#x3a;&#x68;&#x74;&#116;&#112;&#x73;&#58;&#x2f;&#47;&#109;&#x65;&#100;&#x69;&#117;&#109;&#46;&#99;&#x6f;&#109;&#47;&#x40;&#108;&#117;&#x70;&#x61;&#x6a;&#122;&#47;&#97;&#115;&#x79;&#110;&#x63;&#x68;&#x72;&#111;&#x6e;&#x6f;&#x75;&#x73;&#45;&#x6c;&#x61;&#x79;&#111;&#117;&#x74;&#45;&#x69;&#x6e;&#102;&#x6c;&#97;&#x74;&#x69;&#x6f;&#x6e;&#x2d;&#x37;&#x63;&#x62;&#99;&#x61;&#50;&#54;&#53;&#51;&#x62;&#x66;&#x23;&#x2e;&#113;&#x32;&#50;&#x76;&#x70;&#101;&#x7a;&#103;&#x34;">&#x68;&#x74;&#116;&#112;&#x73;&#58;&#x2f;&#47;&#109;&#x65;&#100;&#x69;&#117;&#109;&#46;&#99;&#x6f;&#109;&#47;&#x40;&#108;&#117;&#x70;&#x61;&#x6a;&#122;&#47;&#97;&#115;&#x79;&#110;&#x63;&#x68;&#x72;&#111;&#x6e;&#x6f;&#x75;&#x73;&#45;&#x6c;&#x61;&#x79;&#111;&#117;&#x74;&#45;&#x69;&#x6e;&#102;&#x6c;&#97;&#x74;&#x69;&#x6f;&#x6e;&#x2d;&#x37;&#x63;&#x62;&#99;&#x61;&#50;&#54;&#53;&#51;&#x62;&#x66;&#x23;&#x2e;&#113;&#x32;&#50;&#x76;&#x70;&#101;&#x7a;&#103;&#x34;</a></p>
 </blockquote>
 <p>随着最近发布的<a href="https://developer.android.com/topic/libraries/support-library/revisions.html" target="_blank" rel="noopener">Android Support Library, revision 24</a>，Google开发者在v4包中增加了一个用来异步inflate layouts的帮助类。</p>
 <h2 id="进入-AsyncLayoutInflater"><a href="#进入-AsyncLayoutInflater" class="headerlink" title="进入 AsyncLayoutInflater"></a>进入 AsyncLayoutInflater</h2><p>你会发现AsyncLayoutInflater可以使用在当你想要去懒加载你应用中部分UI或者用户行为的响应。这个帮助类将会允许你的UI线程在执行繁重的inflate时继续保持响应。</p>
@@ -3184,9 +3489,9 @@ Cookie: ... ...
             
             <tag> android </tag>
             
-            <tag> unit test </tag>
-            
             <tag> annotations </tag>
+            
+            <tag> unit test </tag>
             
             <tag> JUnit </tag>
             
@@ -3241,13 +3546,13 @@ Cookie: ... ...
             
             <tag> library </tag>
             
-            <tag> orm </tag>
-            
-            <tag> rapidorm </tag>
+            <tag> sqlite </tag>
             
             <tag> database </tag>
             
-            <tag> sqlite </tag>
+            <tag> orm </tag>
+            
+            <tag> rapidorm </tag>
             
         </tags>
         
@@ -3592,9 +3897,9 @@ Cookie: ... ...
             
             <tag> android </tag>
             
-            <tag> framework </tag>
-            
             <tag> 翻译 </tag>
+            
+            <tag> framework </tag>
             
             <tag> best practices </tag>
             
@@ -3688,9 +3993,9 @@ Cookie: ... ...
             
             <tag> android </tag>
             
-            <tag> dependency injection </tag>
-            
             <tag> 翻译 </tag>
+            
+            <tag> dependency injection </tag>
             
             <tag> dagger2 </tag>
             
@@ -3813,9 +4118,9 @@ Cookie: ... ...
             
             <tag> android </tag>
             
-            <tag> dependency injection </tag>
-            
             <tag> 翻译 </tag>
+            
+            <tag> dependency injection </tag>
             
             <tag> dagger2 </tag>
             
@@ -3937,9 +4242,9 @@ Cookie: ... ...
             
             <tag> android </tag>
             
-            <tag> dependency injection </tag>
-            
             <tag> 翻译 </tag>
+            
+            <tag> dependency injection </tag>
             
             <tag> dagger2 </tag>
             
@@ -4080,9 +4385,9 @@ Cookie: ... ...
             
             <tag> android </tag>
             
-            <tag> dependency injection </tag>
-            
             <tag> 翻译 </tag>
+            
+            <tag> dependency injection </tag>
             
             <tag> dagger2 </tag>
             
@@ -4180,9 +4485,9 @@ Cookie: ... ...
             
             <tag> android </tag>
             
-            <tag> dependency injection </tag>
-            
             <tag> 翻译 </tag>
+            
+            <tag> dependency injection </tag>
             
             <tag> dagger2 </tag>
             
@@ -5929,13 +6234,13 @@ for (name in names) {
             
             <tag> library </tag>
             
-            <tag> orm </tag>
-            
-            <tag> rapidorm </tag>
+            <tag> sqlite </tag>
             
             <tag> database </tag>
             
-            <tag> sqlite </tag>
+            <tag> orm </tag>
+            
+            <tag> rapidorm </tag>
             
         </tags>
         
@@ -7884,15 +8189,15 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> library </tag>
             
-            <tag> orm </tag>
-            
-            <tag> database </tag>
+            <tag> inject </tag>
             
             <tag> sqlite </tag>
             
-            <tag> inject </tag>
-            
             <tag> sqlite3 </tag>
+            
+            <tag> database </tag>
+            
+            <tag> orm </tag>
             
         </tags>
         
