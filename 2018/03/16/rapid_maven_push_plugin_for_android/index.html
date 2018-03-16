@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="description" content="Wang Jie&#39;s blog -- TO BE AN ARTIST-ENGINNER">
+    <meta name="keyword" content="tiantianbyconan, tiantian.china.2, wangjiegulu, Android, Java, J2EE, Huginn, Geek, Github, Git, Gradle, Maven, Google, iOS, JVM, Activity, View, Javascript, Python, code, developer, programer, tech, technology">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="http://avatars3.githubusercontent.com/u/5423194?s=460&v=4">
+    <link rel="alternate" type="application/atom+xml" title="Wang Jie" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        上传到多个Maven仓库的Gradle插件RapidMavenPushPlugin｜Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer
+        
+    </title>
+
+    <link rel="canonical" href="http://blog.wangjiegulu.com/2018/03/16/rapid_maven_push_plugin_for_android/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('//o7bkkhiex.bkt.clouddn.com/lion-blur-bg.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Wang Jie
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <!-- <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+								
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/categories/">categories</a>
+                        </li>
+							
+						
+                    
+                        
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+						<li>
+							<a href="/about">About</a>
+						</li>
+					
+                </ul>
+            </div>
+        </div> -->
+
+
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    <li>
+                        <a href="/archives">Archives</a>
+                    </li>
+                    <li>
+                        <a href="/tags">Tags</a>
+                    </li>
+                    <li>
+                        <a href="/about">About</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+
+
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<head>
+<!-- <script type='text/javascript' src='//platform-api.sharethis.com/js/sharethis.js#property=5a72df492fd34b00134b0dc1&product=sop' async='async'></script> -->
+<script type='text/javascript' src='//platform-api.sharethis.com/js/sharethis.js#property=5a72df492fd34b00134b0dc1&product=sop' async='async'></script>
+</head>
+
+<!--only post-->
+
+
+<img class="wechat-title-img" src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-0.3.5&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;s=e5a31d03ddee66863a599421f792e07b&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=60">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-0.3.5&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;s=e5a31d03ddee66863a599421f792e07b&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=60');
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>上传到多个Maven仓库的Gradle插件RapidMavenPushPlugin</h1>
+                    
+                    <h2 class="subheading">用优雅的方式上传自己的library到多个Maven仓库</h2>
+                    
+                    <span class="meta">
+                         作者 Wang Jie
+                        <span>
+                          日期 2018-03-16
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#java"
+                           title="java">java</a>
+                        
+                        <a class="tag" href="/tags/#android"
+                           title="android">android</a>
+                        
+                        <a class="tag" href="/tags/#gradle"
+                           title="gradle">gradle</a>
+                        
+                        <a class="tag" href="/tags/#gradle plugin"
+                           title="gradle plugin">gradle plugin</a>
+                        
+                        <a class="tag" href="/tags/#maven"
+                           title="maven">maven</a>
+                        
+                        <a class="tag" href="/tags/#repository"
+                           title="repository">repository</a>
+                        
+                        <a class="tag" href="/tags/#plugin"
+                           title="plugin">plugin</a>
+                        
+                        <a class="tag" href="/tags/#aar"
+                           title="aar">aar</a>
+                        
+                        <a class="tag" href="/tags/#jar"
+                           title="jar">jar</a>
+                        
+                    </div>
+                    <!-- Sharethis 分享 -->
+                    <!-- <div class="sharethis-inline-share-buttons" style="margin-top: 18px; opacity: 0.1;"></div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            上传到多个Maven仓库的Gradle插件RapidMavenPushPlugin
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container" 
+                 style="word-wrap:break-word;overflow:hidden;">
+
+                <h1 id="RapidMavenPushPlugin"><a href="#RapidMavenPushPlugin" class="headerlink" title="RapidMavenPushPlugin"></a>RapidMavenPushPlugin</h1><p>用于上传你的 library 库到多个 Maven 仓库的 Gradle 插件。</p>
+<p><strong>Github: <a href="https://github.com/wangjiegulu/RapidMavenPushPlugin" target="_blank" rel="noopener">https://github.com/wangjiegulu/RapidMavenPushPlugin</a></strong></p>
+<h2 id="1-怎么使用"><a href="#1-怎么使用" class="headerlink" title="1. 怎么使用"></a>1. 怎么使用</h2><h3 id="1-1-添加依赖"><a href="#1-1-添加依赖" class="headerlink" title="1.1 添加依赖"></a>1.1 添加依赖</h3><p>在你项目根目录的 <code>build.gradle</code> 文件中增加 <code>RapidMavenPushPlugin</code> 依赖：</p>
+<p><strong><a href="http://search.maven.org/#search%7Cga%7C1%7Crapidmavenpush" target="_blank" rel="noopener">检查最新版本</a></strong></p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">buildscript</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">repositories</span> &#123;</span><br><span class="line">        google()</span><br><span class="line">        jcenter()</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">dependencies</span> &#123;</span><br><span class="line">        <span class="keyword">classpath</span> <span class="string">'com.android.tools.build:gradle:3.0.1'</span></span><br><span class="line">        <span class="keyword">classpath</span>(<span class="string">'com.github.wangjiegulu:rapidmavenpush:x.x.x'</span>) &#123;</span><br><span class="line">            <span class="keyword">exclude</span> <span class="keyword">group</span>: <span class="string">'com.android.tools.build'</span>, module: <span class="string">'gradle'</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="1-2-创建-properties-files"><a href="#1-2-创建-properties-files" class="headerlink" title="1.2 创建 properties files"></a>1.2 创建 properties files</h3><p>现在你有3个 Maven 仓库（<code>maven type</code>s），所以需要创建3个 maven properties archive 文件和1个通用的 archive properties 文件（properties 文件的名字和位置可以是任意的）：</p>
+<ul>
+<li><strong>maven_local.properties</strong>: 上传 archives 到本地的 maven 仓库, 默认在你电脑的 <code>~/.m2/repository</code>。</li>
+<li><strong>maven_company.properties</strong>: 上传 archives 到你公司的 maven 仓库，他部署在你公司的服务器上面。</li>
+<li><strong>maven_central.properties</strong>: 上传 archives 到 maven 中央库。</li>
+<li><strong>common.properties</strong>: 上面3个 maven 仓库的通用 properties。</li>
+</ul>
+<blockquote>
+<p><strong>NOTE</strong>: 当 <code>project.afterEvaluate</code> 时, 所有 properties 都会被自动注入到 <code>project.ext</code>中，所以在那之后你可以以诸如 <code>$POM_ARCHIVE_ID</code> 的方式来使用它们。</p>
+</blockquote>
+<h4 id="1-2-1-maven-common-properties"><a href="#1-2-1-maven-common-properties" class="headerlink" title="1.2.1 maven_common.properties"></a>1.2.1 maven_common.properties</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"># project info</span><br><span class="line">POM_ARCHIVE_GROUP=com.github.wangjiegulu</span><br><span class="line">#POM_ARCHIVE_VERSION_NAME=0.0.1-SNAPSHOT (command typed)</span><br><span class="line"># aar or jar</span><br><span class="line">POM_PACKAGING=aar</span><br><span class="line">POM_DESC=test-mavenpush-plugin</span><br><span class="line">POM_URL=https://github.com/wangjiegulu</span><br><span class="line">POM_SCM_URL=scm:git@github.com:wangjiegulu</span><br><span class="line">POM_SCM_CONNECTION=scm:git@github.com:wangjiegulu</span><br><span class="line">POM_SCM_DEV_CONNECTION=git@github.com:wangjiegulu</span><br><span class="line">POM_LICENCE_NAME=The Apache Software License, Version 2.0</span><br><span class="line">POM_LICENCE_URL=http://www.apache.org/licenses/LICENSE-2.0.txt</span><br><span class="line">POM_LICENCE_DIST=wangjie</span><br><span class="line">POM_DEVELOPER_ID=wangjie</span><br><span class="line">POM_DEVELOPER_NAME=Wang Jie</span><br><span class="line">POM_DEVELOPER_EMAIL=tiantian.china.2@gmail.com</span><br></pre></td></tr></table></figure>
+<h4 id="1-2-2-maven-local-properties"><a href="#1-2-2-maven-local-properties" class="headerlink" title="1.2.2 maven_local.properties"></a>1.2.2 maven_local.properties</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># maven repository</span><br><span class="line">POM_REPOSITORY_URL=/Users/wangjie/.m2/repository</span><br><span class="line">POM_REPOSITORY_URL_SNAPSHOT=/Users/wangjie/.m2/repository</span><br><span class="line">POM_SIGN=false</span><br><span class="line"></span><br><span class="line"># project info</span><br><span class="line">POM_ARCHIVE_ID=mavenpush-plugin-depmodule-local</span><br></pre></td></tr></table></figure>
+<h4 id="1-2-3-maven-central-properties"><a href="#1-2-3-maven-central-properties" class="headerlink" title="1.2.3 maven_central.properties"></a>1.2.3 maven_central.properties</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">POM_OSSRH_USERNAME=username</span><br><span class="line">POM_OSSRH_PASSWORD=password</span><br><span class="line"></span><br><span class="line"># maven repository</span><br><span class="line">POM_REPOSITORY_URL=https://oss.sonatype.org/service/local/staging/deploy/maven2/</span><br><span class="line">POM_REPOSITORY_URL_SNAPSHOT=https://oss.sonatype.org/content/repositories/snapshots/</span><br><span class="line"></span><br><span class="line">POM_SIGN=true</span><br><span class="line"># Already configure in ~/.gradle/gradle.properties</span><br><span class="line">#signing.keyId=</span><br><span class="line">#signing.password=</span><br><span class="line">#signing.secretKeyRingFile=</span><br><span class="line"></span><br><span class="line"># project info</span><br><span class="line">POM_ARCHIVE_ID=mavenpush-plugin-depmodule</span><br></pre></td></tr></table></figure>
+<h3 id="1-3-应用-Plugin-amp-properties"><a href="#1-3-应用-Plugin-amp-properties" class="headerlink" title="1.3 应用 Plugin &amp; properties"></a>1.3 应用 Plugin &amp; properties</h3><p>在你 library 的 <code>build.gradle</code> 文件中, 你需要以如下方式来 apply RapidMavenPushPlugin 插件：</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: <span class="string">'com.github.wangjiegulu.plg.rapidmavenpush'</span></span><br><span class="line"></span><br><span class="line">rapidMavenPush &#123;</span><br><span class="line">    <span class="comment">// 如果是 true，会在编译时期打印被注入的 properties</span></span><br><span class="line">    printProperties = <span class="keyword">true</span></span><br><span class="line">    <span class="comment">// 如果是 true，在注入 properties 发生错误时会终止编译</span></span><br><span class="line">    abortOnError = <span class="keyword">false</span></span><br><span class="line">    <span class="comment">// 是否禁用 Rapid Maven Push Plugin</span></span><br><span class="line">    disable = <span class="keyword">false</span></span><br><span class="line">    <span class="comment">// 如果 `POM_MAVEN_TYPE` 没有被设置，则使用默认的 maven type。</span></span><br><span class="line">    defaultMavenType = <span class="string">'local'</span></span><br><span class="line">    mavens &#123;</span><br><span class="line">        maven &#123;</span><br><span class="line">            mavenType = <span class="string">'local'</span></span><br><span class="line">            propertyFiles = [</span><br><span class="line">                    <span class="keyword">file</span>(<span class="string">"mavenupload/maven_common.properties"</span>),</span><br><span class="line">                    <span class="keyword">file</span>(<span class="string">"mavenupload/maven_local.properties"</span>)</span><br><span class="line">            ]</span><br><span class="line">            <span class="comment">// Property Inject Mode: If the properties is already set, replace it or skip</span></span><br><span class="line">            <span class="comment">// property 注入模式：如果 properties 已经被设置过，则替换还是跳过</span></span><br><span class="line">            propertyInjectMode = <span class="string">'replace'</span></span><br><span class="line">        &#125;</span><br><span class="line">        maven &#123;</span><br><span class="line">            mavenType = <span class="string">'company'</span></span><br><span class="line">            propertyFiles = [</span><br><span class="line">                    <span class="keyword">file</span>(<span class="string">"mavenupload/maven_common.properties"</span>),</span><br><span class="line">                    <span class="keyword">file</span>(<span class="string">"mavenupload/maven_company.properties"</span>)</span><br><span class="line">            ]</span><br><span class="line">            propertyInjectMode = <span class="string">'replace'</span></span><br><span class="line">        &#125;</span><br><span class="line">        maven &#123;</span><br><span class="line">            mavenType = <span class="string">'central'</span></span><br><span class="line">            propertyFiles = [</span><br><span class="line">                    <span class="keyword">file</span>(<span class="string">"mavenupload/maven_common.properties"</span>),</span><br><span class="line">                    <span class="keyword">file</span>(<span class="string">"mavenupload/maven_central.properties"</span>)</span><br><span class="line">            ]</span><br><span class="line">            propertyInjectMode = <span class="string">'replace'</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="1-4-上传-Archives"><a href="#1-4-上传-Archives" class="headerlink" title="1.4 上传 Archives"></a>1.4 上传 Archives</h3><p>在编译之后，rapid maven push plugin 自动创建了一个名为 <code>rapidUploadArchives</code> 的 task。</p>
+<p>执行这个 task !</p>
+<p><strong>上传 archives 到本地仓库:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./gradlew clean :depmodule:rapidUploadArchives -PPOM_MAVEN_TYPE=local</span><br></pre></td></tr></table></figure>
+<p><strong>上传 archives to 到中央库:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./gradlew clean :depmodule:rapidUploadArchives -PPOM_MAVEN_TYPE=central</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>NOTE</strong>: 如果你没有在 <code>build.gradle</code> 使用 <code>ext.POM_MAVEN_TYPE=xxx</code> 的方式进行设置的话，<code>POM_MAVEN_TYPE</code> 参数是必要的。</p>
+</blockquote>
+<h3 id="1-5-支持的-parameters-amp-properties"><a href="#1-5-支持的-parameters-amp-properties" class="headerlink" title="1.5 支持的 parameters &amp; properties"></a>1.5 支持的 parameters &amp; properties</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">// maven type, 只能通过在 `build.gradle` 设置 `ext.POM_MAVEN_TYPE=xxx` 或者在命令行中设置 `-PPOM_MAVEN_TYPE=xxx` 或者在 `gradle.properties` 中设置 `PPOM_MAVEN_TYPE=xxx`</span><br><span class="line">POM_MAVEN_TYPE</span><br><span class="line"></span><br><span class="line">// maven repository parameters</span><br><span class="line">POM_REPOSITORY_URL</span><br><span class="line">POM_REPOSITORY_URL_SNAPSHOT</span><br><span class="line">POM_OSSRH_USERNAME</span><br><span class="line">POM_OSSRH_PASSWORD</span><br><span class="line"></span><br><span class="line">// sign parameters</span><br><span class="line">POM_SIGN</span><br><span class="line">signing.keyId</span><br><span class="line">signing.password</span><br><span class="line">signing.secretKeyRingFile</span><br><span class="line"></span><br><span class="line">// archive parameters</span><br><span class="line">POM_ARCHIVE_GROUP</span><br><span class="line">POM_ARCHIVE_ID</span><br><span class="line">POM_ARCHIVE_VERSION_NAME</span><br><span class="line">POM_PACKAGING</span><br><span class="line">POM_DESC</span><br><span class="line">POM_URL</span><br><span class="line">POM_SCM_URL</span><br><span class="line">POM_SCM_CONNECTION</span><br><span class="line">POM_SCM_DEV_CONNECTION</span><br><span class="line">POM_LICENCE_NAME</span><br><span class="line">POM_LICENCE_URL</span><br><span class="line">POM_LICENCE_DIST</span><br><span class="line">POM_DEVELOPER_ID</span><br><span class="line">POM_DEVELOPER_NAME</span><br><span class="line">POM_DEVELOPER_EMAIL</span><br></pre></td></tr></table></figure>
+<h1 id="License"><a href="#License" class="headerlink" title="License"></a>License</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Copyright 2018 Wang Jie</span><br><span class="line"></span><br><span class="line">Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span><br><span class="line">you may not use this file except in compliance with the License.</span><br><span class="line">You may obtain a copy of the License at</span><br><span class="line"></span><br><span class="line">  http://www.apache.org/licenses/LICENSE-2.0</span><br><span class="line"></span><br><span class="line">Unless required by applicable law or agreed to in writing, software</span><br><span class="line">distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span><br><span class="line">WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span><br><span class="line">See the License for the specific language governing permissions and</span><br><span class="line">limitations under the License.</span><br></pre></td></tr></table></figure>
+
+
+                <hr>
+
+                
+                <div class="post-copyright" style="margin-top: 20px;">
+                    <strong>来源博客：</strong><a href="http://blog.wangjiegulu.com">Wang Jie's Blog</a><br/>
+                     <strong>本文链接：</strong><a href="http://blog.wangjiegulu.com/2018/03/16/rapid_maven_push_plugin_for_android/">http://blog.wangjiegulu.com/2018/03/16/rapid_maven_push_plugin_for_android/</a><br/>
+                     <strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处。
+                </div>
+                
+
+                <!-- Sharethis 分享 -->
+                <div class="sharethis-inline-share-buttons" style="margin-top: 18px"></div>
+
+
+                
+
+                <ul class="pager">
+                    
+                    
+                    <li class="next">
+                        <a href="/2018/03/01/write_your_first_flutter_app/" data-toggle="tooltip" data-placement="top"
+                           title="编写第一个Flutter App（翻译）">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+
+                
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+
+                <!--加入新的评论系统-->
+                
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#RapidMavenPushPlugin"><span class="toc-text">RapidMavenPushPlugin</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-怎么使用"><span class="toc-text">1. 怎么使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-添加依赖"><span class="toc-text">1.1 添加依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-创建-properties-files"><span class="toc-text">1.2 创建 properties files</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-1-maven-common-properties"><span class="toc-text">1.2.1 maven_common.properties</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-2-maven-local-properties"><span class="toc-text">1.2.2 maven_local.properties</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-3-maven-central-properties"><span class="toc-text">1.2.3 maven_central.properties</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-应用-Plugin-amp-properties"><span class="toc-text">1.3 应用 Plugin &amp; properties</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-上传-Archives"><span class="toc-text">1.4 上传 Archives</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-5-支持的-parameters-amp-properties"><span class="toc-text">1.5 支持的 parameters &amp; properties</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#License"><span class="toc-text">License</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#java"
+                           title="java">java</a>
+                        
+                        <a class="tag" href="/tags/#android"
+                           title="android">android</a>
+                        
+                        <a class="tag" href="/tags/#gradle"
+                           title="gradle">gradle</a>
+                        
+                        <a class="tag" href="/tags/#gradle plugin"
+                           title="gradle plugin">gradle plugin</a>
+                        
+                        <a class="tag" href="/tags/#maven"
+                           title="maven">maven</a>
+                        
+                        <a class="tag" href="/tags/#repository"
+                           title="repository">repository</a>
+                        
+                        <a class="tag" href="/tags/#plugin"
+                           title="plugin">plugin</a>
+                        
+                        <a class="tag" href="/tags/#aar"
+                           title="aar">aar</a>
+                        
+                        <a class="tag" href="/tags/#jar"
+                           title="jar">jar</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="http://www.cnblogs.com/tiantianbyconan/">cnblog</a></li>
+                        
+                        <li><a href="http://h.wangjiegulu.com">Huginn</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "blog-wangjiegulu-com";
+    var disqus_identifier = "http://blog.wangjiegulu.com/2018/03/16/rapid_maven_push_plugin_for_android/";
+    var disqus_url = "http://blog.wangjiegulu.com/2018/03/16/rapid_maven_push_plugin_for_android/";
+
+    (function () {
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/wangjiegulu">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://instagram.com/wangjiegulu">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://plus.google.com/+%E5%A4%A9%E5%A4%A9wangjie">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-google fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/wangjiegulu">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://stackoverflow.com/users/2124006/wangjie">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/wangjiegulu">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/tiantianbyconan">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Wang Jie 2018
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv">
+                    <br>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://blog.wangjiegulu.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-111189680-2';
+    var _gaDomain = 'blog.wangjiegulu.com';
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','MeGy6NW2x6vGFz7Hy7SW','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://avatars3.githubusercontent.com/u/5423194?s=460&amp;v=4">
+</body>
+
+</html>

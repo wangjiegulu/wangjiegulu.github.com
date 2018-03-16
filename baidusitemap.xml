@@ -1,0 +1,3283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2018/03/16/rapid_maven_push_plugin_for_android/</loc>
+    <lastmod>2018-03-16T06:12:58.705Z</lastmod>
+    <data>
+        <display>
+        <title>上传到多个Maven仓库的Gradle插件RapidMavenPushPlugin</title>
+        <pubTime>2018-03-16T06:08:04.098Z</pubTime>
+        
+        <tag>java</tag>
+         
+        <tag>android</tag>
+         
+        <tag>gradle</tag>
+         
+        <tag>gradle plugin</tag>
+         
+        <tag>maven</tag>
+         
+        <tag>repository</tag>
+         
+        <tag>plugin</tag>
+         
+        <tag>aar</tag>
+         
+        <tag>jar</tag>
+         
+         
+           
+             
+              <breadCrumb title="flutter" url="http://blog.wangjiegulu.com/categories/flutter/"/>
+          
+             
+              <breadCrumb title="dart" url="http://blog.wangjiegulu.com/categories/flutter/dart/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2018/03/01/write_your_first_flutter_app/</loc>
+    <lastmod>2018-03-02T16:08:34.000Z</lastmod>
+    <data>
+        <display>
+        <title>编写第一个Flutter App（翻译）</title>
+        <pubTime>2018-03-01T12:05:58.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>翻译</tag>
+         
+        <tag>flutter</tag>
+         
+        <tag>ios</tag>
+         
+        <tag>dart</tag>
+         
+        <tag>widget</tag>
+         
+        <tag>fuchsia</tag>
+         
+        <tag>Google</tag>
+         
+        <tag>codelab</tag>
+         
+         
+           
+             
+              <breadCrumb title="flutter" url="http://blog.wangjiegulu.com/categories/flutter/"/>
+          
+             
+              <breadCrumb title="dart" url="http://blog.wangjiegulu.com/categories/flutter/dart/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2018/02/13/writing_a_modular_project_on_android/</loc>
+    <lastmod>2018-02-13T09:45:46.000Z</lastmod>
+    <data>
+        <display>
+        <title>在Android上编写模块化项目（翻译）</title>
+        <pubTime>2018-02-13T08:04:18.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>framework</tag>
+         
+        <tag>翻译</tag>
+         
+        <tag>dagger2</tag>
+         
+        <tag>kotlin</tag>
+         
+        <tag>architecture</tag>
+         
+        <tag>modular</tag>
+         
+        <tag>room</tag>
+         
+         
+           
+             
+              <breadCrumb title="android" url="http://blog.wangjiegulu.com/categories/android/"/>
+          
+             
+              <breadCrumb title="gradle plugin" url="http://blog.wangjiegulu.com/categories/android/gradle-plugin/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2018/02/05/Android%E7%AB%AF%E7%94%9F%E6%88%90META-INF%E4%BF%A1%E6%81%AF%E6%96%87%E4%BB%B6%E7%9A%84Gradle%E6%8F%92%E4%BB%B6%20RapidMetaInfPlugin/</loc>
+    <lastmod>2018-02-05T12:58:38.000Z</lastmod>
+    <data>
+        <display>
+        <title>Android端生成META-INF信息文件的Gradle插件 RapidMetaInfPlugin</title>
+        <pubTime>2018-02-05T12:54:04.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>gradle</tag>
+         
+        <tag>gradle plugin</tag>
+         
+        <tag>Android Studio</tag>
+         
+        <tag>META-INF</tag>
+         
+         
+           
+             
+              <breadCrumb title="android" url="http://blog.wangjiegulu.com/categories/android/"/>
+          
+             
+              <breadCrumb title="gradle plugin" url="http://blog.wangjiegulu.com/categories/android/gradle-plugin/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2017/12/20/Android-App-IFCTT%EF%BC%8C%E5%8D%B3If-Copy-Then-That%EF%BC%8C%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8EIFTTT%E7%9A%84-This-%E5%AE%9E%E7%8E%B0/</loc>
+    <lastmod>2018-02-05T10:11:16.000Z</lastmod>
+    <data>
+        <display>
+        <title>IFCTT，即If Copy Then That，一个基于IFTTT的`This`实现</title>
+        <pubTime>2017-12-20T04:41:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>ifttt</tag>
+         
+        <tag>ifctt</tag>
+         
+        <tag>automate</tag>
+         
+        <tag>huginn</tag>
+         
+        <tag>hash tag</tag>
+         
+        <tag>google play</tag>
+         
+        <tag>clipboard</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2017/04/10/CPP-Note/</loc>
+    <lastmod>2018-02-05T09:50:06.000Z</lastmod>
+    <data>
+        <display>
+        <title>CPP Note</title>
+        <pubTime>2017-04-10T07:05:00.000Z</pubTime>
+        
+        <tag>cpp</tag>
+         
+        <tag>c++</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2017/07/25/Android-Android%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E4%BD%A0%E6%89%80%E8%A6%81%E7%9F%A5%E9%81%93%E7%9A%84%E4%B8%80%E5%88%87%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/</loc>
+    <lastmod>2018-02-05T09:30:05.000Z</lastmod>
+    <data>
+        <display>
+        <title>Android内存泄漏你所要知道的一切（翻译）</title>
+        <pubTime>2017-07-25T09:58:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>memory leak</tag>
+         
+        <tag>翻译</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+    
+    
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2016/12/30/Android-%E5%9C%A8Dagger-2%E4%B8%AD%E4%BD%BF%E7%94%A8RxJava%E6%9D%A5%E8%BF%9B%E8%A1%8C%E5%BC%82%E6%AD%A5%E6%B3%A8%E5%85%A5%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/</loc>
+    <lastmod>2018-01-31T05:38:28.000Z</lastmod>
+    <data>
+        <display>
+        <title>在Dagger 2中使用RxJava来进行异步注入（翻译）</title>
+        <pubTime>2016-12-30T05:53:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>dependency injection</tag>
+         
+        <tag>翻译</tag>
+         
+        <tag>dagger2</tag>
+         
+        <tag>DI</tag>
+         
+        <tag>google</tag>
+         
+        <tag>RxJava</tag>
+         
+        <tag>RxAndroid</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2017/01/09/Android-%E5%9C%A8Dagger-2%E4%B8%ADActivities%E5%92%8CSubcomponents%E7%9A%84%E5%A4%9A%E7%BB%91%E5%AE%9A%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/</loc>
+    <lastmod>2018-01-31T05:38:24.000Z</lastmod>
+    <data>
+        <display>
+        <title>在Dagger 2中Activities和Subcomponents的多绑定（翻译）</title>
+        <pubTime>2017-01-09T12:23:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>dependency injection</tag>
+         
+        <tag>翻译</tag>
+         
+        <tag>dagger2</tag>
+         
+        <tag>DI</tag>
+         
+        <tag>google</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2016/12/29/Android-%E4%BD%BF%E7%94%A8Dagger-2%E8%BF%9B%E8%A1%8C%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5-Producers%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/</loc>
+    <lastmod>2018-01-31T05:38:04.000Z</lastmod>
+    <data>
+        <display>
+        <title>使用Dagger 2进行依赖注入 - Producers（翻译）</title>
+        <pubTime>2016-12-29T13:08:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>dependency injection</tag>
+         
+        <tag>翻译</tag>
+         
+        <tag>dagger2</tag>
+         
+        <tag>DI</tag>
+         
+        <tag>google</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2016/12/30/Android-%E4%BD%BF%E7%94%A8Dagger-2%E6%9D%A5%E6%9E%84%E5%BB%BAUserScope%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/</loc>
+    <lastmod>2018-01-31T05:37:54.000Z</lastmod>
+    <data>
+        <display>
+        <title>使用Dagger 2来构建UserScope（翻译）</title>
+        <pubTime>2016-12-30T09:23:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>dependency injection</tag>
+         
+        <tag>翻译</tag>
+         
+        <tag>dagger2</tag>
+         
+        <tag>DI</tag>
+         
+        <tag>google</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2016/01/02/Android-%E4%BD%BF%E7%94%A8Dagger-2%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5-%E8%87%AA%E5%AE%9A%E4%B9%89Scope%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/</loc>
+    <lastmod>2018-01-31T05:37:50.000Z</lastmod>
+    <data>
+        <display>
+        <title>使用Dagger 2依赖注入 - 自定义Scope（翻译）</title>
+        <pubTime>2016-01-02T14:21:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>dependency injection</tag>
+         
+        <tag>翻译</tag>
+         
+        <tag>dagger2</tag>
+         
+        <tag>DI</tag>
+         
+        <tag>google</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2016/01/04/Android-%E4%BD%BF%E7%94%A8Dagger-2%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5-%E5%9B%BE%E8%A1%A8%E5%88%9B%E5%BB%BA%E7%9A%84%E6%80%A7%E8%83%BD%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/</loc>
+    <lastmod>2018-01-31T05:37:46.000Z</lastmod>
+    <data>
+        <display>
+        <title>使用Dagger 2依赖注入 - 图表创建的性能（翻译）</title>
+        <pubTime>2016-01-04T06:55:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>dependency injection</tag>
+         
+        <tag>翻译</tag>
+         
+        <tag>dagger2</tag>
+         
+        <tag>DI</tag>
+         
+        <tag>google</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2015/12/31/Android-%E4%BD%BF%E7%94%A8Dagger-2%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5-DI%E4%BB%8B%E7%BB%8D%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/</loc>
+    <lastmod>2018-01-31T05:37:41.000Z</lastmod>
+    <data>
+        <display>
+        <title>使用Dagger 2依赖注入 - DI介绍（翻译）</title>
+        <pubTime>2015-12-31T08:19:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>dependency injection</tag>
+         
+        <tag>翻译</tag>
+         
+        <tag>dagger2</tag>
+         
+        <tag>DI</tag>
+         
+        <tag>google</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2015/12/31/Android-%E4%BD%BF%E7%94%A8Dagger-2%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5-API%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/</loc>
+    <lastmod>2018-01-31T05:37:37.000Z</lastmod>
+    <data>
+        <display>
+        <title>使用Dagger 2依赖注入 - API（翻译）</title>
+        <pubTime>2015-12-31T10:55:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>dependency injection</tag>
+         
+        <tag>翻译</tag>
+         
+        <tag>dagger2</tag>
+         
+        <tag>DI</tag>
+         
+        <tag>google</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2016/02/16/Android-Dagger2Metrics-%E6%B5%8B%E9%87%8FDI%E5%9B%BE%E8%A1%A8%E5%88%9D%E5%A7%8B%E5%8C%96%E7%9A%84%E6%80%A7%E8%83%BD%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/</loc>
+    <lastmod>2018-01-31T05:37:34.000Z</lastmod>
+    <data>
+        <display>
+        <title>Dagger2Metrics - 测量DI图表初始化的性能（翻译）</title>
+        <pubTime>2016-02-16T09:39:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>dependency injection</tag>
+         
+        <tag>翻译</tag>
+         
+        <tag>dagger2</tag>
+         
+        <tag>memory</tag>
+         
+        <tag>DI</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2016/04/22/Android-Android-MVP-%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5-%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/</loc>
+    <lastmod>2018-01-31T05:37:31.000Z</lastmod>
+    <data>
+        <display>
+        <title>Android MVP&依赖注入&单元测试</title>
+        <pubTime>2016-04-22T10:44:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>mvp</tag>
+         
+        <tag>dependency injection</tag>
+         
+        <tag>unit test</tag>
+         
+        <tag>framework</tag>
+         
+        <tag>mvc</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2017/04/19/Android-Gradle-%E6%8F%92%E4%BB%B6-DiscardFilePlugin%EF%BC%88class%E6%B3%A8%E5%85%A5-%E6%B8%85%E7%A9%BA%E7%B1%BB%E5%92%8C%E6%96%B9%E6%B3%95%EF%BC%89/</loc>
+    <lastmod>2018-01-31T05:37:12.000Z</lastmod>
+    <data>
+        <display>
+        <title>Gradle 插件 DiscardFilePlugin（class注入&清空类和方法）</title>
+        <pubTime>2017-04-19T02:40:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>gradle</tag>
+         
+        <tag>gradle plugin</tag>
+         
+        <tag>discard</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2017/08/04/Android-Android%E7%84%A6%E7%82%B9%E6%B5%81%E7%A8%8B%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/</loc>
+    <lastmod>2018-01-31T05:36:44.000Z</lastmod>
+    <data>
+        <display>
+        <title>Android焦点流程代码分析</title>
+        <pubTime>2017-08-04T10:08:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>source code</tag>
+         
+        <tag>focus</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2012/05/28/%E9%97%AE%E9%A2%98Re-installation-failed-due-to-different-application-signatures-%E8%A7%A3%E5%86%B3/</loc>
+    <lastmod>2018-01-30T03:46:28.000Z</lastmod>
+    <data>
+        <display>
+        <title>问题Re-installation failed due to different application signatures.解决</title>
+        <pubTime>2012-05-28T01:44:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>exception</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2013/02/24/%E7%9C%8B%E4%B9%A6%E7%AC%94%E8%AE%B0-%E3%80%8A%E6%B7%B1%E5%85%A5java%E8%99%9A%E6%8B%9F%E6%9C%BA%E3%80%8B%E2%80%94%E2%80%94java%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%EF%BC%88%E4%BA%8C%EF%BC%89/</loc>
+    <lastmod>2018-01-30T03:46:15.000Z</lastmod>
+    <data>
+        <display>
+        <title>[看书笔记]《深入java虚拟机》——java体系结构（二）</title>
+        <pubTime>2013-02-24T02:02:00.000Z</pubTime>
+        
+        <tag>java</tag>
+         
+        <tag>JVM</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2013/02/23/%E7%9C%8B%E4%B9%A6%E7%AC%94%E8%AE%B0-%E3%80%8A%E6%B7%B1%E5%85%A5java%E8%99%9A%E6%8B%9F%E6%9C%BA%E3%80%8B%E2%80%94%E2%80%94java%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%EF%BC%88%E4%B8%80%EF%BC%89/</loc>
+    <lastmod>2018-01-30T03:46:11.000Z</lastmod>
+    <data>
+        <display>
+        <title>[看书笔记]《深入java虚拟机》——java体系结构（一）</title>
+        <pubTime>2013-02-23T02:11:00.000Z</pubTime>
+        
+        <tag>java</tag>
+         
+        <tag>JVM</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2014/11/23/%E7%9B%B4%E6%8E%A5%E6%8B%BF%E6%9D%A5%E7%94%A8%EF%BC%81%E5%8D%81%E5%A4%A7Material-Design%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/</loc>
+    <lastmod>2018-01-30T03:46:03.000Z</lastmod>
+    <data>
+        <display>
+        <title>直接拿来用！十大Material Design开源项目</title>
+        <pubTime>2014-11-23T03:51:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>view</tag>
+         
+        <tag>Material Design</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2012/02/24/%E7%94%A8RadioGroup%E6%9D%A5%E8%87%AA%E5%AE%9A%E4%B9%89TabHost-Gallery%E5%BA%94%E7%94%A8/</loc>
+    <lastmod>2018-01-30T03:45:50.000Z</lastmod>
+    <data>
+        <display>
+        <title>用RadioGroup来自定义TabHost+Gallery应用</title>
+        <pubTime>2012-02-24T03:06:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>TabHost</tag>
+         
+        <tag>RadioGroup</tag>
+         
+        <tag>Gallery</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2017/09/25/%E5%BA%94%E6%9C%8B%E5%8F%8B%E6%AD%BB%E7%9A%AE%E7%99%BD%E5%92%A7%E5%9C%B0%E9%82%80%E8%AF%B7%E8%B4%B4%E4%B8%80%E4%B8%AA%E6%8B%9B%E8%81%98%E5%B9%BF%E5%91%8A/</loc>
+    <lastmod>2018-01-30T03:45:39.000Z</lastmod>
+    <data>
+        <display>
+        <title>应朋友死皮白咧地邀请贴一个招聘广告</title>
+        <pubTime>2017-09-25T09:24:00.000Z</pubTime>
+        
+        <tag>jobs</tag>
+         
+        <tag>alibaba</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2014/12/11/%E5%9F%BA%E4%BA%8Egit%E7%9A%84%E6%BA%90%E4%BB%A3%E7%A0%81%E7%AE%A1%E7%90%86%E6%A8%A1%E5%9E%8B%E2%80%94%E2%80%94git-flow/</loc>
+    <lastmod>2018-01-30T03:45:26.000Z</lastmod>
+    <data>
+        <display>
+        <title>基于git的源代码管理模型——git flow</title>
+        <pubTime>2014-12-11T15:24:00.000Z</pubTime>
+        
+        <tag>git</tag>
+         
+        <tag>git flow</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2014/02/17/%E5%9C%A8Ubuntu%E4%B8%8A%E5%AE%89%E8%A3%85Hadoop%EF%BC%88%E5%8D%95%E6%9C%BA%E6%A8%A1%E5%BC%8F%EF%BC%89%E6%AD%A5%E9%AA%A4/</loc>
+    <lastmod>2018-01-30T03:45:20.000Z</lastmod>
+    <data>
+        <display>
+        <title>在Ubuntu上安装Hadoop（单机模式）步骤</title>
+        <pubTime>2014-02-17T07:49:00.000Z</pubTime>
+        
+        <tag>java</tag>
+         
+        <tag>j2ee</tag>
+         
+        <tag>java web</tag>
+         
+        <tag>ubuntu</tag>
+         
+        <tag>hadoop</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2014/04/22/%E5%85%B3%E4%BA%8EAndroid-%E7%9A%84%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2%E5%8F%8A%E5%88%86%E6%9E%90/</loc>
+    <lastmod>2018-01-30T03:44:59.000Z</lastmod>
+    <data>
+        <display>
+        <title>关于Android 的内存泄露及分析</title>
+        <pubTime>2014-04-22T02:09:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>memory leak</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2012/12/27/%E4%B8%80%E5%88%BB%E9%92%9F%E7%B2%BE%E9%80%9A%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</loc>
+    <lastmod>2018-01-30T03:44:50.000Z</lastmod>
+    <data>
+        <display>
+        <title>一刻钟精通正则表达式</title>
+        <pubTime>2012-12-27T01:48:00.000Z</pubTime>
+        
+        <tag>reg</tag>
+         
+        <tag>正则表达式</tag>
+         
+        <tag>regular expression</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2013/11/06/%E3%80%90ios%E3%80%91%E4%BD%BF%E7%94%A8Block%E5%AF%B9POST%E5%BC%82%E6%AD%A5%E6%93%8D%E4%BD%9C%E7%9A%84%E7%AE%80%E5%8D%95%E5%B0%81%E8%A3%85/</loc>
+    <lastmod>2018-01-30T03:44:21.000Z</lastmod>
+    <data>
+        <display>
+        <title>【ios】使用Block对POST异步操作的简单封装</title>
+        <pubTime>2013-11-05T22:35:00.000Z</pubTime>
+        
+        <tag>iOS</tag>
+         
+        <tag>block</tag>
+         
+        <tag>post</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2013/11/02/%E3%80%90IOS%E3%80%91%E4%BB%8Eandroid%E8%A7%92%E5%BA%A6%E6%9D%A5%E5%AE%9E%E7%8E%B0-%E7%90%86%E8%A7%A3-IOS%E7%9A%84UITableView/</loc>
+    <lastmod>2018-01-30T03:44:06.000Z</lastmod>
+    <data>
+        <display>
+        <title>【IOS】从android角度来实现(理解)IOS的UITableView</title>
+        <pubTime>2013-11-01T18:58:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>iOS</tag>
+         
+        <tag>UITableView</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2013/11/03/%E3%80%90IOS%E3%80%91ios%E4%B8%ADNSUserDefault%E4%B8%8Eandroid%E4%B8%AD%E7%9A%84SharedPreference%E7%94%A8%E6%B3%95%E7%AE%80%E5%8D%95%E5%AF%B9%E6%AF%94/</loc>
+    <lastmod>2018-01-30T03:43:56.000Z</lastmod>
+    <data>
+        <display>
+        <title>【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比</title>
+        <pubTime>2013-11-03T11:37:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>iOS</tag>
+         
+        <tag>NSUserDefault</tag>
+         
+        <tag>SharedPreference</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2015/11/05/%E3%80%8AKotli%C2%ADn-for-%C2%ADandroi%C2%ADd-Deve%C2%ADlopers%C2%AD%E3%80%8B%E4%B8%AD%E6%96%87%E7%BF%BB%E8%AF%91/</loc>
+    <lastmod>2018-01-30T03:43:39.000Z</lastmod>
+    <data>
+        <display>
+        <title>《Kotli­n for ­androi­d Deve­lopers­》中文翻译</title>
+        <pubTime>2015-11-05T04:32:00.000Z</pubTime>
+        
+        <tag>翻译</tag>
+         
+        <tag>kotlin</tag>
+         
+        <tag>Kotli­n for android Developers</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2012/10/23/Zxing-android-%E8%A7%A3%E6%9E%90%E6%B5%81%E7%A8%8B/</loc>
+    <lastmod>2018-01-30T03:43:05.000Z</lastmod>
+    <data>
+        <display>
+        <title>Zxing android 解析流程</title>
+        <pubTime>2012-10-23T03:50:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>zxing</tag>
+         
+        <tag>qr</tag>
+         
+        <tag>qrcode</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2012/11/30/WEB%E9%A1%B9%E7%9B%AE%E7%9A%84%E5%88%86%E5%B1%82%E7%BB%93%E6%9E%84/</loc>
+    <lastmod>2018-01-30T03:42:55.000Z</lastmod>
+    <data>
+        <display>
+        <title>WEB项目的分层结构</title>
+        <pubTime>2012-11-30T03:04:00.000Z</pubTime>
+        
+        <tag>java</tag>
+         
+        <tag>j2ee</tag>
+         
+        <tag>java web</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2012/03/03/TimePicker-SharedPreferences%E5%AE%9E%E7%8E%B0android%E5%B0%8F%E9%97%B9%E9%92%9F/</loc>
+    <lastmod>2018-01-30T03:42:47.000Z</lastmod>
+    <data>
+        <display>
+        <title>TimePicker,SharedPreferences实现android小闹钟</title>
+        <pubTime>2012-03-03T05:23:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2012/10/15/TextView%E7%9A%84%E5%B1%9E%E6%80%A7%E8%AF%A6%E8%A7%A3/</loc>
+    <lastmod>2018-01-30T03:42:40.000Z</lastmod>
+    <data>
+        <display>
+        <title>TextView的属性详解</title>
+        <pubTime>2012-10-15T03:46:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>TextView</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2013/02/27/svn%E7%9A%84%E4%BD%BF%E7%94%A8/</loc>
+    <lastmod>2018-01-30T03:42:32.000Z</lastmod>
+    <data>
+        <display>
+        <title>svn的使用</title>
+        <pubTime>2013-02-27T01:58:00.000Z</pubTime>
+        
+        <tag>svn</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2013/03/03/Struts-iBatis-Spring-mysql%E6%95%B4%E5%90%88%E5%BC%80%E5%8F%91/</loc>
+    <lastmod>2018-01-30T03:42:27.000Z</lastmod>
+    <data>
+        <display>
+        <title>Struts+iBatis+Spring+mysql整合开发</title>
+        <pubTime>2013-03-03T06:54:00.000Z</pubTime>
+        
+        <tag>database</tag>
+         
+        <tag>j2ee</tag>
+         
+        <tag>java web</tag>
+         
+        <tag>struts</tag>
+         
+        <tag>ibatis</tag>
+         
+        <tag>spring</tag>
+         
+        <tag>mysql</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2017/04/11/NDK%E9%85%8D%E7%BD%AE/</loc>
+    <lastmod>2018-01-30T03:42:06.000Z</lastmod>
+    <data>
+        <display>
+        <title>NDK配置</title>
+        <pubTime>2017-04-11T04:09:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>ndk</tag>
+         
+        <tag>jni</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2013/02/24/lucene-%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/</loc>
+    <lastmod>2018-01-30T03:41:58.000Z</lastmod>
+    <data>
+        <display>
+        <title>lucene 使用教程</title>
+        <pubTime>2013-02-24T01:59:00.000Z</pubTime>
+        
+        <tag>java</tag>
+         
+        <tag>lucene</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2017/02/04/Lottie%E7%AE%80%E4%BB%8B%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/</loc>
+    <lastmod>2018-01-30T03:41:46.000Z</lastmod>
+    <data>
+        <display>
+        <title>Lottie简介（翻译）</title>
+        <pubTime>2017-02-04T04:21:00.000Z</pubTime>
+        
+        <tag>animation</tag>
+         
+        <tag>animator</tag>
+         
+        <tag>lottie</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2015/05/11/Learn-RxJava/</loc>
+    <lastmod>2018-01-30T03:41:34.000Z</lastmod>
+    <data>
+        <display>
+        <title>Learn RxJava</title>
+        <pubTime>2015-05-11T11:33:00.000Z</pubTime>
+        
+        <tag>rxjava</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2015/09/09/Kotlin%EF%BC%9AAndroid%E4%B8%96%E7%95%8C%E7%9A%84Swift/</loc>
+    <lastmod>2018-01-30T03:41:16.000Z</lastmod>
+    <data>
+        <display>
+        <title>Kotlin：Android世界的Swift</title>
+        <pubTime>2015-09-09T06:23:00.000Z</pubTime>
+        
+        <tag>kotlin</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2015/09/11/Kotlin%E8%AF%AD%E6%B3%95%EF%BC%88%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%89/</loc>
+    <lastmod>2018-01-30T03:41:12.000Z</lastmod>
+    <data>
+        <display>
+        <title>Kotlin语法（类和对象）</title>
+        <pubTime>2015-09-11T09:47:00.000Z</pubTime>
+        
+        <tag>kotlin</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2015/09/11/Kotlin%E8%AF%AD%E6%B3%95%EF%BC%88%E5%9F%BA%E7%A1%80%EF%BC%89/</loc>
+    <lastmod>2018-01-30T03:41:10.000Z</lastmod>
+    <data>
+        <display>
+        <title>Kotlin语法（基础）</title>
+        <pubTime>2015-09-11T06:50:00.000Z</pubTime>
+        
+        <tag>kotlin</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2015/09/11/Kotlin%E8%AF%AD%E6%B3%95%EF%BC%88%E5%87%BD%E6%95%B0%E5%92%8Clambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%EF%BC%89/</loc>
+    <lastmod>2018-01-30T03:41:03.000Z</lastmod>
+    <data>
+        <display>
+        <title>Kotlin语法（函数和lambda表达式）</title>
+        <pubTime>2015-09-11T10:35:00.000Z</pubTime>
+        
+        <tag>kotlin</tag>
+         
+        <tag>lambda</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2015/09/13/Kotlin%E8%AF%AD%E6%B3%95%EF%BC%88%E5%85%B6%E4%BB%96%EF%BC%89/</loc>
+    <lastmod>2018-01-30T03:40:52.000Z</lastmod>
+    <data>
+        <display>
+        <title>Kotlin语法（其他）</title>
+        <pubTime>2015-09-13T09:08:00.000Z</pubTime>
+        
+        <tag>kotlin</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2012/12/26/JVM%E5%8E%9F%E7%90%86/</loc>
+    <lastmod>2018-01-30T03:40:45.000Z</lastmod>
+    <data>
+        <display>
+        <title>JVM原理</title>
+        <pubTime>2012-12-26T13:33:00.000Z</pubTime>
+        
+        <tag>java</tag>
+         
+        <tag>JVM</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2012/04/18/Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6List%EF%BC%8CMap%EF%BC%8CSet%E7%AD%89%E5%85%A8%E9%9D%A2%E4%BB%8B%E7%BB%8D/</loc>
+    <lastmod>2018-01-30T03:40:36.000Z</lastmod>
+    <data>
+        <display>
+        <title>Java集合框架List，Map，Set等全面介绍</title>
+        <pubTime>2012-04-18T06:27:00.000Z</pubTime>
+        
+        <tag>java</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2013/03/04/Java%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E6%B1%89%E8%AF%BA%E5%A1%94%E9%97%AE%E9%A2%98/</loc>
+    <lastmod>2018-01-30T03:40:25.000Z</lastmod>
+    <data>
+        <display>
+        <title>Java数据结构和算法——汉诺塔问题</title>
+        <pubTime>2013-03-04T09:18:00.000Z</pubTime>
+        
+        <tag>java</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2013/01/07/Java%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%99%A8%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/</loc>
+    <lastmod>2018-01-30T03:40:18.000Z</lastmod>
+    <data>
+        <display>
+        <title>Java垃圾回收器工作原理</title>
+        <pubTime>2013-01-07T03:07:00.000Z</pubTime>
+        
+        <tag>java</tag>
+         
+        <tag>gc</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2013/09/24/java%E4%BD%BF%E7%94%A8%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E6%9D%A5%E5%AE%9E%E7%8E%B0AOP%EF%BC%88%E6%97%A5%E5%BF%97%E8%AE%B0%E5%BD%95%EF%BC%89/</loc>
+    <lastmod>2018-01-30T03:40:12.000Z</lastmod>
+    <data>
+        <display>
+        <title>java使用动态代理来实现AOP（日志记录）</title>
+        <pubTime>2013-09-24T04:05:00.000Z</pubTime>
+        
+        <tag>java</tag>
+         
+        <tag>dynamic proxy</tag>
+         
+        <tag>aop</tag>
+         
+        <tag>log</tag>
+         
+        <tag>logger</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2012/05/03/Java%E4%B8%AD%E7%9A%84%E5%BC%BA%E5%BC%95%E7%94%A8%E3%80%81%E8%BD%AF%E5%BC%95%E7%94%A8%E3%80%81%E5%BC%B1%E5%BC%95%E7%94%A8%E5%92%8C%E8%99%9A%E5%BC%95%E7%94%A8/</loc>
+    <lastmod>2018-01-30T03:39:44.000Z</lastmod>
+    <data>
+        <display>
+        <title>Java中的强引用、软引用、弱引用和虚引用</title>
+        <pubTime>2012-05-03T02:28:00.000Z</pubTime>
+        
+        <tag>java</tag>
+         
+        <tag>reference</tag>
+         
+        <tag>StrongReference</tag>
+         
+        <tag>SoftReference</tag>
+         
+        <tag>WeakReference</tag>
+         
+        <tag>PhantomReference</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2014/03/20/Java8-Lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%95%99%E7%A8%8B/</loc>
+    <lastmod>2018-01-30T03:38:57.000Z</lastmod>
+    <data>
+        <display>
+        <title>Java8 Lambda表达式教程</title>
+        <pubTime>2014-03-20T05:18:00.000Z</pubTime>
+        
+        <tag>java</tag>
+         
+        <tag>java8</tag>
+         
+        <tag>lambda</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2012/11/21/java-%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/</loc>
+    <lastmod>2018-01-30T03:38:49.000Z</lastmod>
+    <data>
+        <display>
+        <title>java 适配器模式</title>
+        <pubTime>2012-11-21T09:16:00.000Z</pubTime>
+        
+        <tag>java</tag>
+         
+        <tag>adapter</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2012/11/20/java-%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/</loc>
+    <lastmod>2018-01-30T03:38:21.000Z</lastmod>
+    <data>
+        <display>
+        <title>java 观察者模式</title>
+        <pubTime>2012-11-20T09:12:00.000Z</pubTime>
+        
+        <tag>java</tag>
+         
+        <tag>pattern</tag>
+         
+        <tag>observer</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2012/11/20/java-%E8%A3%85%E9%A5%B0%E8%80%85%E6%A8%A1%E5%BC%8F/</loc>
+    <lastmod>2018-01-30T03:38:01.000Z</lastmod>
+    <data>
+        <display>
+        <title>java 装饰者模式</title>
+        <pubTime>2012-11-20T08:07:00.000Z</pubTime>
+        
+        <tag>java</tag>
+         
+        <tag>pattern</tag>
+         
+        <tag>decorator</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2012/11/19/java-%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/</loc>
+    <lastmod>2018-01-30T03:37:35.000Z</lastmod>
+    <data>
+        <display>
+        <title>java 策略模式</title>
+        <pubTime>2012-11-19T12:33:00.000Z</pubTime>
+        
+        <tag>java</tag>
+         
+        <tag>pattern</tag>
+         
+        <tag>strategy</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2012/11/19/java-%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/</loc>
+    <lastmod>2018-01-30T03:37:26.000Z</lastmod>
+    <data>
+        <display>
+        <title>java 工厂模式</title>
+        <pubTime>2012-11-19T13:18:00.000Z</pubTime>
+        
+        <tag>java</tag>
+         
+        <tag>pattern</tag>
+         
+        <tag>factory</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2012/11/20/Java-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</loc>
+    <lastmod>2018-01-30T03:37:21.000Z</lastmod>
+    <data>
+        <display>
+        <title>Java 单例模式</title>
+        <pubTime>2012-11-20T05:41:00.000Z</pubTime>
+        
+        <tag>java</tag>
+         
+        <tag>pattern</tag>
+         
+        <tag>singleton</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2012/11/20/java-%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%EF%BC%88%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86-%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%EF%BC%89/</loc>
+    <lastmod>2018-01-30T03:37:11.000Z</lastmod>
+    <data>
+        <display>
+        <title>java 代理模式（静态代理+动态代理）</title>
+        <pubTime>2012-11-20T07:22:00.000Z</pubTime>
+        
+        <tag>java</tag>
+         
+        <tag>proxy</tag>
+         
+        <tag>pattern</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2013/01/29/java-%E4%BA%8C%E3%80%81%E5%85%AB%E3%80%81%E5%8D%81%E3%80%81%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6%E4%B9%8B%E9%97%B4%E7%9A%84%E8%BD%AC%E6%8D%A2/</loc>
+    <lastmod>2018-01-30T03:36:55.000Z</lastmod>
+    <data>
+        <display>
+        <title>[java]二、八、十、十六进制之间的转换</title>
+        <pubTime>2013-01-29T04:37:00.000Z</pubTime>
+        
+        <tag>java</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2012/12/26/Java-Stack%E6%A0%88%E5%92%8CHeap%E5%A0%86%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%88%E7%BB%88%E7%BB%93%E7%AF%87%EF%BC%89-%E8%BD%AC/</loc>
+    <lastmod>2018-01-30T03:36:49.000Z</lastmod>
+    <data>
+        <display>
+        <title>[Java]Stack栈和Heap堆的区别（终结篇）[转]</title>
+        <pubTime>2012-12-26T13:11:00.000Z</pubTime>
+        
+        <tag>java</tag>
+         
+        <tag>stack</tag>
+         
+        <tag>heap</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2013/04/11/Java-Collection/</loc>
+    <lastmod>2018-01-30T03:36:41.000Z</lastmod>
+    <data>
+        <display>
+        <title>Java Collection</title>
+        <pubTime>2013-04-11T03:24:00.000Z</pubTime>
+        
+        <tag>java</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2013/06/06/IOS%E6%8E%A8%E9%80%81%E5%8A%9F%E8%83%BD%E7%9A%84%E5%AE%9E%E7%8E%B0%EF%BC%88javapns%EF%BC%89/</loc>
+    <lastmod>2018-01-30T03:36:35.000Z</lastmod>
+    <data>
+        <display>
+        <title>IOS推送功能的实现（javapns）</title>
+        <pubTime>2013-06-06T10:01:00.000Z</pubTime>
+        
+        <tag>iOS</tag>
+         
+        <tag>push</tag>
+         
+        <tag>javapns</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2013/11/08/ios7-tableview%E8%A2%ABnavigationbar%E6%8C%A1%E4%BD%8F/</loc>
+    <lastmod>2018-01-30T03:36:26.000Z</lastmod>
+    <data>
+        <display>
+        <title>ios7 tableview被navigationbar挡住</title>
+        <pubTime>2013-11-08T05:44:00.000Z</pubTime>
+        
+        <tag>iOS</tag>
+         
+        <tag>TableView</tag>
+         
+        <tag>NavigationBar</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2014/06/04/IOS-%E3%80%8AA-Swift-Tour%E3%80%8B%E7%BF%BB%E8%AF%91%EF%BC%88%E4%B8%80%EF%BC%89/</loc>
+    <lastmod>2018-01-30T03:36:11.000Z</lastmod>
+    <data>
+        <display>
+        <title>[IOS]《A Swift Tour》翻译（一）</title>
+        <pubTime>2014-06-04T15:06:00.000Z</pubTime>
+        
+        <tag>翻译</tag>
+         
+        <tag>iOS</tag>
+         
+        <tag>swift</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2013/05/18/IntelliJ-IDEA-12-%E5%88%9B%E5%BB%BAWeb%E9%A1%B9%E7%9B%AE-%E6%95%99%E7%A8%8B-%E8%B6%85%E8%AF%A6%E7%BB%86%E7%89%88/</loc>
+    <lastmod>2018-01-30T03:35:59.000Z</lastmod>
+    <data>
+        <display>
+        <title>IntelliJ IDEA 12 创建Web项目 教程 超详细版</title>
+        <pubTime>2013-05-18T03:00:00.000Z</pubTime>
+        
+        <tag>j2ee</tag>
+         
+        <tag>java web</tag>
+         
+        <tag>Intellij IDEA</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2016/08/29/HTTP%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3/</loc>
+    <lastmod>2018-01-30T03:35:39.000Z</lastmod>
+    <data>
+        <display>
+        <title>HTTP协议详解</title>
+        <pubTime>2016-08-29T06:13:00.000Z</pubTime>
+        
+        <tag>http</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2014/02/20/Hbase-Java-API%E8%AF%A6%E8%A7%A3/</loc>
+    <lastmod>2018-01-30T03:35:18.000Z</lastmod>
+    <data>
+        <display>
+        <title>Hbase Java API详解</title>
+        <pubTime>2014-02-20T06:23:00.000Z</pubTime>
+        
+        <tag>java</tag>
+         
+        <tag>android</tag>
+         
+        <tag>Hbase</tag>
+         
+        <tag>j2ee</tag>
+         
+        <tag>java web</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2013/10/08/Hibernate3%E6%B3%A8%E8%A7%A3-%E8%BD%AC/</loc>
+    <lastmod>2018-01-30T03:35:04.000Z</lastmod>
+    <data>
+        <display>
+        <title>Hibernate3注解[转]</title>
+        <pubTime>2013-10-08T06:40:00.000Z</pubTime>
+        
+        <tag>orm</tag>
+         
+        <tag>j2ee</tag>
+         
+        <tag>java web</tag>
+         
+        <tag>Hibernate</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2016/08/24/Git-Note/</loc>
+    <lastmod>2018-01-30T03:33:23.000Z</lastmod>
+    <data>
+        <display>
+        <title>Git Note</title>
+        <pubTime>2016-08-24T09:36:00.000Z</pubTime>
+        
+        <tag>tips</tag>
+         
+        <tag>git</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2012/10/15/EditText%E7%9A%84%E5%B1%9E%E6%80%A7%E4%BB%8B%E7%BB%8D/</loc>
+    <lastmod>2018-01-30T03:33:13.000Z</lastmod>
+    <data>
+        <display>
+        <title>EditText的属性介绍</title>
+        <pubTime>2012-10-15T03:47:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>EditText</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2014/03/28/Android%E9%AB%98%E7%BA%A7%E6%A8%A1%E7%B3%8A%E6%8A%80%E6%9C%AF-%E8%BD%AC/</loc>
+    <lastmod>2018-01-30T03:32:48.000Z</lastmod>
+    <data>
+        <display>
+        <title>Android高级模糊技术[转]</title>
+        <pubTime>2014-03-28T02:46:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>blur</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2012/03/01/Android%E9%80%9A%E8%BF%87VideoView%E5%AE%9E%E7%8E%B0%E8%A7%86%E9%A2%91%E6%92%AD%E6%94%BE/</loc>
+    <lastmod>2018-01-30T03:32:36.000Z</lastmod>
+    <data>
+        <display>
+        <title>Android通过VideoView实现视频播放</title>
+        <pubTime>2012-03-01T07:02:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>VideoView</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2012/03/01/android%E9%80%9A%E8%BF%87BroadcastReceiver%E6%8B%A6%E6%88%AA%E7%9F%AD%E4%BF%A1%E8%BD%AC%E5%8F%91/</loc>
+    <lastmod>2018-01-30T03:32:27.000Z</lastmod>
+    <data>
+        <display>
+        <title>android通过BroadcastReceiver拦截短信转发</title>
+        <pubTime>2012-03-01T05:32:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>BroadcastReceiver</tag>
+         
+        <tag>SMS</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2012/03/08/Android%E9%80%80%E5%87%BA%E7%A8%8B%E5%BA%8F%E7%9A%84%E8%8B%A5%E5%B9%B2%E6%96%B9%E6%B3%95/</loc>
+    <lastmod>2018-01-30T03:32:14.000Z</lastmod>
+    <data>
+        <display>
+        <title>Android退出程序的若干方法</title>
+        <pubTime>2012-03-08T08:42:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>exit</tag>
+         
+        <tag>kill</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2012/03/08/Android%E8%AF%BB%E5%8F%96%E7%94%A8%E6%88%B7%E5%8F%B7%E7%A0%81%EF%BC%8C%E6%89%8B%E6%9C%BA%E4%B8%B2%E5%8F%B7%EF%BC%8CSIM%E5%8D%A1%E5%BA%8F%E5%88%97%E5%8F%B7/</loc>
+    <lastmod>2018-01-30T03:32:03.000Z</lastmod>
+    <data>
+        <display>
+        <title>Android读取用户号码，手机串号，SIM卡序列号</title>
+        <pubTime>2012-03-08T08:58:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>phone number</tag>
+         
+        <tag>SIM</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2012/03/03/Android%E8%AF%BB%E5%86%99%E6%96%87%E4%BB%B6%E6%B1%87%E6%80%BB/</loc>
+    <lastmod>2018-01-30T03:31:54.000Z</lastmod>
+    <data>
+        <display>
+        <title>Android读写文件汇总</title>
+        <pubTime>2012-03-03T08:03:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>raw</tag>
+         
+        <tag>resource</tag>
+         
+        <tag>IO</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2012/06/06/Android%E8%87%AA%E5%AE%9A%E4%B9%89%E5%B1%9E%E6%80%A7%EF%BC%8Cformat%E8%AF%A6%E8%A7%A3/</loc>
+    <lastmod>2018-01-30T03:31:32.000Z</lastmod>
+    <data>
+        <display>
+        <title>Android自定义属性，format详解</title>
+        <pubTime>2012-06-06T09:13:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>attr</tag>
+         
+        <tag>attrubite</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2013/09/10/Android%E8%87%AA%E5%AE%9A%E4%B9%89ScrollView%E5%88%86%E6%AE%B5%E5%8A%A0%E8%BD%BD%E5%A4%A7%E6%96%87%E6%9C%AC%E6%95%B0%E6%8D%AE%E5%88%B0TextView/</loc>
+    <lastmod>2018-01-30T03:31:12.000Z</lastmod>
+    <data>
+        <display>
+        <title>Android自定义ScrollView分段加载大文本数据到TextView</title>
+        <pubTime>2013-09-10T02:19:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>ScrollView</tag>
+         
+        <tag>TextView</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2012/03/03/Android%E7%BB%98%E5%9B%BE%E6%93%8D%E4%BD%9ConDraw/</loc>
+    <lastmod>2018-01-30T03:31:03.000Z</lastmod>
+    <data>
+        <display>
+        <title>Android绘图操作onDraw</title>
+        <pubTime>2012-03-03T07:55:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>onDraw</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2012/05/09/android%E7%9C%9F%E6%9C%BA%E8%B0%83%E8%AF%95%E6%97%B6%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BAlogcat%E4%BF%A1%E6%81%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</loc>
+    <lastmod>2018-01-30T03:30:58.000Z</lastmod>
+    <data>
+        <display>
+        <title>android真机调试时无法显示logcat信息的解决办法</title>
+        <pubTime>2012-05-09T07:24:00.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2012/03/08/Android%E7%9A%84%E5%8D%95%E4%BD%8D%E5%8F%8A%E5%B1%8F%E5%B9%95%E5%88%86%E8%BE%A8%E7%8E%87/</loc>
+    <lastmod>2018-01-30T03:30:35.000Z</lastmod>
+    <data>
+        <display>
+        <title>Android的单位及屏幕分辨率</title>
+        <pubTime>2012-03-08T09:01:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>tips</tag>
+         
+        <tag>UI</tag>
+         
+        <tag>unit</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2014/06/07/Android%E6%97%A0%E7%BA%BF%E8%B0%83%E8%AF%95/</loc>
+    <lastmod>2018-01-30T03:30:19.000Z</lastmod>
+    <data>
+        <display>
+        <title>Android无线调试</title>
+        <pubTime>2014-06-07T10:33:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>debug</tag>
+         
+        <tag>debuggable</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2012/03/03/Android%E5%BA%94%E7%94%A8%E7%AD%BE%E5%90%8D%E8%AF%A6%E8%A7%A3-Eclipse-ADT/</loc>
+    <lastmod>2018-01-30T03:30:03.000Z</lastmod>
+    <data>
+        <display>
+        <title>Android应用签名详解 Eclipse+ADT</title>
+        <pubTime>2012-03-03T09:35:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>apk</tag>
+         
+        <tag>signature</tag>
+         
+        <tag>eclipse</tag>
+         
+        <tag>ADT</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2012/03/08/android%E5%B1%8F%E8%94%BD%E8%BF%94%E5%9B%9E%E9%94%AE%E5%92%8Chome%E9%94%AE/</loc>
+    <lastmod>2018-01-30T03:29:29.000Z</lastmod>
+    <data>
+        <display>
+        <title>android屏蔽返回键和home键</title>
+        <pubTime>2012-03-08T09:04:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>key</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2012/06/19/Android%E4%BD%BF%E7%94%A8ListView%E5%BA%94%E8%AF%A5%E6%B3%A8%E6%84%8F%E7%9A%84%E5%9C%B0%E6%96%B9/</loc>
+    <lastmod>2018-01-30T03:29:07.000Z</lastmod>
+    <data>
+        <display>
+        <title>Android使用ListView应该注意的地方</title>
+        <pubTime>2012-06-19T00:28:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>ListView</tag>
+         
+        <tag>view</tag>
+         
+        <tag>tips</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2015/11/26/Android%E5%B0%8F%E6%8A%80%E5%B7%A7/</loc>
+    <lastmod>2018-01-30T03:28:58.000Z</lastmod>
+    <data>
+        <display>
+        <title>Android小技巧</title>
+        <pubTime>2015-11-26T04:01:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>tips</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2015/02/02/android%E5%A4%9A%E5%88%86%E8%BE%A8%E7%8E%87%E5%A4%9A%E5%B1%8F%E5%B9%95%E5%AF%86%E5%BA%A6%E4%B8%8BUI%E9%80%82%E9%85%8D%E6%96%B9%E6%A1%88/</loc>
+    <lastmod>2018-01-30T03:28:42.000Z</lastmod>
+    <data>
+        <display>
+        <title>android多分辨率多屏幕密度下UI适配方案</title>
+        <pubTime>2015-02-02T11:12:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>ui</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2013/10/12/Android%E4%BD%BF%E7%94%A8Fragment%E6%9D%A5%E5%AE%9E%E7%8E%B0ViewPager%E7%9A%84%E5%8A%9F%E8%83%BD%EF%BC%88%E8%A7%A3%E5%86%B3%E5%88%87%E6%8D%A2Fragment%E7%8A%B6%E6%80%81%E4%B8%8D%E4%BF%9D%E5%AD%98%EF%BC%89%E4%BB%A5%E5%8F%8A%E5%90%84%E4%B8%AAFragment%E4%B9%8B%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1/</loc>
+    <lastmod>2018-01-30T03:27:56.000Z</lastmod>
+    <data>
+        <display>
+        <title>Android使用Fragment来实现ViewPager的功能（解决切换Fragment状态不保存）以及各个Fragment之间的通信</title>
+        <pubTime>2013-10-12T01:57:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>fragment</tag>
+         
+        <tag>ViewPager</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2013/10/10/Android%E4%BD%BF%E7%94%A8Fragment%E6%9D%A5%E5%AE%9E%E7%8E%B0TabHost%E7%9A%84%E5%8A%9F%E8%83%BD%EF%BC%88%E8%A7%A3%E5%86%B3%E5%88%87%E6%8D%A2Fragment%E7%8A%B6%E6%80%81%E4%B8%8D%E4%BF%9D%E5%AD%98%EF%BC%89%E4%BB%A5%E5%8F%8A%E5%90%84%E4%B8%AAFragment%E4%B9%8B%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1/</loc>
+    <lastmod>2018-01-30T03:27:46.000Z</lastmod>
+    <data>
+        <display>
+        <title>Android使用Fragment来实现TabHost的功能（解决切换Fragment状态不保存）以及各个Fragment之间的通信</title>
+        <pubTime>2013-10-10T03:37:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>fragment</tag>
+         
+        <tag>TabHost</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2012/03/01/android%E4%B8%ADDatePicker-TimePicker%E7%9A%84%E5%BA%94%E7%94%A8/</loc>
+    <lastmod>2018-01-30T03:27:31.000Z</lastmod>
+    <data>
+        <display>
+        <title>android中DatePicker&TimePicker的应用</title>
+        <pubTime>2012-03-01T10:44:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>DatePicker</tag>
+         
+        <tag>TimePicker</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2012/06/14/Android%E4%B8%ADApplication%E8%AE%BE%E7%BD%AE%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E4%BB%A5%E5%8F%8A%E4%BC%A0%E5%80%BC/</loc>
+    <lastmod>2018-01-30T03:27:15.000Z</lastmod>
+    <data>
+        <display>
+        <title>Android中Application设置全局变量以及传值</title>
+        <pubTime>2012-06-14T02:25:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>application</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2014/07/13/Android%E4%B8%8A%E7%9A%84MVP%EF%BC%9A%E5%A6%82%E4%BD%95%E7%BB%84%E7%BB%87%E6%98%BE%E7%A4%BA%E5%B1%82%E7%9A%84%E5%86%85%E5%AE%B9/</loc>
+    <lastmod>2018-01-30T03:26:56.000Z</lastmod>
+    <data>
+        <display>
+        <title>Android上的MVP：如何组织显示层的内容</title>
+        <pubTime>2014-07-13T10:55:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>mvp</tag>
+         
+        <tag>framework</tag>
+         
+        <tag>mvc</tag>
+         
+        <tag>best practices</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2014/02/08/AndroidInject%E9%A1%B9%E7%9B%AE%E4%BD%BF%E7%94%A8%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E5%A2%9E%E5%8A%A0%E5%AF%B9%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E7%9A%84%E6%94%AF%E6%8C%81/</loc>
+    <lastmod>2018-01-30T03:26:38.000Z</lastmod>
+    <data>
+        <display>
+        <title>AndroidInject项目使用动态代理增加对网络请求的支持</title>
+        <pubTime>2014-02-08T06:32:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>annotations</tag>
+         
+        <tag>library</tag>
+         
+        <tag>proxy</tag>
+         
+        <tag>dynamic proxy</tag>
+         
+        <tag>http</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2014/07/03/Android-%E8%A7%A3%E5%86%B3ClickableSpan%E4%B8%AD%E7%82%B9%E5%87%BB%E5%90%8EListView%E4%B8%ADitem%E7%9A%84%E9%95%BF%E6%8C%89%E5%86%B2%E7%AA%81%E7%9A%84%E9%97%AE%E9%A2%98/</loc>
+    <lastmod>2018-01-30T03:25:55.000Z</lastmod>
+    <data>
+        <display>
+        <title>[Android]解决ClickableSpan中点击后ListView中item的长按冲突的问题</title>
+        <pubTime>2014-07-03T14:17:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>ListView</tag>
+         
+        <tag>ClickableSpan</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2014/07/01/Android-%E7%AB%96%E7%9B%B4%E6%BB%91%E5%8A%A8%E9%80%89%E6%8B%A9%E5%99%A8WheelView%E7%9A%84%E5%AE%9E%E7%8E%B0/</loc>
+    <lastmod>2018-01-30T03:25:41.000Z</lastmod>
+    <data>
+        <display>
+        <title>[Android]竖直滑动选择器WheelView的实现</title>
+        <pubTime>2014-07-01T15:37:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>library</tag>
+         
+        <tag>WheelView</tag>
+         
+        <tag>github</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2014/02/28/Android-%E5%BC%82%E6%AD%A5%E5%8A%A0%E8%BD%BD%E5%9B%BE%E7%89%87%EF%BC%8C%E5%86%85%E5%AD%98%E7%BC%93%E5%AD%98%EF%BC%8C%E6%96%87%E4%BB%B6%E7%BC%93%E5%AD%98%EF%BC%8Cimageview%E6%98%BE%E7%A4%BA%E5%9B%BE%E7%89%87%E6%97%B6%E5%A2%9E%E5%8A%A0%E6%B7%A1%E5%85%A5%E6%B7%A1%E5%87%BA%E5%8A%A8%E7%94%BB/</loc>
+    <lastmod>2018-01-30T03:25:25.000Z</lastmod>
+    <data>
+        <display>
+        <title>[Android]异步加载图片，内存缓存，文件缓存，imageview显示图片时增加淡入淡出动画</title>
+        <pubTime>2014-02-28T10:13:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>ImageView</tag>
+         
+        <tag>ImageLoader</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2016/09/01/Android-%E5%BC%82%E6%AD%A5-layout-inflation%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/</loc>
+    <lastmod>2018-01-30T03:25:00.000Z</lastmod>
+    <data>
+        <display>
+        <title>[Android]异步 layout inflation（翻译）</title>
+        <pubTime>2016-09-01T06:42:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>翻译</tag>
+         
+        <tag>layout</tag>
+         
+        <tag>inflation</tag>
+         
+        <tag>asynchronize</tag>
+         
+        <tag>async</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2012/05/22/android-%E5%BC%82%E5%B8%B8%EF%BC%9AScrollView-can-host-only-one-direct-child/</loc>
+    <lastmod>2018-01-30T03:23:43.000Z</lastmod>
+    <data>
+        <display>
+        <title>android 异常：ScrollView can host only one direct child</title>
+        <pubTime>2012-05-22T01:19:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>ScrollView</tag>
+         
+        <tag>exception</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2015/12/10/Android-%E5%AF%B9MVC%E5%92%8CMVP%E7%9A%84%E6%80%BB%E7%BB%93/</loc>
+    <lastmod>2018-01-30T03:23:27.000Z</lastmod>
+    <data>
+        <display>
+        <title>[Android]对MVC和MVP的总结</title>
+        <pubTime>2015-12-10T07:48:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>mvp</tag>
+         
+        <tag>framework</tag>
+         
+        <tag>mvc</tag>
+         
+        <tag>best practices</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2014/04/03/Android-%E5%AF%B9BaseAdapter%E4%B8%ADViewHolder%E7%BC%96%E5%86%99%E7%AE%80%E5%8C%96/</loc>
+    <lastmod>2018-01-30T03:23:15.000Z</lastmod>
+    <data>
+        <display>
+        <title>[Android]对BaseAdapter中ViewHolder编写简化</title>
+        <pubTime>2014-04-03T05:44:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>ListView</tag>
+         
+        <tag>best practices</tag>
+         
+        <tag>adapter</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2015/02/27/Android-%E5%AE%9E%E7%8E%B0%E7%B1%BB%E4%BC%BC%E5%BE%AE%E4%BF%A1%E7%9A%84%E5%BB%B6%E8%BF%9F%E5%8A%A0%E8%BD%BD%E7%9A%84Fragment%E2%80%94%E2%80%94LazyFragment/</loc>
+    <lastmod>2018-01-30T03:23:01.000Z</lastmod>
+    <data>
+        <display>
+        <title>[Android]实现类似微信的延迟加载的Fragment——LazyFragment</title>
+        <pubTime>2015-02-27T10:02:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>LazyFragment</tag>
+         
+        <tag>lazy</tag>
+         
+        <tag>Fragment</tag>
+         
+        <tag>wechat</tag>
+         
+        <tag>微信</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2015/12/15/Android-%E5%AE%98%E7%BD%91%E3%80%8AUI-Application-Exerciser-Monkey%E3%80%8B%E4%B8%AD%E6%96%87%E7%BF%BB%E8%AF%91/</loc>
+    <lastmod>2018-01-30T03:22:25.000Z</lastmod>
+    <data>
+        <display>
+        <title>[Android]官网《UI/Application Exerciser Monkey》中文翻译</title>
+        <pubTime>2015-12-15T10:11:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>翻译</tag>
+         
+        <tag>testing</tag>
+         
+        <tag>monkey</tag>
+         
+        <tag>adb</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2015/12/15/Android-%E5%AE%98%E7%BD%91%E3%80%8ATesting-Support-Library%E3%80%8B%E4%B8%AD%E6%96%87%E7%BF%BB%E8%AF%91/</loc>
+    <lastmod>2018-01-30T03:21:57.000Z</lastmod>
+    <data>
+        <display>
+        <title>[Android]官网《Testing Support Library》中文翻译</title>
+        <pubTime>2015-12-15T07:44:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>翻译</tag>
+         
+        <tag>google</tag>
+         
+        <tag>testing</tag>
+         
+        <tag>support</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2015/12/16/Android-%E5%AE%98%E7%BD%91%E3%80%8Amonkeyrunner%E3%80%8B%E4%B8%AD%E6%96%87%E7%BF%BB%E8%AF%91/</loc>
+    <lastmod>2018-01-30T03:21:37.000Z</lastmod>
+    <data>
+        <display>
+        <title>[Android]官网《monkeyrunner》中文翻译</title>
+        <pubTime>2015-12-16T04:20:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>翻译</tag>
+         
+        <tag>testing</tag>
+         
+        <tag>monkey</tag>
+         
+        <tag>MonkeyRunner</tag>
+         
+        <tag>autemate</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2015/06/15/Android-%E5%9F%BA%E4%BA%8ERxJava%E3%80%81RxAndroid%E7%9A%84EventBus%E5%AE%9E%E7%8E%B0/</loc>
+    <lastmod>2018-01-30T03:20:48.000Z</lastmod>
+    <data>
+        <display>
+        <title>[Android]基于RxJava、RxAndroid的EventBus实现</title>
+        <pubTime>2015-06-15T09:09:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>RxJava</tag>
+         
+        <tag>RxAndroid</tag>
+         
+        <tag>EventBus</tag>
+         
+        <tag>RxBus</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2014/12/05/Android-%E5%9C%A8Adapter%E7%9A%84getView%E6%96%B9%E6%B3%95%E4%B8%AD%E7%BB%91%E5%AE%9AOnClickListener%E6%AF%94%E8%BE%83%E5%A5%BD%E7%9A%84%E6%96%B9%E6%B3%95/</loc>
+    <lastmod>2018-01-30T03:19:53.000Z</lastmod>
+    <data>
+        <display>
+        <title>[Android]在Adapter的getView方法中绑定OnClickListener比较好的方法</title>
+        <pubTime>2014-12-05T05:50:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>ListView</tag>
+         
+        <tag>best practices</tag>
+         
+        <tag>adapter</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2016/08/22/Android-%E4%BD%BF%E7%94%A8%E8%87%AA%E5%AE%9A%E4%B9%89JUnit-Rules%E3%80%81annotations%E5%92%8CResources%E8%BF%9B%E8%A1%8C%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/</loc>
+    <lastmod>2018-01-30T03:19:33.000Z</lastmod>
+    <data>
+        <display>
+        <title>[Android]使用自定义JUnit Rules、annotations和Resources进行单元测试（翻译）</title>
+        <pubTime>2016-08-22T04:00:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>annotations</tag>
+         
+        <tag>unit test</tag>
+         
+        <tag>JUnit</tag>
+         
+        <tag>Junit Rules</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2017/03/29/Android-%E4%BD%BF%E7%94%A8RecyclerView%E6%9B%BF%E4%BB%A3ListView%EF%BC%88%E5%9B%9B%EF%BC%9ASeizeRecyclerView%EF%BC%89/</loc>
+    <lastmod>2018-01-30T03:19:10.000Z</lastmod>
+    <data>
+        <display>
+        <title>[Android]使用RecyclerView替代ListView（四：SeizeRecyclerView）</title>
+        <pubTime>2017-03-29T13:09:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>ListView</tag>
+         
+        <tag>best practices</tag>
+         
+        <tag>RecyclerView</tag>
+         
+        <tag>SeizeRecyclerView</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2015/01/22/Android-%E4%BD%BF%E7%94%A8RecyclerView%E6%9B%BF%E4%BB%A3ListView%EF%BC%88%E4%BA%8C%EF%BC%89/</loc>
+    <lastmod>2018-01-30T03:19:00.000Z</lastmod>
+    <data>
+        <display>
+        <title>[Android]使用RecyclerView替代ListView（二）</title>
+        <pubTime>2015-01-22T11:51:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>ListView</tag>
+         
+        <tag>best practices</tag>
+         
+        <tag>RecyclerView</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2015/02/02/Android-%E4%BD%BF%E7%94%A8RecyclerView%E6%9B%BF%E4%BB%A3ListView%EF%BC%88%E4%B8%89%EF%BC%89/</loc>
+    <lastmod>2018-01-30T03:18:58.000Z</lastmod>
+    <data>
+        <display>
+        <title>[Android]使用RecyclerView替代ListView（三）</title>
+        <pubTime>2015-02-02T08:32:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>ListView</tag>
+         
+        <tag>best practices</tag>
+         
+        <tag>RecyclerView</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2015/01/18/Android-%E4%BD%BF%E7%94%A8RecyclerView%E6%9B%BF%E4%BB%A3ListView%EF%BC%88%E4%B8%80%EF%BC%89/</loc>
+    <lastmod>2018-01-30T03:18:51.000Z</lastmod>
+    <data>
+        <display>
+        <title>[Android]使用RecyclerView替代ListView（一）</title>
+        <pubTime>2015-01-18T15:01:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>ListView</tag>
+         
+        <tag>best practices</tag>
+         
+        <tag>RecyclerView</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2016/09/21/Android-%E4%BD%BF%E7%94%A8MVP%E8%A7%A3%E5%86%B3%E6%8A%80%E6%9C%AF%E5%80%BA%E5%8A%A1%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/</loc>
+    <lastmod>2018-01-30T03:18:31.000Z</lastmod>
+    <data>
+        <display>
+        <title>[Android]使用MVP解决技术债务（翻译）</title>
+        <pubTime>2016-09-21T07:03:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>mvp</tag>
+         
+        <tag>framework</tag>
+         
+        <tag>technical debt</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2015/09/22/Android-%E4%BD%BF%E7%94%A8Kotlin%E5%BC%80%E5%8F%91Android%EF%BC%88%E4%BA%8C%EF%BC%89/</loc>
+    <lastmod>2018-01-30T03:18:00.000Z</lastmod>
+    <data>
+        <display>
+        <title>[Android]使用Kotlin开发Android（二）</title>
+        <pubTime>2015-09-22T07:08:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>kotlin</tag>
+         
+        <tag>anko</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2015/09/11/Android-%E4%BD%BF%E7%94%A8Kotlin-Anko%E5%BC%80%E5%8F%91Android%EF%BC%88%E4%B8%80%EF%BC%89/</loc>
+    <lastmod>2018-01-30T03:17:53.000Z</lastmod>
+    <data>
+        <display>
+        <title>[Android]使用Kotlin+Anko开发Android（一）</title>
+        <pubTime>2015-09-11T05:20:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>kotlin</tag>
+         
+        <tag>anko</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2015/04/02/Android-%E4%BD%BF%E7%94%A8Gradle%E6%8F%90%E4%BA%A4%E8%87%AA%E5%B7%B1%E5%BC%80%E6%BA%90Android%E5%BA%93%E5%88%B0Maven%E4%B8%AD%E5%BF%83%E5%BA%93/</loc>
+    <lastmod>2018-01-30T03:17:41.000Z</lastmod>
+    <data>
+        <display>
+        <title>[Android]使用Gradle提交自己开源Android库到Maven中心库</title>
+        <pubTime>2015-04-02T11:38:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>gradle</tag>
+         
+        <tag>maven</tag>
+         
+        <tag>open source</tag>
+         
+        <tag>uploadArchive</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2014/09/25/Android-%E4%BD%BF%E7%94%A8AdapterTypeRender%E5%AF%B9%E4%B8%8D%E5%90%8C%E7%B1%BB%E5%9E%8B%E7%9A%84item%E6%95%B0%E6%8D%AE%E5%88%B0UI%E7%9A%84%E6%B8%B2%E6%9F%93/</loc>
+    <lastmod>2018-01-30T03:15:57.000Z</lastmod>
+    <data>
+        <display>
+        <title>[Android]使用AdapterTypeRender对不同类型的item数据到UI的渲染</title>
+        <pubTime>2014-09-25T07:07:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>ListView</tag>
+         
+        <tag>best practices</tag>
+         
+        <tag>adapter</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2014/12/24/Android-%E4%BB%BF%E6%96%B0%E7%89%88QQ%E7%9A%84tab%E4%B8%8B%E9%9D%A2%E6%8B%96%E6%8B%BD%E6%A0%87%E8%AE%B0%E4%B8%BA%E5%B7%B2%E8%AF%BB%E7%9A%84%E6%95%88%E6%9E%9C/</loc>
+    <lastmod>2018-01-30T03:15:36.000Z</lastmod>
+    <data>
+        <display>
+        <title>[Android]仿新版QQ的tab下面拖拽标记为已读的效果</title>
+        <pubTime>2014-12-24T09:39:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>view</tag>
+         
+        <tag>DaggerableFlagView</tag>
+         
+        <tag>qq</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2015/12/03/Android-%E4%BB%8ELauncher%E5%BC%80%E5%A7%8B%E5%90%AF%E5%8A%A8App%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</loc>
+    <lastmod>2018-01-30T03:15:07.000Z</lastmod>
+    <data>
+        <display>
+        <title>[Android]从Launcher开始启动App流程源码分析</title>
+        <pubTime>2015-12-03T09:45:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>launcher</tag>
+         
+        <tag>source code</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2014/02/11/android-%E4%BA%B2%E8%87%AA%E7%A0%B4%E8%A7%A3Flappy-Bird%EF%BC%88%E5%8E%BB%E5%B9%BF%E5%91%8A-%E6%B0%B8%E7%94%9F%EF%BC%89/</loc>
+    <lastmod>2018-01-30T03:14:54.000Z</lastmod>
+    <data>
+        <display>
+        <title>[android]亲自破解Flappy Bird（去广告+永生）</title>
+        <pubTime>2014-02-11T09:21:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>破解</tag>
+         
+        <tag>Flappy Bird</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2014/12/18/Android-%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E6%8E%A7%E4%BB%B6RefreshableView%E7%9A%84%E5%AE%9E%E7%8E%B0/</loc>
+    <lastmod>2018-01-30T03:14:40.000Z</lastmod>
+    <data>
+        <display>
+        <title>[Android]下拉刷新控件RefreshableView的实现</title>
+        <pubTime>2014-12-18T11:35:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>view</tag>
+         
+        <tag>RefreshableView</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2016/03/14/Android-%E4%B8%80%E4%B8%AA%E5%B9%B2%E5%87%80%E7%9A%84%E6%9E%B6%E6%9E%84%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/</loc>
+    <lastmod>2018-01-30T03:14:20.000Z</lastmod>
+    <data>
+        <display>
+        <title>[Android]一个干净的架构（翻译）</title>
+        <pubTime>2016-03-14T09:52:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>framework</tag>
+         
+        <tag>翻译</tag>
+         
+        <tag>best practices</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2015/05/03/Android-RapidFloatingActionButton%E6%A1%86%E6%9E%B6%E6%AD%A3%E5%BC%8F%E5%87%BA%E7%82%89/</loc>
+    <lastmod>2018-01-30T03:13:59.000Z</lastmod>
+    <data>
+        <display>
+        <title>[Android]RapidFloatingActionButton框架正式出炉</title>
+        <pubTime>2015-05-03T13:28:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>FloatingActionButton</tag>
+         
+        <tag>FAB</tag>
+         
+        <tag>view</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2014/05/19/Android-Property-Animation%E5%8A%A8%E7%94%BB/</loc>
+    <lastmod>2018-01-30T03:13:33.000Z</lastmod>
+    <data>
+        <display>
+        <title>Android Property Animation动画</title>
+        <pubTime>2014-05-19T15:18:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>property animation</tag>
+         
+        <tag>animation</tag>
+         
+        <tag>animator</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2013/10/30/Android-NDK%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E5%8F%8A%E8%B0%83%E7%94%A8JNI%E7%9A%84%E7%AE%80%E5%8D%95%E6%AD%A5%E9%AA%A4/</loc>
+    <lastmod>2018-01-30T03:13:12.000Z</lastmod>
+    <data>
+        <display>
+        <title>Android NDK环境搭建及调用JNI的简单步骤</title>
+        <pubTime>2013-10-30T06:06:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>ndk</tag>
+         
+        <tag>jni</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2014/12/03/Android-ListView%E7%9A%84Adapter-getView-%E6%96%B9%E6%B3%95%E4%B8%AD%E5%BB%B6%E8%BF%9F%E5%8A%A0%E8%BD%BD%E5%9B%BE%E7%89%87%E7%9A%84%E4%BC%98%E5%8C%96/</loc>
+    <lastmod>2018-01-30T03:13:02.000Z</lastmod>
+    <data>
+        <display>
+        <title>[Android]ListView的Adapter.getView()方法中延迟加载图片的优化</title>
+        <pubTime>2014-12-03T06:19:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>ListView</tag>
+         
+        <tag>optimize</tag>
+         
+        <tag>best practices</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2016/05/31/Android-Google-%E5%BC%80%E6%BA%90%E7%9A%84-Android-%E6%8E%92%E7%89%88%E5%BA%93%EF%BC%9AFlexboxLayout/</loc>
+    <lastmod>2018-01-30T03:11:47.000Z</lastmod>
+    <data>
+        <display>
+        <title>[Android]Google 开源的 Android 排版库：FlexboxLayout</title>
+        <pubTime>2016-05-31T13:57:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>FlexboxLayout</tag>
+         
+        <tag>google</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2012/05/22/android-ellipsize%E5%B1%9E%E6%80%A7%E7%9A%84%E5%90%AB%E4%B9%89/</loc>
+    <lastmod>2018-01-30T03:11:17.000Z</lastmod>
+    <data>
+        <display>
+        <title>android:ellipsize属性的含义</title>
+        <pubTime>2012-05-22T01:34:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>view</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2015/12/02/Android-Android%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</loc>
+    <lastmod>2018-01-30T03:10:12.000Z</lastmod>
+    <data>
+        <display>
+        <title>[Android]Android系统启动流程源码分析</title>
+        <pubTime>2015-12-02T10:58:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>launcher</tag>
+         
+        <tag>source code</tag>
+         
+        <tag>system</tag>
+         
+        <tag>linux</tag>
+         
+        <tag>process</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2016/11/01/Android-Android%E7%AB%AFORM%E6%A1%86%E6%9E%B6%E2%80%94%E2%80%94RapidORM-v2-1/</loc>
+    <lastmod>2018-01-30T03:09:43.000Z</lastmod>
+    <data>
+        <display>
+        <title>[Android]Android端ORM框架——RapidORM(v2.1)</title>
+        <pubTime>2016-11-01T09:54:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>library</tag>
+         
+        <tag>sqlite</tag>
+         
+        <tag>database</tag>
+         
+        <tag>orm</tag>
+         
+        <tag>rapidorm</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2016/06/29/Android-Android%E7%AB%AFORM%E6%A1%86%E6%9E%B6%E2%80%94%E2%80%94RapidORM-v2-0/</loc>
+    <lastmod>2018-01-30T03:09:39.000Z</lastmod>
+    <data>
+        <display>
+        <title>[Android]Android端ORM框架——RapidORM(v2.0)</title>
+        <pubTime>2016-06-29T06:28:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>library</tag>
+         
+        <tag>sqlite</tag>
+         
+        <tag>database</tag>
+         
+        <tag>orm</tag>
+         
+        <tag>rapidorm</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2015/08/21/Android-Android%E7%AB%AFORM%E6%A1%86%E6%9E%B6%E2%80%94%E2%80%94RapidORM-v1-0/</loc>
+    <lastmod>2018-01-30T03:09:36.000Z</lastmod>
+    <data>
+        <display>
+        <title>[Android]Android端ORM框架——RapidORM(v1.0)</title>
+        <pubTime>2015-08-21T07:39:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>library</tag>
+         
+        <tag>sqlite</tag>
+         
+        <tag>database</tag>
+         
+        <tag>orm</tag>
+         
+        <tag>rapidorm</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2014/05/05/Android-AndroidBucket%E5%A2%9E%E5%8A%A0%E7%A2%8E%E7%89%87SubLayout%E5%8A%9F%E8%83%BD%E5%8F%8AAISubLayout%E7%9A%84%E6%B3%A8%E8%A7%A3%E6%94%AF%E6%8C%81/</loc>
+    <lastmod>2018-01-30T03:08:13.000Z</lastmod>
+    <data>
+        <display>
+        <title>[Android]AndroidBucket增加碎片SubLayout功能及AISubLayout的注解支持</title>
+        <pubTime>2014-05-05T12:31:00.000Z</pubTime>
+        
+        <tag>android bucket</tag>
+         
+        <tag>annotations</tag>
+         
+        <tag>library</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2014/03/25/Android-AndroidInject%E5%A2%9E%E5%8A%A0sqlite3%E6%95%B0%E6%8D%AE%E5%BA%93%E6%98%A0%E5%B0%84%E6%B3%A8%E8%A7%A3-ORM/</loc>
+    <lastmod>2018-01-30T03:08:06.000Z</lastmod>
+    <data>
+        <display>
+        <title>[Android]AndroidInject增加sqlite3数据库映射注解(ORM)</title>
+        <pubTime>2014-03-25T06:21:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>library</tag>
+         
+        <tag>inject</tag>
+         
+        <tag>sqlite</tag>
+         
+        <tag>sqlite3</tag>
+         
+        <tag>database</tag>
+         
+        <tag>orm</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2013/12/05/android-AndroidInject%E6%A1%86%E6%9E%B6%E2%80%94%E2%80%94%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AAandroid%E5%B0%8F%E5%9E%8B%E6%A1%86%E6%9E%B6/</loc>
+    <lastmod>2018-01-30T03:07:56.000Z</lastmod>
+    <data>
+        <display>
+        <title>[android]AndroidInject框架——我的第一个android小型框架</title>
+        <pubTime>2013-12-05T03:17:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>library</tag>
+         
+        <tag>inject</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2015/04/03/Android-Activity%E8%B7%B3%E8%BD%AC%E4%BC%A0%E9%80%92%E4%BB%BB%E6%84%8F%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%95%B0%E6%8D%AE%E3%80%81Activity%E4%B8%BASingleTask%E6%97%B6%E4%BB%A3%E6%9B%BFStartActivityForResult%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</loc>
+    <lastmod>2018-01-30T03:05:28.000Z</lastmod>
+    <data>
+        <display>
+        <title>[Android]Activity跳转传递任意类型的数据、Activity为SingleTask时代替StartActivityForResult的解决方案</title>
+        <pubTime>2015-04-03T04:15:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>activity</tag>
+         
+        <tag>launch mode</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2015/11/10/Android-Activity%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B/</loc>
+    <lastmod>2018-01-30T03:04:47.000Z</lastmod>
+    <data>
+        <display>
+        <title>[Android]Activity启动过程</title>
+        <pubTime>2015-11-10T05:25:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>activity</tag>
+         
+        <tag>launcher</tag>
+         
+        <tag>source code</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2012/02/24/Activity%E7%9A%84%E5%9B%9B%E7%A7%8D%E5%8A%A0%E8%BD%BD%E6%A8%A1%E5%BC%8F/</loc>
+    <lastmod>2018-01-30T03:04:21.000Z</lastmod>
+    <data>
+        <display>
+        <title>Activity的四种加载模式</title>
+        <pubTime>2012-02-24T02:41:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>activity</tag>
+         
+        <tag>launch mode</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2012/03/07/Activity%E4%B8%8EService%E4%B9%8B%E9%97%B4%E4%BA%A4%E4%BA%92%E5%B9%B6%E6%92%AD%E6%94%BE%E6%AD%8C%E6%9B%B2/</loc>
+    <lastmod>2018-01-30T03:04:12.000Z</lastmod>
+    <data>
+        <display>
+        <title>Activity与Service之间交互并播放歌曲</title>
+        <pubTime>2012-03-07T06:04:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>activity</tag>
+         
+        <tag>service</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2015/02/28/100%E4%B8%AA%E9%AB%98%E8%B4%A8%E9%87%8FJava%E5%BC%80%E5%8F%91%E8%80%85%E5%8D%9A%E5%AE%A2/</loc>
+    <lastmod>2018-01-30T03:03:15.000Z</lastmod>
+    <data>
+        <display>
+        <title>100个高质量Java开发者博客</title>
+        <pubTime>2015-02-28T10:22:00.000Z</pubTime>
+        
+        <tag>blog</tag>
+         
+        <tag>java</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2013/02/20/%E5%B7%A5%E5%85%B7%E5%BA%93-JFileDownloader%E5%B7%A5%E5%85%B7%E7%B1%BB%E2%80%94%E2%80%94%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8B%E8%BD%BD%E7%BD%91%E7%BB%9C%E6%96%87%E4%BB%B6%EF%BC%8C%E5%B9%B6%E4%BF%9D%E5%AD%98%E5%9C%A8%E6%9C%AC%E5%9C%B0/</loc>
+    <lastmod>2018-01-29T12:36:41.000Z</lastmod>
+    <data>
+        <display>
+        <title>[工具库]JFileDownloader工具类——多线程下载网络文件，并保存在本地</title>
+        <pubTime>2013-02-20T09:37:00.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2012/06/15/%E8%AE%BE%E7%BD%AEEditText%E6%98%AF%E5%90%A6%E5%8F%AF%E7%BC%96%E8%BE%91/</loc>
+    <lastmod>2018-01-29T12:36:41.000Z</lastmod>
+    <data>
+        <display>
+        <title>设置EditText是否可编辑</title>
+        <pubTime>2012-06-15T02:37:00.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2016/08/29/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/</loc>
+    <lastmod>2018-01-29T12:36:41.000Z</lastmod>
+    <data>
+        <display>
+        <title>网络基础</title>
+        <pubTime>2016-08-29T06:10:00.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2013/02/19/%E5%B7%A5%E5%85%B7%E5%BA%93-JOJSONBuilder%E5%B7%A5%E5%85%B7%E7%B1%BB%E2%80%94%E2%80%94%E4%B8%80%E9%94%AE%E6%8A%8A%E5%A4%9A%E4%B8%AAbean%E5%AF%B9%E8%B1%A1%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2%E4%B8%BAJSON%E6%A0%BC%E5%BC%8F%E6%95%B0%E6%8D%AE/</loc>
+    <lastmod>2018-01-29T12:36:41.000Z</lastmod>
+    <data>
+        <display>
+        <title>[工具库]JOJSONBuilder工具类——一键把多个bean对象数据转换为JSON格式数据</title>
+        <pubTime>2013-02-19T09:30:00.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2013/02/19/%E5%B7%A5%E5%85%B7%E5%BA%93-JOXMLBuilder%E5%B7%A5%E5%85%B7%E7%B1%BB%E2%80%94%E2%80%94%E4%B8%80%E9%94%AE%E6%8A%8A%E5%A4%9A%E4%B8%AAbean%E5%AF%B9%E8%B1%A1%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2%E4%B8%BAXML%E6%A0%BC%E5%BC%8F%E6%95%B0%E6%8D%AE/</loc>
+    <lastmod>2018-01-29T12:36:41.000Z</lastmod>
+    <data>
+        <display>
+        <title>[工具库]JOXMLBuilder工具类——一键把多个bean对象数据转换为XML格式数据</title>
+        <pubTime>2013-02-19T09:14:00.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+</urlset>

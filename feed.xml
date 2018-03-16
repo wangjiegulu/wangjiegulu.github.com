@@ -6,7 +6,7 @@
   <link href="/feed.xml" rel="self"/>
   
   <link href="http://blog.wangjiegulu.com/"/>
-  <updated>2018-03-02T16:07:11.000Z</updated>
+  <updated>2018-03-16T06:12:58.705Z</updated>
   <id>http://blog.wangjiegulu.com/</id>
   
   <author>
@@ -17,11 +17,55 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>上传到多个Maven仓库的Gradle插件RapidMavenPushPlugin</title>
+    <link href="http://blog.wangjiegulu.com/2018/03/16/rapid_maven_push_plugin_for_android/"/>
+    <id>http://blog.wangjiegulu.com/2018/03/16/rapid_maven_push_plugin_for_android/</id>
+    <published>2018-03-16T06:08:04.098Z</published>
+    <updated>2018-03-16T06:12:58.705Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;RapidMavenPushPlugin&quot;&gt;&lt;a href=&quot;#RapidMavenPushPlugin&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="flutter" scheme="http://blog.wangjiegulu.com/categories/flutter/"/>
+    
+      <category term="dart" scheme="http://blog.wangjiegulu.com/categories/flutter/dart/"/>
+    
+    
+      <category term="java" scheme="http://blog.wangjiegulu.com/tags/java/"/>
+    
+      <category term="android" scheme="http://blog.wangjiegulu.com/tags/android/"/>
+    
+      <category term="gradle" scheme="http://blog.wangjiegulu.com/tags/gradle/"/>
+    
+      <category term="gradle plugin" scheme="http://blog.wangjiegulu.com/tags/gradle-plugin/"/>
+    
+      <category term="maven" scheme="http://blog.wangjiegulu.com/tags/maven/"/>
+    
+      <category term="repository" scheme="http://blog.wangjiegulu.com/tags/repository/"/>
+    
+      <category term="plugin" scheme="http://blog.wangjiegulu.com/tags/plugin/"/>
+    
+      <category term="aar" scheme="http://blog.wangjiegulu.com/tags/aar/"/>
+    
+      <category term="jar" scheme="http://blog.wangjiegulu.com/tags/jar/"/>
+    
+  </entry>
+  
+  <entry>
     <title>编写第一个Flutter App（翻译）</title>
     <link href="http://blog.wangjiegulu.com/2018/03/01/write_your_first_flutter_app/"/>
     <id>http://blog.wangjiegulu.com/2018/03/01/write_your_first_flutter_app/</id>
     <published>2018-03-01T12:05:58.000Z</published>
-    <updated>2018-03-02T16:07:11.000Z</updated>
+    <updated>2018-03-02T16:08:34.000Z</updated>
     
     <summary type="html">
     
@@ -628,30 +672,6 @@
       <category term="asynchronize" scheme="http://blog.wangjiegulu.com/tags/asynchronize/"/>
     
       <category term="async" scheme="http://blog.wangjiegulu.com/tags/async/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>HTTP协议详解</title>
-    <link href="http://blog.wangjiegulu.com/2016/08/29/HTTP%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3/"/>
-    <id>http://blog.wangjiegulu.com/2016/08/29/HTTP协议详解/</id>
-    <published>2016-08-29T06:13:00.000Z</published>
-    <updated>2018-01-30T03:35:39.000Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;div id=&quot;editor-reader-full&quot; class=&quot;editor-reader-full-shown&quot;&gt;&lt;br&gt;&lt;div class=&quot;reader-full-topInfo-shown&quot;&gt;来自:&amp;nbsp;&lt;a
-        
-      
-    
-    </summary>
-    
-    
-      <category term="http" scheme="http://blog.wangjiegulu.com/tags/http/"/>
     
   </entry>
   
