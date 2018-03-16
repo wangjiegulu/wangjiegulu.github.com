@@ -2121,9 +2121,9 @@
         
         <tag>android</tag>
          
-        <tag>library</tag>
-         
         <tag>annotations</tag>
+         
+        <tag>library</tag>
          
         <tag>proxy</tag>
          
@@ -2959,13 +2959,13 @@
         
         <tag>android</tag>
          
+        <tag>library</tag>
+         
         <tag>sqlite</tag>
          
         <tag>database</tag>
          
         <tag>orm</tag>
-         
-        <tag>library</tag>
          
         <tag>rapidorm</tag>
          
@@ -2986,13 +2986,13 @@
         
         <tag>android</tag>
          
+        <tag>library</tag>
+         
         <tag>sqlite</tag>
          
         <tag>database</tag>
          
         <tag>orm</tag>
-         
-        <tag>library</tag>
          
         <tag>rapidorm</tag>
          
@@ -3013,13 +3013,13 @@
         
         <tag>android</tag>
          
+        <tag>library</tag>
+         
         <tag>sqlite</tag>
          
         <tag>database</tag>
          
         <tag>orm</tag>
-         
-        <tag>library</tag>
          
         <tag>rapidorm</tag>
          
@@ -3038,11 +3038,11 @@
         <title>[Android]AndroidBucket增加碎片SubLayout功能及AISubLayout的注解支持</title>
         <pubTime>2014-05-05T12:31:00.000Z</pubTime>
         
-        <tag>library</tag>
-         
         <tag>android bucket</tag>
          
         <tag>annotations</tag>
+         
+        <tag>library</tag>
          
          
            
@@ -3061,6 +3061,8 @@
         
         <tag>android</tag>
          
+        <tag>library</tag>
+         
         <tag>inject</tag>
          
         <tag>sqlite</tag>
@@ -3070,8 +3072,6 @@
         <tag>database</tag>
          
         <tag>orm</tag>
-         
-        <tag>library</tag>
          
          
            
@@ -3090,9 +3090,9 @@
         
         <tag>android</tag>
          
-        <tag>inject</tag>
-         
         <tag>library</tag>
+         
+        <tag>inject</tag>
          
          
            
@@ -3207,6 +3207,21 @@
 
     
   <url>
+    <loc>http://blog.wangjiegulu.com/2012/06/15/%E8%AE%BE%E7%BD%AEEditText%E6%98%AF%E5%90%A6%E5%8F%AF%E7%BC%96%E8%BE%91/</loc>
+    <lastmod>2018-01-29T12:36:41.000Z</lastmod>
+    <data>
+        <display>
+        <title>设置EditText是否可编辑</title>
+        <pubTime>2012-06-15T02:37:00.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://blog.wangjiegulu.com/2016/08/29/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/</loc>
     <lastmod>2018-01-29T12:36:41.000Z</lastmod>
     <data>
@@ -3243,21 +3258,6 @@
         <display>
         <title>[工具库]JOXMLBuilder工具类——一键把多个bean对象数据转换为XML格式数据</title>
         <pubTime>2013-02-19T09:14:00.000Z</pubTime>
-        
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://blog.wangjiegulu.com/2012/06/15/%E8%AE%BE%E7%BD%AEEditText%E6%98%AF%E5%90%A6%E5%8F%AF%E7%BC%96%E8%BE%91/</loc>
-    <lastmod>2018-01-29T12:36:41.000Z</lastmod>
-    <data>
-        <display>
-        <title>设置EditText是否可编辑</title>
-        <pubTime>2012-06-15T02:37:00.000Z</pubTime>
         
          
            
