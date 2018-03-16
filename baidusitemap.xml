@@ -91,9 +91,9 @@
         
         <tag>android</tag>
          
-        <tag>翻译</tag>
-         
         <tag>framework</tag>
+         
+        <tag>翻译</tag>
          
         <tag>dagger2</tag>
          
@@ -233,9 +233,9 @@
         
         <tag>android</tag>
          
-        <tag>翻译</tag>
-         
         <tag>dependency injection</tag>
+         
+        <tag>翻译</tag>
          
         <tag>dagger2</tag>
          
@@ -264,9 +264,9 @@
         
         <tag>android</tag>
          
-        <tag>翻译</tag>
-         
         <tag>dependency injection</tag>
+         
+        <tag>翻译</tag>
          
         <tag>dagger2</tag>
          
@@ -291,9 +291,9 @@
         
         <tag>android</tag>
          
-        <tag>翻译</tag>
-         
         <tag>dependency injection</tag>
+         
+        <tag>翻译</tag>
          
         <tag>dagger2</tag>
          
@@ -318,9 +318,9 @@
         
         <tag>android</tag>
          
-        <tag>翻译</tag>
-         
         <tag>dependency injection</tag>
+         
+        <tag>翻译</tag>
          
         <tag>dagger2</tag>
          
@@ -345,9 +345,9 @@
         
         <tag>android</tag>
          
-        <tag>翻译</tag>
-         
         <tag>dependency injection</tag>
+         
+        <tag>翻译</tag>
          
         <tag>dagger2</tag>
          
@@ -372,9 +372,9 @@
         
         <tag>android</tag>
          
-        <tag>翻译</tag>
-         
         <tag>dependency injection</tag>
+         
+        <tag>翻译</tag>
          
         <tag>dagger2</tag>
          
@@ -399,9 +399,9 @@
         
         <tag>android</tag>
          
-        <tag>翻译</tag>
-         
         <tag>dependency injection</tag>
+         
+        <tag>翻译</tag>
          
         <tag>dagger2</tag>
          
@@ -426,9 +426,9 @@
         
         <tag>android</tag>
          
-        <tag>翻译</tag>
-         
         <tag>dependency injection</tag>
+         
+        <tag>翻译</tag>
          
         <tag>dagger2</tag>
          
@@ -453,9 +453,9 @@
         
         <tag>android</tag>
          
-        <tag>翻译</tag>
-         
         <tag>dependency injection</tag>
+         
+        <tag>翻译</tag>
          
         <tag>dagger2</tag>
          
@@ -2338,9 +2338,9 @@
          
         <tag>翻译</tag>
          
-        <tag>monkey</tag>
-         
         <tag>testing</tag>
+         
+        <tag>monkey</tag>
          
         <tag>adb</tag>
          
@@ -2388,9 +2388,9 @@
          
         <tag>翻译</tag>
          
-        <tag>monkey</tag>
-         
         <tag>testing</tag>
+         
+        <tag>monkey</tag>
          
         <tag>MonkeyRunner</tag>
          
@@ -2461,9 +2461,9 @@
         
         <tag>android</tag>
          
-        <tag>annotations</tag>
-         
         <tag>unit test</tag>
+         
+        <tag>annotations</tag>
          
         <tag>JUnit</tag>
          
@@ -2779,9 +2779,9 @@
         
         <tag>android</tag>
          
-        <tag>翻译</tag>
-         
         <tag>framework</tag>
+         
+        <tag>翻译</tag>
          
         <tag>best practices</tag>
          
@@ -3207,12 +3207,12 @@
 
     
   <url>
-    <loc>http://blog.wangjiegulu.com/2012/06/15/%E8%AE%BE%E7%BD%AEEditText%E6%98%AF%E5%90%A6%E5%8F%AF%E7%BC%96%E8%BE%91/</loc>
+    <loc>http://blog.wangjiegulu.com/2013/02/20/%E5%B7%A5%E5%85%B7%E5%BA%93-JFileDownloader%E5%B7%A5%E5%85%B7%E7%B1%BB%E2%80%94%E2%80%94%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8B%E8%BD%BD%E7%BD%91%E7%BB%9C%E6%96%87%E4%BB%B6%EF%BC%8C%E5%B9%B6%E4%BF%9D%E5%AD%98%E5%9C%A8%E6%9C%AC%E5%9C%B0/</loc>
     <lastmod>2018-01-29T12:36:41.000Z</lastmod>
     <data>
         <display>
-        <title>设置EditText是否可编辑</title>
-        <pubTime>2012-06-15T02:37:00.000Z</pubTime>
+        <title>[工具库]JFileDownloader工具类——多线程下载网络文件，并保存在本地</title>
+        <pubTime>2013-02-20T09:37:00.000Z</pubTime>
         
          
            
@@ -3237,12 +3237,12 @@
 
     
   <url>
-    <loc>http://blog.wangjiegulu.com/2013/02/20/%E5%B7%A5%E5%85%B7%E5%BA%93-JFileDownloader%E5%B7%A5%E5%85%B7%E7%B1%BB%E2%80%94%E2%80%94%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8B%E8%BD%BD%E7%BD%91%E7%BB%9C%E6%96%87%E4%BB%B6%EF%BC%8C%E5%B9%B6%E4%BF%9D%E5%AD%98%E5%9C%A8%E6%9C%AC%E5%9C%B0/</loc>
+    <loc>http://blog.wangjiegulu.com/2012/06/15/%E8%AE%BE%E7%BD%AEEditText%E6%98%AF%E5%90%A6%E5%8F%AF%E7%BC%96%E8%BE%91/</loc>
     <lastmod>2018-01-29T12:36:41.000Z</lastmod>
     <data>
         <display>
-        <title>[工具库]JFileDownloader工具类——多线程下载网络文件，并保存在本地</title>
-        <pubTime>2013-02-20T09:37:00.000Z</pubTime>
+        <title>设置EditText是否可编辑</title>
+        <pubTime>2012-06-15T02:37:00.000Z</pubTime>
         
          
            
