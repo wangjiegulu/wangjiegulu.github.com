@@ -49,9 +49,9 @@
         
         <tags>
             
-            <tag> java </tag>
-            
             <tag> android </tag>
+            
+            <tag> java </tag>
             
             <tag> gradle </tag>
             
@@ -454,9 +454,9 @@
             
             <tag> framework </tag>
             
-            <tag> 翻译 </tag>
-            
             <tag> dagger2 </tag>
+            
+            <tag> 翻译 </tag>
             
             <tag> kotlin </tag>
             
@@ -829,9 +829,9 @@
             
             <tag> android </tag>
             
-            <tag> memory leak </tag>
-            
             <tag> 翻译 </tag>
+            
+            <tag> memory leak </tag>
             
         </tags>
         
@@ -1900,11 +1900,11 @@
             
             <tag> dependency injection </tag>
             
-            <tag> 翻译 </tag>
-            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
+            
+            <tag> 翻译 </tag>
             
             <tag> google </tag>
             
@@ -2006,11 +2006,11 @@
             
             <tag> dependency injection </tag>
             
-            <tag> 翻译 </tag>
-            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
+            
+            <tag> 翻译 </tag>
             
             <tag> google </tag>
             
@@ -2115,11 +2115,11 @@
             
             <tag> dependency injection </tag>
             
-            <tag> 翻译 </tag>
-            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
+            
+            <tag> 翻译 </tag>
             
             <tag> google </tag>
             
@@ -2252,11 +2252,11 @@
             
             <tag> dependency injection </tag>
             
-            <tag> 翻译 </tag>
-            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
+            
+            <tag> 翻译 </tag>
             
             <tag> google </tag>
             
@@ -2393,7 +2393,7 @@
 </strong></font>
 
 <h1 id="异步-layout-inflation"><a href="#异步-layout-inflation" class="headerlink" title="异步 layout inflation"></a>异步 layout inflation</h1><blockquote>
-<p>原文：<a href="&#109;&#x61;&#105;&#108;&#x74;&#111;&#x3a;&#104;&#x74;&#x74;&#112;&#115;&#58;&#47;&#47;&#109;&#101;&#x64;&#x69;&#x75;&#109;&#46;&#99;&#x6f;&#x6d;&#x2f;&#x40;&#108;&#117;&#112;&#x61;&#x6a;&#122;&#x2f;&#x61;&#115;&#121;&#x6e;&#x63;&#104;&#114;&#111;&#x6e;&#111;&#x75;&#115;&#x2d;&#108;&#x61;&#121;&#111;&#117;&#x74;&#x2d;&#x69;&#110;&#102;&#x6c;&#x61;&#116;&#x69;&#111;&#x6e;&#45;&#x37;&#x63;&#x62;&#99;&#97;&#50;&#54;&#x35;&#x33;&#x62;&#x66;&#35;&#46;&#113;&#x32;&#x32;&#x76;&#112;&#x65;&#122;&#103;&#52;">&#104;&#x74;&#x74;&#112;&#115;&#58;&#47;&#47;&#109;&#101;&#x64;&#x69;&#x75;&#109;&#46;&#99;&#x6f;&#x6d;&#x2f;&#x40;&#108;&#117;&#112;&#x61;&#x6a;&#122;&#x2f;&#x61;&#115;&#121;&#x6e;&#x63;&#104;&#114;&#111;&#x6e;&#111;&#x75;&#115;&#x2d;&#108;&#x61;&#121;&#111;&#117;&#x74;&#x2d;&#x69;&#110;&#102;&#x6c;&#x61;&#116;&#x69;&#111;&#x6e;&#45;&#x37;&#x63;&#x62;&#99;&#97;&#50;&#54;&#x35;&#x33;&#x62;&#x66;&#35;&#46;&#113;&#x32;&#x32;&#x76;&#112;&#x65;&#122;&#103;&#52;</a></p>
+<p>原文：<a href="&#109;&#97;&#x69;&#108;&#116;&#111;&#58;&#104;&#x74;&#116;&#x70;&#115;&#58;&#x2f;&#47;&#x6d;&#x65;&#x64;&#x69;&#x75;&#109;&#46;&#99;&#111;&#x6d;&#47;&#x40;&#x6c;&#x75;&#112;&#x61;&#x6a;&#x7a;&#47;&#x61;&#115;&#121;&#110;&#99;&#x68;&#114;&#111;&#110;&#x6f;&#x75;&#115;&#45;&#108;&#x61;&#121;&#x6f;&#x75;&#x74;&#x2d;&#x69;&#x6e;&#x66;&#108;&#x61;&#x74;&#x69;&#111;&#110;&#45;&#55;&#99;&#98;&#99;&#x61;&#50;&#54;&#x35;&#51;&#x62;&#x66;&#x23;&#x2e;&#113;&#50;&#50;&#118;&#112;&#x65;&#122;&#103;&#x34;">&#104;&#x74;&#116;&#x70;&#115;&#58;&#x2f;&#47;&#x6d;&#x65;&#x64;&#x69;&#x75;&#109;&#46;&#99;&#111;&#x6d;&#47;&#x40;&#x6c;&#x75;&#112;&#x61;&#x6a;&#x7a;&#47;&#x61;&#115;&#121;&#110;&#99;&#x68;&#114;&#111;&#110;&#x6f;&#x75;&#115;&#45;&#108;&#x61;&#121;&#x6f;&#x75;&#x74;&#x2d;&#x69;&#x6e;&#x66;&#108;&#x61;&#x74;&#x69;&#111;&#110;&#45;&#55;&#99;&#98;&#99;&#x61;&#50;&#54;&#x35;&#51;&#x62;&#x66;&#x23;&#x2e;&#113;&#50;&#50;&#118;&#112;&#x65;&#122;&#103;&#x34;</a></p>
 </blockquote>
 <p>随着最近发布的<a href="https://developer.android.com/topic/libraries/support-library/revisions.html" target="_blank" rel="noopener">Android Support Library, revision 24</a>，Google开发者在v4包中增加了一个用来异步inflate layouts的帮助类。</p>
 <h2 id="进入-AsyncLayoutInflater"><a href="#进入-AsyncLayoutInflater" class="headerlink" title="进入 AsyncLayoutInflater"></a>进入 AsyncLayoutInflater</h2><p>你会发现AsyncLayoutInflater可以使用在当你想要去懒加载你应用中部分UI或者用户行为的响应。这个帮助类将会允许你的UI线程在执行繁重的inflate时继续保持响应。</p>
@@ -4064,13 +4064,13 @@ Cookie: ... ...
             
             <tag> dependency injection </tag>
             
-            <tag> 翻译 </tag>
-            
             <tag> dagger2 </tag>
             
             <tag> memory </tag>
             
             <tag> DI </tag>
+            
+            <tag> 翻译 </tag>
             
         </tags>
         
@@ -4189,11 +4189,11 @@ Cookie: ... ...
             
             <tag> dependency injection </tag>
             
-            <tag> 翻译 </tag>
-            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
+            
+            <tag> 翻译 </tag>
             
             <tag> google </tag>
             
@@ -4313,11 +4313,11 @@ Cookie: ... ...
             
             <tag> dependency injection </tag>
             
-            <tag> 翻译 </tag>
-            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
+            
+            <tag> 翻译 </tag>
             
             <tag> google </tag>
             
@@ -4456,11 +4456,11 @@ Cookie: ... ...
             
             <tag> dependency injection </tag>
             
-            <tag> 翻译 </tag>
-            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
+            
+            <tag> 翻译 </tag>
             
             <tag> google </tag>
             
@@ -4556,11 +4556,11 @@ Cookie: ... ...
             
             <tag> dependency injection </tag>
             
-            <tag> 翻译 </tag>
-            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
+            
+            <tag> 翻译 </tag>
             
             <tag> google </tag>
             
@@ -8392,9 +8392,9 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> java </tag>
             
-            <tag> java8 </tag>
-            
             <tag> lambda </tag>
+            
+            <tag> java8 </tag>
             
         </tags>
         
@@ -8609,9 +8609,9 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
         
         <tags>
             
-            <tag> java </tag>
-            
             <tag> android </tag>
+            
+            <tag> java </tag>
             
             <tag> Hbase </tag>
             
