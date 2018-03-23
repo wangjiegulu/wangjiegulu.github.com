@@ -1,550 +1,269 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<!-- Head tag -->
+<html lang=en>
 <head>
+    <!-- so meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="做java的都知道，绘图肯定首先需要一个Canvas，然后在用Graphics在上面绘制自己想要图案。不错，Android上面也类似，你可以从一个Bitmap得到它的Canvas，进行绘制，也可以自定义一个View，用它的 Canvas。不同的时，Android里没有Graphics，而用 Paint代之，当然用法也稍有不同。以下是自定义View的一段代码：&amp;nbsp;@Override&amp;nbsp">
+<meta name="keywords" content="android,onDraw">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android绘图操作onDraw">
+<meta property="og:url" content="http://blog.wangjiegulu.com/2012/03/03/Android绘图操作onDraw/index.html">
+<meta property="og:site_name" content="Wang Jie">
+<meta property="og:description" content="做java的都知道，绘图肯定首先需要一个Canvas，然后在用Graphics在上面绘制自己想要图案。不错，Android上面也类似，你可以从一个Bitmap得到它的Canvas，进行绘制，也可以自定义一个View，用它的 Canvas。不同的时，Android里没有Graphics，而用 Paint代之，当然用法也稍有不同。以下是自定义View的一段代码：&amp;nbsp;@Override&amp;nbsp">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-01-30T03:31:03.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android绘图操作onDraw">
+<meta name="twitter:description" content="做java的都知道，绘图肯定首先需要一个Canvas，然后在用Graphics在上面绘制自己想要图案。不错，Android上面也类似，你可以从一个Bitmap得到它的Canvas，进行绘制，也可以自定义一个View，用它的 Canvas。不同的时，Android里没有Graphics，而用 Paint代之，当然用法也稍有不同。以下是自定义View的一段代码：&amp;nbsp;@Override&amp;nbsp">
     
-    <meta name="description" content="Wang Jie&#39;s blog -- TO BE AN ARTIST-ENGINNER">
-    <meta name="keyword" content="tiantianbyconan, tiantian.china.2, wangjiegulu, Android, Java, J2EE, Huginn, Geek, Github, Git, Gradle, Maven, Google, iOS, JVM, Activity, View, Javascript, Python, code, developer, programer, tech, technology">
-    <meta name="theme-color" content="#600090">
-    <meta name="msapplication-navbutton-color" content="#600090">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
-    <link rel="shortcut icon" href="http://avatars3.githubusercontent.com/u/5423194?s=460&v=4">
-    <link rel="alternate" type="application/atom+xml" title="Wang Jie" href="/atom.xml">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
-    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
-    <title>
+    
         
-        Android绘图操作onDraw｜Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
         
-    </title>
-
-    <link rel="canonical" href="http://blog.wangjiegulu.com/2012/03/03/Android绘图操作onDraw/">
-
-    <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/blog-style.css">
-
-    <!-- Pygments Github CSS -->
-    <link rel="stylesheet" href="/css/syntax.css">
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Android绘图操作onDraw</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
 </head>
 
-<style>
-
-    header.intro-header {
-        background-image: url('//o7bkkhiex.bkt.clouddn.com/lion-blur-bg.jpg')
-    }
-</style>
-<!-- hack iOS CSS :active style -->
-<body ontouchstart="" class="animated fadeIn">
-<!-- Navigation -->
-<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
-" data-ishome = "false" >
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header page-scroll">
-            <button type="button" class="navbar-toggle">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand animated pulse" href="/">
-                <span class="brand-logo">
-                    Wang Jie
-                </span>
-                's Blog
-            </a>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <!-- Known Issue, found by Hux:
-            <nav>'s height woule be hold on by its content.
-            so, when navbar scale out, the <nav> will cover tags.
-            also mask any touch event of tags, unfortunately.
-        -->
-        <!-- /.navbar-collapse -->
-        <!-- <div id="huxblog_navbar">
-            <div class="navbar-collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="/">Home</a>
-                    </li>
-					
-                    
-                        
-							
-								
-							
-						
-                    
-                        
-							
-                        <li>
-                            <a href="/categories/">categories</a>
-                        </li>
-							
-						
-                    
-                        
-                    
-                        
-							
-                        <li>
-                            <a href="/tags/">tags</a>
-                        </li>
-							
-						
-                    
-					
-					
-						<li>
-							<a href="/about">About</a>
-						</li>
-					
-                </ul>
-            </div>
-        </div> -->
-
-
-        <div id="huxblog_navbar">
-            <div class="navbar-collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="/">Home</a>
-                    </li>
-                    <li>
-                        <a href="/archives">Archives</a>
-                    </li>
-                    <li>
-                        <a href="/tags">Tags</a>
-                    </li>
-                    <li>
-                        <a href="/about">About</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-
-
+<body class="max-width mx-auto px3">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="https://github.com/wangjiegulu">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2012/03/03/Android读写文件汇总/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2012/03/03/TimePicker-SharedPreferences实现android小闹钟/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://blog.wangjiegulu.com/2012/03/03/Android绘图操作onDraw/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://blog.wangjiegulu.com/2012/03/03/Android绘图操作onDraw/&text=Android绘图操作onDraw"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://blog.wangjiegulu.com/2012/03/03/Android绘图操作onDraw/&title=Android绘图操作onDraw"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.wangjiegulu.com/2012/03/03/Android绘图操作onDraw/&is_video=false&description=Android绘图操作onDraw"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Android绘图操作onDraw&body=Check out this article: http://blog.wangjiegulu.com/2012/03/03/Android绘图操作onDraw/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://blog.wangjiegulu.com/2012/03/03/Android绘图操作onDraw/&title=Android绘图操作onDraw"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://blog.wangjiegulu.com/2012/03/03/Android绘图操作onDraw/&title=Android绘图操作onDraw"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://blog.wangjiegulu.com/2012/03/03/Android绘图操作onDraw/&title=Android绘图操作onDraw"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://blog.wangjiegulu.com/2012/03/03/Android绘图操作onDraw/&title=Android绘图操作onDraw"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.wangjiegulu.com/2012/03/03/Android绘图操作onDraw/&name=Android绘图操作onDraw&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
 
     </div>
-    <!-- /.container -->
-</nav>
-<script>
-    // Drop Bootstarp low-performance Navbar
-    // Use customize navbar with high-quality material design animation
-    // in high-perf jank-free CSS3 implementation
-//    var $body   = document.body;
-    var $toggle = document.querySelector('.navbar-toggle');
-    var $navbar = document.querySelector('#huxblog_navbar');
-    var $collapse = document.querySelector('.navbar-collapse');
-
-    $toggle.addEventListener('click', handleMagic)
-    function handleMagic(e){
-        if ($navbar.className.indexOf('in') > 0) {
-        // CLOSE
-            $navbar.className = " ";
-            // wait until animation end.
-            setTimeout(function(){
-                // prevent frequently toggle
-                if($navbar.className.indexOf('in') < 0) {
-                    $collapse.style.height = "0px"
-                }
-            },400)
-        }else{
-        // OPEN
-            $collapse.style.height = "auto"
-            $navbar.className += " in";
-        }
-    }
-</script>
-
-<!-- Main Content -->
-
-<head>
-<!-- <script type='text/javascript' src='//platform-api.sharethis.com/js/sharethis.js#property=5a72df492fd34b00134b0dc1&product=sop' async='async'></script> -->
-<script type='text/javascript' src='//platform-api.sharethis.com/js/sharethis.js#property=5a72df492fd34b00134b0dc1&product=sop' async='async'></script>
-</head>
-
-<!--only post-->
-
-
-<img class="wechat-title-img"
-     src="http://otnnps88s.bkt.clouddn.com/image/xingkong.jpg">
-
-
-<style>
-    
-    header.intro-header {
-        background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('http://otnnps88s.bkt.clouddn.com/image/xingkong.jpg')
-    }
+    <div id="toc">
+      
+    </div>
+  </span>
+</div>
 
     
-</style>
+    <div class="content index my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Android绘图操作onDraw
+    </h1>
 
-<header class="intro-header">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
-                <div class="post-heading">
-                    <h1>Android绘图操作onDraw</h1>
-                    
-                    <span class="meta">
-                         作者 Wang Jie
-                        <span>
-                          日期 2012-03-03
-                         </span>
-                    </span>
-                    <div class="tags text-center">
-                        
-                        <a class="tag" href="/tags/#android"
-                           title="android">android</a>
-                        
-                        <a class="tag" href="/tags/#onDraw"
-                           title="onDraw">onDraw</a>
-                        
-                    </div>
-                    <!-- Sharethis 分享 -->
-                    <!-- <div class="sharethis-inline-share-buttons" style="margin-top: 18px; opacity: 0.1;"></div> -->
-                </div>
-            </div>
-        </div>
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Wang Jie</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2012-03-03T07:55:00.000Z" itemprop="datePublished">2012-03-03</time>
     </div>
-    <div class="post-title-haojen">
-        <span>
-            Android绘图操作onDraw
-        </span>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/android/">android</a>, <a class="tag-link" href="/tags/onDraw/">onDraw</a>
     </div>
-</header>
 
-<!-- Post Content -->
-<article>
-    <div class="container">
-        <div class="row">
-            <!-- Post Container -->
-            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container" 
-                 style="word-wrap:break-word;overflow:hidden;">
 
-                <p><span>做java的都知道，绘图肯定首先需要一个Canvas，然后在用Graphics在上面绘制自己想要图案。不错，Android上面也类似，你可以从一个Bitmap得到它的Canvas，进行绘制，也可以自定义一个View，用它的 Canvas。不同的时，Android里没有Graphics，而用 Paint代之，当然用法也稍有不同。以下是自定义View的一段代码：&nbsp;</span><br><span>@Override&nbsp;</span><br><span>public void onDraw(Canvas canvas) {&nbsp;</span><br><span>// 首先定义一个paint&nbsp;</span><br><span>Paint paint = new Paint();&nbsp;</span><br><span>// 绘制矩形区域-实心矩形&nbsp;</span><br><span>// 设置颜色&nbsp;</span><br><span>paint.setColor(Color.WHITE);&nbsp;</span><br><span>// 设置样式-填充&nbsp;</span><br><span>paint.setStyle(Style.FILL);&nbsp;</span><br><span>// 绘制一个矩形&nbsp;</span><br><span>canvas.drawRect(new Rect(0, 0, getWidth(), getHeight()), paint);&nbsp;</span><br><span>// 绘空心矩形&nbsp;</span><br><span>// 设置颜色&nbsp;</span><br><span>paint.setColor(Color.RED);&nbsp;</span><br><span>// 设置样式-空心矩形&nbsp;</span><br><span>paint.setStyle(Style.STROKE);&nbsp;</span><br><span>// 绘制一个矩形&nbsp;</span><br><span>canvas.drawRect(new Rect(10, 10, 50, 20), paint);&nbsp;</span><br><span>// 绘文字&nbsp;</span><br><span>// 设置颜色&nbsp;</span><br><span>paint.setColor(Color.GREEN);&nbsp;</span><br><span>// 绘文字&nbsp;</span><br><span>canvas.drawText(str, 30, 30, paint);&nbsp;</span><br><span>// 绘图&nbsp;</span><br><span>// 从资源文件中生成位图&nbsp;</span><br><span>Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.icon);&nbsp;</span><br><span>// 绘图&nbsp;</span><br><span>canvas.drawBitmap(bitmap, 10, 10, paint);&nbsp;</span><br><span>}&nbsp;</span><br><span>以上需要注意的有三点：&nbsp;</span><br><span>1、Android中的Rect和java中的可能稍有区别，前两个参数是左上角的坐标，后两个参数是右下角的坐标（不是宽度和高度）；&nbsp;</span><br><span>2、Style.STROKE和Style.FILL外边的像素数是有区别的，这点和java里一样；&nbsp;</span><br><span>3、绘文字时，设置的坐标点为(30,30)，但绘出来后你会发现，文字的左上角坐标要比你设置的偏上，不知道是android设置的bug，还是我们有理解到坐标点的意义。</span></p>
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p><span>做java的都知道，绘图肯定首先需要一个Canvas，然后在用Graphics在上面绘制自己想要图案。不错，Android上面也类似，你可以从一个Bitmap得到它的Canvas，进行绘制，也可以自定义一个View，用它的 Canvas。不同的时，Android里没有Graphics，而用 Paint代之，当然用法也稍有不同。以下是自定义View的一段代码：&nbsp;</span><br><span>@Override&nbsp;</span><br><span>public void onDraw(Canvas canvas) {&nbsp;</span><br><span>// 首先定义一个paint&nbsp;</span><br><span>Paint paint = new Paint();&nbsp;</span><br><span>// 绘制矩形区域-实心矩形&nbsp;</span><br><span>// 设置颜色&nbsp;</span><br><span>paint.setColor(Color.WHITE);&nbsp;</span><br><span>// 设置样式-填充&nbsp;</span><br><span>paint.setStyle(Style.FILL);&nbsp;</span><br><span>// 绘制一个矩形&nbsp;</span><br><span>canvas.drawRect(new Rect(0, 0, getWidth(), getHeight()), paint);&nbsp;</span><br><span>// 绘空心矩形&nbsp;</span><br><span>// 设置颜色&nbsp;</span><br><span>paint.setColor(Color.RED);&nbsp;</span><br><span>// 设置样式-空心矩形&nbsp;</span><br><span>paint.setStyle(Style.STROKE);&nbsp;</span><br><span>// 绘制一个矩形&nbsp;</span><br><span>canvas.drawRect(new Rect(10, 10, 50, 20), paint);&nbsp;</span><br><span>// 绘文字&nbsp;</span><br><span>// 设置颜色&nbsp;</span><br><span>paint.setColor(Color.GREEN);&nbsp;</span><br><span>// 绘文字&nbsp;</span><br><span>canvas.drawText(str, 30, 30, paint);&nbsp;</span><br><span>// 绘图&nbsp;</span><br><span>// 从资源文件中生成位图&nbsp;</span><br><span>Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.icon);&nbsp;</span><br><span>// 绘图&nbsp;</span><br><span>canvas.drawBitmap(bitmap, 10, 10, paint);&nbsp;</span><br><span>}&nbsp;</span><br><span>以上需要注意的有三点：&nbsp;</span><br><span>1、Android中的Rect和java中的可能稍有区别，前两个参数是左上角的坐标，后两个参数是右下角的坐标（不是宽度和高度）；&nbsp;</span><br><span>2、Style.STROKE和Style.FILL外边的像素数是有区别的，这点和java里一样；&nbsp;</span><br><span>3、绘文字时，设置的坐标点为(30,30)，但绘出来后你会发现，文字的左上角坐标要比你设置的偏上，不知道是android设置的bug，还是我们有理解到坐标点的意义。</span></p>
 <p>Android绘图操作onDraw | 自由库&nbsp;<a href="http://www.ziyouku.com/archives/android-operating-ondraw-drawing.html" target="_blank" rel="noopener">http://www.ziyouku.com/archives/android-operating-ondraw-drawing.html</a></p>
 
-
-                <hr>
-
-                
-                <div class="post-copyright" style="margin-top: 20px;">
-                    <strong>来源博客：</strong><a href="http://blog.wangjiegulu.com">Wang Jie's Blog</a><br/>
-                     <strong>本文链接：</strong><a href="http://blog.wangjiegulu.com/2012/03/03/Android绘图操作onDraw/">http://blog.wangjiegulu.com/2012/03/03/Android绘图操作onDraw/</a><br/>
-                     <strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处。
-                </div>
-                
-
-                <!-- Sharethis 分享 -->
-                <div class="sharethis-inline-share-buttons" style="margin-top: 18px"></div>
-
-
-                
-
-                <ul class="pager">
-                    
-                    <li class="previous">
-                        <a href="/2012/03/03/Android读写文件汇总/" data-toggle="tooltip" data-placement="top"
-                           title="Android读写文件汇总">&larr; Previous Post</a>
-                    </li>
-                    
-                    
-                    <li class="next">
-                        <a href="/2012/03/03/TimePicker-SharedPreferences实现android小闹钟/" data-toggle="tooltip" data-placement="top"
-                           title="TimePicker,SharedPreferences实现android小闹钟">Next Post &rarr;</a>
-                    </li>
-                    
-                </ul>
-
-
-                
-
-                
-                <!-- disqus 评论框 start -->
-                <div class="comment">
-                    <div id="disqus_thread" class="disqus-thread"></div>
-                </div>
-                <!-- disqus 评论框 end -->
-                
-
-
-                <!--加入新的评论系统-->
-                
-            </div>
-
-            <div class="hidden-xs col-sm-3 toc-col">
-                <div class="toc-wrap">
-                    
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <!-- Sidebar Container -->
-
-            <div class="
-                col-lg-8 col-lg-offset-2
-                col-md-10 col-md-offset-1
-                sidebar-container">
-
-                <!-- Featured Tags -->
-                
-                <section>
-                    <!-- no hr -->
-                    <h5 class="text-center">
-                        <a href="/tags/">FEATURED TAGS</a>
-                    </h5>
-                    <div class="tags">
-                        
-                        <a class="tag" href="/tags/#android"
-                           title="android">android</a>
-                        
-                        <a class="tag" href="/tags/#onDraw"
-                           title="onDraw">onDraw</a>
-                        
-                    </div>
-                </section>
-                
-
-                <!-- Friends Blog -->
-                
-                <div style="margin-top: 20px;">
-                    <h5 class="text-center">FRIENDS</h5>
-                    <ul class="list-inline text-center">
-                        
-                        <li><a href="http://www.cnblogs.com/tiantianbyconan/">cnblog</a></li>
-                        
-                        <li><a href="http://h.wangjiegulu.com">Huginn</a></li>
-                        
-                    </ul>
-                </div>
-                
-            </div>
-        </div>
-
-    </div>
+  </div>
 </article>
 
-
-
-<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
-<script type="text/javascript">
-    /* * * CONFIGURATION VARIABLES * * */
-    var disqus_shortname = "blog-wangjiegulu-com";
-    var disqus_identifier = "http://blog.wangjiegulu.com/2012/03/03/Android绘图操作onDraw/";
-    var disqus_url = "http://blog.wangjiegulu.com/2012/03/03/Android绘图操作onDraw/";
-
-    (function () {
-        var dsq = document.createElement('script');
-        dsq.type = 'text/javascript';
-        dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-</script>
-<!-- disqus 公共JS代码 end -->
-
-
-
-
-
-<!-- Footer -->
-<!-- Footer -->
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
-                <br>
-                <ul class="list-inline text-center">
-                
-                    <li>
-                        <a href="/feed.xml">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                
-
-                
-                    <li>
-                        <a target="_blank"  href="https://github.com/wangjiegulu">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                
-
-                
-                    <li>
-                        <a target="_blank"  href="https://instagram.com/wangjiegulu">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                
-
-                
-                    <li>
-                        <a target="_blank" href="https://plus.google.com/+%E5%A4%A9%E5%A4%A9wangjie">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-google fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                
-
-                
-                    <li>
-                        <a target="_blank" href="https://twitter.com/wangjiegulu">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                
-
-                
-                    <li>
-                        <a target="_blank" href="https://stackoverflow.com/users/2124006/wangjie">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                
-                
-
-                
-                    <li>
-                        <a target="_blank" href="https://www.facebook.com/wangjiegulu">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                
-
-                
-                    <li>
-                        <a target="_blank" href="http://weibo.com/tiantianbyconan">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                
-
-                
-
-                
-
-                </ul>
-                <p class="copyright text-muted">
-                    Copyright &copy; Wang Jie 2018
-                    <!-- <br>
-                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv">
-                    <br> -->
-                </p>
-
-            </div>
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
         </div>
     </div>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="https://github.com/wangjiegulu">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://blog.wangjiegulu.com/2012/03/03/Android绘图操作onDraw/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://blog.wangjiegulu.com/2012/03/03/Android绘图操作onDraw/&text=Android绘图操作onDraw"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://blog.wangjiegulu.com/2012/03/03/Android绘图操作onDraw/&title=Android绘图操作onDraw"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.wangjiegulu.com/2012/03/03/Android绘图操作onDraw/&is_video=false&description=Android绘图操作onDraw"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Android绘图操作onDraw&body=Check out this article: http://blog.wangjiegulu.com/2012/03/03/Android绘图操作onDraw/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://blog.wangjiegulu.com/2012/03/03/Android绘图操作onDraw/&title=Android绘图操作onDraw"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://blog.wangjiegulu.com/2012/03/03/Android绘图操作onDraw/&title=Android绘图操作onDraw"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://blog.wangjiegulu.com/2012/03/03/Android绘图操作onDraw/&title=Android绘图操作onDraw"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://blog.wangjiegulu.com/2012/03/03/Android绘图操作onDraw/&title=Android绘图操作onDraw"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.wangjiegulu.com/2012/03/03/Android绘图操作onDraw/&name=Android绘图操作onDraw&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 Wang Jie
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="https://github.com/wangjiegulu">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
 </footer>
 
-<!-- jQuery -->
-<script src="/js/jquery.min.js"></script>
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
 
-<!-- Bootstrap Core JavaScript -->
-<script src="/js/bootstrap.min.js"></script>
-
-<!-- Custom Theme JavaScript -->
-<script src="/js/blog.js"></script>
-
-<!-- async load function -->
-<script>
-    function async(u, c) {
-      var d = document, t = 'script',
-          o = d.createElement(t),
-          s = d.getElementsByTagName(t)[0];
-      o.src = u;
-      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
-      s.parentNode.insertBefore(o, s);
-    }
-</script>
-
-<!-- jquery.tagcloud.js -->
-<script>
-    // only load tagcloud.js in tag.html
-    if($('#tag_cloud').length !== 0){
-        async("http://blog.wangjiegulu.com/js/jquery.tagcloud.js",function(){
-            $.fn.tagcloud.defaults = {
-                //size: {start: 1, end: 1, unit: 'em'},
-                color: {start: '#bbbbee', end: '#0085a1'},
-            };
-            $('#tag_cloud a').tagcloud();
-        })
-    }
-</script>
-
-<!--fastClick.js -->
-<script>
-    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
-        var $nav = document.querySelector("nav");
-        if($nav) FastClick.attach($nav);
-    })
-</script>
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
 
 <!-- Google Analytics -->
 
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-111189680-2', 'auto');
+        ga('send', 'pageview');
+    </script>
 
-<script>
-    // dynamic User by Hux
-    var _gaId = 'UA-111189680-2';
-    var _gaDomain = 'blog.wangjiegulu.com';
-    // Originial
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-    ga('create', _gaId, _gaDomain);
-    ga('send', 'pageview');
-</script>
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'blog-wangjiegulu-com';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
 
 
-<!-- Baidu Tongji -->
-
-
-<!-- swiftype -->
-
-
-<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-<!--wechat title img-->
-<img class="wechat-title-img" src="http://avatars3.githubusercontent.com/u/5423194?s=460&amp;v=4">
-</body>
-
-</html>

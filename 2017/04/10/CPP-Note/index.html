@@ -1,240 +1,147 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<!-- Head tag -->
+<html lang=en>
 <head>
+    <!-- so meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="hello.cpp -&amp;gt; 编译代码g++ hello.cpp -o a -&amp;gt; a.out 区分大小写的编程语言">
+<meta name="keywords" content="cpp,c++">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CPP Note">
+<meta property="og:url" content="http://blog.wangjiegulu.com/2017/04/10/CPP-Note/index.html">
+<meta property="og:site_name" content="Wang Jie">
+<meta property="og:description" content="hello.cpp -&amp;gt; 编译代码g++ hello.cpp -o a -&amp;gt; a.out 区分大小写的编程语言">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-02-05T09:50:06.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CPP Note">
+<meta name="twitter:description" content="hello.cpp -&amp;gt; 编译代码g++ hello.cpp -o a -&amp;gt; a.out 区分大小写的编程语言">
     
-    <meta name="description" content="Wang Jie&#39;s blog -- TO BE AN ARTIST-ENGINNER">
-    <meta name="keyword" content="tiantianbyconan, tiantian.china.2, wangjiegulu, Android, Java, J2EE, Huginn, Geek, Github, Git, Gradle, Maven, Google, iOS, JVM, Activity, View, Javascript, Python, code, developer, programer, tech, technology">
-    <meta name="theme-color" content="#600090">
-    <meta name="msapplication-navbutton-color" content="#600090">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
-    <link rel="shortcut icon" href="http://avatars3.githubusercontent.com/u/5423194?s=460&v=4">
-    <link rel="alternate" type="application/atom+xml" title="Wang Jie" href="/atom.xml">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
-    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
-    <title>
+    
         
-        CPP Note｜Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
         
-    </title>
-
-    <link rel="canonical" href="http://blog.wangjiegulu.com/2017/04/10/CPP-Note/">
-
-    <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/blog-style.css">
-
-    <!-- Pygments Github CSS -->
-    <link rel="stylesheet" href="/css/syntax.css">
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>CPP Note</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
 </head>
 
-<style>
-
-    header.intro-header {
-        background-image: url('//o7bkkhiex.bkt.clouddn.com/lion-blur-bg.jpg')
-    }
-</style>
-<!-- hack iOS CSS :active style -->
-<body ontouchstart="" class="animated fadeIn">
-<!-- Navigation -->
-<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
-" data-ishome = "false" >
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header page-scroll">
-            <button type="button" class="navbar-toggle">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand animated pulse" href="/">
-                <span class="brand-logo">
-                    Wang Jie
-                </span>
-                's Blog
-            </a>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <!-- Known Issue, found by Hux:
-            <nav>'s height woule be hold on by its content.
-            so, when navbar scale out, the <nav> will cover tags.
-            also mask any touch event of tags, unfortunately.
-        -->
-        <!-- /.navbar-collapse -->
-        <!-- <div id="huxblog_navbar">
-            <div class="navbar-collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="/">Home</a>
-                    </li>
-					
-                    
-                        
-							
-								
-							
-						
-                    
-                        
-							
-                        <li>
-                            <a href="/categories/">categories</a>
-                        </li>
-							
-						
-                    
-                        
-                    
-                        
-							
-                        <li>
-                            <a href="/tags/">tags</a>
-                        </li>
-							
-						
-                    
-					
-					
-						<li>
-							<a href="/about">About</a>
-						</li>
-					
-                </ul>
-            </div>
-        </div> -->
-
-
-        <div id="huxblog_navbar">
-            <div class="navbar-collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="/">Home</a>
-                    </li>
-                    <li>
-                        <a href="/archives">Archives</a>
-                    </li>
-                    <li>
-                        <a href="/tags">Tags</a>
-                    </li>
-                    <li>
-                        <a href="/about">About</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-
-
+<body class="max-width mx-auto px3">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="https://github.com/wangjiegulu">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2017/04/11/NDK配置/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2017/03/29/Android-使用RecyclerView替代ListView（四：SeizeRecyclerView）/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://blog.wangjiegulu.com/2017/04/10/CPP-Note/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://blog.wangjiegulu.com/2017/04/10/CPP-Note/&text=CPP Note"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://blog.wangjiegulu.com/2017/04/10/CPP-Note/&title=CPP Note"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.wangjiegulu.com/2017/04/10/CPP-Note/&is_video=false&description=CPP Note"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=CPP Note&body=Check out this article: http://blog.wangjiegulu.com/2017/04/10/CPP-Note/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://blog.wangjiegulu.com/2017/04/10/CPP-Note/&title=CPP Note"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://blog.wangjiegulu.com/2017/04/10/CPP-Note/&title=CPP Note"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://blog.wangjiegulu.com/2017/04/10/CPP-Note/&title=CPP Note"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://blog.wangjiegulu.com/2017/04/10/CPP-Note/&title=CPP Note"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.wangjiegulu.com/2017/04/10/CPP-Note/&name=CPP Note&description=&lt;p&gt;hello.cpp -&amp;gt; 编译代码&lt;code&gt;g++ hello.cpp -o a&lt;/code&gt; -&amp;gt; &lt;code&gt;a.out&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;区分大小写的编程语言&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
 
     </div>
-    <!-- /.container -->
-</nav>
-<script>
-    // Drop Bootstarp low-performance Navbar
-    // Use customize navbar with high-quality material design animation
-    // in high-perf jank-free CSS3 implementation
-//    var $body   = document.body;
-    var $toggle = document.querySelector('.navbar-toggle');
-    var $navbar = document.querySelector('#huxblog_navbar');
-    var $collapse = document.querySelector('.navbar-collapse');
-
-    $toggle.addEventListener('click', handleMagic)
-    function handleMagic(e){
-        if ($navbar.className.indexOf('in') > 0) {
-        // CLOSE
-            $navbar.className = " ";
-            // wait until animation end.
-            setTimeout(function(){
-                // prevent frequently toggle
-                if($navbar.className.indexOf('in') < 0) {
-                    $collapse.style.height = "0px"
-                }
-            },400)
-        }else{
-        // OPEN
-            $collapse.style.height = "auto"
-            $navbar.className += " in";
-        }
-    }
-</script>
-
-<!-- Main Content -->
-
-<head>
-<!-- <script type='text/javascript' src='//platform-api.sharethis.com/js/sharethis.js#property=5a72df492fd34b00134b0dc1&product=sop' async='async'></script> -->
-<script type='text/javascript' src='//platform-api.sharethis.com/js/sharethis.js#property=5a72df492fd34b00134b0dc1&product=sop' async='async'></script>
-</head>
-
-<!--only post-->
-
-
-<img class="wechat-title-img"
-     src="http://otnnps88s.bkt.clouddn.com/image/xingkong.jpg">
-
-
-<style>
-    
-    header.intro-header {
-        background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('http://otnnps88s.bkt.clouddn.com/image/xingkong.jpg')
-    }
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#内置类型"><span class="toc-number">1.</span> <span class="toc-text">内置类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#typedef-声明"><span class="toc-number">2.</span> <span class="toc-text">typedef 声明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#枚举类型"><span class="toc-number">3.</span> <span class="toc-text">枚举类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#变量定义"><span class="toc-number">4.</span> <span class="toc-text">变量定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#变量声明"><span class="toc-number">5.</span> <span class="toc-text">变量声明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#全局变量默认值"><span class="toc-number">6.</span> <span class="toc-text">全局变量默认值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#常量"><span class="toc-number">7.</span> <span class="toc-text">常量</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#整数常量"><span class="toc-number">7.1.</span> <span class="toc-text">整数常量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#浮点常量"><span class="toc-number">7.2.</span> <span class="toc-text">浮点常量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#布尔常量"><span class="toc-number">7.3.</span> <span class="toc-text">布尔常量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#字符常量"><span class="toc-number">7.4.</span> <span class="toc-text">字符常量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#字符串常量"><span class="toc-number">7.5.</span> <span class="toc-text">字符串常量</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#定义常量"><span class="toc-number">8.</span> <span class="toc-text">定义常量</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#define-预处理器"><span class="toc-number">8.1.</span> <span class="toc-text">#define 预处理器</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#const-关键字"><span class="toc-number">9.</span> <span class="toc-text">const 关键字</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#修饰符类型"><span class="toc-number">10.</span> <span class="toc-text">修饰符类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类型限定符"><span class="toc-number">11.</span> <span class="toc-text">类型限定符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#存储类"><span class="toc-number">12.</span> <span class="toc-text">存储类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#auto-存储类"><span class="toc-number">12.1.</span> <span class="toc-text">auto 存储类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#register-存储类"><span class="toc-number">12.2.</span> <span class="toc-text">register 存储类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#static-存储类"><span class="toc-number">12.3.</span> <span class="toc-text">static 存储类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#extern-存储类"><span class="toc-number">12.4.</span> <span class="toc-text">extern 存储类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#mutable-存储类"><span class="toc-number">12.5.</span> <span class="toc-text">mutable 存储类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#thread-local-存储类"><span class="toc-number">12.6.</span> <span class="toc-text">thread_local 存储类</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#杂项运算符"><span class="toc-number">13.</span> <span class="toc-text">杂项运算符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数参数"><span class="toc-number">14.</span> <span class="toc-text">函数参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参数的默认值"><span class="toc-number">15.</span> <span class="toc-text">参数的默认值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Lambda-函数与表达式"><span class="toc-number">16.</span> <span class="toc-text">Lambda 函数与表达式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数学运算"><span class="toc-number">17.</span> <span class="toc-text">数学运算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#随机数"><span class="toc-number">18.</span> <span class="toc-text">随机数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数组"><span class="toc-number">19.</span> <span class="toc-text">数组</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#声明数组"><span class="toc-number">19.1.</span> <span class="toc-text">声明数组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#初始化数组"><span class="toc-number">19.2.</span> <span class="toc-text">初始化数组</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#指针变量声明"><span class="toc-number">20.</span> <span class="toc-text">指针变量声明</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#NULL-指针"><span class="toc-number">20.1.</span> <span class="toc-text">NULL 指针</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#指针的算术运算"><span class="toc-number">20.2.</span> <span class="toc-text">指针的算术运算</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#传递指针给函数"><span class="toc-number">20.3.</span> <span class="toc-text">传递指针给函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#从函数返回指针"><span class="toc-number">20.4.</span> <span class="toc-text">从函数返回指针</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#引用-vs-指针"><span class="toc-number">21.</span> <span class="toc-text">引用 vs 指针</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#创建引用"><span class="toc-number">21.1.</span> <span class="toc-text">创建引用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#把引用作为返回值"><span class="toc-number">21.2.</span> <span class="toc-text">把引用作为返回值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#日期-amp-时间"><span class="toc-number">21.3.</span> <span class="toc-text">日期 &amp; 时间</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#标准输出流（cout）"><span class="toc-number">22.</span> <span class="toc-text">标准输出流（cout）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#标准输入流（cin）"><span class="toc-number">23.</span> <span class="toc-text">标准输入流（cin）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#标准错误流（cerr）"><span class="toc-number">24.</span> <span class="toc-text">标准错误流（cerr）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#标准日志流（clog）"><span class="toc-number">25.</span> <span class="toc-text">标准日志流（clog）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据结构"><span class="toc-number">26.</span> <span class="toc-text">数据结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#定义结构"><span class="toc-number">26.1.</span> <span class="toc-text">定义结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#访问结构成员"><span class="toc-number">26.2.</span> <span class="toc-text">访问结构成员</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#结构作为函数参数"><span class="toc-number">26.3.</span> <span class="toc-text">结构作为函数参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#指向结构的指针"><span class="toc-number">26.4.</span> <span class="toc-text">指向结构的指针</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#typedef-关键字"><span class="toc-number">26.5.</span> <span class="toc-text">typedef 关键字</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类和对象"><span class="toc-number">27.</span> <span class="toc-text">类和对象</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#创建类"><span class="toc-number">27.1.</span> <span class="toc-text">创建类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#成员函数"><span class="toc-number">27.2.</span> <span class="toc-text">成员函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类访问修饰符"><span class="toc-number">28.</span> <span class="toc-text">类访问修饰符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类的构造函数"><span class="toc-number">29.</span> <span class="toc-text">类的构造函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类的析构函数"><span class="toc-number">30.</span> <span class="toc-text">类的析构函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#拷贝构造函数"><span class="toc-number">31.</span> <span class="toc-text">拷贝构造函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#友元函数"><span class="toc-number">32.</span> <span class="toc-text">友元函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#内联函数"><span class="toc-number">33.</span> <span class="toc-text">内联函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#this-指针"><span class="toc-number">33.1.</span> <span class="toc-text">this 指针</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#指向类的指针"><span class="toc-number">33.2.</span> <span class="toc-text">指向类的指针</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#类的静态成员"><span class="toc-number">33.3.</span> <span class="toc-text">类的静态成员</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#基类-amp-派生类"><span class="toc-number">33.4.</span> <span class="toc-text">基类 &amp; 派生类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#继承类型"><span class="toc-number">33.5.</span> <span class="toc-text">继承类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#多继承"><span class="toc-number">33.6.</span> <span class="toc-text">多继承</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#函数重载"><span class="toc-number">33.7.</span> <span class="toc-text">函数重载</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#运算符重载"><span class="toc-number">33.8.</span> <span class="toc-text">运算符重载</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#可重载运算符"><span class="toc-number">33.8.1.</span> <span class="toc-text">可重载运算符</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#不可重载运算符"><span class="toc-number">33.8.2.</span> <span class="toc-text">不可重载运算符</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#多态"><span class="toc-number">33.9.</span> <span class="toc-text">多态</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#虚函数"><span class="toc-number">33.10.</span> <span class="toc-text">虚函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#纯虚函数"><span class="toc-number">33.11.</span> <span class="toc-text">纯虚函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#文件和流"><span class="toc-number">33.12.</span> <span class="toc-text">文件和流</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#异常处理"><span class="toc-number">33.13.</span> <span class="toc-text">异常处理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#动态内存"><span class="toc-number">33.14.</span> <span class="toc-text">动态内存</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#命名空间"><span class="toc-number">33.15.</span> <span class="toc-text">命名空间</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#不连续的命名空间"><span class="toc-number">33.16.</span> <span class="toc-text">不连续的命名空间</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#函数模板"><span class="toc-number">33.17.</span> <span class="toc-text">函数模板</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#类模板"><span class="toc-number">33.18.</span> <span class="toc-text">类模板</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#预处理器"><span class="toc-number">33.19.</span> <span class="toc-text">预处理器</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#define-预处理"><span class="toc-number">33.19.1.</span> <span class="toc-text">#define 预处理</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#信号处理"><span class="toc-number">34.</span> <span class="toc-text">信号处理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#signal-函数"><span class="toc-number">34.1.</span> <span class="toc-text">signal() 函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#raise-函数"><span class="toc-number">34.2.</span> <span class="toc-text">raise() 函数</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
 
     
-</style>
+    <div class="content index my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        CPP Note
+    </h1>
 
-<header class="intro-header">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
-                <div class="post-heading">
-                    <h1>CPP Note</h1>
-                    
-                    <span class="meta">
-                         作者 Wang Jie
-                        <span>
-                          日期 2017-04-10
-                         </span>
-                    </span>
-                    <div class="tags text-center">
-                        
-                        <a class="tag" href="/tags/#cpp"
-                           title="cpp">cpp</a>
-                        
-                        <a class="tag" href="/tags/#c++"
-                           title="c++">c++</a>
-                        
-                    </div>
-                    <!-- Sharethis 分享 -->
-                    <!-- <div class="sharethis-inline-share-buttons" style="margin-top: 18px; opacity: 0.1;"></div> -->
-                </div>
-            </div>
-        </div>
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Wang Jie</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2017-04-10T07:05:00.000Z" itemprop="datePublished">2017-04-10</time>
     </div>
-    <div class="post-title-haojen">
-        <span>
-            CPP Note
-        </span>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/c/">c++</a>, <a class="tag-link" href="/tags/cpp/">cpp</a>
     </div>
-</header>
 
-<!-- Post Content -->
-<article>
-    <div class="container">
-        <div class="row">
-            <!-- Post Container -->
-            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container" 
-                 style="word-wrap:break-word;overflow:hidden;">
 
-                <p>hello.cpp -&gt; 编译代码<code>g++ hello.cpp -o a</code> -&gt; <code>a.out</code></p>
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>hello.cpp -&gt; 编译代码<code>g++ hello.cpp -o a</code> -&gt; <code>a.out</code></p>
 <p>区分大小写的编程语言</p>
 <a id="more"></a>
 <h3 id="内置类型"><a href="#内置类型" class="headerlink" title="内置类型"></a>内置类型</h3><p>一些基本类型可以使用一个或多个类型修饰符进行修饰：</p>
@@ -923,308 +830,128 @@
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">signalHandler</span><span class="params">( <span class="keyword">int</span> signum )</span></span>&#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"Interrupt signal ("</span> &lt;&lt; signum &lt;&lt; <span class="string">") received.\n"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 清理并关闭</span></span><br><span class="line">    <span class="comment">// 终止程序 </span></span><br><span class="line"></span><br><span class="line">   <span class="built_in">exit</span>(signum);  </span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span> <span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">// 注册信号 SIGINT 和信号处理程序</span></span><br><span class="line">    signal(SIGINT, signalHandler);  </span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(++i)&#123;</span><br><span class="line">       <span class="built_in">cout</span> &lt;&lt; <span class="string">"Going to sleep...."</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">       <span class="keyword">if</span>( i == <span class="number">3</span> )&#123;</span><br><span class="line">          raise( SIGINT);</span><br><span class="line">       &#125;</span><br><span class="line">       sleep(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Going to sleep....</span><br><span class="line">Going to sleep....</span><br><span class="line">Going to sleep....</span><br><span class="line">Interrupt signal (2) received.</span><br></pre></td></tr></table></figure>
 
-
-                <hr>
-
-                
-
-                <!-- Sharethis 分享 -->
-                <div class="sharethis-inline-share-buttons" style="margin-top: 18px"></div>
-
-
-                
-
-                <ul class="pager">
-                    
-                    <li class="previous">
-                        <a href="/2017/04/11/NDK配置/" data-toggle="tooltip" data-placement="top"
-                           title="NDK配置">&larr; Previous Post</a>
-                    </li>
-                    
-                    
-                    <li class="next">
-                        <a href="/2017/03/29/Android-使用RecyclerView替代ListView（四：SeizeRecyclerView）/" data-toggle="tooltip" data-placement="top"
-                           title="[Android]使用RecyclerView替代ListView（四：SeizeRecyclerView）">Next Post &rarr;</a>
-                    </li>
-                    
-                </ul>
-
-
-                
-
-                
-                <!-- disqus 评论框 start -->
-                <div class="comment">
-                    <div id="disqus_thread" class="disqus-thread"></div>
-                </div>
-                <!-- disqus 评论框 end -->
-                
-
-
-                <!--加入新的评论系统-->
-                
-            </div>
-
-            <div class="hidden-xs col-sm-3 toc-col">
-                <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#内置类型"><span class="toc-text">内置类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#typedef-声明"><span class="toc-text">typedef 声明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#枚举类型"><span class="toc-text">枚举类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#变量定义"><span class="toc-text">变量定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#变量声明"><span class="toc-text">变量声明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#全局变量默认值"><span class="toc-text">全局变量默认值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#常量"><span class="toc-text">常量</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#整数常量"><span class="toc-text">整数常量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#浮点常量"><span class="toc-text">浮点常量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#布尔常量"><span class="toc-text">布尔常量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#字符常量"><span class="toc-text">字符常量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#字符串常量"><span class="toc-text">字符串常量</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#定义常量"><span class="toc-text">定义常量</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#define-预处理器"><span class="toc-text">#define 预处理器</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#const-关键字"><span class="toc-text">const 关键字</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#修饰符类型"><span class="toc-text">修饰符类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类型限定符"><span class="toc-text">类型限定符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#存储类"><span class="toc-text">存储类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#auto-存储类"><span class="toc-text">auto 存储类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#register-存储类"><span class="toc-text">register 存储类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#static-存储类"><span class="toc-text">static 存储类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#extern-存储类"><span class="toc-text">extern 存储类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#mutable-存储类"><span class="toc-text">mutable 存储类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#thread-local-存储类"><span class="toc-text">thread_local 存储类</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#杂项运算符"><span class="toc-text">杂项运算符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数参数"><span class="toc-text">函数参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参数的默认值"><span class="toc-text">参数的默认值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Lambda-函数与表达式"><span class="toc-text">Lambda 函数与表达式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数学运算"><span class="toc-text">数学运算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#随机数"><span class="toc-text">随机数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数组"><span class="toc-text">数组</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#声明数组"><span class="toc-text">声明数组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#初始化数组"><span class="toc-text">初始化数组</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#指针变量声明"><span class="toc-text">指针变量声明</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#NULL-指针"><span class="toc-text">NULL 指针</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#指针的算术运算"><span class="toc-text">指针的算术运算</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#传递指针给函数"><span class="toc-text">传递指针给函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#从函数返回指针"><span class="toc-text">从函数返回指针</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#引用-vs-指针"><span class="toc-text">引用 vs 指针</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#创建引用"><span class="toc-text">创建引用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#把引用作为返回值"><span class="toc-text">把引用作为返回值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#日期-amp-时间"><span class="toc-text">日期 &amp; 时间</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#标准输出流（cout）"><span class="toc-text">标准输出流（cout）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#标准输入流（cin）"><span class="toc-text">标准输入流（cin）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#标准错误流（cerr）"><span class="toc-text">标准错误流（cerr）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#标准日志流（clog）"><span class="toc-text">标准日志流（clog）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据结构"><span class="toc-text">数据结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#定义结构"><span class="toc-text">定义结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#访问结构成员"><span class="toc-text">访问结构成员</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#结构作为函数参数"><span class="toc-text">结构作为函数参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#指向结构的指针"><span class="toc-text">指向结构的指针</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#typedef-关键字"><span class="toc-text">typedef 关键字</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类和对象"><span class="toc-text">类和对象</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#创建类"><span class="toc-text">创建类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#成员函数"><span class="toc-text">成员函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类访问修饰符"><span class="toc-text">类访问修饰符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类的构造函数"><span class="toc-text">类的构造函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类的析构函数"><span class="toc-text">类的析构函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#拷贝构造函数"><span class="toc-text">拷贝构造函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#友元函数"><span class="toc-text">友元函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#内联函数"><span class="toc-text">内联函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#this-指针"><span class="toc-text">this 指针</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#指向类的指针"><span class="toc-text">指向类的指针</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#类的静态成员"><span class="toc-text">类的静态成员</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#基类-amp-派生类"><span class="toc-text">基类 &amp; 派生类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#继承类型"><span class="toc-text">继承类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#多继承"><span class="toc-text">多继承</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#函数重载"><span class="toc-text">函数重载</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#运算符重载"><span class="toc-text">运算符重载</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#可重载运算符"><span class="toc-text">可重载运算符</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#不可重载运算符"><span class="toc-text">不可重载运算符</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#多态"><span class="toc-text">多态</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#虚函数"><span class="toc-text">虚函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#纯虚函数"><span class="toc-text">纯虚函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#文件和流"><span class="toc-text">文件和流</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#异常处理"><span class="toc-text">异常处理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#动态内存"><span class="toc-text">动态内存</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#命名空间"><span class="toc-text">命名空间</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#不连续的命名空间"><span class="toc-text">不连续的命名空间</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#函数模板"><span class="toc-text">函数模板</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#类模板"><span class="toc-text">类模板</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#预处理器"><span class="toc-text">预处理器</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#define-预处理"><span class="toc-text">#define 预处理</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#信号处理"><span class="toc-text">信号处理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#signal-函数"><span class="toc-text">signal() 函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#raise-函数"><span class="toc-text">raise() 函数</span></a></li></ol></li></ol>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <!-- Sidebar Container -->
-
-            <div class="
-                col-lg-8 col-lg-offset-2
-                col-md-10 col-md-offset-1
-                sidebar-container">
-
-                <!-- Featured Tags -->
-                
-                <section>
-                    <!-- no hr -->
-                    <h5 class="text-center">
-                        <a href="/tags/">FEATURED TAGS</a>
-                    </h5>
-                    <div class="tags">
-                        
-                        <a class="tag" href="/tags/#cpp"
-                           title="cpp">cpp</a>
-                        
-                        <a class="tag" href="/tags/#c++"
-                           title="c++">c++</a>
-                        
-                    </div>
-                </section>
-                
-
-                <!-- Friends Blog -->
-                
-                <div style="margin-top: 20px;">
-                    <h5 class="text-center">FRIENDS</h5>
-                    <ul class="list-inline text-center">
-                        
-                        <li><a href="http://www.cnblogs.com/tiantianbyconan/">cnblog</a></li>
-                        
-                        <li><a href="http://h.wangjiegulu.com">Huginn</a></li>
-                        
-                    </ul>
-                </div>
-                
-            </div>
-        </div>
-
-    </div>
+  </div>
 </article>
 
-
-
-<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
-<script type="text/javascript">
-    /* * * CONFIGURATION VARIABLES * * */
-    var disqus_shortname = "blog-wangjiegulu-com";
-    var disqus_identifier = "http://blog.wangjiegulu.com/2017/04/10/CPP-Note/";
-    var disqus_url = "http://blog.wangjiegulu.com/2017/04/10/CPP-Note/";
-
-    (function () {
-        var dsq = document.createElement('script');
-        dsq.type = 'text/javascript';
-        dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-</script>
-<!-- disqus 公共JS代码 end -->
-
-
-
-
-
-<!-- Footer -->
-<!-- Footer -->
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
-                <br>
-                <ul class="list-inline text-center">
-                
-                    <li>
-                        <a href="/feed.xml">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                
-
-                
-                    <li>
-                        <a target="_blank"  href="https://github.com/wangjiegulu">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                
-
-                
-                    <li>
-                        <a target="_blank"  href="https://instagram.com/wangjiegulu">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                
-
-                
-                    <li>
-                        <a target="_blank" href="https://plus.google.com/+%E5%A4%A9%E5%A4%A9wangjie">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-google fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                
-
-                
-                    <li>
-                        <a target="_blank" href="https://twitter.com/wangjiegulu">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                
-
-                
-                    <li>
-                        <a target="_blank" href="https://stackoverflow.com/users/2124006/wangjie">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                
-                
-
-                
-                    <li>
-                        <a target="_blank" href="https://www.facebook.com/wangjiegulu">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                
-
-                
-                    <li>
-                        <a target="_blank" href="http://weibo.com/tiantianbyconan">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                
-
-                
-
-                
-
-                </ul>
-                <p class="copyright text-muted">
-                    Copyright &copy; Wang Jie 2018
-                    <!-- <br>
-                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv">
-                    <br> -->
-                </p>
-
-            </div>
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
         </div>
     </div>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="https://github.com/wangjiegulu">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#内置类型"><span class="toc-number">1.</span> <span class="toc-text">内置类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#typedef-声明"><span class="toc-number">2.</span> <span class="toc-text">typedef 声明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#枚举类型"><span class="toc-number">3.</span> <span class="toc-text">枚举类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#变量定义"><span class="toc-number">4.</span> <span class="toc-text">变量定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#变量声明"><span class="toc-number">5.</span> <span class="toc-text">变量声明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#全局变量默认值"><span class="toc-number">6.</span> <span class="toc-text">全局变量默认值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#常量"><span class="toc-number">7.</span> <span class="toc-text">常量</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#整数常量"><span class="toc-number">7.1.</span> <span class="toc-text">整数常量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#浮点常量"><span class="toc-number">7.2.</span> <span class="toc-text">浮点常量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#布尔常量"><span class="toc-number">7.3.</span> <span class="toc-text">布尔常量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#字符常量"><span class="toc-number">7.4.</span> <span class="toc-text">字符常量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#字符串常量"><span class="toc-number">7.5.</span> <span class="toc-text">字符串常量</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#定义常量"><span class="toc-number">8.</span> <span class="toc-text">定义常量</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#define-预处理器"><span class="toc-number">8.1.</span> <span class="toc-text">#define 预处理器</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#const-关键字"><span class="toc-number">9.</span> <span class="toc-text">const 关键字</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#修饰符类型"><span class="toc-number">10.</span> <span class="toc-text">修饰符类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类型限定符"><span class="toc-number">11.</span> <span class="toc-text">类型限定符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#存储类"><span class="toc-number">12.</span> <span class="toc-text">存储类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#auto-存储类"><span class="toc-number">12.1.</span> <span class="toc-text">auto 存储类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#register-存储类"><span class="toc-number">12.2.</span> <span class="toc-text">register 存储类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#static-存储类"><span class="toc-number">12.3.</span> <span class="toc-text">static 存储类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#extern-存储类"><span class="toc-number">12.4.</span> <span class="toc-text">extern 存储类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#mutable-存储类"><span class="toc-number">12.5.</span> <span class="toc-text">mutable 存储类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#thread-local-存储类"><span class="toc-number">12.6.</span> <span class="toc-text">thread_local 存储类</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#杂项运算符"><span class="toc-number">13.</span> <span class="toc-text">杂项运算符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数参数"><span class="toc-number">14.</span> <span class="toc-text">函数参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参数的默认值"><span class="toc-number">15.</span> <span class="toc-text">参数的默认值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Lambda-函数与表达式"><span class="toc-number">16.</span> <span class="toc-text">Lambda 函数与表达式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数学运算"><span class="toc-number">17.</span> <span class="toc-text">数学运算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#随机数"><span class="toc-number">18.</span> <span class="toc-text">随机数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数组"><span class="toc-number">19.</span> <span class="toc-text">数组</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#声明数组"><span class="toc-number">19.1.</span> <span class="toc-text">声明数组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#初始化数组"><span class="toc-number">19.2.</span> <span class="toc-text">初始化数组</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#指针变量声明"><span class="toc-number">20.</span> <span class="toc-text">指针变量声明</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#NULL-指针"><span class="toc-number">20.1.</span> <span class="toc-text">NULL 指针</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#指针的算术运算"><span class="toc-number">20.2.</span> <span class="toc-text">指针的算术运算</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#传递指针给函数"><span class="toc-number">20.3.</span> <span class="toc-text">传递指针给函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#从函数返回指针"><span class="toc-number">20.4.</span> <span class="toc-text">从函数返回指针</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#引用-vs-指针"><span class="toc-number">21.</span> <span class="toc-text">引用 vs 指针</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#创建引用"><span class="toc-number">21.1.</span> <span class="toc-text">创建引用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#把引用作为返回值"><span class="toc-number">21.2.</span> <span class="toc-text">把引用作为返回值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#日期-amp-时间"><span class="toc-number">21.3.</span> <span class="toc-text">日期 &amp; 时间</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#标准输出流（cout）"><span class="toc-number">22.</span> <span class="toc-text">标准输出流（cout）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#标准输入流（cin）"><span class="toc-number">23.</span> <span class="toc-text">标准输入流（cin）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#标准错误流（cerr）"><span class="toc-number">24.</span> <span class="toc-text">标准错误流（cerr）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#标准日志流（clog）"><span class="toc-number">25.</span> <span class="toc-text">标准日志流（clog）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据结构"><span class="toc-number">26.</span> <span class="toc-text">数据结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#定义结构"><span class="toc-number">26.1.</span> <span class="toc-text">定义结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#访问结构成员"><span class="toc-number">26.2.</span> <span class="toc-text">访问结构成员</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#结构作为函数参数"><span class="toc-number">26.3.</span> <span class="toc-text">结构作为函数参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#指向结构的指针"><span class="toc-number">26.4.</span> <span class="toc-text">指向结构的指针</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#typedef-关键字"><span class="toc-number">26.5.</span> <span class="toc-text">typedef 关键字</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类和对象"><span class="toc-number">27.</span> <span class="toc-text">类和对象</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#创建类"><span class="toc-number">27.1.</span> <span class="toc-text">创建类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#成员函数"><span class="toc-number">27.2.</span> <span class="toc-text">成员函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类访问修饰符"><span class="toc-number">28.</span> <span class="toc-text">类访问修饰符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类的构造函数"><span class="toc-number">29.</span> <span class="toc-text">类的构造函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类的析构函数"><span class="toc-number">30.</span> <span class="toc-text">类的析构函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#拷贝构造函数"><span class="toc-number">31.</span> <span class="toc-text">拷贝构造函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#友元函数"><span class="toc-number">32.</span> <span class="toc-text">友元函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#内联函数"><span class="toc-number">33.</span> <span class="toc-text">内联函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#this-指针"><span class="toc-number">33.1.</span> <span class="toc-text">this 指针</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#指向类的指针"><span class="toc-number">33.2.</span> <span class="toc-text">指向类的指针</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#类的静态成员"><span class="toc-number">33.3.</span> <span class="toc-text">类的静态成员</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#基类-amp-派生类"><span class="toc-number">33.4.</span> <span class="toc-text">基类 &amp; 派生类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#继承类型"><span class="toc-number">33.5.</span> <span class="toc-text">继承类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#多继承"><span class="toc-number">33.6.</span> <span class="toc-text">多继承</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#函数重载"><span class="toc-number">33.7.</span> <span class="toc-text">函数重载</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#运算符重载"><span class="toc-number">33.8.</span> <span class="toc-text">运算符重载</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#可重载运算符"><span class="toc-number">33.8.1.</span> <span class="toc-text">可重载运算符</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#不可重载运算符"><span class="toc-number">33.8.2.</span> <span class="toc-text">不可重载运算符</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#多态"><span class="toc-number">33.9.</span> <span class="toc-text">多态</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#虚函数"><span class="toc-number">33.10.</span> <span class="toc-text">虚函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#纯虚函数"><span class="toc-number">33.11.</span> <span class="toc-text">纯虚函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#文件和流"><span class="toc-number">33.12.</span> <span class="toc-text">文件和流</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#异常处理"><span class="toc-number">33.13.</span> <span class="toc-text">异常处理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#动态内存"><span class="toc-number">33.14.</span> <span class="toc-text">动态内存</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#命名空间"><span class="toc-number">33.15.</span> <span class="toc-text">命名空间</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#不连续的命名空间"><span class="toc-number">33.16.</span> <span class="toc-text">不连续的命名空间</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#函数模板"><span class="toc-number">33.17.</span> <span class="toc-text">函数模板</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#类模板"><span class="toc-number">33.18.</span> <span class="toc-text">类模板</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#预处理器"><span class="toc-number">33.19.</span> <span class="toc-text">预处理器</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#define-预处理"><span class="toc-number">33.19.1.</span> <span class="toc-text">#define 预处理</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#信号处理"><span class="toc-number">34.</span> <span class="toc-text">信号处理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#signal-函数"><span class="toc-number">34.1.</span> <span class="toc-text">signal() 函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#raise-函数"><span class="toc-number">34.2.</span> <span class="toc-text">raise() 函数</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://blog.wangjiegulu.com/2017/04/10/CPP-Note/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://blog.wangjiegulu.com/2017/04/10/CPP-Note/&text=CPP Note"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://blog.wangjiegulu.com/2017/04/10/CPP-Note/&title=CPP Note"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.wangjiegulu.com/2017/04/10/CPP-Note/&is_video=false&description=CPP Note"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=CPP Note&body=Check out this article: http://blog.wangjiegulu.com/2017/04/10/CPP-Note/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://blog.wangjiegulu.com/2017/04/10/CPP-Note/&title=CPP Note"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://blog.wangjiegulu.com/2017/04/10/CPP-Note/&title=CPP Note"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://blog.wangjiegulu.com/2017/04/10/CPP-Note/&title=CPP Note"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://blog.wangjiegulu.com/2017/04/10/CPP-Note/&title=CPP Note"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.wangjiegulu.com/2017/04/10/CPP-Note/&name=CPP Note&description=&lt;p&gt;hello.cpp -&amp;gt; 编译代码&lt;code&gt;g++ hello.cpp -o a&lt;/code&gt; -&amp;gt; &lt;code&gt;a.out&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;区分大小写的编程语言&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 Wang Jie
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="https://github.com/wangjiegulu">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
 </footer>
 
-<!-- jQuery -->
-<script src="/js/jquery.min.js"></script>
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
 
-<!-- Bootstrap Core JavaScript -->
-<script src="/js/bootstrap.min.js"></script>
-
-<!-- Custom Theme JavaScript -->
-<script src="/js/blog.js"></script>
-
-<!-- async load function -->
-<script>
-    function async(u, c) {
-      var d = document, t = 'script',
-          o = d.createElement(t),
-          s = d.getElementsByTagName(t)[0];
-      o.src = u;
-      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
-      s.parentNode.insertBefore(o, s);
-    }
-</script>
-
-<!-- jquery.tagcloud.js -->
-<script>
-    // only load tagcloud.js in tag.html
-    if($('#tag_cloud').length !== 0){
-        async("http://blog.wangjiegulu.com/js/jquery.tagcloud.js",function(){
-            $.fn.tagcloud.defaults = {
-                //size: {start: 1, end: 1, unit: 'em'},
-                color: {start: '#bbbbee', end: '#0085a1'},
-            };
-            $('#tag_cloud a').tagcloud();
-        })
-    }
-</script>
-
-<!--fastClick.js -->
-<script>
-    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
-        var $nav = document.querySelector("nav");
-        if($nav) FastClick.attach($nav);
-    })
-</script>
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
 
 <!-- Google Analytics -->
 
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-111189680-2', 'auto');
+        ga('send', 'pageview');
+    </script>
 
-<script>
-    // dynamic User by Hux
-    var _gaId = 'UA-111189680-2';
-    var _gaDomain = 'blog.wangjiegulu.com';
-    // Originial
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-    ga('create', _gaId, _gaDomain);
-    ga('send', 'pageview');
-</script>
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'blog-wangjiegulu-com';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
 
 
-<!-- Baidu Tongji -->
-
-
-<!-- swiftype -->
-
-
-<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-<!--wechat title img-->
-<img class="wechat-title-img" src="http://avatars3.githubusercontent.com/u/5423194?s=460&amp;v=4">
-</body>
-
-</html>

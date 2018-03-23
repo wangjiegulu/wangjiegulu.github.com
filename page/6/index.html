@@ -1,1752 +1,315 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<!-- Head tag -->
+<html lang=en>
 <head>
+    <!-- so meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="Hi! Welcome to Wang Jie&apos;s blog. This blog has been migrated from cnblog.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Wang Jie">
+<meta property="og:url" content="http://blog.wangjiegulu.com/page/6/index.html">
+<meta property="og:site_name" content="Wang Jie">
+<meta property="og:description" content="Hi! Welcome to Wang Jie&apos;s blog. This blog has been migrated from cnblog.">
+<meta property="og:locale" content="en">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Wang Jie">
+<meta name="twitter:description" content="Hi! Welcome to Wang Jie&apos;s blog. This blog has been migrated from cnblog.">
     
-    <meta name="description" content="Wang Jie&#39;s blog -- TO BE AN ARTIST-ENGINNER">
-    <meta name="keyword" content="tiantianbyconan, tiantian.china.2, wangjiegulu, Android, Java, J2EE, Huginn, Geek, Github, Git, Gradle, Maven, Google, iOS, JVM, Activity, View, Javascript, Python, code, developer, programer, tech, technology">
-    <meta name="theme-color" content="#600090">
-    <meta name="msapplication-navbutton-color" content="#600090">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
-    <link rel="shortcut icon" href="http://avatars3.githubusercontent.com/u/5423194?s=460&v=4">
-    <link rel="alternate" type="application/atom+xml" title="Wang Jie" href="/atom.xml">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
-    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
-    <title>
+    
         
-        Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
         
-    </title>
-
-    <link rel="canonical" href="http://blog.wangjiegulu.com/page/6/">
-
-    <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/blog-style.css">
-
-    <!-- Pygments Github CSS -->
-    <link rel="stylesheet" href="/css/syntax.css">
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Wang Jie</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
 </head>
 
-<style>
+<body class="max-width mx-auto px3">
+    
+    <div class="content index my4">
+        
+          <header id="header">
+  <a href="/">
+  
+    
+      <div id="logo" style="background-image: url(/images/logo.png);"></div>
+    
+  
+    <div id="title">
+      <h1>Wang Jie</h1>
+    </div>
+  </a>
+  <div id="nav">
+    <ul>
+      <li class="icon">
+        <a href="#"><i class="fas fa-bars fa-2x"></i></a>
+      </li>
+       
+        <li><a href="/">Home</a></li>
+       
+        <li><a href="/archives/">Writing</a></li>
+       
+        <li><a href="/tags/">Tags</a></li>
+       
+        <li><a href="/about/">About</a></li>
+       
+        <li><a href="https://github.com/wangjiegulu">Projects</a></li>
+      
+    </ul>
+  </div>
+</header>
 
-    header.intro-header {
-        background-image: url('//o7bkkhiex.bkt.clouddn.com/lion-blur-bg.jpg')
-    }
-</style>
-<!-- hack iOS CSS :active style -->
-<body ontouchstart="" class="animated fadeIn">
-<!-- Navigation -->
-<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "false" data-istags="false
-" data-ishome = "true" >
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header page-scroll">
-            <button type="button" class="navbar-toggle">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand animated pulse" href="/">
-                <span class="brand-logo">
-                    Wang Jie
-                </span>
-                's Blog
-            </a>
-        </div>
+        
+        <section id="about">
+  
+    <p>Hi! Welcome to Wang Jie’s blog. This blog has been migrated from <a href='http://www.cnblogs.com/tiantianbyconan/'>cnblog</a>.</p>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <!-- Known Issue, found by Hux:
-            <nav>'s height woule be hold on by its content.
-            so, when navbar scale out, the <nav> will cover tags.
-            also mask any touch event of tags, unfortunately.
-        -->
-        <!-- /.navbar-collapse -->
-        <!-- <div id="huxblog_navbar">
-            <div class="navbar-collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="/">Home</a>
-                    </li>
-					
-                    
-                        
-							
-								
-							
-						
-                    
-                        
-							
-                        <li>
-                            <a href="/categories/">categories</a>
-                        </li>
-							
-						
-                    
-                        
-                    
-                        
-							
-                        <li>
-                            <a href="/tags/">tags</a>
-                        </li>
-							
-						
-                    
-					
-					
-						<li>
-							<a href="/about">About</a>
-						</li>
-					
-                </ul>
-            </div>
-        </div> -->
+  
+  
+    <p>
+      Find me on
+      
+      
+      
+        
+          <a class="icon" target="_blank" href="https://github.com/wangjiegulu">
+            <i class="fab fa-github"></i><!--
+      ---></a><!--
+    ---><!--
+    --->, 
+        
+      
+        
+          <a class="icon" target="_blank" href="https://twitter.com/wangjiegulu">
+            <i class="fab fa-twitter"></i><!--
+      ---></a><!--
+    ---><!--
+    --->, 
+        
+      
+        
+          <a class="icon" target="_blank" href="https://www.facebook.com/wangjiegulu">
+            <i class="fab fa-facebook"></i><!--
+      ---></a><!--
+    ---><!--
+    --->, 
+        
+      
+        
+          <a class="icon" target="_blank" href="https://www.linkedin.com/in/jie-wang-a9a971158/">
+            <i class="fab fa-linkedin"></i><!--
+      ---></a><!--
+    ---><!--
+    ---> and 
+        
+      
+        
+          <a class="icon" target="_blank" href="mailto:tiantian.china.2@gmail.com">
+            <i class="fas fa-envelope"></i><!--
+      ---></a><!--
+      ---><!--
+    --->.
+        
+      
+    </p>
+  
+</section>
+
+<section id="writing">
+  <span class="h1"><a href="/archives">Writing</a></span>
+  <ul class="post-list">
+    
+      
+    
+    
+      <li class="post-item">
+        
+    <div class="meta">
+        <time datetime="2018-03-16T06:08:04.098Z" itemprop="datePublished">2018-03-16</time>
+    </div>
 
 
-        <div id="huxblog_navbar">
-            <div class="navbar-collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="/">Home</a>
-                    </li>
-                    <li>
-                        <a href="/archives">Archives</a>
-                    </li>
-                    <li>
-                        <a href="/tags">Tags</a>
-                    </li>
-                    <li>
-                        <a href="/about">About</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
+        <span>
+    
+        <a class="" href="/2018/03/16/rapid_maven_push_plugin_for_android/">上传到多个Maven仓库的Gradle插件RapidMavenPushPlugin</a>
+    
 
 
+</span>
+      </li>
+    
+      <li class="post-item">
+        
+    <div class="meta">
+        <time datetime="2018-03-01T12:05:58.000Z" itemprop="datePublished">2018-03-01</time>
+    </div>
+
+
+        <span>
+    
+        <a class="" href="/2018/03/01/write_your_first_flutter_app/">编写第一个Flutter App（翻译）</a>
+    
+
+
+</span>
+      </li>
+    
+      <li class="post-item">
+        
+    <div class="meta">
+        <time datetime="2018-02-13T08:04:18.000Z" itemprop="datePublished">2018-02-13</time>
+    </div>
+
+
+        <span>
+    
+        <a class="" href="/2018/02/13/writing_a_modular_project_on_android/">在Android上编写模块化项目（翻译）</a>
+    
+
+
+</span>
+      </li>
+    
+      <li class="post-item">
+        
+    <div class="meta">
+        <time datetime="2018-02-05T12:54:04.000Z" itemprop="datePublished">2018-02-05</time>
+    </div>
+
+
+        <span>
+    
+        <a class="" href="/2018/02/05/Android端生成META-INF信息文件的Gradle插件 RapidMetaInfPlugin/">Android端生成META-INF信息文件的Gradle插件 RapidMetaInfPlugin</a>
+    
+
+
+</span>
+      </li>
+    
+      <li class="post-item">
+        
+    <div class="meta">
+        <time datetime="2017-12-20T04:41:00.000Z" itemprop="datePublished">2017-12-20</time>
+    </div>
+
+
+        <span>
+    
+        <a class="" href="/2017/12/20/Android-App-IFCTT，即If-Copy-Then-That，一个基于IFTTT的-This-实现/">IFCTT，即If Copy Then That，一个基于IFTTT的`This`实现</a>
+    
+
+
+</span>
+      </li>
+    
+  </ul>
+  
+</section>
+
+
+<section id="projects">
+  <span class="h1"><a href="https://github.com/wangjiegulu">Projects</a></span>
+  <ul class="project-list">
+    
+      <li class="project-item">
+        <a href="https://github.com/wangjiegulu/kotlin-for-android-developers-zh">Kotlin Gitbook</a>: 《Kotlin For Android Developers》中文版完整翻译。
+      </li>
+    
+      <li class="project-item">
+        <a href="https://github.com/wangjiegulu/RapidFloatingActionButton">RFAB</a>: RapidFloatingActionButton, Quick solutions for Floating Action Button.
+      </li>
+    
+      <li class="project-item">
+        <a href="https://github.com/wangjiegulu/RapidMavenPushPlugin">RapidMavenPushPlugin</a>: A Gradle plugin : Easy way to upload Artifacts to Multi Maven Repository.
+      </li>
+    
+      <li class="project-item">
+        <a href="https://github.com/wangjiegulu/RapidORM">RapidORM</a>: Quick solution for Android ORM. Android lightweight, high performance ORM framework.
+      </li>
+    
+  </ul>
+</section>
 
 
     </div>
-    <!-- /.container -->
-</nav>
-<script>
-    // Drop Bootstarp low-performance Navbar
-    // Use customize navbar with high-quality material design animation
-    // in high-perf jank-free CSS3 implementation
-//    var $body   = document.body;
-    var $toggle = document.querySelector('.navbar-toggle');
-    var $navbar = document.querySelector('#huxblog_navbar');
-    var $collapse = document.querySelector('.navbar-collapse');
-
-    $toggle.addEventListener('click', handleMagic)
-    function handleMagic(e){
-        if ($navbar.className.indexOf('in') > 0) {
-        // CLOSE
-            $navbar.className = " ";
-            // wait until animation end.
-            setTimeout(function(){
-                // prevent frequently toggle
-                if($navbar.className.indexOf('in') < 0) {
-                    $collapse.style.height = "0px"
-                }
-            },400)
-        }else{
-        // OPEN
-            $collapse.style.height = "auto"
-            $navbar.className += " in";
-        }
-    }
-</script>
-
-<!-- Main Content -->
-
-
-<style>
-
-    .custom-haojen-container .post-preview:nth-of-type(1),
-    .custom-haojen-container .post-preview-poetry:nth-of-type(1) {
-        text-align: center;
-        background-repeat: no-repeat;
-        border-radius: 3px;
-        background-size: cover;
-        padding: 0;
-        height: 300px;
-        display: table;
-        width: 100%;
-        background-color: rgba(0, 0, 0, 0.16);
-    }
-
-    /*去掉诗歌的背景图片*/
-    .custom-haojen-container .post-preview-poetry:nth-of-type(1) {
-        background-image: none !important;
-        background-color: rgba(255, 248, 220, 0.5);
-    }
-
-    .custom-haojen-container .post-preview:nth-child(1) h2,
-    .custom-haojen-container .post-preview:nth-child(1) .post-meta,
-    .custom-haojen-container .post-preview:nth-child(1) .post-subtitle {
-        text-shadow: 0 0 40px rgba(0, 0, 0, 1);
-        letter-spacing: 1px;
-        color: #fff;
-        margin-top: 0;
-        padding-left: 60px;
-        padding-right: 60px;
-    }
-
-    .custom-haojen-container .post-preview:nth-child(1) .post-meta {
-        font-size: .9em;
-        font-weight: 300;
-        margin-top: 0;
-    }
-
-    .custom-haojen-container .post-preview-poetry:nth-child(1) .post-subtitle {
-        letter-spacing: 6px;
-        font-size: 18px;
-        font-family: unset;
-        font-weight: 400;
-        color: rgba(0, 0, 0, .75)
-    }
-
-    /*不显示摘要*/
-    .custom-haojen-container .post-preview:nth-child(1) .post-content-preview {
-        display: none
-    }
-
-    /*只第一个显示背景图片*/
-    .custom-haojen-container .post-preview:not(:nth-child(1)) {
-        background-image: none !important;
-    }
-
-    /*第一个分界线去掉*/
-    .custom-haojen-container hr:nth-of-type(1) {
-        display: none;
-    }
-
-    /*主题*/
-    .custom-haojen-container .post-preview:nth-of-type(1) > a {
-        display: table-cell;
-        vertical-align: middle;
-    }
-
-    /*诗词标题*/
-    .custom-haojen-container .post-preview-poetry:nth-child(1) h2 {
-        font-size: 35px;
-        font-family: STKaiti;
-        color: rgba(0, 0, 0, .8);
-    }
-
-    .custom-haojen-container .post-preview-poetry:nth-of-type(1) .post-meta {
-        color: #0e2231;
-    }
-
-    @media (max-width: 768px) {
-        .custom-haojen-container .post-preview:nth-child(1) {
-            height: 240px;
-        }
-
-        .custom-haojen-container .post-preview-poetry:nth-child(1) h2 {
-            font-size: 28px !important;
-            margin-top: 0;
-        }
-
-        .custom-haojen-container .post-preview:nth-child(1) .post-subtitle {
-            font-size: 18px;
-            font-weight: 400;
-            padding-left: 0;
-            padding-right: 0;
-        }
-
-        .custom-haojen-container .post-preview:nth-of-type(1) > a {
-            padding: 20px
-        }
-    }
-
-    /*手机屏幕*/
-    @media (max-width: 400px) {
-        .custom-haojen-container .post-preview:nth-child(1) {
-            height: 195px;
-        }
-
-        .custom-haojen-container .post-preview-poetry:nth-child(1) h2 {
-            font-size: 20px !important;
-        }
-
-        .custom-haojen-container .post-preview:nth-child(1) .post-subtitle {
-            font-size: 16px;
-        }
-
-        .custom-haojen-container .post-preview:nth-child(1) a {
-            padding: 30px 20px;
-        }
-    }
-</style>
-
-<!-- Page Header -->
-<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 visible-xs-block visible-sm-block">
-    <div class="row">
-        <header class="intro-header">
-            <div class="container">
-                <div class="site-heading text-center">
-                    <div class="about-me">
-                        <!--移动端头部显示-->
-                        <img src="http://avatars3.githubusercontent.com/u/5423194?s=460&amp;v=4"/>
-                        <h5><a href="/about/">Wang Jie</a></h5>
-                        <p>TO BE AN ARTIST-ENGINNER</p>
-                    </div>
-                </div>
-            </div>
-        </header>
-    </div>
-</div>
-<!-- Main Content -->
-<div class="container custom-haojen-container">
-    <!-- Post Container -->
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-1 col-md-8 col-md-offset-1 col-sm-12 col-xs-12 post-container">
-            
-<!-- Main Content -->
-
-
-
-<div class="post-preview "
-     style="background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('http://otnnps88s.bkt.clouddn.com/image/xingkong.jpg')">
-    <a href="/2015/06/15/Android-基于RxJava、RxAndroid的EventBus实现/">
-        <h2 class="post-title">
-            [Android]基于RxJava、RxAndroid的EventBus实现
-        </h2>
-        <p class="post-meta">
-            <i class="fa fa-calendar" aria-hidden="true"></i> 2015-06-15
-
-            <!-- 标签 第一个item不展示标签 -->
-            
-            
-        </p>
-        
-        <div class="post-content-preview">
-            <p style="word-wrap:break-word;overflow:hidden;">
-                以下内容为原创，欢迎转载，转载请注明
-来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/4578699.html&nbsp;
-&nbsp;
-Github：https://github.com/wangjiegulu/RxAndroidEventsSa..
-            </p>
-        </div>
-    </a>
-
-</div>
-
-<hr>
-
-
-
-<div class="post-preview "
-     style="background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('http://otnnps88s.bkt.clouddn.com/image/xingkong.jpg')">
-    <a href="/2015/05/11/Learn-RxJava/">
-        <h2 class="post-title">
-            Learn RxJava
-        </h2>
-        <p class="post-meta">
-            <i class="fa fa-calendar" aria-hidden="true"></i> 2015-05-11
-
-            <!-- 标签 第一个item不展示标签 -->
-            
-                <span style="margin-left: 30px;">
-                    
-                    <!-- 标签 最多展示3个 -->
-                    
-                    <a class="index-post-tag"
-                                href="/tags/#rxjava" 
-                                title="rxjava"
-                                rel="1">#rxjava</a>
-                    
-                
-                </span>
-            
-            
-        </p>
-        
-        <div class="post-content-preview">
-            <p style="word-wrap:break-word;overflow:hidden;">
-                Learn&nbsp;RxJava
-　　http://reactivex.io/documentation/operators.html
-　　https://github.com/ReactiveX/RxJava/wiki/The-RxJava-Android-Module
-　　https://..
-            </p>
-        </div>
-    </a>
-
-</div>
-
-<hr>
-
-
-
-<div class="post-preview "
-     style="background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('http://otnnps88s.bkt.clouddn.com/image/xingkong.jpg')">
-    <a href="/2015/05/03/Android-RapidFloatingActionButton框架正式出炉/">
-        <h2 class="post-title">
-            [Android]RapidFloatingActionButton框架正式出炉
-        </h2>
-        <p class="post-meta">
-            <i class="fa fa-calendar" aria-hidden="true"></i> 2015-05-03
-
-            <!-- 标签 第一个item不展示标签 -->
-            
-                <span style="margin-left: 30px;">
-                    
-                    <!-- 标签 最多展示3个 -->
-                    
-                    <a class="index-post-tag"
-                                href="/tags/#android" 
-                                title="android"
-                                rel="96">#android</a>
-                    
-                
-                    <!-- 标签 最多展示3个 -->
-                    
-                    <a class="index-post-tag"
-                                href="/tags/#FloatingActionButton" 
-                                title="FloatingActionButton"
-                                rel="1">#FloatingActionButton</a>
-                    
-                
-                    <!-- 标签 最多展示3个 -->
-                    
-                    <a class="index-post-tag"
-                                href="/tags/#FAB" 
-                                title="FAB"
-                                rel="1">#FAB</a>
-                    
-                
-                    <!-- 标签 最多展示3个 -->
-                    
-                
-                </span>
-            
-            
-        </p>
-        
-        <div class="post-content-preview">
-            <p style="word-wrap:break-word;overflow:hidden;">
-                以下内容为原创，欢迎转载，转载请注明
-来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/4474748.html
-RapidFloatingActionButtonGoogle推出了MaterialDesign的设计语言，其中FloatingActi..
-            </p>
-        </div>
-    </a>
-
-</div>
-
-<hr>
-
-
-
-<div class="post-preview "
-     style="background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('http://otnnps88s.bkt.clouddn.com/image/xingkong.jpg')">
-    <a href="/2015/04/03/Android-Activity跳转传递任意类型的数据、Activity为SingleTask时代替StartActivityForResult的解决方案/">
-        <h2 class="post-title">
-            [Android]Activity跳转传递任意类型的数据、Activity为SingleTask时代替StartActivityForResult的解决方案
-        </h2>
-        <p class="post-meta">
-            <i class="fa fa-calendar" aria-hidden="true"></i> 2015-04-03
-
-            <!-- 标签 第一个item不展示标签 -->
-            
-                <span style="margin-left: 30px;">
-                    
-                    <!-- 标签 最多展示3个 -->
-                    
-                    <a class="index-post-tag"
-                                href="/tags/#android" 
-                                title="android"
-                                rel="96">#android</a>
-                    
-                
-                    <!-- 标签 最多展示3个 -->
-                    
-                    <a class="index-post-tag"
-                                href="/tags/#activity" 
-                                title="activity"
-                                rel="4">#activity</a>
-                    
-                
-                    <!-- 标签 最多展示3个 -->
-                    
-                    <a class="index-post-tag"
-                                href="/tags/#launch mode" 
-                                title="launch mode"
-                                rel="2">#launch mode</a>
-                    
-                
-                </span>
-            
-            
-        </p>
-        
-        <div class="post-content-preview">
-            <p style="word-wrap:break-word;overflow:hidden;">
-                以下内容为原创，欢迎转载，转载请注明
-来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/4389674.html
-&nbsp;
-需求：在ActivityA跳转到ActivityB，然后在ActivityB操作完返回数据给ActivityA。
-这个很普..
-            </p>
-        </div>
-    </a>
-
-</div>
-
-<hr>
-
-
-
-<div class="post-preview "
-     style="background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('http://otnnps88s.bkt.clouddn.com/image/xingkong.jpg')">
-    <a href="/2015/04/02/Android-使用Gradle提交自己开源Android库到Maven中心库/">
-        <h2 class="post-title">
-            [Android]使用Gradle提交自己开源Android库到Maven中心库
-        </h2>
-        <p class="post-meta">
-            <i class="fa fa-calendar" aria-hidden="true"></i> 2015-04-02
-
-            <!-- 标签 第一个item不展示标签 -->
-            
-                <span style="margin-left: 30px;">
-                    
-                    <!-- 标签 最多展示3个 -->
-                    
-                    <a class="index-post-tag"
-                                href="/tags/#android" 
-                                title="android"
-                                rel="96">#android</a>
-                    
-                
-                    <!-- 标签 最多展示3个 -->
-                    
-                    <a class="index-post-tag"
-                                href="/tags/#gradle" 
-                                title="gradle"
-                                rel="4">#gradle</a>
-                    
-                
-                    <!-- 标签 最多展示3个 -->
-                    
-                    <a class="index-post-tag"
-                                href="/tags/#maven" 
-                                title="maven"
-                                rel="2">#maven</a>
-                    
-                
-                    <!-- 标签 最多展示3个 -->
-                    
-                
-                    <!-- 标签 最多展示3个 -->
-                    
-                
-                </span>
-            
-            
-        </p>
-        
-        <div class="post-content-preview">
-            <p style="word-wrap:break-word;overflow:hidden;">
-                以下内容为原创，欢迎转载，转载请注明
-来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/4388175.html&nbsp;
-&nbsp;
-此文针对开源爱好者。
-如果你想让别人使用你的Android开源库，第一种方法是，提供你的Github地址，让别..
-            </p>
-        </div>
-    </a>
-
-</div>
-
-<hr>
-
-
-
-<div class="post-preview "
-     style="background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('http://otnnps88s.bkt.clouddn.com/image/xingkong.jpg')">
-    <a href="/2015/02/28/100个高质量Java开发者博客/">
-        <h2 class="post-title">
-            100个高质量Java开发者博客
-        </h2>
-        <p class="post-meta">
-            <i class="fa fa-calendar" aria-hidden="true"></i> 2015-02-28
-
-            <!-- 标签 第一个item不展示标签 -->
-            
-                <span style="margin-left: 30px;">
-                    
-                    <!-- 标签 最多展示3个 -->
-                    
-                    <a class="index-post-tag"
-                                href="/tags/#blog" 
-                                title="blog"
-                                rel="1">#blog</a>
-                    
-                
-                    <!-- 标签 最多展示3个 -->
-                    
-                    <a class="index-post-tag"
-                                href="/tags/#java" 
-                                title="java"
-                                rel="25">#java</a>
-                    
-                
-                </span>
-            
-            
-        </p>
-        
-        <div class="post-content-preview">
-            <p style="word-wrap:break-word;overflow:hidden;">
-                ImportNew注：原文中还没有100个。作者希望大家一起来推荐高质量的Java开发博客，然后不段补充到这个列表。欢迎你也参与推荐优质的Java开发博客。（声明一下：我们的数学不是体育老师教的！:) ）
-本文的主要目的是收集全球范围内100个高质量Java开发者博客。其中会有一些博客并不是由纯..
-            </p>
-        </div>
-    </a>
-
-</div>
-
-<hr>
-
-
-
-<div class="post-preview "
-     style="background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('http://otnnps88s.bkt.clouddn.com/image/xingkong.jpg')">
-    <a href="/2015/02/27/Android-实现类似微信的延迟加载的Fragment——LazyFragment/">
-        <h2 class="post-title">
-            [Android]实现类似微信的延迟加载的Fragment——LazyFragment
-        </h2>
-        <p class="post-meta">
-            <i class="fa fa-calendar" aria-hidden="true"></i> 2015-02-27
-
-            <!-- 标签 第一个item不展示标签 -->
-            
-                <span style="margin-left: 30px;">
-                    
-                    <!-- 标签 最多展示3个 -->
-                    
-                    <a class="index-post-tag"
-                                href="/tags/#android" 
-                                title="android"
-                                rel="96">#android</a>
-                    
-                
-                    <!-- 标签 最多展示3个 -->
-                    
-                    <a class="index-post-tag"
-                                href="/tags/#LazyFragment" 
-                                title="LazyFragment"
-                                rel="1">#LazyFragment</a>
-                    
-                
-                    <!-- 标签 最多展示3个 -->
-                    
-                    <a class="index-post-tag"
-                                href="/tags/#lazy" 
-                                title="lazy"
-                                rel="1">#lazy</a>
-                    
-                
-                    <!-- 标签 最多展示3个 -->
-                    
-                
-                    <!-- 标签 最多展示3个 -->
-                    
-                
-                    <!-- 标签 最多展示3个 -->
-                    
-                
-                </span>
-            
-            
-        </p>
-        
-        <div class="post-content-preview">
-            <p style="word-wrap:break-word;overflow:hidden;">
-                以下内容为原创，转载请注明：
-来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/4303910.html&nbsp;
-&nbsp;
-参考微信，使用ViewPager来显示不同的tab，每个tab是一个Fragment，
-假设有3个tab，对应的fra..
-            </p>
-        </div>
-    </a>
-
-</div>
-
-<hr>
-
-
-
-<div class="post-preview "
-     style="background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('http://otnnps88s.bkt.clouddn.com/image/xingkong.jpg')">
-    <a href="/2015/02/02/android多分辨率多屏幕密度下UI适配方案/">
-        <h2 class="post-title">
-            android多分辨率多屏幕密度下UI适配方案
-        </h2>
-        <p class="post-meta">
-            <i class="fa fa-calendar" aria-hidden="true"></i> 2015-02-02
-
-            <!-- 标签 第一个item不展示标签 -->
-            
-                <span style="margin-left: 30px;">
-                    
-                    <!-- 标签 最多展示3个 -->
-                    
-                    <a class="index-post-tag"
-                                href="/tags/#android" 
-                                title="android"
-                                rel="96">#android</a>
-                    
-                
-                    <!-- 标签 最多展示3个 -->
-                    
-                    <a class="index-post-tag"
-                                href="/tags/#ui" 
-                                title="ui"
-                                rel="1">#ui</a>
-                    
-                
-                </span>
-            
-            
-        </p>
-        
-        <div class="post-content-preview">
-            <p style="word-wrap:break-word;overflow:hidden;">
-                文章转载自http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2013/0627/1393.html
-摘要&nbsp;前言 Android 设计之初就考虑到了 UI 在多平台的适配，它本身提供了一套完善的适配机制，随着版本的发展适配也越来越..
-            </p>
-        </div>
-    </a>
-
-</div>
-
-<hr>
-
-
-
-<div class="post-preview "
-     style="background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('http://otnnps88s.bkt.clouddn.com/image/xingkong.jpg')">
-    <a href="/2015/02/02/Android-使用RecyclerView替代ListView（三）/">
-        <h2 class="post-title">
-            [Android]使用RecyclerView替代ListView（三）
-        </h2>
-        <p class="post-meta">
-            <i class="fa fa-calendar" aria-hidden="true"></i> 2015-02-02
-
-            <!-- 标签 第一个item不展示标签 -->
-            
-                <span style="margin-left: 30px;">
-                    
-                    <!-- 标签 最多展示3个 -->
-                    
-                    <a class="index-post-tag"
-                                href="/tags/#android" 
-                                title="android"
-                                rel="96">#android</a>
-                    
-                
-                    <!-- 标签 最多展示3个 -->
-                    
-                    <a class="index-post-tag"
-                                href="/tags/#ListView" 
-                                title="ListView"
-                                rel="10">#ListView</a>
-                    
-                
-                    <!-- 标签 最多展示3个 -->
-                    
-                    <a class="index-post-tag"
-                                href="/tags/#best practices" 
-                                title="best practices"
-                                rel="11">#best practices</a>
-                    
-                
-                    <!-- 标签 最多展示3个 -->
-                    
-                
-                </span>
-            
-            
-        </p>
-        
-        <div class="post-content-preview">
-            <p style="word-wrap:break-word;overflow:hidden;">
-                以下内容为原创，转载请注明：
-来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/4268097.html&nbsp;
-&nbsp;
-这次来使用RecyclerView实现PinnedListView的效果，效果很常见：
-
-开发的代码建立在上一篇（[A..
-            </p>
-        </div>
-    </a>
-
-</div>
-
-<hr>
-
-
-
-<div class="post-preview "
-     style="background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('http://otnnps88s.bkt.clouddn.com/image/xingkong.jpg')">
-    <a href="/2015/01/22/Android-使用RecyclerView替代ListView（二）/">
-        <h2 class="post-title">
-            [Android]使用RecyclerView替代ListView（二）
-        </h2>
-        <p class="post-meta">
-            <i class="fa fa-calendar" aria-hidden="true"></i> 2015-01-22
-
-            <!-- 标签 第一个item不展示标签 -->
-            
-                <span style="margin-left: 30px;">
-                    
-                    <!-- 标签 最多展示3个 -->
-                    
-                    <a class="index-post-tag"
-                                href="/tags/#android" 
-                                title="android"
-                                rel="96">#android</a>
-                    
-                
-                    <!-- 标签 最多展示3个 -->
-                    
-                    <a class="index-post-tag"
-                                href="/tags/#ListView" 
-                                title="ListView"
-                                rel="10">#ListView</a>
-                    
-                
-                    <!-- 标签 最多展示3个 -->
-                    
-                    <a class="index-post-tag"
-                                href="/tags/#best practices" 
-                                title="best practices"
-                                rel="11">#best practices</a>
-                    
-                
-                    <!-- 标签 最多展示3个 -->
-                    
-                
-                </span>
-            
-            
-        </p>
-        
-        <div class="post-content-preview">
-            <p style="word-wrap:break-word;overflow:hidden;">
-                以下内容为原创，转载请注明：
-来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/4242541.html
-
-&nbsp;
-以前写过一篇&ldquo;[Android]使用AdapterTypeRender对不同类型的item数据到UI的渲染（http..
-            </p>
-        </div>
-    </a>
-
-</div>
-
-<hr>
-
-
-
-
-<!-- 翻页 pager -->
-
-<ul class="pager">
     
-    <li class="previous">
-        <a href="/page/5/">&larr; Newer Posts</a>
-    </li>
-    
-    
-    <li class="next">
-        <a href="/page/7/">Older Posts &rarr;</a>
-    </li>
-    
-</ul>
-
-
-        </div>
-        <!-- Sidebar Container -->
-        <div class="
-                col-lg-3 col-lg-offset-0
-                col-md-3 col-md-offset-0
-                col-sm-12
-                col-xs-12
-                sidebar-container
-            ">
-
-            <!-- About Me -->
-            <section class="visible-md visible-lg" style="padding: 0 18px">
-                <div class="short-about">
-                    <!--侧边栏头像-->
-                    
-                    <img src="http://avatars3.githubusercontent.com/u/5423194?s=460&amp;v=4" 
-                    onclick="window.open('/about/')" 
-                    style="cursor:pointer;"/>
-                    
-                    <h5><a href="/about/">Wang Jie</a></h5>
-                    
-                    <p>TO BE AN ARTIST-ENGINNER</p>
-                    
-                    <hr>
-
-                    <!-- 公告 -->
-                    <div style="margin-top: -16px; margin-bottom: 16px; text-align: left;">
-                        
-                        <div style="color: #383f67; font-size: 12px; opacity: 0.6;">
-                            <strong>公告: </strong><br/>原博客<a href='http://www.cnblogs.com/tiantianbyconan/'>&nbsp;cnblog&nbsp;</a>搬迁到这里，请重新订阅<a href="http://blog.wangjiegulu.com/feed.xml">&nbsp;RSS&nbsp;</a>源。
-                        </div>
-                        
-                    </div>
-
-
-                    <!-- SNS Link 社交 -->
-                    <ul class="list-inline">
-                        
-                        <li>
-                            <a href="/feed.xml">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
-                                        </span>
-                            </a>
-                        </li>
-                        
-
-                        
-                        <li>
-                            <a target="_blank" href="https://github.com/wangjiegulu">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                        </span>
-                            </a>
-                        </li>
-                        
-
-
-                        
-                        <li>
-                            <a target="_blank" href="https://twitter.com/wangjiegulu">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                                        </span>
-                            </a>
-                        </li>
-                        
-
-                        
-                        <li>
-                            <a target="_blank" href="https://plus.google.com/+%E5%A4%A9%E5%A4%A9wangjie">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa fa-google fa-stack-1x fa-inverse"></i>
-                                        </span>
-                            </a>
-                        </li>
-                        
-
-                        
-                        <li>
-                            <a target="_blank" href="https://instagram.com/wangjiegulu">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
-                                        </span>
-                            </a>
-                        </li>
-                        
-
-                        
-                        <li>
-                            <a target="_blank" href="https://stackoverflow.com/users/2124006/wangjie">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
-                                        </span>
-                            </a>
-                        </li>
-                        
-
-
-                        
-                        <li>
-                            <a target="_blank" href="https://www.facebook.com/wangjiegulu">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
-                                        </span>
-                            </a>
-                        </li>
-                        
-
-                        
-                        <li>
-                            <a target="_blank" href="http://weibo.com/tiantianbyconan">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
-                                        </span>
-                            </a>
-                        </li>
-                        
-
-                        
-                        
-
-                        
-
-                    </ul>
-                </div>
-            </section>
-
-            <!-- Featured Tags  标签 -->
-            
-            <section>
-                <div class="tags">
-                    
-                    
-                    
-                    
-                    <a href="/tags/#java" title="java"
-                       rel="25">#java</a>
-                    
-                    
-                    
-                    <a href="/tags/#android" title="android"
-                       rel="96">#android</a>
-                    
-                    
-                    
-                    <a href="/tags/#activity" title="activity"
-                       rel="4">#activity</a>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    <a href="/tags/#launcher" title="launcher"
-                       rel="3">#launcher</a>
-                    
-                    
-                    
-                    <a href="/tags/#source code" title="source code"
-                       rel="4">#source code</a>
-                    
-                    
-                    
-                    <a href="/tags/#mvp" title="mvp"
-                       rel="4">#mvp</a>
-                    
-                    
-                    
-                    <a href="/tags/#dependency injection" title="dependency injection"
-                       rel="10">#dependency injection</a>
-                    
-                    
-                    
-                    
-                    
-                    <a href="/tags/#framework" title="framework"
-                       rel="6">#framework</a>
-                    
-                    
-                    
-                    <a href="/tags/#mvc" title="mvc"
-                       rel="3">#mvc</a>
-                    
-                    
-                    
-                    
-                    
-                    <a href="/tags/#annotations" title="annotations"
-                       rel="3">#annotations</a>
-                    
-                    
-                    
-                    <a href="/tags/#library" title="library"
-                       rel="8">#library</a>
-                    
-                    
-                    
-                    
-                    
-                    <a href="/tags/#sqlite" title="sqlite"
-                       rel="4">#sqlite</a>
-                    
-                    
-                    
-                    
-                    
-                    <a href="/tags/#database" title="database"
-                       rel="5">#database</a>
-                    
-                    
-                    
-                    <a href="/tags/#orm" title="orm"
-                       rel="5">#orm</a>
-                    
-                    
-                    
-                    
-                    
-                    <a href="/tags/#翻译" title="翻译"
-                       rel="19">#翻译</a>
-                    
-                    
-                    
-                    
-                    
-                    <a href="/tags/#rapidorm" title="rapidorm"
-                       rel="3">#rapidorm</a>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    <a href="/tags/#dagger2" title="dagger2"
-                       rel="10">#dagger2</a>
-                    
-                    
-                    
-                    
-                    
-                    <a href="/tags/#DI" title="DI"
-                       rel="9">#DI</a>
-                    
-                    
-                    
-                    
-                    
-                    <a href="/tags/#google" title="google"
-                       rel="10">#google</a>
-                    
-                    
-                    
-                    <a href="/tags/#ListView" title="ListView"
-                       rel="10">#ListView</a>
-                    
-                    
-                    
-                    
-                    
-                    <a href="/tags/#best practices" title="best practices"
-                       rel="11">#best practices</a>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    <a href="/tags/#view" title="view"
-                       rel="6">#view</a>
-                    
-                    
-                    
-                    <a href="/tags/#gradle" title="gradle"
-                       rel="4">#gradle</a>
-                    
-                    
-                    
-                    <a href="/tags/#gradle plugin" title="gradle plugin"
-                       rel="3">#gradle plugin</a>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    <a href="/tags/#kotlin" title="kotlin"
-                       rel="9">#kotlin</a>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    <a href="/tags/#RecyclerView" title="RecyclerView"
-                       rel="4">#RecyclerView</a>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    <a href="/tags/#adapter" title="adapter"
-                       rel="4">#adapter</a>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    <a href="/tags/#testing" title="testing"
-                       rel="3">#testing</a>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    <a href="/tags/#tips" title="tips"
-                       rel="4">#tips</a>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    <a href="/tags/#j2ee" title="j2ee"
-                       rel="6">#j2ee</a>
-                    
-                    
-                    
-                    <a href="/tags/#java web" title="java web"
-                       rel="6">#java web</a>
-                    
-                    
-                    
-                    
-                    
-                    <a href="/tags/#iOS" title="iOS"
-                       rel="6">#iOS</a>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    <a href="/tags/#pattern" title="pattern"
-                       rel="6">#pattern</a>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    <a href="/tags/#JVM" title="JVM"
-                       rel="3">#JVM</a>
-                    
-                    
-                    
-                    
-                </div>
-            </section>
-            
-
-            
-            <hr>
-            <h5 style="text-align: center;">Friends</h5>
-            <ul class="list-inline" style="text-align: center;">
-                
-                <li><a href="http://www.cnblogs.com/tiantianbyconan/" target="_blank">cnblog</a></li>
-                
-                <li><a href="http://h.wangjiegulu.com" target="_blank">Huginn</a></li>
-                
-            </ul>
-            
-
-        </div>
-    </div>
-</div>
-
-<!-- Footer -->
-<!-- Footer -->
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
-                <br>
-                <ul class="list-inline text-center">
-                
-                    <li>
-                        <a href="/feed.xml">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                
-
-                
-                    <li>
-                        <a target="_blank"  href="https://github.com/wangjiegulu">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                
-
-                
-                    <li>
-                        <a target="_blank"  href="https://instagram.com/wangjiegulu">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                
-
-                
-                    <li>
-                        <a target="_blank" href="https://plus.google.com/+%E5%A4%A9%E5%A4%A9wangjie">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-google fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                
-
-                
-                    <li>
-                        <a target="_blank" href="https://twitter.com/wangjiegulu">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                
-
-                
-                    <li>
-                        <a target="_blank" href="https://stackoverflow.com/users/2124006/wangjie">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                
-                
-
-                
-                    <li>
-                        <a target="_blank" href="https://www.facebook.com/wangjiegulu">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                
-
-                
-                    <li>
-                        <a target="_blank" href="http://weibo.com/tiantianbyconan">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                
-
-                
-
-                
-
-                </ul>
-                <p class="copyright text-muted">
-                    Copyright &copy; Wang Jie 2018
-                    <!-- <br>
-                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv">
-                    <br> -->
-                </p>
-
-            </div>
-        </div>
-    </div>
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 Wang Jie
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="https://github.com/wangjiegulu">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
 </footer>
 
-<!-- jQuery -->
-<script src="/js/jquery.min.js"></script>
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
 
-<!-- Bootstrap Core JavaScript -->
-<script src="/js/bootstrap.min.js"></script>
-
-<!-- Custom Theme JavaScript -->
-<script src="/js/blog.js"></script>
-
-<!-- async load function -->
-<script>
-    function async(u, c) {
-      var d = document, t = 'script',
-          o = d.createElement(t),
-          s = d.getElementsByTagName(t)[0];
-      o.src = u;
-      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
-      s.parentNode.insertBefore(o, s);
-    }
-</script>
-
-<!-- jquery.tagcloud.js -->
-<script>
-    // only load tagcloud.js in tag.html
-    if($('#tag_cloud').length !== 0){
-        async("http://blog.wangjiegulu.com/js/jquery.tagcloud.js",function(){
-            $.fn.tagcloud.defaults = {
-                //size: {start: 1, end: 1, unit: 'em'},
-                color: {start: '#bbbbee', end: '#0085a1'},
-            };
-            $('#tag_cloud a').tagcloud();
-        })
-    }
-</script>
-
-<!--fastClick.js -->
-<script>
-    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
-        var $nav = document.querySelector("nav");
-        if($nav) FastClick.attach($nav);
-    })
-</script>
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
 
 <!-- Google Analytics -->
 
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-111189680-2', 'auto');
+        ga('send', 'pageview');
+    </script>
 
-<script>
-    // dynamic User by Hux
-    var _gaId = 'UA-111189680-2';
-    var _gaDomain = 'blog.wangjiegulu.com';
-    // Originial
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-    ga('create', _gaId, _gaDomain);
-    ga('send', 'pageview');
-</script>
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'blog-wangjiegulu-com';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
 
 
-<!-- Baidu Tongji -->
-
-
-<!-- swiftype -->
-
-
-<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-<!--wechat title img-->
-<img class="wechat-title-img" src="http://avatars3.githubusercontent.com/u/5423194?s=460&amp;v=4">
-</body>
-
-</html>
