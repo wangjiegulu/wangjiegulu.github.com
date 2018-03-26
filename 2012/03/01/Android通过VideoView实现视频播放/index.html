@@ -142,7 +142,11 @@
   </header>
   
 
-  <div class="content" itemprop="articleBody">
+  
+  <div class="content" itemprop="articleBody" style="word-wrap:break-word;overflow:hidden;">
+    
+    
+
     <p>在Android系统中，是通过MediaPalyer类播放媒体文件的（包括视频和音频）。虽然这个类已经比较简单了，但是还需要控制各种状态，对于视频还需要设置输出窗口，还是需要仔细研究的。为了避免这些麻烦事儿，Android框架提供了VideoView类来封装MediaPalyer，这个VideoView类非常好用。Android自带的程序Gallery也是用VideoView实现的。本文以实例介绍怎样用VideoView来实现VideoPlayer，本文也参考了Android自带程序Gallery的实现。</p>
 <p><span>创建一个VideoPlayer的工程。main.xml文件如下：</span></p>
 <div class="cnblogs_code"><br><pre><span style="color: #008080;"> 1</span> <span style="color: #0000ff;">&lt;?</span><span style="color: #ff00ff;">xml version=”1.0” encoding=”utf-8”</span><span style="color: #0000ff;">?&gt;</span><br><span style="color: #008080;"> 2</span> <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">LinearLayout </span><span style="color: #ff0000;">xmlns:android</span><span style="color: #0000ff;">=”<a href="http://schemas.android.com/apk/res/android" target="_blank" rel="noopener">http://schemas.android.com/apk/res/android</a>“</span><span style="color: #ff0000;"><br></span><span style="color: #008080;"> 3</span> <span style="color: #ff0000;">    android:orientation</span><span style="color: #0000ff;">=”vertical”</span><span style="color: #ff0000;"><br></span><span style="color: #008080;"> 4</span> <span style="color: #ff0000;">    android:layout_width</span><span style="color: #0000ff;">=”fill_parent”</span><span style="color: #ff0000;"><br></span><span style="color: #008080;"> 5</span> <span style="color: #ff0000;">    android:layout_height</span><span style="color: #0000ff;">=”fill_parent”</span><span style="color: #ff0000;"><br></span><span style="color: #008080;"> 6</span> <span style="color: #0000ff;">&gt;</span><br><span style="color: #008080;"> 7</span> <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">VideoView </span><span style="color: #ff0000;">android:id</span><span style="color: #0000ff;">=”@+id/video_view”</span><span style="color: #ff0000;"><br></span><span style="color: #008080;"> 8</span> <span style="color: #ff0000;">            android:layout_width</span><span style="color: #0000ff;">=”match_parent”</span><span style="color: #ff0000;"><br></span><span style="color: #008080;"> 9</span> <span style="color: #ff0000;">            android:layout_height</span><span style="color: #0000ff;">=”match_parent”</span><span style="color: #ff0000;"><br></span><span style="color: #008080;">10</span> <span style="color: #ff0000;">            android:layout_centerInParent</span><span style="color: #0000ff;">=”true”</span> <span style="color: #0000ff;">/&gt;</span><br><span style="color: #008080;">11</span> <span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">LinearLayout</span><span style="color: #0000ff;">&gt;</span></pre><br></div>
@@ -155,6 +159,18 @@
 
 <p>然后只需要调用VideoView类的setVideoURI设置播放文件，start方法开始播放即可。 为了节省系统资源，一般需要在Activity的onPause方法中，暂停视频的播放。因为Activity已经不在前台了。在Activity的onResume中恢复视频的播放，因为这是Activity又变成前台程序了。不清楚的朋友可以去查看Activity lifecycle。 你可以通过实现MediaPlayer.OnErrorListener来监听MediaPlayer上报的错误信息。实现MediaPlayer.OnCompletionListener接口，将会在Video播完的时候得到通知，本例只是简单的结束程序。 你可能注意到，我们没有管理MediaPalyer的各种状态，这些状态都让VideoView给封装了，并且，当VideoView创建的时候，MediaPalyer对象将会创建，当VideoView对象销毁的时候，MediaPlayer对象将会释放。这样基本可以傻瓜式的实现媒体播放器了，太Easy了吧。</p>
 <p><span><br></span></p>
+
+
+    <br/>
+    <hr>
+
+    
+    <div class="post-copyright" style="margin-top: 20px;">
+        <strong>来源博客：</strong><a href="http://blog.wangjiegulu.com">Wang Jie's Blog</a><br/>
+         <strong>本文链接：</strong><a href="http://blog.wangjiegulu.com/2012/03/01/Android通过VideoView实现视频播放/">http://blog.wangjiegulu.com/2012/03/01/Android通过VideoView实现视频播放/</a><br/>
+         <strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处。
+    </div>
+    
 
   </div>
 </article>

@@ -139,11 +139,27 @@
   </header>
   
 
-  <div class="content" itemprop="articleBody">
+  
+  <div class="content" itemprop="articleBody" style="word-wrap:break-word;overflow:hidden;">
+    
+    
+
     <p>1、使用TelephonyManager提供的方法，核心代码:</p>
 <p>TelephonyManager tm = (TelephonyManager) this.getSystemService(TELEPHONY_SERVICE);<br>String imei = tm.getDeviceId();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //取出IMEI<br>Log.d(TAG, “IMEI:”+imei);<br>String tel = tm.getLine1Number();&nbsp;&nbsp;&nbsp;&nbsp; //取出MSISDN，很可能为空<br>Log.d(TAG, “MSISDN:”+tel);<br>String iccid =tm.getSimSerialNumber();&nbsp; //取出ICCID<br>Log.d(TAG, “ICCID:”+iccid);<br>String imsi =tm.getSubscriberId();&nbsp;&nbsp;&nbsp;&nbsp; //取出IMSI<br>Log.d(TAG, “IMSI:”+imsi);</p>
 <p>2、加入权限</p>
 <p>在manifest.xml文件中要添加 &lt;uses-permission android:name=”android.permission.READ_PHONE_STATE” /&gt;</p>
+
+
+    <br/>
+    <hr>
+
+    
+    <div class="post-copyright" style="margin-top: 20px;">
+        <strong>来源博客：</strong><a href="http://blog.wangjiegulu.com">Wang Jie's Blog</a><br/>
+         <strong>本文链接：</strong><a href="http://blog.wangjiegulu.com/2012/03/08/Android读取用户号码，手机串号，SIM卡序列号/">http://blog.wangjiegulu.com/2012/03/08/Android读取用户号码，手机串号，SIM卡序列号/</a><br/>
+         <strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处。
+    </div>
+    
 
   </div>
 </article>

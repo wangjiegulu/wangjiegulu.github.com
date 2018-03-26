@@ -143,7 +143,11 @@
   </header>
   
 
-  <div class="content" itemprop="articleBody">
+  
+  <div class="content" itemprop="articleBody" style="word-wrap:break-word;overflow:hidden;">
+    
+    
+
     <h2 id="Java中的强引用、软引用、弱引用和虚引用-nbsp"><a href="#Java中的强引用、软引用、弱引用和虚引用-nbsp" class="headerlink" title="Java中的强引用、软引用、弱引用和虚引用&nbsp;"></a>Java中的强引用、软引用、弱引用和虚引用&nbsp;</h2><div><span>原文链接</span><span>:</span><span><a href="http://aaronfu.net/?p=9995" target="_blank" rel="noopener">http://aaronfu.net/?p=9995</a></span></div>
 
 <p>从JDK1.2版本开始，把对象的引用分为四种级别，从而使程序能更加灵活的控制对象的生命周期。这四种级别由高到低依次为：强引用、软引用、弱引用和虚引用。</p>
@@ -172,6 +176,18 @@
 <p>//两次催促垃圾回收器工作，提高”hello”对象被回收的可能性<br>System.gc(); //⑤<br>System.gc(); //⑥<br>String str1=wf.get(); //⑦ 假如”hello”对象被回收，str1为null<br>Reference&lt;? extends String&gt; ref=rq.poll(); //⑧</p>
 <p><img src="http://www.javathinker.org/java/ref_3.gif" alt=""><br>图11-12 “hello”对象被垃圾回收，弱引用被加入到引用队列</p>
 <p>The important part about strong references &mdash; the part that makes them “strong” &mdash; is how they interact with the garbage collector. Specifically, if an object is reachable via a chain of strong references (strongly reachable), it is not eligible for garbage collection. As you don&rsquo;t want the garbage collector destroying objects you&rsquo;re working on, this is normally exactly what you want.</p>
+
+
+    <br/>
+    <hr>
+
+    
+    <div class="post-copyright" style="margin-top: 20px;">
+        <strong>来源博客：</strong><a href="http://blog.wangjiegulu.com">Wang Jie's Blog</a><br/>
+         <strong>本文链接：</strong><a href="http://blog.wangjiegulu.com/2012/05/03/Java中的强引用、软引用、弱引用和虚引用/">http://blog.wangjiegulu.com/2012/05/03/Java中的强引用、软引用、弱引用和虚引用/</a><br/>
+         <strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处。
+    </div>
+    
 
   </div>
 </article>

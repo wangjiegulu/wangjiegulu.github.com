@@ -139,12 +139,28 @@
   </header>
   
 
-  <div class="content" itemprop="articleBody">
+  
+  <div class="content" itemprop="articleBody" style="word-wrap:break-word;overflow:hidden;">
+    
+    
+
     <p><pre class="lang-c prettyprint prettyprinted"><span>用ego下拉刷新的时候，每次在ios7时，tableview都会上移。。。导致被navagationbar挡住。<br>ios6是正常的，于是在init的时候添加如下代码。。。</span></pre></p>
 <div class="cnblogs_code"><br><pre><span style="color: #008080;">1</span> NSComparisonResult order = [[UIDevice currentDevice].systemVersion compare: <span style="color: #800000;">@”</span><span style="color: #800000;">7.0</span><span style="color: #800000;">“</span><span style="color: #000000;"> options: NSNumericSearch];<br></span><span style="color: #008080;">2</span> <span style="color: #0000ff;">if</span> (order == NSOrderedSame || order ==<span style="color: #000000;"> NSOrderedDescending)<br></span><span style="color: #008080;">3</span> <span style="color: #000000;">{<br></span><span style="color: #008080;">4</span>     <span style="color: #008000;">//</span><span style="color: #008000;"> OS version &gt;= 7.0</span><br><span style="color: #008080;">5</span>     self.edgesForExtendedLayout =<span style="color: #000000;"> UIRectEdgeNone;<br></span><span style="color: #008080;">6</span> }</pre><br></div>
 
 <p>&nbsp;</p>
 <p>转自：<a href="http://www.cnblogs.com/x1957/archive/2013/09/29/3345264.html" target="_blank" rel="noopener">http://www.cnblogs.com/x1957/archive/2013/09/29/3345264.html</a></p>
+
+
+    <br/>
+    <hr>
+
+    
+    <div class="post-copyright" style="margin-top: 20px;">
+        <strong>来源博客：</strong><a href="http://blog.wangjiegulu.com">Wang Jie's Blog</a><br/>
+         <strong>本文链接：</strong><a href="http://blog.wangjiegulu.com/2013/11/08/ios7-tableview被navigationbar挡住/">http://blog.wangjiegulu.com/2013/11/08/ios7-tableview被navigationbar挡住/</a><br/>
+         <strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处。
+    </div>
+    
 
   </div>
 </article>

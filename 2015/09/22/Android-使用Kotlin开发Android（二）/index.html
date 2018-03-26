@@ -139,7 +139,11 @@
   </header>
   
 
-  <div class="content" itemprop="articleBody">
+  
+  <div class="content" itemprop="articleBody" style="word-wrap:break-word;overflow:hidden;">
+    
+    
+
     <font color="#ff0000"><strong><br>以下内容为原创，欢迎转载，转载请注明<br>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/4829007.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/4829007.html</a>
 </strong></font>
 
@@ -160,6 +164,18 @@
 <h4 id="3-优化后的调用方式"><a href="#3-优化后的调用方式" class="headerlink" title="3) 优化后的调用方式"></a>3) 优化后的调用方式</h4><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"https://github.com/wangjiegulu"</span>.request().<span class="keyword">get</span>().rxExecute()</span><br><span class="line">                    .map(&#123; r -&gt; r.body().string() &#125;)</span><br><span class="line">                    .observeOnMain()</span><br><span class="line">                    .subscribeSafeNext &#123; result -&gt; Log.d(TAG, <span class="string">"request result: <span class="variable">$result</span>"</span>); resultTv.setText(<span class="string">"Http request succeed, see log"</span>) &#125;</span><br></pre></td></tr></table></figure>
 <p>如上：通过url构建Request.Builder，然后通过RequestBuilder构建一个Obserable，然后订阅获得排出的请求结果。</p>
 <p>为了方便调用，又在Obserable中扩展了几个方法：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="type">&lt;T&gt;</span> Observable<span class="type">&lt;T&gt;</span>.<span class="title">observeOnMain</span><span class="params">()</span></span>: Observable&lt;T&gt; = <span class="keyword">this</span>.observeOn(AndroidSchedulers.mainThread())</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="type">&lt;T&gt;</span> Observable<span class="type">&lt;T&gt;</span>.<span class="title">subscribeSafeNext</span><span class="params">(onNext: (<span class="type">T</span>)</span></span> -&gt; <span class="built_in">Unit</span>): Subscription = <span class="keyword">this</span>.subscribe(onNext, &#123; t -&gt; Log.e(TAG, <span class="string">""</span>, t) &#125;, &#123;&#125;);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="type">&lt;T&gt;</span> Observable<span class="type">&lt;T&gt;</span>.<span class="title">subscribeSafeCompleted</span><span class="params">(onCompleted: ()</span></span> -&gt; <span class="built_in">Unit</span>): Subscription = <span class="keyword">this</span>.subscribe(&#123;&#125;, &#123; t -&gt; Log.e(TAG, <span class="string">""</span>, t) &#125;, onCompleted);</span><br></pre></td></tr></table></figure></p>
+
+
+    <br/>
+    <hr>
+
+    
+    <div class="post-copyright" style="margin-top: 20px;">
+        <strong>来源博客：</strong><a href="http://blog.wangjiegulu.com">Wang Jie's Blog</a><br/>
+         <strong>本文链接：</strong><a href="http://blog.wangjiegulu.com/2015/09/22/Android-使用Kotlin开发Android（二）/">http://blog.wangjiegulu.com/2015/09/22/Android-使用Kotlin开发Android（二）/</a><br/>
+         <strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处。
+    </div>
+    
 
   </div>
 </article>

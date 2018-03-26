@@ -7,14 +7,14 @@
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="RapidMavenPushPlugin用于上传你的 library 库到多个 Maven 仓库的 Gradle 插件。 Github: https://github.com/wangjiegulu/RapidMavenPushPlugin 1. 怎么使用1.1 添加依赖在你项目根目录的 build.gradle 文件中增加 RapidMavenPushPlugin 依赖： 检查最新版本 1234">
-<meta name="keywords" content="android,java,gradle,gradle plugin,maven,repository,plugin,aar,jar">
+<meta name="keywords" content="java,android,gradle,gradle plugin,maven,repository,plugin,aar,jar">
 <meta property="og:type" content="article">
 <meta property="og:title" content="上传到多个Maven仓库的Gradle插件RapidMavenPushPlugin">
 <meta property="og:url" content="http://blog.wangjiegulu.com/2018/03/16/rapid_maven_push_plugin_for_android/index.html">
 <meta property="og:site_name" content="Wang Jie">
 <meta property="og:description" content="RapidMavenPushPlugin用于上传你的 library 库到多个 Maven 仓库的 Gradle 插件。 Github: https://github.com/wangjiegulu/RapidMavenPushPlugin 1. 怎么使用1.1 添加依赖在你项目根目录的 build.gradle 文件中增加 RapidMavenPushPlugin 依赖： 检查最新版本 1234">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-03-16T09:24:30.795Z">
+<meta property="og:updated_time" content="2018-03-26T01:03:04.886Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="上传到多个Maven仓库的Gradle插件RapidMavenPushPlugin">
 <meta name="twitter:description" content="RapidMavenPushPlugin用于上传你的 library 库到多个 Maven 仓库的 Gradle 插件。 Github: https://github.com/wangjiegulu/RapidMavenPushPlugin 1. 怎么使用1.1 添加依赖在你项目根目录的 build.gradle 文件中增加 RapidMavenPushPlugin 依赖： 检查最新版本 1234">
@@ -137,7 +137,16 @@
   </header>
   
 
-  <div class="content" itemprop="articleBody">
+  
+  <div class="content" itemprop="articleBody" style="word-wrap:break-word;overflow:hidden;">
+    
+    
+      <!-- <img class="header-img" src="https://images.unsplash.com/photo-1470173274384-c4e8e2f9ea4c?ixlib=rb-0.3.5&amp;s=fb6828bc716833c47fa09e1395094d15&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80" /> -->
+      <div class="center-cropped" data-ratio="16:9" 
+           style="background-image: url('https://images.unsplash.com/photo-1470173274384-c4e8e2f9ea4c?ixlib=rb-0.3.5&amp;s=fb6828bc716833c47fa09e1395094d15&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80');">
+      </div>
+    
+
     <h1 id="RapidMavenPushPlugin"><a href="#RapidMavenPushPlugin" class="headerlink" title="RapidMavenPushPlugin"></a>RapidMavenPushPlugin</h1><p>用于上传你的 library 库到多个 Maven 仓库的 Gradle 插件。</p>
 <p><strong>Github: <a href="https://github.com/wangjiegulu/RapidMavenPushPlugin" target="_blank" rel="noopener">https://github.com/wangjiegulu/RapidMavenPushPlugin</a></strong></p>
 <h2 id="1-怎么使用"><a href="#1-怎么使用" class="headerlink" title="1. 怎么使用"></a>1. 怎么使用</h2><h3 id="1-1-添加依赖"><a href="#1-1-添加依赖" class="headerlink" title="1.1 添加依赖"></a>1.1 添加依赖</h3><p>在你项目根目录的 <code>build.gradle</code> 文件中增加 <code>RapidMavenPushPlugin</code> 依赖：</p>
@@ -169,6 +178,18 @@
 </blockquote>
 <h3 id="1-5-支持的-parameters-amp-properties"><a href="#1-5-支持的-parameters-amp-properties" class="headerlink" title="1.5 支持的 parameters &amp; properties"></a>1.5 支持的 parameters &amp; properties</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">// maven type, 只能通过在 `build.gradle` 设置 `ext.POM_MAVEN_TYPE=xxx` 或者在命令行中设置 `-PPOM_MAVEN_TYPE=xxx` 或者在 `gradle.properties` 中设置 `PPOM_MAVEN_TYPE=xxx`</span><br><span class="line">POM_MAVEN_TYPE</span><br><span class="line"></span><br><span class="line">// maven repository parameters</span><br><span class="line">POM_REPOSITORY_URL</span><br><span class="line">POM_REPOSITORY_URL_SNAPSHOT</span><br><span class="line">POM_OSSRH_USERNAME</span><br><span class="line">POM_OSSRH_PASSWORD</span><br><span class="line"></span><br><span class="line">// sign parameters</span><br><span class="line">POM_SIGN</span><br><span class="line">signing.keyId</span><br><span class="line">signing.password</span><br><span class="line">signing.secretKeyRingFile</span><br><span class="line"></span><br><span class="line">// archive parameters</span><br><span class="line">POM_ARCHIVE_GROUP</span><br><span class="line">POM_ARCHIVE_ID</span><br><span class="line">POM_ARCHIVE_VERSION_NAME</span><br><span class="line">POM_PACKAGING</span><br><span class="line">POM_DESC</span><br><span class="line">POM_URL</span><br><span class="line">POM_SCM_URL</span><br><span class="line">POM_SCM_CONNECTION</span><br><span class="line">POM_SCM_DEV_CONNECTION</span><br><span class="line">POM_LICENCE_NAME</span><br><span class="line">POM_LICENCE_URL</span><br><span class="line">POM_LICENCE_DIST</span><br><span class="line">POM_DEVELOPER_ID</span><br><span class="line">POM_DEVELOPER_NAME</span><br><span class="line">POM_DEVELOPER_EMAIL</span><br></pre></td></tr></table></figure>
 <h1 id="License"><a href="#License" class="headerlink" title="License"></a>License</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Copyright 2018 Wang Jie</span><br><span class="line"></span><br><span class="line">Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span><br><span class="line">you may not use this file except in compliance with the License.</span><br><span class="line">You may obtain a copy of the License at</span><br><span class="line"></span><br><span class="line">  http://www.apache.org/licenses/LICENSE-2.0</span><br><span class="line"></span><br><span class="line">Unless required by applicable law or agreed to in writing, software</span><br><span class="line">distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span><br><span class="line">WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span><br><span class="line">See the License for the specific language governing permissions and</span><br><span class="line">limitations under the License.</span><br></pre></td></tr></table></figure>
+
+
+    <br/>
+    <hr>
+
+    
+    <div class="post-copyright" style="margin-top: 20px;">
+        <strong>来源博客：</strong><a href="http://blog.wangjiegulu.com">Wang Jie's Blog</a><br/>
+         <strong>本文链接：</strong><a href="http://blog.wangjiegulu.com/2018/03/16/rapid_maven_push_plugin_for_android/">http://blog.wangjiegulu.com/2018/03/16/rapid_maven_push_plugin_for_android/</a><br/>
+         <strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处。
+    </div>
+    
 
   </div>
 </article>

@@ -142,7 +142,11 @@
   </header>
   
 
-  <div class="content" itemprop="articleBody">
+  
+  <div class="content" itemprop="articleBody" style="word-wrap:break-word;overflow:hidden;">
+    
+    
+
     <font color="#ff0000"><strong><br>以下内容为原创，欢迎转载，转载请注明<br>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/7286503.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/7286503.html</a>
 </strong></font>
 
@@ -213,6 +217,18 @@
 <p>我们暂时只考虑<code>direction</code>为left，top，right，down的情况，则进入最外面if的else分支：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> View <span class="title">focusSearch</span><span class="params">(View focused, <span class="keyword">int</span> direction)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    result = ff.findNextFocus(<span class="keyword">this</span>, focused, direction);</span><br><span class="line">    <span class="keyword">if</span> (result == <span class="keyword">null</span> &amp;&amp; canRunFocusFailure) &#123;</span><br><span class="line">     consumePendingUpdateOperations();</span><br><span class="line">     <span class="keyword">final</span> View focusedItemView = findContainingItemView(focused);</span><br><span class="line">     <span class="keyword">if</span> (focusedItemView == <span class="keyword">null</span>) &#123;</span><br><span class="line">         <span class="comment">// panic, focused view is not a child anymore, cannot call super.</span></span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">     &#125;</span><br><span class="line">     eatRequestLayout();</span><br><span class="line">     result = mLayout.onFocusSearchFailed(focused, direction, mRecycler, mState);</span><br><span class="line">     resumeRequestLayout(<span class="keyword">false</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>首先通过<code>FocusFinder::findNextFocus</code>方法来获取下一个应该获得焦点的View，这里获取的结果与 <a href="#FocusFinder.findNextFocus">FocusFinder::findNextFocus</a> 逻辑一致。</p>
+
+
+    <br/>
+    <hr>
+
+    
+    <div class="post-copyright" style="margin-top: 20px;">
+        <strong>来源博客：</strong><a href="http://blog.wangjiegulu.com">Wang Jie's Blog</a><br/>
+         <strong>本文链接：</strong><a href="http://blog.wangjiegulu.com/2017/08/04/Android-Android焦点流程代码分析/">http://blog.wangjiegulu.com/2017/08/04/Android-Android焦点流程代码分析/</a><br/>
+         <strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处。
+    </div>
+    
 
   </div>
 </article>

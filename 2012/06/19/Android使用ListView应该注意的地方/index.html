@@ -147,7 +147,11 @@
   </header>
   
 
-  <div class="content" itemprop="articleBody">
+  
+  <div class="content" itemprop="articleBody" style="word-wrap:break-word;overflow:hidden;">
+    
+    
+
     <p><span>在ListView中设置Selector为null会报空指针？</span>&nbsp;<br>mListView.setSelector(null);//空指针&nbsp;<br>试试下面这种：&nbsp;<br>mListView.setSelector(new ColorDrawable(Color.TRANSPARENT));&nbsp;</p>
 <p><span>如何让ListView初始化的时候就选中一项?</span>&nbsp;<br>ListView需要在初始化好数据后,其中一项需要呈选中状态。所谓”选中状态”就是该项底色与其它项不同,setSelection(position)只能定位到某个item，但是无法改变底色呈高亮。setSelection(position)只能让某个item显示在可见Item的最上面(如果Item超过一屏的话)! 就是所谓的firstVisibleItem啦！&nbsp;<br>如果想要实现效果可以在listview所绑定的adapter里的getView函数里去完成一些具体的工作。可以记下你要高亮的那个item的index，在getView函数里判断index（也就是position），如果满足条件则加载不同的背景。&nbsp;</p>
 <p><span>ListView的右边滚动滑块启用方法？</span>&nbsp;<br>&nbsp;&nbsp;&nbsp; 很多开发者不知道ListView列表控件的快速滚动滑块是如何启用的，其实辅助滚动滑块只需要一行代码就可以搞定，如果你使用XML布局只需要在ListView节点中加入&nbsp; android:fastScrollEnabled=”true” 这个属性即可，而对于Java代码可以通过myListView.setFastScrollEnabled(true); 来控制启用，参数false为隐藏。&nbsp;<br>&nbsp;&nbsp;&nbsp; 还有一点就是当你的滚动内容较小，不到当前ListView的3个屏幕高度时则不会出现这个快速滚动滑块，该方法是AbsListView的基础方法，可以在ListView或GridView等子类中使用快速滚动辅助。&nbsp;</p>
@@ -245,6 +249,18 @@
 
 <p>如果这一项的id=1,就不能长按。 这样就可以了&nbsp;</p>
 <p><span>ListView底部分隔线的问题</span>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 在工作中遇到了一个难题，就是一个listView在最下面的一个item下面没有分割线，要求是必须得有这条分割线。经过一通研究发现了这个奇怪的现象：&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1. ListActivity有这条底部分割线。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.在Activity中只有listview，没有别的控件的话也会有。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 其实ListActivity也是一个Activity，只不过在其中使用了SetContentView(listView)方法设置了一个listView作为其显示的View而已。所以结论就是只要这个activity调用了SetContentView(listView)就会有这条底部分割线。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 那么什么情况下才不会有这条分割线呢？在Activity中如果调用setContentView(View)而ListView只是内嵌入到这个View的话有可能会没有这条分割线。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 分析其原因：通过加断点调试发现在listView中，所有的分割线都是通过画一个很窄的矩形来实现的，但是在画分割线前都会都会判断目前的位置A和listView的长度B，如果A=B了，那么就不会画这条分割线了。但是将Listview嵌入到一个View中，一般会设置为高度为wrap_content,这种情况下，最后那条分割线的位置刚好等于listView的高度，所以系统不会画上这条分割线。那要怎么样才会画上呢？很简单，将ListView的高度设置为fill_partent就可以了。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; 当然以上所说的都是item很少的情况下，如果item很多以至于必须显示滚动条的话，那最后一个item下面是肯定不会有分割线了。<span>&lt;!–[endif]–&gt;&nbsp;&lt;!–[endif]–&gt;</span></p>
+
+
+    <br/>
+    <hr>
+
+    
+    <div class="post-copyright" style="margin-top: 20px;">
+        <strong>来源博客：</strong><a href="http://blog.wangjiegulu.com">Wang Jie's Blog</a><br/>
+         <strong>本文链接：</strong><a href="http://blog.wangjiegulu.com/2012/06/19/Android使用ListView应该注意的地方/">http://blog.wangjiegulu.com/2012/06/19/Android使用ListView应该注意的地方/</a><br/>
+         <strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处。
+    </div>
+    
 
   </div>
 </article>

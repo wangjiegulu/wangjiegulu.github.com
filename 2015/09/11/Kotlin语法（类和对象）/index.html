@@ -139,7 +139,11 @@
   </header>
   
 
-  <div class="content" itemprop="articleBody">
+  
+  <div class="content" itemprop="articleBody" style="word-wrap:break-word;overflow:hidden;">
+    
+    
+
     <p>#二、类和对象：</p>
 <p>##1. 类定义：<br>类的声明包含类名，类头(指定类型参数，主构造函数等等)，以及类主体，用大括号包裹。类头和类体是可选的；如果没有类体可以省略大括号。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">class Invoice&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>##2. 构造函数:<br>在 Kotlin 中类可以有一个主构造函数以及多个二级构造函数。主构造函数是类头的一部分：跟在类名后面(可以有可选的参数)。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">class Person(val firstName: String, val lastName: String, var age: Int)&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
@@ -176,6 +180,18 @@
 <p>属性代理：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">class Example &#123;</span><br><span class="line">    var p: String by Delegate()</span><br><span class="line">&#125;</span><br><span class="line">class Delegate &#123;</span><br><span class="line">    fun get(thisRef: Any?, prop: PropertyMetadata): String &#123;</span><br><span class="line">        return &quot;$thisRef, thank you for delegating &apos;$&#123;prop.name&#125;&apos; to me !&quot;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    fun set(thisRef: Any?, prop: PropertyMatada, value: String) &#123;</span><br><span class="line">        println(&quot;$value has been assigned to &apos;$&#123;prop.name&#125; in $thisRef.&apos;&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">val e = Example()</span><br><span class="line">pintln(e.p)</span><br><span class="line"></span><br><span class="line">输出：Example@33a17727, thank you for delegating ‘p’ to me!</span><br></pre></td></tr></table></figure></p>
 <p><a href="http://huanglizhuo.gitbooks.io/kotlin-in-chinese/content/ClassesAndObjects/DelegationProperties.html" target="_blank" rel="noopener">标准代理</a></p>
 <p><strong>参考：</strong><br>1. <a href="http://kotlinlang.org/docs/reference/basic-syntax.html" target="_blank" rel="noopener">http://kotlinlang.org/docs/reference/basic-syntax.html</a><br>2. <a href="http://huanglizhuo.gitbooks.io/kotlin-in-chinese" target="_blank" rel="noopener">http://huanglizhuo.gitbooks.io/kotlin-in-chinese</a></p>
+
+
+    <br/>
+    <hr>
+
+    
+    <div class="post-copyright" style="margin-top: 20px;">
+        <strong>来源博客：</strong><a href="http://blog.wangjiegulu.com">Wang Jie's Blog</a><br/>
+         <strong>本文链接：</strong><a href="http://blog.wangjiegulu.com/2015/09/11/Kotlin语法（类和对象）/">http://blog.wangjiegulu.com/2015/09/11/Kotlin语法（类和对象）/</a><br/>
+         <strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处。
+    </div>
+    
 
   </div>
 </article>

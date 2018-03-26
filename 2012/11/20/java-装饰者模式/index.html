@@ -139,7 +139,11 @@
   </header>
   
 
-  <div class="content" itemprop="articleBody">
+  
+  <div class="content" itemprop="articleBody" style="word-wrap:break-word;overflow:hidden;">
+    
+    
+
     <p>IPerson：</p>
 <div class="cnblogs_code"><br><pre><span style="color: #008000;">/<em>*</em></span><span style="color: #008000;">
   </span><span style="color: #808080;">@author</span><span style="color: #008000;"> com.tiantian<br> <em> </em></span><span style="color: #808080;">@version</span><span style="color: #008000;"> 创建时间：2012-11-20 下午3:43:04<br> </span><span style="color: #008000;">/</span><br><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">interface</span><span style="color: #000000;"> IPerson {<br>    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> canDo();<br>}</span></pre><br></div>
@@ -164,6 +168,18 @@
 <div class="cnblogs_code"><br><pre><span style="color: #008000;">/<em>*</em></span><span style="color: #008000;">
   </span><span style="color: #808080;">@author</span><span style="color: #008000;"> com.tiantian<br> <em> </em></span><span style="color: #808080;">@version</span><span style="color: #008000;"> 创建时间：2012-11-20 下午3:49:35<br> </span><span style="color: #008000;">/</span><br><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> Test {<br>    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> main(String[] args) {</span><span style="color: #000000;"><br>        Decorator decorator </span>= <span style="color: #0000ff;">new</span> DecoratorDraw(<span style="color: #0000ff;">new</span> DecoratorSwim(<span style="color: #0000ff;">new</span><span style="color: #000000;"> Person()));<br>        decorator.canDo();<br>    }<br>}</span></pre><br></div>
 
+
+
+    <br/>
+    <hr>
+
+    
+    <div class="post-copyright" style="margin-top: 20px;">
+        <strong>来源博客：</strong><a href="http://blog.wangjiegulu.com">Wang Jie's Blog</a><br/>
+         <strong>本文链接：</strong><a href="http://blog.wangjiegulu.com/2012/11/20/java-装饰者模式/">http://blog.wangjiegulu.com/2012/11/20/java-装饰者模式/</a><br/>
+         <strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处。
+    </div>
+    
 
   </div>
 </article>

@@ -139,7 +139,11 @@
   </header>
   
 
-  <div class="content" itemprop="articleBody">
+  
+  <div class="content" itemprop="articleBody" style="word-wrap:break-word;overflow:hidden;">
+    
+    
+
     <p>#三、其他<br>[TOC]</p>
 <p>##1. 多重声明<br>有时候可以通过给对象插入多个成员函数做区别是很方便的:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val (name, age) = person</span><br></pre></td></tr></table></figure></p>
 <p>多重声明一次创建了多个变量。我们声明了俩个新变量：name age 并且可以独立使用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">println(name)</span><br><span class="line">println(age)</span><br></pre></td></tr></table></figure></p>
@@ -193,6 +197,18 @@
 <p>动态调用可以返回<code>dynamic</code>作为结果，因此我们可以轻松实现链式调用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dyn.foo().bar.bat()</span><br></pre></td></tr></table></figure></p>
 <p>当给动态调用传递一个 lambda 表达式时，所有的参数默认都是<code>dynamic</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dyn.foo &#123;</span><br><span class="line">  x -&gt; x.bar() // x is dynamic</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p><strong>参考：</strong><br>1. <a href="http://kotlinlang.org/docs/reference/basic-syntax.html" target="_blank" rel="noopener">http://kotlinlang.org/docs/reference/basic-syntax.html</a><br>2. <a href="http://huanglizhuo.gitbooks.io/kotlin-in-chinese" target="_blank" rel="noopener">http://huanglizhuo.gitbooks.io/kotlin-in-chinese</a></p>
+
+
+    <br/>
+    <hr>
+
+    
+    <div class="post-copyright" style="margin-top: 20px;">
+        <strong>来源博客：</strong><a href="http://blog.wangjiegulu.com">Wang Jie's Blog</a><br/>
+         <strong>本文链接：</strong><a href="http://blog.wangjiegulu.com/2015/09/13/Kotlin语法（其他）/">http://blog.wangjiegulu.com/2015/09/13/Kotlin语法（其他）/</a><br/>
+         <strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处。
+    </div>
+    
 
   </div>
 </article>

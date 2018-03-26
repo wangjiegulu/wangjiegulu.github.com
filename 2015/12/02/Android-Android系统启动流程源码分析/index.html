@@ -139,7 +139,11 @@
   </header>
   
 
-  <div class="content" itemprop="articleBody">
+  
+  <div class="content" itemprop="articleBody" style="word-wrap:break-word;overflow:hidden;">
+    
+    
+
     <font color="#ff0000"><strong><br>以下内容为原创，欢迎转载，转载请注明<br>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/5013863.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/5013863.html</a>
 </strong></font>
 
@@ -234,6 +238,18 @@
 <p>然后看下<code>LoadedApk::makeApplication</code>方法的实现：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Application <span class="title">makeApplication</span><span class="params">(<span class="keyword">boolean</span> forceDefaultAppClass,</span></span></span><br><span class="line"><span class="function"><span class="params">            Instrumentation instrumentation)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 只有第一次调用makeApplication才会往下执行</span></span><br><span class="line">	<span class="keyword">if</span> (mApplication != <span class="keyword">null</span>) &#123;</span><br><span class="line">	    <span class="keyword">return</span> mApplication;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 初始化系统的Application，所以appClass是"android.app.Application"</span></span><br><span class="line">	String appClass = mApplicationInfo.className;</span><br><span class="line">    <span class="keyword">if</span> (forceDefaultAppClass || (appClass == <span class="keyword">null</span>)) &#123;</span><br><span class="line">        appClass = <span class="string">"android.app.Application"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	ContextImpl appContext = ContextImpl.createAppContext(mActivityThread, <span class="keyword">this</span>);</span><br><span class="line">    app = mActivityThread.mInstrumentation.newApplication(</span><br><span class="line">            cl, appClass, appContext);</span><br><span class="line">    appContext.setOuterContext(app);</span><br><span class="line">	<span class="comment">// ...	</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>创建<code>appContext</code>，然后通过<code>Instrumentation</code>生成<code>Application</code>对象，并给<code>appContext</code>设置外部引用。</p>
+
+
+    <br/>
+    <hr>
+
+    
+    <div class="post-copyright" style="margin-top: 20px;">
+        <strong>来源博客：</strong><a href="http://blog.wangjiegulu.com">Wang Jie's Blog</a><br/>
+         <strong>本文链接：</strong><a href="http://blog.wangjiegulu.com/2015/12/02/Android-Android系统启动流程源码分析/">http://blog.wangjiegulu.com/2015/12/02/Android-Android系统启动流程源码分析/</a><br/>
+         <strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处。
+    </div>
+    
 
   </div>
 </article>

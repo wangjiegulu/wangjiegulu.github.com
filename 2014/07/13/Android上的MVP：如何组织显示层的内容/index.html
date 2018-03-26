@@ -139,7 +139,11 @@
   </header>
   
 
-  <div class="content" itemprop="articleBody">
+  
+  <div class="content" itemprop="articleBody" style="word-wrap:break-word;overflow:hidden;">
+    
+    
+
     <p>MVP（Model View Presenter）模式是著名的MVC（Model View Controller）模式的一个演化版本，目前它在Android应用开发中越来越重要了，大家也都在讨论关于MVP的理论，只是结构化的资料非常少。这就是我写这篇博客的原因，我想鼓励大家多参与讨论，然后把MVP模式运用在项目开发中。</p>
 <h3 id="什么是MVP？"><a href="#什么是MVP？" class="headerlink" title="什么是MVP？"></a>什么是MVP？</h3><p>MVP模式可以分离显示层和逻辑层，所以功能接口如何工作与功能的展示可以实现分离，MVP模式理想化地可以实现同一份逻辑代码搭配不同的显示界面。首先要澄清就是MVP不是一个结构化的模式，它只是负责显示层而已，任何时候都可以在自己的项目结构中使用MVP模式。</p>
 <h3 id="为什么要使用MVP？"><a href="#为什么要使用MVP？" class="headerlink" title="为什么要使用MVP？"></a>为什么要使用MVP？</h3><p>我们知道在Android上逻辑接口和数据存取是紧耦合的，这个问题可以看看CursorAdapter这个例子，它既融合了适配器，同时也有显示的成分，而cursor很大程度上应该是数据数据存取层的。</p>
@@ -154,6 +158,18 @@
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>在Android上要分离接口和逻辑不容易实现，但是Model-View-Presenter模式可以更简单的防止在Activity中掺杂太多代码在大的项目中，组织好代码结构是最基本的要求，不然，代码的稳定和扩展就很困难了。</p>
 <p>&nbsp;</p>
 <p>原文链接：&nbsp;<a href="http://antonioleiva.com/mvp-android/" target="_blank" rel="noopener">antonioleiva</a>&nbsp;&nbsp;&nbsp;翻译：&nbsp;<a href="http://blog.jobbole.com/" target="_blank" rel="noopener">伯乐在线&nbsp;</a>-&nbsp;<a href="http://blog.jobbole.com/author/chris/" target="_blank" rel="noopener">chris</a><br>译文链接：&nbsp;<a href="http://blog.jobbole.com/71209/" target="_blank" rel="noopener">http://blog.jobbole.com/71209/</a></p>
+
+
+    <br/>
+    <hr>
+
+    
+    <div class="post-copyright" style="margin-top: 20px;">
+        <strong>来源博客：</strong><a href="http://blog.wangjiegulu.com">Wang Jie's Blog</a><br/>
+         <strong>本文链接：</strong><a href="http://blog.wangjiegulu.com/2014/07/13/Android上的MVP：如何组织显示层的内容/">http://blog.wangjiegulu.com/2014/07/13/Android上的MVP：如何组织显示层的内容/</a><br/>
+         <strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处。
+    </div>
+    
 
   </div>
 </article>

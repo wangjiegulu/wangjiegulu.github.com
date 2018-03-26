@@ -141,7 +141,11 @@
   </header>
   
 
-  <div class="content" itemprop="articleBody">
+  
+  <div class="content" itemprop="articleBody" style="word-wrap:break-word;overflow:hidden;">
+    
+    
+
     <h1 id="Android端生成META-INF信息文件的Gradle插件-RapidMetaInfPlugin"><a href="#Android端生成META-INF信息文件的Gradle插件-RapidMetaInfPlugin" class="headerlink" title="Android端生成META-INF信息文件的Gradle插件 RapidMetaInfPlugin"></a>Android端生成META-INF信息文件的Gradle插件 RapidMetaInfPlugin</h1><h2 id="1-需求背景"><a href="#1-需求背景" class="headerlink" title="1. 需求背景"></a>1. 需求背景</h2><p>最近新遇到了一个需求，想在自己的一些库中写入版本信息，在别人使用了我的库后，我可以通过apk文件检测出依赖了我的哪个版本的库。感觉这个需求有点多余？那就举个例子吧。</p>
 <p>比如，我编写了一个开源库：<a href="https://github.com/wangjiegulu/RapidORM" target="_blank" rel="noopener">RapidORM</a>，并<a href="http://blog.wangjiegulu.com/2015/04/02/Android-%E4%BD%BF%E7%94%A8Gradle%E6%8F%90%E4%BA%A4%E8%87%AA%E5%B7%B1%E5%BC%80%E6%BA%90Android%E5%BA%93%E5%88%B0Maven%E4%B8%AD%E5%BF%83%E5%BA%93/">上传到了Maven中心库</a> ，假设一个我不认识的开发者（暂且称它为<code>X</code>）在编写app，这个app中的代码对我来说是完全未知的，但是他通过在<code>build.gradle</code>中添加了如下依赖：</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">compile <span class="string">"com.github.wangjiegulu:rapidorm:1.0.0"</span></span><br><span class="line">compile <span class="string">"com.github.wangjiegulu:rapidorm-api:1.0.0"</span></span><br><span class="line">apt <span class="string">"com.github.wangjiegulu:rapidorm-compiler:1.0.0"</span></span><br></pre></td></tr></table></figure>
@@ -170,6 +174,18 @@
 <p>如上，<code>metaInfName</code>表示在<code>META-INF</code>目录中生成的文件名称（文件名任意取，但是不能以”.”开头），<code>metaInfProperties</code>表示要写入文件的数据，这个变量为数组类型，可通过Groovy语法来编写，比如通过<code>$符号来引用ext</code>，通过如下命令参数的方式等等：</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">rapidmetainf &#123;</span><br><span class="line">    metaInfName <span class="string">'DAL_REQUEST_DEMO.properties'</span></span><br><span class="line"></span><br><span class="line">    String[] infArray = <span class="keyword">new</span> String[<span class="number">10</span>]</span><br><span class="line">    <span class="comment">// ./gradlew clean build -PcommandKey=commandValue</span></span><br><span class="line">    infArray[<span class="number">0</span>] = <span class="string">"propertyFromCommand=$&#123;getParameter('commandKey')&#125;"</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; infArray.length; i++)&#123;</span><br><span class="line">        infArray[i] = <span class="string">"array_item_key_$i=array_item_value_$i"</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    metaInfProperties infArray</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> getParameter(String key) &#123;</span><br><span class="line">    <span class="comment">// -D</span></span><br><span class="line">    String value = System.getProperty(key)</span><br><span class="line">    <span class="keyword">if</span> (<span class="literal">null</span> != value &amp;&amp; value.length() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> value</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// -P</span></span><br><span class="line">    <span class="keyword">if</span> (hasProperty(key)) &#123;</span><br><span class="line">        <span class="keyword">return</span> getProperty(key)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>以上，CI构建时就可使用命令<code>./gradlew clean build -PcommandKey=commandValue</code>来把<code>commandValue</code>写入到文件中。</p>
+
+
+    <br/>
+    <hr>
+
+    
+    <div class="post-copyright" style="margin-top: 20px;">
+        <strong>来源博客：</strong><a href="http://blog.wangjiegulu.com">Wang Jie's Blog</a><br/>
+         <strong>本文链接：</strong><a href="http://blog.wangjiegulu.com/2018/02/05/Android端生成META-INF信息文件的Gradle插件 RapidMetaInfPlugin/">http://blog.wangjiegulu.com/2018/02/05/Android端生成META-INF信息文件的Gradle插件 RapidMetaInfPlugin/</a><br/>
+         <strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处。
+    </div>
+    
 
   </div>
 </article>

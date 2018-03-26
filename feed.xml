@@ -6,7 +6,7 @@
   <link href="/feed.xml" rel="self"/>
   
   <link href="http://blog.wangjiegulu.com/"/>
-  <updated>2018-03-16T09:24:30.795Z</updated>
+  <updated>2018-03-26T01:03:04.886Z</updated>
   <id>http://blog.wangjiegulu.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://blog.wangjiegulu.com/2018/03/16/rapid_maven_push_plugin_for_android/"/>
     <id>http://blog.wangjiegulu.com/2018/03/16/rapid_maven_push_plugin_for_android/</id>
     <published>2018-03-16T06:08:04.098Z</published>
-    <updated>2018-03-16T09:24:30.795Z</updated>
+    <updated>2018-03-26T01:03:04.886Z</updated>
     
     <summary type="html">
     
@@ -40,9 +40,9 @@
       <category term="dart" scheme="http://blog.wangjiegulu.com/categories/flutter/dart/"/>
     
     
-      <category term="android" scheme="http://blog.wangjiegulu.com/tags/android/"/>
-    
       <category term="java" scheme="http://blog.wangjiegulu.com/tags/java/"/>
+    
+      <category term="android" scheme="http://blog.wangjiegulu.com/tags/android/"/>
     
       <category term="gradle" scheme="http://blog.wangjiegulu.com/tags/gradle/"/>
     
@@ -599,15 +599,15 @@
     
       <category term="android" scheme="http://blog.wangjiegulu.com/tags/android/"/>
     
-      <category term="orm" scheme="http://blog.wangjiegulu.com/tags/orm/"/>
-    
-      <category term="rapidorm" scheme="http://blog.wangjiegulu.com/tags/rapidorm/"/>
-    
       <category term="library" scheme="http://blog.wangjiegulu.com/tags/library/"/>
+    
+      <category term="sqlite" scheme="http://blog.wangjiegulu.com/tags/sqlite/"/>
     
       <category term="database" scheme="http://blog.wangjiegulu.com/tags/database/"/>
     
-      <category term="sqlite" scheme="http://blog.wangjiegulu.com/tags/sqlite/"/>
+      <category term="orm" scheme="http://blog.wangjiegulu.com/tags/orm/"/>
+    
+      <category term="rapidorm" scheme="http://blog.wangjiegulu.com/tags/rapidorm/"/>
     
   </entry>
   

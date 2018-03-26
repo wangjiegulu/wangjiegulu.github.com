@@ -139,7 +139,11 @@
   </header>
   
 
-  <div class="content" itemprop="articleBody">
+  
+  <div class="content" itemprop="articleBody" style="word-wrap:break-word;overflow:hidden;">
+    
+    
+
     <font color="#ff0000"><strong><br>以下内容为原创，欢迎转载，转载请注明<br>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/5795091.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/5795091.html</a>
 </strong></font>
 
@@ -212,6 +216,18 @@
 <p>最后我们传入使用被<a href="https://developer.android.com/reference/java/io/Reader.html" target="_blank" rel="noopener">Reader</a>包装的resource到GSON引擎。<a href="https://docs.oracle.com/javase/tutorial/essential/exceptions/tryResourceClose.html" target="_blank" rel="noopener">Try-with-resources</a>语句在这里被使用，所以Reader将会在读取甚至发生异常之后自动关闭。这里需要在<code>finally</code>块中明确类型。</p>
 <p>注意try-with-resources从Android API 19（Kitkat）才可用。如果测试代码位于Android gradle module中，并且你的<code>minSdkVersion</code>低于19，那么你可能需要在<code>evaluate()</code>方法上增加<code>@TargetApi(Build.VERSION_CODES.KITKAT)</code>注解来避免<a href="http://tools.android.com/tips/lint-checks" target="_blank" rel="noopener">lint</a>错误。单元测试会在开发机器（Mac，PC等）上被执行而不是Android设备或者模拟器，所以这里只有<code>compileSdkVersion</code>才是关键。</p>
 <p>这样的单元测试（不需要使用Android特定的API）也可以被放在java module中（<code>build.gradle</code>中<code>apply plugin: &#39;java&#39;</code>）。理论上这事最好的idea，但是在Android Studio/Intellij IDEA中有一个<a href="http://tools.android.com/knownissues#TOC-JUnit-tests-missing-resources-in-classpath-when-run-from-Studio" target="_blank" rel="noopener">问题</a>需要预防，那就是从IDE开箱即用地执行单元测试的配置工作。</p>
+
+
+    <br/>
+    <hr>
+
+    
+    <div class="post-copyright" style="margin-top: 20px;">
+        <strong>来源博客：</strong><a href="http://blog.wangjiegulu.com">Wang Jie's Blog</a><br/>
+         <strong>本文链接：</strong><a href="http://blog.wangjiegulu.com/2016/08/22/Android-使用自定义JUnit-Rules、annotations和Resources进行单元测试（翻译）/">http://blog.wangjiegulu.com/2016/08/22/Android-使用自定义JUnit-Rules、annotations和Resources进行单元测试（翻译）/</a><br/>
+         <strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处。
+    </div>
+    
 
   </div>
 </article>

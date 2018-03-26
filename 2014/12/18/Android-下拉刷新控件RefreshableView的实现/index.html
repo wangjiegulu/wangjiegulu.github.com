@@ -142,7 +142,11 @@
   </header>
   
 
-  <div class="content" itemprop="articleBody">
+  
+  <div class="content" itemprop="articleBody" style="word-wrap:break-word;overflow:hidden;">
+    
+    
+
     <p><span style="color: #ff0000;"><strong>以下内容为原创，欢迎转载，转载请注明</strong></span></p>
 <p><span style="color: #ff0000;"><strong>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/4172483.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/4172483.html</a></strong></span></p>
 <p>&nbsp;</p>
@@ -189,6 +193,18 @@
 <p>如上所示，也需要重写onInterceptTouchEvent()方法，它需要把除了MOVE事件外的所有事件传递下去，这样最里面的TextView才有OnClick等事件。</p>
 <p>在onTouchEvent方法中，在ACTION_DOWN的时候，先纪录down的y坐标，然后保证parent（即，RefreshableView）的事件可以传递过来，所以需要调用getParent().requestDisallowInterceptTouchEvent()方法。因为下拉刷新只能发生在ScrollView滚动条在顶部的时候，所以在MOVE中，如果当前状态在顶部，那就需要让父控件（RefreshableView）拦截，然后直接返回false，让当前的事件传递到RefreshableView中的onTouchEvent方法中处理。如果不是在top，那就屏蔽调用父控件（RefreshableView）的处理，直接自己处理。最后在UP的时候再确保事件可以传递到ScrollView这里来。</p>
 <p>&nbsp;</p>
+
+
+    <br/>
+    <hr>
+
+    
+    <div class="post-copyright" style="margin-top: 20px;">
+        <strong>来源博客：</strong><a href="http://blog.wangjiegulu.com">Wang Jie's Blog</a><br/>
+         <strong>本文链接：</strong><a href="http://blog.wangjiegulu.com/2014/12/18/Android-下拉刷新控件RefreshableView的实现/">http://blog.wangjiegulu.com/2014/12/18/Android-下拉刷新控件RefreshableView的实现/</a><br/>
+         <strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处。
+    </div>
+    
 
   </div>
 </article>
