@@ -7,7 +7,7 @@
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="&amp;nbsp;Hibernate3注解 收藏&amp;nbsp;1、@Entity(name=”EntityName”)&amp;nbsp;必须,name为可选,对应数据库中一的个表 2、@Table(name=””,catalog=””,schema=””)&amp;nbsp;可选,通常和@Entity配合使用,只能标注在实体的class定义处,表示实体对应的数据库表的信息&amp;nbsp;name:可选,表示表的名称.默认地">
-<meta name="keywords" content="orm,j2ee,java web,Hibernate">
+<meta name="keywords" content="orm,Hibernate,j2ee,java web">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hibernate3注解[转]">
 <meta property="og:url" content="http://blog.wangjiegulu.com/2013/10/08/Hibernate3注解-转/index.html">
@@ -47,26 +47,31 @@
 
 <body class="max-width mx-auto px3">
     
-      <div id="header-post">
+      <div id="header-post-nav">
+  <span id="nav">
+    <ul>
+       
+        <li><a href="/">Home</a></li>
+       
+        <li><a href="/archives/">Writing</a></li>
+       
+        <li><a href="/tags/">Tags</a></li>
+       
+        <li><a href="/about/">About</a></li>
+       
+        <li><a href="/feed.xml">RSS</a></li>
+      
+    </ul>
+  </span>
+</div>
+
+<div id="header-post">
   <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
   <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
   <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  
   <span id="menu">
-    <span id="nav">
-      <ul>
-         
-          <li><a href="/">Home</a></li>
-         
-          <li><a href="/archives/">Writing</a></li>
-         
-          <li><a href="/tags/">Tags</a></li>
-         
-          <li><a href="/about/">About</a></li>
-         
-          <li><a href="/feed.xml">RSS</a></li>
-        
-      </ul>
-    </span>
+    
     <br/>
     <span id="actions">
       <ul>

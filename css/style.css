@@ -863,6 +863,37 @@ body {
     font-style: italic;
   }
 }
+#header-post-nav {
+  position: fixed;
+  top: 1.5rem;
+  left: 0;
+  display: inline-block;
+  float: left;
+}
+#header-post-nav a {
+  background: none;
+  color: #2b9e8a;
+  text-decoration: none;
+  font-size: 12px;
+}
+#header-post-nav a:hover {
+  background-image: linear-gradient(transparent, transparent 5px, #9c9c9b 5px, #9c9c9b);
+  background-position: bottom;
+  background-size: 100% 6px;
+  background-repeat: repeat-x;
+}
+#header-post-nav ol {
+  list-style-type: none;
+}
+#header-post-nav ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+#header-post-nav ul li {
+  margin-left: 30px;
+  vertical-align: middle;
+}
 #footer-post {
   position: fixed;
   right: 0;
