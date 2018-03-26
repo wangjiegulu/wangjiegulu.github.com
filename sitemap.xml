@@ -2,9 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.wangjiegulu.com/2017/04/10/CPP-Note/</loc>
+    
+    <lastmod>2018-03-26T10:23:45.344Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.wangjiegulu.com/2017/04/11/NDK%E9%85%8D%E7%BD%AE/</loc>
+    
+    <lastmod>2018-03-26T10:22:32.901Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.wangjiegulu.com/2018/03/16/rapid_maven_push_plugin_for_android/</loc>
     
-    <lastmod>2018-03-26T01:03:04.886Z</lastmod>
+    <lastmod>2018-03-26T10:22:18.886Z</lastmod>
     
   </url>
   
@@ -33,13 +47,6 @@
     <loc>http://blog.wangjiegulu.com/2017/12/20/Android-App-IFCTT%EF%BC%8C%E5%8D%B3If-Copy-Then-That%EF%BC%8C%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8EIFTTT%E7%9A%84-This-%E5%AE%9E%E7%8E%B0/</loc>
     
     <lastmod>2018-02-05T10:11:16.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.wangjiegulu.com/2017/04/10/CPP-Note/</loc>
-    
-    <lastmod>2018-02-05T09:50:06.000Z</lastmod>
     
   </url>
   
@@ -299,13 +306,6 @@
     <loc>http://blog.wangjiegulu.com/2013/03/03/Struts-iBatis-Spring-mysql%E6%95%B4%E5%90%88%E5%BC%80%E5%8F%91/</loc>
     
     <lastmod>2018-01-30T03:42:27.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.wangjiegulu.com/2017/04/11/NDK%E9%85%8D%E7%BD%AE/</loc>
-    
-    <lastmod>2018-01-30T03:42:06.000Z</lastmod>
     
   </url>
   
@@ -1031,13 +1031,6 @@
   </url>
   
   <url>
-    <loc>http://blog.wangjiegulu.com/2012/06/15/%E8%AE%BE%E7%BD%AEEditText%E6%98%AF%E5%90%A6%E5%8F%AF%E7%BC%96%E8%BE%91/</loc>
-    
-    <lastmod>2018-01-29T12:36:41.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://blog.wangjiegulu.com/2013/02/20/%E5%B7%A5%E5%85%B7%E5%BA%93-JFileDownloader%E5%B7%A5%E5%85%B7%E7%B1%BB%E2%80%94%E2%80%94%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8B%E8%BD%BD%E7%BD%91%E7%BB%9C%E6%96%87%E4%BB%B6%EF%BC%8C%E5%B9%B6%E4%BF%9D%E5%AD%98%E5%9C%A8%E6%9C%AC%E5%9C%B0/</loc>
     
     <lastmod>2018-01-29T12:36:41.000Z</lastmod>
@@ -1046,6 +1039,13 @@
   
   <url>
     <loc>http://blog.wangjiegulu.com/2016/08/29/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/</loc>
+    
+    <lastmod>2018-01-29T12:36:41.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.wangjiegulu.com/2012/06/15/%E8%AE%BE%E7%BD%AEEditText%E6%98%AF%E5%90%A6%E5%8F%AF%E7%BC%96%E8%BE%91/</loc>
     
     <lastmod>2018-01-29T12:36:41.000Z</lastmod>
     

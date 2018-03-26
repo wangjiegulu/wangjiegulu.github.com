@@ -4,8 +4,48 @@
 
     
   <url>
+    <loc>http://blog.wangjiegulu.com/2017/04/10/CPP-Note/</loc>
+    <lastmod>2018-03-26T10:23:45.344Z</lastmod>
+    <data>
+        <display>
+        <title>CPP Note</title>
+        <pubTime>2017-04-10T07:05:00.000Z</pubTime>
+        
+        <tag>cpp</tag>
+         
+        <tag>c++</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2017/04/11/NDK%E9%85%8D%E7%BD%AE/</loc>
+    <lastmod>2018-03-26T10:22:32.901Z</lastmod>
+    <data>
+        <display>
+        <title>NDK配置</title>
+        <pubTime>2017-04-11T04:09:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>ndk</tag>
+         
+        <tag>jni</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://blog.wangjiegulu.com/2018/03/16/rapid_maven_push_plugin_for_android/</loc>
-    <lastmod>2018-03-26T01:03:04.886Z</lastmod>
+    <lastmod>2018-03-26T10:22:18.886Z</lastmod>
     <data>
         <display>
         <title>上传到多个Maven仓库的Gradle插件RapidMavenPushPlugin</title>
@@ -172,25 +212,6 @@
         <tag>google play</tag>
          
         <tag>clipboard</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://blog.wangjiegulu.com/2017/04/10/CPP-Note/</loc>
-    <lastmod>2018-02-05T09:50:06.000Z</lastmod>
-    <data>
-        <display>
-        <title>CPP Note</title>
-        <pubTime>2017-04-10T07:05:00.000Z</pubTime>
-        
-        <tag>cpp</tag>
-         
-        <tag>c++</tag>
          
          
            
@@ -959,27 +980,6 @@
 
     
   <url>
-    <loc>http://blog.wangjiegulu.com/2017/04/11/NDK%E9%85%8D%E7%BD%AE/</loc>
-    <lastmod>2018-01-30T03:42:06.000Z</lastmod>
-    <data>
-        <display>
-        <title>NDK配置</title>
-        <pubTime>2017-04-11T04:09:00.000Z</pubTime>
-        
-        <tag>android</tag>
-         
-        <tag>ndk</tag>
-         
-        <tag>jni</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://blog.wangjiegulu.com/2013/02/24/lucene-%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/</loc>
     <lastmod>2018-01-30T03:41:58.000Z</lastmod>
     <data>
@@ -1257,9 +1257,9 @@
         
         <tag>java</tag>
          
-        <tag>lambda</tag>
-         
         <tag>java8</tag>
+         
+        <tag>lambda</tag>
          
          
            
@@ -2121,9 +2121,9 @@
         
         <tag>android</tag>
          
-        <tag>library</tag>
-         
         <tag>annotations</tag>
+         
+        <tag>library</tag>
          
         <tag>proxy</tag>
          
@@ -2338,9 +2338,9 @@
          
         <tag>翻译</tag>
          
-        <tag>monkey</tag>
-         
         <tag>testing</tag>
+         
+        <tag>monkey</tag>
          
         <tag>adb</tag>
          
@@ -2388,9 +2388,9 @@
          
         <tag>翻译</tag>
          
-        <tag>monkey</tag>
-         
         <tag>testing</tag>
+         
+        <tag>monkey</tag>
          
         <tag>MonkeyRunner</tag>
          
@@ -2959,13 +2959,13 @@
         
         <tag>android</tag>
          
+        <tag>library</tag>
+         
         <tag>sqlite</tag>
          
         <tag>database</tag>
          
         <tag>orm</tag>
-         
-        <tag>library</tag>
          
         <tag>rapidorm</tag>
          
@@ -2986,13 +2986,13 @@
         
         <tag>android</tag>
          
+        <tag>library</tag>
+         
         <tag>sqlite</tag>
          
         <tag>database</tag>
          
         <tag>orm</tag>
-         
-        <tag>library</tag>
          
         <tag>rapidorm</tag>
          
@@ -3013,13 +3013,13 @@
         
         <tag>android</tag>
          
+        <tag>library</tag>
+         
         <tag>sqlite</tag>
          
         <tag>database</tag>
          
         <tag>orm</tag>
-         
-        <tag>library</tag>
          
         <tag>rapidorm</tag>
          
@@ -3038,11 +3038,11 @@
         <title>[Android]AndroidBucket增加碎片SubLayout功能及AISubLayout的注解支持</title>
         <pubTime>2014-05-05T12:31:00.000Z</pubTime>
         
-        <tag>library</tag>
-         
         <tag>android bucket</tag>
          
         <tag>annotations</tag>
+         
+        <tag>library</tag>
          
          
            
@@ -3061,6 +3061,8 @@
         
         <tag>android</tag>
          
+        <tag>library</tag>
+         
         <tag>inject</tag>
          
         <tag>sqlite</tag>
@@ -3070,8 +3072,6 @@
         <tag>database</tag>
          
         <tag>orm</tag>
-         
-        <tag>library</tag>
          
          
            
@@ -3090,9 +3090,9 @@
         
         <tag>android</tag>
          
-        <tag>inject</tag>
-         
         <tag>library</tag>
+         
+        <tag>inject</tag>
          
          
            
@@ -3207,21 +3207,6 @@
 
     
   <url>
-    <loc>http://blog.wangjiegulu.com/2012/06/15/%E8%AE%BE%E7%BD%AEEditText%E6%98%AF%E5%90%A6%E5%8F%AF%E7%BC%96%E8%BE%91/</loc>
-    <lastmod>2018-01-29T12:36:41.000Z</lastmod>
-    <data>
-        <display>
-        <title>设置EditText是否可编辑</title>
-        <pubTime>2012-06-15T02:37:00.000Z</pubTime>
-        
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://blog.wangjiegulu.com/2013/02/20/%E5%B7%A5%E5%85%B7%E5%BA%93-JFileDownloader%E5%B7%A5%E5%85%B7%E7%B1%BB%E2%80%94%E2%80%94%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8B%E8%BD%BD%E7%BD%91%E7%BB%9C%E6%96%87%E4%BB%B6%EF%BC%8C%E5%B9%B6%E4%BF%9D%E5%AD%98%E5%9C%A8%E6%9C%AC%E5%9C%B0/</loc>
     <lastmod>2018-01-29T12:36:41.000Z</lastmod>
     <data>
@@ -3243,6 +3228,21 @@
         <display>
         <title>网络基础</title>
         <pubTime>2016-08-29T06:10:00.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.wangjiegulu.com/2012/06/15/%E8%AE%BE%E7%BD%AEEditText%E6%98%AF%E5%90%A6%E5%8F%AF%E7%BC%96%E8%BE%91/</loc>
+    <lastmod>2018-01-29T12:36:41.000Z</lastmod>
+    <data>
+        <display>
+        <title>设置EditText是否可编辑</title>
+        <pubTime>2012-06-15T02:37:00.000Z</pubTime>
         
          
            
