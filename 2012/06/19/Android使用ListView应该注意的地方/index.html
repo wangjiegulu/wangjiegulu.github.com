@@ -7,7 +7,7 @@
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="在ListView中设置Selector为null会报空指针？&amp;nbsp;mListView.setSelector(null);//空指针&amp;nbsp;试试下面这种：&amp;nbsp;mListView.setSelector(new ColorDrawable(Color.TRANSPARENT));&amp;nbsp; 如何让ListView初始化的时候就选中一项?&amp;nbsp;ListView需要在初始化好">
-<meta name="keywords" content="android,view,ListView,tips">
+<meta name="keywords" content="android,ListView,view,tips">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android使用ListView应该注意的地方">
 <meta property="og:url" content="http://blog.wangjiegulu.com/2012/06/19/Android使用ListView应该注意的地方/index.html">
@@ -57,19 +57,19 @@
     
       <div id="header-post-nav">
   <span id="nav">
-    <ul>
-       
-        <li><a href="/">Home</a></li>
-       
-        <li><a href="/archives/">Writing</a></li>
-       
-        <li><a href="/tags/">Tags</a></li>
-       
-        <li><a href="/about/">About</a></li>
-       
-        <li><a href="/feed.xml">RSS</a></li>
-      
-    </ul>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/feed.xml">RSS</a></li>
+        
+      </ul>
   </span>
 </div>
 
@@ -79,7 +79,21 @@
   <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
   
   <span id="menu">
-    
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/feed.xml">RSS</a></li>
+        
+      </ul>
+    </span>
     <br/>
     <span id="actions">
       <ul>
@@ -133,17 +147,17 @@
 
     <div class="meta"  style="margin-top:12px;">
       <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-        <span itemprop="name">Wang Jie</span>
+        <span itemprop="name" style="margin-left: 12px">Wang Jie</span>
       </span>
       
     <div class="postdate">
         <time datetime="2012-06-19T00:28:00.000Z" itemprop="datePublished">2012-06-19</time>
     </div>
 
-
+<br/>
       
     <div class="article-tag">
-        <i class="fas fa-tag"></i>
+        <i class="fas fa-tag" style="margin-top: 20px"></i>
         <a class="tag-link" href="/tags/ListView/">ListView</a>, <a class="tag-link" href="/tags/android/">android</a>, <a class="tag-link" href="/tags/tips/">tips</a>, <a class="tag-link" href="/tags/view/">view</a>
     </div>
 

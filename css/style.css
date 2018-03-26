@@ -659,6 +659,39 @@ body {
     font-size: 1rem;
   }
 }
+#header-post-nav {
+  position: fixed;
+  top: 1.5rem;
+  left: 0;
+  display: inline-block;
+  float: left;
+}
+#header-post-nav a {
+  background: none;
+  color: #2b9e8a;
+  opacity: 0.3;
+  text-decoration: none;
+  font-size: 12px;
+}
+#header-post-nav a:hover {
+  background-image: linear-gradient(transparent, transparent 5px, #9c9c9b 5px, #9c9c9b);
+  background-position: bottom;
+  background-size: 100% 6px;
+  background-repeat: repeat-x;
+  opacity: 1;
+}
+#header-post-nav ol {
+  list-style-type: none;
+}
+#header-post-nav ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+#header-post-nav ul li {
+  margin-left: 30px;
+  vertical-align: middle;
+}
 #header-post {
   position: fixed;
   top: 2rem;
@@ -826,6 +859,9 @@ body {
   #header-post {
     display: none;
   }
+  #header-post-nav {
+    display: none;
+  }
 }
 @media screen and (max-width: 900px) {
   #header-post #menu-icon {
@@ -834,9 +870,15 @@ body {
   #header-post #actions {
     display: none;
   }
+  #header-post-nav {
+    display: none;
+  }
 }
 @media screen and (max-width: 1199px) {
   #header-post #toc {
+    display: none;
+  }
+  #header-post-nav {
     display: none;
   }
 }
@@ -863,36 +905,8 @@ body {
     font-style: italic;
   }
 }
-#header-post-nav {
-  position: fixed;
-  top: 1.5rem;
-  left: 0;
-  display: inline-block;
-  float: left;
-}
-#header-post-nav a {
-  background: none;
-  color: #2b9e8a;
-  text-decoration: none;
-  font-size: 12px;
-}
-#header-post-nav a:hover {
-  background-image: linear-gradient(transparent, transparent 5px, #9c9c9b 5px, #9c9c9b);
-  background-position: bottom;
-  background-size: 100% 6px;
-  background-repeat: repeat-x;
-}
-#header-post-nav ol {
-  list-style-type: none;
-}
-#header-post-nav ul {
-  margin: 0;
-  padding: 0;
-  list-style-type: none;
-}
-#header-post-nav ul li {
-  margin-left: 30px;
-  vertical-align: middle;
+.article-tag {
+  opacity: 0.7;
 }
 #footer-post {
   position: fixed;
@@ -1501,9 +1515,12 @@ code {
 .center-cropped {
   width: 100%;
   height: 0;
-  padding-top: 28%;
-  padding-bottom: 28%;
+  padding-top: 25%;
+  padding-bottom: 25%;
   background-position: center center;
   background-repeat: no-repeat;
   border-radius: 3px;
+}
+div.article-tag:before {
+  content: "";
 }

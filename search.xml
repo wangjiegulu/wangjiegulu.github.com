@@ -2308,13 +2308,13 @@
             
             <tag> android </tag>
             
-            <tag> library </tag>
-            
             <tag> sqlite </tag>
             
             <tag> database </tag>
             
             <tag> orm </tag>
+            
+            <tag> library </tag>
             
             <tag> rapidorm </tag>
             
@@ -2393,7 +2393,7 @@
 </strong></font>
 
 <h1 id="异步-layout-inflation"><a href="#异步-layout-inflation" class="headerlink" title="异步 layout inflation"></a>异步 layout inflation</h1><blockquote>
-<p>原文：<a href="&#109;&#97;&#105;&#x6c;&#x74;&#x6f;&#x3a;&#x68;&#116;&#116;&#x70;&#115;&#58;&#x2f;&#47;&#109;&#x65;&#100;&#x69;&#x75;&#x6d;&#x2e;&#99;&#x6f;&#109;&#x2f;&#64;&#108;&#117;&#112;&#x61;&#x6a;&#122;&#47;&#x61;&#115;&#121;&#110;&#x63;&#104;&#x72;&#111;&#x6e;&#x6f;&#x75;&#115;&#x2d;&#108;&#x61;&#121;&#x6f;&#117;&#116;&#x2d;&#105;&#x6e;&#102;&#108;&#x61;&#x74;&#x69;&#111;&#x6e;&#45;&#x37;&#99;&#98;&#x63;&#x61;&#50;&#54;&#53;&#51;&#98;&#102;&#x23;&#x2e;&#113;&#x32;&#50;&#x76;&#x70;&#x65;&#122;&#x67;&#x34;">&#x68;&#116;&#116;&#x70;&#115;&#58;&#x2f;&#47;&#109;&#x65;&#100;&#x69;&#x75;&#x6d;&#x2e;&#99;&#x6f;&#109;&#x2f;&#64;&#108;&#117;&#112;&#x61;&#x6a;&#122;&#47;&#x61;&#115;&#121;&#110;&#x63;&#104;&#x72;&#111;&#x6e;&#x6f;&#x75;&#115;&#x2d;&#108;&#x61;&#121;&#x6f;&#117;&#116;&#x2d;&#105;&#x6e;&#102;&#108;&#x61;&#x74;&#x69;&#111;&#x6e;&#45;&#x37;&#99;&#98;&#x63;&#x61;&#50;&#54;&#53;&#51;&#98;&#102;&#x23;&#x2e;&#113;&#x32;&#50;&#x76;&#x70;&#x65;&#122;&#x67;&#x34;</a></p>
+<p>原文：<a href="&#x6d;&#x61;&#x69;&#108;&#x74;&#x6f;&#58;&#104;&#116;&#x74;&#112;&#115;&#x3a;&#47;&#47;&#109;&#x65;&#100;&#x69;&#x75;&#x6d;&#x2e;&#x63;&#111;&#109;&#x2f;&#64;&#x6c;&#117;&#112;&#97;&#x6a;&#122;&#x2f;&#97;&#x73;&#121;&#x6e;&#99;&#x68;&#x72;&#x6f;&#x6e;&#111;&#117;&#x73;&#x2d;&#108;&#x61;&#121;&#x6f;&#x75;&#116;&#x2d;&#105;&#x6e;&#x66;&#x6c;&#x61;&#x74;&#x69;&#111;&#110;&#45;&#x37;&#x63;&#x62;&#x63;&#x61;&#50;&#x36;&#x35;&#x33;&#x62;&#102;&#x23;&#x2e;&#x71;&#x32;&#x32;&#x76;&#112;&#x65;&#x7a;&#x67;&#x34;">&#104;&#116;&#x74;&#112;&#115;&#x3a;&#47;&#47;&#109;&#x65;&#100;&#x69;&#x75;&#x6d;&#x2e;&#x63;&#111;&#109;&#x2f;&#64;&#x6c;&#117;&#112;&#97;&#x6a;&#122;&#x2f;&#97;&#x73;&#121;&#x6e;&#99;&#x68;&#x72;&#x6f;&#x6e;&#111;&#117;&#x73;&#x2d;&#108;&#x61;&#121;&#x6f;&#x75;&#116;&#x2d;&#105;&#x6e;&#x66;&#x6c;&#x61;&#x74;&#x69;&#111;&#110;&#45;&#x37;&#x63;&#x62;&#x63;&#x61;&#50;&#x36;&#x35;&#x33;&#x62;&#102;&#x23;&#x2e;&#x71;&#x32;&#x32;&#x76;&#112;&#x65;&#x7a;&#x67;&#x34;</a></p>
 </blockquote>
 <p>随着最近发布的<a href="https://developer.android.com/topic/libraries/support-library/revisions.html" target="_blank" rel="noopener">Android Support Library, revision 24</a>，Google开发者在v4包中增加了一个用来异步inflate layouts的帮助类。</p>
 <h2 id="进入-AsyncLayoutInflater"><a href="#进入-AsyncLayoutInflater" class="headerlink" title="进入 AsyncLayoutInflater"></a>进入 AsyncLayoutInflater</h2><p>你会发现AsyncLayoutInflater可以使用在当你想要去懒加载你应用中部分UI或者用户行为的响应。这个帮助类将会允许你的UI线程在执行繁重的inflate时继续保持响应。</p>
@@ -3558,9 +3558,9 @@ Cookie: ... ...
             
             <tag> android </tag>
             
-            <tag> annotations </tag>
-            
             <tag> unit test </tag>
+            
+            <tag> annotations </tag>
             
             <tag> JUnit </tag>
             
@@ -3613,13 +3613,13 @@ Cookie: ... ...
             
             <tag> android </tag>
             
-            <tag> library </tag>
-            
             <tag> sqlite </tag>
             
             <tag> database </tag>
             
             <tag> orm </tag>
+            
+            <tag> library </tag>
             
             <tag> rapidorm </tag>
             
@@ -4656,9 +4656,9 @@ Cookie: ... ...
             
             <tag> 翻译 </tag>
             
-            <tag> testing </tag>
-            
             <tag> monkey </tag>
+            
+            <tag> testing </tag>
             
             <tag> MonkeyRunner </tag>
             
@@ -4833,9 +4833,9 @@ Cookie: ... ...
             
             <tag> 翻译 </tag>
             
-            <tag> testing </tag>
-            
             <tag> monkey </tag>
+            
+            <tag> testing </tag>
             
             <tag> adb </tag>
             
@@ -6301,13 +6301,13 @@ for (name in names) {
             
             <tag> android </tag>
             
-            <tag> library </tag>
-            
             <tag> sqlite </tag>
             
             <tag> database </tag>
             
             <tag> orm </tag>
+            
+            <tag> library </tag>
             
             <tag> rapidorm </tag>
             
@@ -7966,11 +7966,11 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
         
         <tags>
             
+            <tag> library </tag>
+            
             <tag> android bucket </tag>
             
             <tag> annotations </tag>
-            
-            <tag> library </tag>
             
         </tags>
         
@@ -8256,8 +8256,6 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> android </tag>
             
-            <tag> library </tag>
-            
             <tag> inject </tag>
             
             <tag> sqlite </tag>
@@ -8267,6 +8265,8 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             <tag> database </tag>
             
             <tag> orm </tag>
+            
+            <tag> library </tag>
             
         </tags>
         
@@ -8392,9 +8392,9 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> java </tag>
             
-            <tag> java8 </tag>
-            
             <tag> lambda </tag>
+            
+            <tag> java8 </tag>
             
         </tags>
         
@@ -8613,11 +8613,11 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> java </tag>
             
+            <tag> Hbase </tag>
+            
             <tag> j2ee </tag>
             
             <tag> java web </tag>
-            
-            <tag> Hbase </tag>
             
         </tags>
         
@@ -8802,9 +8802,9 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> android </tag>
             
-            <tag> annotations </tag>
-            
             <tag> library </tag>
+            
+            <tag> annotations </tag>
             
             <tag> proxy </tag>
             
@@ -8877,9 +8877,9 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> android </tag>
             
-            <tag> library </tag>
-            
             <tag> inject </tag>
+            
+            <tag> library </tag>
             
         </tags>
         
@@ -9365,11 +9365,11 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> orm </tag>
             
-            <tag> Hibernate </tag>
-            
             <tag> j2ee </tag>
             
             <tag> java web </tag>
+            
+            <tag> Hibernate </tag>
             
         </tags>
         
@@ -11063,9 +11063,9 @@ Integer.toHexString(Integer.parseInt(&quot;0101&quot;, 2));
             
             <tag> android </tag>
             
-            <tag> view </tag>
-            
             <tag> ListView </tag>
+            
+            <tag> view </tag>
             
             <tag> tips </tag>
             
