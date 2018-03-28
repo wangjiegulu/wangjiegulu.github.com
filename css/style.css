@@ -1098,6 +1098,10 @@ article header .author {
 article header .postdate {
   display: inline;
 }
+article .content {
+  word-wrap: break-word;
+/* http://webdesignerwall.com/tutorials/css-elastic-videos */
+}
 article .content h2:before {
   position: absolute;
   top: -4px;
@@ -1206,7 +1210,7 @@ article .content .caption {
     display: inline;
   }
   .article-tag:before {
-    content: "|";
+    content: "";
   }
 }
 #archive .post-list {
@@ -1520,7 +1524,4 @@ code {
   background-position: center center;
   background-repeat: no-repeat;
   border-radius: 3px;
-}
-div.article-tag:before {
-  content: "";
 }
