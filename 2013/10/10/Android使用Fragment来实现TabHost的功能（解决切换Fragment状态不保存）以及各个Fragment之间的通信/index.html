@@ -6,13 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="以下内容为原创，转载请注明：http://www.cnblogs.com/tiantianbyconan/p/3360938.html  如新浪微博下面的标签切换功能，我以前也写过一篇博文（http://www.cnblogs.com/tiantianbyconan/archive/2012/02/24/2366237.html），可以实现，用的是TabHost。但是android发展比较迅速，T">
+    <meta name="description" content="如新浪微博下面的标签切换功能，我以前也写过一篇博文（http://www.cnblogs.com/tiantianbyconan/archive/2012/02/24/2366237.html），可以实现，用的是TabHost。但是android发展比较迅速，TabHost这玩意现在已经被弃用了，虽说用现在也能用，但是被弃用的东西还是少用为妙。 官方有个FragmentTabHost这么一个替代">
 <meta name="keywords" content="android,fragment,TabHost">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android使用Fragment来实现TabHost的功能（解决切换Fragment状态不保存）以及各个Fragment之间的通信">
 <meta property="og:url" content="http://blog.wangjiegulu.com/2013/10/10/Android使用Fragment来实现TabHost的功能（解决切换Fragment状态不保存）以及各个Fragment之间的通信/index.html">
 <meta property="og:site_name" content="Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer">
-<meta property="og:description" content="以下内容为原创，转载请注明：http://www.cnblogs.com/tiantianbyconan/p/3360938.html  如新浪微博下面的标签切换功能，我以前也写过一篇博文（http://www.cnblogs.com/tiantianbyconan/archive/2012/02/24/2366237.html），可以实现，用的是TabHost。但是android发展比较迅速，T">
+<meta property="og:description" content="如新浪微博下面的标签切换功能，我以前也写过一篇博文（http://www.cnblogs.com/tiantianbyconan/archive/2012/02/24/2366237.html），可以实现，用的是TabHost。但是android发展比较迅速，TabHost这玩意现在已经被弃用了，虽说用现在也能用，但是被弃用的东西还是少用为妙。 官方有个FragmentTabHost这么一个替代">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://images.cnitblog.com/blog/378300/201310/10104944-40b5dbc296894475bdaf8914a59d0498.png">
 <meta property="og:image" content="http://images.cnitblog.com/blog/378300/201310/10110710-b8f18222f40441d4b46f9ae54fc2c83f.jpg">
@@ -27,10 +27,10 @@
 <meta property="og:image" content="http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif">
 <meta property="og:image" content="http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif">
 <meta property="og:image" content="http://images.cnitblog.com/blog/378300/201310/10114324-42b27a496916463e91d7400c5c3d1884.png">
-<meta property="og:updated_time" content="2018-01-30T03:27:46.000Z">
+<meta property="og:updated_time" content="2018-03-29T06:29:24.249Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android使用Fragment来实现TabHost的功能（解决切换Fragment状态不保存）以及各个Fragment之间的通信">
-<meta name="twitter:description" content="以下内容为原创，转载请注明：http://www.cnblogs.com/tiantianbyconan/p/3360938.html  如新浪微博下面的标签切换功能，我以前也写过一篇博文（http://www.cnblogs.com/tiantianbyconan/archive/2012/02/24/2366237.html），可以实现，用的是TabHost。但是android发展比较迅速，T">
+<meta name="twitter:description" content="如新浪微博下面的标签切换功能，我以前也写过一篇博文（http://www.cnblogs.com/tiantianbyconan/archive/2012/02/24/2366237.html），可以实现，用的是TabHost。但是android发展比较迅速，TabHost这玩意现在已经被弃用了，虽说用现在也能用，但是被弃用的东西还是少用为妙。 官方有个FragmentTabHost这么一个替代">
 <meta name="twitter:image" content="http://images.cnitblog.com/blog/378300/201310/10104944-40b5dbc296894475bdaf8914a59d0498.png">
     
     
@@ -177,8 +177,7 @@
     
     
 
-    <p><strong><span style="color: #ff0000;">以下内容为原创，转载请注明：<a href="http://www.cnblogs.com/tiantianbyconan/p/3360938.html" target="_blank" rel="noopener"><span style="color: #ff0000;">http://www.cnblogs.com/tiantianbyconan/p/3360938.html</span></a></span></strong></p>
-<p><img src="http://images.cnitblog.com/blog/378300/201310/10104944-40b5dbc296894475bdaf8914a59d0498.png" alt=""></p>
+    <p><img src="http://images.cnitblog.com/blog/378300/201310/10104944-40b5dbc296894475bdaf8914a59d0498.png" alt=""></p>
 <p>如新浪微博下面的标签切换功能，我以前也写过一篇博文（<a href="http://www.cnblogs.com/tiantianbyconan/archive/2012/02/24/2366237.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/archive/2012/02/24/2366237.html</a>），可以实现，用的是TabHost。但是android发展比较迅速，TabHost这玩意现在已经被弃用了，虽说用现在也能用，但是被弃用的东西还是少用为妙。</p>
 <p>官方有个FragmentTabHost这么一个替代品，于是试了一下，发现每次切换tab，都会调用<span>onCreateView()方法，控件被重新加载，也就是说你从tab1切换到别的tab后，再切换回来，tab1的状态并没有保存，重新加载了控件。</span></p>
 <p><span>搞了半天，暂时没有好的解决办法（有朋友知道解决办法的话，希望联系我，赐教下哈）</span></p>

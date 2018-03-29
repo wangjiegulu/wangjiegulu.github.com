@@ -6,18 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/7286503.html   通过View的View::focusSearch进行焦点搜索对应方向上的下一个可以获取焦点的View：">
+    <meta name="description" content="通过View的View::focusSearch进行焦点搜索对应方向上的下一个可以获取焦点的View：">
 <meta name="keywords" content="android,source code,focus">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android焦点流程代码分析">
 <meta property="og:url" content="http://blog.wangjiegulu.com/2017/08/04/Android-Android焦点流程代码分析/index.html">
 <meta property="og:site_name" content="Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer">
-<meta property="og:description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/7286503.html   通过View的View::focusSearch进行焦点搜索对应方向上的下一个可以获取焦点的View：">
+<meta property="og:description" content="通过View的View::focusSearch进行焦点搜索对应方向上的下一个可以获取焦点的View：">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-01-31T05:36:44.000Z">
+<meta property="og:updated_time" content="2018-03-29T06:24:05.727Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android焦点流程代码分析">
-<meta name="twitter:description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/7286503.html   通过View的View::focusSearch进行焦点搜索对应方向上的下一个可以获取焦点的View：">
+<meta name="twitter:description" content="通过View的View::focusSearch进行焦点搜索对应方向上的下一个可以获取焦点的View：">
     
     
         
@@ -115,10 +115,7 @@
   <li><a class="icon" href="http://reddit.com/submit?url=http://blog.wangjiegulu.com/2017/08/04/Android-Android焦点流程代码分析/&title=Android焦点流程代码分析"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
   <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://blog.wangjiegulu.com/2017/08/04/Android-Android焦点流程代码分析/&title=Android焦点流程代码分析"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
   <li><a class="icon" href="http://digg.com/submit?url=http://blog.wangjiegulu.com/2017/08/04/Android-Android焦点流程代码分析/&title=Android焦点流程代码分析"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.wangjiegulu.com/2017/08/04/Android-Android焦点流程代码分析/&name=Android焦点流程代码分析&description=&lt;font color=&#34;#ff0000&#34;&gt;&lt;strong&gt;&lt;br&gt;以下内容为原创，欢迎转载，转载请注明&lt;br&gt;来自天天博客：&lt;a href=&#34;http://www.cnblogs.com/tiantianbyconan/p/7286503.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;http://www.cnblogs.com/tiantianbyconan/p/7286503.html&lt;/a&gt;
-&lt;/strong&gt;&lt;/font&gt;
-
-&lt;p&gt;通过View的&lt;code&gt;View::focusSearch&lt;/code&gt;进行焦点搜索对应方向上的下一个可以获取焦点的View：&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.wangjiegulu.com/2017/08/04/Android-Android焦点流程代码分析/&name=Android焦点流程代码分析&description=&lt;p&gt;通过View的&lt;code&gt;View::focusSearch&lt;/code&gt;进行焦点搜索对应方向上的下一个可以获取焦点的View：&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -166,10 +163,7 @@
     
     
 
-    <font color="#ff0000"><strong><br>以下内容为原创，欢迎转载，转载请注明<br>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/7286503.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/7286503.html</a>
-</strong></font>
-
-<p>通过View的<code>View::focusSearch</code>进行焦点搜索对应方向上的下一个可以获取焦点的View：</p>
+    <p>通过View的<code>View::focusSearch</code>进行焦点搜索对应方向上的下一个可以获取焦点的View：</p>
 <a id="more"></a>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> View <span class="title">focusSearch</span><span class="params">(@FocusRealDirection <span class="keyword">int</span> direction)</span> </span>&#123;</span><br><span class="line">   <span class="keyword">if</span> (mParent != <span class="keyword">null</span>) &#123;</span><br><span class="line">       <span class="keyword">return</span> mParent.focusSearch(<span class="keyword">this</span>, direction);</span><br><span class="line">   &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><span id="focusSearch"><br>不断地调用父控件来进行搜索，focusSearch有两个实现：<code>ViewGroup</code>和<code>RecyclerView</code>，先看<code>ViewGroup</code>：</span></p>
@@ -296,10 +290,7 @@
   <li><a class="icon" href="http://reddit.com/submit?url=http://blog.wangjiegulu.com/2017/08/04/Android-Android焦点流程代码分析/&title=Android焦点流程代码分析"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
   <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://blog.wangjiegulu.com/2017/08/04/Android-Android焦点流程代码分析/&title=Android焦点流程代码分析"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
   <li><a class="icon" href="http://digg.com/submit?url=http://blog.wangjiegulu.com/2017/08/04/Android-Android焦点流程代码分析/&title=Android焦点流程代码分析"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.wangjiegulu.com/2017/08/04/Android-Android焦点流程代码分析/&name=Android焦点流程代码分析&description=&lt;font color=&#34;#ff0000&#34;&gt;&lt;strong&gt;&lt;br&gt;以下内容为原创，欢迎转载，转载请注明&lt;br&gt;来自天天博客：&lt;a href=&#34;http://www.cnblogs.com/tiantianbyconan/p/7286503.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;http://www.cnblogs.com/tiantianbyconan/p/7286503.html&lt;/a&gt;
-&lt;/strong&gt;&lt;/font&gt;
-
-&lt;p&gt;通过View的&lt;code&gt;View::focusSearch&lt;/code&gt;进行焦点搜索对应方向上的下一个可以获取焦点的View：&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.wangjiegulu.com/2017/08/04/Android-Android焦点流程代码分析/&name=Android焦点流程代码分析&description=&lt;p&gt;通过View的&lt;code&gt;View::focusSearch&lt;/code&gt;进行焦点搜索对应方向上的下一个可以获取焦点的View：&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>

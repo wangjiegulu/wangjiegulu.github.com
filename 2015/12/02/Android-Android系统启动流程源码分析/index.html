@@ -6,18 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/5013863.html   Android系统启动流程源码分析首先我们知道，Android是基于Linux的，当Linux内核加载完成时就会自动启动一个init的进程。又因为我们每当我们启动一个App时，就会生成一个新的dalvik实例，并处于一个新的进程（当然一个">
+    <meta name="description" content="Android系统启动流程源码分析首先我们知道，Android是基于Linux的，当Linux内核加载完成时就会自动启动一个init的进程。又因为我们每当我们启动一个App时，就会生成一个新的dalvik实例，并处于一个新的进程（当然一个App也可能是多进程的）。当我们打开第一个App的时候，就会通过init进程fork出一个zygote进程。之后打开新的App的时候都会fork之前的zygote">
 <meta name="keywords" content="android,launcher,source code,system,linux,process">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Android]Android系统启动流程源码分析">
 <meta property="og:url" content="http://blog.wangjiegulu.com/2015/12/02/Android-Android系统启动流程源码分析/index.html">
 <meta property="og:site_name" content="Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer">
-<meta property="og:description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/5013863.html   Android系统启动流程源码分析首先我们知道，Android是基于Linux的，当Linux内核加载完成时就会自动启动一个init的进程。又因为我们每当我们启动一个App时，就会生成一个新的dalvik实例，并处于一个新的进程（当然一个">
+<meta property="og:description" content="Android系统启动流程源码分析首先我们知道，Android是基于Linux的，当Linux内核加载完成时就会自动启动一个init的进程。又因为我们每当我们启动一个App时，就会生成一个新的dalvik实例，并处于一个新的进程（当然一个App也可能是多进程的）。当我们打开第一个App的时候，就会通过init进程fork出一个zygote进程。之后打开新的App的时候都会fork之前的zygote">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-01-30T03:10:12.000Z">
+<meta property="og:updated_time" content="2018-03-29T06:28:16.119Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[Android]Android系统启动流程源码分析">
-<meta name="twitter:description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/5013863.html   Android系统启动流程源码分析首先我们知道，Android是基于Linux的，当Linux内核加载完成时就会自动启动一个init的进程。又因为我们每当我们启动一个App时，就会生成一个新的dalvik实例，并处于一个新的进程（当然一个">
+<meta name="twitter:description" content="Android系统启动流程源码分析首先我们知道，Android是基于Linux的，当Linux内核加载完成时就会自动启动一个init的进程。又因为我们每当我们启动一个App时，就会生成一个新的dalvik实例，并处于一个新的进程（当然一个App也可能是多进程的）。当我们打开第一个App的时候，就会通过init进程fork出一个zygote进程。之后打开新的App的时候都会fork之前的zygote">
     
     
         
@@ -163,10 +163,7 @@
     
     
 
-    <font color="#ff0000"><strong><br>以下内容为原创，欢迎转载，转载请注明<br>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/5013863.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/5013863.html</a>
-</strong></font>
-
-<h3 id="Android系统启动流程源码分析"><a href="#Android系统启动流程源码分析" class="headerlink" title="Android系统启动流程源码分析"></a>Android系统启动流程源码分析</h3><p>首先我们知道，<code>Android</code>是基于<code>Linux</code>的，当<code>Linux</code>内核加载完成时就会自动启动一个<code>init</code>的进程。<br>又因为我们每当我们启动一个App时，就会生成一个新的<code>dalvik</code>实例，并处于一个新的进程（当然一个App也可能是多进程的）。<br>当我们打开第一个App的时候，就会通过<code>init</code>进程fork出一个<code>zygote</code>进程。之后打开新的App的时候都会<code>fork</code>之前的<code>zygote</code>进程。</p>
+    <h3 id="Android系统启动流程源码分析"><a href="#Android系统启动流程源码分析" class="headerlink" title="Android系统启动流程源码分析"></a>Android系统启动流程源码分析</h3><p>首先我们知道，<code>Android</code>是基于<code>Linux</code>的，当<code>Linux</code>内核加载完成时就会自动启动一个<code>init</code>的进程。<br>又因为我们每当我们启动一个App时，就会生成一个新的<code>dalvik</code>实例，并处于一个新的进程（当然一个App也可能是多进程的）。<br>当我们打开第一个App的时候，就会通过<code>init</code>进程fork出一个<code>zygote</code>进程。之后打开新的App的时候都会<code>fork</code>之前的<code>zygote</code>进程。</p>
 <p>当<code>fork</code>一个<code>zygote</code>进程时，会进入<code>com.android.internal.os.ZygoteInit</code>的<code>main</code>方法进行初始化操作：</p>
 <ul>
 <li><p>预加载资源</p>

@@ -6,18 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="转载请注明：http://www.cnblogs.com/tiantianbyconan/p/3396595.html Java Native Interface (JNI)标准是java平台的一部分，它允许Java代码和其他语言写的代码进行交互。JNI 是本地编程接口，它使得在 Java 虚拟机 (VM) 内部运行的 Java 代码能够与用其它编程语言(如 C、C++ 和汇编语言)编写的应用程序">
+    <meta name="description" content="Java Native Interface (JNI)标准是java平台的一部分，它允许Java代码和其他语言写的代码进行交互。JNI 是本地编程接口，它使得在 Java 虚拟机 (VM) 内部运行的 Java 代码能够与用其它编程语言(如 C、C++ 和汇编语言)编写的应用程序和库进行交互操作。 1. 下载NDK（http://developer.android.com/tools/sdk/nd">
 <meta name="keywords" content="android,ndk,jni">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android NDK环境搭建及调用JNI的简单步骤">
 <meta property="og:url" content="http://blog.wangjiegulu.com/2013/10/30/Android-NDK环境搭建及调用JNI的简单步骤/index.html">
 <meta property="og:site_name" content="Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer">
-<meta property="og:description" content="转载请注明：http://www.cnblogs.com/tiantianbyconan/p/3396595.html Java Native Interface (JNI)标准是java平台的一部分，它允许Java代码和其他语言写的代码进行交互。JNI 是本地编程接口，它使得在 Java 虚拟机 (VM) 内部运行的 Java 代码能够与用其它编程语言(如 C、C++ 和汇编语言)编写的应用程序">
+<meta property="og:description" content="Java Native Interface (JNI)标准是java平台的一部分，它允许Java代码和其他语言写的代码进行交互。JNI 是本地编程接口，它使得在 Java 虚拟机 (VM) 内部运行的 Java 代码能够与用其它编程语言(如 C、C++ 和汇编语言)编写的应用程序和库进行交互操作。 1. 下载NDK（http://developer.android.com/tools/sdk/nd">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-01-30T03:13:12.000Z">
+<meta property="og:updated_time" content="2018-03-29T06:29:53.140Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android NDK环境搭建及调用JNI的简单步骤">
-<meta name="twitter:description" content="转载请注明：http://www.cnblogs.com/tiantianbyconan/p/3396595.html Java Native Interface (JNI)标准是java平台的一部分，它允许Java代码和其他语言写的代码进行交互。JNI 是本地编程接口，它使得在 Java 虚拟机 (VM) 内部运行的 Java 代码能够与用其它编程语言(如 C、C++ 和汇编语言)编写的应用程序">
+<meta name="twitter:description" content="Java Native Interface (JNI)标准是java平台的一部分，它允许Java代码和其他语言写的代码进行交互。JNI 是本地编程接口，它使得在 Java 虚拟机 (VM) 内部运行的 Java 代码能够与用其它编程语言(如 C、C++ 和汇编语言)编写的应用程序和库进行交互操作。 1. 下载NDK（http://developer.android.com/tools/sdk/nd">
     
     
         
@@ -163,8 +163,7 @@
     
     
 
-    <p><strong><span style="color: #ff0000;">转载请注明：<a href="http://www.cnblogs.com/tiantianbyconan/p/3396595.html" target="_blank" rel="noopener"><span style="color: #ff0000;">http://www.cnblogs.com/tiantianbyconan/p/3396595.html</span></a></span></strong></p>
-<p><span>Java Native Interface (JNI)标准是java平台的一部分，它允许Java代码和其他语言写的代码进行交互。JNI 是本地编程接口，它使得在 Java 虚拟机 (VM) 内部运行的 Java 代码能够与用其它编程语言(如 C、C++ 和汇编语言)编写的应用程序和库进行交互操作。</span></p>
+    <p><span>Java Native Interface (JNI)标准是java平台的一部分，它允许Java代码和其他语言写的代码进行交互。JNI 是本地编程接口，它使得在 Java 虚拟机 (VM) 内部运行的 Java 代码能够与用其它编程语言(如 C、C++ 和汇编语言)编写的应用程序和库进行交互操作。</span></p>
 <p>1. 下载NDK（<a href="http://developer.android.com/tools/sdk/ndk/index.html" target="_blank" rel="noopener">http://developer.android.com/tools/sdk/ndk/index.html</a>），并解压，配置Path路径</p>
 <p>&nbsp;</p>
 <p>2. 在项目中新建一个名为jni的文件夹，在jni中新增Android.mk文件，文件内容如下：</p>

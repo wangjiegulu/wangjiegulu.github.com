@@ -6,18 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/5017056.html   从Launcher开始启动App流程源码分析com.android.launcher.Launcher就是我们的Launcher页面了，可以看到Launcher其实也是一个Activity： 123public final class L">
+    <meta name="description" content="从Launcher开始启动App流程源码分析com.android.launcher.Launcher就是我们的Launcher页面了，可以看到Launcher其实也是一个Activity： 123public final class Launcher extends Activity implements View.OnClickListener, OnLongClickListener &amp;#1">
 <meta name="keywords" content="android,launcher,source code">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Android]从Launcher开始启动App流程源码分析">
 <meta property="og:url" content="http://blog.wangjiegulu.com/2015/12/03/Android-从Launcher开始启动App流程源码分析/index.html">
 <meta property="og:site_name" content="Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer">
-<meta property="og:description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/5017056.html   从Launcher开始启动App流程源码分析com.android.launcher.Launcher就是我们的Launcher页面了，可以看到Launcher其实也是一个Activity： 123public final class L">
+<meta property="og:description" content="从Launcher开始启动App流程源码分析com.android.launcher.Launcher就是我们的Launcher页面了，可以看到Launcher其实也是一个Activity： 123public final class Launcher extends Activity implements View.OnClickListener, OnLongClickListener &amp;#1">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-01-30T03:15:07.000Z">
+<meta property="og:updated_time" content="2018-03-29T06:26:15.014Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[Android]从Launcher开始启动App流程源码分析">
-<meta name="twitter:description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/5017056.html   从Launcher开始启动App流程源码分析com.android.launcher.Launcher就是我们的Launcher页面了，可以看到Launcher其实也是一个Activity： 123public final class L">
+<meta name="twitter:description" content="从Launcher开始启动App流程源码分析com.android.launcher.Launcher就是我们的Launcher页面了，可以看到Launcher其实也是一个Activity： 123public final class Launcher extends Activity implements View.OnClickListener, OnLongClickListener &amp;#1">
     
     
         
@@ -163,10 +163,7 @@
     
     
 
-    <font color="#ff0000"><strong><br>以下内容为原创，欢迎转载，转载请注明<br>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/5017056.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/5017056.html</a>
-</strong></font>
-
-<h2 id="从Launcher开始启动App流程源码分析"><a href="#从Launcher开始启动App流程源码分析" class="headerlink" title="从Launcher开始启动App流程源码分析"></a>从Launcher开始启动App流程源码分析</h2><p><code>com.android.launcher.Launcher</code>就是我们的Launcher页面了，可以看到Launcher其实也是一个<code>Activity</code>：</p>
+    <h2 id="从Launcher开始启动App流程源码分析"><a href="#从Launcher开始启动App流程源码分析" class="headerlink" title="从Launcher开始启动App流程源码分析"></a>从Launcher开始启动App流程源码分析</h2><p><code>com.android.launcher.Launcher</code>就是我们的Launcher页面了，可以看到Launcher其实也是一个<code>Activity</code>：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Launcher</span> <span class="keyword">extends</span> <span class="title">Activity</span> <span class="keyword">implements</span> <span class="title">View</span>.<span class="title">OnClickListener</span>, <span class="title">OnLongClickListener</span> </span>&#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>既然是<code>Activity</code>，那当然也会有<code>onCreate</code>、<code>onResume</code>等生命周期了，按照逻辑，应该会去加载所有App，以网格的布局显示在页面上，果然，在<code>onResume</code>看到了这个方法：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onResume</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.onResume();</span><br><span class="line">    <span class="keyword">if</span> (mRestoring) &#123;</span><br><span class="line">        startLoaders();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>

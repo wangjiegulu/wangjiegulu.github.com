@@ -6,21 +6,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/6234811.html   使用Dagger 2进行依赖注入 - Producers 原文：http://frogermcs.github.io/dependency-injection-with-dagger-2-producers/  本文是在Android中使">
+    <meta name="description" content="使用Dagger 2进行依赖注入 - Producers 原文：http://frogermcs.github.io/dependency-injection-with-dagger-2-producers/  本文是在Android中使用Dagger 2框架进行依赖注入的系列文章中的一部分。今天我们将探索下Dagger Producers - 使用Java实现异步依赖注入的Dagger2的一个扩">
 <meta name="keywords" content="android,dependency injection,翻译,dagger2,DI,google">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用Dagger 2进行依赖注入 - Producers（翻译）">
 <meta property="og:url" content="http://blog.wangjiegulu.com/2016/12/29/Android-使用Dagger-2进行依赖注入-Producers（翻译）/index.html">
 <meta property="og:site_name" content="Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer">
-<meta property="og:description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/6234811.html   使用Dagger 2进行依赖注入 - Producers 原文：http://frogermcs.github.io/dependency-injection-with-dagger-2-producers/  本文是在Android中使">
+<meta property="og:description" content="使用Dagger 2进行依赖注入 - Producers 原文：http://frogermcs.github.io/dependency-injection-with-dagger-2-producers/  本文是在Android中使用Dagger 2框架进行依赖注入的系列文章中的一部分。今天我们将探索下Dagger Producers - 使用Java实现异步依赖注入的Dagger2的一个扩">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://frogermcs.github.io/images/24/example_dependencies.png">
 <meta property="og:image" content="http://frogermcs.github.io/images/24/before_update.png">
 <meta property="og:image" content="http://frogermcs.github.io/images/24/after_update.png">
-<meta property="og:updated_time" content="2018-01-31T05:38:04.000Z">
+<meta property="og:updated_time" content="2018-03-29T06:25:26.031Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用Dagger 2进行依赖注入 - Producers（翻译）">
-<meta name="twitter:description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/6234811.html   使用Dagger 2进行依赖注入 - Producers 原文：http://frogermcs.github.io/dependency-injection-with-dagger-2-producers/  本文是在Android中使">
+<meta name="twitter:description" content="使用Dagger 2进行依赖注入 - Producers 原文：http://frogermcs.github.io/dependency-injection-with-dagger-2-producers/  本文是在Android中使用Dagger 2框架进行依赖注入的系列文章中的一部分。今天我们将探索下Dagger Producers - 使用Java实现异步依赖注入的Dagger2的一个扩">
 <meta name="twitter:image" content="http://frogermcs.github.io/images/24/example_dependencies.png">
     
     
@@ -167,10 +167,7 @@
     
     
 
-    <font color="#ff0000"><strong><br>以下内容为原创，欢迎转载，转载请注明<br>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/6234811.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/6234811.html</a>
-</strong></font>
-
-<h1 id="使用Dagger-2进行依赖注入-Producers"><a href="#使用Dagger-2进行依赖注入-Producers" class="headerlink" title="使用Dagger 2进行依赖注入 - Producers"></a>使用Dagger 2进行依赖注入 - Producers</h1><blockquote>
+    <h1 id="使用Dagger-2进行依赖注入-Producers"><a href="#使用Dagger-2进行依赖注入-Producers" class="headerlink" title="使用Dagger 2进行依赖注入 - Producers"></a>使用Dagger 2进行依赖注入 - Producers</h1><blockquote>
 <p>原文：<a href="http://frogermcs.github.io/dependency-injection-with-dagger-2-producers/" target="_blank" rel="noopener">http://frogermcs.github.io/dependency-injection-with-dagger-2-producers/</a></p>
 </blockquote>
 <p>本文是在Android中使用Dagger 2框架进行依赖注入的系列文章中的一部分。今天我们将探索下Dagger Producers - 使用Java实现异步依赖注入的Dagger2的一个扩展。</p>

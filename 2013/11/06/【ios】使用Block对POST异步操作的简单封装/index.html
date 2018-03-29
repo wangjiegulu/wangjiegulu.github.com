@@ -6,20 +6,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="以下内容为原创，欢迎转载，转载请注明 来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/3409721.html 一般情况下的POST异步操作需要实现以下几步： 1. 在controller.h上实现&amp;lt;NSURLConnectionDataDelegate&amp;gt;协议 2. 实现协议的几个方法，  (void)connection:(NSURLC">
+    <meta name="description" content="一般情况下的POST异步操作需要实现以下几步： 1. 在controller.h上实现&amp;lt;NSURLConnectionDataDelegate&amp;gt;协议 2. 实现协议的几个方法，  (void)connection:(NSURLConnection )connection didReceiveResponse:(NSURLResponse )response  (void)connect">
 <meta name="keywords" content="iOS,block,post">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【ios】使用Block对POST异步操作的简单封装">
 <meta property="og:url" content="http://blog.wangjiegulu.com/2013/11/06/【ios】使用Block对POST异步操作的简单封装/index.html">
 <meta property="og:site_name" content="Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer">
-<meta property="og:description" content="以下内容为原创，欢迎转载，转载请注明 来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/3409721.html 一般情况下的POST异步操作需要实现以下几步： 1. 在controller.h上实现&amp;lt;NSURLConnectionDataDelegate&amp;gt;协议 2. 实现协议的几个方法，  (void)connection:(NSURLC">
+<meta property="og:description" content="一般情况下的POST异步操作需要实现以下几步： 1. 在controller.h上实现&amp;lt;NSURLConnectionDataDelegate&amp;gt;协议 2. 实现协议的几个方法，  (void)connection:(NSURLConnection )connection didReceiveResponse:(NSURLResponse )response  (void)connect">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif">
 <meta property="og:image" content="http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif">
-<meta property="og:updated_time" content="2018-01-30T03:44:21.000Z">
+<meta property="og:updated_time" content="2018-03-29T06:31:04.202Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【ios】使用Block对POST异步操作的简单封装">
-<meta name="twitter:description" content="以下内容为原创，欢迎转载，转载请注明 来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/3409721.html 一般情况下的POST异步操作需要实现以下几步： 1. 在controller.h上实现&amp;lt;NSURLConnectionDataDelegate&amp;gt;协议 2. 实现协议的几个方法，  (void)connection:(NSURLC">
+<meta name="twitter:description" content="一般情况下的POST异步操作需要实现以下几步： 1. 在controller.h上实现&amp;lt;NSURLConnectionDataDelegate&amp;gt;协议 2. 实现协议的几个方法，  (void)connection:(NSURLConnection )connection didReceiveResponse:(NSURLResponse )response  (void)connect">
 <meta name="twitter:image" content="http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif">
     
     
@@ -166,9 +166,7 @@
     
     
 
-    <p><span style="color: #ff0000;"><strong>以下内容为原创，欢迎转载，转载请注明</strong></span></p>
-<p><span style="color: #ff0000;"><strong>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/3409721.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/3409721.html</a></strong></span></p>
-<p>一般情况下的POST异步操作需要实现以下几步：</p>
+    <p>一般情况下的POST异步操作需要实现以下几步：</p>
 <p>1. 在controller.h上实现&lt;NSURLConnectionDataDelegate&gt;协议</p>
 <p>2. 实现协议的几个方法，</p>
 <ul>

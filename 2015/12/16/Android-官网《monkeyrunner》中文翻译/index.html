@@ -6,18 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/5050768.html   翻译自 Android Developer 官网：http://developer.android.com/tools/help/monkeyrunner_concepts.html monkeyrunnermonkeyrunner工具提">
+    <meta name="description" content="翻译自 Android Developer 官网：http://developer.android.com/tools/help/monkeyrunner_concepts.html monkeyrunnermonkeyrunner工具提供了一套API，在不通过Android代码的情况下编写程序来控制一个Android设备或者模拟器。使用monkeyrunner，你可以编写一个Python程序来安">
 <meta name="keywords" content="android,翻译,testing,monkey,MonkeyRunner,autemate">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Android]官网《monkeyrunner》中文翻译">
 <meta property="og:url" content="http://blog.wangjiegulu.com/2015/12/16/Android-官网《monkeyrunner》中文翻译/index.html">
 <meta property="og:site_name" content="Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer">
-<meta property="og:description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/5050768.html   翻译自 Android Developer 官网：http://developer.android.com/tools/help/monkeyrunner_concepts.html monkeyrunnermonkeyrunner工具提">
+<meta property="og:description" content="翻译自 Android Developer 官网：http://developer.android.com/tools/help/monkeyrunner_concepts.html monkeyrunnermonkeyrunner工具提供了一套API，在不通过Android代码的情况下编写程序来控制一个Android设备或者模拟器。使用monkeyrunner，你可以编写一个Python程序来安">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-01-30T03:21:37.000Z">
+<meta property="og:updated_time" content="2018-03-29T06:28:44.121Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[Android]官网《monkeyrunner》中文翻译">
-<meta name="twitter:description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/5050768.html   翻译自 Android Developer 官网：http://developer.android.com/tools/help/monkeyrunner_concepts.html monkeyrunnermonkeyrunner工具提">
+<meta name="twitter:description" content="翻译自 Android Developer 官网：http://developer.android.com/tools/help/monkeyrunner_concepts.html monkeyrunnermonkeyrunner工具提供了一套API，在不通过Android代码的情况下编写程序来控制一个Android设备或者模拟器。使用monkeyrunner，你可以编写一个Python程序来安">
     
     
         
@@ -163,10 +163,7 @@
     
     
 
-    <font color="#ff0000"><strong><br>以下内容为原创，欢迎转载，转载请注明<br>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/5050768.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/5050768.html</a>
-</strong></font>
-
-<p>翻译自 Android Developer 官网：<a href="http://developer.android.com/tools/help/monkeyrunner_concepts.html" target="_blank" rel="noopener">http://developer.android.com/tools/help/monkeyrunner_concepts.html</a></p>
+    <p>翻译自 Android Developer 官网：<a href="http://developer.android.com/tools/help/monkeyrunner_concepts.html" target="_blank" rel="noopener">http://developer.android.com/tools/help/monkeyrunner_concepts.html</a></p>
 <h1 id="monkeyrunner"><a href="#monkeyrunner" class="headerlink" title="monkeyrunner"></a>monkeyrunner</h1><p>monkeyrunner工具提供了一套API，在不通过Android代码的情况下编写程序来控制一个Android设备或者模拟器。使用monkeyrunner，你可以编写一个<code>Python</code>程序来安装一个Android应用程序或者测试包，运行它，给它发送按键，使用它的interface来创建一个截图，并保存在工作站上。monkeytunner工具主要是被设计用来在功能/框架级别测试应用程序和设备，并运行单元测试套件，但是你也可以使用它来达到其它的目的。</p>
 <p>Monkeyrunner工具与也被称为<code>monkey</code>的<a href="http://developer.android.com/tools/help/monkey.html" target="_blank" rel="noopener">UI/Application Exerciser Monkey</a>没有任何关系。<code>Monkey</code>工具是直接在<code>adb</code> shell中运行，通过在设备或者模拟器中产生伪随机流的用户和系统事件的方式。比较之下，monkeyrunner工具在一个工作站中通过API发送指定的命令和事件来控制设备和模拟器。</p>
 <p>monkeyrunner工具提供了以下这些在Android测试中独一无二的特性：</p>

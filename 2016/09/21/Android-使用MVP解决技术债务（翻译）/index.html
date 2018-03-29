@@ -6,18 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/5892671.html   使用MVP解决技术债务 原文：https://medium.com/picnic-engineering/tackling-technical-debt-with-mvp-67e805ed5103#.couu0d5i0  免责申明：这篇博">
+    <meta name="description" content="使用MVP解决技术债务 原文：https://medium.com/picnic-engineering/tackling-technical-debt-with-mvp-67e805ed5103#.couu0d5i0  免责申明：这篇博客并不是讲关于怎么使用MVP的方式（上帝知道关于这些已经太多了）去写Android代码。而仅仅是我的个人经验，关于怎么转换我们的表现层到MVP架构来帮助我们解决一">
 <meta name="keywords" content="android,mvp,framework,technical debt">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Android]使用MVP解决技术债务（翻译）">
 <meta property="og:url" content="http://blog.wangjiegulu.com/2016/09/21/Android-使用MVP解决技术债务（翻译）/index.html">
 <meta property="og:site_name" content="Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer">
-<meta property="og:description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/5892671.html   使用MVP解决技术债务 原文：https://medium.com/picnic-engineering/tackling-technical-debt-with-mvp-67e805ed5103#.couu0d5i0  免责申明：这篇博">
+<meta property="og:description" content="使用MVP解决技术债务 原文：https://medium.com/picnic-engineering/tackling-technical-debt-with-mvp-67e805ed5103#.couu0d5i0  免责申明：这篇博客并不是讲关于怎么使用MVP的方式（上帝知道关于这些已经太多了）去写Android代码。而仅仅是我的个人经验，关于怎么转换我们的表现层到MVP架构来帮助我们解决一">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-01-30T03:18:31.000Z">
+<meta property="og:updated_time" content="2018-03-29T06:28:49.441Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[Android]使用MVP解决技术债务（翻译）">
-<meta name="twitter:description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/5892671.html   使用MVP解决技术债务 原文：https://medium.com/picnic-engineering/tackling-technical-debt-with-mvp-67e805ed5103#.couu0d5i0  免责申明：这篇博">
+<meta name="twitter:description" content="使用MVP解决技术债务 原文：https://medium.com/picnic-engineering/tackling-technical-debt-with-mvp-67e805ed5103#.couu0d5i0  免责申明：这篇博客并不是讲关于怎么使用MVP的方式（上帝知道关于这些已经太多了）去写Android代码。而仅仅是我的个人经验，关于怎么转换我们的表现层到MVP架构来帮助我们解决一">
     
     
         
@@ -163,10 +163,7 @@
     
     
 
-    <font color="#ff0000"><strong><br>以下内容为原创，欢迎转载，转载请注明<br>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/5892671.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/5892671.html</a>
-</strong></font>
-
-<h1 id="使用MVP解决技术债务"><a href="#使用MVP解决技术债务" class="headerlink" title="使用MVP解决技术债务"></a>使用MVP解决技术债务</h1><blockquote>
+    <h1 id="使用MVP解决技术债务"><a href="#使用MVP解决技术债务" class="headerlink" title="使用MVP解决技术债务"></a>使用MVP解决技术债务</h1><blockquote>
 <p>原文：<a href="https://medium.com/picnic-engineering/tackling-technical-debt-with-mvp-67e805ed5103#.couu0d5i0" target="_blank" rel="noopener">https://medium.com/picnic-engineering/tackling-technical-debt-with-mvp-67e805ed5103#.couu0d5i0</a></p>
 </blockquote>
 <p>免责申明：这篇博客并不是讲关于怎么使用MVP的方式（上帝知道关于这些已经太多了）去写Android代码。而仅仅是我的个人经验，关于怎么转换我们的表现层到MVP架构来帮助我们解决一些累积的技术债务，而且在这个过程中也会帮助我们的app从一个原型转变成一个更具维护性的产品。</p>

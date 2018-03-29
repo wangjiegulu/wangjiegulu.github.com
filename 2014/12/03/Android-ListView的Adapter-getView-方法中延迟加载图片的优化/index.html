@@ -6,18 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="以下内容为原创，欢迎转载，转载请注明 来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/4139998.html  &amp;nbsp; 举个例子吧，以好友列表为例 ListView中每个Item表示一个好友，每个好友中都有一个头像，需要从服务端加载到本地，然后显示在item中。 显然，启动加载图片的过程应该是在getView()方法中触发，启动一个线程，然后">
+    <meta name="description" content="举个例子吧，以好友列表为例 ListView中每个Item表示一个好友，每个好友中都有一个头像，需要从服务端加载到本地，然后显示在item中。 显然，启动加载图片的过程应该是在getView()方法中触发，启动一个线程，然后下载头像图片。这里使用我写的一个开源框架ImageLoaderSample（https://github.com/wangjiegulu/ImageLoaderSample）来">
 <meta name="keywords" content="android,ListView,optimize,best practices">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Android]ListView的Adapter.getView()方法中延迟加载图片的优化">
 <meta property="og:url" content="http://blog.wangjiegulu.com/2014/12/03/Android-ListView的Adapter-getView-方法中延迟加载图片的优化/index.html">
 <meta property="og:site_name" content="Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer">
-<meta property="og:description" content="以下内容为原创，欢迎转载，转载请注明 来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/4139998.html  &amp;nbsp; 举个例子吧，以好友列表为例 ListView中每个Item表示一个好友，每个好友中都有一个头像，需要从服务端加载到本地，然后显示在item中。 显然，启动加载图片的过程应该是在getView()方法中触发，启动一个线程，然后">
+<meta property="og:description" content="举个例子吧，以好友列表为例 ListView中每个Item表示一个好友，每个好友中都有一个头像，需要从服务端加载到本地，然后显示在item中。 显然，启动加载图片的过程应该是在getView()方法中触发，启动一个线程，然后下载头像图片。这里使用我写的一个开源框架ImageLoaderSample（https://github.com/wangjiegulu/ImageLoaderSample）来">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-01-30T03:13:02.000Z">
+<meta property="og:updated_time" content="2018-03-29T06:23:44.332Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[Android]ListView的Adapter.getView()方法中延迟加载图片的优化">
-<meta name="twitter:description" content="以下内容为原创，欢迎转载，转载请注明 来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/4139998.html  &amp;nbsp; 举个例子吧，以好友列表为例 ListView中每个Item表示一个好友，每个好友中都有一个头像，需要从服务端加载到本地，然后显示在item中。 显然，启动加载图片的过程应该是在getView()方法中触发，启动一个线程，然后">
+<meta name="twitter:description" content="举个例子吧，以好友列表为例 ListView中每个Item表示一个好友，每个好友中都有一个头像，需要从服务端加载到本地，然后显示在item中。 显然，启动加载图片的过程应该是在getView()方法中触发，启动一个线程，然后下载头像图片。这里使用我写的一个开源框架ImageLoaderSample（https://github.com/wangjiegulu/ImageLoaderSample）来">
     
     
         
@@ -163,11 +163,7 @@
     
     
 
-    <p><span style="color: #ff0000;"><strong>以下内容为原创，欢迎转载，转载请注明</strong></span></p>
-<p><strong><span style="color: #ff0000;">来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/4139998.html%20" title="view: [Android]ListView的Adapter.getView()方法中延迟加载图片的优化" target="_blank" rel="noopener"><span style="color: #ff0000;">http://www.cnblogs.com/tiantianbyconan/p/4139998.html</span></a></span><a href="http://www.cnblogs.com/tiantianbyconan/p/3574131.html" title="view: [Android]异步加载图片，内存缓存，文件缓存，imageview显示图片时增加淡入淡出动画" target="_blank" rel="noopener">
-</a></strong></p>
-<p>&nbsp;</p>
-<p>举个例子吧，以好友列表为例</p>
+    <p>举个例子吧，以好友列表为例</p>
 <p>ListView中每个Item表示一个好友，每个好友中都有一个头像，需要从服务端加载到本地，然后显示在item中。</p>
 <p>显然，启动加载图片的过程应该是在getView()方法中触发，启动一个线程，然后下载头像图片。这里使用我写的一个开源框架<strong><a href="https://github.com/wangjiegulu/ImageLoaderSample" target="_blank" rel="noopener">ImageLoaderSample</a></strong>（<a href="https://github.com/wangjiegulu/ImageLoaderSample" target="_blank" rel="noopener">https://github.com/wangjiegulu/ImageLoaderSample</a>）来加载图片，并实现内存缓存和本地缓存。</p>
 <p>额－－这里不再介绍ImageLoaderSample的用法了，给个传送门：<a href="http://www.cnblogs.com/tiantianbyconan/p/3574131.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/3574131.html</a></p>

@@ -6,21 +6,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/5092525.html   使用Dagger 2依赖注入 - API 原文：http://frogermcs.github.io/dependency-injection-with-dagger-2-the-api/  这章是展示使用Dagger 2在Android">
+    <meta name="description" content="使用Dagger 2依赖注入 - API 原文：http://frogermcs.github.io/dependency-injection-with-dagger-2-the-api/  这章是展示使用Dagger 2在Android端实现依赖注入的系列中的一部分。今天我会探索Dagger 2的基础并且学习这个依赖注入框架的所有的API。 Dagger 2在我上一章中我提到了DI框架给我们带来">
 <meta name="keywords" content="android,dependency injection,翻译,dagger2,DI,google">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用Dagger 2依赖注入 - API（翻译）">
 <meta property="og:url" content="http://blog.wangjiegulu.com/2015/12/31/Android-使用Dagger-2依赖注入-API（翻译）/index.html">
 <meta property="og:site_name" content="Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer">
-<meta property="og:description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/5092525.html   使用Dagger 2依赖注入 - API 原文：http://frogermcs.github.io/dependency-injection-with-dagger-2-the-api/  这章是展示使用Dagger 2在Android">
+<meta property="og:description" content="使用Dagger 2依赖注入 - API 原文：http://frogermcs.github.io/dependency-injection-with-dagger-2-the-api/  这章是展示使用Dagger 2在Android端实现依赖注入的系列中的一部分。今天我会探索Dagger 2的基础并且学习这个依赖注入框架的所有的API。 Dagger 2在我上一章中我提到了DI框架给我们带来">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://frogermcs.github.io/images/14/app_flow.png">
 <meta property="og:image" content="http://frogermcs.github.io/images/14/local_components.png">
 <meta property="og:image" content="http://frogermcs.github.io/images/14/app_component.png">
-<meta property="og:updated_time" content="2018-01-31T05:37:37.000Z">
+<meta property="og:updated_time" content="2018-03-29T06:25:17.651Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用Dagger 2依赖注入 - API（翻译）">
-<meta name="twitter:description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/5092525.html   使用Dagger 2依赖注入 - API 原文：http://frogermcs.github.io/dependency-injection-with-dagger-2-the-api/  这章是展示使用Dagger 2在Android">
+<meta name="twitter:description" content="使用Dagger 2依赖注入 - API 原文：http://frogermcs.github.io/dependency-injection-with-dagger-2-the-api/  这章是展示使用Dagger 2在Android端实现依赖注入的系列中的一部分。今天我会探索Dagger 2的基础并且学习这个依赖注入框架的所有的API。 Dagger 2在我上一章中我提到了DI框架给我们带来">
 <meta name="twitter:image" content="http://frogermcs.github.io/images/14/app_flow.png">
     
     
@@ -167,10 +167,7 @@
     
     
 
-    <font color="#ff0000"><strong><br>以下内容为原创，欢迎转载，转载请注明<br>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/5092525.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/5092525.html</a>
-</strong></font>
-
-<h1 id="使用Dagger-2依赖注入-API"><a href="#使用Dagger-2依赖注入-API" class="headerlink" title="使用Dagger 2依赖注入 - API"></a>使用Dagger 2依赖注入 - API</h1><blockquote>
+    <h1 id="使用Dagger-2依赖注入-API"><a href="#使用Dagger-2依赖注入-API" class="headerlink" title="使用Dagger 2依赖注入 - API"></a>使用Dagger 2依赖注入 - API</h1><blockquote>
 <p>原文：<a href="http://frogermcs.github.io/dependency-injection-with-dagger-2-the-api/" target="_blank" rel="noopener">http://frogermcs.github.io/dependency-injection-with-dagger-2-the-api/</a></p>
 </blockquote>
 <p>这章是展示使用Dagger 2在Android端实现依赖注入的系列中的一部分。今天我会探索Dagger 2的基础并且学习这个依赖注入框架的所有的API。</p>

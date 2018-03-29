@@ -6,18 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/5422443.html   Android MVP&amp;amp;依赖注入&amp;amp;单元测试 注意：为了区分MVP中的View与Android中控件的View，以下MVP中的View使用Viewer来表示。  这里暂时先只讨论 Viewer 和 Presenter，Mod">
+    <meta name="description" content="Android MVP&amp;amp;依赖注入&amp;amp;单元测试 注意：为了区分MVP中的View与Android中控件的View，以下MVP中的View使用Viewer来表示。  这里暂时先只讨论 Viewer 和 Presenter，Model暂时不去涉及。 1.1 MVP 基础框架1.1.1 前提首先需要解决以下问题：  MVP中把Layout布局和Activity等组件作为Viewer层，增加了">
 <meta name="keywords" content="android,mvp,dependency injection,unit test,framework,mvc">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android MVP&amp;依赖注入&amp;单元测试">
 <meta property="og:url" content="http://blog.wangjiegulu.com/2016/04/22/Android-Android-MVP-依赖注入-单元测试/index.html">
 <meta property="og:site_name" content="Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer">
-<meta property="og:description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/5422443.html   Android MVP&amp;amp;依赖注入&amp;amp;单元测试 注意：为了区分MVP中的View与Android中控件的View，以下MVP中的View使用Viewer来表示。  这里暂时先只讨论 Viewer 和 Presenter，Mod">
+<meta property="og:description" content="Android MVP&amp;amp;依赖注入&amp;amp;单元测试 注意：为了区分MVP中的View与Android中控件的View，以下MVP中的View使用Viewer来表示。  这里暂时先只讨论 Viewer 和 Presenter，Model暂时不去涉及。 1.1 MVP 基础框架1.1.1 前提首先需要解决以下问题：  MVP中把Layout布局和Activity等组件作为Viewer层，增加了">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-01-31T05:37:31.000Z">
+<meta property="og:updated_time" content="2018-03-29T06:25:14.611Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android MVP&amp;依赖注入&amp;单元测试">
-<meta name="twitter:description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/5422443.html   Android MVP&amp;amp;依赖注入&amp;amp;单元测试 注意：为了区分MVP中的View与Android中控件的View，以下MVP中的View使用Viewer来表示。  这里暂时先只讨论 Viewer 和 Presenter，Mod">
+<meta name="twitter:description" content="Android MVP&amp;amp;依赖注入&amp;amp;单元测试 注意：为了区分MVP中的View与Android中控件的View，以下MVP中的View使用Viewer来表示。  这里暂时先只讨论 Viewer 和 Presenter，Model暂时不去涉及。 1.1 MVP 基础框架1.1.1 前提首先需要解决以下问题：  MVP中把Layout布局和Activity等组件作为Viewer层，增加了">
     
     
         
@@ -163,10 +163,7 @@
     
     
 
-    <font color="#ff0000"><strong><br>以下内容为原创，欢迎转载，转载请注明<br>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/5422443.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/5422443.html</a>
-</strong></font>
-
-<h1 id="Android-MVP-amp-依赖注入-amp-单元测试"><a href="#Android-MVP-amp-依赖注入-amp-单元测试" class="headerlink" title="Android MVP&amp;依赖注入&amp;单元测试"></a>Android MVP&amp;依赖注入&amp;单元测试</h1><blockquote>
+    <h1 id="Android-MVP-amp-依赖注入-amp-单元测试"><a href="#Android-MVP-amp-依赖注入-amp-单元测试" class="headerlink" title="Android MVP&amp;依赖注入&amp;单元测试"></a>Android MVP&amp;依赖注入&amp;单元测试</h1><blockquote>
 <p><strong>注意</strong>：为了区分<code>MVP</code>中的<code>View</code>与<code>Android</code>中控件的<code>View</code>，以下<code>MVP</code>中的<code>View</code>使用<code>Viewer</code>来表示。</p>
 </blockquote>
 <p>这里暂时先只讨论 <code>Viewer</code> 和 <code>Presenter</code>，<code>Model</code>暂时不去涉及。</p>

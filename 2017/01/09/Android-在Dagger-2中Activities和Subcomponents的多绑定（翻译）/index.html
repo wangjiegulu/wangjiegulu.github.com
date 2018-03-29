@@ -6,18 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/6266442.html   在Dagger 2中Activities和Subcomponents的多绑定 原文：http://frogermcs.github.io/activities-multibinding-in-dagger-2  几个月前，在MCE^3会议">
+    <meta name="description" content="在Dagger 2中Activities和Subcomponents的多绑定 原文：http://frogermcs.github.io/activities-multibinding-in-dagger-2  几个月前，在MCE^3会议中，Gregory Kick在他的演讲中展示了一个提供Subcomponents（比如，为Activity）的新概念。新的方式给我们带来了一个创建不使用AppCo">
 <meta name="keywords" content="android,dependency injection,翻译,dagger2,DI,google">
 <meta property="og:type" content="article">
 <meta property="og:title" content="在Dagger 2中Activities和Subcomponents的多绑定（翻译）">
 <meta property="og:url" content="http://blog.wangjiegulu.com/2017/01/09/Android-在Dagger-2中Activities和Subcomponents的多绑定（翻译）/index.html">
 <meta property="og:site_name" content="Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer">
-<meta property="og:description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/6266442.html   在Dagger 2中Activities和Subcomponents的多绑定 原文：http://frogermcs.github.io/activities-multibinding-in-dagger-2  几个月前，在MCE^3会议">
+<meta property="og:description" content="在Dagger 2中Activities和Subcomponents的多绑定 原文：http://frogermcs.github.io/activities-multibinding-in-dagger-2  几个月前，在MCE^3会议中，Gregory Kick在他的演讲中展示了一个提供Subcomponents（比如，为Activity）的新概念。新的方式给我们带来了一个创建不使用AppCo">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-01-31T05:38:24.000Z">
+<meta property="og:updated_time" content="2018-03-29T06:30:20.484Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在Dagger 2中Activities和Subcomponents的多绑定（翻译）">
-<meta name="twitter:description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/6266442.html   在Dagger 2中Activities和Subcomponents的多绑定 原文：http://frogermcs.github.io/activities-multibinding-in-dagger-2  几个月前，在MCE^3会议">
+<meta name="twitter:description" content="在Dagger 2中Activities和Subcomponents的多绑定 原文：http://frogermcs.github.io/activities-multibinding-in-dagger-2  几个月前，在MCE^3会议中，Gregory Kick在他的演讲中展示了一个提供Subcomponents（比如，为Activity）的新概念。新的方式给我们带来了一个创建不使用AppCo">
     
     
         
@@ -115,10 +115,7 @@
   <li><a class="icon" href="http://reddit.com/submit?url=http://blog.wangjiegulu.com/2017/01/09/Android-在Dagger-2中Activities和Subcomponents的多绑定（翻译）/&title=在Dagger 2中Activities和Subcomponents的多绑定（翻译）"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
   <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://blog.wangjiegulu.com/2017/01/09/Android-在Dagger-2中Activities和Subcomponents的多绑定（翻译）/&title=在Dagger 2中Activities和Subcomponents的多绑定（翻译）"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
   <li><a class="icon" href="http://digg.com/submit?url=http://blog.wangjiegulu.com/2017/01/09/Android-在Dagger-2中Activities和Subcomponents的多绑定（翻译）/&title=在Dagger 2中Activities和Subcomponents的多绑定（翻译）"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.wangjiegulu.com/2017/01/09/Android-在Dagger-2中Activities和Subcomponents的多绑定（翻译）/&name=在Dagger 2中Activities和Subcomponents的多绑定（翻译）&description=&lt;font color=&#34;#ff0000&#34;&gt;&lt;strong&gt;&lt;br&gt;以下内容为原创，欢迎转载，转载请注明&lt;br&gt;来自天天博客：&lt;a href=&#34;http://www.cnblogs.com/tiantianbyconan/p/6266442.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;http://www.cnblogs.com/tiantianbyconan/p/6266442.html&lt;/a&gt;
-&lt;/strong&gt;&lt;/font&gt;
-
-&lt;h1 id=&#34;在Dagger-2中Activities和Subcomponents的多绑定&#34;&gt;&lt;a href=&#34;#在Dagger-2中Activities和Subcomponents的多绑定&#34; class=&#34;headerlink&#34; title=&#34;在Dagger 2中Activities和Subcomponents的多绑定&#34;&gt;&lt;/a&gt;在Dagger 2中Activities和Subcomponents的多绑定&lt;/h1&gt;&lt;blockquote&gt;
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.wangjiegulu.com/2017/01/09/Android-在Dagger-2中Activities和Subcomponents的多绑定（翻译）/&name=在Dagger 2中Activities和Subcomponents的多绑定（翻译）&description=&lt;h1 id=&#34;在Dagger-2中Activities和Subcomponents的多绑定&#34;&gt;&lt;a href=&#34;#在Dagger-2中Activities和Subcomponents的多绑定&#34; class=&#34;headerlink&#34; title=&#34;在Dagger 2中Activities和Subcomponents的多绑定&#34;&gt;&lt;/a&gt;在Dagger 2中Activities和Subcomponents的多绑定&lt;/h1&gt;&lt;blockquote&gt;
 &lt;p&gt;原文：&lt;a href=&#34;http://frogermcs.github.io/activities-multibinding-in-dagger-2&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;http://frogermcs.github.io/activities-multibinding-in-dagger-2&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;几个月前，在&lt;a href=&#34;http://2016.mceconf.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;MCE^3&lt;/a&gt;会议中，Gregory Kick在他的&lt;a href=&#34;https://www.youtube.com/watch?v=iwjXqRlEevg&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;演讲&lt;/a&gt;中展示了一个提供Subcomponents（比如，为Activity）的新概念。新的方式给我们带来了一个创建不使用AppComponent对象引用（以前时Activities Subcomponents的工厂）的方式。为了让它成为现实，我们不得不等到了新的Dagger release版本：&lt;a href=&#34;https://github.com/google/dagger/releases/tag/dagger-2.7&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;version 2.7&lt;/a&gt;。&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
@@ -169,10 +166,7 @@
     
     
 
-    <font color="#ff0000"><strong><br>以下内容为原创，欢迎转载，转载请注明<br>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/6266442.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/6266442.html</a>
-</strong></font>
-
-<h1 id="在Dagger-2中Activities和Subcomponents的多绑定"><a href="#在Dagger-2中Activities和Subcomponents的多绑定" class="headerlink" title="在Dagger 2中Activities和Subcomponents的多绑定"></a>在Dagger 2中Activities和Subcomponents的多绑定</h1><blockquote>
+    <h1 id="在Dagger-2中Activities和Subcomponents的多绑定"><a href="#在Dagger-2中Activities和Subcomponents的多绑定" class="headerlink" title="在Dagger 2中Activities和Subcomponents的多绑定"></a>在Dagger 2中Activities和Subcomponents的多绑定</h1><blockquote>
 <p>原文：<a href="http://frogermcs.github.io/activities-multibinding-in-dagger-2" target="_blank" rel="noopener">http://frogermcs.github.io/activities-multibinding-in-dagger-2</a></p>
 </blockquote>
 <p>几个月前，在<a href="http://2016.mceconf.com/" target="_blank" rel="noopener">MCE^3</a>会议中，Gregory Kick在他的<a href="https://www.youtube.com/watch?v=iwjXqRlEevg" target="_blank" rel="noopener">演讲</a>中展示了一个提供Subcomponents（比如，为Activity）的新概念。新的方式给我们带来了一个创建不使用AppComponent对象引用（以前时Activities Subcomponents的工厂）的方式。为了让它成为现实，我们不得不等到了新的Dagger release版本：<a href="https://github.com/google/dagger/releases/tag/dagger-2.7" target="_blank" rel="noopener">version 2.7</a>。</p>
@@ -328,10 +322,7 @@
   <li><a class="icon" href="http://reddit.com/submit?url=http://blog.wangjiegulu.com/2017/01/09/Android-在Dagger-2中Activities和Subcomponents的多绑定（翻译）/&title=在Dagger 2中Activities和Subcomponents的多绑定（翻译）"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
   <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://blog.wangjiegulu.com/2017/01/09/Android-在Dagger-2中Activities和Subcomponents的多绑定（翻译）/&title=在Dagger 2中Activities和Subcomponents的多绑定（翻译）"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
   <li><a class="icon" href="http://digg.com/submit?url=http://blog.wangjiegulu.com/2017/01/09/Android-在Dagger-2中Activities和Subcomponents的多绑定（翻译）/&title=在Dagger 2中Activities和Subcomponents的多绑定（翻译）"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.wangjiegulu.com/2017/01/09/Android-在Dagger-2中Activities和Subcomponents的多绑定（翻译）/&name=在Dagger 2中Activities和Subcomponents的多绑定（翻译）&description=&lt;font color=&#34;#ff0000&#34;&gt;&lt;strong&gt;&lt;br&gt;以下内容为原创，欢迎转载，转载请注明&lt;br&gt;来自天天博客：&lt;a href=&#34;http://www.cnblogs.com/tiantianbyconan/p/6266442.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;http://www.cnblogs.com/tiantianbyconan/p/6266442.html&lt;/a&gt;
-&lt;/strong&gt;&lt;/font&gt;
-
-&lt;h1 id=&#34;在Dagger-2中Activities和Subcomponents的多绑定&#34;&gt;&lt;a href=&#34;#在Dagger-2中Activities和Subcomponents的多绑定&#34; class=&#34;headerlink&#34; title=&#34;在Dagger 2中Activities和Subcomponents的多绑定&#34;&gt;&lt;/a&gt;在Dagger 2中Activities和Subcomponents的多绑定&lt;/h1&gt;&lt;blockquote&gt;
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.wangjiegulu.com/2017/01/09/Android-在Dagger-2中Activities和Subcomponents的多绑定（翻译）/&name=在Dagger 2中Activities和Subcomponents的多绑定（翻译）&description=&lt;h1 id=&#34;在Dagger-2中Activities和Subcomponents的多绑定&#34;&gt;&lt;a href=&#34;#在Dagger-2中Activities和Subcomponents的多绑定&#34; class=&#34;headerlink&#34; title=&#34;在Dagger 2中Activities和Subcomponents的多绑定&#34;&gt;&lt;/a&gt;在Dagger 2中Activities和Subcomponents的多绑定&lt;/h1&gt;&lt;blockquote&gt;
 &lt;p&gt;原文：&lt;a href=&#34;http://frogermcs.github.io/activities-multibinding-in-dagger-2&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;http://frogermcs.github.io/activities-multibinding-in-dagger-2&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;几个月前，在&lt;a href=&#34;http://2016.mceconf.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;MCE^3&lt;/a&gt;会议中，Gregory Kick在他的&lt;a href=&#34;https://www.youtube.com/watch?v=iwjXqRlEevg&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;演讲&lt;/a&gt;中展示了一个提供Subcomponents（比如，为Activity）的新概念。新的方式给我们带来了一个创建不使用AppComponent对象引用（以前时Activities Subcomponents的工厂）的方式。为了让它成为现实，我们不得不等到了新的Dagger release版本：&lt;a href=&#34;https://github.com/google/dagger/releases/tag/dagger-2.7&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;version 2.7&lt;/a&gt;。&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>

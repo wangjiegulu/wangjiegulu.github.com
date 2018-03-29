@@ -6,22 +6,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/6641794.html   [Android]使用RecyclerView替代ListView（四：SeizeRecyclerView）在RecyclerView的开发过程中，可能会遇到一些窘境，比如，下图是今日头条的视频详情页面：">
+    <meta name="description" content="[Android]使用RecyclerView替代ListView（四：SeizeRecyclerView）在RecyclerView的开发过程中，可能会遇到一些窘境，比如，下图是今日头条的视频详情页面：">
 <meta name="keywords" content="android,ListView,best practices,RecyclerView,SeizeRecyclerView">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Android]使用RecyclerView替代ListView（四：SeizeRecyclerView）">
 <meta property="og:url" content="http://blog.wangjiegulu.com/2017/03/29/Android-使用RecyclerView替代ListView（四：SeizeRecyclerView）/index.html">
 <meta property="og:site_name" content="Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer">
-<meta property="og:description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/6641794.html   [Android]使用RecyclerView替代ListView（四：SeizeRecyclerView）在RecyclerView的开发过程中，可能会遇到一些窘境，比如，下图是今日头条的视频详情页面：">
+<meta property="og:description" content="[Android]使用RecyclerView替代ListView（四：SeizeRecyclerView）在RecyclerView的开发过程中，可能会遇到一些窘境，比如，下图是今日头条的视频详情页面：">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://images2015.cnblogs.com/blog/378300/201703/378300-20170329202135217-815673664.png">
 <meta property="og:image" content="http://images2015.cnblogs.com/blog/378300/201703/378300-20170329202140514-614081911.png">
 <meta property="og:image" content="https://github.com/wangjiegulu/SeizeRecyclerView/raw/master/screenshot/basic.gif">
 <meta property="og:image" content="https://github.com/wangjiegulu/SeizeRecyclerView/raw/master/screenshot/multi_type.gif">
-<meta property="og:updated_time" content="2018-01-30T03:19:10.000Z">
+<meta property="og:updated_time" content="2018-03-29T06:28:22.567Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[Android]使用RecyclerView替代ListView（四：SeizeRecyclerView）">
-<meta name="twitter:description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/6641794.html   [Android]使用RecyclerView替代ListView（四：SeizeRecyclerView）在RecyclerView的开发过程中，可能会遇到一些窘境，比如，下图是今日头条的视频详情页面：">
+<meta name="twitter:description" content="[Android]使用RecyclerView替代ListView（四：SeizeRecyclerView）在RecyclerView的开发过程中，可能会遇到一些窘境，比如，下图是今日头条的视频详情页面：">
 <meta name="twitter:image" content="http://images2015.cnblogs.com/blog/378300/201703/378300-20170329202135217-815673664.png">
     
     
@@ -120,10 +120,7 @@
   <li><a class="icon" href="http://reddit.com/submit?url=http://blog.wangjiegulu.com/2017/03/29/Android-使用RecyclerView替代ListView（四：SeizeRecyclerView）/&title=[Android]使用RecyclerView替代ListView（四：SeizeRecyclerView）"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
   <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://blog.wangjiegulu.com/2017/03/29/Android-使用RecyclerView替代ListView（四：SeizeRecyclerView）/&title=[Android]使用RecyclerView替代ListView（四：SeizeRecyclerView）"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
   <li><a class="icon" href="http://digg.com/submit?url=http://blog.wangjiegulu.com/2017/03/29/Android-使用RecyclerView替代ListView（四：SeizeRecyclerView）/&title=[Android]使用RecyclerView替代ListView（四：SeizeRecyclerView）"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.wangjiegulu.com/2017/03/29/Android-使用RecyclerView替代ListView（四：SeizeRecyclerView）/&name=[Android]使用RecyclerView替代ListView（四：SeizeRecyclerView）&description=&lt;font color=&#34;#ff0000&#34;&gt;&lt;strong&gt;&lt;br&gt;以下内容为原创，欢迎转载，转载请注明&lt;br&gt;来自天天博客：&lt;a href=&#34;http://www.cnblogs.com/tiantianbyconan/p/6641794.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;http://www.cnblogs.com/tiantianbyconan/p/6641794.html&lt;/a&gt;
-&lt;/strong&gt;&lt;/font&gt;
-
-&lt;h1 id=&#34;Android-使用RecyclerView替代ListView（四：SeizeRecyclerView）&#34;&gt;&lt;a href=&#34;#Android-使用RecyclerView替代ListView（四：SeizeRecyclerView）&#34; class=&#34;headerlink&#34; title=&#34;[Android]使用RecyclerView替代ListView（四：SeizeRecyclerView）&#34;&gt;&lt;/a&gt;[Android]使用RecyclerView替代ListView（四：SeizeRecyclerView）&lt;/h1&gt;&lt;p&gt;在RecyclerView的开发过程中，可能会遇到一些窘境，比如，下图是今日头条的视频详情页面：&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.wangjiegulu.com/2017/03/29/Android-使用RecyclerView替代ListView（四：SeizeRecyclerView）/&name=[Android]使用RecyclerView替代ListView（四：SeizeRecyclerView）&description=&lt;h1 id=&#34;Android-使用RecyclerView替代ListView（四：SeizeRecyclerView）&#34;&gt;&lt;a href=&#34;#Android-使用RecyclerView替代ListView（四：SeizeRecyclerView）&#34; class=&#34;headerlink&#34; title=&#34;[Android]使用RecyclerView替代ListView（四：SeizeRecyclerView）&#34;&gt;&lt;/a&gt;[Android]使用RecyclerView替代ListView（四：SeizeRecyclerView）&lt;/h1&gt;&lt;p&gt;在RecyclerView的开发过程中，可能会遇到一些窘境，比如，下图是今日头条的视频详情页面：&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -171,10 +168,7 @@
     
     
 
-    <font color="#ff0000"><strong><br>以下内容为原创，欢迎转载，转载请注明<br>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/6641794.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/6641794.html</a>
-</strong></font>
-
-<h1 id="Android-使用RecyclerView替代ListView（四：SeizeRecyclerView）"><a href="#Android-使用RecyclerView替代ListView（四：SeizeRecyclerView）" class="headerlink" title="[Android]使用RecyclerView替代ListView（四：SeizeRecyclerView）"></a>[Android]使用RecyclerView替代ListView（四：SeizeRecyclerView）</h1><p>在RecyclerView的开发过程中，可能会遇到一些窘境，比如，下图是今日头条的视频详情页面：</p>
+    <h1 id="Android-使用RecyclerView替代ListView（四：SeizeRecyclerView）"><a href="#Android-使用RecyclerView替代ListView（四：SeizeRecyclerView）" class="headerlink" title="[Android]使用RecyclerView替代ListView（四：SeizeRecyclerView）"></a>[Android]使用RecyclerView替代ListView（四：SeizeRecyclerView）</h1><p>在RecyclerView的开发过程中，可能会遇到一些窘境，比如，下图是今日头条的视频详情页面：</p>
 <a id="more"></a>
 <p><img src="http://images2015.cnblogs.com/blog/378300/201703/378300-20170329202135217-815673664.png" alt=""> <img src="http://images2015.cnblogs.com/blog/378300/201703/378300-20170329202140514-614081911.png" alt=""></p>
 <p>除去播放器外，其它组件应该是一个RecyclerView，但是这个RecyclerView中的item有两种类型：</p>
@@ -268,10 +262,7 @@
   <li><a class="icon" href="http://reddit.com/submit?url=http://blog.wangjiegulu.com/2017/03/29/Android-使用RecyclerView替代ListView（四：SeizeRecyclerView）/&title=[Android]使用RecyclerView替代ListView（四：SeizeRecyclerView）"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
   <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://blog.wangjiegulu.com/2017/03/29/Android-使用RecyclerView替代ListView（四：SeizeRecyclerView）/&title=[Android]使用RecyclerView替代ListView（四：SeizeRecyclerView）"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
   <li><a class="icon" href="http://digg.com/submit?url=http://blog.wangjiegulu.com/2017/03/29/Android-使用RecyclerView替代ListView（四：SeizeRecyclerView）/&title=[Android]使用RecyclerView替代ListView（四：SeizeRecyclerView）"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.wangjiegulu.com/2017/03/29/Android-使用RecyclerView替代ListView（四：SeizeRecyclerView）/&name=[Android]使用RecyclerView替代ListView（四：SeizeRecyclerView）&description=&lt;font color=&#34;#ff0000&#34;&gt;&lt;strong&gt;&lt;br&gt;以下内容为原创，欢迎转载，转载请注明&lt;br&gt;来自天天博客：&lt;a href=&#34;http://www.cnblogs.com/tiantianbyconan/p/6641794.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;http://www.cnblogs.com/tiantianbyconan/p/6641794.html&lt;/a&gt;
-&lt;/strong&gt;&lt;/font&gt;
-
-&lt;h1 id=&#34;Android-使用RecyclerView替代ListView（四：SeizeRecyclerView）&#34;&gt;&lt;a href=&#34;#Android-使用RecyclerView替代ListView（四：SeizeRecyclerView）&#34; class=&#34;headerlink&#34; title=&#34;[Android]使用RecyclerView替代ListView（四：SeizeRecyclerView）&#34;&gt;&lt;/a&gt;[Android]使用RecyclerView替代ListView（四：SeizeRecyclerView）&lt;/h1&gt;&lt;p&gt;在RecyclerView的开发过程中，可能会遇到一些窘境，比如，下图是今日头条的视频详情页面：&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.wangjiegulu.com/2017/03/29/Android-使用RecyclerView替代ListView（四：SeizeRecyclerView）/&name=[Android]使用RecyclerView替代ListView（四：SeizeRecyclerView）&description=&lt;h1 id=&#34;Android-使用RecyclerView替代ListView（四：SeizeRecyclerView）&#34;&gt;&lt;a href=&#34;#Android-使用RecyclerView替代ListView（四：SeizeRecyclerView）&#34; class=&#34;headerlink&#34; title=&#34;[Android]使用RecyclerView替代ListView（四：SeizeRecyclerView）&#34;&gt;&lt;/a&gt;[Android]使用RecyclerView替代ListView（四：SeizeRecyclerView）&lt;/h1&gt;&lt;p&gt;在RecyclerView的开发过程中，可能会遇到一些窘境，比如，下图是今日头条的视频详情页面：&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>

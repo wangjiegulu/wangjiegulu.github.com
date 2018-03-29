@@ -6,19 +6,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="以下内容为原创，欢迎转载，转载请注明 来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/3623050.html  AndroidInject项目是我写的一个使用注解注入来简化代码的开源项目 https://github.com/wangjiegulu/androidInject 今天新增功能如下： 1. 增加对sqlite3数据库的orm注解支持，增">
-<meta name="keywords" content="android,inject,sqlite,sqlite3,database,orm,library">
+    <meta name="description" content="AndroidInject项目是我写的一个使用注解注入来简化代码的开源项目 https://github.com/wangjiegulu/androidInject 今天新增功能如下： 1. 增加对sqlite3数据库的orm注解支持，增加@AIColumn、@AIPrimaryKey、@AITable三个注解来映射到表（有待改进） 2. 使用反射来封装AIDbExecutor类，实现半自动化or">
+<meta name="keywords" content="android,library,inject,sqlite,sqlite3,database,orm">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Android]AndroidInject增加sqlite3数据库映射注解(ORM)">
 <meta property="og:url" content="http://blog.wangjiegulu.com/2014/03/25/Android-AndroidInject增加sqlite3数据库映射注解-ORM/index.html">
 <meta property="og:site_name" content="Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer">
-<meta property="og:description" content="以下内容为原创，欢迎转载，转载请注明 来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/3623050.html  AndroidInject项目是我写的一个使用注解注入来简化代码的开源项目 https://github.com/wangjiegulu/androidInject 今天新增功能如下： 1. 增加对sqlite3数据库的orm注解支持，增">
+<meta property="og:description" content="AndroidInject项目是我写的一个使用注解注入来简化代码的开源项目 https://github.com/wangjiegulu/androidInject 今天新增功能如下： 1. 增加对sqlite3数据库的orm注解支持，增加@AIColumn、@AIPrimaryKey、@AITable三个注解来映射到表（有待改进） 2. 使用反射来封装AIDbExecutor类，实现半自动化or">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://images.cnitblog.com/i/378300/201403/251333009205565.png">
-<meta property="og:updated_time" content="2018-01-30T03:08:06.000Z">
+<meta property="og:updated_time" content="2018-03-29T06:28:54.069Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[Android]AndroidInject增加sqlite3数据库映射注解(ORM)">
-<meta name="twitter:description" content="以下内容为原创，欢迎转载，转载请注明 来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/3623050.html  AndroidInject项目是我写的一个使用注解注入来简化代码的开源项目 https://github.com/wangjiegulu/androidInject 今天新增功能如下： 1. 增加对sqlite3数据库的orm注解支持，增">
+<meta name="twitter:description" content="AndroidInject项目是我写的一个使用注解注入来简化代码的开源项目 https://github.com/wangjiegulu/androidInject 今天新增功能如下： 1. 增加对sqlite3数据库的orm注解支持，增加@AIColumn、@AIPrimaryKey、@AITable三个注解来映射到表（有待改进） 2. 使用反射来封装AIDbExecutor类，实现半自动化or">
 <meta name="twitter:image" content="http://images.cnitblog.com/i/378300/201403/251333009205565.png">
     
     
@@ -165,10 +165,7 @@
     
     
 
-    <p><span style="color: #ff0000;"><strong>以下内容为原创，欢迎转载，转载请注明</strong></span></p>
-<p><span><strong><span style="color: #ff0000;">来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/3623050.html" target="_blank" rel="noopener"><span style="color: #ff0000;">http://www.cnblogs.com/tiantianbyconan/p/3623050.html</span></a></span><a href="http://www.cnblogs.com/tiantianbyconan/p/3540427.html" target="_blank" rel="noopener">
-</a></strong></span></p>
-<p>AndroidInject项目是我写的一个使用注解注入来简化代码的开源项目</p>
+    <p>AndroidInject项目是我写的一个使用注解注入来简化代码的开源项目</p>
 <p><a href="https://github.com/wangjiegulu/androidInject" target="_blank" rel="noopener">https://github.com/wangjiegulu/androidInject</a></p>
 <p>今天新增功能如下：</p>
 <p>1. 增加对sqlite3数据库的orm注解支持，增加@AIColumn、@AIPrimaryKey、@AITable三个注解来映射到表（有待改进）</p>

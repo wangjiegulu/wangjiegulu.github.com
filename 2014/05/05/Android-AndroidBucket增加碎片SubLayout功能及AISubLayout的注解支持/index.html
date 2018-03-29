@@ -6,19 +6,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="以下内容为原创，转载请注明： 来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/3709957.html &amp;nbsp; 之前写过一篇博客，是使用Fragment来实现TabHost的效果，并且模拟TabHost的切换各个fragment生命周期的调用，见http://www.cnblogs.com/tiantianbyconan/p/3360938.h">
-<meta name="keywords" content="library,android bucket,annotations">
+    <meta name="description" content="之前写过一篇博客，是使用Fragment来实现TabHost的效果，并且模拟TabHost的切换各个fragment生命周期的调用，见http://www.cnblogs.com/tiantianbyconan/p/3360938.html 但是如果要实现的效果是两级的Tab，比如在第一级tab中又有三个子Tab切换不同的布局， 相当于在Fragment中嵌套来Fragment，这个怎么实现？ 也">
+<meta name="keywords" content="android bucket,annotations,library">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Android]AndroidBucket增加碎片SubLayout功能及AISubLayout的注解支持">
 <meta property="og:url" content="http://blog.wangjiegulu.com/2014/05/05/Android-AndroidBucket增加碎片SubLayout功能及AISubLayout的注解支持/index.html">
 <meta property="og:site_name" content="Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer">
-<meta property="og:description" content="以下内容为原创，转载请注明： 来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/3709957.html &amp;nbsp; 之前写过一篇博客，是使用Fragment来实现TabHost的效果，并且模拟TabHost的切换各个fragment生命周期的调用，见http://www.cnblogs.com/tiantianbyconan/p/3360938.h">
+<meta property="og:description" content="之前写过一篇博客，是使用Fragment来实现TabHost的效果，并且模拟TabHost的切换各个fragment生命周期的调用，见http://www.cnblogs.com/tiantianbyconan/p/3360938.html 但是如果要实现的效果是两级的Tab，比如在第一级tab中又有三个子Tab切换不同的布局， 相当于在Fragment中嵌套来Fragment，这个怎么实现？ 也">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://images.cnitblog.com/i/378300/201405/051955327296296.png">
-<meta property="og:updated_time" content="2018-01-30T03:08:13.000Z">
+<meta property="og:updated_time" content="2018-03-29T06:26:45.403Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[Android]AndroidBucket增加碎片SubLayout功能及AISubLayout的注解支持">
-<meta name="twitter:description" content="以下内容为原创，转载请注明： 来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/3709957.html &amp;nbsp; 之前写过一篇博客，是使用Fragment来实现TabHost的效果，并且模拟TabHost的切换各个fragment生命周期的调用，见http://www.cnblogs.com/tiantianbyconan/p/3360938.h">
+<meta name="twitter:description" content="之前写过一篇博客，是使用Fragment来实现TabHost的效果，并且模拟TabHost的切换各个fragment生命周期的调用，见http://www.cnblogs.com/tiantianbyconan/p/3360938.html 但是如果要实现的效果是两级的Tab，比如在第一级tab中又有三个子Tab切换不同的布局， 相当于在Fragment中嵌套来Fragment，这个怎么实现？ 也">
 <meta name="twitter:image" content="http://images.cnitblog.com/i/378300/201405/051955327296296.png">
     
     
@@ -165,10 +165,7 @@
     
     
 
-    <p><span style="color: #ff0000;"><strong>以下内容为原创，转载请注明：</strong></span></p>
-<p><span style="color: #ff0000;"><strong><span style="color: #ff0000;">来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/3709957.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/3709957.html</a></span></strong></span></p>
-<p>&nbsp;</p>
-<p>之前写过一篇博客，是使用Fragment来实现TabHost的效果，并且模拟TabHost的切换各个fragment生命周期的调用，见<a href="http://www.cnblogs.com/tiantianbyconan/p/3360938.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/3360938.html</a></p>
+    <p>之前写过一篇博客，是使用Fragment来实现TabHost的效果，并且模拟TabHost的切换各个fragment生命周期的调用，见<a href="http://www.cnblogs.com/tiantianbyconan/p/3360938.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/3360938.html</a></p>
 <p>但是如果要实现的效果是两级的Tab，比如在第一级tab中又有三个子Tab切换不同的布局，</p>
 <p>相当于在Fragment中嵌套来Fragment，这个怎么实现？</p>
 <p>也有个官方的实现方法，通过使用<span>android-support-v13.jar包中的<span>getChildFragmentManager方法来获取一个Manager。</span></span></p>

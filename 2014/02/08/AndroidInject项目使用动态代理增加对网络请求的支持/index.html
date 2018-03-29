@@ -6,20 +6,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="以下内容为原创，欢迎转载，转载请注明 来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/3540427.html &amp;nbsp; AndroidInject项目是我写的一个使用注解注入来简化代码的开源项目 https://github.com/wangjiegulu/androidInject 今天新增功能如下： 1. 增加@AIScreenSize注解">
-<meta name="keywords" content="android,library,annotations,proxy,dynamic proxy,http">
+    <meta name="description" content="AndroidInject项目是我写的一个使用注解注入来简化代码的开源项目 https://github.com/wangjiegulu/androidInject 今天新增功能如下： 1. 增加@AIScreenSize注解，作用于属性，用于注入当前设备的屏幕大小（宽高）2. 增加对网络请求的支持，使用动态代理实现：@AIGet注解，作用于接口方法，表示以GET来请求url；@AIPost注解，">
+<meta name="keywords" content="android,annotations,library,proxy,dynamic proxy,http">
 <meta property="og:type" content="article">
 <meta property="og:title" content="AndroidInject项目使用动态代理增加对网络请求的支持">
 <meta property="og:url" content="http://blog.wangjiegulu.com/2014/02/08/AndroidInject项目使用动态代理增加对网络请求的支持/index.html">
 <meta property="og:site_name" content="Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer">
-<meta property="og:description" content="以下内容为原创，欢迎转载，转载请注明 来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/3540427.html &amp;nbsp; AndroidInject项目是我写的一个使用注解注入来简化代码的开源项目 https://github.com/wangjiegulu/androidInject 今天新增功能如下： 1. 增加@AIScreenSize注解">
+<meta property="og:description" content="AndroidInject项目是我写的一个使用注解注入来简化代码的开源项目 https://github.com/wangjiegulu/androidInject 今天新增功能如下： 1. 增加@AIScreenSize注解，作用于属性，用于注入当前设备的屏幕大小（宽高）2. 增加对网络请求的支持，使用动态代理实现：@AIGet注解，作用于接口方法，表示以GET来请求url；@AIPost注解，">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif">
 <meta property="og:image" content="http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif">
-<meta property="og:updated_time" content="2018-01-30T03:26:38.000Z">
+<meta property="og:updated_time" content="2018-03-29T06:24:00.710Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="AndroidInject项目使用动态代理增加对网络请求的支持">
-<meta name="twitter:description" content="以下内容为原创，欢迎转载，转载请注明 来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/3540427.html &amp;nbsp; AndroidInject项目是我写的一个使用注解注入来简化代码的开源项目 https://github.com/wangjiegulu/androidInject 今天新增功能如下： 1. 增加@AIScreenSize注解">
+<meta name="twitter:description" content="AndroidInject项目是我写的一个使用注解注入来简化代码的开源项目 https://github.com/wangjiegulu/androidInject 今天新增功能如下： 1. 增加@AIScreenSize注解，作用于属性，用于注入当前设备的屏幕大小（宽高）2. 增加对网络请求的支持，使用动态代理实现：@AIGet注解，作用于接口方法，表示以GET来请求url；@AIPost注解，">
 <meta name="twitter:image" content="http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif">
     
     
@@ -166,10 +166,7 @@
     
     
 
-    <p><span style="color: #ff0000;"><strong>以下内容为原创，欢迎转载，转载请注明</strong></span></p>
-<p><span style="color: #ff0000;"><strong>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/3540427.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/3540427.html</a></strong></span></p>
-<p>&nbsp;</p>
-<p>AndroidInject项目是我写的一个使用注解注入来简化代码的开源项目</p>
+    <p>AndroidInject项目是我写的一个使用注解注入来简化代码的开源项目</p>
 <p><a href="https://github.com/wangjiegulu/androidInject" target="_blank" rel="noopener">https://github.com/wangjiegulu/androidInject</a></p>
 <p>今天新增功能如下：</p>
 <p>1. 增加@AIScreenSize注解，作用于属性，用于注入当前设备的屏幕大小（宽高）<br>2. 增加对网络请求的支持，使用动态代理实现：@AIGet注解，作用于接口方法，表示以GET来请求url；@AIPost注解，作用于接口方法，表示以POST来请求url；@AIParam，用于注入请求参数<br>3. 增加@AINetWorker注解，作用于属性，用于注入网络请求服务<br>4. 增加GET或POST请求时请求参数可使用Params类传入，简化代码</p>

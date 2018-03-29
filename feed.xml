@@ -40,9 +40,9 @@
       <category term="dart" scheme="http://blog.wangjiegulu.com/categories/flutter/dart/"/>
     
     
-      <category term="android" scheme="http://blog.wangjiegulu.com/tags/android/"/>
-    
       <category term="java" scheme="http://blog.wangjiegulu.com/tags/java/"/>
+    
+      <category term="android" scheme="http://blog.wangjiegulu.com/tags/android/"/>
     
       <category term="gradle" scheme="http://blog.wangjiegulu.com/tags/gradle/"/>
     
@@ -253,14 +253,11 @@
     <link href="http://blog.wangjiegulu.com/2017/08/04/Android-Android%E7%84%A6%E7%82%B9%E6%B5%81%E7%A8%8B%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/"/>
     <id>http://blog.wangjiegulu.com/2017/08/04/Android-Android焦点流程代码分析/</id>
     <published>2017-08-04T10:08:00.000Z</published>
-    <updated>2018-01-31T05:36:44.000Z</updated>
+    <updated>2018-03-29T06:24:05.727Z</updated>
     
     <summary type="html">
     
-      &lt;font color=&quot;#ff0000&quot;&gt;&lt;strong&gt;&lt;br&gt;以下内容为原创，欢迎转载，转载请注明&lt;br&gt;来自天天博客：&lt;a href=&quot;http://www.cnblogs.com/tiantianbyconan/p/7286503.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://www.cnblogs.com/tiantianbyconan/p/7286503.html&lt;/a&gt;
-&lt;/strong&gt;&lt;/font&gt;
-
-&lt;p&gt;通过View的&lt;code&gt;View::focusSearch&lt;/code&gt;进行焦点搜索对应方向上的下一个可以获取焦点的View：&lt;/p&gt;
+      &lt;p&gt;通过View的&lt;code&gt;View::focusSearch&lt;/code&gt;进行焦点搜索对应方向上的下一个可以获取焦点的View：&lt;/p&gt;
     
     </summary>
     
@@ -305,14 +302,11 @@
     <link href="http://blog.wangjiegulu.com/2017/04/19/Android-Gradle-%E6%8F%92%E4%BB%B6-DiscardFilePlugin%EF%BC%88class%E6%B3%A8%E5%85%A5-%E6%B8%85%E7%A9%BA%E7%B1%BB%E5%92%8C%E6%96%B9%E6%B3%95%EF%BC%89/"/>
     <id>http://blog.wangjiegulu.com/2017/04/19/Android-Gradle-插件-DiscardFilePlugin（class注入-清空类和方法）/</id>
     <published>2017-04-19T02:40:00.000Z</published>
-    <updated>2018-01-31T05:37:12.000Z</updated>
+    <updated>2018-03-29T06:28:36.326Z</updated>
     
     <summary type="html">
     
-      &lt;font color=&quot;#ff0000&quot;&gt;&lt;strong&gt;&lt;br&gt;以下内容为原创，欢迎转载，转载请注明&lt;br&gt;来自天天博客：&lt;a href=&quot;http://www.cnblogs.com/tiantianbyconan/p/6732128.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://www.cnblogs.com/tiantianbyconan/p/6732128.html&lt;/a&gt;
-&lt;/strong&gt;&lt;/font&gt;
-
-&lt;h1 id=&quot;Android-Gradle-插件-DiscardFilePlugin（清空类和方法）&quot;&gt;&lt;a href=&quot;#Android-Gradle-插件-DiscardFilePlugin（清空类和方法）&quot; class=&quot;headerlink&quot; title=&quot;Android Gradle 插件 DiscardFilePlugin（清空类和方法）&quot;&gt;&lt;/a&gt;Android Gradle 插件 DiscardFilePlugin（清空类和方法）&lt;/h1&gt;&lt;p&gt;An android gradle plugin for discard class or method in compile time.&lt;/p&gt;
+      &lt;h1 id=&quot;Android-Gradle-插件-DiscardFilePlugin（清空类和方法）&quot;&gt;&lt;a href=&quot;#Android-Gradle-插件-DiscardFilePlugin（清空类和方法）&quot; class=&quot;headerlink&quot; title=&quot;Android Gradle 插件 DiscardFilePlugin（清空类和方法）&quot;&gt;&lt;/a&gt;Android Gradle 插件 DiscardFilePlugin（清空类和方法）&lt;/h1&gt;&lt;p&gt;An android gradle plugin for discard class or method in compile time.&lt;/p&gt;
 &lt;p&gt;用于在编译构建时期忽略清空类和方法的一个Android Gradle插件。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Github: &lt;a href=&quot;https://github.com/wangjiegulu/DiscardFilePlugin&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://github.com/wangjiegulu/DiscardFilePlugin&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
 &lt;h2 id=&quot;1-1-使用场景&quot;&gt;&lt;a href=&quot;#1-1-使用场景&quot; class=&quot;headerlink&quot; title=&quot;1.1 使用场景&quot;&gt;&lt;/a&gt;1.1 使用场景&lt;/h2&gt;&lt;p&gt;在实际的生产中，我们总是会在我们的app中增加一些调试的工具，比如在&lt;code&gt;debug&lt;/code&gt;模式下加入&lt;code&gt;DebugPanelActivity&lt;/code&gt;（调试面板工具页面，提供比如“切换服务器”等操作）。我们需要在正式上线的release版本中清空相关类和方法，或者修改&lt;code&gt;boolean isProductionEnvironment()&lt;/code&gt;方法，让它永远返回&lt;code&gt;true&lt;/code&gt;，&lt;strong&gt;以此来避免上线之后调试相关代码通过反编译等手段暴露出来。&lt;/strong&gt;&lt;/p&gt;
@@ -383,14 +377,11 @@
     <link href="http://blog.wangjiegulu.com/2017/03/29/Android-%E4%BD%BF%E7%94%A8RecyclerView%E6%9B%BF%E4%BB%A3ListView%EF%BC%88%E5%9B%9B%EF%BC%9ASeizeRecyclerView%EF%BC%89/"/>
     <id>http://blog.wangjiegulu.com/2017/03/29/Android-使用RecyclerView替代ListView（四：SeizeRecyclerView）/</id>
     <published>2017-03-29T13:09:00.000Z</published>
-    <updated>2018-01-30T03:19:10.000Z</updated>
+    <updated>2018-03-29T06:28:22.567Z</updated>
     
     <summary type="html">
     
-      &lt;font color=&quot;#ff0000&quot;&gt;&lt;strong&gt;&lt;br&gt;以下内容为原创，欢迎转载，转载请注明&lt;br&gt;来自天天博客：&lt;a href=&quot;http://www.cnblogs.com/tiantianbyconan/p/6641794.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://www.cnblogs.com/tiantianbyconan/p/6641794.html&lt;/a&gt;
-&lt;/strong&gt;&lt;/font&gt;
-
-&lt;h1 id=&quot;Android-使用RecyclerView替代ListView（四：SeizeRecyclerView）&quot;&gt;&lt;a href=&quot;#Android-使用RecyclerView替代ListView（四：SeizeRecyclerView）&quot; class=&quot;headerlink&quot; title=&quot;[Android]使用RecyclerView替代ListView（四：SeizeRecyclerView）&quot;&gt;&lt;/a&gt;[Android]使用RecyclerView替代ListView（四：SeizeRecyclerView）&lt;/h1&gt;&lt;p&gt;在RecyclerView的开发过程中，可能会遇到一些窘境，比如，下图是今日头条的视频详情页面：&lt;/p&gt;
+      &lt;h1 id=&quot;Android-使用RecyclerView替代ListView（四：SeizeRecyclerView）&quot;&gt;&lt;a href=&quot;#Android-使用RecyclerView替代ListView（四：SeizeRecyclerView）&quot; class=&quot;headerlink&quot; title=&quot;[Android]使用RecyclerView替代ListView（四：SeizeRecyclerView）&quot;&gt;&lt;/a&gt;[Android]使用RecyclerView替代ListView（四：SeizeRecyclerView）&lt;/h1&gt;&lt;p&gt;在RecyclerView的开发过程中，可能会遇到一些窘境，比如，下图是今日头条的视频详情页面：&lt;/p&gt;
     
     </summary>
     
@@ -412,14 +403,11 @@
     <link href="http://blog.wangjiegulu.com/2017/02/04/Lottie%E7%AE%80%E4%BB%8B%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/"/>
     <id>http://blog.wangjiegulu.com/2017/02/04/Lottie简介（翻译）/</id>
     <published>2017-02-04T04:21:00.000Z</published>
-    <updated>2018-01-30T03:41:46.000Z</updated>
+    <updated>2018-03-29T06:29:04.545Z</updated>
     
     <summary type="html">
     
-      &lt;font color=&quot;#ff0000&quot;&gt;&lt;strong&gt;&lt;br&gt;以下内容为原创，欢迎转载，转载请注明&lt;br&gt;来自天天博客：&lt;a href=&quot;http://www.cnblogs.com/tiantianbyconan/p/6364634.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://www.cnblogs.com/tiantianbyconan/p/6364634.html&lt;/a&gt;
-&lt;/strong&gt;&lt;/font&gt;
-
-&lt;h1 id=&quot;Lottie简介（翻译）&quot;&gt;&lt;a href=&quot;#Lottie简介（翻译）&quot; class=&quot;headerlink&quot; title=&quot;Lottie简介（翻译）&quot;&gt;&lt;/a&gt;Lottie简介（翻译）&lt;/h1&gt;&lt;blockquote&gt;
+      &lt;h1 id=&quot;Lottie简介（翻译）&quot;&gt;&lt;a href=&quot;#Lottie简介（翻译）&quot; class=&quot;headerlink&quot; title=&quot;Lottie简介（翻译）&quot;&gt;&lt;/a&gt;Lottie简介（翻译）&lt;/h1&gt;&lt;blockquote&gt;
 &lt;p&gt;原文：&lt;a href=&quot;https://medium.com/airbnb-engineering/introducing-lottie-4ff4a0afac0e#.mfnxbtt06&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://medium.com/airbnb-engineering/introducing-lottie-4ff4a0afac0e#.mfnxbtt06&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;新的向本地apps的构建动画的开源工具。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -442,14 +430,11 @@
     <link href="http://blog.wangjiegulu.com/2017/01/09/Android-%E5%9C%A8Dagger-2%E4%B8%ADActivities%E5%92%8CSubcomponents%E7%9A%84%E5%A4%9A%E7%BB%91%E5%AE%9A%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/"/>
     <id>http://blog.wangjiegulu.com/2017/01/09/Android-在Dagger-2中Activities和Subcomponents的多绑定（翻译）/</id>
     <published>2017-01-09T12:23:00.000Z</published>
-    <updated>2018-01-31T05:38:24.000Z</updated>
+    <updated>2018-03-29T06:30:20.484Z</updated>
     
     <summary type="html">
     
-      &lt;font color=&quot;#ff0000&quot;&gt;&lt;strong&gt;&lt;br&gt;以下内容为原创，欢迎转载，转载请注明&lt;br&gt;来自天天博客：&lt;a href=&quot;http://www.cnblogs.com/tiantianbyconan/p/6266442.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://www.cnblogs.com/tiantianbyconan/p/6266442.html&lt;/a&gt;
-&lt;/strong&gt;&lt;/font&gt;
-
-&lt;h1 id=&quot;在Dagger-2中Activities和Subcomponents的多绑定&quot;&gt;&lt;a href=&quot;#在Dagger-2中Activities和Subcomponents的多绑定&quot; class=&quot;headerlink&quot; title=&quot;在Dagger 2中Activities和Subcomponents的多绑定&quot;&gt;&lt;/a&gt;在Dagger 2中Activities和Subcomponents的多绑定&lt;/h1&gt;&lt;blockquote&gt;
+      &lt;h1 id=&quot;在Dagger-2中Activities和Subcomponents的多绑定&quot;&gt;&lt;a href=&quot;#在Dagger-2中Activities和Subcomponents的多绑定&quot; class=&quot;headerlink&quot; title=&quot;在Dagger 2中Activities和Subcomponents的多绑定&quot;&gt;&lt;/a&gt;在Dagger 2中Activities和Subcomponents的多绑定&lt;/h1&gt;&lt;blockquote&gt;
 &lt;p&gt;原文：&lt;a href=&quot;http://frogermcs.github.io/activities-multibinding-in-dagger-2&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://frogermcs.github.io/activities-multibinding-in-dagger-2&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;几个月前，在&lt;a href=&quot;http://2016.mceconf.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;MCE^3&lt;/a&gt;会议中，Gregory Kick在他的&lt;a href=&quot;https://www.youtube.com/watch?v=iwjXqRlEevg&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;演讲&lt;/a&gt;中展示了一个提供Subcomponents（比如，为Activity）的新概念。新的方式给我们带来了一个创建不使用AppComponent对象引用（以前时Activities Subcomponents的工厂）的方式。为了让它成为现实，我们不得不等到了新的Dagger release版本：&lt;a href=&quot;https://github.com/google/dagger/releases/tag/dagger-2.7&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;version 2.7&lt;/a&gt;。&lt;/p&gt;
@@ -476,7 +461,7 @@
     <link href="http://blog.wangjiegulu.com/2016/12/30/Android-%E4%BD%BF%E7%94%A8Dagger-2%E6%9D%A5%E6%9E%84%E5%BB%BAUserScope%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/"/>
     <id>http://blog.wangjiegulu.com/2016/12/30/Android-使用Dagger-2来构建UserScope（翻译）/</id>
     <published>2016-12-30T09:23:00.000Z</published>
-    <updated>2018-01-31T05:37:54.000Z</updated>
+    <updated>2018-03-29T06:25:08.498Z</updated>
     
     <summary type="html">
     
@@ -484,7 +469,7 @@
       
         
         
-          &lt;font color=&quot;#ff0000&quot;&gt;&lt;strong&gt;&lt;br&gt;以下内容为原创，欢迎转载，转载请注明&lt;br&gt;来自天天博客：&lt;a href=&quot;http://www.cnblogs.com/tiantianbyconan/p/6237731.html&quot;
+          &lt;h1 id=&quot;使用Dagger-2来构建UserScope&quot;&gt;&lt;a href=&quot;#使用Dagger-2来构建UserScope&quot; class=&quot;headerlink&quot; title=&quot;使用Dagger 2来构建UserScope&quot;&gt;&lt;/a&gt;使用Dagger
         
       
     
@@ -510,7 +495,7 @@
     <link href="http://blog.wangjiegulu.com/2016/12/30/Android-%E5%9C%A8Dagger-2%E4%B8%AD%E4%BD%BF%E7%94%A8RxJava%E6%9D%A5%E8%BF%9B%E8%A1%8C%E5%BC%82%E6%AD%A5%E6%B3%A8%E5%85%A5%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/"/>
     <id>http://blog.wangjiegulu.com/2016/12/30/Android-在Dagger-2中使用RxJava来进行异步注入（翻译）/</id>
     <published>2016-12-30T05:53:00.000Z</published>
-    <updated>2018-01-31T05:38:28.000Z</updated>
+    <updated>2018-03-29T06:28:57.386Z</updated>
     
     <summary type="html">
     
@@ -518,7 +503,7 @@
       
         
         
-          &lt;font color=&quot;#ff0000&quot;&gt;&lt;strong&gt;&lt;br&gt;以下内容为原创，欢迎转载，转载请注明&lt;br&gt;来自天天博客：&lt;a href=&quot;http://www.cnblogs.com/tiantianbyconan/p/6236646.html&quot;
+          &lt;h1 id=&quot;在Dagger-2中使用RxJava来进行异步注入&quot;&gt;&lt;a href=&quot;#在Dagger-2中使用RxJava来进行异步注入&quot; class=&quot;headerlink&quot; title=&quot;在Dagger 2中使用RxJava来进行异步注入&quot;&gt;&lt;/a&gt;在Dagger
         
       
     
@@ -548,7 +533,7 @@
     <link href="http://blog.wangjiegulu.com/2016/12/29/Android-%E4%BD%BF%E7%94%A8Dagger-2%E8%BF%9B%E8%A1%8C%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5-Producers%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/"/>
     <id>http://blog.wangjiegulu.com/2016/12/29/Android-使用Dagger-2进行依赖注入-Producers（翻译）/</id>
     <published>2016-12-29T13:08:00.000Z</published>
-    <updated>2018-01-31T05:38:04.000Z</updated>
+    <updated>2018-03-29T06:25:26.031Z</updated>
     
     <summary type="html">
     
@@ -556,7 +541,7 @@
       
         
         
-          &lt;font color=&quot;#ff0000&quot;&gt;&lt;strong&gt;&lt;br&gt;以下内容为原创，欢迎转载，转载请注明&lt;br&gt;来自天天博客：&lt;a href=&quot;http://www.cnblogs.com/tiantianbyconan/p/6234811.html&quot;
+          &lt;h1 id=&quot;使用Dagger-2进行依赖注入-Producers&quot;&gt;&lt;a href=&quot;#使用Dagger-2进行依赖注入-Producers&quot; class=&quot;headerlink&quot; title=&quot;使用Dagger 2进行依赖注入 -
         
       
     
@@ -582,7 +567,7 @@
     <link href="http://blog.wangjiegulu.com/2016/11/01/Android-Android%E7%AB%AFORM%E6%A1%86%E6%9E%B6%E2%80%94%E2%80%94RapidORM-v2-1/"/>
     <id>http://blog.wangjiegulu.com/2016/11/01/Android-Android端ORM框架——RapidORM-v2-1/</id>
     <published>2016-11-01T09:54:00.000Z</published>
-    <updated>2018-01-30T03:09:43.000Z</updated>
+    <updated>2018-03-29T06:24:11.604Z</updated>
     
     <summary type="html">
     
@@ -590,7 +575,7 @@
       
         
         
-          &lt;font color=&quot;#ff0000&quot;&gt;&lt;strong&gt;&lt;br&gt;以下内容为原创，欢迎转载，转载请注明&lt;br&gt;&lt;br&gt;来自天天博客：&lt;a href=&quot;http://www.cnblogs.com/tiantianbyconan/p/6020412.html&quot;
+          &lt;h1 id=&quot;Android-Android端ORM框架——RapidORM-v2-1&quot;&gt;&lt;a href=&quot;#Android-Android端ORM框架——RapidORM-v2-1&quot; class=&quot;headerlink&quot;
         
       
     
@@ -599,13 +584,13 @@
     
       <category term="android" scheme="http://blog.wangjiegulu.com/tags/android/"/>
     
+      <category term="library" scheme="http://blog.wangjiegulu.com/tags/library/"/>
+    
       <category term="sqlite" scheme="http://blog.wangjiegulu.com/tags/sqlite/"/>
     
       <category term="database" scheme="http://blog.wangjiegulu.com/tags/database/"/>
     
       <category term="orm" scheme="http://blog.wangjiegulu.com/tags/orm/"/>
-    
-      <category term="library" scheme="http://blog.wangjiegulu.com/tags/library/"/>
     
       <category term="rapidorm" scheme="http://blog.wangjiegulu.com/tags/rapidorm/"/>
     
@@ -616,7 +601,7 @@
     <link href="http://blog.wangjiegulu.com/2016/09/21/Android-%E4%BD%BF%E7%94%A8MVP%E8%A7%A3%E5%86%B3%E6%8A%80%E6%9C%AF%E5%80%BA%E5%8A%A1%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/"/>
     <id>http://blog.wangjiegulu.com/2016/09/21/Android-使用MVP解决技术债务（翻译）/</id>
     <published>2016-09-21T07:03:00.000Z</published>
-    <updated>2018-01-30T03:18:31.000Z</updated>
+    <updated>2018-03-29T06:28:49.441Z</updated>
     
     <summary type="html">
     
@@ -624,7 +609,8 @@
       
         
         
-          &lt;font color=&quot;#ff0000&quot;&gt;&lt;strong&gt;&lt;br&gt;以下内容为原创，欢迎转载，转载请注明&lt;br&gt;来自天天博客：&lt;a href=&quot;http://www.cnblogs.com/tiantianbyconan/p/5892671.html&quot;
+          &lt;h1 id=&quot;使用MVP解决技术债务&quot;&gt;&lt;a href=&quot;#使用MVP解决技术债务&quot; class=&quot;headerlink&quot; title=&quot;使用MVP解决技术债务&quot;&gt;&lt;/a&gt;使用MVP解决技术债务&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;原文：&lt;a
         
       
     
@@ -646,7 +632,7 @@
     <link href="http://blog.wangjiegulu.com/2016/09/01/Android-%E5%BC%82%E6%AD%A5-layout-inflation%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/"/>
     <id>http://blog.wangjiegulu.com/2016/09/01/Android-异步-layout-inflation（翻译）/</id>
     <published>2016-09-01T06:42:00.000Z</published>
-    <updated>2018-01-30T03:25:00.000Z</updated>
+    <updated>2018-03-29T06:26:56.681Z</updated>
     
     <summary type="html">
     
@@ -654,7 +640,7 @@
       
         
         
-          &lt;font color=&quot;#ff0000&quot;&gt;&lt;strong&gt;&lt;br&gt;以下内容为原创，欢迎转载，转载请注明&lt;br&gt;来自天天博客：&lt;a href=&quot;http://www.cnblogs.com/tiantianbyconan/p/5829809.html&quot;
+          &lt;h1 id=&quot;异步-layout-inflation&quot;&gt;&lt;a href=&quot;#异步-layout-inflation&quot; class=&quot;headerlink&quot; title=&quot;异步 layout inflation&quot;&gt;&lt;/a&gt;异步 layout
         
       
     

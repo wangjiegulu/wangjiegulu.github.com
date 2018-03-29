@@ -49,9 +49,9 @@
         
         <tags>
             
-            <tag> android </tag>
-            
             <tag> java </tag>
+            
+            <tag> android </tag>
             
             <tag> gradle </tag>
             
@@ -652,10 +652,7 @@
     <entry>
       <title><![CDATA[Android焦点流程代码分析]]></title>
       <url>/2017/08/04/Android-Android%E7%84%A6%E7%82%B9%E6%B5%81%E7%A8%8B%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/</url>
-      <content type="html"><![CDATA[<font color="#ff0000"><strong><br>以下内容为原创，欢迎转载，转载请注明<br>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/7286503.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/7286503.html</a>
-</strong></font>
-
-<p>通过View的<code>View::focusSearch</code>进行焦点搜索对应方向上的下一个可以获取焦点的View：</p>
+      <content type="html"><![CDATA[<p>通过View的<code>View::focusSearch</code>进行焦点搜索对应方向上的下一个可以获取焦点的View：</p>
 <a id="more"></a>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> View <span class="title">focusSearch</span><span class="params">(@FocusRealDirection <span class="keyword">int</span> direction)</span> </span>&#123;</span><br><span class="line">   <span class="keyword">if</span> (mParent != <span class="keyword">null</span>) &#123;</span><br><span class="line">       <span class="keyword">return</span> mParent.focusSearch(<span class="keyword">this</span>, direction);</span><br><span class="line">   &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><span id="focusSearch"><br>不断地调用父控件来进行搜索，focusSearch有两个实现：<code>ViewGroup</code>和<code>RecyclerView</code>，先看<code>ViewGroup</code>：</span></p>
@@ -840,10 +837,7 @@
     <entry>
       <title><![CDATA[Gradle 插件 DiscardFilePlugin（class注入&清空类和方法）]]></title>
       <url>/2017/04/19/Android-Gradle-%E6%8F%92%E4%BB%B6-DiscardFilePlugin%EF%BC%88class%E6%B3%A8%E5%85%A5-%E6%B8%85%E7%A9%BA%E7%B1%BB%E5%92%8C%E6%96%B9%E6%B3%95%EF%BC%89/</url>
-      <content type="html"><![CDATA[<font color="#ff0000"><strong><br>以下内容为原创，欢迎转载，转载请注明<br>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/6732128.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/6732128.html</a>
-</strong></font>
-
-<h1 id="Android-Gradle-插件-DiscardFilePlugin（清空类和方法）"><a href="#Android-Gradle-插件-DiscardFilePlugin（清空类和方法）" class="headerlink" title="Android Gradle 插件 DiscardFilePlugin（清空类和方法）"></a>Android Gradle 插件 DiscardFilePlugin（清空类和方法）</h1><p>An android gradle plugin for discard class or method in compile time.</p>
+      <content type="html"><![CDATA[<h1 id="Android-Gradle-插件-DiscardFilePlugin（清空类和方法）"><a href="#Android-Gradle-插件-DiscardFilePlugin（清空类和方法）" class="headerlink" title="Android Gradle 插件 DiscardFilePlugin（清空类和方法）"></a>Android Gradle 插件 DiscardFilePlugin（清空类和方法）</h1><p>An android gradle plugin for discard class or method in compile time.</p>
 <p>用于在编译构建时期忽略清空类和方法的一个Android Gradle插件。</p>
 <p><strong>Github: <a href="https://github.com/wangjiegulu/DiscardFilePlugin" target="_blank" rel="noopener">https://github.com/wangjiegulu/DiscardFilePlugin</a></strong></p>
 <h2 id="1-1-使用场景"><a href="#1-1-使用场景" class="headerlink" title="1.1 使用场景"></a>1.1 使用场景</h2><p>在实际的生产中，我们总是会在我们的app中增加一些调试的工具，比如在<code>debug</code>模式下加入<code>DebugPanelActivity</code>（调试面板工具页面，提供比如“切换服务器”等操作）。我们需要在正式上线的release版本中清空相关类和方法，或者修改<code>boolean isProductionEnvironment()</code>方法，让它永远返回<code>true</code>，<strong>以此来避免上线之后调试相关代码通过反编译等手段暴露出来。</strong></p>
@@ -1684,10 +1678,7 @@
     <entry>
       <title><![CDATA[[Android]使用RecyclerView替代ListView（四：SeizeRecyclerView）]]></title>
       <url>/2017/03/29/Android-%E4%BD%BF%E7%94%A8RecyclerView%E6%9B%BF%E4%BB%A3ListView%EF%BC%88%E5%9B%9B%EF%BC%9ASeizeRecyclerView%EF%BC%89/</url>
-      <content type="html"><![CDATA[<font color="#ff0000"><strong><br>以下内容为原创，欢迎转载，转载请注明<br>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/6641794.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/6641794.html</a>
-</strong></font>
-
-<h1 id="Android-使用RecyclerView替代ListView（四：SeizeRecyclerView）"><a href="#Android-使用RecyclerView替代ListView（四：SeizeRecyclerView）" class="headerlink" title="[Android]使用RecyclerView替代ListView（四：SeizeRecyclerView）"></a>[Android]使用RecyclerView替代ListView（四：SeizeRecyclerView）</h1><p>在RecyclerView的开发过程中，可能会遇到一些窘境，比如，下图是今日头条的视频详情页面：</p>
+      <content type="html"><![CDATA[<h1 id="Android-使用RecyclerView替代ListView（四：SeizeRecyclerView）"><a href="#Android-使用RecyclerView替代ListView（四：SeizeRecyclerView）" class="headerlink" title="[Android]使用RecyclerView替代ListView（四：SeizeRecyclerView）"></a>[Android]使用RecyclerView替代ListView（四：SeizeRecyclerView）</h1><p>在RecyclerView的开发过程中，可能会遇到一些窘境，比如，下图是今日头条的视频详情页面：</p>
 <a id="more"></a>
 <p><img src="http://images2015.cnblogs.com/blog/378300/201703/378300-20170329202135217-815673664.png" alt=""> <img src="http://images2015.cnblogs.com/blog/378300/201703/378300-20170329202140514-614081911.png" alt=""></p>
 <p>除去播放器外，其它组件应该是一个RecyclerView，但是这个RecyclerView中的item有两种类型：</p>
@@ -1743,10 +1734,7 @@
     <entry>
       <title><![CDATA[Lottie简介（翻译）]]></title>
       <url>/2017/02/04/Lottie%E7%AE%80%E4%BB%8B%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/</url>
-      <content type="html"><![CDATA[<font color="#ff0000"><strong><br>以下内容为原创，欢迎转载，转载请注明<br>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/6364634.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/6364634.html</a>
-</strong></font>
-
-<h1 id="Lottie简介（翻译）"><a href="#Lottie简介（翻译）" class="headerlink" title="Lottie简介（翻译）"></a>Lottie简介（翻译）</h1><blockquote>
+      <content type="html"><![CDATA[<h1 id="Lottie简介（翻译）"><a href="#Lottie简介（翻译）" class="headerlink" title="Lottie简介（翻译）"></a>Lottie简介（翻译）</h1><blockquote>
 <p>原文：<a href="https://medium.com/airbnb-engineering/introducing-lottie-4ff4a0afac0e#.mfnxbtt06" target="_blank" rel="noopener">https://medium.com/airbnb-engineering/introducing-lottie-4ff4a0afac0e#.mfnxbtt06</a></p>
 <p>新的向本地apps的构建动画的开源工具。</p>
 </blockquote>
@@ -1792,10 +1780,7 @@
     <entry>
       <title><![CDATA[在Dagger 2中Activities和Subcomponents的多绑定（翻译）]]></title>
       <url>/2017/01/09/Android-%E5%9C%A8Dagger-2%E4%B8%ADActivities%E5%92%8CSubcomponents%E7%9A%84%E5%A4%9A%E7%BB%91%E5%AE%9A%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/</url>
-      <content type="html"><![CDATA[<font color="#ff0000"><strong><br>以下内容为原创，欢迎转载，转载请注明<br>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/6266442.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/6266442.html</a>
-</strong></font>
-
-<h1 id="在Dagger-2中Activities和Subcomponents的多绑定"><a href="#在Dagger-2中Activities和Subcomponents的多绑定" class="headerlink" title="在Dagger 2中Activities和Subcomponents的多绑定"></a>在Dagger 2中Activities和Subcomponents的多绑定</h1><blockquote>
+      <content type="html"><![CDATA[<h1 id="在Dagger-2中Activities和Subcomponents的多绑定"><a href="#在Dagger-2中Activities和Subcomponents的多绑定" class="headerlink" title="在Dagger 2中Activities和Subcomponents的多绑定"></a>在Dagger 2中Activities和Subcomponents的多绑定</h1><blockquote>
 <p>原文：<a href="http://frogermcs.github.io/activities-multibinding-in-dagger-2" target="_blank" rel="noopener">http://frogermcs.github.io/activities-multibinding-in-dagger-2</a></p>
 </blockquote>
 <p>几个月前，在<a href="http://2016.mceconf.com/" target="_blank" rel="noopener">MCE^3</a>会议中，Gregory Kick在他的<a href="https://www.youtube.com/watch?v=iwjXqRlEevg" target="_blank" rel="noopener">演讲</a>中展示了一个提供Subcomponents（比如，为Activity）的新概念。新的方式给我们带来了一个创建不使用AppComponent对象引用（以前时Activities Subcomponents的工厂）的方式。为了让它成为现实，我们不得不等到了新的Dagger release版本：<a href="https://github.com/google/dagger/releases/tag/dagger-2.7" target="_blank" rel="noopener">version 2.7</a>。</p>
@@ -1915,10 +1900,7 @@
     <entry>
       <title><![CDATA[使用Dagger 2来构建UserScope（翻译）]]></title>
       <url>/2016/12/30/Android-%E4%BD%BF%E7%94%A8Dagger-2%E6%9D%A5%E6%9E%84%E5%BB%BAUserScope%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/</url>
-      <content type="html"><![CDATA[<font color="#ff0000"><strong><br>以下内容为原创，欢迎转载，转载请注明<br>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/6237731.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/6237731.html</a>
-</strong></font>
-
-<h1 id="使用Dagger-2来构建UserScope"><a href="#使用Dagger-2来构建UserScope" class="headerlink" title="使用Dagger 2来构建UserScope"></a>使用Dagger 2来构建UserScope</h1><blockquote>
+      <content type="html"><![CDATA[<h1 id="使用Dagger-2来构建UserScope"><a href="#使用Dagger-2来构建UserScope" class="headerlink" title="使用Dagger 2来构建UserScope"></a>使用Dagger 2来构建UserScope</h1><blockquote>
 <p>原文：<a href="http://frogermcs.github.io/building-userscope-with-dagger2/" target="_blank" rel="noopener">http://frogermcs.github.io/building-userscope-with-dagger2/</a></p>
 </blockquote>
 <p>在Dagger 2中自定义scopes可以在不寻常存活时间（与Application和界面生命周期不同的）的依赖上给我带来更好的控制。但是在Android app中正确地实现它需要记住几个事情：scope不能存活比application进程更长的周期，进程可以被系统杀死并且在更多的对象实例的用户流中恢复过来。今天我们将介绍所有这些，并尝试实现可用于生产的UserScope。</p>
@@ -2021,10 +2003,7 @@
     <entry>
       <title><![CDATA[在Dagger 2中使用RxJava来进行异步注入（翻译）]]></title>
       <url>/2016/12/30/Android-%E5%9C%A8Dagger-2%E4%B8%AD%E4%BD%BF%E7%94%A8RxJava%E6%9D%A5%E8%BF%9B%E8%A1%8C%E5%BC%82%E6%AD%A5%E6%B3%A8%E5%85%A5%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/</url>
-      <content type="html"><![CDATA[<font color="#ff0000"><strong><br>以下内容为原创，欢迎转载，转载请注明<br>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/6236646.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/6236646.html</a>
-</strong></font>
-
-<h1 id="在Dagger-2中使用RxJava来进行异步注入"><a href="#在Dagger-2中使用RxJava来进行异步注入" class="headerlink" title="在Dagger 2中使用RxJava来进行异步注入"></a>在Dagger 2中使用RxJava来进行异步注入</h1><blockquote>
+      <content type="html"><![CDATA[<h1 id="在Dagger-2中使用RxJava来进行异步注入"><a href="#在Dagger-2中使用RxJava来进行异步注入" class="headerlink" title="在Dagger 2中使用RxJava来进行异步注入"></a>在Dagger 2中使用RxJava来进行异步注入</h1><blockquote>
 <p>原文：<a href="http://frogermcs.github.io/async-injection-in-dagger-2-with-rxjava" target="_blank" rel="noopener">http://frogermcs.github.io/async-injection-in-dagger-2-with-rxjava</a></p>
 </blockquote>
 <p>几星期前我写了一篇关于在Dagger 2中使用<em>Producers</em>进行异步注入的<a href="https://medium.com/@froger_mcs/dependency-injection-with-dagger-2-producers-c424ddc60ba3" target="_blank" rel="noopener">文章</a>。在后台线程中执行对象的初始化又一个很好的优势 - 它负责实时（<a href="https://www.youtube.com/watch?v=CaMTIgxCSqU" target="_blank" rel="noopener">每秒60帧</a>可以保持界面流畅）绘制UI时不会在主线程中阻塞。</p>
@@ -2134,10 +2113,7 @@
     <entry>
       <title><![CDATA[使用Dagger 2进行依赖注入 - Producers（翻译）]]></title>
       <url>/2016/12/29/Android-%E4%BD%BF%E7%94%A8Dagger-2%E8%BF%9B%E8%A1%8C%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5-Producers%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/</url>
-      <content type="html"><![CDATA[<font color="#ff0000"><strong><br>以下内容为原创，欢迎转载，转载请注明<br>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/6234811.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/6234811.html</a>
-</strong></font>
-
-<h1 id="使用Dagger-2进行依赖注入-Producers"><a href="#使用Dagger-2进行依赖注入-Producers" class="headerlink" title="使用Dagger 2进行依赖注入 - Producers"></a>使用Dagger 2进行依赖注入 - Producers</h1><blockquote>
+      <content type="html"><![CDATA[<h1 id="使用Dagger-2进行依赖注入-Producers"><a href="#使用Dagger-2进行依赖注入-Producers" class="headerlink" title="使用Dagger 2进行依赖注入 - Producers"></a>使用Dagger 2进行依赖注入 - Producers</h1><blockquote>
 <p>原文：<a href="http://frogermcs.github.io/dependency-injection-with-dagger-2-producers/" target="_blank" rel="noopener">http://frogermcs.github.io/dependency-injection-with-dagger-2-producers/</a></p>
 </blockquote>
 <p>本文是在Android中使用Dagger 2框架进行依赖注入的系列文章中的一部分。今天我们将探索下Dagger Producers - 使用Java实现异步依赖注入的Dagger2的一个扩展。</p>
@@ -2267,10 +2243,7 @@
     <entry>
       <title><![CDATA[[Android]Android端ORM框架——RapidORM(v2.1)]]></title>
       <url>/2016/11/01/Android-Android%E7%AB%AFORM%E6%A1%86%E6%9E%B6%E2%80%94%E2%80%94RapidORM-v2-1/</url>
-      <content type="html"><![CDATA[<font color="#ff0000"><strong><br>以下内容为原创，欢迎转载，转载请注明<br><br>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/6020412.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/6020412.html</a>
-</strong></font>
-
-<h1 id="Android-Android端ORM框架——RapidORM-v2-1"><a href="#Android-Android端ORM框架——RapidORM-v2-1" class="headerlink" title="[Android]Android端ORM框架——RapidORM(v2.1)"></a>[Android]Android端ORM框架——RapidORM(v2.1)</h1><p><strong><a href="https://github.com/wangjiegulu/RapidORM" target="_blank" rel="noopener">RapidORM</a>：Android端轻量高性能的ORM框架</strong></p>
+      <content type="html"><![CDATA[<h1 id="Android-Android端ORM框架——RapidORM-v2-1"><a href="#Android-Android端ORM框架——RapidORM-v2-1" class="headerlink" title="[Android]Android端ORM框架——RapidORM(v2.1)"></a>[Android]Android端ORM框架——RapidORM(v2.1)</h1><p><strong><a href="https://github.com/wangjiegulu/RapidORM" target="_blank" rel="noopener">RapidORM</a>：Android端轻量高性能的ORM框架</strong></p>
 <p><strong>GitHub:</strong> <a href="https://github.com/wangjiegulu/RapidORM" target="_blank" rel="noopener">https://github.com/wangjiegulu/RapidORM</a></p>
 <h2 id="RapidORM-v2-1-feature"><a href="#RapidORM-v2-1-feature" class="headerlink" title="RapidORM v2.1 feature"></a>RapidORM v2.1 feature</h2><p>1. 在执行SQL和创建表时提升性能。</p>
 <p>2. 提升bind参数时的性能</p>
@@ -2308,13 +2281,13 @@
             
             <tag> android </tag>
             
+            <tag> library </tag>
+            
             <tag> sqlite </tag>
             
             <tag> database </tag>
             
             <tag> orm </tag>
-            
-            <tag> library </tag>
             
             <tag> rapidorm </tag>
             
@@ -2325,10 +2298,7 @@
     <entry>
       <title><![CDATA[[Android]使用MVP解决技术债务（翻译）]]></title>
       <url>/2016/09/21/Android-%E4%BD%BF%E7%94%A8MVP%E8%A7%A3%E5%86%B3%E6%8A%80%E6%9C%AF%E5%80%BA%E5%8A%A1%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/</url>
-      <content type="html"><![CDATA[<font color="#ff0000"><strong><br>以下内容为原创，欢迎转载，转载请注明<br>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/5892671.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/5892671.html</a>
-</strong></font>
-
-<h1 id="使用MVP解决技术债务"><a href="#使用MVP解决技术债务" class="headerlink" title="使用MVP解决技术债务"></a>使用MVP解决技术债务</h1><blockquote>
+      <content type="html"><![CDATA[<h1 id="使用MVP解决技术债务"><a href="#使用MVP解决技术债务" class="headerlink" title="使用MVP解决技术债务"></a>使用MVP解决技术债务</h1><blockquote>
 <p>原文：<a href="https://medium.com/picnic-engineering/tackling-technical-debt-with-mvp-67e805ed5103#.couu0d5i0" target="_blank" rel="noopener">https://medium.com/picnic-engineering/tackling-technical-debt-with-mvp-67e805ed5103#.couu0d5i0</a></p>
 </blockquote>
 <p>免责申明：这篇博客并不是讲关于怎么使用MVP的方式（上帝知道关于这些已经太多了）去写Android代码。而仅仅是我的个人经验，关于怎么转换我们的表现层到MVP架构来帮助我们解决一些累积的技术债务，而且在这个过程中也会帮助我们的app从一个原型转变成一个更具维护性的产品。</p>
@@ -2389,11 +2359,8 @@
     <entry>
       <title><![CDATA[[Android]异步 layout inflation（翻译）]]></title>
       <url>/2016/09/01/Android-%E5%BC%82%E6%AD%A5-layout-inflation%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/</url>
-      <content type="html"><![CDATA[<font color="#ff0000"><strong><br>以下内容为原创，欢迎转载，转载请注明<br>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/5829809.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/5829809.html</a>
-</strong></font>
-
-<h1 id="异步-layout-inflation"><a href="#异步-layout-inflation" class="headerlink" title="异步 layout inflation"></a>异步 layout inflation</h1><blockquote>
-<p>原文：<a href="&#109;&#x61;&#x69;&#108;&#x74;&#x6f;&#x3a;&#104;&#116;&#x74;&#112;&#x73;&#58;&#47;&#47;&#109;&#101;&#x64;&#105;&#117;&#109;&#x2e;&#99;&#111;&#109;&#47;&#x40;&#108;&#x75;&#112;&#x61;&#x6a;&#x7a;&#x2f;&#97;&#x73;&#121;&#110;&#99;&#104;&#114;&#111;&#x6e;&#x6f;&#x75;&#x73;&#x2d;&#x6c;&#97;&#x79;&#111;&#117;&#116;&#45;&#x69;&#x6e;&#x66;&#108;&#97;&#116;&#x69;&#111;&#x6e;&#x2d;&#x37;&#99;&#98;&#x63;&#x61;&#50;&#54;&#x35;&#51;&#98;&#x66;&#x23;&#x2e;&#113;&#x32;&#x32;&#118;&#x70;&#x65;&#x7a;&#103;&#x34;">&#104;&#116;&#x74;&#112;&#x73;&#58;&#47;&#47;&#109;&#101;&#x64;&#105;&#117;&#109;&#x2e;&#99;&#111;&#109;&#47;&#x40;&#108;&#x75;&#112;&#x61;&#x6a;&#x7a;&#x2f;&#97;&#x73;&#121;&#110;&#99;&#104;&#114;&#111;&#x6e;&#x6f;&#x75;&#x73;&#x2d;&#x6c;&#97;&#x79;&#111;&#117;&#116;&#45;&#x69;&#x6e;&#x66;&#108;&#97;&#116;&#x69;&#111;&#x6e;&#x2d;&#x37;&#99;&#98;&#x63;&#x61;&#50;&#54;&#x35;&#51;&#98;&#x66;&#x23;&#x2e;&#113;&#x32;&#x32;&#118;&#x70;&#x65;&#x7a;&#103;&#x34;</a></p>
+      <content type="html"><![CDATA[<h1 id="异步-layout-inflation"><a href="#异步-layout-inflation" class="headerlink" title="异步 layout inflation"></a>异步 layout inflation</h1><blockquote>
+<p>原文：<a href="&#109;&#97;&#x69;&#x6c;&#116;&#111;&#58;&#x68;&#116;&#116;&#x70;&#x73;&#58;&#47;&#x2f;&#109;&#101;&#x64;&#x69;&#x75;&#x6d;&#46;&#99;&#x6f;&#109;&#47;&#64;&#x6c;&#x75;&#112;&#x61;&#106;&#x7a;&#x2f;&#97;&#115;&#x79;&#110;&#x63;&#x68;&#x72;&#x6f;&#110;&#x6f;&#117;&#115;&#45;&#x6c;&#x61;&#x79;&#x6f;&#117;&#x74;&#x2d;&#105;&#110;&#102;&#108;&#97;&#x74;&#105;&#x6f;&#110;&#45;&#x37;&#x63;&#98;&#x63;&#x61;&#x32;&#x36;&#x35;&#x33;&#98;&#102;&#x23;&#x2e;&#113;&#50;&#50;&#x76;&#x70;&#101;&#122;&#103;&#52;">&#x68;&#116;&#116;&#x70;&#x73;&#58;&#47;&#x2f;&#109;&#101;&#x64;&#x69;&#x75;&#x6d;&#46;&#99;&#x6f;&#109;&#47;&#64;&#x6c;&#x75;&#112;&#x61;&#106;&#x7a;&#x2f;&#97;&#115;&#x79;&#110;&#x63;&#x68;&#x72;&#x6f;&#110;&#x6f;&#117;&#115;&#45;&#x6c;&#x61;&#x79;&#x6f;&#117;&#x74;&#x2d;&#105;&#110;&#102;&#108;&#97;&#x74;&#105;&#x6f;&#110;&#45;&#x37;&#x63;&#98;&#x63;&#x61;&#x32;&#x36;&#x35;&#x33;&#98;&#102;&#x23;&#x2e;&#113;&#50;&#50;&#x76;&#x70;&#101;&#122;&#103;&#52;</a></p>
 </blockquote>
 <p>随着最近发布的<a href="https://developer.android.com/topic/libraries/support-library/revisions.html" target="_blank" rel="noopener">Android Support Library, revision 24</a>，Google开发者在v4包中增加了一个用来异步inflate layouts的帮助类。</p>
 <h2 id="进入-AsyncLayoutInflater"><a href="#进入-AsyncLayoutInflater" class="headerlink" title="进入 AsyncLayoutInflater"></a>进入 AsyncLayoutInflater</h2><p>你会发现AsyncLayoutInflater可以使用在当你想要去懒加载你应用中部分UI或者用户行为的响应。这个帮助类将会允许你的UI线程在执行繁重的inflate时继续保持响应。</p>
@@ -3479,10 +3446,7 @@ Cookie: ... ...
     <entry>
       <title><![CDATA[[Android]使用自定义JUnit Rules、annotations和Resources进行单元测试（翻译）]]></title>
       <url>/2016/08/22/Android-%E4%BD%BF%E7%94%A8%E8%87%AA%E5%AE%9A%E4%B9%89JUnit-Rules%E3%80%81annotations%E5%92%8CResources%E8%BF%9B%E8%A1%8C%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/</url>
-      <content type="html"><![CDATA[<font color="#ff0000"><strong><br>以下内容为原创，欢迎转载，转载请注明<br>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/5795091.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/5795091.html</a>
-</strong></font>
-
-<h1 id="使用自定义JUnit-Rules、annotations和Resources进行单元测试"><a href="#使用自定义JUnit-Rules、annotations和Resources进行单元测试" class="headerlink" title="使用自定义JUnit Rules、annotations和Resources进行单元测试"></a>使用自定义JUnit Rules、annotations和Resources进行单元测试</h1><blockquote>
+      <content type="html"><![CDATA[<h1 id="使用自定义JUnit-Rules、annotations和Resources进行单元测试"><a href="#使用自定义JUnit-Rules、annotations和Resources进行单元测试" class="headerlink" title="使用自定义JUnit Rules、annotations和Resources进行单元测试"></a>使用自定义JUnit Rules、annotations和Resources进行单元测试</h1><blockquote>
 <p>原文：<a href="http://www.thedroidsonroids.com/blog/android/unit-tests-rules-annotations-resources" target="_blank" rel="noopener">http://www.thedroidsonroids.com/blog/android/unit-tests-rules-annotations-resources</a></p>
 </blockquote>
 <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Unit Test并不只有断言和测试方法组成。它有一些可以用来提高质量和测试代码可读性的技术。在本文中我们将探索：</p>
@@ -3573,10 +3537,7 @@ Cookie: ... ...
     <entry>
       <title><![CDATA[[Android]Android端ORM框架——RapidORM(v2.0)]]></title>
       <url>/2016/06/29/Android-Android%E7%AB%AFORM%E6%A1%86%E6%9E%B6%E2%80%94%E2%80%94RapidORM-v2-0/</url>
-      <content type="html"><![CDATA[<font color="#ff0000"><strong><br>以下内容为原创，欢迎转载，转载请注明<br><br>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/5626716.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/5626716.html</a>
-</strong></font>
-
-<h1 id="Android-Android端ORM框架——RapidORM-v2-0"><a href="#Android-Android端ORM框架——RapidORM-v2-0" class="headerlink" title="[Android]Android端ORM框架——RapidORM(v2.0)"></a>[Android]Android端ORM框架——RapidORM(<code>v2.0</code>)</h1><p><strong><a href="https://github.com/wangjiegulu/RapidORM" target="_blank" rel="noopener">RapidORM</a>：Android端轻量高性能的ORM框架</strong></p>
+      <content type="html"><![CDATA[<h1 id="Android-Android端ORM框架——RapidORM-v2-0"><a href="#Android-Android端ORM框架——RapidORM-v2-0" class="headerlink" title="[Android]Android端ORM框架——RapidORM(v2.0)"></a>[Android]Android端ORM框架——RapidORM(<code>v2.0</code>)</h1><p><strong><a href="https://github.com/wangjiegulu/RapidORM" target="_blank" rel="noopener">RapidORM</a>：Android端轻量高性能的ORM框架</strong></p>
 <p><strong>GitHub:</strong> <a href="https://github.com/wangjiegulu/RapidORM" target="_blank" rel="noopener">https://github.com/wangjiegulu/RapidORM</a></p>
 <h2 id="1-RapidORM-v1-0"><a href="#1-RapidORM-v1-0" class="headerlink" title="1. RapidORM v1.0"></a>1. RapidORM <code>v1.0</code></h2><blockquote>
 <p><code>v1.0</code>博客文档：<a href="http://www.cnblogs.com/tiantianbyconan/p/4748077.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/4748077.html</a></p>
@@ -3613,13 +3574,13 @@ Cookie: ... ...
             
             <tag> android </tag>
             
+            <tag> library </tag>
+            
             <tag> sqlite </tag>
             
             <tag> database </tag>
             
             <tag> orm </tag>
-            
-            <tag> library </tag>
             
             <tag> rapidorm </tag>
             
@@ -3736,10 +3697,7 @@ Cookie: ... ...
     <entry>
       <title><![CDATA[Android MVP&依赖注入&单元测试]]></title>
       <url>/2016/04/22/Android-Android-MVP-%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5-%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/</url>
-      <content type="html"><![CDATA[<font color="#ff0000"><strong><br>以下内容为原创，欢迎转载，转载请注明<br>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/5422443.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/5422443.html</a>
-</strong></font>
-
-<h1 id="Android-MVP-amp-依赖注入-amp-单元测试"><a href="#Android-MVP-amp-依赖注入-amp-单元测试" class="headerlink" title="Android MVP&amp;依赖注入&amp;单元测试"></a>Android MVP&amp;依赖注入&amp;单元测试</h1><blockquote>
+      <content type="html"><![CDATA[<h1 id="Android-MVP-amp-依赖注入-amp-单元测试"><a href="#Android-MVP-amp-依赖注入-amp-单元测试" class="headerlink" title="Android MVP&amp;依赖注入&amp;单元测试"></a>Android MVP&amp;依赖注入&amp;单元测试</h1><blockquote>
 <p><strong>注意</strong>：为了区分<code>MVP</code>中的<code>View</code>与<code>Android</code>中控件的<code>View</code>，以下<code>MVP</code>中的<code>View</code>使用<code>Viewer</code>来表示。</p>
 </blockquote>
 <p>这里暂时先只讨论 <code>Viewer</code> 和 <code>Presenter</code>，<code>Model</code>暂时不去涉及。</p>
@@ -3909,10 +3867,7 @@ Cookie: ... ...
     <entry>
       <title><![CDATA[[Android]一个干净的架构（翻译）]]></title>
       <url>/2016/03/14/Android-%E4%B8%80%E4%B8%AA%E5%B9%B2%E5%87%80%E7%9A%84%E6%9E%B6%E6%9E%84%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/</url>
-      <content type="html"><![CDATA[<font color="#ff0000"><strong><br>以下内容为原创，欢迎转载，转载请注明<br>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/5276587.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/5276587.html</a>
-</strong></font>
-
-<h1 id="一个干净的架构"><a href="#一个干净的架构" class="headerlink" title="一个干净的架构"></a>一个干净的架构</h1><blockquote>
+      <content type="html"><![CDATA[<h1 id="一个干净的架构"><a href="#一个干净的架构" class="headerlink" title="一个干净的架构"></a>一个干净的架构</h1><blockquote>
 <p>原文：<a href="https://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html" target="_blank" rel="noopener">https://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html</a></p>
 </blockquote>
 <p><img src="https://blog.8thlight.com/assets/posts/2012-08-13-the-clean-architecture/CleanArchitecture-81565aba46f035911a5018e77a0f2d4e.jpg" alt=""></p>
@@ -3979,10 +3934,7 @@ Cookie: ... ...
     <entry>
       <title><![CDATA[Dagger2Metrics - 测量DI图表初始化的性能（翻译）]]></title>
       <url>/2016/02/16/Android-Dagger2Metrics-%E6%B5%8B%E9%87%8FDI%E5%9B%BE%E8%A1%A8%E5%88%9D%E5%A7%8B%E5%8C%96%E7%9A%84%E6%80%A7%E8%83%BD%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/</url>
-      <content type="html"><![CDATA[<font color="#ff0000"><strong><br>以下内容为原创，欢迎转载，转载请注明<br>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/5098943.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/5098943.html</a>
-</strong></font>
-
-<h1 id="Dagger2Metrics-测量DI图表初始化的性能"><a href="#Dagger2Metrics-测量DI图表初始化的性能" class="headerlink" title="Dagger2Metrics - 测量DI图表初始化的性能"></a>Dagger2Metrics - 测量DI图表初始化的性能</h1><blockquote>
+      <content type="html"><![CDATA[<h1 id="Dagger2Metrics-测量DI图表初始化的性能"><a href="#Dagger2Metrics-测量DI图表初始化的性能" class="headerlink" title="Dagger2Metrics - 测量DI图表初始化的性能"></a>Dagger2Metrics - 测量DI图表初始化的性能</h1><blockquote>
 <p>原文：<a href="http://frogermcs.github.io/dagger2metrics-measure-performance-of-graph-initialization/" target="_blank" rel="noopener">http://frogermcs.github.io/dagger2metrics-measure-performance-of-graph-initialization/</a></p>
 </blockquote>
 <p>几个月前我们通过 <a href="http://frogermcs.github.io/dagger-graph-creation-performance/" target="_blank" rel="noopener">Dagger 2 - graph creation performance</a> 经历了一些可能会遇到的问题。多亏 <a href="http://tools.android.com/tips/traceview" target="_blank" rel="noopener">TraceView</a> 这个工具我们可以很确切地看到初始化所有需要的依赖需要多少时间。但是这并不简单 - 我们必须要在我们代码中找出需要开始和停止测量的地方，然后在Android Studio中dump和分析它们。为了让它变得更简单，我们准备了一个简单的库，它可以帮助我们捕捉潜在的性能问题。</p>
@@ -4079,10 +4031,7 @@ Cookie: ... ...
     <entry>
       <title><![CDATA[使用Dagger 2依赖注入 - 图表创建的性能（翻译）]]></title>
       <url>/2016/01/04/Android-%E4%BD%BF%E7%94%A8Dagger-2%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5-%E5%9B%BE%E8%A1%A8%E5%88%9B%E5%BB%BA%E7%9A%84%E6%80%A7%E8%83%BD%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/</url>
-      <content type="html"><![CDATA[<font color="#ff0000"><strong><br>以下内容为原创，欢迎转载，转载请注明<br>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/5098943.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/5098943.html</a>
-</strong></font>
-
-<h1 id="使用Dagger-2依赖注入-图表创建的性能"><a href="#使用Dagger-2依赖注入-图表创建的性能" class="headerlink" title="使用Dagger 2依赖注入 - 图表创建的性能"></a>使用Dagger 2依赖注入 - 图表创建的性能</h1><blockquote>
+      <content type="html"><![CDATA[<h1 id="使用Dagger-2依赖注入-图表创建的性能"><a href="#使用Dagger-2依赖注入-图表创建的性能" class="headerlink" title="使用Dagger 2依赖注入 - 图表创建的性能"></a>使用Dagger 2依赖注入 - 图表创建的性能</h1><blockquote>
 <p>原文：<a href="http://frogermcs.github.io/dagger-graph-creation-performance/" target="_blank" rel="noopener">http://frogermcs.github.io/dagger-graph-creation-performance/</a></p>
 </blockquote>
 <p><a href="https://twitter.com/search?q=%23perfmatters" target="_blank" rel="noopener">#PerfMatters</a> - 最近非常流行标签，尤其在Android世界中。不管怎样，apps只需要正常工作就可以的时代已经过去了。现在所有的一切都应该是令人愉悦的，流畅并且快速。举个例子，Instagram <a href="http://instagram-engineering.tumblr.com/post/97740520316/betterandroid" target="_blank" rel="noopener">花费了半年的时间</a> 只是让app更加快速，更加美观，和更好的屏幕适配性。</p>
@@ -4204,10 +4153,7 @@ Cookie: ... ...
     <entry>
       <title><![CDATA[使用Dagger 2依赖注入 - 自定义Scope（翻译）]]></title>
       <url>/2016/01/02/Android-%E4%BD%BF%E7%94%A8Dagger-2%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5-%E8%87%AA%E5%AE%9A%E4%B9%89Scope%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/</url>
-      <content type="html"><![CDATA[<font color="#ff0000"><strong><br>以下内容为原创，欢迎转载，转载请注明<br>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/5095426.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/5095426.html</a>
-</strong></font>
-
-<h1 id="使用Dagger-2依赖注入-自定义Scope"><a href="#使用Dagger-2依赖注入-自定义Scope" class="headerlink" title="使用Dagger 2依赖注入 - 自定义Scope"></a>使用Dagger 2依赖注入 - 自定义Scope</h1><blockquote>
+      <content type="html"><![CDATA[<h1 id="使用Dagger-2依赖注入-自定义Scope"><a href="#使用Dagger-2依赖注入-自定义Scope" class="headerlink" title="使用Dagger 2依赖注入 - 自定义Scope"></a>使用Dagger 2依赖注入 - 自定义Scope</h1><blockquote>
 <p>原文：<a href="http://frogermcs.github.io/dependency-injection-with-dagger-2-custom-scopes/" target="_blank" rel="noopener">http://frogermcs.github.io/dependency-injection-with-dagger-2-custom-scopes/</a></p>
 </blockquote>
 <p>这章是展示使用Dagger 2在Android端实现依赖注入的系列中的一部分。今天我会花点时间在自定义Scope（作用域）上面 - 它是很实用，但是对于刚接触依赖注入的人会有一点困难。</p>
@@ -4328,10 +4274,7 @@ Cookie: ... ...
     <entry>
       <title><![CDATA[使用Dagger 2依赖注入 - API（翻译）]]></title>
       <url>/2015/12/31/Android-%E4%BD%BF%E7%94%A8Dagger-2%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5-API%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/</url>
-      <content type="html"><![CDATA[<font color="#ff0000"><strong><br>以下内容为原创，欢迎转载，转载请注明<br>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/5092525.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/5092525.html</a>
-</strong></font>
-
-<h1 id="使用Dagger-2依赖注入-API"><a href="#使用Dagger-2依赖注入-API" class="headerlink" title="使用Dagger 2依赖注入 - API"></a>使用Dagger 2依赖注入 - API</h1><blockquote>
+      <content type="html"><![CDATA[<h1 id="使用Dagger-2依赖注入-API"><a href="#使用Dagger-2依赖注入-API" class="headerlink" title="使用Dagger 2依赖注入 - API"></a>使用Dagger 2依赖注入 - API</h1><blockquote>
 <p>原文：<a href="http://frogermcs.github.io/dependency-injection-with-dagger-2-the-api/" target="_blank" rel="noopener">http://frogermcs.github.io/dependency-injection-with-dagger-2-the-api/</a></p>
 </blockquote>
 <p>这章是展示使用Dagger 2在Android端实现依赖注入的系列中的一部分。今天我会探索Dagger 2的基础并且学习这个依赖注入框架的所有的API。</p>
@@ -4471,9 +4414,7 @@ Cookie: ... ...
     <entry>
       <title><![CDATA[使用Dagger 2依赖注入 - DI介绍（翻译）]]></title>
       <url>/2015/12/31/Android-%E4%BD%BF%E7%94%A8Dagger-2%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5-DI%E4%BB%8B%E7%BB%8D%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/</url>
-      <content type="html"><![CDATA[<font color="#ff0000"><br>以下内容为原创，欢迎转载，转载请注明<br>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/5092083.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/5092083.html</a><br></font>
-
-<h2 id="使用Dagger-2依赖注入-DI介绍"><a href="#使用Dagger-2依赖注入-DI介绍" class="headerlink" title="使用Dagger 2依赖注入 - DI介绍"></a>使用Dagger 2依赖注入 - DI介绍</h2><blockquote>
+      <content type="html"><![CDATA[<h2 id="使用Dagger-2依赖注入-DI介绍"><a href="#使用Dagger-2依赖注入-DI介绍" class="headerlink" title="使用Dagger 2依赖注入 - DI介绍"></a>使用Dagger 2依赖注入 - DI介绍</h2><blockquote>
 <p>原文：<a href="http://frogermcs.github.io/dependency-injection-with-dagger-2-introdution-to-di/" target="_blank" rel="noopener">http://frogermcs.github.io/dependency-injection-with-dagger-2-introdution-to-di/</a></p>
 </blockquote>
 <p>不久之前，在克拉科夫的 <a href="http://frogermcs.github.io/dependency-injection-with-dagger-2-introdution-to-di/" target="_blank" rel="noopener">Tech Space</a> 的 Google I/O 扩展中，我 <a href="https://speakerdeck.com/frogermcs/dependency-injection-with-dagger-2" target="_blank" rel="noopener">展示</a> 了一些关于使用Dagger 2来进行依赖注入。在准备期间我认识到有太多相关的东西需要去讲，无法用一打幻灯片就能覆盖到全部。但是它可以作为一个很好的进入点来开展更多这一系列主题－Android端的依赖注入。</p>
@@ -4571,10 +4512,7 @@ Cookie: ... ...
     <entry>
       <title><![CDATA[[Android]官网《monkeyrunner》中文翻译]]></title>
       <url>/2015/12/16/Android-%E5%AE%98%E7%BD%91%E3%80%8Amonkeyrunner%E3%80%8B%E4%B8%AD%E6%96%87%E7%BF%BB%E8%AF%91/</url>
-      <content type="html"><![CDATA[<font color="#ff0000"><strong><br>以下内容为原创，欢迎转载，转载请注明<br>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/5050768.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/5050768.html</a>
-</strong></font>
-
-<p>翻译自 Android Developer 官网：<a href="http://developer.android.com/tools/help/monkeyrunner_concepts.html" target="_blank" rel="noopener">http://developer.android.com/tools/help/monkeyrunner_concepts.html</a></p>
+      <content type="html"><![CDATA[<p>翻译自 Android Developer 官网：<a href="http://developer.android.com/tools/help/monkeyrunner_concepts.html" target="_blank" rel="noopener">http://developer.android.com/tools/help/monkeyrunner_concepts.html</a></p>
 <h1 id="monkeyrunner"><a href="#monkeyrunner" class="headerlink" title="monkeyrunner"></a>monkeyrunner</h1><p>monkeyrunner工具提供了一套API，在不通过Android代码的情况下编写程序来控制一个Android设备或者模拟器。使用monkeyrunner，你可以编写一个<code>Python</code>程序来安装一个Android应用程序或者测试包，运行它，给它发送按键，使用它的interface来创建一个截图，并保存在工作站上。monkeytunner工具主要是被设计用来在功能/框架级别测试应用程序和设备，并运行单元测试套件，但是你也可以使用它来达到其它的目的。</p>
 <p>Monkeyrunner工具与也被称为<code>monkey</code>的<a href="http://developer.android.com/tools/help/monkey.html" target="_blank" rel="noopener">UI/Application Exerciser Monkey</a>没有任何关系。<code>Monkey</code>工具是直接在<code>adb</code> shell中运行，通过在设备或者模拟器中产生伪随机流的用户和系统事件的方式。比较之下，monkeyrunner工具在一个工作站中通过API发送指定的命令和事件来控制设备和模拟器。</p>
 <p>monkeyrunner工具提供了以下这些在Android测试中独一无二的特性：</p>
@@ -4671,10 +4609,7 @@ Cookie: ... ...
     <entry>
       <title><![CDATA[[Android]官网《UI/Application Exerciser Monkey》中文翻译]]></title>
       <url>/2015/12/15/Android-%E5%AE%98%E7%BD%91%E3%80%8AUI-Application-Exerciser-Monkey%E3%80%8B%E4%B8%AD%E6%96%87%E7%BF%BB%E8%AF%91/</url>
-      <content type="html"><![CDATA[<font color="#ff0000"><strong><br>以下内容为原创，欢迎转载，转载请注明<br>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/5049041.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/5049041.html</a>
-</strong></font>
-
-<p>翻译自 Android Developer 官网：<a href="http://developer.android.com/tools/help/monkey.html" target="_blank" rel="noopener">http://developer.android.com/tools/help/monkey.html</a></p>
+      <content type="html"><![CDATA[<p>翻译自 Android Developer 官网：<a href="http://developer.android.com/tools/help/monkey.html" target="_blank" rel="noopener">http://developer.android.com/tools/help/monkey.html</a></p>
 <h1 id="UI-Application-Exerciser-Monkey"><a href="#UI-Application-Exerciser-Monkey" class="headerlink" title="UI/Application Exerciser Monkey"></a>UI/Application Exerciser Monkey</h1><p>Monkey是一个程序，它会运行在你的<a href="http://developer.android.com/tools/help/emulator.html" target="_blank" rel="noopener">模拟器</a>或者设备上并且会产生伪随机的用户事件流，比如点击、触摸或手势，以及大量的系统级的事件。你可以使用Monkey来对你开发的应用程序以随机和重复的方式来进行压力测试。</p>
 <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Monkey是一个命令行工具，你可以在模拟器或者设备上运行它。它发送伪随机的用户事件流到系统，它可以作为你开发的应用程序的压力测试。</p>
 <p>Monkey包含很多的选项，但是总结成四种主要的种类：</p>
@@ -4846,10 +4781,7 @@ Cookie: ... ...
     <entry>
       <title><![CDATA[[Android]官网《Testing Support Library》中文翻译]]></title>
       <url>/2015/12/15/Android-%E5%AE%98%E7%BD%91%E3%80%8ATesting-Support-Library%E3%80%8B%E4%B8%AD%E6%96%87%E7%BF%BB%E8%AF%91/</url>
-      <content type="html"><![CDATA[<font color="#ff0000"><strong><br>以下内容为原创，欢迎转载，转载请注明<br>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/5048524.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/5048524.html</a>
-</strong></font>
-
-<p>翻译自 Android Developer 官网：<a href="http://developer.android.com/tools/testing-support-library/index.html" target="_blank" rel="noopener">http://developer.android.com/tools/testing-support-library/index.html</a></p>
+      <content type="html"><![CDATA[<p>翻译自 Android Developer 官网：<a href="http://developer.android.com/tools/testing-support-library/index.html" target="_blank" rel="noopener">http://developer.android.com/tools/testing-support-library/index.html</a></p>
 <h1 id="Testing-Support-Library"><a href="#Testing-Support-Library" class="headerlink" title="Testing Support Library"></a>Testing Support Library</h1><p><code>Android Testing Support Library</code>为Android app的测试提供了一个广泛的框架。 这个库提供了一系列的API可以让你快速build和run你app的代码，它包括了<code>JUnit 4</code>和功能性的用户界面（UI）测试。你可以通过<a href="http://developer.android.com/tools/studio/index.html" target="_blank" rel="noopener">Android Studio IDE</a>或者命令行的方式运行你使用这些API创建的测试。</p>
 <p><code>Android Testing Support Library</code>已经可以通过<code>Android SDK Manager</code>下载使用了。详情可见<a href="http://developer.android.com/tools/testing-support-library/index.html#setup" target="_blank" rel="noopener">Testing Support Library Setup</a></p>
 <p>这页中会提供一些关于<code>Android Testing Support Library</code>中所提供的工具的信息，怎样在你的测试环境中使用它们，还有库发布的相关信息。</p>
@@ -5019,10 +4951,7 @@ Cookie: ... ...
     <entry>
       <title><![CDATA[[Android]对MVC和MVP的总结]]></title>
       <url>/2015/12/10/Android-%E5%AF%B9MVC%E5%92%8CMVP%E7%9A%84%E6%80%BB%E7%BB%93/</url>
-      <content type="html"><![CDATA[<font color="#ff0000"><strong><br>以下内容为原创，欢迎转载，转载请注明<br>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/5036289.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/5036289.html</a>
-</strong></font>
-
-<p>经历过的客户端的架构分为这么几个阶段：</p>
+      <content type="html"><![CDATA[<p>经历过的客户端的架构分为这么几个阶段：</p>
 <h3 id="第一阶段"><a href="#第一阶段" class="headerlink" title="第一阶段"></a>第一阶段</h3><p>使用传统的MVC，其中的View，对应的是各种Layout布局文件，但是这些布局文件中并不像Web端那样强大，能做的事情非常有限；Controller对应的是Activity，而Activity中却又具有操作UI的功能，我们在实际的项目中也会有很多UI操作在这一层，也做了很多View中应该做的事情，当然Controller中也包含Controller应该做的事情，比如各种事件的派发回调，而且在一层中我们会根据事件再去调用Model层操作数据，所以这种MVC的方式在实际项目中，Activity所在的Controller是非常重的，各层次之间的耦合情况也比较严重，不方便单元测试。</p>
 <h3 id="第二阶段"><a href="#第二阶段" class="headerlink" title="第二阶段"></a>第二阶段</h3><p>使用MVC的进化版——MVP，MVP中把Layout布局和Activity作为View层，增加了Presenter，Presenter层与Model层进行业务的交互，完成后再与View层交互（也就是Activity）进行回调来刷新UI。这样一来，所有业务逻辑的工作都交给了Presenter中进行，使得View层与Model层的耦合度降低，Activity中的工作也进行了简化。但是在实际项目中，随着逻辑的复杂度越来越大，Activity臃肿的缺点仍然体现出来了，因为Activity中还是充满了大量与View层无关的代码，比如各种事件的处理派发，就如MVC中的那样View层和Controller代码耦合在一起无法自拔。</p>
 <h3 id="第三阶段"><a href="#第三阶段" class="headerlink" title="第三阶段"></a>第三阶段</h3><p>也是现在正在使用的架构，针对第二阶段进行优化，为了把View再次简化，想到两种方式：</p>
@@ -5086,10 +5015,7 @@ Cookie: ... ...
     <entry>
       <title><![CDATA[[Android]从Launcher开始启动App流程源码分析]]></title>
       <url>/2015/12/03/Android-%E4%BB%8ELauncher%E5%BC%80%E5%A7%8B%E5%90%AF%E5%8A%A8App%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</url>
-      <content type="html"><![CDATA[<font color="#ff0000"><strong><br>以下内容为原创，欢迎转载，转载请注明<br>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/5017056.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/5017056.html</a>
-</strong></font>
-
-<h2 id="从Launcher开始启动App流程源码分析"><a href="#从Launcher开始启动App流程源码分析" class="headerlink" title="从Launcher开始启动App流程源码分析"></a>从Launcher开始启动App流程源码分析</h2><p><code>com.android.launcher.Launcher</code>就是我们的Launcher页面了，可以看到Launcher其实也是一个<code>Activity</code>：</p>
+      <content type="html"><![CDATA[<h2 id="从Launcher开始启动App流程源码分析"><a href="#从Launcher开始启动App流程源码分析" class="headerlink" title="从Launcher开始启动App流程源码分析"></a>从Launcher开始启动App流程源码分析</h2><p><code>com.android.launcher.Launcher</code>就是我们的Launcher页面了，可以看到Launcher其实也是一个<code>Activity</code>：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Launcher</span> <span class="keyword">extends</span> <span class="title">Activity</span> <span class="keyword">implements</span> <span class="title">View</span>.<span class="title">OnClickListener</span>, <span class="title">OnLongClickListener</span> </span>&#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>既然是<code>Activity</code>，那当然也会有<code>onCreate</code>、<code>onResume</code>等生命周期了，按照逻辑，应该会去加载所有App，以网格的布局显示在页面上，果然，在<code>onResume</code>看到了这个方法：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onResume</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.onResume();</span><br><span class="line">    <span class="keyword">if</span> (mRestoring) &#123;</span><br><span class="line">        startLoaders();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -5253,10 +5179,7 @@ Cookie: ... ...
     <entry>
       <title><![CDATA[[Android]Android系统启动流程源码分析]]></title>
       <url>/2015/12/02/Android-Android%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</url>
-      <content type="html"><![CDATA[<font color="#ff0000"><strong><br>以下内容为原创，欢迎转载，转载请注明<br>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/5013863.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/5013863.html</a>
-</strong></font>
-
-<h3 id="Android系统启动流程源码分析"><a href="#Android系统启动流程源码分析" class="headerlink" title="Android系统启动流程源码分析"></a>Android系统启动流程源码分析</h3><p>首先我们知道，<code>Android</code>是基于<code>Linux</code>的，当<code>Linux</code>内核加载完成时就会自动启动一个<code>init</code>的进程。<br>又因为我们每当我们启动一个App时，就会生成一个新的<code>dalvik</code>实例，并处于一个新的进程（当然一个App也可能是多进程的）。<br>当我们打开第一个App的时候，就会通过<code>init</code>进程fork出一个<code>zygote</code>进程。之后打开新的App的时候都会<code>fork</code>之前的<code>zygote</code>进程。</p>
+      <content type="html"><![CDATA[<h3 id="Android系统启动流程源码分析"><a href="#Android系统启动流程源码分析" class="headerlink" title="Android系统启动流程源码分析"></a>Android系统启动流程源码分析</h3><p>首先我们知道，<code>Android</code>是基于<code>Linux</code>的，当<code>Linux</code>内核加载完成时就会自动启动一个<code>init</code>的进程。<br>又因为我们每当我们启动一个App时，就会生成一个新的<code>dalvik</code>实例，并处于一个新的进程（当然一个App也可能是多进程的）。<br>当我们打开第一个App的时候，就会通过<code>init</code>进程fork出一个<code>zygote</code>进程。之后打开新的App的时候都会<code>fork</code>之前的<code>zygote</code>进程。</p>
 <p>当<code>fork</code>一个<code>zygote</code>进程时，会进入<code>com.android.internal.os.ZygoteInit</code>的<code>main</code>方法进行初始化操作：</p>
 <ul>
 <li><p>预加载资源</p>
@@ -5442,10 +5365,7 @@ Cookie: ... ...
     <entry>
       <title><![CDATA[《Kotli­n for ­androi­d Deve­lopers­》中文翻译]]></title>
       <url>/2015/11/05/%E3%80%8AKotli%C2%ADn-for-%C2%ADandroi%C2%ADd-Deve%C2%ADlopers%C2%AD%E3%80%8B%E4%B8%AD%E6%96%87%E7%BF%BB%E8%AF%91/</url>
-      <content type="html"><![CDATA[<font color="#ff0000"><strong><br>以下内容为原创，欢迎转载，转载请注明<br>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/4939080.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/4939080.html</a>
-</strong></font>
-
-<p>之前一直在关注Kotlin和Android相关的开发，写过两篇关于Kotlin的文章，不了解Kotlin的可以看下：</p>
+      <content type="html"><![CDATA[<p>之前一直在关注Kotlin和Android相关的开发，写过两篇关于Kotlin的文章，不了解Kotlin的可以看下：</p>
 <ul>
 <li>[Android]使用Kotlin+Anko开发Android（一）：<a href="http://www.cnblogs.com/tiantianbyconan/p/4800656.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/4800656.html</a></li>
 <li>[Android]使用Kotlin开发Android（二）：<a href="http://www.cnblogs.com/tiantianbyconan/p/4829007.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/4829007.html</a></li>
@@ -5640,10 +5560,7 @@ Cookie: ... ...
     <entry>
       <title><![CDATA[[Android]使用Kotlin开发Android（二）]]></title>
       <url>/2015/09/22/Android-%E4%BD%BF%E7%94%A8Kotlin%E5%BC%80%E5%8F%91Android%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
-      <content type="html"><![CDATA[<font color="#ff0000"><strong><br>以下内容为原创，欢迎转载，转载请注明<br>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/4829007.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/4829007.html</a>
-</strong></font>
-
-<p>[TOC]</p>
+      <content type="html"><![CDATA[<p>[TOC]</p>
 <h2 id="使用Kotlin＋OkHttp＋RxJava进行网络请求"><a href="#使用Kotlin＋OkHttp＋RxJava进行网络请求" class="headerlink" title="使用Kotlin＋OkHttp＋RxJava进行网络请求"></a>使用Kotlin＋OkHttp＋RxJava进行网络请求</h2><p>代码：<a href="https://github.com/wangjiegulu/KotlinAndroidSample" target="_blank" rel="noopener">https://github.com/wangjiegulu/KotlinAndroidSample</a></p>
 <h3 id="1-需要"><a href="#1-需要" class="headerlink" title="1. 需要"></a>1. 需要</h3><ul>
 <li>对<a href="http://kotlinlang.org/" target="_blank" rel="noopener">Kotlin</a>语法有基本的掌握</li>
@@ -5895,10 +5812,7 @@ Cookie: ... ...
     <entry>
       <title><![CDATA[[Android]使用Kotlin+Anko开发Android（一）]]></title>
       <url>/2015/09/11/Android-%E4%BD%BF%E7%94%A8Kotlin-Anko%E5%BC%80%E5%8F%91Android%EF%BC%88%E4%B8%80%EF%BC%89/</url>
-      <content type="html"><![CDATA[<p><span style="color: #ff0000;"><strong>以下内容为原创，欢迎转载，转载请注明</strong></span></p>
-<p><span style="color: #ff0000;"><strong>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/4800656.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/4800656.html</a>&nbsp;</strong></span></p>
-<p>&nbsp;</p>
-<p>Kotlin是由JetBrains开发并且开源的静态类型JVM语言。比Java语言语法简洁，支持很多Java中不支持的语法特性，如高阶函数、內联函数、null安全、灵活扩展、操作符重载等等。而且它还完全兼容Java，与Scala类似，但是Scala的宗旨是&ldquo;尽可能自己实现，不得已才使用Java&rdquo;，而Kotlin却相反：&ldquo;尽可能复用Java的实现，不得已才自己实现&rdquo;。所以相比之下Kotlin更简洁轻量，非常适合移动端的开发。另外JetBrains针对Android开发提供了一个由Kotlin实现的&ldquo;anko&rdquo;开源库，可以让你使用DSL的方式直接用代码编写UI，让你从繁琐的xml中解脱出来，而且避免了xml解析过程所带来的性能问题。</p>
+      <content type="html"><![CDATA[<p>Kotlin是由JetBrains开发并且开源的静态类型JVM语言。比Java语言语法简洁，支持很多Java中不支持的语法特性，如高阶函数、內联函数、null安全、灵活扩展、操作符重载等等。而且它还完全兼容Java，与Scala类似，但是Scala的宗旨是&ldquo;尽可能自己实现，不得已才使用Java&rdquo;，而Kotlin却相反：&ldquo;尽可能复用Java的实现，不得已才自己实现&rdquo;。所以相比之下Kotlin更简洁轻量，非常适合移动端的开发。另外JetBrains针对Android开发提供了一个由Kotlin实现的&ldquo;anko&rdquo;开源库，可以让你使用DSL的方式直接用代码编写UI，让你从繁琐的xml中解脱出来，而且避免了xml解析过程所带来的性能问题。</p>
 <p>&nbsp;</p>
 <p>这篇先讲怎么去使用idea（Android Studio用户也一样）搭建Kotlin的Android开发环境。</p>
 <p>&nbsp;</p>
@@ -6120,10 +6034,7 @@ for (name in names) {
     <entry>
       <title><![CDATA[[Android]Android端ORM框架——RapidORM(v1.0)]]></title>
       <url>/2015/08/21/Android-Android%E7%AB%AFORM%E6%A1%86%E6%9E%B6%E2%80%94%E2%80%94RapidORM-v1-0/</url>
-      <content type="html"><![CDATA[<p><span style="color: #ff0000;"><strong>以下内容为原创，欢迎转载，转载请注明</strong></span></p>
-<p><span style="color: #ff0000;"><strong>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/4748077.html" title="view: [Android]Android端ORM框架&mdash;&mdash;RapidORM" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/4748077.html</a>&nbsp;</strong></span></p>
-<p>&nbsp;</p>
-<p>Android上主流的ORM框架有很多，常用的有ORMLite、GreenDao等。</p>
+      <content type="html"><![CDATA[<p>Android上主流的ORM框架有很多，常用的有ORMLite、GreenDao等。</p>
 <p>ORMLite：</p>
 <p>－优点：API很友好，使用比较方便简单稳定，相关功能比较完整。</p>
 <p>－缺点：内部使用反射实现，性能并不是很好。</p>
@@ -6301,13 +6212,13 @@ for (name in names) {
             
             <tag> android </tag>
             
+            <tag> library </tag>
+            
             <tag> sqlite </tag>
             
             <tag> database </tag>
             
             <tag> orm </tag>
-            
-            <tag> library </tag>
             
             <tag> rapidorm </tag>
             
@@ -6318,10 +6229,7 @@ for (name in names) {
     <entry>
       <title><![CDATA[[Android]基于RxJava、RxAndroid的EventBus实现]]></title>
       <url>/2015/06/15/Android-%E5%9F%BA%E4%BA%8ERxJava%E3%80%81RxAndroid%E7%9A%84EventBus%E5%AE%9E%E7%8E%B0/</url>
-      <content type="html"><![CDATA[<p><strong>以下内容为原创，欢迎转载，转载请注明</strong></p>
-<p><strong><span style="color: #ff0000;">来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/4578699.html%20" title="view: [Android]基于RxJava、RxAndroid的EventBus实现" target="_blank" rel="noopener"><span style="color: #ff0000;">http://www.cnblogs.com/tiantianbyconan/p/4578699.html</span></a></span>&nbsp;</strong></p>
-<p>&nbsp;</p>
-<p><strong><span style="line-height: 1.5;">Github：<a href="https://github.com/wangjiegulu/RxAndroidEventsSample" target="_blank" rel="noopener">https://github.com/wangjiegulu/RxAndroidEventsSample</a></span></strong></p>
+      <content type="html"><![CDATA[<p><strong><span style="line-height: 1.5;">Github：<a href="https://github.com/wangjiegulu/RxAndroidEventsSample" target="_blank" rel="noopener">https://github.com/wangjiegulu/RxAndroidEventsSample</a></span></strong></p>
 <p>EventBus的作用是发布/订阅事件总线，因为项目中用到RxJava、RxAndroid，所以完全可以使用RxJava、RxAndroid来实现EventBus。</p>
 <p>&nbsp;</p>
 <p>1. 编写RxBus，用于存储所有事件Subjects。</p>
@@ -6438,9 +6346,7 @@ for (name in names) {
     <entry>
       <title><![CDATA[[Android]RapidFloatingActionButton框架正式出炉]]></title>
       <url>/2015/05/03/Android-RapidFloatingActionButton%E6%A1%86%E6%9E%B6%E6%AD%A3%E5%BC%8F%E5%87%BA%E7%82%89/</url>
-      <content type="html"><![CDATA[<p><span style="color: #ff0000;"><strong>以下内容为原创，欢迎转载，转载请注明</strong></span></p>
-<p><span style="color: #ff0000;"><strong>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/4474748.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/4474748.html</a></strong></span></p>
-<h1 id="RapidFloatingActionButton"><a href="#RapidFloatingActionButton" class="headerlink" title="RapidFloatingActionButton"></a>RapidFloatingActionButton</h1><p>Google推出了MaterialDesign的设计语言，其中FloatingActionButton就是一部分，但是Google却没有提供一个官方的FloatingActionButton控件，网上找了几个试用了下，但是始终没有找到合适的，所以，自己动手丰衣足食了。</p>
+      <content type="html"><![CDATA[<h1 id="RapidFloatingActionButton"><a href="#RapidFloatingActionButton" class="headerlink" title="RapidFloatingActionButton"></a>RapidFloatingActionButton</h1><p>Google推出了MaterialDesign的设计语言，其中FloatingActionButton就是一部分，但是Google却没有提供一个官方的FloatingActionButton控件，网上找了几个试用了下，但是始终没有找到合适的，所以，自己动手丰衣足食了。</p>
 <p><a href="http://www.cnblogs.com/RapidFloatingActionButton" target="_blank" rel="noopener">RapidFloatingActionButton</a>（以下简称RFAB）是Floating Action Button的快速实现。</p>
 <p><strong><span style="color: #ff0000;">Github地址：<a href="https://github.com/wangjiegulu/RapidFloatingActionButton" target="_blank" rel="noopener"><span style="color: #ff0000;">https://github.com/wangjiegulu/RapidFloatingActionButton</span></a></span></strong></p>
 <p><a href="https://raw.githubusercontent.com/wangjiegulu/RapidFloatingActionButton/master/screenshot/rfab_label_list.gif" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/wangjiegulu/RapidFloatingActionButton/master/screenshot/rfab_label_list.gif" alt=""></a>&nbsp;<a href="https://raw.githubusercontent.com/wangjiegulu/RapidFloatingActionButton/master/screenshot/rfabg.gif" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/wangjiegulu/RapidFloatingActionButton/master/screenshot/rfabg.gif" alt=""></a>&nbsp;</p>
@@ -6548,10 +6454,7 @@ for (name in names) {
     <entry>
       <title><![CDATA[[Android]使用Gradle提交自己开源Android库到Maven中心库]]></title>
       <url>/2015/04/02/Android-%E4%BD%BF%E7%94%A8Gradle%E6%8F%90%E4%BA%A4%E8%87%AA%E5%B7%B1%E5%BC%80%E6%BA%90Android%E5%BA%93%E5%88%B0Maven%E4%B8%AD%E5%BF%83%E5%BA%93/</url>
-      <content type="html"><![CDATA[<p><span style="color: #ff0000;"><strong>以下内容为原创，欢迎转载，转载请注明</strong></span></p>
-<p><span style="color: #ff0000;"><strong>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/4388175.html%20" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/4388175.html&nbsp;</a></strong></span></p>
-<p>&nbsp;</p>
-<p>此文针对开源爱好者。</p>
+      <content type="html"><![CDATA[<p>此文针对开源爱好者。</p>
 <p>如果你想让别人使用你的Android开源库，第一种方法是，提供你的Github地址，让别人clone一份，然后让别人import到他的项目中。另一种更简单的方式就是直接让别人在他的Gradle中添加你的库依赖，如下：</p>
 <div class="cnblogs_code"><br><pre>compile ‘com.github.wangjiegulu:AndroidBucket:1.0.1’</pre><br></div>
 
@@ -6639,10 +6542,7 @@ for (name in names) {
     <entry>
       <title><![CDATA[[Android]实现类似微信的延迟加载的Fragment——LazyFragment]]></title>
       <url>/2015/02/27/Android-%E5%AE%9E%E7%8E%B0%E7%B1%BB%E4%BC%BC%E5%BE%AE%E4%BF%A1%E7%9A%84%E5%BB%B6%E8%BF%9F%E5%8A%A0%E8%BD%BD%E7%9A%84Fragment%E2%80%94%E2%80%94LazyFragment/</url>
-      <content type="html"><![CDATA[<p><span style="color: #ff0000;"><strong>以下内容为原创，转载请注明：</strong></span></p>
-<p><span style="color: #ff0000;"><strong>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/4303910.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/4303910.html</a>&nbsp;</strong></span></p>
-<p>&nbsp;</p>
-<p>参考微信，使用ViewPager来显示不同的tab，每个tab是一个Fragment，</p>
+      <content type="html"><![CDATA[<p>参考微信，使用ViewPager来显示不同的tab，每个tab是一个Fragment，</p>
 <p>假设有3个tab，对应的fragment是FragmentA、FragmentB、FragmentC</p>
 <p>需要实现的效果是进入后，默认先只加载FragmentA，具体滑动到了哪个Fragment，再去加载该Fragment的数据。</p>
 <p>可以参考如下BaseLazyFragment代码：</p>
@@ -6722,9 +6622,7 @@ for (name in names) {
     <entry>
       <title><![CDATA[[Android]使用RecyclerView替代ListView（三）]]></title>
       <url>/2015/02/02/Android-%E4%BD%BF%E7%94%A8RecyclerView%E6%9B%BF%E4%BB%A3ListView%EF%BC%88%E4%B8%89%EF%BC%89/</url>
-      <content type="html"><![CDATA[<p><span style="color: #ff0000;"><strong>以下内容为原创，转载请注明：</strong></span></p>
-<p><span style="color: #ff0000;"><strong>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/4268097.html" title="view: [Android]使用RecyclerView替代ListView（三）" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/4268097.html</a>&nbsp;</strong></span></p>
-<p>&nbsp;</p>
+      <content type="html"><![CDATA[<p>&nbsp;</p>
 <p>这次来使用RecyclerView实现PinnedListView的效果，效果很常见：</p>
 <p><img src="http://images.cnitblog.com/blog/378300/201502/021602294536998.gif" alt=""></p>
 <p>开发的代码建立在上一篇（<strong><a href="http://www.cnblogs.com/tiantianbyconan/p/4242541.html" target="_blank" rel="noopener">[Android]使用RecyclerView替代ListView（二）</a>：<a href="http://www.cnblogs.com/tiantianbyconan/p/4242541.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/4242541.html</a></strong>）基础之上。</p>
@@ -6781,11 +6679,7 @@ for (name in names) {
     <entry>
       <title><![CDATA[[Android]使用RecyclerView替代ListView（二）]]></title>
       <url>/2015/01/22/Android-%E4%BD%BF%E7%94%A8RecyclerView%E6%9B%BF%E4%BB%A3ListView%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
-      <content type="html"><![CDATA[<p><span style="color: #ff0000;"><strong>以下内容为原创，转载请注明：</strong></span></p>
-<p><strong><span style="color: #ff0000;">来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/4242541.html" title="view: [Android]使用RecyclerView替代ListView（二）" target="_blank" rel="noopener"><span style="color: #ff0000;">http://www.cnblogs.com/tiantianbyconan/p/4242541.html</span></a></span>
-</strong></p>
-<p>&nbsp;</p>
-<p>以前写过一篇&ldquo;<a href="http://www.cnblogs.com/tiantianbyconan/p/3992843.html" target="_blank" rel="noopener">[Android]使用AdapterTypeRender对不同类型的item数据到UI的渲染</a>（<a href="http://www.cnblogs.com/tiantianbyconan/p/3992843.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/3992843.html</a>）&rdquo;，用于在有很多不同类型不同布局的item的时候怎么去较好的进行view的绑定和数据的渲染，但是这个是针对ListView写的。这次我针对RecyclerView也重新实现了一遍。</p>
+      <content type="html"><![CDATA[<p>以前写过一篇&ldquo;<a href="http://www.cnblogs.com/tiantianbyconan/p/3992843.html" target="_blank" rel="noopener">[Android]使用AdapterTypeRender对不同类型的item数据到UI的渲染</a>（<a href="http://www.cnblogs.com/tiantianbyconan/p/3992843.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/3992843.html</a>）&rdquo;，用于在有很多不同类型不同布局的item的时候怎么去较好的进行view的绑定和数据的渲染，但是这个是针对ListView写的。这次我针对RecyclerView也重新实现了一遍。</p>
 <p>接下来演示下怎么去渲染不同类型的item，并且使它支持下拉刷新，滚动到底部显示加载进度条显示。</p>
 <p>以下所有的封装都在<a href="https://github.com/wangjiegulu/AndroidBucket" target="_blank" rel="noopener"><strong>AndroidBucket</strong></a>项目中：<strong><a href="https://github.com/wangjiegulu/AndroidBucket/tree/master/src/com/wangjie/androidbucket/support/recyclerview" target="_blank" rel="noopener">https://github.com/wangjiegulu/AndroidBucket/tree/master/src/com/wangjie/androidbucket/support/recyclerview</a>
 </strong></p>
@@ -6856,10 +6750,7 @@ for (name in names) {
     <entry>
       <title><![CDATA[[Android]使用RecyclerView替代ListView（一）]]></title>
       <url>/2015/01/18/Android-%E4%BD%BF%E7%94%A8RecyclerView%E6%9B%BF%E4%BB%A3ListView%EF%BC%88%E4%B8%80%EF%BC%89/</url>
-      <content type="html"><![CDATA[<p><span style="color: #ff0000;"><strong>以下内容为原创，欢迎转载，转载请注明</strong></span></p>
-<p><span style="color: #ff0000;"><strong>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/4232560.html" title="view: [Android]使用RecyclerView替代ListView（一）" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/4232560.html</a></strong></span></p>
-<p>&nbsp;</p>
-<p>RecyclerView是一个比ListView更灵活的一个控件，以后可以直接抛弃ListView了。具体好在哪些地方，往下看就知道了。</p>
+      <content type="html"><![CDATA[<p>RecyclerView是一个比ListView更灵活的一个控件，以后可以直接抛弃ListView了。具体好在哪些地方，往下看就知道了。</p>
 <p>首先我们来使用RecyclerView来实现ListView的效果，一个滚动列表，先看下效果图（除了有动画之外，没什么特别－－）：</p>
 <p><img src="http://images.cnitblog.com/blog/378300/201501/182259096511353.png" alt=""></p>
 <p>&nbsp;</p>
@@ -6960,9 +6851,7 @@ for (name in names) {
     <entry>
       <title><![CDATA[[Android]仿新版QQ的tab下面拖拽标记为已读的效果]]></title>
       <url>/2014/12/24/Android-%E4%BB%BF%E6%96%B0%E7%89%88QQ%E7%9A%84tab%E4%B8%8B%E9%9D%A2%E6%8B%96%E6%8B%BD%E6%A0%87%E8%AE%B0%E4%B8%BA%E5%B7%B2%E8%AF%BB%E7%9A%84%E6%95%88%E6%9E%9C/</url>
-      <content type="html"><![CDATA[<p><span style="color: #ff0000;"><strong>以下内容为原创，欢迎转载，转载请注明</strong></span></p>
-<p><span style="color: #ff0000;"><strong>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/4182929.html" title="view: [Android]仿新版QQ的tab下面拖拽标记为已读的效果" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/4182929.html</a></strong></span></p>
-<p>可拖拽的红点，（仿新版QQ，tab下面拖拽标记为已读的效果），拖拽一定的距离可以消失回调。</p>
+      <content type="html"><![CDATA[<p>可拖拽的红点，（仿新版QQ，tab下面拖拽标记为已读的效果），拖拽一定的距离可以消失回调。</p>
 <p><img src="https://raw.githubusercontent.com/wangjiegulu/DraggableFlagView/master/screenshot/draggableflagview.gif" alt=""></p>
 <p>&nbsp;<img src="https://raw.githubusercontent.com/wangjiegulu/DraggableFlagView/master/screenshot/draggableflagview_b.png" alt=""><span style="line-height: 1.5;">&nbsp;</span><img src="https://raw.githubusercontent.com/wangjiegulu/DraggableFlagView/master/screenshot/draggableflagview_d.png" alt=""></p>
 <p>&nbsp;</p>
@@ -7009,9 +6898,7 @@ for (name in names) {
     <entry>
       <title><![CDATA[[Android]下拉刷新控件RefreshableView的实现]]></title>
       <url>/2014/12/18/Android-%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E6%8E%A7%E4%BB%B6RefreshableView%E7%9A%84%E5%AE%9E%E7%8E%B0/</url>
-      <content type="html"><![CDATA[<p><span style="color: #ff0000;"><strong>以下内容为原创，欢迎转载，转载请注明</strong></span></p>
-<p><span style="color: #ff0000;"><strong>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/4172483.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/4172483.html</a></strong></span></p>
-<p>&nbsp;</p>
+      <content type="html"><![CDATA[<p>&nbsp;</p>
 <p>需求：自定义一个ViewGroup，实现可以下拉刷新的功能。下拉一定距离后（下拉时显示的界面可以自定义任何复杂的界面）释放手指可以回调刷新的功能，用户处理完刷新的内容后，可以调用方法onCompleteRefresh()通知刷新完毕，然后回归正常状态。效果如下：</p>
 <p><img src="https://raw.githubusercontent.com/wangjiegulu/RefreshableView/master/screenshot/refreshableview.gif" alt="">&nbsp;&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/wangjiegulu/RefreshableView/master/screenshot/refreshablelistview.gif" alt=""></p>
 <p>&nbsp;</p>
@@ -7136,10 +7023,7 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
     <entry>
       <title><![CDATA[[Android]在Adapter的getView方法中绑定OnClickListener比较好的方法]]></title>
       <url>/2014/12/05/Android-%E5%9C%A8Adapter%E7%9A%84getView%E6%96%B9%E6%B3%95%E4%B8%AD%E7%BB%91%E5%AE%9AOnClickListener%E6%AF%94%E8%BE%83%E5%A5%BD%E7%9A%84%E6%96%B9%E6%B3%95/</url>
-      <content type="html"><![CDATA[<p><span style="color: #ff0000;"><strong>以下内容为原创，欢迎转载，转载请注明</strong></span></p>
-<p><span style="color: #ff0000;"><strong>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/4146512.html" title="view: [Android]在Adapter的getView方法中绑定OnClickListener比较好的方法" target="_blank" rel="noopener"><span style="color: #ff0000;">http://www.cnblogs.com/tiantianbyconan/p/4146512.html</span></a>&nbsp;</strong></span></p>
-<p>&nbsp;</p>
-<p>给ListView中每个item绑定点击事件的方法，比较常见的如下这种方式：</p>
+      <content type="html"><![CDATA[<p>给ListView中每个item绑定点击事件的方法，比较常见的如下这种方式：</p>
 <div class="cnblogs_code"><br><pre><span style="color: #008080;"> 1</span> <span style="color: #0000ff;">public</span> View getView(<span style="color: #0000ff;">int</span><span style="color: #000000;"> positon, View convertView, ViewGroup parent){<br></span><span style="color: #008080;"> 2</span>     <span style="color: #0000ff;">if</span>(<span style="color: #0000ff;">null</span> ==<span style="color: #000000;"> convertView){<br></span><span style="color: #008080;"> 3</span>         convertView = LayoutInflater.<span style="color: #0000ff;">from</span>(context).inflate(R.layout.item, <span style="color: #0000ff;">null</span><span style="color: #000000;">);<br></span><span style="color: #008080;"> 4</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;"> 5</span><br><span style="color: #008080;"> 6</span>     Button button =<span style="color: #000000;"> ABViewUtil.obtainView(convertView, R.id.item_btn);<br></span><span style="color: #008080;"> 7</span>     button.setOnClickListener(<span style="color: #0000ff;">new</span><span style="color: #000000;"> View.OnClickListener(){<br></span><span style="color: #008080;"> 8</span> <span style="color: #000000;">        @Override<br></span><span style="color: #008080;"> 9</span>         <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> onClick(View v){<br></span><span style="color: #008080;">10</span>             Toast.makeText(context, <span style="color: #800000;">“</span><span style="color: #800000;">position: </span><span style="color: #800000;">“</span> +<span style="color: #000000;"> position, Toast.LENGTH_SHORT).show();<br></span><span style="color: #008080;">11</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;">12</span> <span style="color: #000000;">    });<br></span><span style="color: #008080;">13</span><br><span style="color: #008080;">14</span> }</pre><br></div>
 
 <p>然后运行，当然没问题。</p>
@@ -7175,11 +7059,7 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
     <entry>
       <title><![CDATA[[Android]ListView的Adapter.getView()方法中延迟加载图片的优化]]></title>
       <url>/2014/12/03/Android-ListView%E7%9A%84Adapter-getView-%E6%96%B9%E6%B3%95%E4%B8%AD%E5%BB%B6%E8%BF%9F%E5%8A%A0%E8%BD%BD%E5%9B%BE%E7%89%87%E7%9A%84%E4%BC%98%E5%8C%96/</url>
-      <content type="html"><![CDATA[<p><span style="color: #ff0000;"><strong>以下内容为原创，欢迎转载，转载请注明</strong></span></p>
-<p><strong><span style="color: #ff0000;">来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/4139998.html%20" title="view: [Android]ListView的Adapter.getView()方法中延迟加载图片的优化" target="_blank" rel="noopener"><span style="color: #ff0000;">http://www.cnblogs.com/tiantianbyconan/p/4139998.html</span></a></span><a href="http://www.cnblogs.com/tiantianbyconan/p/3574131.html" title="view: [Android]异步加载图片，内存缓存，文件缓存，imageview显示图片时增加淡入淡出动画" target="_blank" rel="noopener">
-</a></strong></p>
-<p>&nbsp;</p>
-<p>举个例子吧，以好友列表为例</p>
+      <content type="html"><![CDATA[<p>举个例子吧，以好友列表为例</p>
 <p>ListView中每个Item表示一个好友，每个好友中都有一个头像，需要从服务端加载到本地，然后显示在item中。</p>
 <p>显然，启动加载图片的过程应该是在getView()方法中触发，启动一个线程，然后下载头像图片。这里使用我写的一个开源框架<strong><a href="https://github.com/wangjiegulu/ImageLoaderSample" target="_blank" rel="noopener">ImageLoaderSample</a></strong>（<a href="https://github.com/wangjiegulu/ImageLoaderSample" target="_blank" rel="noopener">https://github.com/wangjiegulu/ImageLoaderSample</a>）来加载图片，并实现内存缓存和本地缓存。</p>
 <p>额－－这里不再介绍ImageLoaderSample的用法了，给个传送门：<a href="http://www.cnblogs.com/tiantianbyconan/p/3574131.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/3574131.html</a></p>
@@ -7332,10 +7212,7 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
     <entry>
       <title><![CDATA[[Android]使用AdapterTypeRender对不同类型的item数据到UI的渲染]]></title>
       <url>/2014/09/25/Android-%E4%BD%BF%E7%94%A8AdapterTypeRender%E5%AF%B9%E4%B8%8D%E5%90%8C%E7%B1%BB%E5%9E%8B%E7%9A%84item%E6%95%B0%E6%8D%AE%E5%88%B0UI%E7%9A%84%E6%B8%B2%E6%9F%93/</url>
-      <content type="html"><![CDATA[<p><span style="color: #ff0000;"><strong>以下内容为原创，转载请注明：</strong></span></p>
-<p><span style="color: #ff0000;"><strong>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/3992843.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/3992843.html</a></strong></span></p>
-<p>&nbsp;</p>
-<p>本文讲的工具均放在<strong><a href="https://github.com/wangjiegulu/AndroidBucket" target="_blank" rel="noopener">AndroidBucket</a></strong>开源项目中，欢迎大家star/fork，地址：<a href="https://github.com/wangjiegulu/AndroidBucket" target="_blank" rel="noopener">https://github.com/wangjiegulu/AndroidBucket</a></p>
+      <content type="html"><![CDATA[<p>本文讲的工具均放在<strong><a href="https://github.com/wangjiegulu/AndroidBucket" target="_blank" rel="noopener">AndroidBucket</a></strong>开源项目中，欢迎大家star/fork，地址：<a href="https://github.com/wangjiegulu/AndroidBucket" target="_blank" rel="noopener">https://github.com/wangjiegulu/AndroidBucket</a></p>
 <p>&nbsp;</p>
 <p>主要实现聊天功能中的发送不同类型的信息，比如纯文本、图片、语音、图文混排多媒体的数据等（具体效果看微信）。</p>
 <p>这里使用AdapterTypeRender在BaseTypeAdapter（这个之后会讲到）中实现。</p>
@@ -7439,10 +7316,7 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
     <entry>
       <title><![CDATA[[Android]解决ClickableSpan中点击后ListView中item的长按冲突的问题]]></title>
       <url>/2014/07/03/Android-%E8%A7%A3%E5%86%B3ClickableSpan%E4%B8%AD%E7%82%B9%E5%87%BB%E5%90%8EListView%E4%B8%ADitem%E7%9A%84%E9%95%BF%E6%8C%89%E5%86%B2%E7%AA%81%E7%9A%84%E9%97%AE%E9%A2%98/</url>
-      <content type="html"><![CDATA[<p><span style="color: #ff0000;"><strong>以下内容为原创，转载请注明：</strong></span></p>
-<p><span style="color: #ff0000;"><strong>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/3823429.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/3823429.html</a></strong></span></p>
-<p>&nbsp;</p>
-<p>项目中碰到一个问题，情景是这样的：</p>
+      <content type="html"><![CDATA[<p>项目中碰到一个问题，情景是这样的：</p>
 <p>有一个ListView，每个item中有一个TextView，这个TextView实现了LongClick事件，这个TextView中又添加了ClickableSpan，实现了方法onClick。</p>
 <p>我的需求是点击ClickableSpan，则响应ClickableSpan事件；长按ClickableSpan效果跟长按TextView应该一样，都响应TextView的LongClick事件。</p>
 <p>然而结果是点击ClickableSpan响应正常；但是长按ClickableSpan时问题出现了：TextView的长按事件响应了，ClickableSpan点击事件也响应了！</p>
@@ -7472,10 +7346,7 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
     <entry>
       <title><![CDATA[[Android]竖直滑动选择器WheelView的实现]]></title>
       <url>/2014/07/01/Android-%E7%AB%96%E7%9B%B4%E6%BB%91%E5%8A%A8%E9%80%89%E6%8B%A9%E5%99%A8WheelView%E7%9A%84%E5%AE%9E%E7%8E%B0/</url>
-      <content type="html"><![CDATA[<p><span style="color: #ff0000;"><strong>以下内容为原创，转载请注明：</strong></span></p>
-<p><span style="color: #ff0000;"><strong>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/3819304.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/3819304.html&nbsp;</a></strong></span></p>
-<p>&nbsp;</p>
-<p>公司项目中有这么一个需求，所以需要自己实现下。效果类似android4.0以上原生的DatePicker这种。</p>
+      <content type="html"><![CDATA[<p>公司项目中有这么一个需求，所以需要自己实现下。效果类似android4.0以上原生的DatePicker这种。</p>
 <p>这个WheelView控件我已经放在github上了，大家有兴趣可以看看，地址：<a href="https://github.com/wangjiegulu/WheelView" target="_blank" rel="noopener">https://github.com/wangjiegulu/WheelView</a>，欢迎Star或者Fork哦！（建库的时候忘了选ignore了－－，所以有些gen什么的直接无视掉，我也懒得改了－－）</p>
 <p>&nbsp;</p>
 <p>先贴上效果图：</p>
@@ -7553,10 +7424,7 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
     <entry>
       <title><![CDATA[[IOS]《A Swift Tour》翻译（一）]]></title>
       <url>/2014/06/04/IOS-%E3%80%8AA-Swift-Tour%E3%80%8B%E7%BF%BB%E8%AF%91%EF%BC%88%E4%B8%80%EF%BC%89/</url>
-      <content type="html"><![CDATA[<p><span style="color: #ff0000;"><strong>以下翻译内容为原创，转载请注明：</strong></span></p>
-<p><span style="color: #ff0000;"><strong>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/3768936.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/3768936.html</a></strong></span></p>
-<p>&nbsp;</p>
-<p>碎碎念。。。</p>
+      <content type="html"><![CDATA[<p>碎碎念。。。</p>
 <p>Swift是苹果在WWDC刚发布的新语言，本人也没学过，现在看苹果官方文档一边翻译一边学习，再加上英语水平和对编程理解很有限，有错误的地方请大家指出，翻译只供参考，建议阅读<a href="https://developer.apple.com/library/prerelease/ios/documentation/Swift/Conceptual/Swift_Programming_Language/GuidedTour.html#//apple_ref/doc/uid/TP40014097-CH2-XID_1" target="_blank" rel="noopener">苹果Swift官方的文档</a></p>
 <p>&nbsp;</p>
 <p><span class="s1">Swift 之旅</span></p>
@@ -7917,10 +7785,7 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
     <entry>
       <title><![CDATA[[Android]AndroidBucket增加碎片SubLayout功能及AISubLayout的注解支持]]></title>
       <url>/2014/05/05/Android-AndroidBucket%E5%A2%9E%E5%8A%A0%E7%A2%8E%E7%89%87SubLayout%E5%8A%9F%E8%83%BD%E5%8F%8AAISubLayout%E7%9A%84%E6%B3%A8%E8%A7%A3%E6%94%AF%E6%8C%81/</url>
-      <content type="html"><![CDATA[<p><span style="color: #ff0000;"><strong>以下内容为原创，转载请注明：</strong></span></p>
-<p><span style="color: #ff0000;"><strong><span style="color: #ff0000;">来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/3709957.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/3709957.html</a></span></strong></span></p>
-<p>&nbsp;</p>
-<p>之前写过一篇博客，是使用Fragment来实现TabHost的效果，并且模拟TabHost的切换各个fragment生命周期的调用，见<a href="http://www.cnblogs.com/tiantianbyconan/p/3360938.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/3360938.html</a></p>
+      <content type="html"><![CDATA[<p>之前写过一篇博客，是使用Fragment来实现TabHost的效果，并且模拟TabHost的切换各个fragment生命周期的调用，见<a href="http://www.cnblogs.com/tiantianbyconan/p/3360938.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/3360938.html</a></p>
 <p>但是如果要实现的效果是两级的Tab，比如在第一级tab中又有三个子Tab切换不同的布局，</p>
 <p>相当于在Fragment中嵌套来Fragment，这个怎么实现？</p>
 <p>也有个官方的实现方法，通过使用<span>android-support-v13.jar包中的<span>getChildFragmentManager方法来获取一个Manager。</span></span></p>
@@ -7966,11 +7831,11 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
         
         <tags>
             
-            <tag> library </tag>
-            
             <tag> android bucket </tag>
             
             <tag> annotations </tag>
+            
+            <tag> library </tag>
             
         </tags>
         
@@ -8049,10 +7914,7 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
     <entry>
       <title><![CDATA[[Android]对BaseAdapter中ViewHolder编写简化]]></title>
       <url>/2014/04/03/Android-%E5%AF%B9BaseAdapter%E4%B8%ADViewHolder%E7%BC%96%E5%86%99%E7%AE%80%E5%8C%96/</url>
-      <content type="html"><![CDATA[<p><span style="color: #ff0000;"><strong>以下内容为原创，欢迎转载，转载请注明</strong></span></p>
-<p><span style="color: #ff0000;"><strong>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/3642849.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/3642849.html</a></strong></span></p>
-<p>&nbsp;</p>
-<p>在Android项目中，经常都会用到ListView这个控件，而相应的Adapter中getView()方法的编写有一个标准的形式，如下：</p>
+      <content type="html"><![CDATA[<p>在Android项目中，经常都会用到ListView这个控件，而相应的Adapter中getView()方法的编写有一个标准的形式，如下：</p>
 <div class="cnblogs_code"><br><pre><span style="color: #008080;"> 1</span> <span style="color: #000000;">@Override<br></span><span style="color: #008080;"> 2</span>     <span style="color: #0000ff;">public</span> View getView(<span style="color: #0000ff;">int</span><span style="color: #000000;"> position, View convertView, ViewGroup parent) {<br></span><span style="color: #008080;"> 3</span> <span style="color: #000000;">        ViewHolder holder;<br></span><span style="color: #008080;"> 4</span>         <span style="color: #0000ff;">if</span>(<span style="color: #0000ff;">null</span> ==<span style="color: #000000;"> convertView){<br></span><span style="color: #008080;"> 5</span>             holder = <span style="color: #0000ff;">new</span><span style="color: #000000;"> ViewHolder();<br></span><span style="color: #008080;"> 6</span>             LayoutInflater mInflater =<span style="color: #000000;"> (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);<br></span><span style="color: #008080;"> 7</span>             convertView = mInflater.inflate(R.layout.item, <span style="color: #0000ff;">null</span><span style="color: #000000;">);<br></span><span style="color: #008080;"> 8</span>             holder.btn =<span style="color: #000000;"> (Button) convertView.findViewById(R.id.btn);<br></span><span style="color: #008080;"> 9</span>             holder.tv =<span style="color: #000000;"> (TextView) convertView.findViewById(R.id.tv);<br></span><span style="color: #008080;">10</span>             holder.iv =<span style="color: #000000;"> (TextView) convertView.findViewById(R.id.iv);<br></span><span style="color: #008080;">11</span><br><span style="color: #008080;">12</span> <span style="color: #000000;">            convertView.setTag(holder);<br></span><span style="color: #008080;">13</span>         }<span style="color: #0000ff;">else</span><span style="color: #000000;">{<br></span><span style="color: #008080;">14</span>             holder =<span style="color: #000000;"> (ViewHolder) convertView.getTag();<br></span><span style="color: #008080;">15</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;">16</span>         <span style="color: #0000ff;">final</span> HashMap&lt;String, Object&gt; map =<span style="color: #000000;"> list.get(position);<br></span><span style="color: #008080;">17</span><br><span style="color: #008080;">18</span>         holder.iv.setImageResource(Integer.valueOf(map.get(“iv”<span style="color: #000000;">).toString()));<br></span><span style="color: #008080;">19</span>         holder.tv.setText(map.get(“tv”<span style="color: #000000;">).toString());<br></span><span style="color: #008080;">20</span><br><span style="color: #008080;">21</span>         holder.btn.setOnClickListener(<span style="color: #0000ff;">new</span><span style="color: #000000;"> View.OnClickListener() {<br></span><span style="color: #008080;">22</span> <span style="color: #000000;">            @Override<br></span><span style="color: #008080;">23</span>             <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> onClick(View v) {<br></span><span style="color: #008080;">24</span>                 Toast.makeText(context, map.get(“btn”<span style="color: #000000;">).toString(), Toast.LENGTH_SHORT).show();<br></span><span style="color: #008080;">25</span> <span style="color: #000000;">            }<br></span><span style="color: #008080;">26</span> <span style="color: #000000;">        });<br></span><span style="color: #008080;">27</span><br><span style="color: #008080;">28</span>         <span style="color: #0000ff;">return</span><span style="color: #000000;"> convertView;<br></span><span style="color: #008080;">29</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;">30</span><br><span style="color: #008080;">31</span>     <span style="color: #0000ff;">class</span><span style="color: #000000;"> ViewHolder{<br></span><span style="color: #008080;">32</span> <span style="color: #000000;">        Button btn;<br></span><span style="color: #008080;">33</span> <span style="color: #000000;">        ImageView iv;<br></span><span style="color: #008080;">34</span> <span style="color: #000000;">        TextView tv;<br></span><span style="color: #008080;">35</span><br><span style="color: #008080;">36</span>     }</pre><br></div>
 
 <p>以下是碎碎念（想直接看代码的，就跳过这段吧-_-！）：</p>
@@ -8205,10 +8067,7 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
     <entry>
       <title><![CDATA[[Android]AndroidInject增加sqlite3数据库映射注解(ORM)]]></title>
       <url>/2014/03/25/Android-AndroidInject%E5%A2%9E%E5%8A%A0sqlite3%E6%95%B0%E6%8D%AE%E5%BA%93%E6%98%A0%E5%B0%84%E6%B3%A8%E8%A7%A3-ORM/</url>
-      <content type="html"><![CDATA[<p><span style="color: #ff0000;"><strong>以下内容为原创，欢迎转载，转载请注明</strong></span></p>
-<p><span><strong><span style="color: #ff0000;">来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/3623050.html" target="_blank" rel="noopener"><span style="color: #ff0000;">http://www.cnblogs.com/tiantianbyconan/p/3623050.html</span></a></span><a href="http://www.cnblogs.com/tiantianbyconan/p/3540427.html" target="_blank" rel="noopener">
-</a></strong></span></p>
-<p>AndroidInject项目是我写的一个使用注解注入来简化代码的开源项目</p>
+      <content type="html"><![CDATA[<p>AndroidInject项目是我写的一个使用注解注入来简化代码的开源项目</p>
 <p><a href="https://github.com/wangjiegulu/androidInject" target="_blank" rel="noopener">https://github.com/wangjiegulu/androidInject</a></p>
 <p>今天新增功能如下：</p>
 <p>1. 增加对sqlite3数据库的orm注解支持，增加@AIColumn、@AIPrimaryKey、@AITable三个注解来映射到表（有待改进）</p>
@@ -8256,6 +8115,8 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> android </tag>
             
+            <tag> library </tag>
+            
             <tag> inject </tag>
             
             <tag> sqlite </tag>
@@ -8265,8 +8126,6 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             <tag> database </tag>
             
             <tag> orm </tag>
-            
-            <tag> library </tag>
             
         </tags>
         
@@ -8403,9 +8262,7 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
     <entry>
       <title><![CDATA[[Android]异步加载图片，内存缓存，文件缓存，imageview显示图片时增加淡入淡出动画]]></title>
       <url>/2014/02/28/Android-%E5%BC%82%E6%AD%A5%E5%8A%A0%E8%BD%BD%E5%9B%BE%E7%89%87%EF%BC%8C%E5%86%85%E5%AD%98%E7%BC%93%E5%AD%98%EF%BC%8C%E6%96%87%E4%BB%B6%E7%BC%93%E5%AD%98%EF%BC%8Cimageview%E6%98%BE%E7%A4%BA%E5%9B%BE%E7%89%87%E6%97%B6%E5%A2%9E%E5%8A%A0%E6%B7%A1%E5%85%A5%E6%B7%A1%E5%87%BA%E5%8A%A8%E7%94%BB/</url>
-      <content type="html"><![CDATA[<p><span style="color: #ff0000;"><strong>以下内容为原创，欢迎转载，转载请注明</strong></span></p>
-<p><span style="color: #ff0000;"><strong>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/3574131.html" title="view: [Android]异步加载图片，内存缓存，文件缓存，imageview显示图片时增加淡入淡出动画" target="_blank" rel="noopener"><span style="color: #ff0000;">http://www.cnblogs.com/tiantianbyconan/p/3574131.html</span></a>&nbsp;</strong></span></p>
-<p>这个可以实现ImageView异步加载图片，内存缓存，文件缓存，imageview显示图片时增加淡入淡出动画。</p>
+      <content type="html"><![CDATA[<p>这个可以实现ImageView异步加载图片，内存缓存，文件缓存，imageview显示图片时增加淡入淡出动画。</p>
 <p>github地址：<a href="https://github.com/wangjiegulu/ImageLoaderSample" target="_blank" rel="noopener">https://github.com/wangjiegulu/ImageLoaderSample</a></p>
 <p>解决了：</p>
 <p>1. listview加载oom问题</p>
@@ -8609,9 +8466,9 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
         
         <tags>
             
-            <tag> android </tag>
-            
             <tag> java </tag>
+            
+            <tag> android </tag>
             
             <tag> Hbase </tag>
             
@@ -8693,10 +8550,7 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
     <entry>
       <title><![CDATA[[android]亲自破解Flappy Bird（去广告+永生）]]></title>
       <url>/2014/02/11/android-%E4%BA%B2%E8%87%AA%E7%A0%B4%E8%A7%A3Flappy-Bird%EF%BC%88%E5%8E%BB%E5%B9%BF%E5%91%8A-%E6%B0%B8%E7%94%9F%EF%BC%89/</url>
-      <content type="html"><![CDATA[<p><span style="color: #ff0000;"><strong>以下内容为原创，欢迎转载，转载请注明</strong></span></p>
-<p><span style="color: #ff0000;"><strong>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/3544785.html" title="view: [android]亲自破解Flappy Bird（去广告+永生）" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/3544785.html</a><span>&nbsp;</span></strong></span></p>
-<p>&nbsp;</p>
-<p><span>听说最近Flappy Bird很火，但是难度令人发指，于是怒了，亲自破解（去广告+永生）</span></p>
+      <content type="html"><![CDATA[<p><span>听说最近Flappy Bird很火，但是难度令人发指，于是怒了，亲自破解（去广告+永生）</span></p>
 <p><span>只要不碰到地上，永远不死，直接穿过管道- -！下载地址：</span><a href="http://pan.baidu.com/s/1kT7bA55" target="_blank" rel="noopener">http://pan.baidu.com/s/1kT7bA55</a></p>
 <p>注意：只支持android版本</p>
 <p>效果图：</p>
@@ -8735,10 +8589,7 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
     <entry>
       <title><![CDATA[AndroidInject项目使用动态代理增加对网络请求的支持]]></title>
       <url>/2014/02/08/AndroidInject%E9%A1%B9%E7%9B%AE%E4%BD%BF%E7%94%A8%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E5%A2%9E%E5%8A%A0%E5%AF%B9%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E7%9A%84%E6%94%AF%E6%8C%81/</url>
-      <content type="html"><![CDATA[<p><span style="color: #ff0000;"><strong>以下内容为原创，欢迎转载，转载请注明</strong></span></p>
-<p><span style="color: #ff0000;"><strong>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/3540427.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/3540427.html</a></strong></span></p>
-<p>&nbsp;</p>
-<p>AndroidInject项目是我写的一个使用注解注入来简化代码的开源项目</p>
+      <content type="html"><![CDATA[<p>AndroidInject项目是我写的一个使用注解注入来简化代码的开源项目</p>
 <p><a href="https://github.com/wangjiegulu/androidInject" target="_blank" rel="noopener">https://github.com/wangjiegulu/androidInject</a></p>
 <p>今天新增功能如下：</p>
 <p>1. 增加@AIScreenSize注解，作用于属性，用于注入当前设备的屏幕大小（宽高）<br>2. 增加对网络请求的支持，使用动态代理实现：@AIGet注解，作用于接口方法，表示以GET来请求url；@AIPost注解，作用于接口方法，表示以POST来请求url；@AIParam，用于注入请求参数<br>3. 增加@AINetWorker注解，作用于属性，用于注入网络请求服务<br>4. 增加GET或POST请求时请求参数可使用Params类传入，简化代码</p>
@@ -8802,9 +8653,9 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> android </tag>
             
-            <tag> library </tag>
-            
             <tag> annotations </tag>
+            
+            <tag> library </tag>
             
             <tag> proxy </tag>
             
@@ -8877,9 +8728,9 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> android </tag>
             
-            <tag> inject </tag>
-            
             <tag> library </tag>
+            
+            <tag> inject </tag>
             
         </tags>
         
@@ -8911,9 +8762,7 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
     <entry>
       <title><![CDATA[【ios】使用Block对POST异步操作的简单封装]]></title>
       <url>/2013/11/06/%E3%80%90ios%E3%80%91%E4%BD%BF%E7%94%A8Block%E5%AF%B9POST%E5%BC%82%E6%AD%A5%E6%93%8D%E4%BD%9C%E7%9A%84%E7%AE%80%E5%8D%95%E5%B0%81%E8%A3%85/</url>
-      <content type="html"><![CDATA[<p><span style="color: #ff0000;"><strong>以下内容为原创，欢迎转载，转载请注明</strong></span></p>
-<p><span style="color: #ff0000;"><strong>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/3409721.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/3409721.html</a></strong></span></p>
-<p>一般情况下的POST异步操作需要实现以下几步：</p>
+      <content type="html"><![CDATA[<p>一般情况下的POST异步操作需要实现以下几步：</p>
 <p>1. 在controller.h上实现&lt;NSURLConnectionDataDelegate&gt;协议</p>
 <p>2. 实现协议的几个方法，</p>
 <ul>
@@ -8984,9 +8833,7 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
     <entry>
       <title><![CDATA[【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比]]></title>
       <url>/2013/11/03/%E3%80%90IOS%E3%80%91ios%E4%B8%ADNSUserDefault%E4%B8%8Eandroid%E4%B8%AD%E7%9A%84SharedPreference%E7%94%A8%E6%B3%95%E7%AE%80%E5%8D%95%E5%AF%B9%E6%AF%94/</url>
-      <content type="html"><![CDATA[<p><span style="color: #ff0000;"><strong>以下内容为原创，欢迎转载，转载请注明</strong></span></p>
-<p><span style="color: #ff0000;"><strong>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/3405308.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/3405308.html</a></strong></span></p>
-<p>有Android开发经验的朋友对SharedPreference的用法应该比较亲切的吧，它一般用来保存和读取用户的设置参数，比如保存用户名、加密后的登录密码，是否选择了自动登录，应用选择了哪一套主题皮肤等用户配置信息，使用也非常简单，put/get就能保存/读取这个配置文件，这个文件是用xml形式保存在应用的目录下面</p>
+      <content type="html"><![CDATA[<p>有Android开发经验的朋友对SharedPreference的用法应该比较亲切的吧，它一般用来保存和读取用户的设置参数，比如保存用户名、加密后的登录密码，是否选择了自动登录，应用选择了哪一套主题皮肤等用户配置信息，使用也非常简单，put/get就能保存/读取这个配置文件，这个文件是用xml形式保存在应用的目录下面</p>
 <p>在ios中，也有这么一个类似的工具&mdash;&mdash;NSUserDefault，它支持的数据格式有：NSNumber（Integer、Float、Double），NSString，NSDate，NSArray，NSDictionary，BOOL类型。它是存储在/Library/Prefereces里面，有个plist文件。</p>
 <p>下面，我们写一个demo来测试下：</p>
 <p>界面很简单，两个button，一个label</p>
@@ -9019,10 +8866,7 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
     <entry>
       <title><![CDATA[【IOS】从android角度来实现(理解)IOS的UITableView]]></title>
       <url>/2013/11/02/%E3%80%90IOS%E3%80%91%E4%BB%8Eandroid%E8%A7%92%E5%BA%A6%E6%9D%A5%E5%AE%9E%E7%8E%B0-%E7%90%86%E8%A7%A3-IOS%E7%9A%84UITableView/</url>
-      <content type="html"><![CDATA[<p><span style="color: #ff0000;"><strong>以下内容为原创，欢迎转载，转载请注明</strong></span></p>
-<p><span style="color: #ff0000;"><strong>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/3403124.html" target="_blank" rel="noopener"><span style="color: #ff0000;">http://www.cnblogs.com/tiantianbyconan/p/3403124.html</span></a></strong></span></p>
-<p><strong><span style="color: #ff0000;">&nbsp;</span></strong></p>
-<p>本人从在学校开始到现在上班（13年毕业）一直做web和android方面的开发，最近才开学习及ios的开发，所以ios学习中有不当之处，请大家留言赐教啦</p>
+      <content type="html"><![CDATA[<p>本人从在学校开始到现在上班（13年毕业）一直做web和android方面的开发，最近才开学习及ios的开发，所以ios学习中有不当之处，请大家留言指点</p>
 <p>以前从来没有接触过Objective-C这门语言，不过我想面向对象编程应该大体思想都差不多</p>
 <p>在ios中的UITableView学习中，开发过android的朋友应该马上会联想到ListView和GridView这两个控件，接下来以ListView为例子，跟UITableView做个对比，看看它们实现的方式有什么相同之处。怎么样能让有android开发经验的朋友，马上掌握UITableView这个控件</p>
 <p>先新建一个demo，取名TabViewTest（原谅我吧- -，本来要取名TableViewTest，谁知脑抽新建项目的时候写错了，诶。。。算了，将错就错吧- -）</p>
@@ -9116,8 +8960,7 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
     <entry>
       <title><![CDATA[Android NDK环境搭建及调用JNI的简单步骤]]></title>
       <url>/2013/10/30/Android-NDK%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E5%8F%8A%E8%B0%83%E7%94%A8JNI%E7%9A%84%E7%AE%80%E5%8D%95%E6%AD%A5%E9%AA%A4/</url>
-      <content type="html"><![CDATA[<p><strong><span style="color: #ff0000;">转载请注明：<a href="http://www.cnblogs.com/tiantianbyconan/p/3396595.html" target="_blank" rel="noopener"><span style="color: #ff0000;">http://www.cnblogs.com/tiantianbyconan/p/3396595.html</span></a></span></strong></p>
-<p><span>Java Native Interface (JNI)标准是java平台的一部分，它允许Java代码和其他语言写的代码进行交互。JNI 是本地编程接口，它使得在 Java 虚拟机 (VM) 内部运行的 Java 代码能够与用其它编程语言(如 C、C++ 和汇编语言)编写的应用程序和库进行交互操作。</span></p>
+      <content type="html"><![CDATA[<p><span>Java Native Interface (JNI)标准是java平台的一部分，它允许Java代码和其他语言写的代码进行交互。JNI 是本地编程接口，它使得在 Java 虚拟机 (VM) 内部运行的 Java 代码能够与用其它编程语言(如 C、C++ 和汇编语言)编写的应用程序和库进行交互操作。</span></p>
 <p>1. 下载NDK（<a href="http://developer.android.com/tools/sdk/ndk/index.html" target="_blank" rel="noopener">http://developer.android.com/tools/sdk/ndk/index.html</a>），并解压，配置Path路径</p>
 <p>&nbsp;</p>
 <p>2. 在项目中新建一个名为jni的文件夹，在jni中新增Android.mk文件，文件内容如下：</p>
@@ -9178,8 +9021,7 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
     <entry>
       <title><![CDATA[Android使用Fragment来实现ViewPager的功能（解决切换Fragment状态不保存）以及各个Fragment之间的通信]]></title>
       <url>/2013/10/12/Android%E4%BD%BF%E7%94%A8Fragment%E6%9D%A5%E5%AE%9E%E7%8E%B0ViewPager%E7%9A%84%E5%8A%9F%E8%83%BD%EF%BC%88%E8%A7%A3%E5%86%B3%E5%88%87%E6%8D%A2Fragment%E7%8A%B6%E6%80%81%E4%B8%8D%E4%BF%9D%E5%AD%98%EF%BC%89%E4%BB%A5%E5%8F%8A%E5%90%84%E4%B8%AAFragment%E4%B9%8B%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1/</url>
-      <content type="html"><![CDATA[<p><strong><span><span style="color: #ff0000;">以下内容为原创，转载请注明：<a href="http://www.cnblogs.com/tiantianbyconan/p/3364728.html" target="_blank" rel="noopener"><span style="color: #ff0000;">http://www.cnblogs.com/tiantianbyconan/p/3364728.html</span></a></span><a href="http://www.cnblogs.com/tiantianbyconan/p/3360938.html" target="_blank" rel="noopener"><span><br></span></a></span></strong></p>
-<p>我前两天写过一篇博客《Android使用Fragment来实现TabHost的功能（解决切换Fragment状态不保存）以及各个Fragment之间的通信》（<a href="http://www.cnblogs.com/tiantianbyconan/p/3360938.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/3360938.html</a>），实现了Tab切换时保留当前Fragment状态，并在切换前自动回调onPause()方法，在切换后自动调用onResume()，这样就做到了跟TahHost一样的功能。</p>
+      <content type="html"><![CDATA[<p>我前两天写过一篇博客《Android使用Fragment来实现TabHost的功能（解决切换Fragment状态不保存）以及各个Fragment之间的通信》（<a href="http://www.cnblogs.com/tiantianbyconan/p/3360938.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/3360938.html</a>），实现了Tab切换时保留当前Fragment状态，并在切换前自动回调onPause()方法，在切换后自动调用onResume()，这样就做到了跟TahHost一样的功能。</p>
 <p>今天来实现下ViewPager的功能，google提供了一个FragmentPagerAdapter这么一个适配器，蛋疼的是，碰到了跟上次类似的问题。比如ViewPager有5个page，刚打开的时候，会加载page1和page2，我们手动切换到page2的时候，会加载page3，切换到page3的时候，加载page4的同时会destory掉page1，所以，还是面临同样的问题，page的状态无法保存，于是，咱还是自己来实现下好了，自己动手，丰衣足食嘛！（同样&nbsp;<span>有朋友知道解决办法的话，希望联系我，赐教下哈</span>）</p>
 <p>先来看下整个demo的结构，跟上次实现TabHost的例子差不多：</p>
 <p><img src="http://images.cnitblog.com/blog/378300/201310/12093410-5a0bb7a1077d4614898ce8b0fbb85d07.jpg" alt=""></p>
@@ -9252,8 +9094,7 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
     <entry>
       <title><![CDATA[Android使用Fragment来实现TabHost的功能（解决切换Fragment状态不保存）以及各个Fragment之间的通信]]></title>
       <url>/2013/10/10/Android%E4%BD%BF%E7%94%A8Fragment%E6%9D%A5%E5%AE%9E%E7%8E%B0TabHost%E7%9A%84%E5%8A%9F%E8%83%BD%EF%BC%88%E8%A7%A3%E5%86%B3%E5%88%87%E6%8D%A2Fragment%E7%8A%B6%E6%80%81%E4%B8%8D%E4%BF%9D%E5%AD%98%EF%BC%89%E4%BB%A5%E5%8F%8A%E5%90%84%E4%B8%AAFragment%E4%B9%8B%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1/</url>
-      <content type="html"><![CDATA[<p><strong><span style="color: #ff0000;">以下内容为原创，转载请注明：<a href="http://www.cnblogs.com/tiantianbyconan/p/3360938.html" target="_blank" rel="noopener"><span style="color: #ff0000;">http://www.cnblogs.com/tiantianbyconan/p/3360938.html</span></a></span></strong></p>
-<p><img src="http://images.cnitblog.com/blog/378300/201310/10104944-40b5dbc296894475bdaf8914a59d0498.png" alt=""></p>
+      <content type="html"><![CDATA[<p><img src="http://images.cnitblog.com/blog/378300/201310/10104944-40b5dbc296894475bdaf8914a59d0498.png" alt=""></p>
 <p>如新浪微博下面的标签切换功能，我以前也写过一篇博文（<a href="http://www.cnblogs.com/tiantianbyconan/archive/2012/02/24/2366237.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/archive/2012/02/24/2366237.html</a>），可以实现，用的是TabHost。但是android发展比较迅速，TabHost这玩意现在已经被弃用了，虽说用现在也能用，但是被弃用的东西还是少用为妙。</p>
 <p>官方有个FragmentTabHost这么一个替代品，于是试了一下，发现每次切换tab，都会调用<span>onCreateView()方法，控件被重新加载，也就是说你从tab1切换到别的tab后，再切换回来，tab1的状态并没有保存，重新加载了控件。</span></p>
 <p><span>搞了半天，暂时没有好的解决办法（有朋友知道解决办法的话，希望联系我，赐教下哈）</span></p>
@@ -9378,8 +9219,7 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
     <entry>
       <title><![CDATA[java使用动态代理来实现AOP（日志记录）]]></title>
       <url>/2013/09/24/java%E4%BD%BF%E7%94%A8%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E6%9D%A5%E5%AE%9E%E7%8E%B0AOP%EF%BC%88%E6%97%A5%E5%BF%97%E8%AE%B0%E5%BD%95%EF%BC%89/</url>
-      <content type="html"><![CDATA[<p><span style="line-height: 1.5; color: #ff0000;">以下内容为原创，转载时请注明链接地址：<a href="http://www.cnblogs.com/tiantianbyconan/p/3336627.html" target="_blank" rel="noopener"><span style="color: #ff0000;">http://www.cnblogs.com/tiantianbyconan/p/3336627.html</span></a></span></p>
-<p><span style="line-height: 1.5;">AOP（面向方面）的思想，就是把项目共同的那部分功能分离开来，比如日志记录，避免在业务逻辑里面夹杂着跟业务逻辑无关的代码。</span></p>
+      <content type="html"><![CDATA[<p><span style="line-height: 1.5;">AOP（面向方面）的思想，就是把项目共同的那部分功能分离开来，比如日志记录，避免在业务逻辑里面夹杂着跟业务逻辑无关的代码。</span></p>
 <p>下面是一个AOP实现的简单例子：</p>
 <p><img src="http://images.cnitblog.com/blog/378300/201309/24111801-c8f719406a074bf5805d2a94ac2dcccb.jpg" alt=""></p>
 <p>首先定义一些业务方法：</p>
@@ -9426,8 +9266,7 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
     <entry>
       <title><![CDATA[Android自定义ScrollView分段加载大文本数据到TextView]]></title>
       <url>/2013/09/10/Android%E8%87%AA%E5%AE%9A%E4%B9%89ScrollView%E5%88%86%E6%AE%B5%E5%8A%A0%E8%BD%BD%E5%A4%A7%E6%96%87%E6%9C%AC%E6%95%B0%E6%8D%AE%E5%88%B0TextView/</url>
-      <content type="html"><![CDATA[<p><span style="color: #ff0000;">以下内容为原创，转载时请注明链接地址：<a href="http://www.cnblogs.com/tiantianbyconan/p/3311658.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/3311658.html</a></span></p>
-<p>这是我现在碰到的一个问题，如果需要在TextView中加载大文本的时候，比如几M的txt文件时，TextView载入的时候会出现卡死的现象，甚至会出现异常等待退出出现。</p>
+      <content type="html"><![CDATA[<p>这是我现在碰到的一个问题，如果需要在TextView中加载大文本的时候，比如几M的txt文件时，TextView载入的时候会出现卡死的现象，甚至会出现异常等待退出出现。</p>
 <p>解决办法之一就是通过&ldquo;分段&rdquo;或&ldquo;分页&rdquo;来显示数据，在TextView（嵌入在ScrollView之中实现了TextView的滚动）中滚动到底部的时候，再去加载下一部分的数据，依次类推，这样每次加载的数据相对来说都比较小，不会出现卡顿的现象。</p>
 <p>遇到的问题是，如何监听ScrollView滚动的位置（滚动到顶部还是底部？）。</p>
 <p>&nbsp;</p>
@@ -9707,8 +9546,7 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
     <entry>
       <title><![CDATA[Struts+iBatis+Spring+mysql整合开发]]></title>
       <url>/2013/03/03/Struts-iBatis-Spring-mysql%E6%95%B4%E5%90%88%E5%BC%80%E5%8F%91/</url>
-      <content type="html"><![CDATA[<p><span style="color: #800000;"><strong><span style="line-height: 1.5;">转载请注明：<a href="http://www.cnblogs.com/tiantianbyconan/archive/2013/03/03/2941554.html" target="_blank" rel="noopener"><span style="color: #800000;">http://www.cnblogs.com/tiantianbyconan/archive/2013/03/03/2941554.html</span></a></span></strong></span></p>
-<p><span style="line-height: 1.5;">本文使用Struts+iBatis+Spring三层框架开实现对user表的CRUD。</span></p>
+      <content type="html"><![CDATA[<p><span style="line-height: 1.5;">本文使用Struts+iBatis+Spring三层框架开实现对user表的CRUD。</span></p>
 <p><span style="line-height: 1.5;">分层如下：</span></p>
 <p><img src="http://images.cnitblog.com/blog/378300/201303/03145921-9115e3b0b60448bab6e391c5233f80c8.jpg" alt=""></p>
 <p>&nbsp;</p>
@@ -9769,8 +9607,7 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
     <entry>
       <title><![CDATA[svn的使用]]></title>
       <url>/2013/02/27/svn%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
-      <content type="html"><![CDATA[<p><strong>转载请注明：<a href="http://www.cnblogs.com/tiantianbyconan/archive/2013/02/27/2934628.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/archive/2013/02/27/2934628.html</a></strong></p>
-<p>新建如下结构的文件夹：<br>sv_workspace<br>    |–svn_repos<br>    |–svn_imports<br>    |–svn_checkouts</p>
+      <content type="html"><![CDATA[<p>新建如下结构的文件夹：<br>sv_workspace<br>    |–svn_repos<br>    |–svn_imports<br>    |–svn_checkouts</p>
 <p>svn_repos：中创建各种版本库（一个项目使用一个版本库）<br>svn_imports：导入最初始的项目<br>svn_checkouts：从版本库中检出的项目，真正的工作目录</p>
 <p>1.先在svn_repos中新建版本库，如：infolife_repo，右键在此创建版本库。<br>2.在svn_imports文件夹中新建对应的文件夹检出，如：infolife_import。<br>右键检出，此时该文件夹会生成branches、tags、trunk和一个.svn的文件夹<br>3。.在eclipse中新建项目后，把项目复制到svn_imports目录的truck目录下，</p>
 <p>然后右键导入，url写版本库的truck目录</p>

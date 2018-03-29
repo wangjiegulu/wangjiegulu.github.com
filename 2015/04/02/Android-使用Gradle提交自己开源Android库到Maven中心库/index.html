@@ -6,19 +6,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="以下内容为原创，欢迎转载，转载请注明 来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/4388175.html&amp;nbsp; &amp;nbsp; 此文针对开源爱好者。 如果你想让别人使用你的Android开源库，第一种方法是，提供你的Github地址，让别人clone一份，然后让别人import到他的项目中。另一种更简单的方式就是直接让别人在他的Gradle">
+    <meta name="description" content="此文针对开源爱好者。 如果你想让别人使用你的Android开源库，第一种方法是，提供你的Github地址，让别人clone一份，然后让别人import到他的项目中。另一种更简单的方式就是直接让别人在他的Gradle中添加你的库依赖，如下： compile ‘com.github.wangjiegulu:AndroidBucket:1.0.1’  如果想使用第二种方式，你需要将你的项目提交到公共的中">
 <meta name="keywords" content="android,gradle,maven,open source,uploadArchive">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Android]使用Gradle提交自己开源Android库到Maven中心库">
 <meta property="og:url" content="http://blog.wangjiegulu.com/2015/04/02/Android-使用Gradle提交自己开源Android库到Maven中心库/index.html">
 <meta property="og:site_name" content="Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer">
-<meta property="og:description" content="以下内容为原创，欢迎转载，转载请注明 来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/4388175.html&amp;nbsp; &amp;nbsp; 此文针对开源爱好者。 如果你想让别人使用你的Android开源库，第一种方法是，提供你的Github地址，让别人clone一份，然后让别人import到他的项目中。另一种更简单的方式就是直接让别人在他的Gradle">
+<meta property="og:description" content="此文针对开源爱好者。 如果你想让别人使用你的Android开源库，第一种方法是，提供你的Github地址，让别人clone一份，然后让别人import到他的项目中。另一种更简单的方式就是直接让别人在他的Gradle中添加你的库依赖，如下： compile ‘com.github.wangjiegulu:AndroidBucket:1.0.1’  如果想使用第二种方式，你需要将你的项目提交到公共的中">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://images.cnitblog.com/blog2015/378300/201504/021841366545243.png">
-<meta property="og:updated_time" content="2018-01-30T03:17:41.000Z">
+<meta property="og:updated_time" content="2018-03-29T06:30:09.340Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[Android]使用Gradle提交自己开源Android库到Maven中心库">
-<meta name="twitter:description" content="以下内容为原创，欢迎转载，转载请注明 来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/4388175.html&amp;nbsp; &amp;nbsp; 此文针对开源爱好者。 如果你想让别人使用你的Android开源库，第一种方法是，提供你的Github地址，让别人clone一份，然后让别人import到他的项目中。另一种更简单的方式就是直接让别人在他的Gradle">
+<meta name="twitter:description" content="此文针对开源爱好者。 如果你想让别人使用你的Android开源库，第一种方法是，提供你的Github地址，让别人clone一份，然后让别人import到他的项目中。另一种更简单的方式就是直接让别人在他的Gradle中添加你的库依赖，如下： compile ‘com.github.wangjiegulu:AndroidBucket:1.0.1’  如果想使用第二种方式，你需要将你的项目提交到公共的中">
 <meta name="twitter:image" content="http://images.cnitblog.com/blog2015/378300/201504/021841366545243.png">
     
     
@@ -165,10 +165,7 @@
     
     
 
-    <p><span style="color: #ff0000;"><strong>以下内容为原创，欢迎转载，转载请注明</strong></span></p>
-<p><span style="color: #ff0000;"><strong>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/4388175.html%20" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/4388175.html&nbsp;</a></strong></span></p>
-<p>&nbsp;</p>
-<p>此文针对开源爱好者。</p>
+    <p>此文针对开源爱好者。</p>
 <p>如果你想让别人使用你的Android开源库，第一种方法是，提供你的Github地址，让别人clone一份，然后让别人import到他的项目中。另一种更简单的方式就是直接让别人在他的Gradle中添加你的库依赖，如下：</p>
 <div class="cnblogs_code"><br><pre>compile ‘com.github.wangjiegulu:AndroidBucket:1.0.1’</pre><br></div>
 

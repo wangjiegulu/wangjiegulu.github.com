@@ -6,20 +6,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/6237731.html   使用Dagger 2来构建UserScope 原文：http://frogermcs.github.io/building-userscope-with-dagger2/  在Dagger 2中自定义scopes可以在不寻常存活时间（与A">
+    <meta name="description" content="使用Dagger 2来构建UserScope 原文：http://frogermcs.github.io/building-userscope-with-dagger2/  在Dagger 2中自定义scopes可以在不寻常存活时间（与Application和界面生命周期不同的）的依赖上给我带来更好的控制。但是在Android app中正确地实现它需要记住几个事情：scope不能存活比applic">
 <meta name="keywords" content="android,dependency injection,翻译,dagger2,DI,google">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用Dagger 2来构建UserScope（翻译）">
 <meta property="og:url" content="http://blog.wangjiegulu.com/2016/12/30/Android-使用Dagger-2来构建UserScope（翻译）/index.html">
 <meta property="og:site_name" content="Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer">
-<meta property="og:description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/6237731.html   使用Dagger 2来构建UserScope 原文：http://frogermcs.github.io/building-userscope-with-dagger2/  在Dagger 2中自定义scopes可以在不寻常存活时间（与A">
+<meta property="og:description" content="使用Dagger 2来构建UserScope 原文：http://frogermcs.github.io/building-userscope-with-dagger2/  在Dagger 2中自定义scopes可以在不寻常存活时间（与Application和界面生命周期不同的）的依赖上给我带来更好的控制。但是在Android app中正确地实现它需要记住几个事情：scope不能存活比applic">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://frogermcs.github.io/images/15/scopes-lifecycle.png">
 <meta property="og:image" content="http://frogermcs.github.io/images/28/scopes.png">
-<meta property="og:updated_time" content="2018-01-31T05:37:54.000Z">
+<meta property="og:updated_time" content="2018-03-29T06:25:08.498Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用Dagger 2来构建UserScope（翻译）">
-<meta name="twitter:description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/6237731.html   使用Dagger 2来构建UserScope 原文：http://frogermcs.github.io/building-userscope-with-dagger2/  在Dagger 2中自定义scopes可以在不寻常存活时间（与A">
+<meta name="twitter:description" content="使用Dagger 2来构建UserScope 原文：http://frogermcs.github.io/building-userscope-with-dagger2/  在Dagger 2中自定义scopes可以在不寻常存活时间（与Application和界面生命周期不同的）的依赖上给我带来更好的控制。但是在Android app中正确地实现它需要记住几个事情：scope不能存活比applic">
 <meta name="twitter:image" content="http://frogermcs.github.io/images/15/scopes-lifecycle.png">
     
     
@@ -166,10 +166,7 @@
     
     
 
-    <font color="#ff0000"><strong><br>以下内容为原创，欢迎转载，转载请注明<br>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/6237731.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/6237731.html</a>
-</strong></font>
-
-<h1 id="使用Dagger-2来构建UserScope"><a href="#使用Dagger-2来构建UserScope" class="headerlink" title="使用Dagger 2来构建UserScope"></a>使用Dagger 2来构建UserScope</h1><blockquote>
+    <h1 id="使用Dagger-2来构建UserScope"><a href="#使用Dagger-2来构建UserScope" class="headerlink" title="使用Dagger 2来构建UserScope"></a>使用Dagger 2来构建UserScope</h1><blockquote>
 <p>原文：<a href="http://frogermcs.github.io/building-userscope-with-dagger2/" target="_blank" rel="noopener">http://frogermcs.github.io/building-userscope-with-dagger2/</a></p>
 </blockquote>
 <p>在Dagger 2中自定义scopes可以在不寻常存活时间（与Application和界面生命周期不同的）的依赖上给我带来更好的控制。但是在Android app中正确地实现它需要记住几个事情：scope不能存活比application进程更长的周期，进程可以被系统杀死并且在更多的对象实例的用户流中恢复过来。今天我们将介绍所有这些，并尝试实现可用于生产的UserScope。</p>

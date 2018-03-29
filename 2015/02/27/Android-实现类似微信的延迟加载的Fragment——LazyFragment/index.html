@@ -6,18 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="以下内容为原创，转载请注明： 来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/4303910.html&amp;nbsp; &amp;nbsp; 参考微信，使用ViewPager来显示不同的tab，每个tab是一个Fragment， 假设有3个tab，对应的fragment是FragmentA、FragmentB、FragmentC 需要实现的效果是进入后，默认先只">
+    <meta name="description" content="参考微信，使用ViewPager来显示不同的tab，每个tab是一个Fragment， 假设有3个tab，对应的fragment是FragmentA、FragmentB、FragmentC 需要实现的效果是进入后，默认先只加载FragmentA，具体滑动到了哪个Fragment，再去加载该Fragment的数据。 可以参考如下BaseLazyFragment代码：   1 /  2   Autho">
 <meta name="keywords" content="android,LazyFragment,lazy,Fragment,wechat,微信">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Android]实现类似微信的延迟加载的Fragment——LazyFragment">
 <meta property="og:url" content="http://blog.wangjiegulu.com/2015/02/27/Android-实现类似微信的延迟加载的Fragment——LazyFragment/index.html">
 <meta property="og:site_name" content="Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer">
-<meta property="og:description" content="以下内容为原创，转载请注明： 来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/4303910.html&amp;nbsp; &amp;nbsp; 参考微信，使用ViewPager来显示不同的tab，每个tab是一个Fragment， 假设有3个tab，对应的fragment是FragmentA、FragmentB、FragmentC 需要实现的效果是进入后，默认先只">
+<meta property="og:description" content="参考微信，使用ViewPager来显示不同的tab，每个tab是一个Fragment， 假设有3个tab，对应的fragment是FragmentA、FragmentB、FragmentC 需要实现的效果是进入后，默认先只加载FragmentA，具体滑动到了哪个Fragment，再去加载该Fragment的数据。 可以参考如下BaseLazyFragment代码：   1 /  2   Autho">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-01-30T03:23:01.000Z">
+<meta property="og:updated_time" content="2018-03-29T06:29:30.107Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[Android]实现类似微信的延迟加载的Fragment——LazyFragment">
-<meta name="twitter:description" content="以下内容为原创，转载请注明： 来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/4303910.html&amp;nbsp; &amp;nbsp; 参考微信，使用ViewPager来显示不同的tab，每个tab是一个Fragment， 假设有3个tab，对应的fragment是FragmentA、FragmentB、FragmentC 需要实现的效果是进入后，默认先只">
+<meta name="twitter:description" content="参考微信，使用ViewPager来显示不同的tab，每个tab是一个Fragment， 假设有3个tab，对应的fragment是FragmentA、FragmentB、FragmentC 需要实现的效果是进入后，默认先只加载FragmentA，具体滑动到了哪个Fragment，再去加载该Fragment的数据。 可以参考如下BaseLazyFragment代码：   1 /  2   Autho">
     
     
         
@@ -163,10 +163,7 @@
     
     
 
-    <p><span style="color: #ff0000;"><strong>以下内容为原创，转载请注明：</strong></span></p>
-<p><span style="color: #ff0000;"><strong>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/4303910.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/4303910.html</a>&nbsp;</strong></span></p>
-<p>&nbsp;</p>
-<p>参考微信，使用ViewPager来显示不同的tab，每个tab是一个Fragment，</p>
+    <p>参考微信，使用ViewPager来显示不同的tab，每个tab是一个Fragment，</p>
 <p>假设有3个tab，对应的fragment是FragmentA、FragmentB、FragmentC</p>
 <p>需要实现的效果是进入后，默认先只加载FragmentA，具体滑动到了哪个Fragment，再去加载该Fragment的数据。</p>
 <p>可以参考如下BaseLazyFragment代码：</p>

@@ -6,21 +6,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/5098943.html   Dagger2Metrics - 测量DI图表初始化的性能 原文：http://frogermcs.github.io/dagger2metrics-measure-performance-of-graph-initialization/">
+    <meta name="description" content="Dagger2Metrics - 测量DI图表初始化的性能 原文：http://frogermcs.github.io/dagger2metrics-measure-performance-of-graph-initialization/  几个月前我们通过 Dagger 2 - graph creation performance 经历了一些可能会遇到的问题。多亏 TraceView 这个工具我">
 <meta name="keywords" content="android,dependency injection,翻译,dagger2,memory,DI">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Dagger2Metrics - 测量DI图表初始化的性能（翻译）">
 <meta property="og:url" content="http://blog.wangjiegulu.com/2016/02/16/Android-Dagger2Metrics-测量DI图表初始化的性能（翻译）/index.html">
 <meta property="og:site_name" content="Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer">
-<meta property="og:description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/5098943.html   Dagger2Metrics - 测量DI图表初始化的性能 原文：http://frogermcs.github.io/dagger2metrics-measure-performance-of-graph-initialization/">
+<meta property="og:description" content="Dagger2Metrics - 测量DI图表初始化的性能 原文：http://frogermcs.github.io/dagger2metrics-measure-performance-of-graph-initialization/  几个月前我们通过 Dagger 2 - graph creation performance 经历了一些可能会遇到的问题。多亏 TraceView 这个工具我">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://raw.githubusercontent.com/frogermcs/dagger2metrics/master/art/dagger2metrics.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/frogermcs/dagger2metrics/master/art/dagger2metrics-notification.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/frogermcs/dagger2metrics/master/art/dagger2metrics.png">
-<meta property="og:updated_time" content="2018-01-31T05:37:34.000Z">
+<meta property="og:updated_time" content="2018-03-29T06:30:14.511Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Dagger2Metrics - 测量DI图表初始化的性能（翻译）">
-<meta name="twitter:description" content="以下内容为原创，欢迎转载，转载请注明来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/5098943.html   Dagger2Metrics - 测量DI图表初始化的性能 原文：http://frogermcs.github.io/dagger2metrics-measure-performance-of-graph-initialization/">
+<meta name="twitter:description" content="Dagger2Metrics - 测量DI图表初始化的性能 原文：http://frogermcs.github.io/dagger2metrics-measure-performance-of-graph-initialization/  几个月前我们通过 Dagger 2 - graph creation performance 经历了一些可能会遇到的问题。多亏 TraceView 这个工具我">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/frogermcs/dagger2metrics/master/art/dagger2metrics.png">
     
     
@@ -167,10 +167,7 @@
     
     
 
-    <font color="#ff0000"><strong><br>以下内容为原创，欢迎转载，转载请注明<br>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/5098943.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/5098943.html</a>
-</strong></font>
-
-<h1 id="Dagger2Metrics-测量DI图表初始化的性能"><a href="#Dagger2Metrics-测量DI图表初始化的性能" class="headerlink" title="Dagger2Metrics - 测量DI图表初始化的性能"></a>Dagger2Metrics - 测量DI图表初始化的性能</h1><blockquote>
+    <h1 id="Dagger2Metrics-测量DI图表初始化的性能"><a href="#Dagger2Metrics-测量DI图表初始化的性能" class="headerlink" title="Dagger2Metrics - 测量DI图表初始化的性能"></a>Dagger2Metrics - 测量DI图表初始化的性能</h1><blockquote>
 <p>原文：<a href="http://frogermcs.github.io/dagger2metrics-measure-performance-of-graph-initialization/" target="_blank" rel="noopener">http://frogermcs.github.io/dagger2metrics-measure-performance-of-graph-initialization/</a></p>
 </blockquote>
 <p>几个月前我们通过 <a href="http://frogermcs.github.io/dagger-graph-creation-performance/" target="_blank" rel="noopener">Dagger 2 - graph creation performance</a> 经历了一些可能会遇到的问题。多亏 <a href="http://tools.android.com/tips/traceview" target="_blank" rel="noopener">TraceView</a> 这个工具我们可以很确切地看到初始化所有需要的依赖需要多少时间。但是这并不简单 - 我们必须要在我们代码中找出需要开始和停止测量的地方，然后在Android Studio中dump和分析它们。为了让它变得更简单，我们准备了一个简单的库，它可以帮助我们捕捉潜在的性能问题。</p>

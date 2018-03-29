@@ -6,18 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="以下内容为原创，欢迎转载，转载请注明 来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/4578699.html&amp;nbsp; &amp;nbsp; Github：https://github.com/wangjiegulu/RxAndroidEventsSample EventBus的作用是发布/订阅事件总线，因为项目中用到RxJava、RxAndroid，所">
+    <meta name="description" content="Github：https://github.com/wangjiegulu/RxAndroidEventsSample EventBus的作用是发布/订阅事件总线，因为项目中用到RxJava、RxAndroid，所以完全可以使用RxJava、RxAndroid来实现EventBus。 &amp;nbsp; 1. 编写RxBus，用于存储所有事件Subjects。 事件是传递的最小单位，可以把任何类作为一个">
 <meta name="keywords" content="android,RxJava,RxAndroid,EventBus,RxBus">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Android]基于RxJava、RxAndroid的EventBus实现">
 <meta property="og:url" content="http://blog.wangjiegulu.com/2015/06/15/Android-基于RxJava、RxAndroid的EventBus实现/index.html">
 <meta property="og:site_name" content="Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer">
-<meta property="og:description" content="以下内容为原创，欢迎转载，转载请注明 来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/4578699.html&amp;nbsp; &amp;nbsp; Github：https://github.com/wangjiegulu/RxAndroidEventsSample EventBus的作用是发布/订阅事件总线，因为项目中用到RxJava、RxAndroid，所">
+<meta property="og:description" content="Github：https://github.com/wangjiegulu/RxAndroidEventsSample EventBus的作用是发布/订阅事件总线，因为项目中用到RxJava、RxAndroid，所以完全可以使用RxJava、RxAndroid来实现EventBus。 &amp;nbsp; 1. 编写RxBus，用于存储所有事件Subjects。 事件是传递的最小单位，可以把任何类作为一个">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-01-30T03:20:48.000Z">
+<meta property="og:updated_time" content="2018-03-29T06:28:12.882Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[Android]基于RxJava、RxAndroid的EventBus实现">
-<meta name="twitter:description" content="以下内容为原创，欢迎转载，转载请注明 来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/4578699.html&amp;nbsp; &amp;nbsp; Github：https://github.com/wangjiegulu/RxAndroidEventsSample EventBus的作用是发布/订阅事件总线，因为项目中用到RxJava、RxAndroid，所">
+<meta name="twitter:description" content="Github：https://github.com/wangjiegulu/RxAndroidEventsSample EventBus的作用是发布/订阅事件总线，因为项目中用到RxJava、RxAndroid，所以完全可以使用RxJava、RxAndroid来实现EventBus。 &amp;nbsp; 1. 编写RxBus，用于存储所有事件Subjects。 事件是传递的最小单位，可以把任何类作为一个">
     
     
         
@@ -163,10 +163,7 @@
     
     
 
-    <p><strong>以下内容为原创，欢迎转载，转载请注明</strong></p>
-<p><strong><span style="color: #ff0000;">来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/4578699.html%20" title="view: [Android]基于RxJava、RxAndroid的EventBus实现" target="_blank" rel="noopener"><span style="color: #ff0000;">http://www.cnblogs.com/tiantianbyconan/p/4578699.html</span></a></span>&nbsp;</strong></p>
-<p>&nbsp;</p>
-<p><strong><span style="line-height: 1.5;">Github：<a href="https://github.com/wangjiegulu/RxAndroidEventsSample" target="_blank" rel="noopener">https://github.com/wangjiegulu/RxAndroidEventsSample</a></span></strong></p>
+    <p><strong><span style="line-height: 1.5;">Github：<a href="https://github.com/wangjiegulu/RxAndroidEventsSample" target="_blank" rel="noopener">https://github.com/wangjiegulu/RxAndroidEventsSample</a></span></strong></p>
 <p>EventBus的作用是发布/订阅事件总线，因为项目中用到RxJava、RxAndroid，所以完全可以使用RxJava、RxAndroid来实现EventBus。</p>
 <p>&nbsp;</p>
 <p>1. 编写RxBus，用于存储所有事件Subjects。</p>

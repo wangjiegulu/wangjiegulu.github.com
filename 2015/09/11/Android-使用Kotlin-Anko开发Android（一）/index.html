@@ -6,21 +6,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="以下内容为原创，欢迎转载，转载请注明 来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/4800656.html&amp;nbsp; &amp;nbsp; Kotlin是由JetBrains开发并且开源的静态类型JVM语言。比Java语言语法简洁，支持很多Java中不支持的语法特性，如高阶函数、內联函数、null安全、灵活扩展、操作符重载等等。而且它还完全兼容Java">
+    <meta name="description" content="Kotlin是由JetBrains开发并且开源的静态类型JVM语言。比Java语言语法简洁，支持很多Java中不支持的语法特性，如高阶函数、內联函数、null安全、灵活扩展、操作符重载等等。而且它还完全兼容Java，与Scala类似，但是Scala的宗旨是&amp;ldquo;尽可能自己实现，不得已才使用Java&amp;rdquo;，而Kotlin却相反：&amp;ldquo;尽可能复用Java的实现，不得已才自己实现">
 <meta name="keywords" content="android,kotlin,anko">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Android]使用Kotlin+Anko开发Android（一）">
 <meta property="og:url" content="http://blog.wangjiegulu.com/2015/09/11/Android-使用Kotlin-Anko开发Android（一）/index.html">
 <meta property="og:site_name" content="Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer">
-<meta property="og:description" content="以下内容为原创，欢迎转载，转载请注明 来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/4800656.html&amp;nbsp; &amp;nbsp; Kotlin是由JetBrains开发并且开源的静态类型JVM语言。比Java语言语法简洁，支持很多Java中不支持的语法特性，如高阶函数、內联函数、null安全、灵活扩展、操作符重载等等。而且它还完全兼容Java">
+<meta property="og:description" content="Kotlin是由JetBrains开发并且开源的静态类型JVM语言。比Java语言语法简洁，支持很多Java中不支持的语法特性，如高阶函数、內联函数、null安全、灵活扩展、操作符重载等等。而且它还完全兼容Java，与Scala类似，但是Scala的宗旨是&amp;ldquo;尽可能自己实现，不得已才使用Java&amp;rdquo;，而Kotlin却相反：&amp;ldquo;尽可能复用Java的实现，不得已才自己实现">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://kotlinlang.org/assets/images/tutorials//kotlin-android/configure-kotlin-in-project.png">
 <meta property="og:image" content="http://kotlinlang.org/assets/images/tutorials//kotlin-android/configure-kotlin-in-project-details.png">
 <meta property="og:image" content="http://kotlinlang.org/assets/images/tutorials//kotlin-android/convert-java-to-kotlin.png">
-<meta property="og:updated_time" content="2018-01-30T03:17:53.000Z">
+<meta property="og:updated_time" content="2018-03-29T06:31:19.940Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[Android]使用Kotlin+Anko开发Android（一）">
-<meta name="twitter:description" content="以下内容为原创，欢迎转载，转载请注明 来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/4800656.html&amp;nbsp; &amp;nbsp; Kotlin是由JetBrains开发并且开源的静态类型JVM语言。比Java语言语法简洁，支持很多Java中不支持的语法特性，如高阶函数、內联函数、null安全、灵活扩展、操作符重载等等。而且它还完全兼容Java">
+<meta name="twitter:description" content="Kotlin是由JetBrains开发并且开源的静态类型JVM语言。比Java语言语法简洁，支持很多Java中不支持的语法特性，如高阶函数、內联函数、null安全、灵活扩展、操作符重载等等。而且它还完全兼容Java，与Scala类似，但是Scala的宗旨是&amp;ldquo;尽可能自己实现，不得已才使用Java&amp;rdquo;，而Kotlin却相反：&amp;ldquo;尽可能复用Java的实现，不得已才自己实现">
 <meta name="twitter:image" content="http://kotlinlang.org/assets/images/tutorials//kotlin-android/configure-kotlin-in-project.png">
     
     
@@ -167,10 +167,7 @@
     
     
 
-    <p><span style="color: #ff0000;"><strong>以下内容为原创，欢迎转载，转载请注明</strong></span></p>
-<p><span style="color: #ff0000;"><strong>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/4800656.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/4800656.html</a>&nbsp;</strong></span></p>
-<p>&nbsp;</p>
-<p>Kotlin是由JetBrains开发并且开源的静态类型JVM语言。比Java语言语法简洁，支持很多Java中不支持的语法特性，如高阶函数、內联函数、null安全、灵活扩展、操作符重载等等。而且它还完全兼容Java，与Scala类似，但是Scala的宗旨是&ldquo;尽可能自己实现，不得已才使用Java&rdquo;，而Kotlin却相反：&ldquo;尽可能复用Java的实现，不得已才自己实现&rdquo;。所以相比之下Kotlin更简洁轻量，非常适合移动端的开发。另外JetBrains针对Android开发提供了一个由Kotlin实现的&ldquo;anko&rdquo;开源库，可以让你使用DSL的方式直接用代码编写UI，让你从繁琐的xml中解脱出来，而且避免了xml解析过程所带来的性能问题。</p>
+    <p>Kotlin是由JetBrains开发并且开源的静态类型JVM语言。比Java语言语法简洁，支持很多Java中不支持的语法特性，如高阶函数、內联函数、null安全、灵活扩展、操作符重载等等。而且它还完全兼容Java，与Scala类似，但是Scala的宗旨是&ldquo;尽可能自己实现，不得已才使用Java&rdquo;，而Kotlin却相反：&ldquo;尽可能复用Java的实现，不得已才自己实现&rdquo;。所以相比之下Kotlin更简洁轻量，非常适合移动端的开发。另外JetBrains针对Android开发提供了一个由Kotlin实现的&ldquo;anko&rdquo;开源库，可以让你使用DSL的方式直接用代码编写UI，让你从繁琐的xml中解脱出来，而且避免了xml解析过程所带来的性能问题。</p>
 <p>&nbsp;</p>
 <p>这篇先讲怎么去使用idea（Android Studio用户也一样）搭建Kotlin的Android开发环境。</p>
 <p>&nbsp;</p>

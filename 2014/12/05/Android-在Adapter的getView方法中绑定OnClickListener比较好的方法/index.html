@@ -6,18 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="以下内容为原创，欢迎转载，转载请注明 来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/4146512.html&amp;nbsp; &amp;nbsp; 给ListView中每个item绑定点击事件的方法，比较常见的如下这种方式：  1 public View getView(int positon, View convertView, ViewGroup pare">
+    <meta name="description" content="给ListView中每个item绑定点击事件的方法，比较常见的如下这种方式：  1 public View getView(int positon, View convertView, ViewGroup parent){ 2     if(null == convertView){ 3         convertView = LayoutInflater.from(context).infl">
 <meta name="keywords" content="android,ListView,best practices,adapter">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Android]在Adapter的getView方法中绑定OnClickListener比较好的方法">
 <meta property="og:url" content="http://blog.wangjiegulu.com/2014/12/05/Android-在Adapter的getView方法中绑定OnClickListener比较好的方法/index.html">
 <meta property="og:site_name" content="Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer">
-<meta property="og:description" content="以下内容为原创，欢迎转载，转载请注明 来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/4146512.html&amp;nbsp; &amp;nbsp; 给ListView中每个item绑定点击事件的方法，比较常见的如下这种方式：  1 public View getView(int positon, View convertView, ViewGroup pare">
+<meta property="og:description" content="给ListView中每个item绑定点击事件的方法，比较常见的如下这种方式：  1 public View getView(int positon, View convertView, ViewGroup parent){ 2     if(null == convertView){ 3         convertView = LayoutInflater.from(context).infl">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-01-30T03:19:53.000Z">
+<meta property="og:updated_time" content="2018-03-29T06:25:41.520Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[Android]在Adapter的getView方法中绑定OnClickListener比较好的方法">
-<meta name="twitter:description" content="以下内容为原创，欢迎转载，转载请注明 来自天天博客：http://www.cnblogs.com/tiantianbyconan/p/4146512.html&amp;nbsp; &amp;nbsp; 给ListView中每个item绑定点击事件的方法，比较常见的如下这种方式：  1 public View getView(int positon, View convertView, ViewGroup pare">
+<meta name="twitter:description" content="给ListView中每个item绑定点击事件的方法，比较常见的如下这种方式：  1 public View getView(int positon, View convertView, ViewGroup parent){ 2     if(null == convertView){ 3         convertView = LayoutInflater.from(context).infl">
     
     
         
@@ -163,10 +163,7 @@
     
     
 
-    <p><span style="color: #ff0000;"><strong>以下内容为原创，欢迎转载，转载请注明</strong></span></p>
-<p><span style="color: #ff0000;"><strong>来自天天博客：<a href="http://www.cnblogs.com/tiantianbyconan/p/4146512.html" title="view: [Android]在Adapter的getView方法中绑定OnClickListener比较好的方法" target="_blank" rel="noopener"><span style="color: #ff0000;">http://www.cnblogs.com/tiantianbyconan/p/4146512.html</span></a>&nbsp;</strong></span></p>
-<p>&nbsp;</p>
-<p>给ListView中每个item绑定点击事件的方法，比较常见的如下这种方式：</p>
+    <p>给ListView中每个item绑定点击事件的方法，比较常见的如下这种方式：</p>
 <div class="cnblogs_code"><br><pre><span style="color: #008080;"> 1</span> <span style="color: #0000ff;">public</span> View getView(<span style="color: #0000ff;">int</span><span style="color: #000000;"> positon, View convertView, ViewGroup parent){<br></span><span style="color: #008080;"> 2</span>     <span style="color: #0000ff;">if</span>(<span style="color: #0000ff;">null</span> ==<span style="color: #000000;"> convertView){<br></span><span style="color: #008080;"> 3</span>         convertView = LayoutInflater.<span style="color: #0000ff;">from</span>(context).inflate(R.layout.item, <span style="color: #0000ff;">null</span><span style="color: #000000;">);<br></span><span style="color: #008080;"> 4</span> <span style="color: #000000;">    }<br></span><span style="color: #008080;"> 5</span><br><span style="color: #008080;"> 6</span>     Button button =<span style="color: #000000;"> ABViewUtil.obtainView(convertView, R.id.item_btn);<br></span><span style="color: #008080;"> 7</span>     button.setOnClickListener(<span style="color: #0000ff;">new</span><span style="color: #000000;"> View.OnClickListener(){<br></span><span style="color: #008080;"> 8</span> <span style="color: #000000;">        @Override<br></span><span style="color: #008080;"> 9</span>         <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> onClick(View v){<br></span><span style="color: #008080;">10</span>             Toast.makeText(context, <span style="color: #800000;">“</span><span style="color: #800000;">position: </span><span style="color: #800000;">“</span> +<span style="color: #000000;"> position, Toast.LENGTH_SHORT).show();<br></span><span style="color: #008080;">11</span> <span style="color: #000000;">        }<br></span><span style="color: #008080;">12</span> <span style="color: #000000;">    });<br></span><span style="color: #008080;">13</span><br><span style="color: #008080;">14</span> }</pre><br></div>
 
 <p>然后运行，当然没问题。</p>
