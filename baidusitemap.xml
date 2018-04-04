@@ -5,7 +5,7 @@
     
   <url>
     <loc>https://blog.wangjiegulu.com/2018/04/03/huginn_douban_high_score_movies_and_slack/</loc>
-    <lastmod>2018-04-04T12:58:11.842Z</lastmod>
+    <lastmod>2018-04-04T13:31:34.264Z</lastmod>
     <data>
         <display>
         <title>Huginn实现自动通过slack推送豆瓣高分电影</title>
@@ -227,11 +227,11 @@
          
         <tag>翻译</tag>
          
-        <tag>google</tag>
-         
         <tag>dagger2</tag>
          
         <tag>DI</tag>
+         
+        <tag>google</tag>
          
          
            
@@ -323,11 +323,11 @@
          
         <tag>翻译</tag>
          
-        <tag>google</tag>
-         
         <tag>dagger2</tag>
          
         <tag>DI</tag>
+         
+        <tag>google</tag>
          
          
            
@@ -350,11 +350,11 @@
          
         <tag>翻译</tag>
          
-        <tag>google</tag>
-         
         <tag>dagger2</tag>
          
         <tag>DI</tag>
+         
+        <tag>google</tag>
          
          
            
@@ -584,11 +584,11 @@
          
         <tag>翻译</tag>
          
-        <tag>google</tag>
-         
         <tag>dagger2</tag>
          
         <tag>DI</tag>
+         
+        <tag>google</tag>
          
         <tag>RxJava</tag>
          
@@ -1120,11 +1120,11 @@
          
         <tag>翻译</tag>
          
-        <tag>google</tag>
-         
         <tag>dagger2</tag>
          
         <tag>DI</tag>
+         
+        <tag>google</tag>
          
          
            
@@ -1147,11 +1147,11 @@
          
         <tag>翻译</tag>
          
-        <tag>google</tag>
-         
         <tag>dagger2</tag>
          
         <tag>DI</tag>
+         
+        <tag>google</tag>
          
          
            
@@ -1201,11 +1201,11 @@
          
         <tag>翻译</tag>
          
-        <tag>google</tag>
-         
         <tag>dagger2</tag>
          
         <tag>DI</tag>
+         
+        <tag>google</tag>
          
          
            
@@ -1299,11 +1299,11 @@
          
         <tag>翻译</tag>
          
-        <tag>google</tag>
-         
         <tag>dagger2</tag>
          
         <tag>DI</tag>
+         
+        <tag>google</tag>
          
          
            
@@ -2599,11 +2599,11 @@
          
         <tag>android</tag>
          
+        <tag>Hbase</tag>
+         
         <tag>j2ee</tag>
          
         <tag>java web</tag>
-         
-        <tag>Hbase</tag>
          
          
            
@@ -2622,11 +2622,11 @@
         
         <tag>orm</tag>
          
-        <tag>Hibernate</tag>
-         
         <tag>j2ee</tag>
          
         <tag>java web</tag>
+         
+        <tag>Hibernate</tag>
          
          
            
@@ -2862,9 +2862,9 @@
         
         <tag>android</tag>
          
-        <tag>UI</tag>
-         
         <tag>tips</tag>
+         
+        <tag>UI</tag>
          
         <tag>unit</tag>
          
