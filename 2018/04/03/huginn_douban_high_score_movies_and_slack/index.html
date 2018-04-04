@@ -14,8 +14,8 @@
 <meta property="og:site_name" content="Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer">
 <meta property="og:description" content="Huginn实现自动通过slack推送豆瓣高分电影 如果尚未安装 Huginn，可以参考这里  想象下以下场景：每当有正在上映的电影在豆瓣上的评分超过7.8分，则 huginn 自动编辑一条信息并通过 Slack （当然也可以用 telegram 等app）通知到我电脑或者手机上。收到信息后，点击不喜欢忽略，或者点击购票按钮直接进入到购票页面。甚至 Huginn 可以结合 Google Calen">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://user-images.githubusercontent.com/5423194/38285197-a5e81ae4-37f1-11e8-8a2a-266f21fc2bd2.png">
-<meta property="og:image" content="https://user-images.githubusercontent.com/5423194/38285230-d95eaad2-37f1-11e8-95de-57e50c8dded3.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/5423194/38308823-d6afbb92-384a-11e8-8db6-4f6def8ff371.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/5423194/38308728-9a9ba6f2-384a-11e8-9cf5-541e828207e2.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/5423194/38248922-84a7d57e-377c-11e8-8073-443bd59fd2f1.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/5423194/38249853-b1eac0d4-377f-11e8-8242-022b28113653.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/5423194/38283656-c5dc2f5a-37e9-11e8-8f3c-bd7d8d8d7c5e.png">
@@ -33,11 +33,11 @@
 <meta property="og:image" content="https://user-images.githubusercontent.com/5423194/38289564-69cd36bc-3809-11e8-820f-8f7cddaf64cb.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/5423194/38290017-c49db6c8-380b-11e8-817c-bbd1aa25396e.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/5423194/38290316-44ee5e12-380d-11e8-9da2-d6d995fb3e1a.png">
-<meta property="og:updated_time" content="2018-04-04T06:27:53.007Z">
+<meta property="og:updated_time" content="2018-04-04T12:58:11.842Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Huginn实现自动通过slack推送豆瓣高分电影">
 <meta name="twitter:description" content="Huginn实现自动通过slack推送豆瓣高分电影 如果尚未安装 Huginn，可以参考这里  想象下以下场景：每当有正在上映的电影在豆瓣上的评分超过7.8分，则 huginn 自动编辑一条信息并通过 Slack （当然也可以用 telegram 等app）通知到我电脑或者手机上。收到信息后，点击不喜欢忽略，或者点击购票按钮直接进入到购票页面。甚至 Huginn 可以结合 Google Calen">
-<meta name="twitter:image" content="https://user-images.githubusercontent.com/5423194/38285197-a5e81ae4-37f1-11e8-8a2a-266f21fc2bd2.png">
+<meta name="twitter:image" content="https://user-images.githubusercontent.com/5423194/38308823-d6afbb92-384a-11e8-8db6-4f6def8ff371.png">
     
     
         
@@ -197,7 +197,7 @@
 <p>Huginn 就如你的贴心管家，按照你的意愿自动帮你完成很多事情。</p>
 <p>我们先来实现 <code>每当有正在上映的电影在豆瓣上的评分超过7.8分，则给我推送 Slack 信息</code> 这一部分需求。</p>
 <p>最后达到的效果如下：</p>
-<div style="text-align: center;"><br>    <img src="https://user-images.githubusercontent.com/5423194/38285197-a5e81ae4-37f1-11e8-8a2a-266f21fc2bd2.png" width="300px/"><br>    <br>手机端效果<br></div><br><div style="text-align: center;"><br>    <img src="https://user-images.githubusercontent.com/5423194/38285230-d95eaad2-37f1-11e8-95de-57e50c8dded3.png" width="600px/"><br>    <br>PC端效果<br></div>
+<div style="text-align: center;"><br>    <img src="https://user-images.githubusercontent.com/5423194/38308823-d6afbb92-384a-11e8-8db6-4f6def8ff371.png" width="300px/"><br>    <br>手机端效果<br></div><br><div style="text-align: center;"><br>    <img src="https://user-images.githubusercontent.com/5423194/38308728-9a9ba6f2-384a-11e8-9cf5-541e828207e2.png" width="600px/"><br>    <br>PC端效果<br></div>
 
 <h2 id="创建-Agents"><a href="#创建-Agents" class="headerlink" title="创建 Agents"></a>创建 Agents</h2><p>首先进入 Huginn 首页（默认<code>localhost:3000</code>），左上角进入 <code>Scenarios</code>：</p>
 <div style="text-align: center;"><br><img src="https://user-images.githubusercontent.com/5423194/38248922-84a7d57e-377c-11e8-8073-443bd59fd2f1.png" width="500px/"><br></div>

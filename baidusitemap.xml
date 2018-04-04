@@ -4,41 +4,8 @@
 
     
   <url>
-    <loc>https://blog.wangjiegulu.com/2018/04/02/build_the_environment_for_huginn/</loc>
-    <lastmod>2018-04-04T08:36:48.040Z</lastmod>
-    <data>
-        <display>
-        <title>Huginn及环境搭建</title>
-        <pubTime>2018-04-02T13:07:39.914Z</pubTime>
-        
-        <tag>ifttt</tag>
-         
-        <tag>automate</tag>
-         
-        <tag>huginn</tag>
-         
-        <tag>integromat</tag>
-         
-        <tag>zapier</tag>
-         
-        <tag>geek</tag>
-         
-         
-           
-             
-              <breadCrumb title="huginn" url="https://blog.wangjiegulu.com/categories/huginn/"/>
-          
-             
-              <breadCrumb title="automate" url="https://blog.wangjiegulu.com/categories/huginn/automate/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://blog.wangjiegulu.com/2018/04/03/huginn_douban_high_score_movies_and_slack/</loc>
-    <lastmod>2018-04-04T06:27:53.007Z</lastmod>
+    <lastmod>2018-04-04T12:58:11.842Z</lastmod>
     <data>
         <display>
         <title>Huginn实现自动通过slack推送豆瓣高分电影</title>
@@ -59,6 +26,39 @@
         <tag>douban</tag>
          
         <tag>movies</tag>
+         
+         
+           
+             
+              <breadCrumb title="huginn" url="https://blog.wangjiegulu.com/categories/huginn/"/>
+          
+             
+              <breadCrumb title="automate" url="https://blog.wangjiegulu.com/categories/huginn/automate/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://blog.wangjiegulu.com/2018/04/02/build_the_environment_for_huginn/</loc>
+    <lastmod>2018-04-04T08:36:48.040Z</lastmod>
+    <data>
+        <display>
+        <title>Huginn及环境搭建</title>
+        <pubTime>2018-04-02T13:07:39.914Z</pubTime>
+        
+        <tag>ifttt</tag>
+         
+        <tag>automate</tag>
+         
+        <tag>huginn</tag>
+         
+        <tag>integromat</tag>
+         
+        <tag>zapier</tag>
+         
+        <tag>geek</tag>
          
          
            
@@ -665,9 +665,9 @@
          
         <tag>翻译</tag>
          
-        <tag>monkey</tag>
-         
         <tag>testing</tag>
+         
+        <tag>monkey</tag>
          
         <tag>MonkeyRunner</tag>
          
@@ -861,9 +861,9 @@
          
         <tag>翻译</tag>
          
-        <tag>monkey</tag>
-         
         <tag>testing</tag>
+         
+        <tag>monkey</tag>
          
         <tag>adb</tag>
          
@@ -1047,9 +1047,9 @@
         
         <tag>android</tag>
          
-        <tag>unit test</tag>
-         
         <tag>annotations</tag>
+         
+        <tag>unit test</tag>
          
         <tag>JUnit</tag>
          
@@ -2599,11 +2599,11 @@
          
         <tag>android</tag>
          
-        <tag>Hbase</tag>
-         
         <tag>j2ee</tag>
          
         <tag>java web</tag>
+         
+        <tag>Hbase</tag>
          
          
            
@@ -2622,11 +2622,11 @@
         
         <tag>orm</tag>
          
+        <tag>Hibernate</tag>
+         
         <tag>j2ee</tag>
          
         <tag>java web</tag>
-         
-        <tag>Hibernate</tag>
          
          
            
@@ -2862,9 +2862,9 @@
         
         <tag>android</tag>
          
-        <tag>tips</tag>
-         
         <tag>UI</tag>
+         
+        <tag>tips</tag>
          
         <tag>unit</tag>
          
@@ -3277,12 +3277,12 @@
 
     
   <url>
-    <loc>https://blog.wangjiegulu.com/2013/02/20/%E5%B7%A5%E5%85%B7%E5%BA%93-JFileDownloader%E5%B7%A5%E5%85%B7%E7%B1%BB%E2%80%94%E2%80%94%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8B%E8%BD%BD%E7%BD%91%E7%BB%9C%E6%96%87%E4%BB%B6%EF%BC%8C%E5%B9%B6%E4%BF%9D%E5%AD%98%E5%9C%A8%E6%9C%AC%E5%9C%B0/</loc>
+    <loc>https://blog.wangjiegulu.com/2016/08/29/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/</loc>
     <lastmod>2018-01-29T12:36:41.000Z</lastmod>
     <data>
         <display>
-        <title>[工具库]JFileDownloader工具类——多线程下载网络文件，并保存在本地</title>
-        <pubTime>2013-02-20T09:37:00.000Z</pubTime>
+        <title>网络基础</title>
+        <pubTime>2016-08-29T06:10:00.000Z</pubTime>
         
          
            
@@ -3292,12 +3292,12 @@
 
     
   <url>
-    <loc>https://blog.wangjiegulu.com/2016/08/29/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/</loc>
+    <loc>https://blog.wangjiegulu.com/2013/02/20/%E5%B7%A5%E5%85%B7%E5%BA%93-JFileDownloader%E5%B7%A5%E5%85%B7%E7%B1%BB%E2%80%94%E2%80%94%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8B%E8%BD%BD%E7%BD%91%E7%BB%9C%E6%96%87%E4%BB%B6%EF%BC%8C%E5%B9%B6%E4%BF%9D%E5%AD%98%E5%9C%A8%E6%9C%AC%E5%9C%B0/</loc>
     <lastmod>2018-01-29T12:36:41.000Z</lastmod>
     <data>
         <display>
-        <title>网络基础</title>
-        <pubTime>2016-08-29T06:10:00.000Z</pubTime>
+        <title>[工具库]JFileDownloader工具类——多线程下载网络文件，并保存在本地</title>
+        <pubTime>2013-02-20T09:37:00.000Z</pubTime>
         
          
            
