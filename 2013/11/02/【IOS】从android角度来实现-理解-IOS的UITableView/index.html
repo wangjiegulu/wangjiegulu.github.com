@@ -10,7 +10,7 @@
 <meta name="keywords" content="android,iOS,UITableView">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【IOS】从android角度来实现(理解)IOS的UITableView">
-<meta property="og:url" content="http://blog.wangjiegulu.com/2013/11/02/【IOS】从android角度来实现-理解-IOS的UITableView/index.html">
+<meta property="og:url" content="https://blog.wangjiegulu.com/2013/11/02/【IOS】从android角度来实现-理解-IOS的UITableView/index.html">
 <meta property="og:site_name" content="Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer">
 <meta property="og:description" content="本人从在学校开始到现在上班（13年毕业）一直做web和android方面的开发，最近才开学习及ios的开发，所以ios学习中有不当之处，请大家留言指点 以前从来没有接触过Objective-C这门语言，不过我想面向对象编程应该大体思想都差不多 在ios中的UITableView学习中，开发过android的朋友应该马上会联想到ListView和GridView这两个控件，接下来以ListView为">
 <meta property="og:locale" content="en">
@@ -122,16 +122,16 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://blog.wangjiegulu.com/2013/11/02/【IOS】从android角度来实现-理解-IOS的UITableView/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://blog.wangjiegulu.com/2013/11/02/【IOS】从android角度来实现-理解-IOS的UITableView/&text=【IOS】从android角度来实现(理解)IOS的UITableView"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://blog.wangjiegulu.com/2013/11/02/【IOS】从android角度来实现-理解-IOS的UITableView/&title=【IOS】从android角度来实现(理解)IOS的UITableView"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.wangjiegulu.com/2013/11/02/【IOS】从android角度来实现-理解-IOS的UITableView/&is_video=false&description=【IOS】从android角度来实现(理解)IOS的UITableView"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=【IOS】从android角度来实现(理解)IOS的UITableView&body=Check out this article: http://blog.wangjiegulu.com/2013/11/02/【IOS】从android角度来实现-理解-IOS的UITableView/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://blog.wangjiegulu.com/2013/11/02/【IOS】从android角度来实现-理解-IOS的UITableView/&title=【IOS】从android角度来实现(理解)IOS的UITableView"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://blog.wangjiegulu.com/2013/11/02/【IOS】从android角度来实现-理解-IOS的UITableView/&title=【IOS】从android角度来实现(理解)IOS的UITableView"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://blog.wangjiegulu.com/2013/11/02/【IOS】从android角度来实现-理解-IOS的UITableView/&title=【IOS】从android角度来实现(理解)IOS的UITableView"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://blog.wangjiegulu.com/2013/11/02/【IOS】从android角度来实现-理解-IOS的UITableView/&title=【IOS】从android角度来实现(理解)IOS的UITableView"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.wangjiegulu.com/2013/11/02/【IOS】从android角度来实现-理解-IOS的UITableView/&name=【IOS】从android角度来实现(理解)IOS的UITableView&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://blog.wangjiegulu.com/2013/11/02/【IOS】从android角度来实现-理解-IOS的UITableView/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://blog.wangjiegulu.com/2013/11/02/【IOS】从android角度来实现-理解-IOS的UITableView/&text=【IOS】从android角度来实现(理解)IOS的UITableView"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.wangjiegulu.com/2013/11/02/【IOS】从android角度来实现-理解-IOS的UITableView/&title=【IOS】从android角度来实现(理解)IOS的UITableView"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.wangjiegulu.com/2013/11/02/【IOS】从android角度来实现-理解-IOS的UITableView/&is_video=false&description=【IOS】从android角度来实现(理解)IOS的UITableView"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=【IOS】从android角度来实现(理解)IOS的UITableView&body=Check out this article: https://blog.wangjiegulu.com/2013/11/02/【IOS】从android角度来实现-理解-IOS的UITableView/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.wangjiegulu.com/2013/11/02/【IOS】从android角度来实现-理解-IOS的UITableView/&title=【IOS】从android角度来实现(理解)IOS的UITableView"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.wangjiegulu.com/2013/11/02/【IOS】从android角度来实现-理解-IOS的UITableView/&title=【IOS】从android角度来实现(理解)IOS的UITableView"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.wangjiegulu.com/2013/11/02/【IOS】从android角度来实现-理解-IOS的UITableView/&title=【IOS】从android角度来实现(理解)IOS的UITableView"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://blog.wangjiegulu.com/2013/11/02/【IOS】从android角度来实现-理解-IOS的UITableView/&title=【IOS】从android角度来实现(理解)IOS的UITableView"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.wangjiegulu.com/2013/11/02/【IOS】从android角度来实现-理解-IOS的UITableView/&name=【IOS】从android角度来实现(理解)IOS的UITableView&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -262,8 +262,8 @@
 
     
     <div class="post-copyright" style="margin-top: 20px;">
-        <strong>来源博客：</strong><a href="http://blog.wangjiegulu.com">Wang Jie's Blog</a><br/>
-         <strong>本文链接：</strong><a href="http://blog.wangjiegulu.com/2013/11/02/【IOS】从android角度来实现-理解-IOS的UITableView/">http://blog.wangjiegulu.com/2013/11/02/【IOS】从android角度来实现-理解-IOS的UITableView/</a><br/>
+        <strong>来源博客：</strong><a href="https://blog.wangjiegulu.com">Wang Jie's Blog</a><br/>
+         <strong>本文链接：</strong><a href="https://blog.wangjiegulu.com/2013/11/02/【IOS】从android角度来实现-理解-IOS的UITableView/">https://blog.wangjiegulu.com/2013/11/02/【IOS】从android角度来实现-理解-IOS的UITableView/</a><br/>
          <strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处。
     </div>
     
@@ -306,16 +306,16 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://blog.wangjiegulu.com/2013/11/02/【IOS】从android角度来实现-理解-IOS的UITableView/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://blog.wangjiegulu.com/2013/11/02/【IOS】从android角度来实现-理解-IOS的UITableView/&text=【IOS】从android角度来实现(理解)IOS的UITableView"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://blog.wangjiegulu.com/2013/11/02/【IOS】从android角度来实现-理解-IOS的UITableView/&title=【IOS】从android角度来实现(理解)IOS的UITableView"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.wangjiegulu.com/2013/11/02/【IOS】从android角度来实现-理解-IOS的UITableView/&is_video=false&description=【IOS】从android角度来实现(理解)IOS的UITableView"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=【IOS】从android角度来实现(理解)IOS的UITableView&body=Check out this article: http://blog.wangjiegulu.com/2013/11/02/【IOS】从android角度来实现-理解-IOS的UITableView/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://blog.wangjiegulu.com/2013/11/02/【IOS】从android角度来实现-理解-IOS的UITableView/&title=【IOS】从android角度来实现(理解)IOS的UITableView"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://blog.wangjiegulu.com/2013/11/02/【IOS】从android角度来实现-理解-IOS的UITableView/&title=【IOS】从android角度来实现(理解)IOS的UITableView"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://blog.wangjiegulu.com/2013/11/02/【IOS】从android角度来实现-理解-IOS的UITableView/&title=【IOS】从android角度来实现(理解)IOS的UITableView"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://blog.wangjiegulu.com/2013/11/02/【IOS】从android角度来实现-理解-IOS的UITableView/&title=【IOS】从android角度来实现(理解)IOS的UITableView"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.wangjiegulu.com/2013/11/02/【IOS】从android角度来实现-理解-IOS的UITableView/&name=【IOS】从android角度来实现(理解)IOS的UITableView&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://blog.wangjiegulu.com/2013/11/02/【IOS】从android角度来实现-理解-IOS的UITableView/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://blog.wangjiegulu.com/2013/11/02/【IOS】从android角度来实现-理解-IOS的UITableView/&text=【IOS】从android角度来实现(理解)IOS的UITableView"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.wangjiegulu.com/2013/11/02/【IOS】从android角度来实现-理解-IOS的UITableView/&title=【IOS】从android角度来实现(理解)IOS的UITableView"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.wangjiegulu.com/2013/11/02/【IOS】从android角度来实现-理解-IOS的UITableView/&is_video=false&description=【IOS】从android角度来实现(理解)IOS的UITableView"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=【IOS】从android角度来实现(理解)IOS的UITableView&body=Check out this article: https://blog.wangjiegulu.com/2013/11/02/【IOS】从android角度来实现-理解-IOS的UITableView/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.wangjiegulu.com/2013/11/02/【IOS】从android角度来实现-理解-IOS的UITableView/&title=【IOS】从android角度来实现(理解)IOS的UITableView"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.wangjiegulu.com/2013/11/02/【IOS】从android角度来实现-理解-IOS的UITableView/&title=【IOS】从android角度来实现(理解)IOS的UITableView"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.wangjiegulu.com/2013/11/02/【IOS】从android角度来实现-理解-IOS的UITableView/&title=【IOS】从android角度来实现(理解)IOS的UITableView"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://blog.wangjiegulu.com/2013/11/02/【IOS】从android角度来实现-理解-IOS的UITableView/&title=【IOS】从android角度来实现(理解)IOS的UITableView"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.wangjiegulu.com/2013/11/02/【IOS】从android角度来实现-理解-IOS的UITableView/&name=【IOS】从android角度来实现(理解)IOS的UITableView&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>

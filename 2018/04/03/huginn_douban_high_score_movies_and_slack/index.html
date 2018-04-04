@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="Huginn实现自动通过slack推送豆瓣高分电影 如果尚未安装 Huginn，可以参考这里  想象下以下场景：每当有正在上映的电影在豆瓣上的评分超过7.8分，则 huginn 自动编辑一条信息并通过 Slack （当然也可以用 telegram 等app）通知到我电脑或者手机上。收到信息后，点击不喜欢忽略，或者点击购票按钮直接进入到购票页面。甚至 Huginn 可以结合 Google Calen">
+<meta name="keywords" content="ifttt,automate,huginn,integromat,zapier,geek,douban,movies">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Huginn实现自动通过slack推送豆瓣高分电影">
+<meta property="og:url" content="https://blog.wangjiegulu.com/2018/04/03/huginn_douban_high_score_movies_and_slack/index.html">
+<meta property="og:site_name" content="Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer">
+<meta property="og:description" content="Huginn实现自动通过slack推送豆瓣高分电影 如果尚未安装 Huginn，可以参考这里  想象下以下场景：每当有正在上映的电影在豆瓣上的评分超过7.8分，则 huginn 自动编辑一条信息并通过 Slack （当然也可以用 telegram 等app）通知到我电脑或者手机上。收到信息后，点击不喜欢忽略，或者点击购票按钮直接进入到购票页面。甚至 Huginn 可以结合 Google Calen">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://user-images.githubusercontent.com/5423194/38285197-a5e81ae4-37f1-11e8-8a2a-266f21fc2bd2.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/5423194/38285230-d95eaad2-37f1-11e8-95de-57e50c8dded3.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/5423194/38248922-84a7d57e-377c-11e8-8073-443bd59fd2f1.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/5423194/38249853-b1eac0d4-377f-11e8-8242-022b28113653.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/5423194/38283656-c5dc2f5a-37e9-11e8-8f3c-bd7d8d8d7c5e.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/5423194/38284371-684365f8-37ed-11e8-8125-b94a2a35e12b.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/5423194/38285255-f7211d02-37f1-11e8-84ee-c6b74401094e.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/5423194/38285762-5520c52c-37f4-11e8-9db5-ffa0f1116924.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/5423194/38286554-8fa7b166-37f8-11e8-9d8b-601bf37c895e.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/5423194/38287159-d1b96f10-37fb-11e8-835f-0b9e620ab075.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/5423194/38288443-62b02016-3803-11e8-8733-ded2ac3b535b.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/5423194/38288591-4f2cf702-3804-11e8-9b96-fe8561c21e9c.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/5423194/38288667-a0cc323a-3804-11e8-9a7d-6da84babc266.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/5423194/38288837-a0438740-3805-11e8-821e-5e91a1bf401e.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/5423194/38288942-31655e06-3806-11e8-92af-63c67f778570.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/5423194/38289144-4ad7c56c-3807-11e8-9599-4e64dd704258.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/5423194/38289564-69cd36bc-3809-11e8-820f-8f7cddaf64cb.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/5423194/38290017-c49db6c8-380b-11e8-817c-bbd1aa25396e.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/5423194/38290316-44ee5e12-380d-11e8-9da2-d6d995fb3e1a.png">
+<meta property="og:updated_time" content="2018-04-04T06:27:53.007Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Huginn实现自动通过slack推送豆瓣高分电影">
+<meta name="twitter:description" content="Huginn实现自动通过slack推送豆瓣高分电影 如果尚未安装 Huginn，可以参考这里  想象下以下场景：每当有正在上映的电影在豆瓣上的评分超过7.8分，则 huginn 自动编辑一条信息并通过 Slack （当然也可以用 telegram 等app）通知到我电脑或者手机上。收到信息后，点击不喜欢忽略，或者点击购票按钮直接进入到购票页面。甚至 Huginn 可以结合 Google Calen">
+<meta name="twitter:image" content="https://user-images.githubusercontent.com/5423194/38285197-a5e81ae4-37f1-11e8-8a2a-266f21fc2bd2.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Huginn实现自动通过slack推送豆瓣高分电影</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3">
+    
+      <div id="header-post-nav">
+  <span id="nav">
+      <ul>
+         
+          <li><b><a href="/">Home</a></b></li>
+         
+          <li><b><a href="/archives/">Writing</a></b></li>
+         
+          <li><b><a href="/tags/">Tags</a></b></li>
+         
+          <li><b><a href="/about/">About</a></b></li>
+         
+          <li><b><a href="/feed.xml">RSS</a></b></li>
+        
+      </ul>
+  </span>
+</div>
+
+<div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/feed.xml">RSS</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2018/04/02/build_the_environment_for_huginn/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://blog.wangjiegulu.com/2018/04/03/huginn_douban_high_score_movies_and_slack/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://blog.wangjiegulu.com/2018/04/03/huginn_douban_high_score_movies_and_slack/&text=Huginn实现自动通过slack推送豆瓣高分电影"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.wangjiegulu.com/2018/04/03/huginn_douban_high_score_movies_and_slack/&title=Huginn实现自动通过slack推送豆瓣高分电影"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.wangjiegulu.com/2018/04/03/huginn_douban_high_score_movies_and_slack/&is_video=false&description=Huginn实现自动通过slack推送豆瓣高分电影"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Huginn实现自动通过slack推送豆瓣高分电影&body=Check out this article: https://blog.wangjiegulu.com/2018/04/03/huginn_douban_high_score_movies_and_slack/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.wangjiegulu.com/2018/04/03/huginn_douban_high_score_movies_and_slack/&title=Huginn实现自动通过slack推送豆瓣高分电影"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.wangjiegulu.com/2018/04/03/huginn_douban_high_score_movies_and_slack/&title=Huginn实现自动通过slack推送豆瓣高分电影"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.wangjiegulu.com/2018/04/03/huginn_douban_high_score_movies_and_slack/&title=Huginn实现自动通过slack推送豆瓣高分电影"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://blog.wangjiegulu.com/2018/04/03/huginn_douban_high_score_movies_and_slack/&title=Huginn实现自动通过slack推送豆瓣高分电影"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.wangjiegulu.com/2018/04/03/huginn_douban_high_score_movies_and_slack/&name=Huginn实现自动通过slack推送豆瓣高分电影&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Huginn实现自动通过slack推送豆瓣高分电影"><span class="toc-number">1.</span> <span class="toc-text">Huginn实现自动通过slack推送豆瓣高分电影</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#创建-Agents"><span class="toc-number">1.1.</span> <span class="toc-text">创建 Agents</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建获取数据-agent"><span class="toc-number">1.1.1.</span> <span class="toc-text">创建获取数据 agent</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Options-配置"><span class="toc-number">1.1.1.1.</span> <span class="toc-text">Options 配置</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建过滤-agnet"><span class="toc-number">1.1.2.</span> <span class="toc-text">创建过滤 agnet</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建去重-agnet"><span class="toc-number">1.1.3.</span> <span class="toc-text">创建去重 agnet</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建-slack-通知的-agent"><span class="toc-number">1.1.4.</span> <span class="toc-text">创建 slack 通知的 agent</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#配置-Slack-环境"><span class="toc-number">1.1.4.1.</span> <span class="toc-text">配置 Slack 环境</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#创建-Agent-发送-Slack-消息"><span class="toc-number">1.1.4.2.</span> <span class="toc-text">创建 Agent 发送 Slack 消息</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">1.2.</span> <span class="toc-text">总结</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Huginn实现自动通过slack推送豆瓣高分电影
+    </h1>
+
+
+
+    <div class="meta"  style="margin-top:12px;">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name" style="margin-left: 12px">Wang Jie</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2018-04-03T08:33:40.844Z" itemprop="datePublished">2018-04-03</time>
+    </div>
+
+<br/>
+      
+    <div class="article-tag">
+        <i class="fas fa-tag" style="margin-top: 20px"></i>
+        <a class="tag-link" href="/tags/automate/">automate</a>, <a class="tag-link" href="/tags/douban/">douban</a>, <a class="tag-link" href="/tags/geek/">geek</a>, <a class="tag-link" href="/tags/huginn/">huginn</a>, <a class="tag-link" href="/tags/ifttt/">ifttt</a>, <a class="tag-link" href="/tags/integromat/">integromat</a>, <a class="tag-link" href="/tags/movies/">movies</a>, <a class="tag-link" href="/tags/zapier/">zapier</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  
+  <div class="content" itemprop="articleBody">
+    
+    
+      <!-- <img class="header-img" src="https://camo.githubusercontent.com/f7da893be2c2f5f765f2436296656e7d25962437/68747470733a2f2f7261772e6769746875622e636f6d2f687567696e6e2f687567696e6e2f6d61737465722f6d656469612f687567696e6e2d6c6f676f2e706e67" /> -->
+      
+
+        <img src="https://camo.githubusercontent.com/f7da893be2c2f5f765f2436296656e7d25962437/68747470733a2f2f7261772e6769746875622e636f6d2f687567696e6e2f687567696e6e2f6d61737465722f6d656469612f687567696e6e2d6c6f676f2e706e67" style="border-radius: 3px;"/>
+        
+        
+      
+      
+    
+
+    <h1 id="Huginn实现自动通过slack推送豆瓣高分电影"><a href="#Huginn实现自动通过slack推送豆瓣高分电影" class="headerlink" title="Huginn实现自动通过slack推送豆瓣高分电影"></a>Huginn实现自动通过slack推送豆瓣高分电影</h1><blockquote>
+<p>如果尚未安装 Huginn，可以参考<a href="https://blog.wangjiegulu.com/2018/04/02/build_the_environment_for_huginn/">这里</a></p>
+</blockquote>
+<p>想象下以下场景：每当有正在上映的电影在豆瓣上的评分超过7.8分，则 huginn 自动编辑一条信息并通过 <a href="https://slack.com" target="_blank" rel="noopener"><code>Slack</code></a> （当然也可以用 telegram 等app）通知到我电脑或者手机上。收到信息后，点击不喜欢忽略，或者点击购票按钮直接进入到购票页面。甚至 Huginn 可以结合 <code>Google Calendar</code> 查询你这几天的行程安排，推送高分电影信息的同时给你选择一个比较合适观看电影的时间点，购买好电影票后，huginn 又自动帮你把日程事件写入到 <code>Google Calendar</code> 中，并设置提醒。是不是很酷？！</p>
+<p>Huginn 就如你的贴心管家，按照你的意愿自动帮你完成很多事情。</p>
+<p>我们先来实现 <code>每当有正在上映的电影在豆瓣上的评分超过7.8分，则给我推送 Slack 信息</code> 这一部分需求。</p>
+<p>最后达到的效果如下：</p>
+<div style="text-align: center;"><br>    <img src="https://user-images.githubusercontent.com/5423194/38285197-a5e81ae4-37f1-11e8-8a2a-266f21fc2bd2.png" width="300px/"><br>    <br>手机端效果<br></div><br><div style="text-align: center;"><br>    <img src="https://user-images.githubusercontent.com/5423194/38285230-d95eaad2-37f1-11e8-95de-57e50c8dded3.png" width="600px/"><br>    <br>PC端效果<br></div>
+
+<h2 id="创建-Agents"><a href="#创建-Agents" class="headerlink" title="创建 Agents"></a>创建 Agents</h2><p>首先进入 Huginn 首页（默认<code>localhost:3000</code>），左上角进入 <code>Scenarios</code>：</p>
+<div style="text-align: center;"><br><img src="https://user-images.githubusercontent.com/5423194/38248922-84a7d57e-377c-11e8-8073-443bd59fd2f1.png" width="500px/"><br></div>
+
+<p>我的理解：<strong>Scenario</strong> 代表一种场景，一般会包含多个 <strong>agent</strong>，一个 agent 表示进行一次事件的处理或者变换。拿我们现在的例子来说，<strong>自动通过slack推送豆瓣高分电影</strong> 这一整个就是一个 <code>Scenario</code>，但是这个 <code>Scenario</code> 会有很多的 <code>agent</code>s 组成，比如：</p>
+<ul>
+<li>有一个 agent 是用来从豆瓣网页获取当前上映中的所有电影和它们的分数等信息；</li>
+<li>一个 agent 是用来从第一个 agent 里面拿到的所有电影进行过滤，过滤的标准就是 <code>score &gt; 7.8</code>，</li>
+<li>还有一个 agent 是用来把过滤后的电影通过 slack 推送到我们手机上。</li>
+</ul>
+<p>看着跟 <code>RxJava</code> 的观察者模式是不是很像？第一个从豆瓣页面拉取数据的过程就像是 <code>Observable</code>，然后其它的 agent 就像很多的 <code>operator</code> 用来把数据进行转换和变化，最终通知到 <code>subscriber</code>，这里的 <code>subscriber</code> 就是我们自己。我们通过 huginn 订阅了 <code>豆瓣高分电影</code>，就是这么简单。</p>
+<p>点击左下角的 <code>New Scenario</code> 创建一个名为 <code>douban_high_score_movie</code> 的 Scenario。</p>
+<h3 id="创建获取数据-agent"><a href="#创建获取数据-agent" class="headerlink" title="创建获取数据 agent"></a>创建获取数据 agent</h3><blockquote>
+<p>第一个 agent 用来从豆瓣官网获取所有正在上映的电影</p>
+</blockquote>
+<p>在 <code>douban_high_score_movie</code> 的 Scenario 中点击 <code>+ New Agent</code> 来创建第一个 Agent。</p>
+<div style="text-align: center;"><br><img src="https://user-images.githubusercontent.com/5423194/38249853-b1eac0d4-377f-11e8-8242-022b28113653.png" width="500px/"><br></div>
+
+<p>如上图，你需要去决定你要创建的 agent 的类型（<a href="https://github.com/huginn/huginn/wiki/Agent-Types-&amp;-Descriptions" target="_blank" rel="noopener">这里</a>是目前 Huginn 支持的所有的类型）。</p>
+<p>我们通过输入 “web” 来进行过滤选择 <code>Website Agent</code>。</p>
+<div style="text-align: center;"><br><img src="https://user-images.githubusercontent.com/5423194/38283656-c5dc2f5a-37e9-11e8-8f3c-bd7d8d8d7c5e.png" width="700px/"><br></div>
+
+<p>上图，左边是我们需要去配置的地方；右边是每个设置对应的说明。</p>
+<ul>
+<li><strong>Name：</strong>给这个 agent 取个名字，我们这里取名为 <code>step1_get_douban_playing_movies</code>，表示这个 agent 是 <code>douban_high_score_movie</code> 这个 Scenario 的第一步，是用来从豆瓣获取当前正在上映的所有电影。</li>
+<li><strong>Schedule：</strong>表示调度周期，表示在什么时候自动执行这个 agent，比如 <code>Every 1d</code> 表示每一天执行一次、<code>Every 2h</code> 表示每2小时执行一次、<code>8pm</code> 表示每天下午8点执行等等；这里我们选择 <code>3pm</code>，每天下午3点执行一次。</li>
+<li><strong>Keep events：</strong>表示事件保留的时间；比如我们从豆瓣上获取到所有上映的电影，每一部电影信息都是一个 event，Huginn会把这些 event 保留在本地，你可以通过这个参数来设置这些 events 在本地保留多少时间，超过这个时间，Huginn会把数据清除。我们这里设置1小时（为什么只设置为1小时，<a href="#keep_useless">下面我们会再讨论</a>）。</li>
+<li><strong>Sources：</strong>表示这个 agent 处理的数据来源是哪个 agent。我们现在创建的 agent 是第一个 agent，是从豆瓣网站上获取正在上映的所有电影，所以不需要从其他 agent 传递数据（也就是上面说的 events）过来，所以这个留空。</li>
+<li><strong>Receivers：</strong>表示这个 agent 处理完数据之后把这些数据传入到哪个 agent。还是用 <code>RxJava</code> 做类比，因为每个 agnet 都有可能只是整个观察者模式中的一个操作符，用来转化数据，数据转化完之后，可能还需要其他 agent 把这些数据做进一步的转化。</li>
+<li><strong>Scenarios：</strong>表示这个 agent 是数据哪个 Scenario 的。</li>
+<li><strong>Options：</strong>这个非常关键，就是通过这个配置文件（JSON）来进行网络请求和豆瓣电影数据解析相关的操作的，这个我们重点讲下。</li>
+</ul>
+<blockquote>
+<p><strong>注意：</strong>以上没提到的配置可以留空</p>
+</blockquote>
+<h4 id="Options-配置"><a href="#Options-配置" class="headerlink" title="Options 配置"></a>Options 配置</h4><p>Options 配置其实就是一个 JSON 文件。Website Agent 的 Options 主要的元素有如下：</p>
+<div style="text-align: center;"><br><img src="https://user-images.githubusercontent.com/5423194/38284371-684365f8-37ed-11e8-8125-b94a2a35e12b.png" width="500px/"><br></div>
+
+<ul>
+<li><strong>url：</strong>网站地址，表示我需要从哪个网站获取数据，现在我们是从豆瓣，所以需要输入豆瓣正在上映的网址，这里我们输入 <code>https://movie.douban.com/cinema/nowplaying/hangzhou/</code>，当然最后一个地点可以根据你的常驻地点做相应的修改。</li>
+<li><strong>type：</strong>数据解析的类型，支持的类型有 <code>xml</code>、<code>html</code>、<code>json</code>、<code>text</code> 四种，当前豆瓣网址返回的当然是 html 了，所以这里我们填写 <code>html</code>。如果其他场景，比如 调用第三方开放的 api，返回的类型可能就是 <code>json</code> 或者 <code>xml</code>了。</li>
+<li><strong>mode：</strong>表示获取数据的模式，我们这里选择 <code>on_change</code>。<ul>
+<li>on_change：在数据有更改时才会获取作为 events。</li>
+<li>merge：把新数据和输入的数据进行合并。</li>
+<li>all：获取所有数据。</li>
+</ul>
+</li>
+<li><strong>extract：</strong>用来配置（JSON）从这个网站解析出真正我们想要的数据。如果 <code>type</code> 是 <code>html</code>，则每个数据通过 <code>css</code> 选择器或者 <code>xpath</code> 来解析出真正的数据。</li>
+</ul>
+<blockquote>
+<p><strong>注意：</strong> <code>on_change</code> 这个设置在我们现在的场景下其实用处不大，这个<a href="#keep_useless">下面我们会再讨论</a>。</p>
+</blockquote>
+<p>最后的 options 如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"expected_update_period_in_days"</span>: <span class="string">"2"</span>,</span><br><span class="line">  <span class="attr">"url"</span>: <span class="string">"https://movie.douban.com/cinema/nowplaying/hangzhou/"</span>,</span><br><span class="line">  <span class="attr">"type"</span>: <span class="string">"html"</span>,</span><br><span class="line">  <span class="attr">"mode"</span>: <span class="string">"on_change"</span>,</span><br><span class="line">  <span class="attr">"extract"</span>: &#123;</span><br><span class="line">    <span class="attr">"title"</span>: &#123;</span><br><span class="line">      <span class="attr">"css"</span>: <span class="string">"li[@data-category='nowplaying']"</span>,</span><br><span class="line">      <span class="attr">"value"</span>: <span class="string">"@data-title"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"score"</span>: &#123;</span><br><span class="line">      <span class="attr">"css"</span>: <span class="string">"li[@data-category='nowplaying']"</span>,</span><br><span class="line">      <span class="attr">"value"</span>: <span class="string">"@data-score"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"star"</span>: &#123;</span><br><span class="line">      <span class="attr">"css"</span>: <span class="string">"li[@data-category='nowplaying']"</span>,</span><br><span class="line">      <span class="attr">"value"</span>: <span class="string">"@data-star"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"release"</span>: &#123;</span><br><span class="line">      <span class="attr">"css"</span>: <span class="string">"li[@data-category='nowplaying']"</span>,</span><br><span class="line">      <span class="attr">"value"</span>: <span class="string">"@data-release"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"region"</span>: &#123;</span><br><span class="line">      <span class="attr">"css"</span>: <span class="string">"li[@data-category='nowplaying']"</span>,</span><br><span class="line">      <span class="attr">"value"</span>: <span class="string">"@data-region"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"actors"</span>: &#123;</span><br><span class="line">      <span class="attr">"css"</span>: <span class="string">"li[@data-category='nowplaying']"</span>,</span><br><span class="line">      <span class="attr">"value"</span>: <span class="string">"@data-actors"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"director"</span>: &#123;</span><br><span class="line">      <span class="attr">"css"</span>: <span class="string">"li[@data-category='nowplaying']"</span>,</span><br><span class="line">      <span class="attr">"value"</span>: <span class="string">"@data-director"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"detail_url"</span>: &#123;</span><br><span class="line">      <span class="attr">"css"</span>: <span class="string">"li[@data-category='nowplaying']/ul/li/a[@data-psource='poster']"</span>,</span><br><span class="line">      <span class="attr">"value"</span>: <span class="string">"@href"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"image_url"</span>: &#123;</span><br><span class="line">      <span class="attr">"css"</span>: <span class="string">"li[@data-category='nowplaying']/ul/li/a[@data-psource='poster']/img"</span>,</span><br><span class="line">      <span class="attr">"value"</span>: <span class="string">"@src"</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上可以看出，我们从豆瓣的每部电影中获取了以下信息：</p>
+<ul>
+<li>title：电影名字</li>
+<li>score：电影分数，满分10分</li>
+<li>star：电影分数，满分50分</li>
+<li>release：上映日期</li>
+<li>region：地区</li>
+<li>actors：演员</li>
+<li>director：导演</li>
+<li>detail_url：详细 url</li>
+<li>image_url：电影封面</li>
+</ul>
+<blockquote>
+<p><strong>注意：</strong>获取具体 xpath 比较简单的方法：通过 chrome 右键的 <code>inspect</code> 来复制拿到。</p>
+</blockquote>
+<p>以上配置完毕后，点击下面的 <code>Dry Run</code>，应该就会出现以下页面</p>
+<div style="text-align: center;"><br><img src="https://user-images.githubusercontent.com/5423194/38285255-f7211d02-37f1-11e8-84ee-c6b74401094e.png" width="650px/"><br></div>
+
+<p>最后进行保存。第一个 agent 就创建完毕了。</p>
+<p>同时，这个 agent 在运行的过程中会生成以下 events：</p>
+<div style="text-align: center;"><br><img src="https://user-images.githubusercontent.com/5423194/38285762-5520c52c-37f4-11e8-9db5-ffa0f1116924.png" width="700px/"><br></div>
+
+
+<h3 id="创建过滤-agnet"><a href="#创建过滤-agnet" class="headerlink" title="创建过滤 agnet"></a>创建过滤 agnet</h3><p><code>step1_get_douban_playing_movies</code> 把所有正在上映的电影数据从豆瓣上拉取下来并解析好，生成一个个 events。然后我们第二个 agent 就需要从这些 events 里面进行过滤筛选出所有分数大于 <code>7.8</code>（具体的标准可以自己定） 的电影。相当于 RxJava 的 filter 操作符吧。</p>
+<p>同样创建 agent，选择为 <code>TriggerAgent</code>，名字为 <code>step2_pick_high_score_movies</code>。这是把 <strong>Sources</strong> 填写为第一个 agent 的名字，即 <code>step1_get_douban_playing_movies</code>，表示我要创建的 agent 处理的数据（events）是从 <code>step1_get_douban_playing_movies</code> 来的。</p>
+<p>然后重点还是在 Options 中</p>
+<ul>
+<li><strong>keep_event：</strong>表示是否把我从 <code>step1_get_douban_playing_movies</code> 这个 agent 收到的 events 原封不动地再传给下一个 agent（下一个 agent 我们还没创建），我们设置为 true。因为下一个 agent 我们是用来把数据通过 slack 发送到给我们自己的，那肯定需要第一个 agent 中获取到的例如电影名字、分数等信息。</li>
+<li><strong>rules：</strong>表示我们过滤的规则，可以多个，具体下面说。</li>
+<li><strong>must_match：</strong>表示 rules 中我必须要满足几个规则，如果是1，则意味着 rules 中所有的规则是或关系（只要满足 rules 中的1个规则即可）；默认不填写的话是<strong>必须要满足 rules 中所有的规则。</strong>，因为我们这里只需要满足一个分数大于7.8就可以，所以可以不填写。</li>
+</ul>
+<p>最后 Options 的配置如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"expected_receive_period_in_days"</span>: <span class="string">"2"</span>,</span><br><span class="line">  <span class="attr">"keep_event"</span>: <span class="string">"true"</span>,</span><br><span class="line">  <span class="attr">"rules"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"type"</span>: <span class="string">"field&gt;=value"</span>,</span><br><span class="line">      <span class="attr">"value"</span>: <span class="string">"7.8"</span>,</span><br><span class="line">      <span class="attr">"path"</span>: <span class="string">"$.score"</span></span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">"message"</span>: <span class="string">"Looks like your pattern matched in '&#123;&#123;value&#125;&#125;'!"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如上，在 <strong>rules</strong> 中添加一个规则，<strong>type</strong> 表示匹配规则，<code>field&gt;=value</code>：</p>
+<ul>
+<li><strong>field</strong>: 通过下面 path 从 events 匹配出来的数据，这里是 <code>$.score</code>，所以表示的是电影的分数；</li>
+<li><strong>value</strong>：表示下面 json 的 <code>value</code> 字段的值，这里为 <code>7.8</code>。</li>
+</ul>
+<p>通过简单的表达式 <code>field&gt;=value</code> 来设定匹配规则：电影分数 &gt;= 7.8分。</p>
+<p>至此，第二个 agent 创建完毕。</p>
+<p>你同样可以通过下面的 <code>Dry Run</code> 来进行测试，测试时因为有 <code>Sources</code>，需要你构造一些假数据作为输入来运行。</p>
+<h3 id="创建去重-agnet"><a href="#创建去重-agnet" class="headerlink" title="创建去重 agnet"></a>创建去重 agnet</h3><p><code>step2_pick_high_score_movies</code>用来把 <code>step1_get_douban_playing_movies</code> 中从豆瓣官网获取的电影信息进行高分的过滤（分数&gt;=7.8）。</p>
+<p>我们还需要创建一个去重的 agent，来避免重复给我们自己推送高分电影（因为我们现在获取的频率是每天进行获取检测，但是电影总不可能是每部电影只上映一天吧，第二天获取的时候肯定有第一天获取的数据）。</p>
+<p>这里大家可能会有个问题，因为我们在配置第一个 agent 的时候，已经把 <code>mode</code> 已经设置为 <code>on_change</code> 了，为什么还是会有重复数据呢？因为这里的电影信息中，有诸如 <code>分数</code> 这类的数据，这些数据是随时可能会有变化的，虽然是同一个电影，但是分数从 <code>8.1</code> 上升到 <code>8.2</code>，那 Huginn 也会认为满足了 <code>on_change</code> 条件，所以会造成重复推送。所以，我们还需要单独做去重处理。</p>
+<p><span id="keep_useless"></span></p>
+<blockquote>
+<p><strong>注意：</strong> 之前提到过 <code>on_change</code> 等设置在第一个 agent 其实用处不大，同样也是由于上面说的原因，我们也不知道同样的电影什么时候分数会发生变化，就算用了 <code>on_change</code>，也可能会把之前获取过的数据拿到。所以第一个 agent 的 keep_event 设置的时间比较短，因为这些 events 提供给 <code>on_change</code> 匹配意义不大，所以还是节省空间，设置短一点。</p>
+</blockquote>
+<p>创建 agent，type 选择 <code>DeDuplicationAgent</code>，名字取为 <code>step2_1_deduplication_high_score_movies</code>，<strong>Sources</strong> 填写为上一个 agent 的名字，即 <code>step2_pick_high_score_movies</code>。</p>
+<blockquote>
+<p><strong>注意：</strong>这里 <strong>keep_event</strong> 设置了90天，因为一旦经过我们这个 agent 去重后，events 假设保留1小时，那下一天我再去获取所有上映的电影并高分过滤后，因为昨天的数据（events）已经被清空了，所以就没办法做比较去重了，所以会导致重复数据。所以这里保存时间应该要&gt;=电影上映的时长，所以这里设置为90天，即3个月左右。</p>
+</blockquote>
+<p>DeDuplicationAgent 的 Options 填写就比较简单了</p>
+<div style="text-align: center;"><br><img src="https://user-images.githubusercontent.com/5423194/38286554-8fa7b166-37f8-11e8-9d8b-601bf37c895e.png" width="500px/"><br></div>
+
+<ul>
+<li><strong>Property：</strong>填写你要去重依据的字段，我们这里根据电影名字来去重，也就是 <code>title</code>。</li>
+<li><strong>Lookback：</strong>表示去重的时候跟之前的多少条历史 events 做比较，同一时期一起上映的电影应该不会超过100部，所以设置为100了。</li>
+</ul>
+<h3 id="创建-slack-通知的-agent"><a href="#创建-slack-通知的-agent" class="headerlink" title="创建 slack 通知的 agent"></a>创建 slack 通知的 agent</h3><p>Huginn 自带有一个 <code>SlackAgent</code>，用来发送 slack 消息。</p>
+<div style="text-align: center;"><br><img src="https://user-images.githubusercontent.com/5423194/38287159-d1b96f10-37fb-11e8-835f-0b9e620ab075.png" width="700px/"><br></div>
+
+<p>它使用了 <a href="https://api.slack.com/incoming-webhooks" target="_blank" rel="noopener">incoming-webhooks</a> 来实现消息的发送。</p>
+<p>但是为了有更多的可玩性，我们这里选择，自己创建一个 <code>slack app</code>，然后通过它的 open api 实现。</p>
+<p>因此，我们需要创建一个 <code>PostAgent</code>。但是在此之前我们先来配置好 Slack 环境。</p>
+<h4 id="配置-Slack-环境"><a href="#配置-Slack-环境" class="headerlink" title="配置 Slack 环境"></a>配置 Slack 环境</h4><p>安装 Slack：<a href="https://slack.com" target="_blank" rel="noopener">https://slack.com</a></p>
+<ul>
+<li>Google Play for Android：<a href="https://play.google.com/store/apps/details?id=com.Slack" target="_blank" rel="noopener">https://play.google.com/store/apps/details?id=com.Slack</a></li>
+</ul>
+<p>创建自己的 workspace（单独创建一个自己私有的，注意不要使用公司、团队的 workspace），比如我的是 <code>https://wangjie.slack.com</code>。</p>
+<p>在自己私有的 workspace 中创建一个私有的 channel：<code>#huginn-movie</code></p>
+<div style="text-align: center;"><br><img src="https://user-images.githubusercontent.com/5423194/38288443-62b02016-3803-11e8-8733-ded2ac3b535b.png" width="300px/"><br></div>
+
+<p>这个 channel 就是用来接收高分电影的数据了，当然你也可以使用 <code>#general</code>。</p>
+<p>然后我们创建一个自己的 app，用来发送电影信息。进入 <a href="https://api.slack.com/" target="_blank" rel="noopener">https://api.slack.com/</a></p>
+<div style="text-align: center;"><br><img src="https://user-images.githubusercontent.com/5423194/38288591-4f2cf702-3804-11e8-9b96-fe8561c21e9c.png" width="300px/"><br></div>
+
+<p>点击 <code>Start Building</code>，</p>
+<div style="text-align: center;"><br><img src="https://user-images.githubusercontent.com/5423194/38288667-a0cc323a-3804-11e8-9a7d-6da84babc266.png" width="500px/"><br></div>
+
+<ul>
+<li><strong>App Name：</strong>可以随意填写</li>
+<li><strong>Development Slack Workspace：</strong>选择你刚刚创建的私有的 workspace</li>
+</ul>
+<p>在 <code>Add features and functionality</code> 中点击 <code>Permissions</code> 进入权限配置。</p>
+<p>在 <code>Scope</code> 中添加如下权限：</p>
+<div style="text-align: center;"><br><img src="https://user-images.githubusercontent.com/5423194/38288837-a0438740-3805-11e8-821e-5e91a1bf401e.png" width="550px/"><br></div>
+
+<p>添加完以上所有权限后，点击保存，然后重新打开 <code>Permissions</code>，点击下面按钮安装我们的这个 app 到 slack。</p>
+<div style="text-align: center;"><br><img src="https://user-images.githubusercontent.com/5423194/38288942-31655e06-3806-11e8-92af-63c67f778570.png" width="550px/"><br></div>
+
+<p><span id="slack_token"><br>安装完毕之后，再次进入 <code>Permissions</code>，拷贝 <code>OAuth Access Token</code>：</span></p>
+<div style="text-align: center;"><br><img src="https://user-images.githubusercontent.com/5423194/38289144-4ad7c56c-3807-11e8-9599-4e64dd704258.png" width="550px/"><br></div>
+
+<p>然后，我们就可以使用我们的 token 来访问 slack 的 open api 了，具体文档在这里：<a href="https://api.slack.com/web" target="_blank" rel="noopener">https://api.slack.com/web</a>。</p>
+<p>我们需要的发送消息到 <code>#huginn-movie</code> channel 的接口文档：<br> <a href="https://api.slack.com/methods/chat.postMessage" target="_blank" rel="noopener">https://api.slack.com/methods/chat.postMessage</a></p>
+<p>有了 api 文档，有了 token，一切就好办了。</p>
+<div style="text-align: center;"><br><img src="https://user-images.githubusercontent.com/5423194/38289564-69cd36bc-3809-11e8-820f-8f7cddaf64cb.png" width="650px/"><br></div>
+
+<p>由上述文档，我们可以通过 post 请求，把我们要发送的电影信息封装到 <code>attachments</code> 参数中执行请求即可。</p>
+<p>而且 <code>attachments</code> 参数可以参考文档 <a href="https://api.slack.com/docs/message-attachments" target="_blank" rel="noopener">https://api.slack.com/docs/message-attachments</a> 来封装信息。</p>
+<p>Slack 环境一切就绪，接下来，回到 Huginn。</p>
+<h4 id="创建-Agent-发送-Slack-消息"><a href="#创建-Agent-发送-Slack-消息" class="headerlink" title="创建 Agent 发送 Slack 消息"></a>创建 Agent 发送 Slack 消息</h4><p>创建 <code>PostAgent</code>（注意，不是 <code>SlackAgent</code>），取名为 <code>step3_high_score_movies_to_slack_post</code>。<strong>Sources</strong> 填写为 <code>step2_1_deduplication_high_score_movies</code>，因为这个 agent 需要把去重后的电影信息通过 slack 发送给我们。</p>
+<p>最终的 Options 配置如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"post_url"</span>: <span class="string">"&#123;% credential slack_huginn_url_post_message %&#125;"</span>,</span><br><span class="line">  <span class="attr">"expected_receive_period_in_days"</span>: <span class="string">"1"</span>,</span><br><span class="line">  <span class="attr">"content_type"</span>: <span class="string">"json"</span>,</span><br><span class="line">  <span class="attr">"method"</span>: <span class="string">"post"</span>,</span><br><span class="line">  <span class="attr">"payload"</span>: &#123;</span><br><span class="line">    <span class="attr">"channel"</span>: <span class="string">"huginn-movie"</span>,</span><br><span class="line">    <span class="attr">"username"</span>: <span class="string">"Douban Movie"</span>,</span><br><span class="line">    <span class="attr">"icon_url"</span>: <span class="string">"https://img3.doubanio.com/pics/douban-icons/favicon_48x48.png"</span>,</span><br><span class="line">    <span class="attr">"attachments"</span>: [</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">"fallback"</span>: <span class="string">"Required plain-text summary of the attachment."</span>,</span><br><span class="line">        <span class="attr">"mrkdwn_in"</span>: [</span><br><span class="line">          <span class="string">"text"</span>,</span><br><span class="line">          <span class="string">"pretext"</span></span><br><span class="line">        ],</span><br><span class="line">        <span class="attr">"color"</span>: <span class="string">"#36a64f"</span>,</span><br><span class="line">        <span class="attr">"pretext"</span>: <span class="string">"Hi~ &lt;@&#123;% credential  slack_at_user_id %&#125;&gt;, There is *high score* movie."</span>,</span><br><span class="line">        <span class="attr">"author_name"</span>: <span class="string">"&#123;&#123;director&#125;&#125;"</span>,</span><br><span class="line">        <span class="attr">"author_link"</span>: <span class="string">"&#123;&#123;detail_url&#125;&#125;"</span>,</span><br><span class="line">        <span class="attr">"author_icon"</span>: <span class="string">""</span>,</span><br><span class="line">        <span class="attr">"title"</span>: <span class="string">"《&#123;&#123;title&#125;&#125;》"</span>,</span><br><span class="line">        <span class="attr">"title_link"</span>: <span class="string">"&#123;&#123;detail_url&#125;&#125;"</span>,</span><br><span class="line">        <span class="attr">"text"</span>: <span class="string">"*Actors*: &#123;&#123;actors&#125;&#125;"</span>,</span><br><span class="line">        <span class="attr">"fields"</span>: [</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="attr">"title"</span>: <span class="string">"Score"</span>,</span><br><span class="line">            <span class="attr">"value"</span>: <span class="string">"&#123;&#123;score&#125;&#125;"</span>,</span><br><span class="line">            <span class="attr">"short"</span>: <span class="literal">true</span></span><br><span class="line">          &#125;,</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="attr">"title"</span>: <span class="string">"Star"</span>,</span><br><span class="line">            <span class="attr">"value"</span>: <span class="string">"&#123;&#123;star&#125;&#125;"</span>,</span><br><span class="line">            <span class="attr">"short"</span>: <span class="literal">true</span></span><br><span class="line">          &#125;,</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="attr">"title"</span>: <span class="string">"Region"</span>,</span><br><span class="line">            <span class="attr">"value"</span>: <span class="string">"&#123;&#123;region&#125;&#125;"</span>,</span><br><span class="line">            <span class="attr">"short"</span>: <span class="literal">true</span></span><br><span class="line">          &#125;,</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="attr">"title"</span>: <span class="string">"Release"</span>,</span><br><span class="line">            <span class="attr">"value"</span>: <span class="string">"&#123;&#123;release&#125;&#125;"</span>,</span><br><span class="line">            <span class="attr">"short"</span>: <span class="literal">true</span></span><br><span class="line">          &#125;</span><br><span class="line">        ],</span><br><span class="line">        <span class="attr">"image_url"</span>: <span class="string">""</span>,</span><br><span class="line">        <span class="attr">"thumb_url"</span>: <span class="string">"&#123;&#123;image_url&#125;&#125;"</span>,</span><br><span class="line">        <span class="attr">"footer"</span>: <span class="string">"Slack"</span>,</span><br><span class="line">        <span class="attr">"footer_icon"</span>: <span class="string">"https://platform.slack-edge.com/img/default_application_icon.png"</span>,</span><br><span class="line">        <span class="attr">"ts"</span>: <span class="string">"&#123;&#123;\"now\" | date: \"%s\"&#125;&#125;"</span></span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"headers"</span>: &#123;</span><br><span class="line">    <span class="attr">"Content-Type"</span>: <span class="string">"application/json"</span>,</span><br><span class="line">    <span class="attr">"Authorization"</span>: <span class="string">"&#123;% credential slack_huginn_token %&#125;"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"emit_events"</span>: <span class="string">"false"</span>,</span><br><span class="line">  <span class="attr">"no_merge"</span>: <span class="string">"false"</span>,</span><br><span class="line">  <span class="attr">"output_mode"</span>: <span class="string">"clean"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>需要注意的是：</p>
+<ul>
+<li><code>{\% credential slack_huginn_url_post_message %\}</code>：此类的表达式为 <a href="https://github.com/huginn/huginn/wiki/Formatting-Events-using-Liquid" target="_blank" rel="noopener">Liquid-interpolated</a>，具体的值配置在 <code>Credentials</code> 中，可以理解为全局定义，在 <code>Credentials</code> 中配置好 <code>key-value</code> 之后，可以在其它地方以诸如 <code>{\% credential key \%}</code> 的方式来使用，这里不做过多介绍了。</li>
+</ul>
+<p><span id="slack_at_anyone"></span></p>
+<ul>
+<li>在消息中使用Slack 中的 <code>@</code> 某人的功能时，需要拿到对应用户的 ID，可以的获取方式可以通过在 slack 中选中名字然后 <code>Copy link</code> 的方式拿到用户链接，用户连接的最后就是 ID。</li>
+</ul>
+<div style="text-align: center;"><br><img src="https://user-images.githubusercontent.com/5423194/38290017-c49db6c8-380b-11e8-817c-bbd1aa25396e.png" width="300px/"><br></div>
+
+<p>保存该 Agent，至此，所需的所有的 Agent 都已经创建完毕了。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>整个 Scenario 的事件流程图如下：</p>
+<div style="text-align: center;"><br><img src="https://user-images.githubusercontent.com/5423194/38290316-44ee5e12-380d-11e8-9da2-d6d995fb3e1a.png" width="300px/"><br></div>
+
+<p>Huginn 还支持公开你创建的 Scenario，提供给其它人使用，以上的代码也已经公开：</p>
+<p><a href="http://h.wangjiegulu.com/scenarios/8/export.json" target="_blank" rel="noopener">http://h.wangjiegulu.com/scenarios/8/export.json</a></p>
+<p>大家可以直接下载使用，不过需要在 <code>Credentials</code> 中配置如下参数：</p>
+<ul>
+<li><strong>slack_huginn_token：</strong>你创建的 Slack App 的 OAuth Access Token，具体方式可以参考<a href="#slack_token">这里</a></li>
+<li><strong>slack_at_user_id：</strong>你需要 @ 的 slack 用户 ID，填写你自己的，拿到你 ID 的方式可以参考<a href="#slack_at_anyone">这里</a></li>
+<li><strong>slack_huginn_url_post_message：</strong>填写 <code>https://slack.com/api/chat.postMessage</code> 即可。</li>
+</ul>
+<p>除了以上例子，Huginn 还可以完成更多奇思妙想，限制你的只有你的想象力。</p>
+
+
+    <br/>
+    <hr>
+
+    
+    <div class="post-copyright" style="margin-top: 20px;">
+        <strong>来源博客：</strong><a href="https://blog.wangjiegulu.com">Wang Jie's Blog</a><br/>
+         <strong>本文链接：</strong><a href="https://blog.wangjiegulu.com/2018/04/03/huginn_douban_high_score_movies_and_slack/">https://blog.wangjiegulu.com/2018/04/03/huginn_douban_high_score_movies_and_slack/</a><br/>
+         <strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处。
+    </div>
+    
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/feed.xml">RSS</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Huginn实现自动通过slack推送豆瓣高分电影"><span class="toc-number">1.</span> <span class="toc-text">Huginn实现自动通过slack推送豆瓣高分电影</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#创建-Agents"><span class="toc-number">1.1.</span> <span class="toc-text">创建 Agents</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建获取数据-agent"><span class="toc-number">1.1.1.</span> <span class="toc-text">创建获取数据 agent</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Options-配置"><span class="toc-number">1.1.1.1.</span> <span class="toc-text">Options 配置</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建过滤-agnet"><span class="toc-number">1.1.2.</span> <span class="toc-text">创建过滤 agnet</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建去重-agnet"><span class="toc-number">1.1.3.</span> <span class="toc-text">创建去重 agnet</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建-slack-通知的-agent"><span class="toc-number">1.1.4.</span> <span class="toc-text">创建 slack 通知的 agent</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#配置-Slack-环境"><span class="toc-number">1.1.4.1.</span> <span class="toc-text">配置 Slack 环境</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#创建-Agent-发送-Slack-消息"><span class="toc-number">1.1.4.2.</span> <span class="toc-text">创建 Agent 发送 Slack 消息</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">1.2.</span> <span class="toc-text">总结</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://blog.wangjiegulu.com/2018/04/03/huginn_douban_high_score_movies_and_slack/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://blog.wangjiegulu.com/2018/04/03/huginn_douban_high_score_movies_and_slack/&text=Huginn实现自动通过slack推送豆瓣高分电影"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.wangjiegulu.com/2018/04/03/huginn_douban_high_score_movies_and_slack/&title=Huginn实现自动通过slack推送豆瓣高分电影"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.wangjiegulu.com/2018/04/03/huginn_douban_high_score_movies_and_slack/&is_video=false&description=Huginn实现自动通过slack推送豆瓣高分电影"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Huginn实现自动通过slack推送豆瓣高分电影&body=Check out this article: https://blog.wangjiegulu.com/2018/04/03/huginn_douban_high_score_movies_and_slack/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.wangjiegulu.com/2018/04/03/huginn_douban_high_score_movies_and_slack/&title=Huginn实现自动通过slack推送豆瓣高分电影"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.wangjiegulu.com/2018/04/03/huginn_douban_high_score_movies_and_slack/&title=Huginn实现自动通过slack推送豆瓣高分电影"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.wangjiegulu.com/2018/04/03/huginn_douban_high_score_movies_and_slack/&title=Huginn实现自动通过slack推送豆瓣高分电影"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://blog.wangjiegulu.com/2018/04/03/huginn_douban_high_score_movies_and_slack/&title=Huginn实现自动通过slack推送豆瓣高分电影"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.wangjiegulu.com/2018/04/03/huginn_douban_high_score_movies_and_slack/&name=Huginn实现自动通过slack推送豆瓣高分电影&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 Wang Jie
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/feed.xml">RSS</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-111189680-2', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'blog-wangjiegulu-com';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+

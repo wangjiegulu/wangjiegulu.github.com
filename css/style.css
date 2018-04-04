@@ -339,93 +339,101 @@
   text-transform: none;
   letter-spacing: normal;
   font-weight: bold;
-  font-size: 1rem;
+  font-size: 1.2rem;
 }
 .content h3 {
   color: #333;
   text-decoration: underline;
   font-weight: bold;
-  font-size: 0.9rem;
+  font-size: 1.1rem;
 }
-.content h4,
-.content h5,
-.content h6 {
+h4,
+h5,
+h6 {
   display: inline;
-  border-bottom: 1px dashed #8c8c8c;
-  color: #8c8c8c;
+  color: #333;
   text-decoration: none;
-  font-weight: normal;
-  font-size: 0.9rem;
+  font-weight: bold;
+  font-size: 1rem;
 }
-.content h3,
-.content h4,
-.content h5,
-.content h6 {
+h4 {
+  border-bottom: 1px dashed #333;
+}
+h5 {
+  border-bottom: 1px dashed #999;
+}
+h6 {
+  border-bottom: 1px dashed #ddd;
+}
+h3,
+h4,
+h5,
+h6 {
   margin-top: 0.9rem;
   margin-bottom: 0.5rem;
 }
-.content hr {
+hr {
   border: 1px dashed #8c8c8c;
 }
-.content strong {
+strong {
   font-weight: bold;
 }
-.content em,
-.content cite {
+em,
+cite {
   font-style: italic;
 }
-.content sup,
-.content sub {
+sup,
+sub {
   position: relative;
   vertical-align: baseline;
   font-size: 0.75em;
   line-height: 0;
 }
-.content sup {
+sup {
   top: -0.5em;
 }
-.content sub {
+sub {
   bottom: -0.2em;
 }
-.content small {
+small {
   font-size: 0.85em;
 }
-.content acronym,
-.content abbr {
+acronym,
+abbr {
   border-bottom: 1px dotted;
 }
-.content ul,
-.content ol,
-.content dl {
+ul,
+ol,
+dl {
   line-height: 1.725;
 }
-.content ul ul,
-.content ol ul,
-.content ul ol,
-.content ol ol {
+ul ul,
+ol ul,
+ul ol,
+ol ol {
   margin-top: 0;
   margin-bottom: 0;
 }
-.content ol {
+ol {
   list-style: decimal;
 }
-.content dt {
+dt {
   font-weight: bold;
 }
-.content table {
+table {
   width: 100%;
   border-collapse: collapse;
   text-align: left;
   font-size: 12px;
 }
-.content th {
+th {
   padding: 8px;
   border-bottom: 1px dashed $color-code-border;
   color: #333;
   font-weight: bold;
   font-size: 13px;
 }
-.content td {
+td {
   padding: 9px 8px 0;
   border-bottom: none;
 }
@@ -1099,12 +1107,12 @@ article header .postdate {
   display: inline;
 }
 article .content {
-  word-wrap: break-word;
+  word-break: break-all;
 /* http://webdesignerwall.com/tutorials/css-elastic-videos */
 }
 article .content h2:before {
   position: absolute;
-  top: -4px;
+  top: 0px;
   left: -1rem;
   color: #228377;
   content: "#";
@@ -1451,9 +1459,14 @@ pre code {
 }
 code {
   padding: 0 5px;
-  border: 1px dotted #666;
-  border-radius: 2px;
-  -webkit-border-radius: 2px;
+  border: 0px dotted #666;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  background-color: #f1f1f1;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 4px;
+  padding-right: 4px;
 }
 .highlight {
   overflow-x: auto;

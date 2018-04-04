@@ -10,7 +10,7 @@
 <meta name="keywords" content="android,memory leak,翻译">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android内存泄漏你所要知道的一切（翻译）">
-<meta property="og:url" content="http://blog.wangjiegulu.com/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/index.html">
+<meta property="og:url" content="https://blog.wangjiegulu.com/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/index.html">
 <meta property="og:site_name" content="Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer">
 <meta property="og:description" content="Android内存泄漏你所要知道的一切 原文：https://blog.aritraroy.in/everything-you-need-to-know-about-memory-leaks-in-android-apps-655f191ca859  写一个Android app很简单，但是写一个超高品质的内存高效的Android app并不简单。从我的个人经验来说，我曾经比较关注和感兴趣构建我a">
 <meta property="og:locale" content="en">
@@ -111,16 +111,16 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://blog.wangjiegulu.com/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://blog.wangjiegulu.com/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/&text=Android内存泄漏你所要知道的一切（翻译）"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://blog.wangjiegulu.com/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/&title=Android内存泄漏你所要知道的一切（翻译）"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.wangjiegulu.com/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/&is_video=false&description=Android内存泄漏你所要知道的一切（翻译）"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Android内存泄漏你所要知道的一切（翻译）&body=Check out this article: http://blog.wangjiegulu.com/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://blog.wangjiegulu.com/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/&title=Android内存泄漏你所要知道的一切（翻译）"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://blog.wangjiegulu.com/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/&title=Android内存泄漏你所要知道的一切（翻译）"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://blog.wangjiegulu.com/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/&title=Android内存泄漏你所要知道的一切（翻译）"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://blog.wangjiegulu.com/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/&title=Android内存泄漏你所要知道的一切（翻译）"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.wangjiegulu.com/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/&name=Android内存泄漏你所要知道的一切（翻译）&description=&lt;h1 id=&#34;Android内存泄漏你所要知道的一切&#34;&gt;&lt;a href=&#34;#Android内存泄漏你所要知道的一切&#34; class=&#34;headerlink&#34; title=&#34;Android内存泄漏你所要知道的一切&#34;&gt;&lt;/a&gt;Android内存泄漏你所要知道的一切&lt;/h1&gt;&lt;blockquote&gt;
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://blog.wangjiegulu.com/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://blog.wangjiegulu.com/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/&text=Android内存泄漏你所要知道的一切（翻译）"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.wangjiegulu.com/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/&title=Android内存泄漏你所要知道的一切（翻译）"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.wangjiegulu.com/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/&is_video=false&description=Android内存泄漏你所要知道的一切（翻译）"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Android内存泄漏你所要知道的一切（翻译）&body=Check out this article: https://blog.wangjiegulu.com/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.wangjiegulu.com/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/&title=Android内存泄漏你所要知道的一切（翻译）"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.wangjiegulu.com/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/&title=Android内存泄漏你所要知道的一切（翻译）"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.wangjiegulu.com/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/&title=Android内存泄漏你所要知道的一切（翻译）"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://blog.wangjiegulu.com/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/&title=Android内存泄漏你所要知道的一切（翻译）"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.wangjiegulu.com/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/&name=Android内存泄漏你所要知道的一切（翻译）&description=&lt;h1 id=&#34;Android内存泄漏你所要知道的一切&#34;&gt;&lt;a href=&#34;#Android内存泄漏你所要知道的一切&#34; class=&#34;headerlink&#34; title=&#34;Android内存泄漏你所要知道的一切&#34;&gt;&lt;/a&gt;Android内存泄漏你所要知道的一切&lt;/h1&gt;&lt;blockquote&gt;
 &lt;p&gt;原文：&lt;a href=&#34;https://blog.aritraroy.in/everything-you-need-to-know-about-memory-leaks-in-android-apps-655f191ca859&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://blog.aritraroy.in/everything-you-need-to-know-about-memory-leaks-in-android-apps-655f191ca859&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;写一个Android app很简单，但是&lt;strong&gt;写一个超高品质的内存高效的Android app并不简单&lt;/strong&gt;。从我的个人经验来说，我曾经比较关注和感兴趣构建我app的新特性，功能和UI组件。&lt;/p&gt;
@@ -262,8 +262,8 @@
 
     
     <div class="post-copyright" style="margin-top: 20px;">
-        <strong>来源博客：</strong><a href="http://blog.wangjiegulu.com">Wang Jie's Blog</a><br/>
-         <strong>本文链接：</strong><a href="http://blog.wangjiegulu.com/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/">http://blog.wangjiegulu.com/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/</a><br/>
+        <strong>来源博客：</strong><a href="https://blog.wangjiegulu.com">Wang Jie's Blog</a><br/>
+         <strong>本文链接：</strong><a href="https://blog.wangjiegulu.com/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/">https://blog.wangjiegulu.com/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/</a><br/>
          <strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处。
     </div>
     
@@ -306,16 +306,16 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://blog.wangjiegulu.com/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://blog.wangjiegulu.com/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/&text=Android内存泄漏你所要知道的一切（翻译）"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://blog.wangjiegulu.com/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/&title=Android内存泄漏你所要知道的一切（翻译）"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.wangjiegulu.com/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/&is_video=false&description=Android内存泄漏你所要知道的一切（翻译）"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Android内存泄漏你所要知道的一切（翻译）&body=Check out this article: http://blog.wangjiegulu.com/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://blog.wangjiegulu.com/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/&title=Android内存泄漏你所要知道的一切（翻译）"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://blog.wangjiegulu.com/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/&title=Android内存泄漏你所要知道的一切（翻译）"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://blog.wangjiegulu.com/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/&title=Android内存泄漏你所要知道的一切（翻译）"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://blog.wangjiegulu.com/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/&title=Android内存泄漏你所要知道的一切（翻译）"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.wangjiegulu.com/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/&name=Android内存泄漏你所要知道的一切（翻译）&description=&lt;h1 id=&#34;Android内存泄漏你所要知道的一切&#34;&gt;&lt;a href=&#34;#Android内存泄漏你所要知道的一切&#34; class=&#34;headerlink&#34; title=&#34;Android内存泄漏你所要知道的一切&#34;&gt;&lt;/a&gt;Android内存泄漏你所要知道的一切&lt;/h1&gt;&lt;blockquote&gt;
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://blog.wangjiegulu.com/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://blog.wangjiegulu.com/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/&text=Android内存泄漏你所要知道的一切（翻译）"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.wangjiegulu.com/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/&title=Android内存泄漏你所要知道的一切（翻译）"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.wangjiegulu.com/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/&is_video=false&description=Android内存泄漏你所要知道的一切（翻译）"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Android内存泄漏你所要知道的一切（翻译）&body=Check out this article: https://blog.wangjiegulu.com/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.wangjiegulu.com/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/&title=Android内存泄漏你所要知道的一切（翻译）"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.wangjiegulu.com/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/&title=Android内存泄漏你所要知道的一切（翻译）"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.wangjiegulu.com/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/&title=Android内存泄漏你所要知道的一切（翻译）"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://blog.wangjiegulu.com/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/&title=Android内存泄漏你所要知道的一切（翻译）"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.wangjiegulu.com/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/&name=Android内存泄漏你所要知道的一切（翻译）&description=&lt;h1 id=&#34;Android内存泄漏你所要知道的一切&#34;&gt;&lt;a href=&#34;#Android内存泄漏你所要知道的一切&#34; class=&#34;headerlink&#34; title=&#34;Android内存泄漏你所要知道的一切&#34;&gt;&lt;/a&gt;Android内存泄漏你所要知道的一切&lt;/h1&gt;&lt;blockquote&gt;
 &lt;p&gt;原文：&lt;a href=&#34;https://blog.aritraroy.in/everything-you-need-to-know-about-memory-leaks-in-android-apps-655f191ca859&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://blog.aritraroy.in/everything-you-need-to-know-about-memory-leaks-in-android-apps-655f191ca859&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;写一个Android app很简单，但是&lt;strong&gt;写一个超高品质的内存高效的Android app并不简单&lt;/strong&gt;。从我的个人经验来说，我曾经比较关注和感兴趣构建我app的新特性，功能和UI组件。&lt;/p&gt;

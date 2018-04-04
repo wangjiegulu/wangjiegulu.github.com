@@ -10,7 +10,7 @@
 <meta name="keywords" content="git,git flow">
 <meta property="og:type" content="article">
 <meta property="og:title" content="基于git的源代码管理模型——git flow">
-<meta property="og:url" content="http://blog.wangjiegulu.com/2014/12/11/基于git的源代码管理模型——git-flow/index.html">
+<meta property="og:url" content="https://blog.wangjiegulu.com/2014/12/11/基于git的源代码管理模型——git-flow/index.html">
 <meta property="og:site_name" content="Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer">
 <meta property="og:description" content="说明：&amp;nbsp;本文以nvie的&amp;ldquo;a successful git branching model&amp;rdquo;为蓝本，结合我个人理解写成。如有谬误，还请各位指出。多谢！ Note:&amp;nbsp;This article is highly based on nvie’s&amp;nbsp;a successful git branching model. Thanks nvie. # Git">
 <meta property="og:locale" content="en">
@@ -106,16 +106,16 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://blog.wangjiegulu.com/2014/12/11/基于git的源代码管理模型——git-flow/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://blog.wangjiegulu.com/2014/12/11/基于git的源代码管理模型——git-flow/&text=基于git的源代码管理模型——git flow"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://blog.wangjiegulu.com/2014/12/11/基于git的源代码管理模型——git-flow/&title=基于git的源代码管理模型——git flow"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.wangjiegulu.com/2014/12/11/基于git的源代码管理模型——git-flow/&is_video=false&description=基于git的源代码管理模型——git flow"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=基于git的源代码管理模型——git flow&body=Check out this article: http://blog.wangjiegulu.com/2014/12/11/基于git的源代码管理模型——git-flow/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://blog.wangjiegulu.com/2014/12/11/基于git的源代码管理模型——git-flow/&title=基于git的源代码管理模型——git flow"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://blog.wangjiegulu.com/2014/12/11/基于git的源代码管理模型——git-flow/&title=基于git的源代码管理模型——git flow"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://blog.wangjiegulu.com/2014/12/11/基于git的源代码管理模型——git-flow/&title=基于git的源代码管理模型——git flow"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://blog.wangjiegulu.com/2014/12/11/基于git的源代码管理模型——git-flow/&title=基于git的源代码管理模型——git flow"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.wangjiegulu.com/2014/12/11/基于git的源代码管理模型——git-flow/&name=基于git的源代码管理模型——git flow&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://blog.wangjiegulu.com/2014/12/11/基于git的源代码管理模型——git-flow/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://blog.wangjiegulu.com/2014/12/11/基于git的源代码管理模型——git-flow/&text=基于git的源代码管理模型——git flow"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.wangjiegulu.com/2014/12/11/基于git的源代码管理模型——git-flow/&title=基于git的源代码管理模型——git flow"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.wangjiegulu.com/2014/12/11/基于git的源代码管理模型——git-flow/&is_video=false&description=基于git的源代码管理模型——git flow"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=基于git的源代码管理模型——git flow&body=Check out this article: https://blog.wangjiegulu.com/2014/12/11/基于git的源代码管理模型——git-flow/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.wangjiegulu.com/2014/12/11/基于git的源代码管理模型——git-flow/&title=基于git的源代码管理模型——git flow"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.wangjiegulu.com/2014/12/11/基于git的源代码管理模型——git-flow/&title=基于git的源代码管理模型——git flow"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.wangjiegulu.com/2014/12/11/基于git的源代码管理模型——git-flow/&title=基于git的源代码管理模型——git flow"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://blog.wangjiegulu.com/2014/12/11/基于git的源代码管理模型——git-flow/&title=基于git的源代码管理模型——git flow"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.wangjiegulu.com/2014/12/11/基于git的源代码管理模型——git-flow/&name=基于git的源代码管理模型——git flow&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -217,8 +217,8 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
 
     
     <div class="post-copyright" style="margin-top: 20px;">
-        <strong>来源博客：</strong><a href="http://blog.wangjiegulu.com">Wang Jie's Blog</a><br/>
-         <strong>本文链接：</strong><a href="http://blog.wangjiegulu.com/2014/12/11/基于git的源代码管理模型——git-flow/">http://blog.wangjiegulu.com/2014/12/11/基于git的源代码管理模型——git-flow/</a><br/>
+        <strong>来源博客：</strong><a href="https://blog.wangjiegulu.com">Wang Jie's Blog</a><br/>
+         <strong>本文链接：</strong><a href="https://blog.wangjiegulu.com/2014/12/11/基于git的源代码管理模型——git-flow/">https://blog.wangjiegulu.com/2014/12/11/基于git的源代码管理模型——git-flow/</a><br/>
          <strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处。
     </div>
     
@@ -261,16 +261,16 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://blog.wangjiegulu.com/2014/12/11/基于git的源代码管理模型——git-flow/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://blog.wangjiegulu.com/2014/12/11/基于git的源代码管理模型——git-flow/&text=基于git的源代码管理模型——git flow"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://blog.wangjiegulu.com/2014/12/11/基于git的源代码管理模型——git-flow/&title=基于git的源代码管理模型——git flow"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.wangjiegulu.com/2014/12/11/基于git的源代码管理模型——git-flow/&is_video=false&description=基于git的源代码管理模型——git flow"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=基于git的源代码管理模型——git flow&body=Check out this article: http://blog.wangjiegulu.com/2014/12/11/基于git的源代码管理模型——git-flow/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://blog.wangjiegulu.com/2014/12/11/基于git的源代码管理模型——git-flow/&title=基于git的源代码管理模型——git flow"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://blog.wangjiegulu.com/2014/12/11/基于git的源代码管理模型——git-flow/&title=基于git的源代码管理模型——git flow"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://blog.wangjiegulu.com/2014/12/11/基于git的源代码管理模型——git-flow/&title=基于git的源代码管理模型——git flow"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://blog.wangjiegulu.com/2014/12/11/基于git的源代码管理模型——git-flow/&title=基于git的源代码管理模型——git flow"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.wangjiegulu.com/2014/12/11/基于git的源代码管理模型——git-flow/&name=基于git的源代码管理模型——git flow&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://blog.wangjiegulu.com/2014/12/11/基于git的源代码管理模型——git-flow/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://blog.wangjiegulu.com/2014/12/11/基于git的源代码管理模型——git-flow/&text=基于git的源代码管理模型——git flow"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.wangjiegulu.com/2014/12/11/基于git的源代码管理模型——git-flow/&title=基于git的源代码管理模型——git flow"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.wangjiegulu.com/2014/12/11/基于git的源代码管理模型——git-flow/&is_video=false&description=基于git的源代码管理模型——git flow"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=基于git的源代码管理模型——git flow&body=Check out this article: https://blog.wangjiegulu.com/2014/12/11/基于git的源代码管理模型——git-flow/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.wangjiegulu.com/2014/12/11/基于git的源代码管理模型——git-flow/&title=基于git的源代码管理模型——git flow"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.wangjiegulu.com/2014/12/11/基于git的源代码管理模型——git-flow/&title=基于git的源代码管理模型——git flow"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.wangjiegulu.com/2014/12/11/基于git的源代码管理模型——git-flow/&title=基于git的源代码管理模型——git flow"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://blog.wangjiegulu.com/2014/12/11/基于git的源代码管理模型——git-flow/&title=基于git的源代码管理模型——git flow"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.wangjiegulu.com/2014/12/11/基于git的源代码管理模型——git-flow/&name=基于git的源代码管理模型——git flow&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>

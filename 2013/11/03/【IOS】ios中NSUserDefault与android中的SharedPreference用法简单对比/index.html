@@ -10,7 +10,7 @@
 <meta name="keywords" content="android,iOS,NSUserDefault,SharedPreference">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比">
-<meta property="og:url" content="http://blog.wangjiegulu.com/2013/11/03/【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比/index.html">
+<meta property="og:url" content="https://blog.wangjiegulu.com/2013/11/03/【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比/index.html">
 <meta property="og:site_name" content="Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer">
 <meta property="og:description" content="有Android开发经验的朋友对SharedPreference的用法应该比较亲切的吧，它一般用来保存和读取用户的设置参数，比如保存用户名、加密后的登录密码，是否选择了自动登录，应用选择了哪一套主题皮肤等用户配置信息，使用也非常简单，put/get就能保存/读取这个配置文件，这个文件是用xml形式保存在应用的目录下面 在ios中，也有这么一个类似的工具&amp;mdash;&amp;mdash;NSUserDef">
 <meta property="og:locale" content="en">
@@ -109,16 +109,16 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://blog.wangjiegulu.com/2013/11/03/【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://blog.wangjiegulu.com/2013/11/03/【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比/&text=【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://blog.wangjiegulu.com/2013/11/03/【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比/&title=【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.wangjiegulu.com/2013/11/03/【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比/&is_video=false&description=【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比&body=Check out this article: http://blog.wangjiegulu.com/2013/11/03/【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://blog.wangjiegulu.com/2013/11/03/【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比/&title=【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://blog.wangjiegulu.com/2013/11/03/【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比/&title=【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://blog.wangjiegulu.com/2013/11/03/【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比/&title=【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://blog.wangjiegulu.com/2013/11/03/【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比/&title=【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.wangjiegulu.com/2013/11/03/【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比/&name=【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://blog.wangjiegulu.com/2013/11/03/【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://blog.wangjiegulu.com/2013/11/03/【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比/&text=【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.wangjiegulu.com/2013/11/03/【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比/&title=【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.wangjiegulu.com/2013/11/03/【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比/&is_video=false&description=【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比&body=Check out this article: https://blog.wangjiegulu.com/2013/11/03/【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.wangjiegulu.com/2013/11/03/【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比/&title=【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.wangjiegulu.com/2013/11/03/【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比/&title=【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.wangjiegulu.com/2013/11/03/【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比/&title=【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://blog.wangjiegulu.com/2013/11/03/【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比/&title=【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.wangjiegulu.com/2013/11/03/【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比/&name=【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -186,8 +186,8 @@
 
     
     <div class="post-copyright" style="margin-top: 20px;">
-        <strong>来源博客：</strong><a href="http://blog.wangjiegulu.com">Wang Jie's Blog</a><br/>
-         <strong>本文链接：</strong><a href="http://blog.wangjiegulu.com/2013/11/03/【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比/">http://blog.wangjiegulu.com/2013/11/03/【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比/</a><br/>
+        <strong>来源博客：</strong><a href="https://blog.wangjiegulu.com">Wang Jie's Blog</a><br/>
+         <strong>本文链接：</strong><a href="https://blog.wangjiegulu.com/2013/11/03/【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比/">https://blog.wangjiegulu.com/2013/11/03/【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比/</a><br/>
          <strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处。
     </div>
     
@@ -230,16 +230,16 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://blog.wangjiegulu.com/2013/11/03/【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://blog.wangjiegulu.com/2013/11/03/【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比/&text=【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://blog.wangjiegulu.com/2013/11/03/【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比/&title=【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.wangjiegulu.com/2013/11/03/【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比/&is_video=false&description=【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比&body=Check out this article: http://blog.wangjiegulu.com/2013/11/03/【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://blog.wangjiegulu.com/2013/11/03/【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比/&title=【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://blog.wangjiegulu.com/2013/11/03/【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比/&title=【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://blog.wangjiegulu.com/2013/11/03/【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比/&title=【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://blog.wangjiegulu.com/2013/11/03/【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比/&title=【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.wangjiegulu.com/2013/11/03/【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比/&name=【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://blog.wangjiegulu.com/2013/11/03/【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://blog.wangjiegulu.com/2013/11/03/【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比/&text=【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.wangjiegulu.com/2013/11/03/【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比/&title=【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.wangjiegulu.com/2013/11/03/【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比/&is_video=false&description=【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比&body=Check out this article: https://blog.wangjiegulu.com/2013/11/03/【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.wangjiegulu.com/2013/11/03/【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比/&title=【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.wangjiegulu.com/2013/11/03/【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比/&title=【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.wangjiegulu.com/2013/11/03/【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比/&title=【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://blog.wangjiegulu.com/2013/11/03/【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比/&title=【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.wangjiegulu.com/2013/11/03/【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比/&name=【IOS】ios中NSUserDefault与android中的SharedPreference用法简单对比&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>

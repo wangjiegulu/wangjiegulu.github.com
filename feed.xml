@@ -5,9 +5,9 @@
   <subtitle>TO BE AN ARTIST-ENGINNER</subtitle>
   <link href="/feed.xml" rel="self"/>
   
-  <link href="http://blog.wangjiegulu.com/"/>
-  <updated>2018-03-26T10:22:18.886Z</updated>
-  <id>http://blog.wangjiegulu.com/</id>
+  <link href="https://blog.wangjiegulu.com/"/>
+  <updated>2018-04-04T06:27:53.007Z</updated>
+  <id>https://blog.wangjiegulu.com/</id>
   
   <author>
     <name>Wang Jie</name>
@@ -17,9 +17,89 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Huginn实现自动通过slack推送豆瓣高分电影</title>
+    <link href="https://blog.wangjiegulu.com/2018/04/03/huginn_douban_high_score_movies_and_slack/"/>
+    <id>https://blog.wangjiegulu.com/2018/04/03/huginn_douban_high_score_movies_and_slack/</id>
+    <published>2018-04-03T08:33:40.844Z</published>
+    <updated>2018-04-04T06:27:53.007Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;Huginn实现自动通过slack推送豆瓣高分电影&quot;&gt;&lt;a href=&quot;#Huginn实现自动通过slack推送豆瓣高分电影&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="huginn" scheme="https://blog.wangjiegulu.com/categories/huginn/"/>
+    
+      <category term="automate" scheme="https://blog.wangjiegulu.com/categories/huginn/automate/"/>
+    
+    
+      <category term="ifttt" scheme="https://blog.wangjiegulu.com/tags/ifttt/"/>
+    
+      <category term="automate" scheme="https://blog.wangjiegulu.com/tags/automate/"/>
+    
+      <category term="huginn" scheme="https://blog.wangjiegulu.com/tags/huginn/"/>
+    
+      <category term="integromat" scheme="https://blog.wangjiegulu.com/tags/integromat/"/>
+    
+      <category term="zapier" scheme="https://blog.wangjiegulu.com/tags/zapier/"/>
+    
+      <category term="geek" scheme="https://blog.wangjiegulu.com/tags/geek/"/>
+    
+      <category term="douban" scheme="https://blog.wangjiegulu.com/tags/douban/"/>
+    
+      <category term="movies" scheme="https://blog.wangjiegulu.com/tags/movies/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Huginn及环境搭建</title>
+    <link href="https://blog.wangjiegulu.com/2018/04/02/build_the_environment_for_huginn/"/>
+    <id>https://blog.wangjiegulu.com/2018/04/02/build_the_environment_for_huginn/</id>
+    <published>2018-04-02T13:07:39.914Z</published>
+    <updated>2018-04-04T08:36:48.040Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;Huginn-及环境搭建&quot;&gt;&lt;a href=&quot;#Huginn-及环境搭建&quot; class=&quot;headerlink&quot; title=&quot;Huginn 及环境搭建&quot;&gt;&lt;/a&gt;Huginn 及环境搭建&lt;/h1&gt;&lt;h2 id=&quot;什么是-Huginn-？&quot;&gt;&lt;a
+        
+      
+    
+    </summary>
+    
+      <category term="huginn" scheme="https://blog.wangjiegulu.com/categories/huginn/"/>
+    
+      <category term="automate" scheme="https://blog.wangjiegulu.com/categories/huginn/automate/"/>
+    
+    
+      <category term="ifttt" scheme="https://blog.wangjiegulu.com/tags/ifttt/"/>
+    
+      <category term="automate" scheme="https://blog.wangjiegulu.com/tags/automate/"/>
+    
+      <category term="huginn" scheme="https://blog.wangjiegulu.com/tags/huginn/"/>
+    
+      <category term="integromat" scheme="https://blog.wangjiegulu.com/tags/integromat/"/>
+    
+      <category term="zapier" scheme="https://blog.wangjiegulu.com/tags/zapier/"/>
+    
+      <category term="geek" scheme="https://blog.wangjiegulu.com/tags/geek/"/>
+    
+  </entry>
+  
+  <entry>
     <title>上传到多个Maven仓库的Gradle插件RapidMavenPushPlugin</title>
-    <link href="http://blog.wangjiegulu.com/2018/03/16/rapid_maven_push_plugin_for_android/"/>
-    <id>http://blog.wangjiegulu.com/2018/03/16/rapid_maven_push_plugin_for_android/</id>
+    <link href="https://blog.wangjiegulu.com/2018/03/16/rapid_maven_push_plugin_for_android/"/>
+    <id>https://blog.wangjiegulu.com/2018/03/16/rapid_maven_push_plugin_for_android/</id>
     <published>2018-03-16T06:08:04.098Z</published>
     <updated>2018-03-26T10:22:18.886Z</updated>
     
@@ -35,35 +115,35 @@
     
     </summary>
     
-      <category term="flutter" scheme="http://blog.wangjiegulu.com/categories/flutter/"/>
+      <category term="flutter" scheme="https://blog.wangjiegulu.com/categories/flutter/"/>
     
-      <category term="dart" scheme="http://blog.wangjiegulu.com/categories/flutter/dart/"/>
+      <category term="dart" scheme="https://blog.wangjiegulu.com/categories/flutter/dart/"/>
     
     
-      <category term="java" scheme="http://blog.wangjiegulu.com/tags/java/"/>
+      <category term="java" scheme="https://blog.wangjiegulu.com/tags/java/"/>
     
-      <category term="android" scheme="http://blog.wangjiegulu.com/tags/android/"/>
+      <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
     
-      <category term="gradle" scheme="http://blog.wangjiegulu.com/tags/gradle/"/>
+      <category term="gradle" scheme="https://blog.wangjiegulu.com/tags/gradle/"/>
     
-      <category term="gradle plugin" scheme="http://blog.wangjiegulu.com/tags/gradle-plugin/"/>
+      <category term="gradle plugin" scheme="https://blog.wangjiegulu.com/tags/gradle-plugin/"/>
     
-      <category term="maven" scheme="http://blog.wangjiegulu.com/tags/maven/"/>
+      <category term="maven" scheme="https://blog.wangjiegulu.com/tags/maven/"/>
     
-      <category term="repository" scheme="http://blog.wangjiegulu.com/tags/repository/"/>
+      <category term="repository" scheme="https://blog.wangjiegulu.com/tags/repository/"/>
     
-      <category term="plugin" scheme="http://blog.wangjiegulu.com/tags/plugin/"/>
+      <category term="plugin" scheme="https://blog.wangjiegulu.com/tags/plugin/"/>
     
-      <category term="aar" scheme="http://blog.wangjiegulu.com/tags/aar/"/>
+      <category term="aar" scheme="https://blog.wangjiegulu.com/tags/aar/"/>
     
-      <category term="jar" scheme="http://blog.wangjiegulu.com/tags/jar/"/>
+      <category term="jar" scheme="https://blog.wangjiegulu.com/tags/jar/"/>
     
   </entry>
   
   <entry>
     <title>编写第一个Flutter App（翻译）</title>
-    <link href="http://blog.wangjiegulu.com/2018/03/01/write_your_first_flutter_app/"/>
-    <id>http://blog.wangjiegulu.com/2018/03/01/write_your_first_flutter_app/</id>
+    <link href="https://blog.wangjiegulu.com/2018/03/01/write_your_first_flutter_app/"/>
+    <id>https://blog.wangjiegulu.com/2018/03/01/write_your_first_flutter_app/</id>
     <published>2018-03-01T12:05:58.000Z</published>
     <updated>2018-03-02T16:08:34.000Z</updated>
     
@@ -79,35 +159,35 @@
     
     </summary>
     
-      <category term="flutter" scheme="http://blog.wangjiegulu.com/categories/flutter/"/>
+      <category term="flutter" scheme="https://blog.wangjiegulu.com/categories/flutter/"/>
     
-      <category term="dart" scheme="http://blog.wangjiegulu.com/categories/flutter/dart/"/>
+      <category term="dart" scheme="https://blog.wangjiegulu.com/categories/flutter/dart/"/>
     
     
-      <category term="android" scheme="http://blog.wangjiegulu.com/tags/android/"/>
+      <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
     
-      <category term="翻译" scheme="http://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
+      <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
     
-      <category term="flutter" scheme="http://blog.wangjiegulu.com/tags/flutter/"/>
+      <category term="flutter" scheme="https://blog.wangjiegulu.com/tags/flutter/"/>
     
-      <category term="ios" scheme="http://blog.wangjiegulu.com/tags/ios/"/>
+      <category term="ios" scheme="https://blog.wangjiegulu.com/tags/ios/"/>
     
-      <category term="dart" scheme="http://blog.wangjiegulu.com/tags/dart/"/>
+      <category term="dart" scheme="https://blog.wangjiegulu.com/tags/dart/"/>
     
-      <category term="widget" scheme="http://blog.wangjiegulu.com/tags/widget/"/>
+      <category term="widget" scheme="https://blog.wangjiegulu.com/tags/widget/"/>
     
-      <category term="fuchsia" scheme="http://blog.wangjiegulu.com/tags/fuchsia/"/>
+      <category term="fuchsia" scheme="https://blog.wangjiegulu.com/tags/fuchsia/"/>
     
-      <category term="Google" scheme="http://blog.wangjiegulu.com/tags/Google/"/>
+      <category term="Google" scheme="https://blog.wangjiegulu.com/tags/Google/"/>
     
-      <category term="codelab" scheme="http://blog.wangjiegulu.com/tags/codelab/"/>
+      <category term="codelab" scheme="https://blog.wangjiegulu.com/tags/codelab/"/>
     
   </entry>
   
   <entry>
     <title>在Android上编写模块化项目（翻译）</title>
-    <link href="http://blog.wangjiegulu.com/2018/02/13/writing_a_modular_project_on_android/"/>
-    <id>http://blog.wangjiegulu.com/2018/02/13/writing_a_modular_project_on_android/</id>
+    <link href="https://blog.wangjiegulu.com/2018/02/13/writing_a_modular_project_on_android/"/>
+    <id>https://blog.wangjiegulu.com/2018/02/13/writing_a_modular_project_on_android/</id>
     <published>2018-02-13T08:04:18.000Z</published>
     <updated>2018-02-13T09:45:46.000Z</updated>
     
@@ -121,33 +201,33 @@
     
     </summary>
     
-      <category term="android" scheme="http://blog.wangjiegulu.com/categories/android/"/>
+      <category term="android" scheme="https://blog.wangjiegulu.com/categories/android/"/>
     
-      <category term="gradle plugin" scheme="http://blog.wangjiegulu.com/categories/android/gradle-plugin/"/>
+      <category term="gradle plugin" scheme="https://blog.wangjiegulu.com/categories/android/gradle-plugin/"/>
     
     
-      <category term="android" scheme="http://blog.wangjiegulu.com/tags/android/"/>
+      <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
     
-      <category term="framework" scheme="http://blog.wangjiegulu.com/tags/framework/"/>
+      <category term="framework" scheme="https://blog.wangjiegulu.com/tags/framework/"/>
     
-      <category term="翻译" scheme="http://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
+      <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
     
-      <category term="dagger2" scheme="http://blog.wangjiegulu.com/tags/dagger2/"/>
+      <category term="dagger2" scheme="https://blog.wangjiegulu.com/tags/dagger2/"/>
     
-      <category term="kotlin" scheme="http://blog.wangjiegulu.com/tags/kotlin/"/>
+      <category term="kotlin" scheme="https://blog.wangjiegulu.com/tags/kotlin/"/>
     
-      <category term="architecture" scheme="http://blog.wangjiegulu.com/tags/architecture/"/>
+      <category term="architecture" scheme="https://blog.wangjiegulu.com/tags/architecture/"/>
     
-      <category term="modular" scheme="http://blog.wangjiegulu.com/tags/modular/"/>
+      <category term="modular" scheme="https://blog.wangjiegulu.com/tags/modular/"/>
     
-      <category term="room" scheme="http://blog.wangjiegulu.com/tags/room/"/>
+      <category term="room" scheme="https://blog.wangjiegulu.com/tags/room/"/>
     
   </entry>
   
   <entry>
     <title>Android端生成META-INF信息文件的Gradle插件 RapidMetaInfPlugin</title>
-    <link href="http://blog.wangjiegulu.com/2018/02/05/Android%E7%AB%AF%E7%94%9F%E6%88%90META-INF%E4%BF%A1%E6%81%AF%E6%96%87%E4%BB%B6%E7%9A%84Gradle%E6%8F%92%E4%BB%B6%20RapidMetaInfPlugin/"/>
-    <id>http://blog.wangjiegulu.com/2018/02/05/Android端生成META-INF信息文件的Gradle插件 RapidMetaInfPlugin/</id>
+    <link href="https://blog.wangjiegulu.com/2018/02/05/Android%E7%AB%AF%E7%94%9F%E6%88%90META-INF%E4%BF%A1%E6%81%AF%E6%96%87%E4%BB%B6%E7%9A%84Gradle%E6%8F%92%E4%BB%B6%20RapidMetaInfPlugin/"/>
+    <id>https://blog.wangjiegulu.com/2018/02/05/Android端生成META-INF信息文件的Gradle插件 RapidMetaInfPlugin/</id>
     <published>2018-02-05T12:54:04.000Z</published>
     <updated>2018-02-05T12:58:38.000Z</updated>
     
@@ -163,27 +243,27 @@
     
     </summary>
     
-      <category term="android" scheme="http://blog.wangjiegulu.com/categories/android/"/>
+      <category term="android" scheme="https://blog.wangjiegulu.com/categories/android/"/>
     
-      <category term="gradle plugin" scheme="http://blog.wangjiegulu.com/categories/android/gradle-plugin/"/>
+      <category term="gradle plugin" scheme="https://blog.wangjiegulu.com/categories/android/gradle-plugin/"/>
     
     
-      <category term="android" scheme="http://blog.wangjiegulu.com/tags/android/"/>
+      <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
     
-      <category term="gradle" scheme="http://blog.wangjiegulu.com/tags/gradle/"/>
+      <category term="gradle" scheme="https://blog.wangjiegulu.com/tags/gradle/"/>
     
-      <category term="gradle plugin" scheme="http://blog.wangjiegulu.com/tags/gradle-plugin/"/>
+      <category term="gradle plugin" scheme="https://blog.wangjiegulu.com/tags/gradle-plugin/"/>
     
-      <category term="Android Studio" scheme="http://blog.wangjiegulu.com/tags/Android-Studio/"/>
+      <category term="Android Studio" scheme="https://blog.wangjiegulu.com/tags/Android-Studio/"/>
     
-      <category term="META-INF" scheme="http://blog.wangjiegulu.com/tags/META-INF/"/>
+      <category term="META-INF" scheme="https://blog.wangjiegulu.com/tags/META-INF/"/>
     
   </entry>
   
   <entry>
     <title>IFCTT，即If Copy Then That，一个基于IFTTT的`This`实现</title>
-    <link href="http://blog.wangjiegulu.com/2017/12/20/Android-App-IFCTT%EF%BC%8C%E5%8D%B3If-Copy-Then-That%EF%BC%8C%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8EIFTTT%E7%9A%84-This-%E5%AE%9E%E7%8E%B0/"/>
-    <id>http://blog.wangjiegulu.com/2017/12/20/Android-App-IFCTT，即If-Copy-Then-That，一个基于IFTTT的-This-实现/</id>
+    <link href="https://blog.wangjiegulu.com/2017/12/20/Android-App-IFCTT%EF%BC%8C%E5%8D%B3If-Copy-Then-That%EF%BC%8C%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8EIFTTT%E7%9A%84-This-%E5%AE%9E%E7%8E%B0/"/>
+    <id>https://blog.wangjiegulu.com/2017/12/20/Android-App-IFCTT，即If-Copy-Then-That，一个基于IFTTT的-This-实现/</id>
     <published>2017-12-20T04:41:00.000Z</published>
     <updated>2018-03-26T11:27:46.327Z</updated>
     
@@ -206,28 +286,28 @@
     </summary>
     
     
-      <category term="android" scheme="http://blog.wangjiegulu.com/tags/android/"/>
+      <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
     
-      <category term="ifttt" scheme="http://blog.wangjiegulu.com/tags/ifttt/"/>
+      <category term="ifttt" scheme="https://blog.wangjiegulu.com/tags/ifttt/"/>
     
-      <category term="ifctt" scheme="http://blog.wangjiegulu.com/tags/ifctt/"/>
+      <category term="ifctt" scheme="https://blog.wangjiegulu.com/tags/ifctt/"/>
     
-      <category term="automate" scheme="http://blog.wangjiegulu.com/tags/automate/"/>
+      <category term="automate" scheme="https://blog.wangjiegulu.com/tags/automate/"/>
     
-      <category term="huginn" scheme="http://blog.wangjiegulu.com/tags/huginn/"/>
+      <category term="huginn" scheme="https://blog.wangjiegulu.com/tags/huginn/"/>
     
-      <category term="hash tag" scheme="http://blog.wangjiegulu.com/tags/hash-tag/"/>
+      <category term="hash tag" scheme="https://blog.wangjiegulu.com/tags/hash-tag/"/>
     
-      <category term="google play" scheme="http://blog.wangjiegulu.com/tags/google-play/"/>
+      <category term="google play" scheme="https://blog.wangjiegulu.com/tags/google-play/"/>
     
-      <category term="clipboard" scheme="http://blog.wangjiegulu.com/tags/clipboard/"/>
+      <category term="clipboard" scheme="https://blog.wangjiegulu.com/tags/clipboard/"/>
     
   </entry>
   
   <entry>
     <title>应朋友死皮白咧地邀请贴一个招聘广告</title>
-    <link href="http://blog.wangjiegulu.com/2017/09/25/%E5%BA%94%E6%9C%8B%E5%8F%8B%E6%AD%BB%E7%9A%AE%E7%99%BD%E5%92%A7%E5%9C%B0%E9%82%80%E8%AF%B7%E8%B4%B4%E4%B8%80%E4%B8%AA%E6%8B%9B%E8%81%98%E5%B9%BF%E5%91%8A/"/>
-    <id>http://blog.wangjiegulu.com/2017/09/25/应朋友死皮白咧地邀请贴一个招聘广告/</id>
+    <link href="https://blog.wangjiegulu.com/2017/09/25/%E5%BA%94%E6%9C%8B%E5%8F%8B%E6%AD%BB%E7%9A%AE%E7%99%BD%E5%92%A7%E5%9C%B0%E9%82%80%E8%AF%B7%E8%B4%B4%E4%B8%80%E4%B8%AA%E6%8B%9B%E8%81%98%E5%B9%BF%E5%91%8A/"/>
+    <id>https://blog.wangjiegulu.com/2017/09/25/应朋友死皮白咧地邀请贴一个招聘广告/</id>
     <published>2017-09-25T09:24:00.000Z</published>
     <updated>2018-01-30T03:45:39.000Z</updated>
     
@@ -242,16 +322,16 @@
     </summary>
     
     
-      <category term="jobs" scheme="http://blog.wangjiegulu.com/tags/jobs/"/>
+      <category term="jobs" scheme="https://blog.wangjiegulu.com/tags/jobs/"/>
     
-      <category term="alibaba" scheme="http://blog.wangjiegulu.com/tags/alibaba/"/>
+      <category term="alibaba" scheme="https://blog.wangjiegulu.com/tags/alibaba/"/>
     
   </entry>
   
   <entry>
     <title>Android焦点流程代码分析</title>
-    <link href="http://blog.wangjiegulu.com/2017/08/04/Android-Android%E7%84%A6%E7%82%B9%E6%B5%81%E7%A8%8B%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/"/>
-    <id>http://blog.wangjiegulu.com/2017/08/04/Android-Android焦点流程代码分析/</id>
+    <link href="https://blog.wangjiegulu.com/2017/08/04/Android-Android%E7%84%A6%E7%82%B9%E6%B5%81%E7%A8%8B%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    <id>https://blog.wangjiegulu.com/2017/08/04/Android-Android焦点流程代码分析/</id>
     <published>2017-08-04T10:08:00.000Z</published>
     <updated>2018-03-29T06:24:05.727Z</updated>
     
@@ -262,18 +342,18 @@
     </summary>
     
     
-      <category term="android" scheme="http://blog.wangjiegulu.com/tags/android/"/>
+      <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
     
-      <category term="source code" scheme="http://blog.wangjiegulu.com/tags/source-code/"/>
+      <category term="source code" scheme="https://blog.wangjiegulu.com/tags/source-code/"/>
     
-      <category term="focus" scheme="http://blog.wangjiegulu.com/tags/focus/"/>
+      <category term="focus" scheme="https://blog.wangjiegulu.com/tags/focus/"/>
     
   </entry>
   
   <entry>
     <title>Android内存泄漏你所要知道的一切（翻译）</title>
-    <link href="http://blog.wangjiegulu.com/2017/07/25/Android-Android%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E4%BD%A0%E6%89%80%E8%A6%81%E7%9F%A5%E9%81%93%E7%9A%84%E4%B8%80%E5%88%87%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/"/>
-    <id>http://blog.wangjiegulu.com/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/</id>
+    <link href="https://blog.wangjiegulu.com/2017/07/25/Android-Android%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E4%BD%A0%E6%89%80%E8%A6%81%E7%9F%A5%E9%81%93%E7%9A%84%E4%B8%80%E5%88%87%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/"/>
+    <id>https://blog.wangjiegulu.com/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/</id>
     <published>2017-07-25T09:58:00.000Z</published>
     <updated>2018-02-05T09:30:05.000Z</updated>
     
@@ -289,18 +369,18 @@
     </summary>
     
     
-      <category term="android" scheme="http://blog.wangjiegulu.com/tags/android/"/>
+      <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
     
-      <category term="memory leak" scheme="http://blog.wangjiegulu.com/tags/memory-leak/"/>
+      <category term="memory leak" scheme="https://blog.wangjiegulu.com/tags/memory-leak/"/>
     
-      <category term="翻译" scheme="http://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
+      <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
     
   </entry>
   
   <entry>
     <title>Gradle 插件 DiscardFilePlugin（class注入&amp;清空类和方法）</title>
-    <link href="http://blog.wangjiegulu.com/2017/04/19/Android-Gradle-%E6%8F%92%E4%BB%B6-DiscardFilePlugin%EF%BC%88class%E6%B3%A8%E5%85%A5-%E6%B8%85%E7%A9%BA%E7%B1%BB%E5%92%8C%E6%96%B9%E6%B3%95%EF%BC%89/"/>
-    <id>http://blog.wangjiegulu.com/2017/04/19/Android-Gradle-插件-DiscardFilePlugin（class注入-清空类和方法）/</id>
+    <link href="https://blog.wangjiegulu.com/2017/04/19/Android-Gradle-%E6%8F%92%E4%BB%B6-DiscardFilePlugin%EF%BC%88class%E6%B3%A8%E5%85%A5-%E6%B8%85%E7%A9%BA%E7%B1%BB%E5%92%8C%E6%96%B9%E6%B3%95%EF%BC%89/"/>
+    <id>https://blog.wangjiegulu.com/2017/04/19/Android-Gradle-插件-DiscardFilePlugin（class注入-清空类和方法）/</id>
     <published>2017-04-19T02:40:00.000Z</published>
     <updated>2018-03-29T06:28:36.326Z</updated>
     
@@ -314,20 +394,20 @@
     </summary>
     
     
-      <category term="android" scheme="http://blog.wangjiegulu.com/tags/android/"/>
+      <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
     
-      <category term="gradle" scheme="http://blog.wangjiegulu.com/tags/gradle/"/>
+      <category term="gradle" scheme="https://blog.wangjiegulu.com/tags/gradle/"/>
     
-      <category term="gradle plugin" scheme="http://blog.wangjiegulu.com/tags/gradle-plugin/"/>
+      <category term="gradle plugin" scheme="https://blog.wangjiegulu.com/tags/gradle-plugin/"/>
     
-      <category term="discard" scheme="http://blog.wangjiegulu.com/tags/discard/"/>
+      <category term="discard" scheme="https://blog.wangjiegulu.com/tags/discard/"/>
     
   </entry>
   
   <entry>
     <title>NDK配置</title>
-    <link href="http://blog.wangjiegulu.com/2017/04/11/NDK%E9%85%8D%E7%BD%AE/"/>
-    <id>http://blog.wangjiegulu.com/2017/04/11/NDK配置/</id>
+    <link href="https://blog.wangjiegulu.com/2017/04/11/NDK%E9%85%8D%E7%BD%AE/"/>
+    <id>https://blog.wangjiegulu.com/2017/04/11/NDK配置/</id>
     <published>2017-04-11T04:09:00.000Z</published>
     <updated>2018-03-26T10:22:32.901Z</updated>
     
@@ -343,18 +423,18 @@
     </summary>
     
     
-      <category term="android" scheme="http://blog.wangjiegulu.com/tags/android/"/>
+      <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
     
-      <category term="ndk" scheme="http://blog.wangjiegulu.com/tags/ndk/"/>
+      <category term="ndk" scheme="https://blog.wangjiegulu.com/tags/ndk/"/>
     
-      <category term="jni" scheme="http://blog.wangjiegulu.com/tags/jni/"/>
+      <category term="jni" scheme="https://blog.wangjiegulu.com/tags/jni/"/>
     
   </entry>
   
   <entry>
     <title>CPP Note</title>
-    <link href="http://blog.wangjiegulu.com/2017/04/10/CPP-Note/"/>
-    <id>http://blog.wangjiegulu.com/2017/04/10/CPP-Note/</id>
+    <link href="https://blog.wangjiegulu.com/2017/04/10/CPP-Note/"/>
+    <id>https://blog.wangjiegulu.com/2017/04/10/CPP-Note/</id>
     <published>2017-04-10T07:05:00.000Z</published>
     <updated>2018-03-26T10:23:45.344Z</updated>
     
@@ -366,16 +446,16 @@
     </summary>
     
     
-      <category term="cpp" scheme="http://blog.wangjiegulu.com/tags/cpp/"/>
+      <category term="cpp" scheme="https://blog.wangjiegulu.com/tags/cpp/"/>
     
-      <category term="c++" scheme="http://blog.wangjiegulu.com/tags/c/"/>
+      <category term="c++" scheme="https://blog.wangjiegulu.com/tags/c/"/>
     
   </entry>
   
   <entry>
     <title>[Android]使用RecyclerView替代ListView（四：SeizeRecyclerView）</title>
-    <link href="http://blog.wangjiegulu.com/2017/03/29/Android-%E4%BD%BF%E7%94%A8RecyclerView%E6%9B%BF%E4%BB%A3ListView%EF%BC%88%E5%9B%9B%EF%BC%9ASeizeRecyclerView%EF%BC%89/"/>
-    <id>http://blog.wangjiegulu.com/2017/03/29/Android-使用RecyclerView替代ListView（四：SeizeRecyclerView）/</id>
+    <link href="https://blog.wangjiegulu.com/2017/03/29/Android-%E4%BD%BF%E7%94%A8RecyclerView%E6%9B%BF%E4%BB%A3ListView%EF%BC%88%E5%9B%9B%EF%BC%9ASeizeRecyclerView%EF%BC%89/"/>
+    <id>https://blog.wangjiegulu.com/2017/03/29/Android-使用RecyclerView替代ListView（四：SeizeRecyclerView）/</id>
     <published>2017-03-29T13:09:00.000Z</published>
     <updated>2018-03-29T06:28:22.567Z</updated>
     
@@ -386,22 +466,22 @@
     </summary>
     
     
-      <category term="android" scheme="http://blog.wangjiegulu.com/tags/android/"/>
+      <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
     
-      <category term="ListView" scheme="http://blog.wangjiegulu.com/tags/ListView/"/>
+      <category term="ListView" scheme="https://blog.wangjiegulu.com/tags/ListView/"/>
     
-      <category term="best practices" scheme="http://blog.wangjiegulu.com/tags/best-practices/"/>
+      <category term="best practices" scheme="https://blog.wangjiegulu.com/tags/best-practices/"/>
     
-      <category term="RecyclerView" scheme="http://blog.wangjiegulu.com/tags/RecyclerView/"/>
+      <category term="RecyclerView" scheme="https://blog.wangjiegulu.com/tags/RecyclerView/"/>
     
-      <category term="SeizeRecyclerView" scheme="http://blog.wangjiegulu.com/tags/SeizeRecyclerView/"/>
+      <category term="SeizeRecyclerView" scheme="https://blog.wangjiegulu.com/tags/SeizeRecyclerView/"/>
     
   </entry>
   
   <entry>
     <title>Lottie简介（翻译）</title>
-    <link href="http://blog.wangjiegulu.com/2017/02/04/Lottie%E7%AE%80%E4%BB%8B%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/"/>
-    <id>http://blog.wangjiegulu.com/2017/02/04/Lottie简介（翻译）/</id>
+    <link href="https://blog.wangjiegulu.com/2017/02/04/Lottie%E7%AE%80%E4%BB%8B%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/"/>
+    <id>https://blog.wangjiegulu.com/2017/02/04/Lottie简介（翻译）/</id>
     <published>2017-02-04T04:21:00.000Z</published>
     <updated>2018-03-29T06:29:04.545Z</updated>
     
@@ -417,18 +497,18 @@
     </summary>
     
     
-      <category term="animation" scheme="http://blog.wangjiegulu.com/tags/animation/"/>
+      <category term="animation" scheme="https://blog.wangjiegulu.com/tags/animation/"/>
     
-      <category term="animator" scheme="http://blog.wangjiegulu.com/tags/animator/"/>
+      <category term="animator" scheme="https://blog.wangjiegulu.com/tags/animator/"/>
     
-      <category term="lottie" scheme="http://blog.wangjiegulu.com/tags/lottie/"/>
+      <category term="lottie" scheme="https://blog.wangjiegulu.com/tags/lottie/"/>
     
   </entry>
   
   <entry>
     <title>在Dagger 2中Activities和Subcomponents的多绑定（翻译）</title>
-    <link href="http://blog.wangjiegulu.com/2017/01/09/Android-%E5%9C%A8Dagger-2%E4%B8%ADActivities%E5%92%8CSubcomponents%E7%9A%84%E5%A4%9A%E7%BB%91%E5%AE%9A%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/"/>
-    <id>http://blog.wangjiegulu.com/2017/01/09/Android-在Dagger-2中Activities和Subcomponents的多绑定（翻译）/</id>
+    <link href="https://blog.wangjiegulu.com/2017/01/09/Android-%E5%9C%A8Dagger-2%E4%B8%ADActivities%E5%92%8CSubcomponents%E7%9A%84%E5%A4%9A%E7%BB%91%E5%AE%9A%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/"/>
+    <id>https://blog.wangjiegulu.com/2017/01/09/Android-在Dagger-2中Activities和Subcomponents的多绑定（翻译）/</id>
     <published>2017-01-09T12:23:00.000Z</published>
     <updated>2018-03-29T06:30:20.484Z</updated>
     
@@ -442,24 +522,24 @@
     </summary>
     
     
-      <category term="android" scheme="http://blog.wangjiegulu.com/tags/android/"/>
+      <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
     
-      <category term="dependency injection" scheme="http://blog.wangjiegulu.com/tags/dependency-injection/"/>
+      <category term="dependency injection" scheme="https://blog.wangjiegulu.com/tags/dependency-injection/"/>
     
-      <category term="翻译" scheme="http://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
+      <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
     
-      <category term="dagger2" scheme="http://blog.wangjiegulu.com/tags/dagger2/"/>
+      <category term="google" scheme="https://blog.wangjiegulu.com/tags/google/"/>
     
-      <category term="DI" scheme="http://blog.wangjiegulu.com/tags/DI/"/>
+      <category term="dagger2" scheme="https://blog.wangjiegulu.com/tags/dagger2/"/>
     
-      <category term="google" scheme="http://blog.wangjiegulu.com/tags/google/"/>
+      <category term="DI" scheme="https://blog.wangjiegulu.com/tags/DI/"/>
     
   </entry>
   
   <entry>
     <title>使用Dagger 2来构建UserScope（翻译）</title>
-    <link href="http://blog.wangjiegulu.com/2016/12/30/Android-%E4%BD%BF%E7%94%A8Dagger-2%E6%9D%A5%E6%9E%84%E5%BB%BAUserScope%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/"/>
-    <id>http://blog.wangjiegulu.com/2016/12/30/Android-使用Dagger-2来构建UserScope（翻译）/</id>
+    <link href="https://blog.wangjiegulu.com/2016/12/30/Android-%E4%BD%BF%E7%94%A8Dagger-2%E6%9D%A5%E6%9E%84%E5%BB%BAUserScope%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/"/>
+    <id>https://blog.wangjiegulu.com/2016/12/30/Android-使用Dagger-2来构建UserScope（翻译）/</id>
     <published>2016-12-30T09:23:00.000Z</published>
     <updated>2018-03-29T06:25:08.498Z</updated>
     
@@ -476,24 +556,24 @@
     </summary>
     
     
-      <category term="android" scheme="http://blog.wangjiegulu.com/tags/android/"/>
+      <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
     
-      <category term="dependency injection" scheme="http://blog.wangjiegulu.com/tags/dependency-injection/"/>
+      <category term="dependency injection" scheme="https://blog.wangjiegulu.com/tags/dependency-injection/"/>
     
-      <category term="翻译" scheme="http://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
+      <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
     
-      <category term="dagger2" scheme="http://blog.wangjiegulu.com/tags/dagger2/"/>
+      <category term="google" scheme="https://blog.wangjiegulu.com/tags/google/"/>
     
-      <category term="DI" scheme="http://blog.wangjiegulu.com/tags/DI/"/>
+      <category term="dagger2" scheme="https://blog.wangjiegulu.com/tags/dagger2/"/>
     
-      <category term="google" scheme="http://blog.wangjiegulu.com/tags/google/"/>
+      <category term="DI" scheme="https://blog.wangjiegulu.com/tags/DI/"/>
     
   </entry>
   
   <entry>
     <title>在Dagger 2中使用RxJava来进行异步注入（翻译）</title>
-    <link href="http://blog.wangjiegulu.com/2016/12/30/Android-%E5%9C%A8Dagger-2%E4%B8%AD%E4%BD%BF%E7%94%A8RxJava%E6%9D%A5%E8%BF%9B%E8%A1%8C%E5%BC%82%E6%AD%A5%E6%B3%A8%E5%85%A5%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/"/>
-    <id>http://blog.wangjiegulu.com/2016/12/30/Android-在Dagger-2中使用RxJava来进行异步注入（翻译）/</id>
+    <link href="https://blog.wangjiegulu.com/2016/12/30/Android-%E5%9C%A8Dagger-2%E4%B8%AD%E4%BD%BF%E7%94%A8RxJava%E6%9D%A5%E8%BF%9B%E8%A1%8C%E5%BC%82%E6%AD%A5%E6%B3%A8%E5%85%A5%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/"/>
+    <id>https://blog.wangjiegulu.com/2016/12/30/Android-在Dagger-2中使用RxJava来进行异步注入（翻译）/</id>
     <published>2016-12-30T05:53:00.000Z</published>
     <updated>2018-03-29T06:28:57.386Z</updated>
     
@@ -510,28 +590,28 @@
     </summary>
     
     
-      <category term="android" scheme="http://blog.wangjiegulu.com/tags/android/"/>
+      <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
     
-      <category term="dependency injection" scheme="http://blog.wangjiegulu.com/tags/dependency-injection/"/>
+      <category term="dependency injection" scheme="https://blog.wangjiegulu.com/tags/dependency-injection/"/>
     
-      <category term="翻译" scheme="http://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
+      <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
     
-      <category term="dagger2" scheme="http://blog.wangjiegulu.com/tags/dagger2/"/>
+      <category term="google" scheme="https://blog.wangjiegulu.com/tags/google/"/>
     
-      <category term="DI" scheme="http://blog.wangjiegulu.com/tags/DI/"/>
+      <category term="dagger2" scheme="https://blog.wangjiegulu.com/tags/dagger2/"/>
     
-      <category term="google" scheme="http://blog.wangjiegulu.com/tags/google/"/>
+      <category term="DI" scheme="https://blog.wangjiegulu.com/tags/DI/"/>
     
-      <category term="RxJava" scheme="http://blog.wangjiegulu.com/tags/RxJava/"/>
+      <category term="RxJava" scheme="https://blog.wangjiegulu.com/tags/RxJava/"/>
     
-      <category term="RxAndroid" scheme="http://blog.wangjiegulu.com/tags/RxAndroid/"/>
+      <category term="RxAndroid" scheme="https://blog.wangjiegulu.com/tags/RxAndroid/"/>
     
   </entry>
   
   <entry>
     <title>使用Dagger 2进行依赖注入 - Producers（翻译）</title>
-    <link href="http://blog.wangjiegulu.com/2016/12/29/Android-%E4%BD%BF%E7%94%A8Dagger-2%E8%BF%9B%E8%A1%8C%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5-Producers%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/"/>
-    <id>http://blog.wangjiegulu.com/2016/12/29/Android-使用Dagger-2进行依赖注入-Producers（翻译）/</id>
+    <link href="https://blog.wangjiegulu.com/2016/12/29/Android-%E4%BD%BF%E7%94%A8Dagger-2%E8%BF%9B%E8%A1%8C%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5-Producers%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/"/>
+    <id>https://blog.wangjiegulu.com/2016/12/29/Android-使用Dagger-2进行依赖注入-Producers（翻译）/</id>
     <published>2016-12-29T13:08:00.000Z</published>
     <updated>2018-03-29T06:25:26.031Z</updated>
     
@@ -548,24 +628,24 @@
     </summary>
     
     
-      <category term="android" scheme="http://blog.wangjiegulu.com/tags/android/"/>
+      <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
     
-      <category term="dependency injection" scheme="http://blog.wangjiegulu.com/tags/dependency-injection/"/>
+      <category term="dependency injection" scheme="https://blog.wangjiegulu.com/tags/dependency-injection/"/>
     
-      <category term="翻译" scheme="http://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
+      <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
     
-      <category term="dagger2" scheme="http://blog.wangjiegulu.com/tags/dagger2/"/>
+      <category term="google" scheme="https://blog.wangjiegulu.com/tags/google/"/>
     
-      <category term="DI" scheme="http://blog.wangjiegulu.com/tags/DI/"/>
+      <category term="dagger2" scheme="https://blog.wangjiegulu.com/tags/dagger2/"/>
     
-      <category term="google" scheme="http://blog.wangjiegulu.com/tags/google/"/>
+      <category term="DI" scheme="https://blog.wangjiegulu.com/tags/DI/"/>
     
   </entry>
   
   <entry>
     <title>[Android]Android端ORM框架——RapidORM(v2.1)</title>
-    <link href="http://blog.wangjiegulu.com/2016/11/01/Android-Android%E7%AB%AFORM%E6%A1%86%E6%9E%B6%E2%80%94%E2%80%94RapidORM-v2-1/"/>
-    <id>http://blog.wangjiegulu.com/2016/11/01/Android-Android端ORM框架——RapidORM-v2-1/</id>
+    <link href="https://blog.wangjiegulu.com/2016/11/01/Android-Android%E7%AB%AFORM%E6%A1%86%E6%9E%B6%E2%80%94%E2%80%94RapidORM-v2-1/"/>
+    <id>https://blog.wangjiegulu.com/2016/11/01/Android-Android端ORM框架——RapidORM-v2-1/</id>
     <published>2016-11-01T09:54:00.000Z</published>
     <updated>2018-03-29T06:24:11.604Z</updated>
     
@@ -582,82 +662,17 @@
     </summary>
     
     
-      <category term="android" scheme="http://blog.wangjiegulu.com/tags/android/"/>
+      <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
     
-      <category term="library" scheme="http://blog.wangjiegulu.com/tags/library/"/>
+      <category term="library" scheme="https://blog.wangjiegulu.com/tags/library/"/>
     
-      <category term="sqlite" scheme="http://blog.wangjiegulu.com/tags/sqlite/"/>
+      <category term="sqlite" scheme="https://blog.wangjiegulu.com/tags/sqlite/"/>
     
-      <category term="database" scheme="http://blog.wangjiegulu.com/tags/database/"/>
+      <category term="database" scheme="https://blog.wangjiegulu.com/tags/database/"/>
     
-      <category term="orm" scheme="http://blog.wangjiegulu.com/tags/orm/"/>
+      <category term="orm" scheme="https://blog.wangjiegulu.com/tags/orm/"/>
     
-      <category term="rapidorm" scheme="http://blog.wangjiegulu.com/tags/rapidorm/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>[Android]使用MVP解决技术债务（翻译）</title>
-    <link href="http://blog.wangjiegulu.com/2016/09/21/Android-%E4%BD%BF%E7%94%A8MVP%E8%A7%A3%E5%86%B3%E6%8A%80%E6%9C%AF%E5%80%BA%E5%8A%A1%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/"/>
-    <id>http://blog.wangjiegulu.com/2016/09/21/Android-使用MVP解决技术债务（翻译）/</id>
-    <published>2016-09-21T07:03:00.000Z</published>
-    <updated>2018-03-29T06:28:49.441Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;使用MVP解决技术债务&quot;&gt;&lt;a href=&quot;#使用MVP解决技术债务&quot; class=&quot;headerlink&quot; title=&quot;使用MVP解决技术债务&quot;&gt;&lt;/a&gt;使用MVP解决技术债务&lt;/h1&gt;&lt;blockquote&gt;
-&lt;p&gt;原文：&lt;a
-        
-      
-    
-    </summary>
-    
-    
-      <category term="android" scheme="http://blog.wangjiegulu.com/tags/android/"/>
-    
-      <category term="mvp" scheme="http://blog.wangjiegulu.com/tags/mvp/"/>
-    
-      <category term="framework" scheme="http://blog.wangjiegulu.com/tags/framework/"/>
-    
-      <category term="technical debt" scheme="http://blog.wangjiegulu.com/tags/technical-debt/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>[Android]异步 layout inflation（翻译）</title>
-    <link href="http://blog.wangjiegulu.com/2016/09/01/Android-%E5%BC%82%E6%AD%A5-layout-inflation%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/"/>
-    <id>http://blog.wangjiegulu.com/2016/09/01/Android-异步-layout-inflation（翻译）/</id>
-    <published>2016-09-01T06:42:00.000Z</published>
-    <updated>2018-03-29T06:26:56.681Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;异步-layout-inflation&quot;&gt;&lt;a href=&quot;#异步-layout-inflation&quot; class=&quot;headerlink&quot; title=&quot;异步 layout inflation&quot;&gt;&lt;/a&gt;异步 layout
-        
-      
-    
-    </summary>
-    
-    
-      <category term="android" scheme="http://blog.wangjiegulu.com/tags/android/"/>
-    
-      <category term="翻译" scheme="http://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
-    
-      <category term="layout" scheme="http://blog.wangjiegulu.com/tags/layout/"/>
-    
-      <category term="inflation" scheme="http://blog.wangjiegulu.com/tags/inflation/"/>
-    
-      <category term="asynchronize" scheme="http://blog.wangjiegulu.com/tags/asynchronize/"/>
-    
-      <category term="async" scheme="http://blog.wangjiegulu.com/tags/async/"/>
+      <category term="rapidorm" scheme="https://blog.wangjiegulu.com/tags/rapidorm/"/>
     
   </entry>
   

@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="Huginn 及环境搭建什么是 Huginn ？Huginn 是一个可以通过构建 agents 来帮你实现在线自动化任务的系统。它们可以理解 web，监听事件，按你所需地去执行一些行为。Huginn 的 agents 创建和消费事件，通过有向图表来进行转播。你可以把它当作部署在你自己的服务器上的破解版本的 IFTTT 或 Zapier。  你可以用 Huginn 做什么？  追踪天气并在明天下雨（">
+<meta name="keywords" content="ifttt,automate,huginn,integromat,zapier,geek">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Huginn及环境搭建">
+<meta property="og:url" content="https://blog.wangjiegulu.com/2018/04/02/build_the_environment_for_huginn/index.html">
+<meta property="og:site_name" content="Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer">
+<meta property="og:description" content="Huginn 及环境搭建什么是 Huginn ？Huginn 是一个可以通过构建 agents 来帮你实现在线自动化任务的系统。它们可以理解 web，监听事件，按你所需地去执行一些行为。Huginn 的 agents 创建和消费事件，通过有向图表来进行转播。你可以把它当作部署在你自己的服务器上的破解版本的 IFTTT 或 Zapier。  你可以用 Huginn 做什么？  追踪天气并在明天下雨（">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://raw.githubusercontent.com/huginn/huginn/master/doc/imgs/the-name.png">
+<meta property="og:updated_time" content="2018-04-04T08:36:48.040Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Huginn及环境搭建">
+<meta name="twitter:description" content="Huginn 及环境搭建什么是 Huginn ？Huginn 是一个可以通过构建 agents 来帮你实现在线自动化任务的系统。它们可以理解 web，监听事件，按你所需地去执行一些行为。Huginn 的 agents 创建和消费事件，通过有向图表来进行转播。你可以把它当作部署在你自己的服务器上的破解版本的 IFTTT 或 Zapier。  你可以用 Huginn 做什么？  追踪天气并在明天下雨（">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/huginn/huginn/master/doc/imgs/the-name.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Huginn及环境搭建</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3">
+    
+      <div id="header-post-nav">
+  <span id="nav">
+      <ul>
+         
+          <li><b><a href="/">Home</a></b></li>
+         
+          <li><b><a href="/archives/">Writing</a></b></li>
+         
+          <li><b><a href="/tags/">Tags</a></b></li>
+         
+          <li><b><a href="/about/">About</a></b></li>
+         
+          <li><b><a href="/feed.xml">RSS</a></b></li>
+        
+      </ul>
+  </span>
+</div>
+
+<div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/feed.xml">RSS</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2018/04/03/huginn_douban_high_score_movies_and_slack/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2018/03/16/rapid_maven_push_plugin_for_android/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://blog.wangjiegulu.com/2018/04/02/build_the_environment_for_huginn/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://blog.wangjiegulu.com/2018/04/02/build_the_environment_for_huginn/&text=Huginn及环境搭建"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.wangjiegulu.com/2018/04/02/build_the_environment_for_huginn/&title=Huginn及环境搭建"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.wangjiegulu.com/2018/04/02/build_the_environment_for_huginn/&is_video=false&description=Huginn及环境搭建"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Huginn及环境搭建&body=Check out this article: https://blog.wangjiegulu.com/2018/04/02/build_the_environment_for_huginn/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.wangjiegulu.com/2018/04/02/build_the_environment_for_huginn/&title=Huginn及环境搭建"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.wangjiegulu.com/2018/04/02/build_the_environment_for_huginn/&title=Huginn及环境搭建"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.wangjiegulu.com/2018/04/02/build_the_environment_for_huginn/&title=Huginn及环境搭建"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://blog.wangjiegulu.com/2018/04/02/build_the_environment_for_huginn/&title=Huginn及环境搭建"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.wangjiegulu.com/2018/04/02/build_the_environment_for_huginn/&name=Huginn及环境搭建&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Huginn-及环境搭建"><span class="toc-number">1.</span> <span class="toc-text">Huginn 及环境搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是-Huginn-？"><span class="toc-number">1.1.</span> <span class="toc-text">什么是 Huginn ？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#环境搭建"><span class="toc-number">1.2.</span> <span class="toc-text">环境搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#概述"><span class="toc-number">1.2.1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Packages-Dependencies"><span class="toc-number">1.2.2.</span> <span class="toc-text">1. Packages / Dependencies</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Debian-Stretch"><span class="toc-number">1.2.2.1.</span> <span class="toc-text">Debian Stretch</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Ruby"><span class="toc-number">1.2.3.</span> <span class="toc-text">2. Ruby</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-System-Users"><span class="toc-number">1.2.4.</span> <span class="toc-text">3. System Users</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-Database"><span class="toc-number">1.2.5.</span> <span class="toc-text">4. Database</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-Huginn"><span class="toc-number">1.2.6.</span> <span class="toc-text">5. Huginn</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Clone-源代码"><span class="toc-number">1.2.6.1.</span> <span class="toc-text">Clone 源代码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#配置它"><span class="toc-number">1.2.6.2.</span> <span class="toc-text">配置它</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安装-Gems"><span class="toc-number">1.2.6.3.</span> <span class="toc-text">安装 Gems</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#初始化-Database"><span class="toc-number">1.2.6.4.</span> <span class="toc-text">初始化 Database</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#编译-Assets"><span class="toc-number">1.2.6.5.</span> <span class="toc-text">编译 Assets</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安装初始脚本"><span class="toc-number">1.2.6.6.</span> <span class="toc-text">安装初始脚本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#设置-Logrotate"><span class="toc-number">1.2.6.7.</span> <span class="toc-text">设置 Logrotate</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#确保你的-Huginn-实例正在运行"><span class="toc-number">1.2.6.8.</span> <span class="toc-text">确保你的 Huginn 实例正在运行</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-Nginx"><span class="toc-number">1.2.7.</span> <span class="toc-text">6. Nginx</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#安装"><span class="toc-number">1.2.7.1.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#网站配置"><span class="toc-number">1.2.7.2.</span> <span class="toc-text">网站配置</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Restart"><span class="toc-number">1.2.8.</span> <span class="toc-text">Restart</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">1.3.</span> <span class="toc-text">参考</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Huginn及环境搭建
+    </h1>
+
+
+
+    <div class="meta"  style="margin-top:12px;">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name" style="margin-left: 12px">Wang Jie</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2018-04-02T13:07:39.914Z" itemprop="datePublished">2018-04-02</time>
+    </div>
+
+<br/>
+      
+    <div class="article-tag">
+        <i class="fas fa-tag" style="margin-top: 20px"></i>
+        <a class="tag-link" href="/tags/automate/">automate</a>, <a class="tag-link" href="/tags/geek/">geek</a>, <a class="tag-link" href="/tags/huginn/">huginn</a>, <a class="tag-link" href="/tags/ifttt/">ifttt</a>, <a class="tag-link" href="/tags/integromat/">integromat</a>, <a class="tag-link" href="/tags/zapier/">zapier</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  
+  <div class="content" itemprop="articleBody">
+    
+    
+      <!-- <img class="header-img" src="https://camo.githubusercontent.com/f7da893be2c2f5f765f2436296656e7d25962437/68747470733a2f2f7261772e6769746875622e636f6d2f687567696e6e2f687567696e6e2f6d61737465722f6d656469612f687567696e6e2d6c6f676f2e706e67" /> -->
+      
+
+        <img src="https://camo.githubusercontent.com/f7da893be2c2f5f765f2436296656e7d25962437/68747470733a2f2f7261772e6769746875622e636f6d2f687567696e6e2f687567696e6e2f6d61737465722f6d656469612f687567696e6e2d6c6f676f2e706e67" style="border-radius: 3px;"/>
+        
+        
+      
+      
+    
+
+    <h1 id="Huginn-及环境搭建"><a href="#Huginn-及环境搭建" class="headerlink" title="Huginn 及环境搭建"></a>Huginn 及环境搭建</h1><h2 id="什么是-Huginn-？"><a href="#什么是-Huginn-？" class="headerlink" title="什么是 Huginn ？"></a>什么是 Huginn ？</h2><p>Huginn 是一个可以通过构建 agents 来帮你实现在线自动化任务的系统。它们可以理解 web，监听事件，按你所需地去执行一些行为。Huginn 的 agents 创建和消费事件，通过有向图表来进行转播。你可以把它当作部署在你自己的服务器上的破解版本的 IFTTT 或 Zapier。</p>
+<p><img src="https://raw.githubusercontent.com/huginn/huginn/master/doc/imgs/the-name.png" alt=""></p>
+<p>你可以用 Huginn 做什么？</p>
+<ul>
+<li>追踪天气并在明天下雨（雪）的时候邮件通知给你（明天不要忘记带伞）。</li>
+<li>列出你关心的条目，并在 Twitter 发生改变的时候电子邮件通知给你。（例如，想知道在机器学习领域发生了什么有趣的事情吗？Huginn 将在 Twitter 上观察“machine learning”这个词，并告诉你什么时候讨论会高高峰。）</li>
+<li>帮你观察旅游机票和购物优惠信息。</li>
+<li>抓取任意网站并在发生变化时电子邮件通知你。</li>
+<li>连接到 Adioso, HipChat, Basecamp, Growl, FTP, IMAP, Jabber, JIRA, MQTT, nextbus, Pushbullet, Pushover, RSS, Bash, Slack, StubHub, translation APIs, Twilio, Twitter, Wunderground, and 微博等第三方.</li>
+<li>发送和接收 WebHooks。</li>
+<li>其它很多很多你能想到的。</li>
+</ul>
+<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>以 <code>Debian</code> 服务器为例，进行环境搭建（大家可以选择购买VPS）。</p>
+<h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>Huginn 的安装主要包括以下组件：</p>
+<ol>
+<li>Packages / Dependencies</li>
+<li>Ruby</li>
+<li>System Users</li>
+<li>Database</li>
+<li>Huginn</li>
+<li>Nginx</li>
+</ol>
+<h3 id="1-Packages-Dependencies"><a href="#1-Packages-Dependencies" class="headerlink" title="1. Packages / Dependencies"></a>1. Packages / Dependencies</h3><p>Debian 中 <code>sudo</code> 并没有默认安装。确保你的系统是最新的，然后安装它。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># run as root!</span><br><span class="line">apt-get update -y</span><br><span class="line">apt-get upgrade -y</span><br><span class="line">apt-get install sudo -y</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>注意：</strong>在安装过程中，需要手动编辑一些文件。如果你熟悉 vim，请使用下面的命令将其设置为默认编辑器。如果你对 vim 不熟悉，请跳过此操作并继续使用默认编辑器。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># Install vim and set as default editor</span><br><span class="line">sudo apt-get install -y vim</span><br><span class="line">sudo update-alternatives --set editor /usr/bin/vim.basic</span><br></pre></td></tr></table></figure>
+<p>导入 node.js 库 (如果是 Ubuntu 或者 Debian Jessie 的话可以跳过)：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -sL https://deb.nodesource.com/setup_0.12 | sudo bash -</span><br></pre></td></tr></table></figure>
+<p>安装需要的 packages：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install -y runit build-essential git zlib1g-dev libyaml-dev libssl-dev libgdbm-dev libreadline-dev libncurses5-dev libffi-dev curl openssh-server checkinstall libxml2-dev libxslt-dev libcurl4-openssl-dev libicu-dev logrotate python-docutils pkg-config cmake nodejs graphviz</span><br></pre></td></tr></table></figure>
+<h4 id="Debian-Stretch"><a href="#Debian-Stretch" class="headerlink" title="Debian Stretch"></a>Debian Stretch</h4><p>由于 Debian Stretch 的 runit 不会自动启动，但是这会被init系统处理。另外，Ruby需要 OpenSSL 1.0 开发包而不是 1.1的。对于默认安装使用这些包：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install -y runit-systemd libssl1.0-dev</span><br></pre></td></tr></table></figure>
+<h3 id="2-Ruby"><a href="#2-Ruby" class="headerlink" title="2. Ruby"></a>2. Ruby</h3><p>在生产中使用带有 Huginn 的 Ruby 版本管理器（如 <a href="http://rvm.io/" target="_blank" rel="noopener">RVM</a>，<a href="https://github.com/sstephenson/rbenv" target="_blank" rel="noopener">rbenv</a> 或 <a href="https://github.com/postmodern/chruby" target="_blank" rel="noopener">chruby</a>）会频繁导致难以诊断的问题。版本管理器不受支持，我们强烈建议所有人按照以下说明使用系统 Ruby。</p>
+<p>如果存在的话，删除旧版本的 Ruby：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get remove -y ruby1.8 ruby1.9</span><br></pre></td></tr></table></figure>
+<p>下载 Ruby，然后编译：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mkdir /tmp/ruby &amp;&amp; cd /tmp/ruby</span><br><span class="line">curl -L --progress http://cache.ruby-lang.org/pub/ruby/2.4/ruby-2.4.2.tar.bz2 | tar xj</span><br><span class="line">cd ruby-2.4.2</span><br><span class="line">./configure --disable-install-rdoc</span><br><span class="line">make -j`nproc`</span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure>
+<p>安装 bundler 和 foreman:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo gem install rake bundler foreman --no-ri --no-rdoc</span><br></pre></td></tr></table></figure>
+<h3 id="3-System-Users"><a href="#3-System-Users" class="headerlink" title="3. System Users"></a>3. System Users</h3><p>为 Huginn 创建一个用户：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo adduser --disabled-login --gecos &apos;Huginn&apos; huginn</span><br></pre></td></tr></table></figure>
+<h3 id="4-Database"><a href="#4-Database" class="headerlink" title="4. Database"></a>4. Database</h3><p>安装数据库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install -y mysql-server mysql-client libmysqlclient-dev</span><br><span class="line"></span><br><span class="line"># 选择一个 MySQL root 密码 (可以任意), 输入并按回车,</span><br><span class="line"># 重复输入 MySQL root 密码 然后按回车</span><br></pre></td></tr></table></figure>
+<p>对于 Debian Stretch, 替换 libmysqlclient-dev 为 default-libmysqlclient-dev。</p>
+<p>检查你安装的 MySQL 版本：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql --version</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mysql_secure_installation</span><br></pre></td></tr></table></figure>
+<p>登录 MySQL：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br><span class="line"></span><br><span class="line"># 输入 MySQL root 密码</span><br></pre></td></tr></table></figure>
+<p>为 Huginn 创建一个用户，替换 命令中的 $password 为你真实的密码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; CREATE USER &apos;huginn&apos;@&apos;localhost&apos; IDENTIFIED BY &apos;$password&apos;;</span><br></pre></td></tr></table></figure>
+<p>支持 long indexes，你需要确保可以使用 InnoDB engine：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SET default_storage_engine=INNODB;</span><br><span class="line"></span><br><span class="line"># 如果失败，检查你的 MySQL 配置文件 (e.g. `/etc/mysql/*.cnf`, `/etc/mysql/conf.d/*`)</span><br><span class="line"># 设置 &quot;innodb = off&quot;</span><br></pre></td></tr></table></figure>
+<p>给予 Huginn 用户必要的数据库相关权限：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, INDEX, ALTER, LOCK TABLES ON `huginn_production`.* TO &apos;huginn&apos;@&apos;localhost&apos;;</span><br></pre></td></tr></table></figure>
+<p>退出 database 会话：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; \q</span><br></pre></td></tr></table></figure>
+<p>尝试使用新的用户链接到新的数据库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo -u huginn -H mysql -u huginn -p -D huginn_production</span><br><span class="line"></span><br><span class="line"># Type the password you replaced $password with earlier</span><br></pre></td></tr></table></figure>
+<p>你应该回看到 <code>ERROR 1049 (42000): Unknown database &#39;huginn_production&#39;</code>，这是正常的，因为我们会稍后创建数据库。</p>
+<h3 id="5-Huginn"><a href="#5-Huginn" class="headerlink" title="5. Huginn"></a>5. Huginn</h3><h4 id="Clone-源代码"><a href="#Clone-源代码" class="headerlink" title="Clone 源代码"></a>Clone 源代码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"># We&apos;ll install Huginn into the home directory of the user &quot;huginn&quot;</span><br><span class="line">cd /home/huginn</span><br><span class="line"></span><br><span class="line"># Clone Huginn repository</span><br><span class="line">sudo -u huginn -H git clone https://github.com/huginn/huginn.git -b master huginn</span><br><span class="line"></span><br><span class="line"># Go to Huginn installation folder</span><br><span class="line">cd /home/huginn/huginn</span><br><span class="line"></span><br><span class="line"># Copy the example Huginn config</span><br><span class="line">sudo -u huginn -H cp .env.example .env</span><br><span class="line"></span><br><span class="line"># Create the log/, tmp/pids/ and tmp/sockets/ directories</span><br><span class="line">sudo -u huginn mkdir -p log tmp/pids tmp/sockets</span><br><span class="line"></span><br><span class="line"># Make sure Huginn can write to the log/ and tmp/ directories</span><br><span class="line">sudo chown -R huginn log/ tmp/</span><br><span class="line">sudo chmod -R u+rwX,go-w log/ tmp/</span><br><span class="line"></span><br><span class="line"># Make sure permissions are set correctly</span><br><span class="line">sudo chmod -R u+rwX,go-w log/</span><br><span class="line">sudo chmod -R u+rwX tmp/</span><br><span class="line">sudo -u huginn -H chmod o-rwx .env</span><br><span class="line"></span><br><span class="line"># Copy the example Unicorn config</span><br><span class="line">sudo -u huginn -H cp config/unicorn.rb.example config/unicorn.rb</span><br></pre></td></tr></table></figure>
+<h4 id="配置它"><a href="#配置它" class="headerlink" title="配置它"></a>配置它</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># Update Huginn config file and follow the instructions</span><br><span class="line">sudo -u huginn -H editor .env</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">DATABASE_ADAPTER=mysql2</span><br><span class="line">DATABASE_RECONNECT=true</span><br><span class="line">DATABASE_NAME=huginn_production</span><br><span class="line">DATABASE_POOL=20</span><br><span class="line">DATABASE_USERNAME=huginn</span><br><span class="line">DATABASE_PASSWORD=&apos;$password&apos;</span><br><span class="line">#DATABASE_HOST=your-domain-here.com</span><br><span class="line">#DATABASE_PORT=3306</span><br><span class="line">#DATABASE_SOCKET=/tmp/mysql.sock</span><br><span class="line"></span><br><span class="line">DATABASE_ENCODING=utf8</span><br><span class="line"># MySQL only: If you are running a MySQL server &gt;=5.5.3, you should</span><br><span class="line"># set DATABASE_ENCODING to utf8mb4 instead of utf8 so that the</span><br><span class="line"># database can hold 4-byte UTF-8 characters like emoji.</span><br><span class="line">#DATABASE_ENCODING=utf8mb4</span><br></pre></td></tr></table></figure>
+<p><strong>重要：</strong> 取消注释 RAILS_ENV 设置，以便于在生产环节运行 Huginn。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RAILS_ENV=production</span><br></pre></td></tr></table></figure>
+<p>如果需要改变 Unicorn 配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># Increase the amount of workers if you expect to have a high load instance.</span><br><span class="line"># 2 are enough for most use cases, if the server has less then 2GB of RAM</span><br><span class="line"># decrease the worker amount to 1</span><br><span class="line">sudo -u huginn -H editor config/unicorn.rb</span><br></pre></td></tr></table></figure>
+<p><strong>重要：</strong>确保 <code>.env</code> 和 <code>unicorn.rb</code> 都符合你的配置。</p>
+<h4 id="安装-Gems"><a href="#安装-Gems" class="headerlink" title="安装 Gems"></a>安装 Gems</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo -u huginn -H bundle install --deployment --without development test</span><br></pre></td></tr></table></figure>
+<h4 id="初始化-Database"><a href="#初始化-Database" class="headerlink" title="初始化 Database"></a>初始化 Database</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># Create the database</span><br><span class="line">sudo -u huginn -H bundle exec rake db:create RAILS_ENV=production</span><br><span class="line"></span><br><span class="line"># Migrate to the latest version</span><br><span class="line">sudo -u huginn -H bundle exec rake db:migrate RAILS_ENV=production</span><br><span class="line"></span><br><span class="line"># Create admin user and example agents using the default admin/password login</span><br><span class="line">sudo -u huginn -H bundle exec rake db:seed RAILS_ENV=production SEED_USERNAME=admin SEED_PASSWORD=password</span><br></pre></td></tr></table></figure>
+<h4 id="编译-Assets"><a href="#编译-Assets" class="headerlink" title="编译 Assets"></a>编译 Assets</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo -u huginn -H bundle exec rake assets:precompile RAILS_ENV=production</span><br></pre></td></tr></table></figure>
+<h4 id="安装初始脚本"><a href="#安装初始脚本" class="headerlink" title="安装初始脚本"></a>安装初始脚本</h4><p>Huginn 使用 <a href="http://ddollar.github.io/foreman/" target="_blank" rel="noopener">foreman</a> 来生成基于 <code>Procfile</code> 的初始化脚本。</p>
+<p>编辑 <a href="https://github.com/huginn/huginn/blob/master/Procfile" target="_blank" rel="noopener"><code>Procfile</code></a> 来针对生产选择一个推荐的版本。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo -u huginn -H editor Procfile</span><br></pre></td></tr></table></figure>
+<p>注释<a href="https://github.com/huginn/huginn/blob/master/Procfile#L6-L7" target="_blank" rel="noopener">这两行</a>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">web: bundle exec rails server -p $&#123;PORT-3000&#125; -b $&#123;IP-0.0.0.0&#125;</span><br><span class="line">jobs: bundle exec rails runner bin/threaded.rb</span><br></pre></td></tr></table></figure>
+<p>取消注释<a href="https://github.com/huginn/huginn/blob/master/Procfile#L6-L7" target="_blank" rel="noopener">这几行</a>或者<a href="https://github.com/huginn/huginn/blob/master/Procfile#L28-L31" target="_blank" rel="noopener">这些</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># web: bundle exec unicorn -c config/unicorn.rb</span><br><span class="line"># jobs: bundle exec rails runner bin/threaded.rb</span><br></pre></td></tr></table></figure>
+<p>Export 初始化 scripts:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo bundle exec rake production:export</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>注意：</strong>每次你修改了 <code>.env</code> 或者你的 procfile 文件，你都必须要重新 export 出事 script。</p>
+</blockquote>
+<h4 id="设置-Logrotate"><a href="#设置-Logrotate" class="headerlink" title="设置 Logrotate"></a>设置 Logrotate</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo cp deployment/logrotate/huginn /etc/logrotate.d/huginn</span><br></pre></td></tr></table></figure>
+<h4 id="确保你的-Huginn-实例正在运行"><a href="#确保你的-Huginn-实例正在运行" class="headerlink" title="确保你的 Huginn 实例正在运行"></a>确保你的 Huginn 实例正在运行</h4><p>sudo bundle exec rake production:status</p>
+<h3 id="6-Nginx"><a href="#6-Nginx" class="headerlink" title="6. Nginx"></a>6. Nginx</h3><blockquote>
+<p><strong>注意：</strong>Nginx 是 Huginn 官方支持的 web 服务器。如果你不会或者不想使用 Nginx 作为你的 web 服务器，参考 wiki 的文章来使用配置 <a href="https://github.com/huginn/huginn/wiki/Apache-Huginn-configuration" target="_blank" rel="noopener">apache</a></p>
+</blockquote>
+<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install -y nginx</span><br></pre></td></tr></table></figure>
+<h4 id="网站配置"><a href="#网站配置" class="headerlink" title="网站配置"></a>网站配置</h4><p>复制示例网站配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo cp deployment/nginx/huginn /etc/nginx/sites-available/huginn</span><br><span class="line">sudo ln -s /etc/nginx/sites-available/huginn /etc/nginx/sites-enabled/huginn</span><br></pre></td></tr></table></figure>
+<p>确保编辑配置文件以匹配你的设置，如果你正在运行多个nginx站点，请从 <code>listen</code> 指令中删除 <code>default_server</code> 参数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># Change YOUR_SERVER_FQDN to the fully-qualified</span><br><span class="line"># domain name of your host serving Huginn.</span><br><span class="line">sudo editor /etc/nginx/sites-available/huginn</span><br></pre></td></tr></table></figure>
+<p><strong>如果 huginn 是唯一可用的 nginx 网站</strong>，删除默认的 nginx 网站：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo rm /etc/nginx/sites-enabled/default</span><br></pre></td></tr></table></figure>
+<h3 id="Restart"><a href="#Restart" class="headerlink" title="Restart"></a>Restart</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service nginx restart</span><br></pre></td></tr></table></figure>
+<p>完成。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><a href="https://github.com/huginn/huginn" target="_blank" rel="noopener">https://github.com/huginn/huginn</a></li>
+<li><a href="https://github.com/huginn/huginn/blob/master/doc/manual/installation.md" target="_blank" rel="noopener">https://github.com/huginn/huginn/blob/master/doc/manual/installation.md</a></li>
+</ol>
+
+
+    <br/>
+    <hr>
+
+    
+    <div class="post-copyright" style="margin-top: 20px;">
+        <strong>来源博客：</strong><a href="https://blog.wangjiegulu.com">Wang Jie's Blog</a><br/>
+         <strong>本文链接：</strong><a href="https://blog.wangjiegulu.com/2018/04/02/build_the_environment_for_huginn/">https://blog.wangjiegulu.com/2018/04/02/build_the_environment_for_huginn/</a><br/>
+         <strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处。
+    </div>
+    
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/feed.xml">RSS</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Huginn-及环境搭建"><span class="toc-number">1.</span> <span class="toc-text">Huginn 及环境搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是-Huginn-？"><span class="toc-number">1.1.</span> <span class="toc-text">什么是 Huginn ？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#环境搭建"><span class="toc-number">1.2.</span> <span class="toc-text">环境搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#概述"><span class="toc-number">1.2.1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Packages-Dependencies"><span class="toc-number">1.2.2.</span> <span class="toc-text">1. Packages / Dependencies</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Debian-Stretch"><span class="toc-number">1.2.2.1.</span> <span class="toc-text">Debian Stretch</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Ruby"><span class="toc-number">1.2.3.</span> <span class="toc-text">2. Ruby</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-System-Users"><span class="toc-number">1.2.4.</span> <span class="toc-text">3. System Users</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-Database"><span class="toc-number">1.2.5.</span> <span class="toc-text">4. Database</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-Huginn"><span class="toc-number">1.2.6.</span> <span class="toc-text">5. Huginn</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Clone-源代码"><span class="toc-number">1.2.6.1.</span> <span class="toc-text">Clone 源代码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#配置它"><span class="toc-number">1.2.6.2.</span> <span class="toc-text">配置它</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安装-Gems"><span class="toc-number">1.2.6.3.</span> <span class="toc-text">安装 Gems</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#初始化-Database"><span class="toc-number">1.2.6.4.</span> <span class="toc-text">初始化 Database</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#编译-Assets"><span class="toc-number">1.2.6.5.</span> <span class="toc-text">编译 Assets</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安装初始脚本"><span class="toc-number">1.2.6.6.</span> <span class="toc-text">安装初始脚本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#设置-Logrotate"><span class="toc-number">1.2.6.7.</span> <span class="toc-text">设置 Logrotate</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#确保你的-Huginn-实例正在运行"><span class="toc-number">1.2.6.8.</span> <span class="toc-text">确保你的 Huginn 实例正在运行</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-Nginx"><span class="toc-number">1.2.7.</span> <span class="toc-text">6. Nginx</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#安装"><span class="toc-number">1.2.7.1.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#网站配置"><span class="toc-number">1.2.7.2.</span> <span class="toc-text">网站配置</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Restart"><span class="toc-number">1.2.8.</span> <span class="toc-text">Restart</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">1.3.</span> <span class="toc-text">参考</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://blog.wangjiegulu.com/2018/04/02/build_the_environment_for_huginn/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://blog.wangjiegulu.com/2018/04/02/build_the_environment_for_huginn/&text=Huginn及环境搭建"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.wangjiegulu.com/2018/04/02/build_the_environment_for_huginn/&title=Huginn及环境搭建"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.wangjiegulu.com/2018/04/02/build_the_environment_for_huginn/&is_video=false&description=Huginn及环境搭建"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Huginn及环境搭建&body=Check out this article: https://blog.wangjiegulu.com/2018/04/02/build_the_environment_for_huginn/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.wangjiegulu.com/2018/04/02/build_the_environment_for_huginn/&title=Huginn及环境搭建"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.wangjiegulu.com/2018/04/02/build_the_environment_for_huginn/&title=Huginn及环境搭建"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.wangjiegulu.com/2018/04/02/build_the_environment_for_huginn/&title=Huginn及环境搭建"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://blog.wangjiegulu.com/2018/04/02/build_the_environment_for_huginn/&title=Huginn及环境搭建"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.wangjiegulu.com/2018/04/02/build_the_environment_for_huginn/&name=Huginn及环境搭建&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 Wang Jie
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/feed.xml">RSS</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-111189680-2', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'blog-wangjiegulu-com';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+

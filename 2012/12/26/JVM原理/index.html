@@ -10,7 +10,7 @@
 <meta name="keywords" content="java,JVM">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JVM原理">
-<meta property="og:url" content="http://blog.wangjiegulu.com/2012/12/26/JVM原理/index.html">
+<meta property="og:url" content="https://blog.wangjiegulu.com/2012/12/26/JVM原理/index.html">
 <meta property="og:site_name" content="Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer">
 <meta property="og:description" content="JVM 原理解释  　　JVM 全称是 Java Virtual Machine ，Java 虚拟机，这个 JVM 你是看不到的，它存在内存中。我们知道计算机的基本构成是：运算器、控制器、存储器、输入和输出设备，那这个 JVM 也是有这成套的元素，运算器是当然是交给硬件 CPU 还处理了，只是为了适应&amp;ldquo;一次编译，随处运行&amp;rdquo;的情况，需要做一个翻译动作，于是就用了JVM 自己的">
 <meta property="og:locale" content="en">
@@ -110,16 +110,16 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://blog.wangjiegulu.com/2012/12/26/JVM原理/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://blog.wangjiegulu.com/2012/12/26/JVM原理/&text=JVM原理"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://blog.wangjiegulu.com/2012/12/26/JVM原理/&title=JVM原理"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.wangjiegulu.com/2012/12/26/JVM原理/&is_video=false&description=JVM原理"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=JVM原理&body=Check out this article: http://blog.wangjiegulu.com/2012/12/26/JVM原理/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://blog.wangjiegulu.com/2012/12/26/JVM原理/&title=JVM原理"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://blog.wangjiegulu.com/2012/12/26/JVM原理/&title=JVM原理"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://blog.wangjiegulu.com/2012/12/26/JVM原理/&title=JVM原理"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://blog.wangjiegulu.com/2012/12/26/JVM原理/&title=JVM原理"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.wangjiegulu.com/2012/12/26/JVM原理/&name=JVM原理&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://blog.wangjiegulu.com/2012/12/26/JVM原理/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://blog.wangjiegulu.com/2012/12/26/JVM原理/&text=JVM原理"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.wangjiegulu.com/2012/12/26/JVM原理/&title=JVM原理"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.wangjiegulu.com/2012/12/26/JVM原理/&is_video=false&description=JVM原理"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=JVM原理&body=Check out this article: https://blog.wangjiegulu.com/2012/12/26/JVM原理/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.wangjiegulu.com/2012/12/26/JVM原理/&title=JVM原理"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.wangjiegulu.com/2012/12/26/JVM原理/&title=JVM原理"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.wangjiegulu.com/2012/12/26/JVM原理/&title=JVM原理"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://blog.wangjiegulu.com/2012/12/26/JVM原理/&title=JVM原理"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.wangjiegulu.com/2012/12/26/JVM原理/&name=JVM原理&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -210,8 +210,8 @@
 
     
     <div class="post-copyright" style="margin-top: 20px;">
-        <strong>来源博客：</strong><a href="http://blog.wangjiegulu.com">Wang Jie's Blog</a><br/>
-         <strong>本文链接：</strong><a href="http://blog.wangjiegulu.com/2012/12/26/JVM原理/">http://blog.wangjiegulu.com/2012/12/26/JVM原理/</a><br/>
+        <strong>来源博客：</strong><a href="https://blog.wangjiegulu.com">Wang Jie's Blog</a><br/>
+         <strong>本文链接：</strong><a href="https://blog.wangjiegulu.com/2012/12/26/JVM原理/">https://blog.wangjiegulu.com/2012/12/26/JVM原理/</a><br/>
          <strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处。
     </div>
     
@@ -254,16 +254,16 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://blog.wangjiegulu.com/2012/12/26/JVM原理/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://blog.wangjiegulu.com/2012/12/26/JVM原理/&text=JVM原理"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://blog.wangjiegulu.com/2012/12/26/JVM原理/&title=JVM原理"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.wangjiegulu.com/2012/12/26/JVM原理/&is_video=false&description=JVM原理"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=JVM原理&body=Check out this article: http://blog.wangjiegulu.com/2012/12/26/JVM原理/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://blog.wangjiegulu.com/2012/12/26/JVM原理/&title=JVM原理"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://blog.wangjiegulu.com/2012/12/26/JVM原理/&title=JVM原理"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://blog.wangjiegulu.com/2012/12/26/JVM原理/&title=JVM原理"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://blog.wangjiegulu.com/2012/12/26/JVM原理/&title=JVM原理"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.wangjiegulu.com/2012/12/26/JVM原理/&name=JVM原理&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://blog.wangjiegulu.com/2012/12/26/JVM原理/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://blog.wangjiegulu.com/2012/12/26/JVM原理/&text=JVM原理"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.wangjiegulu.com/2012/12/26/JVM原理/&title=JVM原理"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.wangjiegulu.com/2012/12/26/JVM原理/&is_video=false&description=JVM原理"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=JVM原理&body=Check out this article: https://blog.wangjiegulu.com/2012/12/26/JVM原理/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.wangjiegulu.com/2012/12/26/JVM原理/&title=JVM原理"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.wangjiegulu.com/2012/12/26/JVM原理/&title=JVM原理"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.wangjiegulu.com/2012/12/26/JVM原理/&title=JVM原理"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://blog.wangjiegulu.com/2012/12/26/JVM原理/&title=JVM原理"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.wangjiegulu.com/2012/12/26/JVM原理/&name=JVM原理&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>

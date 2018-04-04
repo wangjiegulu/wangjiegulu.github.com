@@ -10,7 +10,7 @@
 <meta name="keywords" content="android,apk,signature,eclipse,ADT">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android应用签名详解 Eclipse+ADT">
-<meta property="og:url" content="http://blog.wangjiegulu.com/2012/03/03/Android应用签名详解-Eclipse-ADT/index.html">
+<meta property="og:url" content="https://blog.wangjiegulu.com/2012/03/03/Android应用签名详解-Eclipse-ADT/index.html">
 <meta property="og:site_name" content="Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer">
 <meta property="og:description" content="很多开辟人员不熟悉打听apk文件为什么必须签名才干公布，其实签名并非从android平台开端，在畴昔从symbian os就开端须要签名才干公布，如许可以包管每个应用法度开辟商合法id，因为android平台没有uid3的限制，项目组开放商可能经由过程应用雷同的package name来混合调换已经安装的法度。不过今朝斗劲好的是android中所有的permission应用都是免费的，但从今朝gi">
 <meta property="og:locale" content="en">
@@ -114,16 +114,16 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://blog.wangjiegulu.com/2012/03/03/Android应用签名详解-Eclipse-ADT/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://blog.wangjiegulu.com/2012/03/03/Android应用签名详解-Eclipse-ADT/&text=Android应用签名详解 Eclipse+ADT"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://blog.wangjiegulu.com/2012/03/03/Android应用签名详解-Eclipse-ADT/&title=Android应用签名详解 Eclipse+ADT"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.wangjiegulu.com/2012/03/03/Android应用签名详解-Eclipse-ADT/&is_video=false&description=Android应用签名详解 Eclipse+ADT"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Android应用签名详解 Eclipse+ADT&body=Check out this article: http://blog.wangjiegulu.com/2012/03/03/Android应用签名详解-Eclipse-ADT/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://blog.wangjiegulu.com/2012/03/03/Android应用签名详解-Eclipse-ADT/&title=Android应用签名详解 Eclipse+ADT"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://blog.wangjiegulu.com/2012/03/03/Android应用签名详解-Eclipse-ADT/&title=Android应用签名详解 Eclipse+ADT"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://blog.wangjiegulu.com/2012/03/03/Android应用签名详解-Eclipse-ADT/&title=Android应用签名详解 Eclipse+ADT"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://blog.wangjiegulu.com/2012/03/03/Android应用签名详解-Eclipse-ADT/&title=Android应用签名详解 Eclipse+ADT"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.wangjiegulu.com/2012/03/03/Android应用签名详解-Eclipse-ADT/&name=Android应用签名详解 Eclipse+ADT&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://blog.wangjiegulu.com/2012/03/03/Android应用签名详解-Eclipse-ADT/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://blog.wangjiegulu.com/2012/03/03/Android应用签名详解-Eclipse-ADT/&text=Android应用签名详解 Eclipse+ADT"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.wangjiegulu.com/2012/03/03/Android应用签名详解-Eclipse-ADT/&title=Android应用签名详解 Eclipse+ADT"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.wangjiegulu.com/2012/03/03/Android应用签名详解-Eclipse-ADT/&is_video=false&description=Android应用签名详解 Eclipse+ADT"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Android应用签名详解 Eclipse+ADT&body=Check out this article: https://blog.wangjiegulu.com/2012/03/03/Android应用签名详解-Eclipse-ADT/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.wangjiegulu.com/2012/03/03/Android应用签名详解-Eclipse-ADT/&title=Android应用签名详解 Eclipse+ADT"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.wangjiegulu.com/2012/03/03/Android应用签名详解-Eclipse-ADT/&title=Android应用签名详解 Eclipse+ADT"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.wangjiegulu.com/2012/03/03/Android应用签名详解-Eclipse-ADT/&title=Android应用签名详解 Eclipse+ADT"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://blog.wangjiegulu.com/2012/03/03/Android应用签名详解-Eclipse-ADT/&title=Android应用签名详解 Eclipse+ADT"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.wangjiegulu.com/2012/03/03/Android应用签名详解-Eclipse-ADT/&name=Android应用签名详解 Eclipse+ADT&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -199,8 +199,8 @@
 
     
     <div class="post-copyright" style="margin-top: 20px;">
-        <strong>来源博客：</strong><a href="http://blog.wangjiegulu.com">Wang Jie's Blog</a><br/>
-         <strong>本文链接：</strong><a href="http://blog.wangjiegulu.com/2012/03/03/Android应用签名详解-Eclipse-ADT/">http://blog.wangjiegulu.com/2012/03/03/Android应用签名详解-Eclipse-ADT/</a><br/>
+        <strong>来源博客：</strong><a href="https://blog.wangjiegulu.com">Wang Jie's Blog</a><br/>
+         <strong>本文链接：</strong><a href="https://blog.wangjiegulu.com/2012/03/03/Android应用签名详解-Eclipse-ADT/">https://blog.wangjiegulu.com/2012/03/03/Android应用签名详解-Eclipse-ADT/</a><br/>
          <strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处。
     </div>
     
@@ -243,16 +243,16 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://blog.wangjiegulu.com/2012/03/03/Android应用签名详解-Eclipse-ADT/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://blog.wangjiegulu.com/2012/03/03/Android应用签名详解-Eclipse-ADT/&text=Android应用签名详解 Eclipse+ADT"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://blog.wangjiegulu.com/2012/03/03/Android应用签名详解-Eclipse-ADT/&title=Android应用签名详解 Eclipse+ADT"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.wangjiegulu.com/2012/03/03/Android应用签名详解-Eclipse-ADT/&is_video=false&description=Android应用签名详解 Eclipse+ADT"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Android应用签名详解 Eclipse+ADT&body=Check out this article: http://blog.wangjiegulu.com/2012/03/03/Android应用签名详解-Eclipse-ADT/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://blog.wangjiegulu.com/2012/03/03/Android应用签名详解-Eclipse-ADT/&title=Android应用签名详解 Eclipse+ADT"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://blog.wangjiegulu.com/2012/03/03/Android应用签名详解-Eclipse-ADT/&title=Android应用签名详解 Eclipse+ADT"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://blog.wangjiegulu.com/2012/03/03/Android应用签名详解-Eclipse-ADT/&title=Android应用签名详解 Eclipse+ADT"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://blog.wangjiegulu.com/2012/03/03/Android应用签名详解-Eclipse-ADT/&title=Android应用签名详解 Eclipse+ADT"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.wangjiegulu.com/2012/03/03/Android应用签名详解-Eclipse-ADT/&name=Android应用签名详解 Eclipse+ADT&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://blog.wangjiegulu.com/2012/03/03/Android应用签名详解-Eclipse-ADT/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://blog.wangjiegulu.com/2012/03/03/Android应用签名详解-Eclipse-ADT/&text=Android应用签名详解 Eclipse+ADT"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.wangjiegulu.com/2012/03/03/Android应用签名详解-Eclipse-ADT/&title=Android应用签名详解 Eclipse+ADT"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.wangjiegulu.com/2012/03/03/Android应用签名详解-Eclipse-ADT/&is_video=false&description=Android应用签名详解 Eclipse+ADT"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Android应用签名详解 Eclipse+ADT&body=Check out this article: https://blog.wangjiegulu.com/2012/03/03/Android应用签名详解-Eclipse-ADT/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.wangjiegulu.com/2012/03/03/Android应用签名详解-Eclipse-ADT/&title=Android应用签名详解 Eclipse+ADT"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.wangjiegulu.com/2012/03/03/Android应用签名详解-Eclipse-ADT/&title=Android应用签名详解 Eclipse+ADT"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.wangjiegulu.com/2012/03/03/Android应用签名详解-Eclipse-ADT/&title=Android应用签名详解 Eclipse+ADT"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://blog.wangjiegulu.com/2012/03/03/Android应用签名详解-Eclipse-ADT/&title=Android应用签名详解 Eclipse+ADT"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.wangjiegulu.com/2012/03/03/Android应用签名详解-Eclipse-ADT/&name=Android应用签名详解 Eclipse+ADT&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
