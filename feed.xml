@@ -6,7 +6,7 @@
   <link href="/feed.xml" rel="self"/>
   
   <link href="https://blog.wangjiegulu.com/"/>
-  <updated>2018-04-04T13:31:34.264Z</updated>
+  <updated>2018-04-04T13:39:25.945Z</updated>
   <id>https://blog.wangjiegulu.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://blog.wangjiegulu.com/2018/04/03/huginn_douban_high_score_movies_and_slack/"/>
     <id>https://blog.wangjiegulu.com/2018/04/03/huginn_douban_high_score_movies_and_slack/</id>
     <published>2018-04-03T08:33:40.844Z</published>
-    <updated>2018-04-04T13:31:34.264Z</updated>
+    <updated>2018-04-04T13:39:25.945Z</updated>
     
     <summary type="html">
     
@@ -664,13 +664,13 @@
     
       <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
     
-      <category term="library" scheme="https://blog.wangjiegulu.com/tags/library/"/>
-    
       <category term="sqlite" scheme="https://blog.wangjiegulu.com/tags/sqlite/"/>
     
       <category term="database" scheme="https://blog.wangjiegulu.com/tags/database/"/>
     
       <category term="orm" scheme="https://blog.wangjiegulu.com/tags/orm/"/>
+    
+      <category term="library" scheme="https://blog.wangjiegulu.com/tags/library/"/>
     
       <category term="rapidorm" scheme="https://blog.wangjiegulu.com/tags/rapidorm/"/>
     
