@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="RapidOOOAndroid POJO 转换器:根据 POJO 类编译时自动生成支持扩展互相绑定的领域对象。 English Version Github: https://github.com/wangjiegulu/RapidOOO 为什么使用 RapidOOO？我们在领域驱动设计中经常会在不同层级之间传递数据，例如 VO, PO, DO, DTO, BO等。Android 的开发中也经常会">
+<meta name="keywords" content="android,annotations,javabean,pojo,domain-driven-design,apt,javapoet,annotation processor,pojo converter">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android POJO 转换器 —&gt; RapidOOO">
+<meta property="og:url" content="https://blog.wangjiegulu.com/2018/04/16/rapidooo-android-pojo-converter/index.html">
+<meta property="og:site_name" content="Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer">
+<meta property="og:description" content="RapidOOOAndroid POJO 转换器:根据 POJO 类编译时自动生成支持扩展互相绑定的领域对象。 English Version Github: https://github.com/wangjiegulu/RapidOOO 为什么使用 RapidOOO？我们在领域驱动设计中经常会在不同层级之间传递数据，例如 VO, PO, DO, DTO, BO等。Android 的开发中也经常会">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-04-16T14:17:53.299Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android POJO 转换器 —&gt; RapidOOO">
+<meta name="twitter:description" content="RapidOOOAndroid POJO 转换器:根据 POJO 类编译时自动生成支持扩展互相绑定的领域对象。 English Version Github: https://github.com/wangjiegulu/RapidOOO 为什么使用 RapidOOO？我们在领域驱动设计中经常会在不同层级之间传递数据，例如 VO, PO, DO, DTO, BO等。Android 的开发中也经常会">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Android POJO 转换器 —&gt; RapidOOO</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3">
+    
+      <div id="header-post-nav">
+  <span id="nav">
+      <ul>
+         
+          <li><b><a href="/">Home</a></b></li>
+         
+          <li><b><a href="/archives/">Writing</a></b></li>
+         
+          <li><b><a href="/tags/">Tags</a></b></li>
+         
+          <li><b><a href="/about/">About</a></b></li>
+         
+          <li><b><a href="/feed.xml">RSS</a></b></li>
+        
+      </ul>
+  </span>
+</div>
+
+<div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/feed.xml">RSS</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2018/04/03/huginn_douban_high_score_movies_and_slack/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://blog.wangjiegulu.com/2018/04/16/rapidooo-android-pojo-converter/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://blog.wangjiegulu.com/2018/04/16/rapidooo-android-pojo-converter/&text=Android POJO 转换器 —&gt; RapidOOO"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.wangjiegulu.com/2018/04/16/rapidooo-android-pojo-converter/&title=Android POJO 转换器 —&gt; RapidOOO"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.wangjiegulu.com/2018/04/16/rapidooo-android-pojo-converter/&is_video=false&description=Android POJO 转换器 —&gt; RapidOOO"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Android POJO 转换器 —&gt; RapidOOO&body=Check out this article: https://blog.wangjiegulu.com/2018/04/16/rapidooo-android-pojo-converter/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.wangjiegulu.com/2018/04/16/rapidooo-android-pojo-converter/&title=Android POJO 转换器 —&gt; RapidOOO"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.wangjiegulu.com/2018/04/16/rapidooo-android-pojo-converter/&title=Android POJO 转换器 —&gt; RapidOOO"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.wangjiegulu.com/2018/04/16/rapidooo-android-pojo-converter/&title=Android POJO 转换器 —&gt; RapidOOO"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://blog.wangjiegulu.com/2018/04/16/rapidooo-android-pojo-converter/&title=Android POJO 转换器 —&gt; RapidOOO"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.wangjiegulu.com/2018/04/16/rapidooo-android-pojo-converter/&name=Android POJO 转换器 —&gt; RapidOOO&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#RapidOOO"><span class="toc-number">1.</span> <span class="toc-text">RapidOOO</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么使用-RapidOOO？"><span class="toc-number">1.1.</span> <span class="toc-text">为什么使用 RapidOOO？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#怎么使用？"><span class="toc-number">1.2.</span> <span class="toc-text">怎么使用？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#POJO-转换为-BO"><span class="toc-number">1.2.1.</span> <span class="toc-text">POJO 转换为 BO</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BO-转换为-VO"><span class="toc-number">1.2.2.</span> <span class="toc-text">BO 转换为 VO</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#License"><span class="toc-number">2.</span> <span class="toc-text">License</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Android POJO 转换器 —&gt; RapidOOO
+    </h1>
+
+
+
+    <div class="meta"  style="margin-top:12px;">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name" style="margin-left: 12px">Wang Jie</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2018-04-16T12:07:16.654Z" itemprop="datePublished">2018-04-16</time>
+    </div>
+
+<br/>
+      
+    <div class="article-tag">
+        <i class="fas fa-tag" style="margin-top: 20px"></i>
+        <a class="tag-link" href="/tags/android/">android</a>, <a class="tag-link" href="/tags/annotation-processor/">annotation processor</a>, <a class="tag-link" href="/tags/annotations/">annotations</a>, <a class="tag-link" href="/tags/apt/">apt</a>, <a class="tag-link" href="/tags/domain-driven-design/">domain-driven-design</a>, <a class="tag-link" href="/tags/javabean/">javabean</a>, <a class="tag-link" href="/tags/javapoet/">javapoet</a>, <a class="tag-link" href="/tags/pojo/">pojo</a>, <a class="tag-link" href="/tags/pojo-converter/">pojo converter</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  
+  <div class="content" itemprop="articleBody">
+    
+    
+      <!-- <img class="header-img" src="https://images.unsplash.com/photo-1516062423079-7ca13cdc7f5a?ixlib=rb-0.3.5&amp;s=8f6373676ada5dcf363a679d5a81a2a2&amp;auto=format&amp;fit=crop&amp;w=1361&amp;q=80" /> -->
+      
+
+        <img src="https://images.unsplash.com/photo-1516062423079-7ca13cdc7f5a?ixlib=rb-0.3.5&amp;s=8f6373676ada5dcf363a679d5a81a2a2&amp;auto=format&amp;fit=crop&amp;w=1361&amp;q=80" style="border-radius: 3px;"/>
+        
+      
+      
+    
+
+    <h1 id="RapidOOO"><a href="#RapidOOO" class="headerlink" title="RapidOOO"></a>RapidOOO</h1><p>Android POJO 转换器:根据 POJO 类编译时自动生成支持扩展互相绑定的领域对象。</p>
+<p><a href="https://github.com/wangjiegulu/RapidOOO/blob/master/README_zh.md" target="_blank" rel="noopener">English Version</a></p>
+<p><strong>Github:</strong> <a href="https://github.com/wangjiegulu/RapidOOO" target="_blank" rel="noopener">https://github.com/wangjiegulu/RapidOOO</a></p>
+<h2 id="为什么使用-RapidOOO？"><a href="#为什么使用-RapidOOO？" class="headerlink" title="为什么使用 RapidOOO？"></a>为什么使用 RapidOOO？</h2><p>我们在领域驱动设计中经常会在不同层级之间传递数据，例如 <code>VO</code>, <code>PO</code>, <code>DO</code>, <code>DTO</code>, <code>BO</code>等。Android 的开发中也经常会遇到这些情况，比如在 <a href="https://github.com/android10/Android-CleanArchitecture" target="_blank" rel="noopener">Android-CleanArchitecture</a> 的 <a href="https://github.com/android10/Android-CleanArchitecture/blob/master/presentation/src/main/java/com/fernandocejas/android10/sample/presentation/mapper/UserModelDataMapper.java#L42" target="_blank" rel="noopener">UserModelDataMapper::transform</a>, <a href="https://github.com/android10/Android-CleanArchitecture/blob/master/data/src/main/java/com/fernandocejas/android10/sample/data/entity/mapper/UserEntityDataMapper.java#L42" target="_blank" rel="noopener">UserEntityDataMapper::transform</a> 等。手工地进行拷贝转换的过程不但繁琐，而且错误的风险比较大，在新增、删除字段时也增加了维护的成本。<a href="http://dozer.sourceforge.net/documentation/about.html" target="_blank" rel="noopener">Dozer</a> 可以很好地解决这个问题，但是在 Android 上可能就不太适用了。</p>
+<p><strong>RapidOOO 可以做到:</strong></p>
+<ol>
+<li>在编译时针对指定的初始 POJO，可以自动生成 Java 类（比如 <code>UserVO</code>, <code>UserBO</code> 等），非反射。</li>
+<li>可以在生成的 POJO 类中增加配置，添加新的字段（比如通过 User 中的 <code>gender</code> 在生成的 POJO（UserVO） 中扩展出一个 <code>genderDesc</code> 字段，并且与原来的 <code>gender</code> 类共存并进行双向绑定）</li>
+<li>字段进行转换时可以通过指定 <code>conversionMethodName</code>, <code>inverseConversionMethodName</code> 等方法来进行特殊的转换，类似 <code>Databinding</code> 中的 <code>@BindingMethod</code>。</li>
+<li>链式的 POJO 生成，如从 <code>User</code> 生成 <code>UserDO</code>, 从 <code>UserDO</code> 生成 <code>UserBO</code>, 从 <code>UserBO</code> 生成 <code>UserVO</code>…</li>
+<li>生成类中自动生成转换方法 <code>UserBo.create(User user)</code>, <code>userBo.toUser()</code>。</li>
+</ol>
+<p><strong>后续 Features:</strong></p>
+<ul>
+<li>POJO 继承</li>
+<li>配置对象池</li>
+</ul>
+<h2 id="怎么使用？"><a href="#怎么使用？" class="headerlink" title="怎么使用？"></a>怎么使用？</h2><p>Gradle <a href="http://search.maven.org/#search%7Cga%7C1%7Crapidooo" target="_blank" rel="noopener">Check Newest Version</a></p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">implementation <span class="string">"com.github.wangjiegulu:rapidooo-api:x.x.x"</span></span><br><span class="line">annotationProcessor <span class="string">"com.github.wangjiegulu:rapidooo-compiler:x.x.x"</span></span><br></pre></td></tr></table></figure>
+<p>以下通过两个例子来说明:</p>
+<p><strong>User POJO:</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Long userId;</span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line">    <span class="keyword">private</span> String nickname;</span><br><span class="line">    <span class="keyword">private</span> Integer age;</span><br><span class="line">    <span class="keyword">private</span> Integer gender;</span><br><span class="line">    <span class="comment">// getter setter</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Pet POJO:</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Pet</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Long petId;</span><br><span class="line">    <span class="keyword">private</span> String petName;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> isCat;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> delete;</span><br><span class="line">    <span class="keyword">private</span> Boolean isDog;</span><br><span class="line">    <span class="keyword">private</span> Boolean clear;</span><br><span class="line">    <span class="keyword">private</span> User owner;</span><br><span class="line">    <span class="comment">// getter  settter</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="POJO-转换为-BO"><a href="#POJO-转换为-BO" class="headerlink" title="POJO 转换为 BO"></a>POJO 转换为 BO</h3><p>创建 <code>BOGenerator</code> 类，配置以下注解:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@OOOs</span>(suffix = BOGenerator.BO_SUFFIX, ooos = &#123;</span><br><span class="line">        <span class="meta">@OOO</span>(id = <span class="string">"user_bo_id"</span>, from = User.class, suffix = BOGenerator.BO_SUFFIX_USER),</span><br><span class="line">        <span class="meta">@OOO</span>(from = Pet.class, conversion = &#123;</span><br><span class="line">                <span class="meta">@OOOConversion</span>(</span><br><span class="line">                        fieldName = <span class="string">"owner"</span>,</span><br><span class="line">                        targetTypeId = <span class="string">"user_bo_id"</span>,</span><br><span class="line">                        targetFieldName = <span class="string">"ownerUser"</span>,</span><br><span class="line">                        replace = <span class="keyword">true</span></span><br><span class="line">                )</span><br><span class="line">        &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BOGenerator</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String BO_SUFFIX = <span class="string">"BO"</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String BO_SUFFIX_USER = <span class="string">"_BO"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里使用 <code>@OOOs</code> 注解来进行转换的配置，通过 <code>@OOO</code> 注解来显示地指定需要转换成哪些类。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@OOO</span>(id = <span class="string">"user_bo_id"</span>, from = User.class, suffix = BOGenerator.BO_SUFFIX_USER)</span><br></pre></td></tr></table></figure>
+<p>以上表示一个类的转换:</p>
+<ul>
+<li><strong>id:</strong>表示本地转换的 id，可以为任意字符串（需唯一），默认不设置 id。</li>
+<li><strong>from:</strong>表示转换源，从 <code>User</code> 转换，必填。</li>
+<li><strong>suffix:</strong>表示生成的 POJO 类的名字后缀，这里是 <code>_BO</code>，所以生成的类名为 <code>User_BO</code>，默认使用 <code>@OOOs</code> 中的 <code>suffix</code>。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@OOO</span>(from = Pet.class, conversion = &#123;</span><br><span class="line">      <span class="meta">@OOOConversion</span>(</span><br><span class="line">              fieldName = <span class="string">"owner"</span>,</span><br><span class="line">              targetTypeId = <span class="string">"user_bo_id"</span>,</span><br><span class="line">              targetFieldName = <span class="string">"ownerUser"</span>,</span><br><span class="line">              replace = <span class="keyword">true</span></span><br><span class="line">      )</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>以上也表示一个类的转换，但是可以通过 <code>@OOOConversion</code> 来新增一个字段:</p>
+<ul>
+<li><strong>fieldName:</strong>指定新的字段是从转换源 POJO 的哪个字段派生出来的</li>
+<li><strong>targetTypeId:</strong>用来指定新的字段的类型id，需要与其它的 <code>@OOO</code> 指定的 <code>id</code> 一致；也可以通过 <code>targetType</code> 来指定 Class 类型。</li>
+<li><strong>targetFieldName:</strong>指定新字段的名字，可以任意。</li>
+<li><strong>replace:</strong>新的字段是否替换原来的字段（<strong>fieldName</strong>），如果 false，则共存。</li>
+</ul>
+<p>然后编译将会自动生成以下代码:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User_BO</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> Long userId;</span><br><span class="line">  <span class="keyword">private</span> String username;</span><br><span class="line">  <span class="keyword">private</span> String nickname;</span><br><span class="line">  <span class="keyword">private</span> Integer age;</span><br><span class="line">  <span class="keyword">private</span> Integer gender;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// getter setter</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> User_BO <span class="title">create</span><span class="params">(User user)</span> </span>&#123;</span><br><span class="line">    User_BO user_BO = <span class="keyword">new</span> User_BO();</span><br><span class="line">    user_BO.userId = user.getUserId();</span><br><span class="line">    user_BO.username = user.getUsername();</span><br><span class="line">    user_BO.nickname = user.getNickname();</span><br><span class="line">    user_BO.age = user.getAge();</span><br><span class="line">    user_BO.gender = user.getGender();</span><br><span class="line">    <span class="keyword">return</span> user_BO;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> User <span class="title">toUser</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    User user = <span class="keyword">new</span> User();</span><br><span class="line">    user.setUserId(userId);</span><br><span class="line">    user.setUsername(username);</span><br><span class="line">    user.setNickname(nickname);</span><br><span class="line">    user.setAge(age);</span><br><span class="line">    user.setGender(gender);</span><br><span class="line">    <span class="keyword">return</span> user;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PetBO</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> Long petId;</span><br><span class="line">  <span class="keyword">private</span> String petName;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">boolean</span> isCat;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">boolean</span> delete;</span><br><span class="line">  <span class="keyword">private</span> Boolean isDog;</span><br><span class="line">  <span class="keyword">private</span> Boolean clear;</span><br><span class="line">  <span class="keyword">private</span> User_BO ownerUser;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// getter setter</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> PetBO <span class="title">create</span><span class="params">(Pet pet)</span> </span>&#123;</span><br><span class="line">    PetBO petBO = <span class="keyword">new</span> PetBO();</span><br><span class="line">    petBO.petId = pet.getPetId();</span><br><span class="line">    petBO.petName = pet.getPetName();</span><br><span class="line">    petBO.isCat = pet.isCat();</span><br><span class="line">    petBO.delete = pet.isDelete();</span><br><span class="line">    petBO.isDog = pet.getDog();</span><br><span class="line">    petBO.clear = pet.getClear();</span><br><span class="line">    petBO.ownerUser = User_BO.create(pet.getOwner());</span><br><span class="line">    <span class="keyword">return</span> petBO;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> Pet <span class="title">toPet</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Pet pet = <span class="keyword">new</span> Pet();</span><br><span class="line">    pet.setPetId(petId);</span><br><span class="line">    pet.setPetName(petName);</span><br><span class="line">    pet.setCat(isCat);</span><br><span class="line">    pet.setDelete(delete);</span><br><span class="line">    pet.setDog(isDog);</span><br><span class="line">    pet.setClear(clear);</span><br><span class="line">    pet.setOwner(ownerUser.toUser());</span><br><span class="line">    <span class="keyword">return</span> pet;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="BO-转换为-VO"><a href="#BO-转换为-VO" class="headerlink" title="BO 转换为 VO"></a>BO 转换为 VO</h3><p>如下新建 <code>VOGenerator</code>:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@OOOs</span>(suffix = VOGenerator.VO_SUFFIX, fromSuffix = BOGenerator.BO_SUFFIX, ooosPackages = &#123;</span><br><span class="line">        VOGenerator.PACKAGE_BO</span><br><span class="line">&#125;, ooos = &#123;</span><br><span class="line">        <span class="meta">@OOO</span>(id = <span class="string">"user_vo_id"</span>, from = User_BO.class),</span><br><span class="line">        <span class="meta">@OOO</span>(from = User_BO.class<span class="comment">/*, suffix = VOGenerator.VO_SUFFIX_USER*/</span>,</span><br><span class="line">                fromSuffix = BOGenerator.BO_SUFFIX_USER,</span><br><span class="line">                conversion = &#123;</span><br><span class="line">                        <span class="meta">@OOOConversion</span>(</span><br><span class="line">                                fieldName = <span class="string">"gender"</span>,</span><br><span class="line">                                targetFieldName = <span class="string">"genderDesc"</span>,</span><br><span class="line">                                targetType = String.class,</span><br><span class="line">                                conversionMethodName = <span class="string">"conversionGender"</span>,</span><br><span class="line">                                inverseConversionMethodName = <span class="string">"inverseConversionGender"</span>,</span><br><span class="line">                                replace = <span class="keyword">false</span></span><br><span class="line">                        ),</span><br><span class="line">                        <span class="meta">@OOOConversion</span>(</span><br><span class="line">                                fieldName = <span class="string">"age"</span>,</span><br><span class="line">                                targetFieldName = <span class="string">"ageDes"</span>,</span><br><span class="line">                                targetType = String.class,</span><br><span class="line">                                conversionMethodName = <span class="string">"conversionAge"</span>,</span><br><span class="line">                                conversionMethodClass = AgeConversion.class,</span><br><span class="line">                                replace = <span class="keyword">true</span></span><br><span class="line">                        )</span><br><span class="line">                &#125;</span><br><span class="line">        ),</span><br><span class="line">        <span class="meta">@OOO</span>(from = PetBO.class,</span><br><span class="line">                conversion = &#123;</span><br><span class="line">                        <span class="meta">@OOOConversion</span>(</span><br><span class="line">                                fieldName = <span class="string">"ownerUser"</span>,</span><br><span class="line">                                targetFieldName = <span class="string">"ownerUser"</span>,</span><br><span class="line">                                targetTypeId = <span class="string">"user_vo_id"</span>,</span><br><span class="line">                                replace = <span class="keyword">true</span></span><br><span class="line">                        )</span><br><span class="line">                &#125;</span><br><span class="line">        )</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">VOGenerator</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String VO_SUFFIX = <span class="string">"VO"</span>;</span><br><span class="line">    <span class="comment">//    public static final String VO_SUFFIX_USER = "_VO";</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String PACKAGE_BO = <span class="string">"com.wangjiegulu.rapidooo.depmodule.bll.xbo"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">conversionGender</span><span class="params">(Integer gender)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">null</span> == gender) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"unknown"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">switch</span> (gender) &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="string">"female"</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="string">"male"</span>;</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="string">"unknown"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Integer <span class="title">inverseConversionGender</span><span class="params">(String genderDesc)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">switch</span> (genderDesc) &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">"male"</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">"female"</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>还是通过 <code>@OOOs</code> 注解来指定要生成的类，但这里使用了 <code>ooosPackages</code> 来指定哪些包下面的类需要进行转换。</p>
+<p>转换源为上面生成的:<code>User_BO</code> 和 <code>PetBO</code>，生成的类名为 <code>UserVO</code> 和 <code>PetVO</code>。</p>
+<p>在 <code>UserVO</code> 中扩展了两个字段:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@OOOConversion</span>(</span><br><span class="line">       fieldName = <span class="string">"gender"</span>,</span><br><span class="line">       targetFieldName = <span class="string">"genderDesc"</span>,</span><br><span class="line">       targetType = String.class,</span><br><span class="line">       conversionMethodName = <span class="string">"conversionGender"</span>,</span><br><span class="line">       inverseConversionMethodName = <span class="string">"inverseConversionGender"</span>,</span><br><span class="line">       replace = <span class="keyword">false</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>从转换源的 <code>gender</code> 字段扩展出 <code>genderDesc</code> （用于在 View 上进行展示），类型为 <code>String</code> ，并且 <code>replace = false</code>（<code>gender</code> 与 <code>genderDesc</code> 共存）:</p>
+<ul>
+<li><strong>conversionMethodName:</strong>指定转换方法，从 <code>gender</code> 转换为 <code>genderDesc</code>。默认为不设置。</li>
+<li><strong>inverseConversionMethodName:</strong>指定逆转换方法，从 <code>genderDesc</code> 转换为 <code>gender</code>。默认为不设置。</li>
+</ul>
+<blockquote>
+<p><strong>注意:</strong><code>conversionMethodName</code> 和 <code>inverseConversionMethodName</code> 方法指定方法名字时，方法签名必须满足以下其一:</p>
+<ul>
+<li><code>public static [转换目标类型] conversionXxx([转换源字段类型] param)</code></li>
+<li><code>public static [转换目标类型] conversionXxx([转换源 class 类型] param1, [转换源字段类型] param2)</code><br>如上面 <code>gender</code> 和 <code>genderDesc</code> 的转换:</li>
+<li><code>public static String conversionGender(UserVO userVO, Integer gender)</code></li>
+<li><code>public static Integer inverseConversionGender(String genderDesc)</code></li>
+</ul>
+</blockquote>
+<p>通过设置以上两个方法，<code>gender</code> 和 <code>genderDesc</code> 两个字段会实现互相绑定，改变其中一个字段，另一个字段也会自动发生改变。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@OOOConversion</span>(</span><br><span class="line">       fieldName = <span class="string">"age"</span>,</span><br><span class="line">       targetFieldName = <span class="string">"ageDes"</span>,</span><br><span class="line">       targetType = String.class,</span><br><span class="line">       conversionMethodName = <span class="string">"conversionAge"</span>,</span><br><span class="line">       conversionMethodClass = AgeConversion.class,</span><br><span class="line">       replace = <span class="keyword">true</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p><code>UserVO</code> 中还从转换源的 <code>age</code> 扩展了一个 <code>ageDesc</code> 属性（替换掉 <code>age</code> 字段，不共存），并指定了 <code>conversionMethodName</code>，但是转换方法并不在 <code>VOGenerator</code> 类中，而是在 <code>AgeConversion</code> 类中，所以需要显示地进行指定 <code>conversionMethodClass</code>。</p>
+<ul>
+<li><strong>conversionMethodClass:</strong>转换方法所在的 Class，默认不设置则表示在当前的 <code>Generator</code> 类中。</li>
+</ul>
+<p>另外 <code>PetVO</code> 扩展了一个 <code>ownerUser</code>。</p>
+<p>最后编译生成的代码如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserVO</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> Long userId;</span><br><span class="line">  <span class="keyword">private</span> String username;</span><br><span class="line">  <span class="keyword">private</span> String nickname;</span><br><span class="line">  <span class="keyword">private</span> String ageDes;</span><br><span class="line">  <span class="keyword">private</span> Integer gender;</span><br><span class="line">  <span class="keyword">private</span> String genderDesc;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// getter setter</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setGender</span><span class="params">(Integer gender)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.gender = gender;</span><br><span class="line">    <span class="keyword">this</span>.genderDesc = VOGenerator.conversionGender(gender);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setGenderDesc</span><span class="params">(String genderDesc)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.genderDesc = genderDesc;</span><br><span class="line">    <span class="keyword">this</span>.gender = VOGenerator.inverseConversionGender(genderDesc);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> UserVO <span class="title">create</span><span class="params">(User_BO user_BO)</span> </span>&#123;</span><br><span class="line">    UserVO userVO = <span class="keyword">new</span> UserVO();</span><br><span class="line">    userVO.userId = user_BO.getUserId();</span><br><span class="line">    userVO.username = user_BO.getUsername();</span><br><span class="line">    userVO.nickname = user_BO.getNickname();</span><br><span class="line">    userVO.ageDes = AgeConversion.conversionAge(user_BO.getAge());</span><br><span class="line">    userVO.gender = user_BO.getGender();</span><br><span class="line">    userVO.genderDesc = VOGenerator.conversionGender(user_BO.getGender());</span><br><span class="line">    <span class="keyword">return</span> userVO;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> User_BO <span class="title">toUser_BO</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    User_BO user_BO = <span class="keyword">new</span> User_BO();</span><br><span class="line">    user_BO.setUserId(userId);</span><br><span class="line">    user_BO.setUsername(username);</span><br><span class="line">    user_BO.setNickname(nickname);</span><br><span class="line">    <span class="comment">// Loss field:age, recommend to use `inverseConversionMethodName`.</span></span><br><span class="line">    user_BO.setGender(gender);</span><br><span class="line">    <span class="keyword">return</span> user_BO;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>注意:</strong>以上 <code>User_BO</code>，由于 <code>age</code> 属性是 <code>replace</code>，并且只设置了 <code>conversionMethodName</code>，并没有设置 <code>inverseConversionMethodName</code>，所以在 <code>toUser_BO()</code> 方法进行逆转换时会丢失 <code>age</code> 属性，所以推荐使用 <code>inverseConversionMethodName</code>。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PetVO</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> Long petId;</span><br><span class="line">  <span class="keyword">private</span> String petName;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">boolean</span> isCat;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">boolean</span> delete;</span><br><span class="line">  <span class="keyword">private</span> Boolean isDog;</span><br><span class="line">  <span class="keyword">private</span> Boolean clear;</span><br><span class="line">  <span class="keyword">private</span> UserVO ownerUser;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// getter setter</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> PetVO <span class="title">create</span><span class="params">(PetBO petBO)</span> </span>&#123;</span><br><span class="line">    PetVO petVO = <span class="keyword">new</span> PetVO();</span><br><span class="line">    petVO.petId = petBO.getPetId();</span><br><span class="line">    petVO.petName = petBO.getPetName();</span><br><span class="line">    petVO.isCat = petBO.isCat();</span><br><span class="line">    petVO.delete = petBO.isDelete();</span><br><span class="line">    petVO.isDog = petBO.getDog();</span><br><span class="line">    petVO.clear = petBO.getClear();</span><br><span class="line">    petVO.ownerUser = UserVO.create(petBO.getOwnerUser());</span><br><span class="line">    <span class="keyword">return</span> petVO;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> PetBO <span class="title">toPetBO</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    PetBO petBO = <span class="keyword">new</span> PetBO();</span><br><span class="line">    petBO.setPetId(petId);</span><br><span class="line">    petBO.setPetName(petName);</span><br><span class="line">    petBO.setCat(isCat);</span><br><span class="line">    petBO.setDelete(delete);</span><br><span class="line">    petBO.setDog(isDog);</span><br><span class="line">    petBO.setClear(clear);</span><br><span class="line">    petBO.setOwnerUser(ownerUser.toUser_BO());</span><br><span class="line">    <span class="keyword">return</span> petBO;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="License"><a href="#License" class="headerlink" title="License"></a>License</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Copyright 2018 Wang Jie</span><br><span class="line"></span><br><span class="line">Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span><br><span class="line">you may not use this file except in compliance with the License.</span><br><span class="line">You may obtain a copy of the License at</span><br><span class="line"></span><br><span class="line">  http://www.apache.org/licenses/LICENSE-2.0</span><br><span class="line"></span><br><span class="line">Unless required by applicable law or agreed to in writing, software</span><br><span class="line">distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span><br><span class="line">WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span><br><span class="line">See the License for the specific language governing permissions and</span><br><span class="line">limitations under the License.</span><br></pre></td></tr></table></figure>
+
+
+    <br/>
+    <hr>
+
+    
+    <div class="post-copyright" style="margin-top: 20px;">
+        <strong>来源博客：</strong><a href="https://blog.wangjiegulu.com">Wang Jie's Blog</a><br/>
+         <strong>本文链接：</strong><a href="https://blog.wangjiegulu.com/2018/04/16/rapidooo-android-pojo-converter/">https://blog.wangjiegulu.com/2018/04/16/rapidooo-android-pojo-converter/</a><br/>
+         <strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处。
+    </div>
+    
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/feed.xml">RSS</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#RapidOOO"><span class="toc-number">1.</span> <span class="toc-text">RapidOOO</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么使用-RapidOOO？"><span class="toc-number">1.1.</span> <span class="toc-text">为什么使用 RapidOOO？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#怎么使用？"><span class="toc-number">1.2.</span> <span class="toc-text">怎么使用？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#POJO-转换为-BO"><span class="toc-number">1.2.1.</span> <span class="toc-text">POJO 转换为 BO</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BO-转换为-VO"><span class="toc-number">1.2.2.</span> <span class="toc-text">BO 转换为 VO</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#License"><span class="toc-number">2.</span> <span class="toc-text">License</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://blog.wangjiegulu.com/2018/04/16/rapidooo-android-pojo-converter/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://blog.wangjiegulu.com/2018/04/16/rapidooo-android-pojo-converter/&text=Android POJO 转换器 —&gt; RapidOOO"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.wangjiegulu.com/2018/04/16/rapidooo-android-pojo-converter/&title=Android POJO 转换器 —&gt; RapidOOO"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.wangjiegulu.com/2018/04/16/rapidooo-android-pojo-converter/&is_video=false&description=Android POJO 转换器 —&gt; RapidOOO"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Android POJO 转换器 —&gt; RapidOOO&body=Check out this article: https://blog.wangjiegulu.com/2018/04/16/rapidooo-android-pojo-converter/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.wangjiegulu.com/2018/04/16/rapidooo-android-pojo-converter/&title=Android POJO 转换器 —&gt; RapidOOO"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.wangjiegulu.com/2018/04/16/rapidooo-android-pojo-converter/&title=Android POJO 转换器 —&gt; RapidOOO"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.wangjiegulu.com/2018/04/16/rapidooo-android-pojo-converter/&title=Android POJO 转换器 —&gt; RapidOOO"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://blog.wangjiegulu.com/2018/04/16/rapidooo-android-pojo-converter/&title=Android POJO 转换器 —&gt; RapidOOO"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.wangjiegulu.com/2018/04/16/rapidooo-android-pojo-converter/&name=Android POJO 转换器 —&gt; RapidOOO&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 Wang Jie
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/feed.xml">RSS</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-111189680-2', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'blog-wangjiegulu-com';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+
