@@ -5,7 +5,7 @@
     
   <url>
     <loc>https://blog.wangjiegulu.com/2018/04/16/rapidooo-android-pojo-converter/</loc>
-    <lastmod>2018-04-16T14:17:53.299Z</lastmod>
+    <lastmod>2018-04-20T11:57:20.842Z</lastmod>
     <data>
         <display>
         <title>Android POJO 转换器 —> RapidOOO</title>
@@ -1086,9 +1086,9 @@
         
         <tag>android</tag>
          
-        <tag>annotations</tag>
-         
         <tag>unit test</tag>
+         
+        <tag>annotations</tag>
          
         <tag>JUnit</tag>
          
@@ -2638,11 +2638,11 @@
          
         <tag>java</tag>
          
+        <tag>Hbase</tag>
+         
         <tag>j2ee</tag>
          
         <tag>java web</tag>
-         
-        <tag>Hbase</tag>
          
          
            
@@ -2661,11 +2661,11 @@
         
         <tag>orm</tag>
          
-        <tag>Hibernate</tag>
-         
         <tag>j2ee</tag>
          
         <tag>java web</tag>
+         
+        <tag>Hibernate</tag>
          
          
            
