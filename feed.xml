@@ -252,9 +252,9 @@
     
       <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
     
-      <category term="framework" scheme="https://blog.wangjiegulu.com/tags/framework/"/>
-    
       <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
+    
+      <category term="framework" scheme="https://blog.wangjiegulu.com/tags/framework/"/>
     
       <category term="dagger2" scheme="https://blog.wangjiegulu.com/tags/dagger2/"/>
     
@@ -422,6 +422,40 @@
   </entry>
   
   <entry>
+    <title>使用Google Cloud Platform(GCP GCE)安装SSR+BBR教程</title>
+    <link href="https://blog.wangjiegulu.com/2017/05/29/gcp-ssr/"/>
+    <id>https://blog.wangjiegulu.com/2017/05/29/gcp-ssr/</id>
+    <published>2017-05-29T09:52:00.000Z</published>
+    <updated>2018-04-28T05:03:38.744Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;使用Google-Cloud-Platform-GCP-GCE-安装SSR-BBR教程&quot;&gt;&lt;a href=&quot;#使用Google-Cloud-Platform-GCP-GCE-安装SSR-BBR教程&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="google cloud platform" scheme="https://blog.wangjiegulu.com/tags/google-cloud-platform/"/>
+    
+      <category term="gcp" scheme="https://blog.wangjiegulu.com/tags/gcp/"/>
+    
+      <category term="ssr" scheme="https://blog.wangjiegulu.com/tags/ssr/"/>
+    
+      <category term="shadowsocks" scheme="https://blog.wangjiegulu.com/tags/shadowsocks/"/>
+    
+      <category term="shadowsocksr" scheme="https://blog.wangjiegulu.com/tags/shadowsocksr/"/>
+    
+      <category term="vpn" scheme="https://blog.wangjiegulu.com/tags/vpn/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Gradle 插件 DiscardFilePlugin（class注入&amp;清空类和方法）</title>
     <link href="https://blog.wangjiegulu.com/2017/04/19/Android-Gradle-%E6%8F%92%E4%BB%B6-DiscardFilePlugin%EF%BC%88class%E6%B3%A8%E5%85%A5-%E6%B8%85%E7%A9%BA%E7%B1%BB%E5%92%8C%E6%96%B9%E6%B3%95%EF%BC%89/"/>
     <id>https://blog.wangjiegulu.com/2017/04/19/Android-Gradle-插件-DiscardFilePlugin（class注入-清空类和方法）/</id>
@@ -568,15 +602,15 @@
     
       <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
     
+      <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
+    
       <category term="dependency injection" scheme="https://blog.wangjiegulu.com/tags/dependency-injection/"/>
     
-      <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
+      <category term="google" scheme="https://blog.wangjiegulu.com/tags/google/"/>
     
       <category term="dagger2" scheme="https://blog.wangjiegulu.com/tags/dagger2/"/>
     
       <category term="DI" scheme="https://blog.wangjiegulu.com/tags/DI/"/>
-    
-      <category term="google" scheme="https://blog.wangjiegulu.com/tags/google/"/>
     
   </entry>
   
@@ -602,15 +636,15 @@
     
       <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
     
+      <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
+    
       <category term="dependency injection" scheme="https://blog.wangjiegulu.com/tags/dependency-injection/"/>
     
-      <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
+      <category term="google" scheme="https://blog.wangjiegulu.com/tags/google/"/>
     
       <category term="dagger2" scheme="https://blog.wangjiegulu.com/tags/dagger2/"/>
     
       <category term="DI" scheme="https://blog.wangjiegulu.com/tags/DI/"/>
-    
-      <category term="google" scheme="https://blog.wangjiegulu.com/tags/google/"/>
     
   </entry>
   
@@ -636,53 +670,19 @@
     
       <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
     
+      <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
+    
       <category term="dependency injection" scheme="https://blog.wangjiegulu.com/tags/dependency-injection/"/>
     
-      <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
+      <category term="google" scheme="https://blog.wangjiegulu.com/tags/google/"/>
     
       <category term="dagger2" scheme="https://blog.wangjiegulu.com/tags/dagger2/"/>
     
       <category term="DI" scheme="https://blog.wangjiegulu.com/tags/DI/"/>
-    
-      <category term="google" scheme="https://blog.wangjiegulu.com/tags/google/"/>
     
       <category term="RxJava" scheme="https://blog.wangjiegulu.com/tags/RxJava/"/>
     
       <category term="RxAndroid" scheme="https://blog.wangjiegulu.com/tags/RxAndroid/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>使用Dagger 2进行依赖注入 - Producers（翻译）</title>
-    <link href="https://blog.wangjiegulu.com/2016/12/29/Android-%E4%BD%BF%E7%94%A8Dagger-2%E8%BF%9B%E8%A1%8C%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5-Producers%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/"/>
-    <id>https://blog.wangjiegulu.com/2016/12/29/Android-使用Dagger-2进行依赖注入-Producers（翻译）/</id>
-    <published>2016-12-29T13:08:00.000Z</published>
-    <updated>2018-03-29T06:25:26.031Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;使用Dagger-2进行依赖注入-Producers&quot;&gt;&lt;a href=&quot;#使用Dagger-2进行依赖注入-Producers&quot; class=&quot;headerlink&quot; title=&quot;使用Dagger 2进行依赖注入 -
-        
-      
-    
-    </summary>
-    
-    
-      <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
-    
-      <category term="dependency injection" scheme="https://blog.wangjiegulu.com/tags/dependency-injection/"/>
-    
-      <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
-    
-      <category term="dagger2" scheme="https://blog.wangjiegulu.com/tags/dagger2/"/>
-    
-      <category term="DI" scheme="https://blog.wangjiegulu.com/tags/DI/"/>
-    
-      <category term="google" scheme="https://blog.wangjiegulu.com/tags/google/"/>
     
   </entry>
   
