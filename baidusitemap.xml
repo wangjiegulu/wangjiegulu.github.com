@@ -289,15 +289,15 @@
         
         <tag>android</tag>
          
-        <tag>翻译</tag>
-         
         <tag>dependency injection</tag>
          
-        <tag>google</tag>
+        <tag>翻译</tag>
          
         <tag>dagger2</tag>
          
         <tag>DI</tag>
+         
+        <tag>google</tag>
          
          
            
@@ -385,15 +385,15 @@
         
         <tag>android</tag>
          
-        <tag>翻译</tag>
-         
         <tag>dependency injection</tag>
          
-        <tag>google</tag>
+        <tag>翻译</tag>
          
         <tag>dagger2</tag>
          
         <tag>DI</tag>
+         
+        <tag>google</tag>
          
          
            
@@ -412,15 +412,15 @@
         
         <tag>android</tag>
          
-        <tag>翻译</tag>
-         
         <tag>dependency injection</tag>
          
-        <tag>google</tag>
+        <tag>翻译</tag>
          
         <tag>dagger2</tag>
          
         <tag>DI</tag>
+         
+        <tag>google</tag>
          
          
            
@@ -439,9 +439,9 @@
         
         <tag>android</tag>
          
-        <tag>翻译</tag>
-         
         <tag>dependency injection</tag>
+         
+        <tag>翻译</tag>
          
         <tag>dagger2</tag>
          
@@ -646,15 +646,15 @@
         
         <tag>android</tag>
          
-        <tag>翻译</tag>
-         
         <tag>dependency injection</tag>
          
-        <tag>google</tag>
+        <tag>翻译</tag>
          
         <tag>dagger2</tag>
          
         <tag>DI</tag>
+         
+        <tag>google</tag>
          
         <tag>RxJava</tag>
          
@@ -1113,9 +1113,9 @@
         
         <tag>android</tag>
          
-        <tag>annotations</tag>
-         
         <tag>unit test</tag>
+         
+        <tag>annotations</tag>
          
         <tag>JUnit</tag>
          
@@ -1182,15 +1182,15 @@
         
         <tag>android</tag>
          
-        <tag>翻译</tag>
-         
         <tag>dependency injection</tag>
          
-        <tag>google</tag>
+        <tag>翻译</tag>
          
         <tag>dagger2</tag>
          
         <tag>DI</tag>
+         
+        <tag>google</tag>
          
          
            
@@ -1209,15 +1209,15 @@
         
         <tag>android</tag>
          
-        <tag>翻译</tag>
-         
         <tag>dependency injection</tag>
          
-        <tag>google</tag>
+        <tag>翻译</tag>
          
         <tag>dagger2</tag>
          
         <tag>DI</tag>
+         
+        <tag>google</tag>
          
          
            
@@ -1263,15 +1263,15 @@
         
         <tag>android</tag>
          
-        <tag>翻译</tag>
-         
         <tag>dependency injection</tag>
          
-        <tag>google</tag>
+        <tag>翻译</tag>
          
         <tag>dagger2</tag>
          
         <tag>DI</tag>
+         
+        <tag>google</tag>
          
          
            
@@ -1361,15 +1361,15 @@
         
         <tag>android</tag>
          
-        <tag>翻译</tag>
-         
         <tag>dependency injection</tag>
          
-        <tag>google</tag>
+        <tag>翻译</tag>
          
         <tag>dagger2</tag>
          
         <tag>DI</tag>
+         
+        <tag>google</tag>
          
          
            
@@ -1388,9 +1388,9 @@
         
         <tag>android</tag>
          
-        <tag>翻译</tag>
-         
         <tag>framework</tag>
+         
+        <tag>翻译</tag>
          
         <tag>best practices</tag>
          
@@ -1763,9 +1763,9 @@
         
         <tag>android</tag>
          
-        <tag>翻译</tag>
-         
         <tag>framework</tag>
+         
+        <tag>翻译</tag>
          
         <tag>dagger2</tag>
          
@@ -3343,21 +3343,6 @@
 
     
   <url>
-    <loc>https://blog.wangjiegulu.com/2013/02/19/%E5%B7%A5%E5%85%B7%E5%BA%93-JOXMLBuilder%E5%B7%A5%E5%85%B7%E7%B1%BB%E2%80%94%E2%80%94%E4%B8%80%E9%94%AE%E6%8A%8A%E5%A4%9A%E4%B8%AAbean%E5%AF%B9%E8%B1%A1%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2%E4%B8%BAXML%E6%A0%BC%E5%BC%8F%E6%95%B0%E6%8D%AE/</loc>
-    <lastmod>2018-01-29T12:36:41.000Z</lastmod>
-    <data>
-        <display>
-        <title>[工具库]JOXMLBuilder工具类——一键把多个bean对象数据转换为XML格式数据</title>
-        <pubTime>2013-02-19T09:14:00.000Z</pubTime>
-        
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://blog.wangjiegulu.com/2013/02/20/%E5%B7%A5%E5%85%B7%E5%BA%93-JFileDownloader%E5%B7%A5%E5%85%B7%E7%B1%BB%E2%80%94%E2%80%94%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8B%E8%BD%BD%E7%BD%91%E7%BB%9C%E6%96%87%E4%BB%B6%EF%BC%8C%E5%B9%B6%E4%BF%9D%E5%AD%98%E5%9C%A8%E6%9C%AC%E5%9C%B0/</loc>
     <lastmod>2018-01-29T12:36:41.000Z</lastmod>
     <data>
@@ -3394,6 +3379,21 @@
         <display>
         <title>网络基础</title>
         <pubTime>2016-08-29T06:10:00.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://blog.wangjiegulu.com/2013/02/19/%E5%B7%A5%E5%85%B7%E5%BA%93-JOXMLBuilder%E5%B7%A5%E5%85%B7%E7%B1%BB%E2%80%94%E2%80%94%E4%B8%80%E9%94%AE%E6%8A%8A%E5%A4%9A%E4%B8%AAbean%E5%AF%B9%E8%B1%A1%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2%E4%B8%BAXML%E6%A0%BC%E5%BC%8F%E6%95%B0%E6%8D%AE/</loc>
+    <lastmod>2018-01-29T12:36:41.000Z</lastmod>
+    <data>
+        <display>
+        <title>[工具库]JOXMLBuilder工具类——一键把多个bean对象数据转换为XML格式数据</title>
+        <pubTime>2013-02-19T09:14:00.000Z</pubTime>
         
          
            
