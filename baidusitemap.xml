@@ -5,7 +5,7 @@
     
   <url>
     <loc>https://blog.wangjiegulu.com/2017/10/28/focus_library_opensource/</loc>
-    <lastmod>2018-05-30T08:54:39.561Z</lastmod>
+    <lastmod>2018-05-30T08:58:12.626Z</lastmod>
     <data>
         <display>
         <title>当贝焦点库内部分享新思路</title>
@@ -15,13 +15,7 @@
          
         <tag>library</tag>
          
-        <tag>sqlite</tag>
-         
-        <tag>database</tag>
-         
-        <tag>orm</tag>
-         
-        <tag>rapidorm</tag>
+        <tag>focus</tag>
          
          
            
@@ -320,11 +314,11 @@
          
         <tag>翻译</tag>
          
+        <tag>google</tag>
+         
         <tag>dagger2</tag>
          
         <tag>DI</tag>
-         
-        <tag>google</tag>
          
          
            
@@ -416,11 +410,11 @@
          
         <tag>翻译</tag>
          
+        <tag>google</tag>
+         
         <tag>dagger2</tag>
          
         <tag>DI</tag>
-         
-        <tag>google</tag>
          
          
            
@@ -443,11 +437,11 @@
          
         <tag>翻译</tag>
          
+        <tag>google</tag>
+         
         <tag>dagger2</tag>
          
         <tag>DI</tag>
-         
-        <tag>google</tag>
          
          
            
@@ -650,9 +644,9 @@
         
         <tag>android</tag>
          
-        <tag>library</tag>
-         
         <tag>github</tag>
+         
+        <tag>library</tag>
          
         <tag>WheelView</tag>
          
@@ -677,11 +671,11 @@
          
         <tag>翻译</tag>
          
+        <tag>google</tag>
+         
         <tag>dagger2</tag>
          
         <tag>DI</tag>
-         
-        <tag>google</tag>
          
         <tag>RxJava</tag>
          
@@ -754,13 +748,13 @@
         <title>[Android]官网《monkeyrunner》中文翻译</title>
         <pubTime>2015-12-16T04:20:00.000Z</pubTime>
         
+        <tag>testing</tag>
+         
         <tag>android</tag>
          
         <tag>翻译</tag>
          
         <tag>monkey</tag>
-         
-        <tag>testing</tag>
          
         <tag>MonkeyRunner</tag>
          
@@ -950,13 +944,13 @@
         <title>[Android]官网《UI/Application Exerciser Monkey》中文翻译</title>
         <pubTime>2015-12-15T10:11:00.000Z</pubTime>
         
+        <tag>testing</tag>
+         
         <tag>android</tag>
          
         <tag>翻译</tag>
          
         <tag>monkey</tag>
-         
-        <tag>testing</tag>
          
         <tag>adb</tag>
          
@@ -1021,13 +1015,13 @@
         <title>[Android]官网《Testing Support Library》中文翻译</title>
         <pubTime>2015-12-15T07:44:00.000Z</pubTime>
         
+        <tag>testing</tag>
+         
         <tag>android</tag>
          
         <tag>翻译</tag>
          
         <tag>google</tag>
-         
-        <tag>testing</tag>
          
         <tag>support</tag>
          
@@ -1140,9 +1134,9 @@
         
         <tag>android</tag>
          
-        <tag>unit test</tag>
-         
         <tag>annotations</tag>
+         
+        <tag>unit test</tag>
          
         <tag>JUnit</tag>
          
@@ -1213,11 +1207,11 @@
          
         <tag>翻译</tag>
          
+        <tag>google</tag>
+         
         <tag>dagger2</tag>
          
         <tag>DI</tag>
-         
-        <tag>google</tag>
          
          
            
@@ -1240,11 +1234,11 @@
          
         <tag>翻译</tag>
          
+        <tag>google</tag>
+         
         <tag>dagger2</tag>
          
         <tag>DI</tag>
-         
-        <tag>google</tag>
          
          
            
@@ -1294,11 +1288,11 @@
          
         <tag>翻译</tag>
          
+        <tag>google</tag>
+         
         <tag>dagger2</tag>
          
         <tag>DI</tag>
-         
-        <tag>google</tag>
          
          
            
@@ -1392,11 +1386,11 @@
          
         <tag>翻译</tag>
          
+        <tag>google</tag>
+         
         <tag>dagger2</tag>
          
         <tag>DI</tag>
-         
-        <tag>google</tag>
          
          
            
@@ -3370,21 +3364,6 @@
 
     
   <url>
-    <loc>https://blog.wangjiegulu.com/2016/08/29/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/</loc>
-    <lastmod>2018-01-29T12:36:41.000Z</lastmod>
-    <data>
-        <display>
-        <title>网络基础</title>
-        <pubTime>2016-08-29T06:10:00.000Z</pubTime>
-        
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://blog.wangjiegulu.com/2012/06/15/%E8%AE%BE%E7%BD%AEEditText%E6%98%AF%E5%90%A6%E5%8F%AF%E7%BC%96%E8%BE%91/</loc>
     <lastmod>2018-01-29T12:36:41.000Z</lastmod>
     <data>
@@ -3406,6 +3385,21 @@
         <display>
         <title>[工具库]JFileDownloader工具类——多线程下载网络文件，并保存在本地</title>
         <pubTime>2013-02-20T09:37:00.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://blog.wangjiegulu.com/2016/08/29/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/</loc>
+    <lastmod>2018-01-29T12:36:41.000Z</lastmod>
+    <data>
+        <display>
+        <title>网络基础</title>
+        <pubTime>2016-08-29T06:10:00.000Z</pubTime>
         
          
            
