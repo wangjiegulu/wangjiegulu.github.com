@@ -349,34 +349,6 @@
   </entry>
   
   <entry>
-    <title>当贝焦点库内部分享新思路</title>
-    <link href="https://blog.wangjiegulu.com/2017/10/28/focus_library_opensource/"/>
-    <id>https://blog.wangjiegulu.com/2017/10/28/focus_library_opensource/</id>
-    <published>2017-10-28T09:32:00.000Z</published>
-    <updated>2018-05-30T08:58:12.626Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;当贝焦点库内部分享新思路&quot;&gt;&lt;a href=&quot;#当贝焦点库内部分享新思路&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-    
-      <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
-    
-      <category term="library" scheme="https://blog.wangjiegulu.com/tags/library/"/>
-    
-      <category term="focus" scheme="https://blog.wangjiegulu.com/tags/focus/"/>
-    
-  </entry>
-  
-  <entry>
     <title>应朋友死皮白咧地邀请贴一个招聘广告</title>
     <link href="https://blog.wangjiegulu.com/2017/09/25/%E5%BA%94%E6%9C%8B%E5%8F%8B%E6%AD%BB%E7%9A%AE%E7%99%BD%E5%92%A7%E5%9C%B0%E9%82%80%E8%AF%B7%E8%B4%B4%E4%B8%80%E4%B8%AA%E6%8B%9B%E8%81%98%E5%B9%BF%E5%91%8A/"/>
     <id>https://blog.wangjiegulu.com/2017/09/25/应朋友死皮白咧地邀请贴一个招聘广告/</id>
@@ -634,11 +606,11 @@
     
       <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
     
-      <category term="google" scheme="https://blog.wangjiegulu.com/tags/google/"/>
-    
       <category term="dagger2" scheme="https://blog.wangjiegulu.com/tags/dagger2/"/>
     
       <category term="DI" scheme="https://blog.wangjiegulu.com/tags/DI/"/>
+    
+      <category term="google" scheme="https://blog.wangjiegulu.com/tags/google/"/>
     
   </entry>
   
@@ -668,11 +640,49 @@
     
       <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
     
+      <category term="dagger2" scheme="https://blog.wangjiegulu.com/tags/dagger2/"/>
+    
+      <category term="DI" scheme="https://blog.wangjiegulu.com/tags/DI/"/>
+    
       <category term="google" scheme="https://blog.wangjiegulu.com/tags/google/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>在Dagger 2中使用RxJava来进行异步注入（翻译）</title>
+    <link href="https://blog.wangjiegulu.com/2016/12/30/Android-%E5%9C%A8Dagger-2%E4%B8%AD%E4%BD%BF%E7%94%A8RxJava%E6%9D%A5%E8%BF%9B%E8%A1%8C%E5%BC%82%E6%AD%A5%E6%B3%A8%E5%85%A5%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/"/>
+    <id>https://blog.wangjiegulu.com/2016/12/30/Android-在Dagger-2中使用RxJava来进行异步注入（翻译）/</id>
+    <published>2016-12-30T05:53:00.000Z</published>
+    <updated>2018-03-29T06:28:57.386Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;在Dagger-2中使用RxJava来进行异步注入&quot;&gt;&lt;a href=&quot;#在Dagger-2中使用RxJava来进行异步注入&quot; class=&quot;headerlink&quot; title=&quot;在Dagger 2中使用RxJava来进行异步注入&quot;&gt;&lt;/a&gt;在Dagger
+        
+      
+    
+    </summary>
+    
+    
+      <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
+    
+      <category term="dependency injection" scheme="https://blog.wangjiegulu.com/tags/dependency-injection/"/>
+    
+      <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
     
       <category term="dagger2" scheme="https://blog.wangjiegulu.com/tags/dagger2/"/>
     
       <category term="DI" scheme="https://blog.wangjiegulu.com/tags/DI/"/>
+    
+      <category term="google" scheme="https://blog.wangjiegulu.com/tags/google/"/>
+    
+      <category term="RxJava" scheme="https://blog.wangjiegulu.com/tags/RxJava/"/>
+    
+      <category term="RxAndroid" scheme="https://blog.wangjiegulu.com/tags/RxAndroid/"/>
     
   </entry>
   
