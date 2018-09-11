@@ -4,7 +4,7 @@
 
 First, Download and install IFCTT App：
 
-Google Play：
+Google Play：<https://play.google.com/store/apps/details?id=com.wangjie.ifctt>
 
 # IFCTT Email configuration
 
