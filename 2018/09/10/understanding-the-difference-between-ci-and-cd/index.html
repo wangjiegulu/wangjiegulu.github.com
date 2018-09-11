@@ -6,18 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="理解 CI 和 DI 之间的区别 原文：https://thenewstack.io/understanding-the-difference-between-ci-and-cd/?utm_source=wanqu.co&amp;amp;utm_campaign=Wanqu+Daily&amp;amp;utm_medium=website  有很多关于持续集成（CI）和持续交付（CD）的资料。很多文章用技术术语来">
+    <meta name="description" content="理解 CI 和 CD 之间的区别 原文：https://thenewstack.io/understanding-the-difference-between-ci-and-cd/?utm_source=wanqu.co&amp;amp;utm_campaign=Wanqu+Daily&amp;amp;utm_medium=website  有很多关于持续集成（CI）和持续交付（CD）的资料。很多文章用技术术语来">
 <meta name="keywords" content="CI,Continuous Integration,持续集成,CD,Continuous Delivery,持续交付,Continuous Deployment,持续部署">
 <meta property="og:type" content="article">
 <meta property="og:title" content="理解 CI 和 CD 之间的区别（翻译）">
 <meta property="og:url" content="https://blog.wangjiegulu.com/2018/09/10/understanding-the-difference-between-ci-and-cd/index.html">
 <meta property="og:site_name" content="Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer">
-<meta property="og:description" content="理解 CI 和 DI 之间的区别 原文：https://thenewstack.io/understanding-the-difference-between-ci-and-cd/?utm_source=wanqu.co&amp;amp;utm_campaign=Wanqu+Daily&amp;amp;utm_medium=website  有很多关于持续集成（CI）和持续交付（CD）的资料。很多文章用技术术语来">
+<meta property="og:description" content="理解 CI 和 CD 之间的区别 原文：https://thenewstack.io/understanding-the-difference-between-ci-and-cd/?utm_source=wanqu.co&amp;amp;utm_campaign=Wanqu+Daily&amp;amp;utm_medium=website  有很多关于持续集成（CI）和持续交付（CD）的资料。很多文章用技术术语来">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-09-11T05:16:26.795Z">
+<meta property="og:updated_time" content="2018-09-11T05:16:49.850Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="理解 CI 和 CD 之间的区别（翻译）">
-<meta name="twitter:description" content="理解 CI 和 DI 之间的区别 原文：https://thenewstack.io/understanding-the-difference-between-ci-and-cd/?utm_source=wanqu.co&amp;amp;utm_campaign=Wanqu+Daily&amp;amp;utm_medium=website  有很多关于持续集成（CI）和持续交付（CD）的资料。很多文章用技术术语来">
+<meta name="twitter:description" content="理解 CI 和 CD 之间的区别 原文：https://thenewstack.io/understanding-the-difference-between-ci-and-cd/?utm_source=wanqu.co&amp;amp;utm_campaign=Wanqu+Daily&amp;amp;utm_medium=website  有很多关于持续集成（CI）和持续交付（CD）的资料。很多文章用技术术语来">
     
     
         
@@ -118,7 +118,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#理解-CI-和-DI-之间的区别"><span class="toc-number">1.</span> <span class="toc-text">理解 CI 和 DI 之间的区别</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#关于人的故事-—-软件集成的黑暗时代"><span class="toc-number">1.1.</span> <span class="toc-text">关于人的故事 — 软件集成的黑暗时代</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在集成中增加“持续”"><span class="toc-number">1.2.</span> <span class="toc-text">在集成中增加“持续”</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#软件交付的黑暗时代"><span class="toc-number">1.3.</span> <span class="toc-text">软件交付的黑暗时代</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在交付中增加“持续”"><span class="toc-number">1.4.</span> <span class="toc-text">在交付中增加“持续”</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#额外奖励：持续部署"><span class="toc-number">1.5.</span> <span class="toc-text">额外奖励：持续部署</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#理解-CI-和-CD-之间的区别"><span class="toc-number">1.</span> <span class="toc-text">理解 CI 和 CD 之间的区别</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#关于人的故事-—-软件集成的黑暗时代"><span class="toc-number">1.1.</span> <span class="toc-text">关于人的故事 — 软件集成的黑暗时代</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在集成中增加“持续”"><span class="toc-number">1.2.</span> <span class="toc-text">在集成中增加“持续”</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#软件交付的黑暗时代"><span class="toc-number">1.3.</span> <span class="toc-text">软件交付的黑暗时代</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在交付中增加“持续”"><span class="toc-number">1.4.</span> <span class="toc-text">在交付中增加“持续”</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#额外奖励：持续部署"><span class="toc-number">1.5.</span> <span class="toc-text">额外奖励：持续部署</span></a></li></ol></li></ol>
     </div>
   </span>
 </div>
@@ -169,7 +169,7 @@
       
     
 
-    <h1 id="理解-CI-和-DI-之间的区别"><a href="#理解-CI-和-DI-之间的区别" class="headerlink" title="理解 CI 和 DI 之间的区别"></a>理解 CI 和 DI 之间的区别</h1><blockquote>
+    <h1 id="理解-CI-和-CD-之间的区别"><a href="#理解-CI-和-CD-之间的区别" class="headerlink" title="理解 CI 和 CD 之间的区别"></a>理解 CI 和 CD 之间的区别</h1><blockquote>
 <p>原文：<a href="https://thenewstack.io/understanding-the-difference-between-ci-and-cd/?utm_source=wanqu.co&amp;utm_campaign=Wanqu+Daily&amp;utm_medium=website" target="_blank" rel="noopener">https://thenewstack.io/understanding-the-difference-between-ci-and-cd/?utm_source=wanqu.co&amp;utm_campaign=Wanqu+Daily&amp;utm_medium=website</a></p>
 </blockquote>
 <p>有很多关于持续集成（CI）和持续交付（CD）的资料。很多文章用技术术语来进行解释，以及它们怎么帮助你的组织。可惜的是，在一些情况下，这些方法通常与特定工具、甚至供应商相关联。在公司食堂里非常常见的谈话可能是：</p>
@@ -305,7 +305,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#理解-CI-和-DI-之间的区别"><span class="toc-number">1.</span> <span class="toc-text">理解 CI 和 DI 之间的区别</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#关于人的故事-—-软件集成的黑暗时代"><span class="toc-number">1.1.</span> <span class="toc-text">关于人的故事 — 软件集成的黑暗时代</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在集成中增加“持续”"><span class="toc-number">1.2.</span> <span class="toc-text">在集成中增加“持续”</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#软件交付的黑暗时代"><span class="toc-number">1.3.</span> <span class="toc-text">软件交付的黑暗时代</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在交付中增加“持续”"><span class="toc-number">1.4.</span> <span class="toc-text">在交付中增加“持续”</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#额外奖励：持续部署"><span class="toc-number">1.5.</span> <span class="toc-text">额外奖励：持续部署</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#理解-CI-和-CD-之间的区别"><span class="toc-number">1.</span> <span class="toc-text">理解 CI 和 CD 之间的区别</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#关于人的故事-—-软件集成的黑暗时代"><span class="toc-number">1.1.</span> <span class="toc-text">关于人的故事 — 软件集成的黑暗时代</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在集成中增加“持续”"><span class="toc-number">1.2.</span> <span class="toc-text">在集成中增加“持续”</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#软件交付的黑暗时代"><span class="toc-number">1.3.</span> <span class="toc-text">软件交付的黑暗时代</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在交付中增加“持续”"><span class="toc-number">1.4.</span> <span class="toc-text">在交付中增加“持续”</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#额外奖励：持续部署"><span class="toc-number">1.5.</span> <span class="toc-text">额外奖励：持续部署</span></a></li></ol></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
