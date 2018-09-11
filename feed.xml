@@ -6,7 +6,7 @@
   <link href="/feed.xml" rel="self"/>
   
   <link href="https://blog.wangjiegulu.com/"/>
-  <updated>2018-04-20T11:57:20.842Z</updated>
+  <updated>2018-09-11T05:10:18.164Z</updated>
   <id>https://blog.wangjiegulu.com/</id>
   
   <author>
@@ -17,11 +17,53 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>理解 CI 和 CD 之间的区别（翻译）</title>
+    <link href="https://blog.wangjiegulu.com/2018/09/10/understanding-the-difference-between-ci-and-cd/"/>
+    <id>https://blog.wangjiegulu.com/2018/09/10/understanding-the-difference-between-ci-and-cd/</id>
+    <published>2018-09-10T05:24:27.761Z</published>
+    <updated>2018-09-11T05:10:18.164Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;理解-CI-和-DI-之间的区别&quot;&gt;&lt;a href=&quot;#理解-CI-和-DI-之间的区别&quot; class=&quot;headerlink&quot; title=&quot;理解 CI 和 DI 之间的区别&quot;&gt;&lt;/a&gt;理解 CI 和 DI
+        
+      
+    
+    </summary>
+    
+      <category term="android" scheme="https://blog.wangjiegulu.com/categories/android/"/>
+    
+      <category term="pojo converter" scheme="https://blog.wangjiegulu.com/categories/android/pojo-converter/"/>
+    
+    
+      <category term="CI" scheme="https://blog.wangjiegulu.com/tags/CI/"/>
+    
+      <category term="Continuous Integration" scheme="https://blog.wangjiegulu.com/tags/Continuous-Integration/"/>
+    
+      <category term="持续集成" scheme="https://blog.wangjiegulu.com/tags/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/"/>
+    
+      <category term="CD" scheme="https://blog.wangjiegulu.com/tags/CD/"/>
+    
+      <category term="Continuous Delivery" scheme="https://blog.wangjiegulu.com/tags/Continuous-Delivery/"/>
+    
+      <category term="持续交付" scheme="https://blog.wangjiegulu.com/tags/%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98/"/>
+    
+      <category term="Continuous Deployment" scheme="https://blog.wangjiegulu.com/tags/Continuous-Deployment/"/>
+    
+      <category term="持续部署" scheme="https://blog.wangjiegulu.com/tags/%E6%8C%81%E7%BB%AD%E9%83%A8%E7%BD%B2/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Android POJO 转换器 —&gt; RapidOOO</title>
     <link href="https://blog.wangjiegulu.com/2018/04/16/rapidooo-android-pojo-converter/"/>
     <id>https://blog.wangjiegulu.com/2018/04/16/rapidooo-android-pojo-converter/</id>
-    <published>2018-04-16T12:07:16.654Z</published>
-    <updated>2018-04-20T11:57:20.842Z</updated>
+    <published>2018-04-16T12:07:16.000Z</published>
+    <updated>2018-04-20T11:57:20.000Z</updated>
     
     <summary type="html">
     
@@ -64,8 +106,8 @@
     <title>Huginn实现自动通过slack推送豆瓣高分电影</title>
     <link href="https://blog.wangjiegulu.com/2018/04/03/huginn_douban_high_score_movies_and_slack/"/>
     <id>https://blog.wangjiegulu.com/2018/04/03/huginn_douban_high_score_movies_and_slack/</id>
-    <published>2018-04-03T08:33:40.844Z</published>
-    <updated>2018-04-04T13:39:25.945Z</updated>
+    <published>2018-04-03T08:33:40.000Z</published>
+    <updated>2018-04-04T13:39:25.000Z</updated>
     
     <summary type="html">
     
@@ -106,8 +148,8 @@
     <title>Huginn及环境搭建</title>
     <link href="https://blog.wangjiegulu.com/2018/04/02/build_the_environment_for_huginn/"/>
     <id>https://blog.wangjiegulu.com/2018/04/02/build_the_environment_for_huginn/</id>
-    <published>2018-04-02T13:07:39.914Z</published>
-    <updated>2018-04-04T08:36:48.040Z</updated>
+    <published>2018-04-02T13:07:39.000Z</published>
+    <updated>2018-04-04T08:36:48.000Z</updated>
     
     <summary type="html">
     
@@ -144,8 +186,8 @@
     <title>上传到多个Maven仓库的Gradle插件RapidMavenPushPlugin</title>
     <link href="https://blog.wangjiegulu.com/2018/03/16/rapid_maven_push_plugin_for_android/"/>
     <id>https://blog.wangjiegulu.com/2018/03/16/rapid_maven_push_plugin_for_android/</id>
-    <published>2018-03-16T06:08:04.098Z</published>
-    <updated>2018-03-26T10:22:18.886Z</updated>
+    <published>2018-03-16T06:08:04.000Z</published>
+    <updated>2018-03-26T10:22:18.000Z</updated>
     
     <summary type="html">
     
@@ -309,7 +351,7 @@
     <link href="https://blog.wangjiegulu.com/2017/12/20/Android-App-IFCTT%EF%BC%8C%E5%8D%B3If-Copy-Then-That%EF%BC%8C%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8EIFTTT%E7%9A%84-This-%E5%AE%9E%E7%8E%B0/"/>
     <id>https://blog.wangjiegulu.com/2017/12/20/Android-App-IFCTT，即If-Copy-Then-That，一个基于IFTTT的-This-实现/</id>
     <published>2017-12-20T04:41:00.000Z</published>
-    <updated>2018-03-26T11:27:46.327Z</updated>
+    <updated>2018-03-26T11:27:46.000Z</updated>
     
     <summary type="html">
     
@@ -377,7 +419,7 @@
     <link href="https://blog.wangjiegulu.com/2017/08/04/Android-Android%E7%84%A6%E7%82%B9%E6%B5%81%E7%A8%8B%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/"/>
     <id>https://blog.wangjiegulu.com/2017/08/04/Android-Android焦点流程代码分析/</id>
     <published>2017-08-04T10:08:00.000Z</published>
-    <updated>2018-03-29T06:24:05.727Z</updated>
+    <updated>2018-03-29T06:24:05.000Z</updated>
     
     <summary type="html">
     
@@ -426,7 +468,7 @@
     <link href="https://blog.wangjiegulu.com/2017/05/29/gcp-ssr/"/>
     <id>https://blog.wangjiegulu.com/2017/05/29/gcp-ssr/</id>
     <published>2017-05-29T09:52:00.000Z</published>
-    <updated>2018-04-28T05:03:38.744Z</updated>
+    <updated>2018-04-28T05:03:38.000Z</updated>
     
     <summary type="html">
     
@@ -460,7 +502,7 @@
     <link href="https://blog.wangjiegulu.com/2017/04/19/Android-Gradle-%E6%8F%92%E4%BB%B6-DiscardFilePlugin%EF%BC%88class%E6%B3%A8%E5%85%A5-%E6%B8%85%E7%A9%BA%E7%B1%BB%E5%92%8C%E6%96%B9%E6%B3%95%EF%BC%89/"/>
     <id>https://blog.wangjiegulu.com/2017/04/19/Android-Gradle-插件-DiscardFilePlugin（class注入-清空类和方法）/</id>
     <published>2017-04-19T02:40:00.000Z</published>
-    <updated>2018-03-29T06:28:36.326Z</updated>
+    <updated>2018-03-29T06:28:36.000Z</updated>
     
     <summary type="html">
     
@@ -487,7 +529,7 @@
     <link href="https://blog.wangjiegulu.com/2017/04/11/NDK%E9%85%8D%E7%BD%AE/"/>
     <id>https://blog.wangjiegulu.com/2017/04/11/NDK配置/</id>
     <published>2017-04-11T04:09:00.000Z</published>
-    <updated>2018-03-26T10:22:32.901Z</updated>
+    <updated>2018-03-26T10:22:32.000Z</updated>
     
     <summary type="html">
     
@@ -514,7 +556,7 @@
     <link href="https://blog.wangjiegulu.com/2017/04/10/CPP-Note/"/>
     <id>https://blog.wangjiegulu.com/2017/04/10/CPP-Note/</id>
     <published>2017-04-10T07:05:00.000Z</published>
-    <updated>2018-03-26T10:23:45.344Z</updated>
+    <updated>2018-03-26T10:23:45.000Z</updated>
     
     <summary type="html">
     
@@ -535,7 +577,7 @@
     <link href="https://blog.wangjiegulu.com/2017/03/29/Android-%E4%BD%BF%E7%94%A8RecyclerView%E6%9B%BF%E4%BB%A3ListView%EF%BC%88%E5%9B%9B%EF%BC%9ASeizeRecyclerView%EF%BC%89/"/>
     <id>https://blog.wangjiegulu.com/2017/03/29/Android-使用RecyclerView替代ListView（四：SeizeRecyclerView）/</id>
     <published>2017-03-29T13:09:00.000Z</published>
-    <updated>2018-03-29T06:28:22.567Z</updated>
+    <updated>2018-03-29T06:28:22.000Z</updated>
     
     <summary type="html">
     
@@ -561,7 +603,7 @@
     <link href="https://blog.wangjiegulu.com/2017/02/04/Lottie%E7%AE%80%E4%BB%8B%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/"/>
     <id>https://blog.wangjiegulu.com/2017/02/04/Lottie简介（翻译）/</id>
     <published>2017-02-04T04:21:00.000Z</published>
-    <updated>2018-03-29T06:29:04.545Z</updated>
+    <updated>2018-03-29T06:29:04.000Z</updated>
     
     <summary type="html">
     
@@ -588,7 +630,7 @@
     <link href="https://blog.wangjiegulu.com/2017/01/09/Android-%E5%9C%A8Dagger-2%E4%B8%ADActivities%E5%92%8CSubcomponents%E7%9A%84%E5%A4%9A%E7%BB%91%E5%AE%9A%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/"/>
     <id>https://blog.wangjiegulu.com/2017/01/09/Android-在Dagger-2中Activities和Subcomponents的多绑定（翻译）/</id>
     <published>2017-01-09T12:23:00.000Z</published>
-    <updated>2018-03-29T06:30:20.484Z</updated>
+    <updated>2018-03-29T06:30:20.000Z</updated>
     
     <summary type="html">
     
@@ -606,11 +648,11 @@
     
       <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
     
-      <category term="google" scheme="https://blog.wangjiegulu.com/tags/google/"/>
-    
       <category term="dagger2" scheme="https://blog.wangjiegulu.com/tags/dagger2/"/>
     
       <category term="DI" scheme="https://blog.wangjiegulu.com/tags/DI/"/>
+    
+      <category term="google" scheme="https://blog.wangjiegulu.com/tags/google/"/>
     
   </entry>
   
@@ -619,7 +661,7 @@
     <link href="https://blog.wangjiegulu.com/2016/12/30/Android-%E4%BD%BF%E7%94%A8Dagger-2%E6%9D%A5%E6%9E%84%E5%BB%BAUserScope%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/"/>
     <id>https://blog.wangjiegulu.com/2016/12/30/Android-使用Dagger-2来构建UserScope（翻译）/</id>
     <published>2016-12-30T09:23:00.000Z</published>
-    <updated>2018-03-29T06:25:08.498Z</updated>
+    <updated>2018-03-29T06:25:08.000Z</updated>
     
     <summary type="html">
     
@@ -640,49 +682,11 @@
     
       <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
     
-      <category term="google" scheme="https://blog.wangjiegulu.com/tags/google/"/>
-    
       <category term="dagger2" scheme="https://blog.wangjiegulu.com/tags/dagger2/"/>
     
       <category term="DI" scheme="https://blog.wangjiegulu.com/tags/DI/"/>
     
-  </entry>
-  
-  <entry>
-    <title>在Dagger 2中使用RxJava来进行异步注入（翻译）</title>
-    <link href="https://blog.wangjiegulu.com/2016/12/30/Android-%E5%9C%A8Dagger-2%E4%B8%AD%E4%BD%BF%E7%94%A8RxJava%E6%9D%A5%E8%BF%9B%E8%A1%8C%E5%BC%82%E6%AD%A5%E6%B3%A8%E5%85%A5%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/"/>
-    <id>https://blog.wangjiegulu.com/2016/12/30/Android-在Dagger-2中使用RxJava来进行异步注入（翻译）/</id>
-    <published>2016-12-30T05:53:00.000Z</published>
-    <updated>2018-03-29T06:28:57.386Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;在Dagger-2中使用RxJava来进行异步注入&quot;&gt;&lt;a href=&quot;#在Dagger-2中使用RxJava来进行异步注入&quot; class=&quot;headerlink&quot; title=&quot;在Dagger 2中使用RxJava来进行异步注入&quot;&gt;&lt;/a&gt;在Dagger
-        
-      
-    
-    </summary>
-    
-    
-      <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
-    
-      <category term="dependency injection" scheme="https://blog.wangjiegulu.com/tags/dependency-injection/"/>
-    
-      <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
-    
       <category term="google" scheme="https://blog.wangjiegulu.com/tags/google/"/>
-    
-      <category term="dagger2" scheme="https://blog.wangjiegulu.com/tags/dagger2/"/>
-    
-      <category term="DI" scheme="https://blog.wangjiegulu.com/tags/DI/"/>
-    
-      <category term="RxJava" scheme="https://blog.wangjiegulu.com/tags/RxJava/"/>
-    
-      <category term="RxAndroid" scheme="https://blog.wangjiegulu.com/tags/RxAndroid/"/>
     
   </entry>
   
