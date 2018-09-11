@@ -6,7 +6,7 @@
   <link href="/feed.xml" rel="self"/>
   
   <link href="https://blog.wangjiegulu.com/"/>
-  <updated>2018-09-11T05:10:18.164Z</updated>
+  <updated>2018-09-11T05:16:26.795Z</updated>
   <id>https://blog.wangjiegulu.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://blog.wangjiegulu.com/2018/09/10/understanding-the-difference-between-ci-and-cd/"/>
     <id>https://blog.wangjiegulu.com/2018/09/10/understanding-the-difference-between-ci-and-cd/</id>
     <published>2018-09-10T05:24:27.761Z</published>
-    <updated>2018-09-11T05:10:18.164Z</updated>
+    <updated>2018-09-11T05:16:26.795Z</updated>
     
     <summary type="html">
     
@@ -35,9 +35,9 @@
     
     </summary>
     
-      <category term="android" scheme="https://blog.wangjiegulu.com/categories/android/"/>
+      <category term="ci" scheme="https://blog.wangjiegulu.com/categories/ci/"/>
     
-      <category term="pojo converter" scheme="https://blog.wangjiegulu.com/categories/android/pojo-converter/"/>
+      <category term="cd" scheme="https://blog.wangjiegulu.com/categories/ci/cd/"/>
     
     
       <category term="CI" scheme="https://blog.wangjiegulu.com/tags/CI/"/>

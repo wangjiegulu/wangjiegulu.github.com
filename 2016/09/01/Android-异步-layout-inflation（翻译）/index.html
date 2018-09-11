@@ -6,18 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="异步 layout inflation 原文：&amp;#x68;&amp;#116;&amp;#116;&amp;#112;&amp;#115;&amp;#x3a;&amp;#47;&amp;#47;&amp;#109;&amp;#x65;&amp;#100;&amp;#105;&amp;#x75;&amp;#x6d;&amp;#x2e;&amp;#99;&amp;#111;&amp;#x6d;&amp;#x2f;&amp;#64;&amp;#x6c;&amp;#x75;&amp;#x70;&amp;#97;&amp;#x6a;&amp;#x7a;&amp;#x2f;&amp;#x61;&amp;#x73;&amp;#x79;&amp;#">
+    <meta name="description" content="异步 layout inflation 原文：&amp;#104;&amp;#x74;&amp;#116;&amp;#112;&amp;#x73;&amp;#x3a;&amp;#47;&amp;#x2f;&amp;#109;&amp;#x65;&amp;#100;&amp;#105;&amp;#x75;&amp;#109;&amp;#x2e;&amp;#99;&amp;#111;&amp;#x6d;&amp;#x2f;&amp;#64;&amp;#108;&amp;#x75;&amp;#112;&amp;#x61;&amp;#x6a;&amp;#x7a;&amp;#47;&amp;#97;&amp;#x73;&amp;#x79;&amp;#">
 <meta name="keywords" content="android,翻译,layout,inflation,asynchronize,async">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Android]异步 layout inflation（翻译）">
 <meta property="og:url" content="https://blog.wangjiegulu.com/2016/09/01/Android-异步-layout-inflation（翻译）/index.html">
 <meta property="og:site_name" content="Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer">
-<meta property="og:description" content="异步 layout inflation 原文：&amp;#x68;&amp;#116;&amp;#116;&amp;#112;&amp;#115;&amp;#x3a;&amp;#47;&amp;#47;&amp;#109;&amp;#x65;&amp;#100;&amp;#105;&amp;#x75;&amp;#x6d;&amp;#x2e;&amp;#99;&amp;#111;&amp;#x6d;&amp;#x2f;&amp;#64;&amp;#x6c;&amp;#x75;&amp;#x70;&amp;#97;&amp;#x6a;&amp;#x7a;&amp;#x2f;&amp;#x61;&amp;#x73;&amp;#x79;&amp;#">
+<meta property="og:description" content="异步 layout inflation 原文：&amp;#104;&amp;#x74;&amp;#116;&amp;#112;&amp;#x73;&amp;#x3a;&amp;#47;&amp;#x2f;&amp;#109;&amp;#x65;&amp;#100;&amp;#105;&amp;#x75;&amp;#109;&amp;#x2e;&amp;#99;&amp;#111;&amp;#x6d;&amp;#x2f;&amp;#64;&amp;#108;&amp;#x75;&amp;#112;&amp;#x61;&amp;#x6a;&amp;#x7a;&amp;#47;&amp;#97;&amp;#x73;&amp;#x79;&amp;#">
 <meta property="og:locale" content="en">
 <meta property="og:updated_time" content="2018-03-29T06:26:56.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[Android]异步 layout inflation（翻译）">
-<meta name="twitter:description" content="异步 layout inflation 原文：&amp;#x68;&amp;#116;&amp;#116;&amp;#112;&amp;#115;&amp;#x3a;&amp;#47;&amp;#47;&amp;#109;&amp;#x65;&amp;#100;&amp;#105;&amp;#x75;&amp;#x6d;&amp;#x2e;&amp;#99;&amp;#111;&amp;#x6d;&amp;#x2f;&amp;#64;&amp;#x6c;&amp;#x75;&amp;#x70;&amp;#97;&amp;#x6a;&amp;#x7a;&amp;#x2f;&amp;#x61;&amp;#x73;&amp;#x79;&amp;#">
+<meta name="twitter:description" content="异步 layout inflation 原文：&amp;#104;&amp;#x74;&amp;#116;&amp;#112;&amp;#x73;&amp;#x3a;&amp;#47;&amp;#x2f;&amp;#109;&amp;#x65;&amp;#100;&amp;#105;&amp;#x75;&amp;#109;&amp;#x2e;&amp;#99;&amp;#111;&amp;#x6d;&amp;#x2f;&amp;#64;&amp;#108;&amp;#x75;&amp;#112;&amp;#x61;&amp;#x6a;&amp;#x7a;&amp;#47;&amp;#97;&amp;#x73;&amp;#x79;&amp;#">
     
     
         
@@ -164,7 +164,7 @@
     
 
     <h1 id="异步-layout-inflation"><a href="#异步-layout-inflation" class="headerlink" title="异步 layout inflation"></a>异步 layout inflation</h1><blockquote>
-<p>原文：<a href="&#109;&#97;&#x69;&#x6c;&#x74;&#x6f;&#x3a;&#x68;&#116;&#116;&#112;&#115;&#x3a;&#47;&#47;&#109;&#x65;&#100;&#105;&#x75;&#x6d;&#x2e;&#99;&#111;&#x6d;&#x2f;&#64;&#x6c;&#x75;&#x70;&#97;&#x6a;&#x7a;&#x2f;&#x61;&#x73;&#x79;&#x6e;&#99;&#x68;&#x72;&#111;&#110;&#x6f;&#x75;&#x73;&#x2d;&#108;&#97;&#121;&#x6f;&#x75;&#x74;&#x2d;&#x69;&#110;&#x66;&#108;&#x61;&#x74;&#105;&#111;&#110;&#x2d;&#55;&#99;&#98;&#x63;&#x61;&#50;&#54;&#53;&#x33;&#98;&#x66;&#x23;&#46;&#113;&#50;&#x32;&#118;&#112;&#x65;&#122;&#103;&#x34;">&#x68;&#116;&#116;&#112;&#115;&#x3a;&#47;&#47;&#109;&#x65;&#100;&#105;&#x75;&#x6d;&#x2e;&#99;&#111;&#x6d;&#x2f;&#64;&#x6c;&#x75;&#x70;&#97;&#x6a;&#x7a;&#x2f;&#x61;&#x73;&#x79;&#x6e;&#99;&#x68;&#x72;&#111;&#110;&#x6f;&#x75;&#x73;&#x2d;&#108;&#97;&#121;&#x6f;&#x75;&#x74;&#x2d;&#x69;&#110;&#x66;&#108;&#x61;&#x74;&#105;&#111;&#110;&#x2d;&#55;&#99;&#98;&#x63;&#x61;&#50;&#54;&#53;&#x33;&#98;&#x66;&#x23;&#46;&#113;&#50;&#x32;&#118;&#112;&#x65;&#122;&#103;&#x34;</a></p>
+<p>原文：<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#104;&#x74;&#116;&#112;&#x73;&#x3a;&#47;&#x2f;&#109;&#x65;&#100;&#105;&#x75;&#109;&#x2e;&#99;&#111;&#x6d;&#x2f;&#64;&#108;&#x75;&#112;&#x61;&#x6a;&#x7a;&#47;&#97;&#x73;&#x79;&#x6e;&#x63;&#104;&#x72;&#x6f;&#110;&#x6f;&#x75;&#115;&#x2d;&#108;&#97;&#121;&#111;&#x75;&#x74;&#45;&#105;&#110;&#x66;&#108;&#x61;&#116;&#105;&#111;&#x6e;&#45;&#x37;&#99;&#x62;&#99;&#x61;&#50;&#54;&#53;&#51;&#98;&#102;&#x23;&#x2e;&#x71;&#50;&#x32;&#118;&#x70;&#x65;&#x7a;&#x67;&#52;">&#104;&#x74;&#116;&#112;&#x73;&#x3a;&#47;&#x2f;&#109;&#x65;&#100;&#105;&#x75;&#109;&#x2e;&#99;&#111;&#x6d;&#x2f;&#64;&#108;&#x75;&#112;&#x61;&#x6a;&#x7a;&#47;&#97;&#x73;&#x79;&#x6e;&#x63;&#104;&#x72;&#x6f;&#110;&#x6f;&#x75;&#115;&#x2d;&#108;&#97;&#121;&#111;&#x75;&#x74;&#45;&#105;&#110;&#x66;&#108;&#x61;&#116;&#105;&#111;&#x6e;&#45;&#x37;&#99;&#x62;&#99;&#x61;&#50;&#54;&#53;&#51;&#98;&#102;&#x23;&#x2e;&#x71;&#50;&#x32;&#118;&#x70;&#x65;&#x7a;&#x67;&#52;</a></p>
 </blockquote>
 <p>随着最近发布的<a href="https://developer.android.com/topic/libraries/support-library/revisions.html" target="_blank" rel="noopener">Android Support Library, revision 24</a>，Google开发者在v4包中增加了一个用来异步inflate layouts的帮助类。</p>
 <h2 id="进入-AsyncLayoutInflater"><a href="#进入-AsyncLayoutInflater" class="headerlink" title="进入 AsyncLayoutInflater"></a>进入 AsyncLayoutInflater</h2><p>你会发现AsyncLayoutInflater可以使用在当你想要去懒加载你应用中部分UI或者用户行为的响应。这个帮助类将会允许你的UI线程在执行繁重的inflate时继续保持响应。</p>
