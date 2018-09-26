@@ -6,7 +6,7 @@
   <link href="/feed.xml" rel="self"/>
   
   <link href="https://blog.wangjiegulu.com/"/>
-  <updated>2018-09-11T05:21:25.129Z</updated>
+  <updated>2018-09-26T08:43:32.882Z</updated>
   <id>https://blog.wangjiegulu.com/</id>
   
   <author>
@@ -15,6 +15,42 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>构建自己的 Smart Life 私有云（一）—— 破解涂鸦智能插座</title>
+    <link href="https://blog.wangjiegulu.com/2018/09/26/private-smart-life-cloud-a--hack-tuya-smart-plug/"/>
+    <id>https://blog.wangjiegulu.com/2018/09/26/private-smart-life-cloud-a--hack-tuya-smart-plug/</id>
+    <published>2018-09-26T07:08:09.585Z</published>
+    <updated>2018-09-26T08:43:32.882Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;构建自己的-Smart-Life-私有云（一）——-破解涂鸦智能插座&quot;&gt;&lt;a href=&quot;#构建自己的-Smart-Life-私有云（一）——-破解涂鸦智能插座&quot; class=&quot;headerlink&quot; title=&quot;构建自己的 Smart Life
+        
+      
+    
+    </summary>
+    
+      <category term="Smart Life" scheme="https://blog.wangjiegulu.com/categories/Smart-Life/"/>
+    
+      <category term="IoT" scheme="https://blog.wangjiegulu.com/categories/Smart-Life/IoT/"/>
+    
+    
+      <category term="Smart Life" scheme="https://blog.wangjiegulu.com/tags/Smart-Life/"/>
+    
+      <category term="Internet of Things" scheme="https://blog.wangjiegulu.com/tags/Internet-of-Things/"/>
+    
+      <category term="IoT" scheme="https://blog.wangjiegulu.com/tags/IoT/"/>
+    
+      <category term="tuya" scheme="https://blog.wangjiegulu.com/tags/tuya/"/>
+    
+      <category term="plug" scheme="https://blog.wangjiegulu.com/tags/plug/"/>
+    
+  </entry>
   
   <entry>
     <title>理解 CI 和 CD 之间的区别（翻译）</title>
@@ -638,40 +674,6 @@
 &lt;p&gt;原文：&lt;a href=&quot;http://frogermcs.github.io/activities-multibinding-in-dagger-2&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://frogermcs.github.io/activities-multibinding-in-dagger-2&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;几个月前，在&lt;a href=&quot;http://2016.mceconf.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;MCE^3&lt;/a&gt;会议中，Gregory Kick在他的&lt;a href=&quot;https://www.youtube.com/watch?v=iwjXqRlEevg&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;演讲&lt;/a&gt;中展示了一个提供Subcomponents（比如，为Activity）的新概念。新的方式给我们带来了一个创建不使用AppComponent对象引用（以前时Activities Subcomponents的工厂）的方式。为了让它成为现实，我们不得不等到了新的Dagger release版本：&lt;a href=&quot;https://github.com/google/dagger/releases/tag/dagger-2.7&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;version 2.7&lt;/a&gt;。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
-    
-      <category term="dependency injection" scheme="https://blog.wangjiegulu.com/tags/dependency-injection/"/>
-    
-      <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
-    
-      <category term="dagger2" scheme="https://blog.wangjiegulu.com/tags/dagger2/"/>
-    
-      <category term="DI" scheme="https://blog.wangjiegulu.com/tags/DI/"/>
-    
-      <category term="google" scheme="https://blog.wangjiegulu.com/tags/google/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>使用Dagger 2来构建UserScope（翻译）</title>
-    <link href="https://blog.wangjiegulu.com/2016/12/30/Android-%E4%BD%BF%E7%94%A8Dagger-2%E6%9D%A5%E6%9E%84%E5%BB%BAUserScope%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/"/>
-    <id>https://blog.wangjiegulu.com/2016/12/30/Android-使用Dagger-2来构建UserScope（翻译）/</id>
-    <published>2016-12-30T09:23:00.000Z</published>
-    <updated>2018-03-29T06:25:08.000Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;使用Dagger-2来构建UserScope&quot;&gt;&lt;a href=&quot;#使用Dagger-2来构建UserScope&quot; class=&quot;headerlink&quot; title=&quot;使用Dagger 2来构建UserScope&quot;&gt;&lt;/a&gt;使用Dagger
-        
-      
     
     </summary>
     

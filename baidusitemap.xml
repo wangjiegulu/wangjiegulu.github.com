@@ -4,6 +4,37 @@
 
     
   <url>
+    <loc>https://blog.wangjiegulu.com/2018/09/26/private-smart-life-cloud-a--hack-tuya-smart-plug/</loc>
+    <lastmod>2018-09-26T08:43:32.882Z</lastmod>
+    <data>
+        <display>
+        <title>构建自己的 Smart Life 私有云（一）—— 破解涂鸦智能插座</title>
+        <pubTime>2018-09-26T07:08:09.585Z</pubTime>
+        
+        <tag>Smart Life</tag>
+         
+        <tag>Internet of Things</tag>
+         
+        <tag>IoT</tag>
+         
+        <tag>tuya</tag>
+         
+        <tag>plug</tag>
+         
+         
+           
+             
+              <breadCrumb title="Smart Life" url="https://blog.wangjiegulu.com/categories/Smart-Life/"/>
+          
+             
+              <breadCrumb title="IoT" url="https://blog.wangjiegulu.com/categories/Smart-Life/IoT/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://blog.wangjiegulu.com/2018/09/10/understanding-the-difference-between-ci-and-cd/</loc>
     <lastmod>2018-09-11T05:21:25.129Z</lastmod>
     <data>
@@ -395,13 +426,13 @@
         
         <tag>android</tag>
          
+        <tag>library</tag>
+         
         <tag>sqlite</tag>
          
         <tag>database</tag>
          
         <tag>orm</tag>
-         
-        <tag>library</tag>
          
         <tag>rapidorm</tag>
          
@@ -714,6 +745,8 @@
         
         <tag>android</tag>
          
+        <tag>library</tag>
+         
         <tag>inject</tag>
          
         <tag>sqlite</tag>
@@ -723,8 +756,6 @@
         <tag>database</tag>
          
         <tag>orm</tag>
-         
-        <tag>library</tag>
          
          
            
@@ -1106,11 +1137,11 @@
         <title>[Android]AndroidBucket增加碎片SubLayout功能及AISubLayout的注解支持</title>
         <pubTime>2014-05-05T12:31:00.000Z</pubTime>
         
-        <tag>library</tag>
-         
         <tag>android bucket</tag>
          
         <tag>annotations</tag>
+         
+        <tag>library</tag>
          
          
            
@@ -1371,13 +1402,13 @@
         
         <tag>android</tag>
          
+        <tag>library</tag>
+         
         <tag>sqlite</tag>
          
         <tag>database</tag>
          
         <tag>orm</tag>
-         
-        <tag>library</tag>
          
         <tag>rapidorm</tag>
          
@@ -1469,13 +1500,13 @@
         
         <tag>android</tag>
          
+        <tag>library</tag>
+         
         <tag>sqlite</tag>
          
         <tag>database</tag>
          
         <tag>orm</tag>
-         
-        <tag>library</tag>
          
         <tag>rapidorm</tag>
          
@@ -1517,9 +1548,9 @@
         
         <tag>android</tag>
          
-        <tag>library</tag>
-         
         <tag>annotations</tag>
+         
+        <tag>library</tag>
          
         <tag>proxy</tag>
          
@@ -2399,9 +2430,9 @@
         
         <tag>java</tag>
          
-        <tag>lambda</tag>
-         
         <tag>java8</tag>
+         
+        <tag>lambda</tag>
          
          
            
@@ -3263,9 +3294,9 @@
         
         <tag>android</tag>
          
-        <tag>inject</tag>
-         
         <tag>library</tag>
+         
+        <tag>inject</tag>
          
          
            
@@ -3380,21 +3411,6 @@
 
     
   <url>
-    <loc>https://blog.wangjiegulu.com/2016/08/29/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/</loc>
-    <lastmod>2018-01-29T12:36:41.000Z</lastmod>
-    <data>
-        <display>
-        <title>网络基础</title>
-        <pubTime>2016-08-29T06:10:00.000Z</pubTime>
-        
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://blog.wangjiegulu.com/2013/02/20/%E5%B7%A5%E5%85%B7%E5%BA%93-JFileDownloader%E5%B7%A5%E5%85%B7%E7%B1%BB%E2%80%94%E2%80%94%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8B%E8%BD%BD%E7%BD%91%E7%BB%9C%E6%96%87%E4%BB%B6%EF%BC%8C%E5%B9%B6%E4%BF%9D%E5%AD%98%E5%9C%A8%E6%9C%AC%E5%9C%B0/</loc>
     <lastmod>2018-01-29T12:36:41.000Z</lastmod>
     <data>
@@ -3410,12 +3426,12 @@
 
     
   <url>
-    <loc>https://blog.wangjiegulu.com/2012/06/15/%E8%AE%BE%E7%BD%AEEditText%E6%98%AF%E5%90%A6%E5%8F%AF%E7%BC%96%E8%BE%91/</loc>
+    <loc>https://blog.wangjiegulu.com/2016/08/29/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/</loc>
     <lastmod>2018-01-29T12:36:41.000Z</lastmod>
     <data>
         <display>
-        <title>设置EditText是否可编辑</title>
-        <pubTime>2012-06-15T02:37:00.000Z</pubTime>
+        <title>网络基础</title>
+        <pubTime>2016-08-29T06:10:00.000Z</pubTime>
         
          
            
@@ -3431,6 +3447,21 @@
         <display>
         <title>[工具库]JOXMLBuilder工具类——一键把多个bean对象数据转换为XML格式数据</title>
         <pubTime>2013-02-19T09:14:00.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://blog.wangjiegulu.com/2012/06/15/%E8%AE%BE%E7%BD%AEEditText%E6%98%AF%E5%90%A6%E5%8F%AF%E7%BC%96%E8%BE%91/</loc>
+    <lastmod>2018-01-29T12:36:41.000Z</lastmod>
+    <data>
+        <display>
+        <title>设置EditText是否可编辑</title>
+        <pubTime>2012-06-15T02:37:00.000Z</pubTime>
         
          
            
