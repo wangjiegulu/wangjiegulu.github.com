@@ -6,7 +6,7 @@
   <link href="/feed.xml" rel="self"/>
   
   <link href="https://blog.wangjiegulu.com/"/>
-  <updated>2018-09-27T06:58:14.360Z</updated>
+  <updated>2018-09-27T06:59:59.513Z</updated>
   <id>https://blog.wangjiegulu.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://blog.wangjiegulu.com/2018/09/26/private-smart-life-cloud-b--working-with-ifttt-slack/"/>
     <id>https://blog.wangjiegulu.com/2018/09/26/private-smart-life-cloud-b--working-with-ifttt-slack/</id>
     <published>2018-09-26T08:45:09.437Z</published>
-    <updated>2018-09-27T06:58:14.360Z</updated>
+    <updated>2018-09-27T06:59:59.513Z</updated>
     
     <summary type="html">
     
@@ -380,9 +380,9 @@
     
       <category term="framework" scheme="https://blog.wangjiegulu.com/tags/framework/"/>
     
-      <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
-    
       <category term="dagger2" scheme="https://blog.wangjiegulu.com/tags/dagger2/"/>
+    
+      <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
     
       <category term="kotlin" scheme="https://blog.wangjiegulu.com/tags/kotlin/"/>
     
@@ -541,9 +541,9 @@
     
       <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
     
-      <category term="memory leak" scheme="https://blog.wangjiegulu.com/tags/memory-leak/"/>
-    
       <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
+    
+      <category term="memory leak" scheme="https://blog.wangjiegulu.com/tags/memory-leak/"/>
     
   </entry>
   
