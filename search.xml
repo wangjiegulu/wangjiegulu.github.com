@@ -100,6 +100,14 @@
 <p>然后在聊天的输入框中就可以通过”/“显示 command 提示，选择命令，后面跟上你要执行该命令的设备别名就行了。</p>
 <div style="text-align: center;"><br>    <img src="https://user-images.githubusercontent.com/5423194/46127236-a70c8800-c262-11e8-83a2-cdcfd8ebe10c.png" width="500px"><br></div>
 
+<h2 id="其它场景"><a href="#其它场景" class="headerlink" title="其它场景"></a>其它场景</h2><p>还有其它很多场景可以实现。比如：</p>
+<ul>
+<li>结合 IFTTT，当离开家门100m远的时候，自动触发 webhook，让你的私有云帮你把电源、智能们关闭。</li>
+<li>实时检测你的位置和家门，如果你不在家，自动调用 Google Calendar 确定你的日程安排，如果又没有外出的安排，则通过 Slack 发送 Interactive messages 到你手机上提醒，提供按钮一键锁门。</li>
+<li>小细节，晚上手机充电的时候，可以设定手机一旦充满，关闭电源，又如果手机电源掉电过快，低于90%的电量，重新自动开启电源，确保你早上起床的时候手机电量肯定在某个值之上</li>
+<li>等等等等，太多的智能应用可以去实现。</li>
+</ul>
+<h2 id="章尾"><a href="#章尾" class="headerlink" title="章尾"></a>章尾</h2><p>现在越来越多的厂商制作着各种各样的智能设备，但是又在自己的一亩三分地固步自封。做个插座，提供一个 app 控制下开关、定个时、做个 schedule 就是所谓的智能了，你买了我的设备就必须要用我的软硬件产品。那些需要用户花心思去考虑什么时候我该怎么的设备不是冰冷的，没有生命的么？智能是人类赋予了设备生命，掌握了“思考”的能力，现在的生活如此多元化，再牛的公司也不可能覆盖你的所有生活领域，如果买了这样的智能设备但自此被囚困在这里，我想，这才是我非智能生活的开始吧。</p>
 ]]></content>
       
         <categories>
@@ -2859,11 +2867,11 @@
             
             <tag> 翻译 </tag>
             
+            <tag> google </tag>
+            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
-            
-            <tag> google </tag>
             
         </tags>
         
@@ -2962,11 +2970,11 @@
             
             <tag> 翻译 </tag>
             
+            <tag> google </tag>
+            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
-            
-            <tag> google </tag>
             
         </tags>
         
@@ -3068,11 +3076,11 @@
             
             <tag> 翻译 </tag>
             
+            <tag> google </tag>
+            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
-            
-            <tag> google </tag>
             
             <tag> RxJava </tag>
             
@@ -3202,11 +3210,11 @@
             
             <tag> 翻译 </tag>
             
+            <tag> google </tag>
+            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
-            
-            <tag> google </tag>
             
         </tags>
         
@@ -3332,7 +3340,7 @@
       <title><![CDATA[[Android]异步 layout inflation（翻译）]]></title>
       <url>/2016/09/01/Android-%E5%BC%82%E6%AD%A5-layout-inflation%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/</url>
       <content type="html"><![CDATA[<h1 id="异步-layout-inflation"><a href="#异步-layout-inflation" class="headerlink" title="异步 layout inflation"></a>异步 layout inflation</h1><blockquote>
-<p>原文：<a href="&#x6d;&#97;&#105;&#108;&#x74;&#111;&#x3a;&#x68;&#116;&#116;&#x70;&#115;&#x3a;&#47;&#x2f;&#x6d;&#101;&#100;&#105;&#x75;&#109;&#46;&#x63;&#111;&#x6d;&#x2f;&#x40;&#x6c;&#117;&#112;&#97;&#106;&#122;&#47;&#97;&#115;&#121;&#x6e;&#x63;&#104;&#114;&#111;&#110;&#111;&#x75;&#x73;&#45;&#108;&#x61;&#x79;&#x6f;&#117;&#x74;&#45;&#105;&#110;&#102;&#x6c;&#x61;&#116;&#x69;&#111;&#x6e;&#45;&#x37;&#x63;&#98;&#99;&#x61;&#50;&#54;&#53;&#x33;&#98;&#102;&#x23;&#46;&#113;&#50;&#50;&#118;&#x70;&#x65;&#122;&#x67;&#x34;">&#x68;&#116;&#116;&#x70;&#115;&#x3a;&#47;&#x2f;&#x6d;&#101;&#100;&#105;&#x75;&#109;&#46;&#x63;&#111;&#x6d;&#x2f;&#x40;&#x6c;&#117;&#112;&#97;&#106;&#122;&#47;&#97;&#115;&#121;&#x6e;&#x63;&#104;&#114;&#111;&#110;&#111;&#x75;&#x73;&#45;&#108;&#x61;&#x79;&#x6f;&#117;&#x74;&#45;&#105;&#110;&#102;&#x6c;&#x61;&#116;&#x69;&#111;&#x6e;&#45;&#x37;&#x63;&#98;&#99;&#x61;&#50;&#54;&#53;&#x33;&#98;&#102;&#x23;&#46;&#113;&#50;&#50;&#118;&#x70;&#x65;&#122;&#x67;&#x34;</a></p>
+<p>原文：<a href="&#109;&#x61;&#105;&#x6c;&#116;&#x6f;&#x3a;&#104;&#x74;&#116;&#112;&#x73;&#x3a;&#47;&#47;&#x6d;&#101;&#100;&#x69;&#117;&#109;&#46;&#99;&#111;&#x6d;&#x2f;&#64;&#x6c;&#x75;&#x70;&#x61;&#x6a;&#x7a;&#x2f;&#97;&#115;&#121;&#110;&#x63;&#x68;&#x72;&#x6f;&#110;&#x6f;&#x75;&#115;&#45;&#108;&#97;&#121;&#x6f;&#x75;&#116;&#45;&#105;&#x6e;&#102;&#x6c;&#x61;&#116;&#x69;&#111;&#110;&#x2d;&#55;&#x63;&#x62;&#99;&#97;&#x32;&#x36;&#x35;&#x33;&#98;&#x66;&#x23;&#46;&#x71;&#50;&#x32;&#x76;&#112;&#101;&#122;&#103;&#x34;">&#104;&#x74;&#116;&#112;&#x73;&#x3a;&#47;&#47;&#x6d;&#101;&#100;&#x69;&#117;&#109;&#46;&#99;&#111;&#x6d;&#x2f;&#64;&#x6c;&#x75;&#x70;&#x61;&#x6a;&#x7a;&#x2f;&#97;&#115;&#121;&#110;&#x63;&#x68;&#x72;&#x6f;&#110;&#x6f;&#x75;&#115;&#45;&#108;&#97;&#121;&#x6f;&#x75;&#116;&#45;&#105;&#x6e;&#102;&#x6c;&#x61;&#116;&#x69;&#111;&#110;&#x2d;&#55;&#x63;&#x62;&#99;&#97;&#x32;&#x36;&#x35;&#x33;&#98;&#x66;&#x23;&#46;&#x71;&#50;&#x32;&#x76;&#112;&#101;&#122;&#103;&#x34;</a></p>
 </blockquote>
 <p>随着最近发布的<a href="https://developer.android.com/topic/libraries/support-library/revisions.html" target="_blank" rel="noopener">Android Support Library, revision 24</a>，Google开发者在v4包中增加了一个用来异步inflate layouts的帮助类。</p>
 <h2 id="进入-AsyncLayoutInflater"><a href="#进入-AsyncLayoutInflater" class="headerlink" title="进入 AsyncLayoutInflater"></a>进入 AsyncLayoutInflater</h2><p>你会发现AsyncLayoutInflater可以使用在当你想要去懒加载你应用中部分UI或者用户行为的响应。这个帮助类将会允许你的UI线程在执行繁重的inflate时继续保持响应。</p>
@@ -5112,11 +5120,11 @@ Cookie: ... ...
             
             <tag> 翻译 </tag>
             
+            <tag> google </tag>
+            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
-            
-            <tag> google </tag>
             
         </tags>
         
@@ -5233,11 +5241,11 @@ Cookie: ... ...
             
             <tag> 翻译 </tag>
             
+            <tag> google </tag>
+            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
-            
-            <tag> google </tag>
             
         </tags>
         
@@ -5373,11 +5381,11 @@ Cookie: ... ...
             
             <tag> 翻译 </tag>
             
+            <tag> google </tag>
+            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
-            
-            <tag> google </tag>
             
         </tags>
         
@@ -5471,11 +5479,11 @@ Cookie: ... ...
             
             <tag> 翻译 </tag>
             
+            <tag> google </tag>
+            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
-            
-            <tag> google </tag>
             
         </tags>
         
