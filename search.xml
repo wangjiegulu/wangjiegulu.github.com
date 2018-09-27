@@ -3,9 +3,140 @@
   
     
     <entry>
-      <title><![CDATA[构建自己的 Smart Life 私有云（一）—— 破解涂鸦智能插座]]></title>
+      <title><![CDATA[构建自己的 Smart Life 私有云（二）-> 连通 IFTTT & Slack]]></title>
+      <url>/2018/09/26/private-smart-life-cloud-b--working-with-ifttt-slack/</url>
+      <content type="html"><![CDATA[<h1 id="构建自己的-Smart-Life-私有云（二）-gt-连通-IFTTT-amp-Slack"><a href="#构建自己的-Smart-Life-私有云（二）-gt-连通-IFTTT-amp-Slack" class="headerlink" title="构建自己的 Smart Life 私有云（二）-&gt; 连通 IFTTT &amp; Slack"></a>构建自己的 Smart Life 私有云（二）-&gt; 连通 IFTTT &amp; Slack</h1><p><a href="https://blog.wangjiegulu.com/2018/09/26/private-smart-life-cloud-a--hack-tuya-smart-plug/">上一篇</a>我们破解了涂鸦的插座，搭建了自己的 web 服务，暴露了一个接口来控制插座的开关。这篇我们配合 IFTTT、Slack 来控制插座：</p>
+<ol>
+<li>说 “OK Google” 唤醒 Google Assistant，然后说 “帮我打开卧室的电源”，最后插座被打开。</li>
+<li>创建 Slack 机器人 <code>Angelia</code>，对它发消息“帮我打开卧室的电源”，然后插座打开， <code>Angelia</code> 回复说 “好的，已经打开”。</li>
+<li>通过 Slack 机器人 <code>Angelia</code>，发送 Slash Commands，打开关闭插座。</li>
+</ol>
+<h2 id="创建自己私人的-Slack-Workspace"><a href="#创建自己私人的-Slack-Workspace" class="headerlink" title="创建自己私人的 Slack Workspace"></a>创建自己私人的 Slack Workspace</h2><p>打开 Slack，根据提示创建自己的 Slack Workspace: <a href="https://slack.com/create" target="_blank" rel="noopener">https://slack.com/create</a></p>
+<div style="text-align: center;"><br>    <img src="https://user-images.githubusercontent.com/5423194/46124165-111e3080-c255-11e8-88ba-7be984c00cf3.png" width="500px"><br></div>
+
+<p>比如我的 Workspace 为 <a href="https://wangjie.slack.com" target="_blank" rel="noopener">https://wangjie.slack.com</a>。</p>
+<h2 id="创建-Slack-App"><a href="#创建-Slack-App" class="headerlink" title="创建 Slack App"></a>创建 Slack App</h2><p>创建完毕登录之后，默认应该有 <code>#general</code>、<code>#random</code> 等 channel，但暂时不用这两个 channel。</p>
+<p>接下来，我们来创建一个 App。</p>
+<p>打开 <a href="https://api.slack.com/" target="_blank" rel="noopener">https://api.slack.com/</a>，点击 <code>Start Building</code></p>
+<div style="text-align: center;"><br>    <img src="https://user-images.githubusercontent.com/5423194/46124413-981fd880-c256-11e8-8cbb-572346f29fd7.png" width="600px"><br></div>
+
+<p>输入 App 名称和你要添加到的 workspace。</p>
+<div style="text-align: center;"><br>    <img src="https://user-images.githubusercontent.com/5423194/46124447-df0dce00-c256-11e8-959b-64a6fcd1bc84.png" width="600px"><br></div>
+
+<h3 id="设置-Bot-信息"><a href="#设置-Bot-信息" class="headerlink" title="设置 Bot 信息"></a>设置 Bot 信息</h3><p>创建完毕之后，我们需要设置这个 app 的机器人相关信息，打开 <a href="https://api.slack.com/apps" target="_blank" rel="noopener">app 设置页面</a>，选择 <code>Bot Users</code>：</p>
+<div style="text-align: center;"><br>    <img src="https://user-images.githubusercontent.com/5423194/46124676-1335be80-c258-11e8-89fa-b299badb545a.png" width="700px"><br></div>
+
+<p>设置机器人的名称（Display name 和 Default name）。勾选 <code>Always Show My Bot as Online</code>，点击 <code>Save Changes</code>。</p>
+<h3 id="设置-Events-API"><a href="#设置-Events-API" class="headerlink" title="设置 Events API"></a>设置 Events API</h3><p><a href="https://api.slack.com/bot-users#app-mentions-response" target="_blank" rel="noopener">Event API</a> 可以在各种时间发生的时候触发调用，比如 消息发送的时候、channels 改变的时候等等。</p>
+<p>我们先回到我们的 web 服务，打开上一章创建的 <code>AngeliaController</code>，新增一个处理 Event 的 api：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PostMapping(<span class="meta-string">"/say/at"</span>)</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">say</span><span class="params">(<span class="meta">@RequestBody</span> request: <span class="type">BotEventRequestVo</span>)</span></span>: JSONObject &#123;</span><br><span class="line">    logger.info(<span class="string">"[slack event request]request -&gt; \n<span class="variable">$request</span>"</span>)</span><br><span class="line">    <span class="keyword">return</span> JsonResult.success(</span><br><span class="line">                    <span class="string">"token"</span> to request.token,</span><br><span class="line">                    <span class="string">"challenge"</span> to request.challenge,</span><br><span class="line">                    <span class="string">"message"</span> to message</span><br><span class="line">            )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">data</span> <span class="class"><span class="keyword">class</span> <span class="title">BotEventRequestVo</span></span>(</span><br><span class="line">        <span class="keyword">val</span> challenge: String?,</span><br><span class="line"></span><br><span class="line">        <span class="keyword">val</span> token: String?,</span><br><span class="line">        <span class="keyword">val</span> team_id: String?,</span><br><span class="line">        <span class="keyword">val</span> api_app_id: String?,</span><br><span class="line">        <span class="keyword">val</span> event: BotEventVo?,</span><br><span class="line">        <span class="keyword">val</span> type: String?,</span><br><span class="line">        <span class="keyword">val</span> event_id: String?,</span><br><span class="line">        <span class="keyword">val</span> event_time: String?,</span><br><span class="line">        <span class="keyword">val</span> authed_users: List&lt;String&gt;?</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">data</span> <span class="class"><span class="keyword">class</span> <span class="title">BotEventVo</span></span>(</span><br><span class="line">        <span class="keyword">val</span> type: String?,</span><br><span class="line">        <span class="keyword">val</span> user: String?,</span><br><span class="line">        <span class="keyword">val</span> text: String?,</span><br><span class="line">        <span class="keyword">val</span> client_msg_id: String?,</span><br><span class="line">        <span class="keyword">val</span> ts: String?,</span><br><span class="line">        <span class="keyword">val</span> channel: String?,</span><br><span class="line">        <span class="keyword">val</span> event_ts: String?,</span><br><span class="line">        <span class="keyword">val</span> channel_type: String?</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>构建，部署到服务器。</p>
+<p>打开 Slack App 设置页面的 <code>Event Subscriptions</code>：</p>
+<div style="text-align: center;"><br>    <img src="https://user-images.githubusercontent.com/5423194/46125203-abcd3e00-c25a-11e8-805f-d9f17bd235bc.png" width="700px"><br></div>
+
+<p>在 <code>Request URL</code> 中填写刚刚在我们 web 服务上创建的接口 <code>http://[server ip]:xxx/angelia/say/at</code>，并且点击验证。</p>
+<blockquote>
+<p>注意：这里认证的依据是，你的接口 Response 需要返回请求中的 <code>challenge</code> 数据就算认证成功。</p>
+</blockquote>
+<p>然后在 <code>Subscribe to Bot Events</code> 中添加订阅的事件，需要增加的是 <a href="https://api.slack.com/events/message.im" target="_blank" rel="noopener">message.im</a></p>
+<blockquote>
+<p><code>message.im</code>表示当你跟 bot 的私聊中产生消息的时候（有可能是你发送消息给 Bot，也有可能是 Bot 发消息给你），事件就会触发。</p>
+</blockquote>
+<div style="text-align: center;"><br>    <img src="https://user-images.githubusercontent.com/5423194/46125314-21d1a500-c25b-11e8-83d1-89fbd8a596d1.png" width="600px"><br></div>
+
+<p>点击保存。</p>
+<p>这时，当你在 Slack 中发送消息给机器人的时候，你的 web 服务端就能收到请求了。</p>
+<h3 id="处理事件"><a href="#处理事件" class="headerlink" title="处理事件"></a>处理事件</h3><p>你的 web 服务器收到请求之后，需要对此进行处理，所以你需要去解析发的消息中的信息，然后打开/关闭对应设备（插座）的开关。完善之前的 <code>say</code> 接口：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">lateinit</span> <span class="keyword">var</span> tuyaClientService: TuyaClientService</span><br><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">lateinit</span> <span class="keyword">var</span> angeliaSlackProperties: AngeliaSlackProperties</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* Angelia 机器人 对话入口</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">@PostMapping(<span class="meta-string">"/say/at"</span>)</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">say</span><span class="params">(<span class="meta">@RequestBody</span> request: <span class="type">BotEventRequestVo</span>)</span></span>: JSONObject &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">       <span class="keyword">val</span> text = request.event?.text</span><br><span class="line">       <span class="keyword">val</span> eventType = request.event?.type</span><br><span class="line">       <span class="keyword">if</span> (eventType == <span class="string">"message"</span> <span class="comment">// 直接对话</span></span><br><span class="line">            ||</span><br><span class="line">            request.event.user != angeliaSlackProperties.angelia_id <span class="comment">// angelia自己发的忽略掉</span></span><br><span class="line">       ) &#123;</span><br><span class="line">          <span class="keyword">val</span> message = angeliaBotService.parseTuyaClient(text)</span><br><span class="line">                          ?: <span class="string">"Sorry, I can not understand."</span></span><br><span class="line"></span><br><span class="line">          angeliaSlackService.postMessage(JSONObject().apply &#123;</span><br><span class="line">              <span class="keyword">this</span>[<span class="string">"text"</span>] = <span class="string">"<span class="variable">$message</span>"</span></span><br><span class="line">              <span class="keyword">this</span>[<span class="string">"channel"</span>] = request.event.channel</span><br><span class="line">              <span class="keyword">this</span>[<span class="string">"as_user"</span>] = <span class="literal">true</span></span><br><span class="line">          &#125;)</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> JsonResult.success(</span><br><span class="line">               <span class="string">"token"</span> to request.token,</span><br><span class="line">               <span class="string">"challenge"</span> to request.challenge,</span><br><span class="line">               <span class="string">"message"</span> to <span class="string">"Request eventId(<span class="subst">$&#123;request.event_id&#125;</span>) done."</span></span><br><span class="line">       )</span><br><span class="line">   &#125; <span class="keyword">catch</span> (e: Exception) &#123;</span><br><span class="line">       angeliaSlackService.postMessage(JSONObject().apply &#123;</span><br><span class="line">           <span class="keyword">this</span>[<span class="string">"text"</span>] = <span class="string">"Sorry! Something is wrong: <span class="subst">$&#123;e.message&#125;</span>"</span></span><br><span class="line">           <span class="keyword">this</span>[<span class="string">"channel"</span>] = request.event?.channel</span><br><span class="line">           <span class="keyword">this</span>[<span class="string">"as_user"</span>] = <span class="literal">true</span></span><br><span class="line">       &#125;)</span><br><span class="line">       <span class="keyword">return</span> JsonResult.error(e.message)</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面代码的逻辑很简单：</p>
+<ul>
+<li>首先，eventType是直接对话的（与机器人 bot 私聊），并且是我发给机器人的（机器人发给我的消息不用处理）才会去处理</li>
+<li>然后通过 <code>angeliaBotService.parseTuyaClient()</code> 方法进行文本解析和处理</li>
+<li>如果解析不出来，则返回 null，message 就是 “Sorry, I can not understand.”</li>
+<li>最后返回 Response（带上 message），这里的 message 就是 Bot 发送给我的数据。</li>
+</ul>
+<p>这里需要做一些 Slack 的配置 slack.properties：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># token for bot</span><br><span class="line">angelia.slack.bot_token=Bearer xoxb-2923xxxxxxxxxxxxxxxxxxxx</span><br><span class="line"></span><br><span class="line"># slack api</span><br><span class="line">angelia.slack.api_base_url=https://slack.com/api</span><br><span class="line">angelia.slack.api_chat_post_message=/chat.postMessage</span><br><span class="line"></span><br><span class="line">angelia.slack.angelia_id=UCWxxxxxx</span><br></pre></td></tr></table></figure>
+<p><code>angelia.slack.bot_token</code>：是 Bot 发送消息到 Slack 的token，这个 token 可以在 app 设置页面的 <code>OAuth &amp; Permissions</code> 中拿到</p>
+<div style="text-align: center;"><br>    <img src="https://user-images.githubusercontent.com/5423194/46125989-09af5500-c25e-11e8-864b-18e3b6145aca.png" width="600px"><br></div>
+
+<blockquote>
+<p>注意：是下面的那个 <code>Bot User OAuth Access Token</code>，并且添加到配置文件的时候需要加上 <code>Bearer</code>（注意后面有个空格）</p>
+</blockquote>
+<p><code>angelia.slack.api_base_url</code> 和 <code>angelia.slack.api_chat_post_message</code> 是发送消息的 url，不用改动。</p>
+<p><code>angelia.slack.angelia_id</code> 表示机器人的id，可以通过在 slack 左侧选中机器人右键复制链接，path 最后部分就是 id</p>
+<div style="text-align: center;"><br>    <img src="https://user-images.githubusercontent.com/5423194/46126106-8d694180-c25e-11e8-84ae-ed01feda481d.png" width="250px"><br></div>
+
+<p>最后，你就能在 slack 中打开与机器人聊天框，发送“关闭插座a”来控制插座：</p>
+<div style="text-align: center;"><br>    <img src="https://user-images.githubusercontent.com/5423194/46126279-3748ce00-c25f-11e8-997d-b47d8a1ea6ce.jpg" width="300px"><br></div>
+
+<h2 id="集成-Google-Assistant-和-IFTTT"><a href="#集成-Google-Assistant-和-IFTTT" class="headerlink" title="集成 Google Assistant 和 IFTTT"></a>集成 Google Assistant 和 IFTTT</h2><blockquote>
+<p>首先确保你的手机装有 Google Assistant（Google Home 先不讨论。。。是的，我没买- -）。</p>
+</blockquote>
+<p>首先我们需要在 web 服务器端再创建如下一个接口：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 插座控制接口</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">@PostMapping(<span class="meta-string">"/control/plug"</span>)</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">controlPlug</span><span class="params">(<span class="meta">@RequestBody</span> request: <span class="type">PlugRequestVo</span>)</span></span>: JSONObject &#123;</span><br><span class="line">   <span class="keyword">val</span> dev = tuyaClientProperties.findDev(request.alias)</span><br><span class="line">   <span class="keyword">return</span> <span class="keyword">try</span> &#123;</span><br><span class="line">       <span class="keyword">if</span> (<span class="literal">null</span> == dev) &#123;</span><br><span class="line">           JsonResult.error(<span class="string">"Device named <span class="subst">$&#123;request.alias&#125;</span> is not found"</span>)</span><br><span class="line">       &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">           tuyaClientService.controlPlug(dev.devId, request.turnOn)</span><br><span class="line">           JsonResult.success()</span><br><span class="line">       &#125;</span><br><span class="line">   &#125; <span class="keyword">catch</span> (e: Exception) &#123;</span><br><span class="line">       JsonResult.error(e.message)</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">data</span> <span class="class"><span class="keyword">class</span> <span class="title">PlugRequestVo</span></span>(</span><br><span class="line">     <span class="keyword">val</span> alias: String,</span><br><span class="line">     <span class="keyword">val</span> turnOn: <span class="built_in">Boolean</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>构建部署到服务器。</p>
+<p>然后打开IFTTT、注册（如果还没有账户）登录，创建 Applet</p>
+<p><strong>This</strong>：选择 Google Assistant：</p>
+<div style="text-align: center;"><br>    <img src="https://user-images.githubusercontent.com/5423194/46126650-abd03c80-c260-11e8-8cf1-c9446bfa4f83.jpg" width="300px"><br></div>
+
+<p><strong>That</strong>：选择 Webhook：</p>
+<div style="text-align: center;"><br>    <img src="https://user-images.githubusercontent.com/5423194/46126688-d8845400-c260-11e8-894c-b5d3e0df143b.jpg" width="300px"><br></div>
+
+<blockquote>
+<p>注意：POST 请求，在 body 中填写如上 json 数据。<br>关闭的 Applet 也是类似，把 body 中的 turnOn 改成 false 就可以了</p>
+</blockquote>
+<p>最后，你就可以通过 “OK, Google” 唤醒 Google Assistant，然后说”Turn on plug a”来打开插座了。</p>
+<div style="text-align: center;"><br>    <img src="https://user-images.githubusercontent.com/5423194/46126863-5c3e4080-c261-11e8-8e3d-1f199e647201.jpg" width="300px"><br></div>
+
+<h2 id="使用-Slack-的-Slash-Command-控制"><a href="#使用-Slack-的-Slash-Command-控制" class="headerlink" title="使用 Slack 的 Slash Command 控制"></a>使用 Slack 的 Slash Command 控制</h2><p>在 web 服务中再新增两个接口用于 Slash Command：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 插座控制接口，For Slack command line(slash commands)</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">@PostMapping(<span class="meta-string">"/plug/turnon"</span>)</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">plugTurnOnForCommand</span><span class="params">(<span class="meta">@RequestBody</span> body: <span class="type">String</span>)</span></span>: JSONObject &#123;</span><br><span class="line">   <span class="keyword">return</span> JsonResult.success(<span class="string">"text"</span> to plugControlForCommand(body, <span class="literal">true</span>))</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* For Slack command line(slash commands)</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">@PostMapping(<span class="meta-string">"/plug/turnoff"</span>)</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">plugTurnOffForCommand</span><span class="params">(<span class="meta">@RequestBody</span> body: <span class="type">String</span>)</span></span>: JSONObject &#123;</span><br><span class="line">   <span class="keyword">return</span> JsonResult.success(<span class="string">"text"</span> to plugControlForCommand(body, <span class="literal">false</span>))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* For Slack command line(slash commands) control</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">plugControlForCommand</span><span class="params">(body: <span class="type">String</span>, turnOn: <span class="type">Boolean</span>)</span></span>: String &#123;</span><br><span class="line">   <span class="keyword">try</span> &#123;</span><br><span class="line">       <span class="keyword">return</span> body.split(<span class="string">"&amp;"</span>).map &#123;</span><br><span class="line">           <span class="keyword">val</span> pair = it.split(<span class="string">"="</span>)</span><br><span class="line">           Pair(pair[<span class="number">0</span>], URLDecoder.decode(pair[<span class="number">1</span>], <span class="string">"UTF-8"</span>))</span><br><span class="line">       &#125;.firstOrNull &#123;</span><br><span class="line">           it.first == <span class="string">"text"</span></span><br><span class="line">       &#125;?.let &#123;</span><br><span class="line">           <span class="keyword">val</span> dev = tuyaClientProperties.findContainsDev(it.second)</span><br><span class="line">           <span class="keyword">if</span> (<span class="literal">null</span> == dev) &#123;</span><br><span class="line">               <span class="string">"Sorry for failed command, Device named <span class="subst">$&#123;it.second&#125;</span> is not found."</span></span><br><span class="line">           &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">               tuyaClientService.controlPlug(dev.devId, turnOn)</span><br><span class="line">               <span class="string">"<span class="subst">$&#123;if (turnOn) "Turn On" else "Turn Off"&#125;</span> Done(<span class="subst">$&#123;it.second&#125;</span>)."</span></span><br><span class="line">           &#125;</span><br><span class="line">       &#125; ?: <span class="string">"Sorry for failed command, Device name required."</span></span><br><span class="line">   &#125; <span class="keyword">catch</span> (e: Exception) &#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="string">"Sorry for failed command, <span class="subst">$&#123;e.message&#125;</span>."</span></span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>打开 App 设置页面的 <code>Slash Commands</code>，</p>
+<div style="text-align: center;"><br>    <img src="https://user-images.githubusercontent.com/5423194/46126962-a7f0ea00-c261-11e8-808a-6ccc8a63c049.png" width="600px"><br></div>
+
+<p>点击 <code>Create New Command</code>，</p>
+<div style="text-align: center;"><br>    <img src="https://user-images.githubusercontent.com/5423194/46127140-5dbc3880-c262-11e8-97fe-75fcb05fc7df.png" width="500px"><br></div>
+
+<p>然后在聊天的输入框中就可以通过”/“显示 command 提示，选择命令，后面跟上你要执行该命令的设备别名就行了。</p>
+<div style="text-align: center;"><br>    <img src="https://user-images.githubusercontent.com/5423194/46127236-a70c8800-c262-11e8-83a2-cdcfd8ebe10c.png" width="500px"><br></div>
+
+]]></content>
+      
+        <categories>
+            
+            <category> Smart Life </category>
+            
+            <category> IoT </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Smart Life </tag>
+            
+            <tag> Internet of Things </tag>
+            
+            <tag> IoT </tag>
+            
+            <tag> tuya </tag>
+            
+            <tag> plug </tag>
+            
+            <tag> IFTTT </tag>
+            
+            <tag> Google Assistant </tag>
+            
+            <tag> Slack </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[构建自己的 Smart Life 私有云（一）-> 破解涂鸦智能插座]]></title>
       <url>/2018/09/26/private-smart-life-cloud-a--hack-tuya-smart-plug/</url>
-      <content type="html"><![CDATA[<h1 id="构建自己的-Smart-Life-私有云（一）——-破解涂鸦智能插座"><a href="#构建自己的-Smart-Life-私有云（一）——-破解涂鸦智能插座" class="headerlink" title="构建自己的 Smart Life 私有云（一）—— 破解涂鸦智能插座"></a>构建自己的 Smart Life 私有云（一）—— 破解涂鸦智能插座</h1><p>本系列文章的目标是通过自己搭建的<code>私有云</code>、<code>IFTTT</code>、<code>Slack</code>、<code>Google Assistant</code>、<code>涂鸦智能</code>、<code>图灵机器人</code>等等第三方服务，构建自己的“智能生活”基本的框架。</p>
+      <content type="html"><![CDATA[<h1 id="构建自己的-Smart-Life-私有云（一）-gt-破解涂鸦智能插座"><a href="#构建自己的-Smart-Life-私有云（一）-gt-破解涂鸦智能插座" class="headerlink" title="构建自己的 Smart Life 私有云（一）-&gt; 破解涂鸦智能插座"></a>构建自己的 Smart Life 私有云（一）-&gt; 破解涂鸦智能插座</h1><p>本系列文章的目标是通过自己搭建的<code>私有云</code>、<code>IFTTT</code>、<code>Slack</code>、<code>Google Assistant</code>、<code>涂鸦智能</code>、<code>图灵机器人</code>等等第三方服务，构建自己的“智能生活”基本的框架。</p>
 <p>前段时间我在京东上购买了一个<a href="https://item.jd.com/29882207900.html" target="_blank" rel="noopener">涂鸦智能的插座</a>。涂鸦智能是一个把产品智能化的一个平台，从软件和硬件和云端上面提供给厂商一个一站式人工智能物联网的解决方案（<em>确实不是涂鸦智能的广告- -.</em>）。所以严格来说应该是“鹊起”基于涂鸦解决方案所开发出来的一个产品，基于涂鸦提供的一切规范，所有软硬云端的开发规范都可以在官网无权限限制地查看到（<a href="https://docs.tuya.com/cn/" target="_blank" rel="noopener">https://docs.tuya.com/cn/</a>）</p>
 <h2 id="初试插座"><a href="#初试插座" class="headerlink" title="初试插座"></a>初试插座</h2><p>我首先下载了涂鸦的官方app：<a href="https://play.google.com/store/apps/details?id=com.tuya.smartlife&amp;hl=en_US" target="_blank" rel="noopener">Smart Life</a>，注册登录、智能配对插座，通过手机控制插座开关，一切顺利，还支持设置定时开关和 Schedule，而且手机控制到插座的反应十分灵敏（看样子应该使用了长链接）。</p>
 <h2 id="破解插座"><a href="#破解插座" class="headerlink" title="破解插座"></a>破解插座</h2><p>当然使用官方 app 显然是无法满足我们需求，所以查看官方文档，发现文档中的 <a href="https://docs.tuya.com/cn/cloudapi/appAPI/tuya.m.device.dp.publish_1.0.html" target="_blank" rel="noopener">tuya.m.device.dp.publish</a> 接口正好可以满足我们的需求。</p>
@@ -157,6 +288,12 @@
             <tag> tuya </tag>
             
             <tag> plug </tag>
+            
+            <tag> IFTTT </tag>
+            
+            <tag> Google Assistant </tag>
+            
+            <tag> Slack </tag>
             
         </tags>
         
@@ -3116,13 +3253,13 @@
             
             <tag> android </tag>
             
-            <tag> library </tag>
-            
             <tag> sqlite </tag>
             
             <tag> database </tag>
             
             <tag> orm </tag>
+            
+            <tag> library </tag>
             
             <tag> rapidorm </tag>
             
@@ -3195,7 +3332,7 @@
       <title><![CDATA[[Android]异步 layout inflation（翻译）]]></title>
       <url>/2016/09/01/Android-%E5%BC%82%E6%AD%A5-layout-inflation%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/</url>
       <content type="html"><![CDATA[<h1 id="异步-layout-inflation"><a href="#异步-layout-inflation" class="headerlink" title="异步 layout inflation"></a>异步 layout inflation</h1><blockquote>
-<p>原文：<a href="&#109;&#97;&#105;&#108;&#x74;&#x6f;&#x3a;&#x68;&#x74;&#116;&#112;&#115;&#58;&#x2f;&#x2f;&#109;&#x65;&#100;&#x69;&#x75;&#x6d;&#x2e;&#99;&#111;&#x6d;&#x2f;&#x40;&#108;&#117;&#112;&#x61;&#x6a;&#x7a;&#x2f;&#x61;&#x73;&#x79;&#x6e;&#x63;&#x68;&#x72;&#111;&#x6e;&#111;&#117;&#115;&#45;&#108;&#x61;&#x79;&#x6f;&#117;&#116;&#x2d;&#105;&#110;&#102;&#108;&#97;&#x74;&#x69;&#111;&#110;&#45;&#55;&#99;&#x62;&#x63;&#97;&#50;&#54;&#x35;&#x33;&#x62;&#x66;&#35;&#x2e;&#113;&#x32;&#x32;&#x76;&#112;&#101;&#122;&#x67;&#52;">&#x68;&#x74;&#116;&#112;&#115;&#58;&#x2f;&#x2f;&#109;&#x65;&#100;&#x69;&#x75;&#x6d;&#x2e;&#99;&#111;&#x6d;&#x2f;&#x40;&#108;&#117;&#112;&#x61;&#x6a;&#x7a;&#x2f;&#x61;&#x73;&#x79;&#x6e;&#x63;&#x68;&#x72;&#111;&#x6e;&#111;&#117;&#115;&#45;&#108;&#x61;&#x79;&#x6f;&#117;&#116;&#x2d;&#105;&#110;&#102;&#108;&#97;&#x74;&#x69;&#111;&#110;&#45;&#55;&#99;&#x62;&#x63;&#97;&#50;&#54;&#x35;&#x33;&#x62;&#x66;&#35;&#x2e;&#113;&#x32;&#x32;&#x76;&#112;&#101;&#122;&#x67;&#52;</a></p>
+<p>原文：<a href="&#x6d;&#97;&#105;&#108;&#x74;&#111;&#x3a;&#x68;&#116;&#116;&#x70;&#115;&#x3a;&#47;&#x2f;&#x6d;&#101;&#100;&#105;&#x75;&#109;&#46;&#x63;&#111;&#x6d;&#x2f;&#x40;&#x6c;&#117;&#112;&#97;&#106;&#122;&#47;&#97;&#115;&#121;&#x6e;&#x63;&#104;&#114;&#111;&#110;&#111;&#x75;&#x73;&#45;&#108;&#x61;&#x79;&#x6f;&#117;&#x74;&#45;&#105;&#110;&#102;&#x6c;&#x61;&#116;&#x69;&#111;&#x6e;&#45;&#x37;&#x63;&#98;&#99;&#x61;&#50;&#54;&#53;&#x33;&#98;&#102;&#x23;&#46;&#113;&#50;&#50;&#118;&#x70;&#x65;&#122;&#x67;&#x34;">&#x68;&#116;&#116;&#x70;&#115;&#x3a;&#47;&#x2f;&#x6d;&#101;&#100;&#105;&#x75;&#109;&#46;&#x63;&#111;&#x6d;&#x2f;&#x40;&#x6c;&#117;&#112;&#97;&#106;&#122;&#47;&#97;&#115;&#121;&#x6e;&#x63;&#104;&#114;&#111;&#110;&#111;&#x75;&#x73;&#45;&#108;&#x61;&#x79;&#x6f;&#117;&#x74;&#45;&#105;&#110;&#102;&#x6c;&#x61;&#116;&#x69;&#111;&#x6e;&#45;&#x37;&#x63;&#98;&#99;&#x61;&#50;&#54;&#53;&#x33;&#98;&#102;&#x23;&#46;&#113;&#50;&#50;&#118;&#x70;&#x65;&#122;&#x67;&#x34;</a></p>
 </blockquote>
 <p>随着最近发布的<a href="https://developer.android.com/topic/libraries/support-library/revisions.html" target="_blank" rel="noopener">Android Support Library, revision 24</a>，Google开发者在v4包中增加了一个用来异步inflate layouts的帮助类。</p>
 <h2 id="进入-AsyncLayoutInflater"><a href="#进入-AsyncLayoutInflater" class="headerlink" title="进入 AsyncLayoutInflater"></a>进入 AsyncLayoutInflater</h2><p>你会发现AsyncLayoutInflater可以使用在当你想要去懒加载你应用中部分UI或者用户行为的响应。这个帮助类将会允许你的UI线程在执行繁重的inflate时继续保持响应。</p>
@@ -4409,13 +4546,13 @@ Cookie: ... ...
             
             <tag> android </tag>
             
-            <tag> library </tag>
-            
             <tag> sqlite </tag>
             
             <tag> database </tag>
             
             <tag> orm </tag>
+            
+            <tag> library </tag>
             
             <tag> rapidorm </tag>
             
@@ -7047,13 +7184,13 @@ for (name in names) {
             
             <tag> android </tag>
             
-            <tag> library </tag>
-            
             <tag> sqlite </tag>
             
             <tag> database </tag>
             
             <tag> orm </tag>
+            
+            <tag> library </tag>
             
             <tag> rapidorm </tag>
             
@@ -8666,11 +8803,11 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
         
         <tags>
             
+            <tag> library </tag>
+            
             <tag> android bucket </tag>
             
             <tag> annotations </tag>
-            
-            <tag> library </tag>
             
         </tags>
         
@@ -8950,8 +9087,6 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> android </tag>
             
-            <tag> library </tag>
-            
             <tag> inject </tag>
             
             <tag> sqlite </tag>
@@ -8961,6 +9096,8 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             <tag> database </tag>
             
             <tag> orm </tag>
+            
+            <tag> library </tag>
             
         </tags>
         
@@ -9488,9 +9625,9 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> android </tag>
             
-            <tag> annotations </tag>
-            
             <tag> library </tag>
+            
+            <tag> annotations </tag>
             
             <tag> proxy </tag>
             
@@ -9563,9 +9700,9 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> android </tag>
             
-            <tag> library </tag>
-            
             <tag> inject </tag>
+            
+            <tag> library </tag>
             
         </tags>
         
