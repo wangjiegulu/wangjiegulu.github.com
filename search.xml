@@ -89,6 +89,14 @@
 <p>最后，你就可以通过 “OK, Google” 唤醒 Google Assistant，然后说”Turn on plug a”来打开插座了。</p>
 <div style="text-align: center;"><br>    <img src="https://user-images.githubusercontent.com/5423194/46126863-5c3e4080-c261-11e8-8e3d-1f199e647201.jpg" width="300px"><br></div>
 
+<h3 id="吐槽下涂鸦的-Google-Assistant"><a href="#吐槽下涂鸦的-Google-Assistant" class="headerlink" title="吐槽下涂鸦的 Google Assistant"></a>吐槽下涂鸦的 Google Assistant</h3><p>本来想直接使用 Google Assistant 的 Smart Life 的，但是一直没成功，很多人也在反映这个事情，不过貌似没什么效果（看下面这个评分，估计反映一直是被无视的- -）：</p>
+<div style="text-align: center;"><br>    <img src="https://user-images.githubusercontent.com/5423194/46129424-39178f00-c269-11e8-803f-861c952e37bf.jpg" width="300px"><br></div>
+
+<div style="text-align: center;"><br>    <img src="https://user-images.githubusercontent.com/5423194/46129520-8eec3700-c269-11e8-851f-4998f8d793f6.jpg" width="300px"><br>    <img src="https://user-images.githubusercontent.com/5423194/46129603-c824a700-c269-11e8-9f2a-267b03bc17aa.jpg" width="300px"><br></div>
+
+
+
+
 <h2 id="使用-Slack-的-Slash-Command-控制"><a href="#使用-Slack-的-Slash-Command-控制" class="headerlink" title="使用 Slack 的 Slash Command 控制"></a>使用 Slack 的 Slash Command 控制</h2><p>在 web 服务中再新增两个接口用于 Slash Command：</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 插座控制接口，For Slack command line(slash commands)</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">@PostMapping(<span class="meta-string">"/plug/turnon"</span>)</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">plugTurnOnForCommand</span><span class="params">(<span class="meta">@RequestBody</span> body: <span class="type">String</span>)</span></span>: JSONObject &#123;</span><br><span class="line">   <span class="keyword">return</span> JsonResult.success(<span class="string">"text"</span> to plugControlForCommand(body, <span class="literal">true</span>))</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* For Slack command line(slash commands)</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">@PostMapping(<span class="meta-string">"/plug/turnoff"</span>)</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">plugTurnOffForCommand</span><span class="params">(<span class="meta">@RequestBody</span> body: <span class="type">String</span>)</span></span>: JSONObject &#123;</span><br><span class="line">   <span class="keyword">return</span> JsonResult.success(<span class="string">"text"</span> to plugControlForCommand(body, <span class="literal">false</span>))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* For Slack command line(slash commands) control</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">plugControlForCommand</span><span class="params">(body: <span class="type">String</span>, turnOn: <span class="type">Boolean</span>)</span></span>: String &#123;</span><br><span class="line">   <span class="keyword">try</span> &#123;</span><br><span class="line">       <span class="keyword">return</span> body.split(<span class="string">"&amp;"</span>).map &#123;</span><br><span class="line">           <span class="keyword">val</span> pair = it.split(<span class="string">"="</span>)</span><br><span class="line">           Pair(pair[<span class="number">0</span>], URLDecoder.decode(pair[<span class="number">1</span>], <span class="string">"UTF-8"</span>))</span><br><span class="line">       &#125;.firstOrNull &#123;</span><br><span class="line">           it.first == <span class="string">"text"</span></span><br><span class="line">       &#125;?.let &#123;</span><br><span class="line">           <span class="keyword">val</span> dev = tuyaClientProperties.findContainsDev(it.second)</span><br><span class="line">           <span class="keyword">if</span> (<span class="literal">null</span> == dev) &#123;</span><br><span class="line">               <span class="string">"Sorry for failed command, Device named <span class="subst">$&#123;it.second&#125;</span> is not found."</span></span><br><span class="line">           &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">               tuyaClientService.controlPlug(dev.devId, turnOn)</span><br><span class="line">               <span class="string">"<span class="subst">$&#123;if (turnOn) "Turn On" else "Turn Off"&#125;</span> Done(<span class="subst">$&#123;it.second&#125;</span>)."</span></span><br><span class="line">           &#125;</span><br><span class="line">       &#125; ?: <span class="string">"Sorry for failed command, Device name required."</span></span><br><span class="line">   &#125; <span class="keyword">catch</span> (e: Exception) &#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="string">"Sorry for failed command, <span class="subst">$&#123;e.message&#125;</span>."</span></span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>打开 App 设置页面的 <code>Slash Commands</code>，</p>
@@ -1362,9 +1370,9 @@
             
             <tag> framework </tag>
             
-            <tag> dagger2 </tag>
-            
             <tag> 翻译 </tag>
+            
+            <tag> dagger2 </tag>
             
             <tag> kotlin </tag>
             
@@ -1734,9 +1742,9 @@
             
             <tag> android </tag>
             
-            <tag> 翻译 </tag>
-            
             <tag> memory leak </tag>
+            
+            <tag> 翻译 </tag>
             
         </tags>
         
@@ -2865,11 +2873,11 @@
             
             <tag> dependency injection </tag>
             
+            <tag> 翻译 </tag>
+            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
-            
-            <tag> 翻译 </tag>
             
             <tag> google </tag>
             
@@ -2968,11 +2976,11 @@
             
             <tag> dependency injection </tag>
             
+            <tag> 翻译 </tag>
+            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
-            
-            <tag> 翻译 </tag>
             
             <tag> google </tag>
             
@@ -3074,11 +3082,11 @@
             
             <tag> dependency injection </tag>
             
+            <tag> 翻译 </tag>
+            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
-            
-            <tag> 翻译 </tag>
             
             <tag> google </tag>
             
@@ -3208,11 +3216,11 @@
             
             <tag> dependency injection </tag>
             
+            <tag> 翻译 </tag>
+            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
-            
-            <tag> 翻译 </tag>
             
             <tag> google </tag>
             
@@ -3340,7 +3348,7 @@
       <title><![CDATA[[Android]异步 layout inflation（翻译）]]></title>
       <url>/2016/09/01/Android-%E5%BC%82%E6%AD%A5-layout-inflation%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/</url>
       <content type="html"><![CDATA[<h1 id="异步-layout-inflation"><a href="#异步-layout-inflation" class="headerlink" title="异步 layout inflation"></a>异步 layout inflation</h1><blockquote>
-<p>原文：<a href="&#109;&#97;&#105;&#108;&#x74;&#111;&#58;&#104;&#x74;&#x74;&#x70;&#115;&#58;&#47;&#47;&#x6d;&#101;&#100;&#x69;&#x75;&#109;&#46;&#99;&#x6f;&#109;&#47;&#x40;&#x6c;&#x75;&#112;&#x61;&#106;&#122;&#47;&#97;&#x73;&#121;&#110;&#99;&#104;&#114;&#x6f;&#110;&#x6f;&#117;&#115;&#45;&#x6c;&#x61;&#x79;&#111;&#x75;&#116;&#45;&#x69;&#x6e;&#x66;&#108;&#97;&#116;&#105;&#111;&#110;&#x2d;&#x37;&#99;&#x62;&#x63;&#x61;&#x32;&#x36;&#53;&#51;&#x62;&#x66;&#x23;&#x2e;&#x71;&#x32;&#x32;&#x76;&#x70;&#x65;&#x7a;&#103;&#52;">&#104;&#x74;&#x74;&#x70;&#115;&#58;&#47;&#47;&#x6d;&#101;&#100;&#x69;&#x75;&#109;&#46;&#99;&#x6f;&#109;&#47;&#x40;&#x6c;&#x75;&#112;&#x61;&#106;&#122;&#47;&#97;&#x73;&#121;&#110;&#99;&#104;&#114;&#x6f;&#110;&#x6f;&#117;&#115;&#45;&#x6c;&#x61;&#x79;&#111;&#x75;&#116;&#45;&#x69;&#x6e;&#x66;&#108;&#97;&#116;&#105;&#111;&#110;&#x2d;&#x37;&#99;&#x62;&#x63;&#x61;&#x32;&#x36;&#53;&#51;&#x62;&#x66;&#x23;&#x2e;&#x71;&#x32;&#x32;&#x76;&#x70;&#x65;&#x7a;&#103;&#52;</a></p>
+<p>原文：<a href="&#109;&#x61;&#x69;&#x6c;&#116;&#x6f;&#58;&#x68;&#x74;&#x74;&#112;&#x73;&#58;&#47;&#x2f;&#x6d;&#x65;&#x64;&#105;&#x75;&#109;&#46;&#99;&#111;&#x6d;&#47;&#64;&#x6c;&#x75;&#x70;&#97;&#x6a;&#122;&#47;&#97;&#115;&#x79;&#x6e;&#99;&#104;&#x72;&#x6f;&#x6e;&#111;&#117;&#115;&#x2d;&#x6c;&#x61;&#121;&#x6f;&#x75;&#x74;&#x2d;&#105;&#110;&#x66;&#x6c;&#x61;&#x74;&#105;&#111;&#110;&#x2d;&#55;&#99;&#98;&#x63;&#97;&#50;&#x36;&#53;&#51;&#x62;&#102;&#x23;&#x2e;&#113;&#50;&#50;&#x76;&#112;&#x65;&#x7a;&#x67;&#52;">&#x68;&#x74;&#x74;&#112;&#x73;&#58;&#47;&#x2f;&#x6d;&#x65;&#x64;&#105;&#x75;&#109;&#46;&#99;&#111;&#x6d;&#47;&#64;&#x6c;&#x75;&#x70;&#97;&#x6a;&#122;&#47;&#97;&#115;&#x79;&#x6e;&#99;&#104;&#x72;&#x6f;&#x6e;&#111;&#117;&#115;&#x2d;&#x6c;&#x61;&#121;&#x6f;&#x75;&#x74;&#x2d;&#105;&#110;&#x66;&#x6c;&#x61;&#x74;&#105;&#111;&#110;&#x2d;&#55;&#99;&#98;&#x63;&#97;&#50;&#x36;&#53;&#51;&#x62;&#102;&#x23;&#x2e;&#113;&#50;&#50;&#x76;&#112;&#x65;&#x7a;&#x67;&#52;</a></p>
 </blockquote>
 <p>随着最近发布的<a href="https://developer.android.com/topic/libraries/support-library/revisions.html" target="_blank" rel="noopener">Android Support Library, revision 24</a>，Google开发者在v4包中增加了一个用来异步inflate layouts的帮助类。</p>
 <h2 id="进入-AsyncLayoutInflater"><a href="#进入-AsyncLayoutInflater" class="headerlink" title="进入 AsyncLayoutInflater"></a>进入 AsyncLayoutInflater</h2><p>你会发现AsyncLayoutInflater可以使用在当你想要去懒加载你应用中部分UI或者用户行为的响应。这个帮助类将会允许你的UI线程在执行繁重的inflate时继续保持响应。</p>
@@ -4996,13 +5004,13 @@ Cookie: ... ...
             
             <tag> dependency injection </tag>
             
+            <tag> 翻译 </tag>
+            
             <tag> dagger2 </tag>
             
             <tag> memory </tag>
             
             <tag> DI </tag>
-            
-            <tag> 翻译 </tag>
             
         </tags>
         
@@ -5118,11 +5126,11 @@ Cookie: ... ...
             
             <tag> dependency injection </tag>
             
+            <tag> 翻译 </tag>
+            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
-            
-            <tag> 翻译 </tag>
             
             <tag> google </tag>
             
@@ -5239,11 +5247,11 @@ Cookie: ... ...
             
             <tag> dependency injection </tag>
             
+            <tag> 翻译 </tag>
+            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
-            
-            <tag> 翻译 </tag>
             
             <tag> google </tag>
             
@@ -5379,11 +5387,11 @@ Cookie: ... ...
             
             <tag> dependency injection </tag>
             
+            <tag> 翻译 </tag>
+            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
-            
-            <tag> 翻译 </tag>
             
             <tag> google </tag>
             
@@ -5477,11 +5485,11 @@ Cookie: ... ...
             
             <tag> dependency injection </tag>
             
+            <tag> 翻译 </tag>
+            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
-            
-            <tag> 翻译 </tag>
             
             <tag> google </tag>
             
@@ -9450,11 +9458,11 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> java </tag>
             
+            <tag> Hbase </tag>
+            
             <tag> j2ee </tag>
             
             <tag> java web </tag>
-            
-            <tag> Hbase </tag>
             
         </tags>
         
@@ -10186,11 +10194,11 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> orm </tag>
             
-            <tag> Hibernate </tag>
-            
             <tag> j2ee </tag>
             
             <tag> java web </tag>
+            
+            <tag> Hibernate </tag>
             
         </tags>
         

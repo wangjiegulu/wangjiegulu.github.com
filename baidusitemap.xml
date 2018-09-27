@@ -5,7 +5,7 @@
     
   <url>
     <loc>https://blog.wangjiegulu.com/2018/09/26/private-smart-life-cloud-b--working-with-ifttt-slack/</loc>
-    <lastmod>2018-09-27T06:59:59.513Z</lastmod>
+    <lastmod>2018-09-27T07:30:22.856Z</lastmod>
     <data>
         <display>
         <title>构建自己的 Smart Life 私有云（二）-> 连通 IFTTT & Slack</title>
@@ -402,11 +402,11 @@
          
         <tag>dependency injection</tag>
          
+        <tag>翻译</tag>
+         
         <tag>dagger2</tag>
          
         <tag>DI</tag>
-         
-        <tag>翻译</tag>
          
         <tag>google</tag>
          
@@ -498,11 +498,11 @@
          
         <tag>dependency injection</tag>
          
+        <tag>翻译</tag>
+         
         <tag>dagger2</tag>
          
         <tag>DI</tag>
-         
-        <tag>翻译</tag>
          
         <tag>google</tag>
          
@@ -525,11 +525,11 @@
          
         <tag>dependency injection</tag>
          
+        <tag>翻译</tag>
+         
         <tag>dagger2</tag>
          
         <tag>DI</tag>
-         
-        <tag>翻译</tag>
          
         <tag>google</tag>
          
@@ -552,13 +552,13 @@
          
         <tag>dependency injection</tag>
          
+        <tag>翻译</tag>
+         
         <tag>dagger2</tag>
          
         <tag>memory</tag>
          
         <tag>DI</tag>
-         
-        <tag>翻译</tag>
          
          
            
@@ -759,11 +759,11 @@
          
         <tag>dependency injection</tag>
          
+        <tag>翻译</tag>
+         
         <tag>dagger2</tag>
          
         <tag>DI</tag>
-         
-        <tag>翻译</tag>
          
         <tag>google</tag>
          
@@ -1295,11 +1295,11 @@
          
         <tag>dependency injection</tag>
          
+        <tag>翻译</tag>
+         
         <tag>dagger2</tag>
          
         <tag>DI</tag>
-         
-        <tag>翻译</tag>
          
         <tag>google</tag>
          
@@ -1322,11 +1322,11 @@
          
         <tag>dependency injection</tag>
          
+        <tag>翻译</tag>
+         
         <tag>dagger2</tag>
          
         <tag>DI</tag>
-         
-        <tag>翻译</tag>
          
         <tag>google</tag>
          
@@ -1376,11 +1376,11 @@
          
         <tag>dependency injection</tag>
          
+        <tag>翻译</tag>
+         
         <tag>dagger2</tag>
          
         <tag>DI</tag>
-         
-        <tag>翻译</tag>
          
         <tag>google</tag>
          
@@ -1474,11 +1474,11 @@
          
         <tag>dependency injection</tag>
          
+        <tag>翻译</tag>
+         
         <tag>dagger2</tag>
          
         <tag>DI</tag>
-         
-        <tag>翻译</tag>
          
         <tag>google</tag>
          
@@ -1876,9 +1876,9 @@
          
         <tag>framework</tag>
          
-        <tag>dagger2</tag>
-         
         <tag>翻译</tag>
+         
+        <tag>dagger2</tag>
          
         <tag>kotlin</tag>
          
@@ -1942,9 +1942,9 @@
         
         <tag>android</tag>
          
-        <tag>翻译</tag>
-         
         <tag>memory leak</tag>
+         
+        <tag>翻译</tag>
          
          
            
@@ -2776,11 +2776,11 @@
          
         <tag>java</tag>
          
+        <tag>Hbase</tag>
+         
         <tag>j2ee</tag>
          
         <tag>java web</tag>
-         
-        <tag>Hbase</tag>
          
          
            
@@ -2799,11 +2799,11 @@
         
         <tag>orm</tag>
          
-        <tag>Hibernate</tag>
-         
         <tag>j2ee</tag>
          
         <tag>java web</tag>
+         
+        <tag>Hibernate</tag>
          
          
            
