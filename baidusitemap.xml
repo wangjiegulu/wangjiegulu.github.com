@@ -412,9 +412,9 @@
         
         <tag>android</tag>
          
-        <tag>dependency injection</tag>
-         
         <tag>翻译</tag>
+         
+        <tag>dependency injection</tag>
          
         <tag>dagger2</tag>
          
@@ -481,13 +481,13 @@
         
         <tag>android</tag>
          
-        <tag>library</tag>
-         
         <tag>sqlite</tag>
          
         <tag>database</tag>
          
         <tag>orm</tag>
+         
+        <tag>library</tag>
          
         <tag>rapidorm</tag>
          
@@ -508,9 +508,9 @@
         
         <tag>android</tag>
          
-        <tag>dependency injection</tag>
-         
         <tag>翻译</tag>
+         
+        <tag>dependency injection</tag>
          
         <tag>dagger2</tag>
          
@@ -535,9 +535,9 @@
         
         <tag>android</tag>
          
-        <tag>dependency injection</tag>
-         
         <tag>翻译</tag>
+         
+        <tag>dependency injection</tag>
          
         <tag>dagger2</tag>
          
@@ -562,9 +562,9 @@
         
         <tag>android</tag>
          
-        <tag>dependency injection</tag>
-         
         <tag>翻译</tag>
+         
+        <tag>dependency injection</tag>
          
         <tag>dagger2</tag>
          
@@ -769,9 +769,9 @@
         
         <tag>android</tag>
          
-        <tag>dependency injection</tag>
-         
         <tag>翻译</tag>
+         
+        <tag>dependency injection</tag>
          
         <tag>dagger2</tag>
          
@@ -800,8 +800,6 @@
         
         <tag>android</tag>
          
-        <tag>library</tag>
-         
         <tag>inject</tag>
          
         <tag>sqlite</tag>
@@ -811,6 +809,8 @@
         <tag>database</tag>
          
         <tag>orm</tag>
+         
+        <tag>library</tag>
          
          
            
@@ -1192,11 +1192,11 @@
         <title>[Android]AndroidBucket增加碎片SubLayout功能及AISubLayout的注解支持</title>
         <pubTime>2014-05-05T12:31:00.000Z</pubTime>
         
+        <tag>library</tag>
+         
         <tag>android bucket</tag>
          
         <tag>annotations</tag>
-         
-        <tag>library</tag>
          
          
            
@@ -1236,9 +1236,9 @@
         
         <tag>android</tag>
          
-        <tag>annotations</tag>
-         
         <tag>unit test</tag>
+         
+        <tag>annotations</tag>
          
         <tag>JUnit</tag>
          
@@ -1305,9 +1305,9 @@
         
         <tag>android</tag>
          
-        <tag>dependency injection</tag>
-         
         <tag>翻译</tag>
+         
+        <tag>dependency injection</tag>
          
         <tag>dagger2</tag>
          
@@ -1332,9 +1332,9 @@
         
         <tag>android</tag>
          
-        <tag>dependency injection</tag>
-         
         <tag>翻译</tag>
+         
+        <tag>dependency injection</tag>
          
         <tag>dagger2</tag>
          
@@ -1386,9 +1386,9 @@
         
         <tag>android</tag>
          
-        <tag>dependency injection</tag>
-         
         <tag>翻译</tag>
+         
+        <tag>dependency injection</tag>
          
         <tag>dagger2</tag>
          
@@ -1457,13 +1457,13 @@
         
         <tag>android</tag>
          
-        <tag>library</tag>
-         
         <tag>sqlite</tag>
          
         <tag>database</tag>
          
         <tag>orm</tag>
+         
+        <tag>library</tag>
          
         <tag>rapidorm</tag>
          
@@ -1484,9 +1484,9 @@
         
         <tag>android</tag>
          
-        <tag>dependency injection</tag>
-         
         <tag>翻译</tag>
+         
+        <tag>dependency injection</tag>
          
         <tag>dagger2</tag>
          
@@ -1511,9 +1511,9 @@
         
         <tag>android</tag>
          
-        <tag>framework</tag>
-         
         <tag>翻译</tag>
+         
+        <tag>framework</tag>
          
         <tag>best practices</tag>
          
@@ -1555,13 +1555,13 @@
         
         <tag>android</tag>
          
-        <tag>library</tag>
-         
         <tag>sqlite</tag>
          
         <tag>database</tag>
          
         <tag>orm</tag>
+         
+        <tag>library</tag>
          
         <tag>rapidorm</tag>
          
@@ -1603,9 +1603,9 @@
         
         <tag>android</tag>
          
-        <tag>annotations</tag>
-         
         <tag>library</tag>
+         
+        <tag>annotations</tag>
          
         <tag>proxy</tag>
          
@@ -1886,9 +1886,9 @@
         
         <tag>android</tag>
          
-        <tag>framework</tag>
-         
         <tag>翻译</tag>
+         
+        <tag>framework</tag>
          
         <tag>dagger2</tag>
          
@@ -2788,11 +2788,11 @@
          
         <tag>java</tag>
          
+        <tag>Hbase</tag>
+         
         <tag>j2ee</tag>
          
         <tag>java web</tag>
-         
-        <tag>Hbase</tag>
          
          
            
@@ -2811,11 +2811,11 @@
         
         <tag>orm</tag>
          
-        <tag>Hibernate</tag>
-         
         <tag>j2ee</tag>
          
         <tag>java web</tag>
+         
+        <tag>Hibernate</tag>
          
          
            
@@ -3051,9 +3051,9 @@
         
         <tag>android</tag>
          
-        <tag>UI</tag>
-         
         <tag>tips</tag>
+         
+        <tag>UI</tag>
          
         <tag>unit</tag>
          
@@ -3349,9 +3349,9 @@
         
         <tag>android</tag>
          
-        <tag>library</tag>
-         
         <tag>inject</tag>
+         
+        <tag>library</tag>
          
          
            
@@ -3466,12 +3466,27 @@
 
     
   <url>
-    <loc>https://blog.wangjiegulu.com/2013/02/19/%E5%B7%A5%E5%85%B7%E5%BA%93-JOXMLBuilder%E5%B7%A5%E5%85%B7%E7%B1%BB%E2%80%94%E2%80%94%E4%B8%80%E9%94%AE%E6%8A%8A%E5%A4%9A%E4%B8%AAbean%E5%AF%B9%E8%B1%A1%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2%E4%B8%BAXML%E6%A0%BC%E5%BC%8F%E6%95%B0%E6%8D%AE/</loc>
+    <loc>https://blog.wangjiegulu.com/2013/02/19/%E5%B7%A5%E5%85%B7%E5%BA%93-JOJSONBuilder%E5%B7%A5%E5%85%B7%E7%B1%BB%E2%80%94%E2%80%94%E4%B8%80%E9%94%AE%E6%8A%8A%E5%A4%9A%E4%B8%AAbean%E5%AF%B9%E8%B1%A1%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2%E4%B8%BAJSON%E6%A0%BC%E5%BC%8F%E6%95%B0%E6%8D%AE/</loc>
     <lastmod>2018-01-29T12:36:41.000Z</lastmod>
     <data>
         <display>
-        <title>[工具库]JOXMLBuilder工具类——一键把多个bean对象数据转换为XML格式数据</title>
-        <pubTime>2013-02-19T09:14:00.000Z</pubTime>
+        <title>[工具库]JOJSONBuilder工具类——一键把多个bean对象数据转换为JSON格式数据</title>
+        <pubTime>2013-02-19T09:30:00.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://blog.wangjiegulu.com/2013/02/20/%E5%B7%A5%E5%85%B7%E5%BA%93-JFileDownloader%E5%B7%A5%E5%85%B7%E7%B1%BB%E2%80%94%E2%80%94%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8B%E8%BD%BD%E7%BD%91%E7%BB%9C%E6%96%87%E4%BB%B6%EF%BC%8C%E5%B9%B6%E4%BF%9D%E5%AD%98%E5%9C%A8%E6%9C%AC%E5%9C%B0/</loc>
+    <lastmod>2018-01-29T12:36:41.000Z</lastmod>
+    <data>
+        <display>
+        <title>[工具库]JFileDownloader工具类——多线程下载网络文件，并保存在本地</title>
+        <pubTime>2013-02-20T09:37:00.000Z</pubTime>
         
          
            
@@ -3496,42 +3511,27 @@
 
     
   <url>
+    <loc>https://blog.wangjiegulu.com/2013/02/19/%E5%B7%A5%E5%85%B7%E5%BA%93-JOXMLBuilder%E5%B7%A5%E5%85%B7%E7%B1%BB%E2%80%94%E2%80%94%E4%B8%80%E9%94%AE%E6%8A%8A%E5%A4%9A%E4%B8%AAbean%E5%AF%B9%E8%B1%A1%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2%E4%B8%BAXML%E6%A0%BC%E5%BC%8F%E6%95%B0%E6%8D%AE/</loc>
+    <lastmod>2018-01-29T12:36:41.000Z</lastmod>
+    <data>
+        <display>
+        <title>[工具库]JOXMLBuilder工具类——一键把多个bean对象数据转换为XML格式数据</title>
+        <pubTime>2013-02-19T09:14:00.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://blog.wangjiegulu.com/2012/06/15/%E8%AE%BE%E7%BD%AEEditText%E6%98%AF%E5%90%A6%E5%8F%AF%E7%BC%96%E8%BE%91/</loc>
     <lastmod>2018-01-29T12:36:41.000Z</lastmod>
     <data>
         <display>
         <title>设置EditText是否可编辑</title>
         <pubTime>2012-06-15T02:37:00.000Z</pubTime>
-        
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://blog.wangjiegulu.com/2013/02/19/%E5%B7%A5%E5%85%B7%E5%BA%93-JOJSONBuilder%E5%B7%A5%E5%85%B7%E7%B1%BB%E2%80%94%E2%80%94%E4%B8%80%E9%94%AE%E6%8A%8A%E5%A4%9A%E4%B8%AAbean%E5%AF%B9%E8%B1%A1%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2%E4%B8%BAJSON%E6%A0%BC%E5%BC%8F%E6%95%B0%E6%8D%AE/</loc>
-    <lastmod>2018-01-29T12:36:41.000Z</lastmod>
-    <data>
-        <display>
-        <title>[工具库]JOJSONBuilder工具类——一键把多个bean对象数据转换为JSON格式数据</title>
-        <pubTime>2013-02-19T09:30:00.000Z</pubTime>
-        
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://blog.wangjiegulu.com/2013/02/20/%E5%B7%A5%E5%85%B7%E5%BA%93-JFileDownloader%E5%B7%A5%E5%85%B7%E7%B1%BB%E2%80%94%E2%80%94%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8B%E8%BD%BD%E7%BD%91%E7%BB%9C%E6%96%87%E4%BB%B6%EF%BC%8C%E5%B9%B6%E4%BF%9D%E5%AD%98%E5%9C%A8%E6%9C%AC%E5%9C%B0/</loc>
-    <lastmod>2018-01-29T12:36:41.000Z</lastmod>
-    <data>
-        <display>
-        <title>[工具库]JFileDownloader工具类——多线程下载网络文件，并保存在本地</title>
-        <pubTime>2013-02-20T09:37:00.000Z</pubTime>
         
          
            

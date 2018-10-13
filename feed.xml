@@ -390,9 +390,9 @@
     
       <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
     
-      <category term="framework" scheme="https://blog.wangjiegulu.com/tags/framework/"/>
-    
       <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
+    
+      <category term="framework" scheme="https://blog.wangjiegulu.com/tags/framework/"/>
     
       <category term="dagger2" scheme="https://blog.wangjiegulu.com/tags/dagger2/"/>
     
