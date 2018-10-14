@@ -339,13 +339,13 @@
   text-transform: none;
   letter-spacing: normal;
   font-weight: bold;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
 }
 .content h3 {
   color: #333;
   text-decoration: underline;
   font-weight: bold;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
 }
 h4,
 h5,
@@ -354,7 +354,7 @@ h6 {
   color: #333;
   text-decoration: none;
   font-weight: bold;
-  font-size: 1rem;
+  font-size: 1.1rem;
 }
 h4 {
   border-bottom: 1px dashed #333;
@@ -405,7 +405,7 @@ abbr {
 ul,
 ol,
 dl {
-  line-height: 1.725;
+  line-height: 1.61;
 }
 ul ul,
 ol ul,
@@ -424,14 +424,14 @@ table {
   width: 100%;
   border-collapse: collapse;
   text-align: left;
-  font-size: 12px;
+  font-size: 13px;
 }
 th {
   padding: 8px;
   border-bottom: 1px dashed $color-code-border;
   color: #333;
   font-weight: bold;
-  font-size: 13px;
+  font-size: 14px;
 }
 td {
   padding: 9px 8px 0;
@@ -459,9 +459,9 @@ body {
   background-color: #fff;
   color: #333;
   font-weight: 400;
-  font-size: 14px;
+  font-size: 15px;
   font-family: "Menlo", "Meslo LG", monospace;
-  line-height: 1.725;
+  line-height: 1.61;
   text-rendering: geometricPrecision;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
@@ -1447,7 +1447,7 @@ pre {
   padding-bottom: 0;
   border: 1px dotted #666;
   border-radius: 4px;
-  font-size: 13px;
+  font-size: 14px;
   font-family: "Menlo", "Meslo LG", monospace;
   line-height: 22px;
   -webkit-border-radius: 4px;
@@ -1546,11 +1546,13 @@ table,
 th,
 td {
   border: 1px solid #e0e0e0;
+  font-size: 14px;
 }
 table,
 th,
 td {
-  min-width: 70px;
+  min-width: 74px;
+  color: #333;
 }
 table th {
   text-align: center;
