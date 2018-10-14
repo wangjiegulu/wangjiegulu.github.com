@@ -684,9 +684,9 @@
     
       <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
     
-      <category term="best practices" scheme="https://blog.wangjiegulu.com/tags/best-practices/"/>
-    
       <category term="ListView" scheme="https://blog.wangjiegulu.com/tags/ListView/"/>
+    
+      <category term="best practices" scheme="https://blog.wangjiegulu.com/tags/best-practices/"/>
     
       <category term="RecyclerView" scheme="https://blog.wangjiegulu.com/tags/RecyclerView/"/>
     
