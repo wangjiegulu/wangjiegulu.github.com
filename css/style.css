@@ -1556,6 +1556,9 @@ figure table th,
 figure table td {
   border: 0;
 }
+figure table td {
+  min-width: 0;
+}
 table th {
   background: #f8f8f8;
 }
