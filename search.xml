@@ -3,6 +3,78 @@
   
     
     <entry>
+      <title><![CDATA[Huginn实现自动通过Telegram推送豆瓣高分电影]]></title>
+      <url>/2018/11/16/douban_high_movie_huginn_telegram/</url>
+      <content type="html"><![CDATA[<h1 id="Huginn实现自动通过telegram推送豆瓣高分电影"><a href="#Huginn实现自动通过telegram推送豆瓣高分电影" class="headerlink" title="Huginn实现自动通过telegram推送豆瓣高分电影"></a>Huginn实现自动通过telegram推送豆瓣高分电影</h1><p>之前博客<a href="https://blog.wangjiegulu.com/2018/04/03/huginn_douban_high_score_movies_and_slack/">《Huginn实现自动通过slack推送豆瓣高分电影》</a>有讲到过通过 Huginn 来实现自动获取豆瓣正在上映中的高分（设定分数超过7.8分）电影，并且自动通过 Slack 通知给我。那么怎样通过 Telegram 来进行推送呢？</p>
+<h2 id="创建-Telegram-Bot"><a href="#创建-Telegram-Bot" class="headerlink" title="创建 Telegram Bot"></a>创建 Telegram Bot</h2><p>其实跟 Slack 一样，首先需要创建一个 telegram bot，然后通过 telegram bot 来进行通知。</p>
+<p>具体我们可以参考 telegram 的官方文档：<a href="https://core.telegram.org/bots#6-botfather" target="_blank" rel="noopener">https://core.telegram.org/bots#6-botfather</a></p>
+<p>这里创建 Bot 的方式跟 Slack 有所不同，需要通过跟 <code>BotFather</code> 进行对话来创建，打开 telegram 客户端，搜索 <code>BotFather</code>进入对话框：</p>
+<div style="text-align: center;"><br>    <img src="https://user-images.githubusercontent.com/5423194/48595853-74912880-e991-11e8-915c-7b2fbd82ccf0.png" width="400px"><br></div>
+
+<p>给 <code>BotFather</code> 发送一个创建 Bot 的命令 <code>/newbot</code>：</p>
+<div style="text-align: center;"><br>    <img src="https://user-images.githubusercontent.com/5423194/48595984-f08b7080-e991-11e8-8989-5a65de625a0c.png" width="700px"><br></div>
+
+<p>如上图所示，通过发送 <code>/newbot</code> 命令（消息）后，<code>BotFather</code> 会回复让你进行设置 <code>bot</code> 的 <code>name</code> 和 <code>user_name</code>，其中 <code>username</code> 必须要是 <code>bot</code> 结尾，我这里 <code>name</code> 和 <code>username</code> 都设置为 <code>angelia_bot</code>。</p>
+<p>最后 <code>BotFather</code> 会回复创建成功，并切返回你创建的机器人的 <code>access token</code>，有了<code>access token</code>我们就能给 group 或者 channel 发送消息了。</p>
+<div style="text-align: center;"><br>    <img src="https://user-images.githubusercontent.com/5423194/48596207-fa61a380-e992-11e8-9cd5-0320c69303ea.png" width="700px"><br></div>
+
+<h2 id="创建接收消息的频道Channel"><a href="#创建接收消息的频道Channel" class="headerlink" title="创建接收消息的频道Channel"></a>创建接收消息的频道Channel</h2><p>接下来我们需要创建一个用来接收消息的 <code>Channel</code>（当然，你用 <code>Group</code> 也可以，如果用 <code>Group</code> 的话，很多人加进来聊天发消息会比较凌乱，<code>Channel</code>的话，别人订阅之后就只能接受查看消息，比较符合我们现在的场景）。</p>
+<p>创建完之后，通过访问 &lt;<a href="https://api.telegram.org/bot" target="_blank" rel="noopener">https://api.telegram.org/bot</a><bot-access-token\>/getUpdates&gt;，找到刚刚创建的 <code>channel</code>，拿到这个 <code>channel</code> 的id（应该是负数的id）。</bot-access-token\></p>
+<blockquote>
+<p>把上面的 url 中的 <code>&lt;bot-access-token&gt;</code> 替换成刚刚创建 <code>bot</code> 拿到的 <code>access token</code></p>
+</blockquote>
+<p>把刚刚我们创建的 <code>bot</code> 添加到我们创建的 <code>channel</code> 中：</p>
+<div style="text-align: center;"><br>    <img src="https://user-images.githubusercontent.com/5423194/48596921-0733c680-e996-11e8-9190-2533727bf27d.png" width="400px"><br></div>
+
+
+<h2 id="创建发送-telegram-消息的-agent"><a href="#创建发送-telegram-消息的-agent" class="headerlink" title="创建发送 telegram 消息的 agent"></a>创建发送 telegram 消息的 agent</h2><p>之前的流程跟<a href="https://blog.wangjiegulu.com/2018/04/03/huginn_douban_high_score_movies_and_slack/">《Huginn实现自动通过slack推送豆瓣高分电影》</a>中的一样，只是最后需要创建一个发送到 telegram 的 agent。</p>
+<p>如下：创建一个 <code>PostAgent</code>：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"post_url"</span>: <span class="string">"&#123;% credential telegram_base_url %&#125;bot&#123;% credential telegram_bot_token %&#125;/sendPhoto"</span>,</span><br><span class="line">  <span class="attr">"expected_receive_period_in_days"</span>: <span class="string">"1"</span>,</span><br><span class="line">  <span class="attr">"content_type"</span>: <span class="string">"json"</span>,</span><br><span class="line">  <span class="attr">"method"</span>: <span class="string">"post"</span>,</span><br><span class="line">  <span class="attr">"payload"</span>: &#123;</span><br><span class="line">    <span class="attr">"chat_id"</span>: <span class="string">"&#123;% credential telegram_movie_channel_id %&#125;"</span>,</span><br><span class="line">    <span class="attr">"photo"</span>: <span class="string">"&#123;&#123;image_url&#125;&#125;"</span>,</span><br><span class="line">    <span class="attr">"parse_mode"</span>: <span class="string">"Markdown"</span>,</span><br><span class="line">    <span class="attr">"caption"</span>: <span class="string">"*Title*: [&lt;&lt;&#123;&#123;title&#125;&#125;&gt;&gt;](&#123;&#123;detail_url&#125;&#125;) \n*Score*: &#123;&#123;score&#125;&#125;\n*Star*: &#123;&#123;star&#125;&#125;\n*Release*: &#123;&#123;release&#125;&#125;\n*Region*: &#123;&#123;region&#125;&#125;\n*Actors*: &#123;&#123;actors&#125;&#125;\n*Director*: &#123;&#123;director&#125;&#125;"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"headers"</span>: &#123;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"emit_events"</span>: <span class="string">"false"</span>,</span><br><span class="line">  <span class="attr">"no_merge"</span>: <span class="string">"false"</span>,</span><br><span class="line">  <span class="attr">"output_mode"</span>: <span class="string">"clean"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>每当检测到豆瓣上有新的上映中的电影超过7.8分，刚刚创建的 Channel 中即可查看到 <code>Bot</code> 的通知：</p>
+<div style="text-align: center;"><br>    <img src="https://user-images.githubusercontent.com/5423194/48597282-0308a880-e998-11e8-8df0-7f8ac6857608.png" width="600px"><br></div>
+
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>如果你懒得上面的各种配置，ok，加入下面这个 channel，你就能收到通知啦：</p>
+<blockquote>
+<p><a href="https://t.me/angelia_movies" target="_blank" rel="noopener">https://t.me/angelia_movies</a></p>
+</blockquote>
+]]></content>
+      
+        <categories>
+            
+            <category> huginn </category>
+            
+            <category> automate </category>
+            
+            <category> telegram </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> ifttt </tag>
+            
+            <tag> automate </tag>
+            
+            <tag> huginn </tag>
+            
+            <tag> integromat </tag>
+            
+            <tag> zapier </tag>
+            
+            <tag> geek </tag>
+            
+            <tag> douban </tag>
+            
+            <tag> movies </tag>
+            
+            <tag> telegram </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[构建自己的 Smart Life 私有云（二）-> 连通 IFTTT & Slack]]></title>
       <url>/2018/09/26/private-smart-life-cloud-b--working-with-ifttt-slack/</url>
       <content type="html"><![CDATA[<h1 id="构建自己的-Smart-Life-私有云（二）-gt-连通-IFTTT-amp-Slack"><a href="#构建自己的-Smart-Life-私有云（二）-gt-连通-IFTTT-amp-Slack" class="headerlink" title="构建自己的 Smart Life 私有云（二）-&gt; 连通 IFTTT &amp; Slack"></a>构建自己的 Smart Life 私有云（二）-&gt; 连通 IFTTT &amp; Slack</h1><p><a href="https://blog.wangjiegulu.com/2018/09/26/private-smart-life-cloud-a--hack-tuya-smart-plug/">上一篇</a>我们破解了涂鸦的插座，搭建了自己的 web 服务，暴露了一个接口来控制插座的开关。这篇我们配合 IFTTT、Slack 来控制插座：</p>
@@ -693,7 +765,10 @@
 <li><strong>Property：</strong>填写你要去重依据的字段，我们这里根据电影名字来去重，也就是 <code>title</code>。</li>
 <li><strong>Lookback：</strong>表示去重的时候跟之前的多少条历史 events 做比较，同一时期一起上映的电影应该不会超过100部，所以设置为100了。</li>
 </ul>
-<h3 id="创建-slack-通知的-agent"><a href="#创建-slack-通知的-agent" class="headerlink" title="创建 slack 通知的 agent"></a>创建 slack 通知的 agent</h3><p>Huginn 自带有一个 <code>SlackAgent</code>，用来发送 slack 消息。</p>
+<h3 id="创建-slack-通知的-agent"><a href="#创建-slack-通知的-agent" class="headerlink" title="创建 slack 通知的 agent"></a>创建 slack 通知的 agent</h3><blockquote>
+<p>如果需要通过 telegram 进行通知，请看这里《Huginn实现自动通过Telegram推送豆瓣高分电影》()</p>
+</blockquote>
+<p>Huginn 自带有一个 <code>SlackAgent</code>，用来发送 slack 消息。</p>
 <div style="text-align: center;"><br><img src="https://user-images.githubusercontent.com/5423194/38287159-d1b96f10-37fb-11e8-835f-0b9e620ab075.png" width="700px/"><br></div>
 
 <p>它使用了 <a href="https://api.slack.com/incoming-webhooks" target="_blank" rel="noopener">incoming-webhooks</a> 来实现消息的发送。</p>
@@ -790,6 +865,8 @@
             <tag> douban </tag>
             
             <tag> movies </tag>
+            
+            <tag> slack </tag>
             
         </tags>
         
@@ -3281,13 +3358,13 @@
             
             <tag> android </tag>
             
-            <tag> library </tag>
-            
             <tag> sqlite </tag>
             
             <tag> database </tag>
             
             <tag> orm </tag>
+            
+            <tag> library </tag>
             
             <tag> rapidorm </tag>
             
@@ -3360,7 +3437,7 @@
       <title><![CDATA[[Android]异步 layout inflation（翻译）]]></title>
       <url>/2016/09/01/Android-%E5%BC%82%E6%AD%A5-layout-inflation%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/</url>
       <content type="html"><![CDATA[<h1 id="异步-layout-inflation"><a href="#异步-layout-inflation" class="headerlink" title="异步 layout inflation"></a>异步 layout inflation</h1><blockquote>
-<p>原文：<a href="&#109;&#x61;&#105;&#108;&#x74;&#111;&#x3a;&#104;&#116;&#116;&#x70;&#x73;&#x3a;&#47;&#47;&#x6d;&#101;&#100;&#x69;&#x75;&#x6d;&#46;&#x63;&#111;&#109;&#x2f;&#64;&#108;&#x75;&#x70;&#97;&#x6a;&#122;&#47;&#x61;&#x73;&#121;&#x6e;&#99;&#104;&#114;&#x6f;&#110;&#111;&#x75;&#115;&#45;&#108;&#97;&#121;&#111;&#x75;&#x74;&#45;&#x69;&#x6e;&#x66;&#108;&#97;&#x74;&#105;&#x6f;&#110;&#x2d;&#x37;&#99;&#x62;&#x63;&#x61;&#50;&#x36;&#x35;&#x33;&#x62;&#x66;&#x23;&#x2e;&#113;&#x32;&#50;&#x76;&#112;&#x65;&#x7a;&#x67;&#52;">&#104;&#116;&#116;&#x70;&#x73;&#x3a;&#47;&#47;&#x6d;&#101;&#100;&#x69;&#x75;&#x6d;&#46;&#x63;&#111;&#109;&#x2f;&#64;&#108;&#x75;&#x70;&#97;&#x6a;&#122;&#47;&#x61;&#x73;&#121;&#x6e;&#99;&#104;&#114;&#x6f;&#110;&#111;&#x75;&#115;&#45;&#108;&#97;&#121;&#111;&#x75;&#x74;&#45;&#x69;&#x6e;&#x66;&#108;&#97;&#x74;&#105;&#x6f;&#110;&#x2d;&#x37;&#99;&#x62;&#x63;&#x61;&#50;&#x36;&#x35;&#x33;&#x62;&#x66;&#x23;&#x2e;&#113;&#x32;&#50;&#x76;&#112;&#x65;&#x7a;&#x67;&#52;</a></p>
+<p>原文：<a href="&#109;&#x61;&#x69;&#x6c;&#116;&#111;&#58;&#x68;&#x74;&#116;&#x70;&#115;&#58;&#47;&#x2f;&#x6d;&#101;&#x64;&#x69;&#x75;&#109;&#x2e;&#99;&#111;&#109;&#47;&#64;&#x6c;&#x75;&#112;&#x61;&#x6a;&#x7a;&#47;&#97;&#115;&#121;&#x6e;&#99;&#104;&#114;&#111;&#x6e;&#111;&#117;&#x73;&#45;&#x6c;&#x61;&#121;&#111;&#117;&#116;&#45;&#x69;&#110;&#102;&#x6c;&#x61;&#116;&#x69;&#x6f;&#110;&#x2d;&#55;&#99;&#98;&#99;&#97;&#x32;&#54;&#53;&#x33;&#98;&#x66;&#x23;&#46;&#x71;&#x32;&#x32;&#x76;&#112;&#x65;&#122;&#x67;&#x34;">&#x68;&#x74;&#116;&#x70;&#115;&#58;&#47;&#x2f;&#x6d;&#101;&#x64;&#x69;&#x75;&#109;&#x2e;&#99;&#111;&#109;&#47;&#64;&#x6c;&#x75;&#112;&#x61;&#x6a;&#x7a;&#47;&#97;&#115;&#121;&#x6e;&#99;&#104;&#114;&#111;&#x6e;&#111;&#117;&#x73;&#45;&#x6c;&#x61;&#121;&#111;&#117;&#116;&#45;&#x69;&#110;&#102;&#x6c;&#x61;&#116;&#x69;&#x6f;&#110;&#x2d;&#55;&#99;&#98;&#99;&#97;&#x32;&#54;&#53;&#x33;&#98;&#x66;&#x23;&#46;&#x71;&#x32;&#x32;&#x76;&#112;&#x65;&#122;&#x67;&#x34;</a></p>
 </blockquote>
 <p>随着最近发布的<a href="https://developer.android.com/topic/libraries/support-library/revisions.html" target="_blank" rel="noopener">Android Support Library, revision 24</a>，Google开发者在v4包中增加了一个用来异步inflate layouts的帮助类。</p>
 <h2 id="进入-AsyncLayoutInflater"><a href="#进入-AsyncLayoutInflater" class="headerlink" title="进入 AsyncLayoutInflater"></a>进入 AsyncLayoutInflater</h2><p>你会发现AsyncLayoutInflater可以使用在当你想要去懒加载你应用中部分UI或者用户行为的响应。这个帮助类将会允许你的UI线程在执行繁重的inflate时继续保持响应。</p>
@@ -4574,13 +4651,13 @@ Cookie: ... ...
             
             <tag> android </tag>
             
-            <tag> library </tag>
-            
             <tag> sqlite </tag>
             
             <tag> database </tag>
             
             <tag> orm </tag>
+            
+            <tag> library </tag>
             
             <tag> rapidorm </tag>
             
@@ -7212,13 +7289,13 @@ for (name in names) {
             
             <tag> android </tag>
             
-            <tag> library </tag>
-            
             <tag> sqlite </tag>
             
             <tag> database </tag>
             
             <tag> orm </tag>
+            
+            <tag> library </tag>
             
             <tag> rapidorm </tag>
             
@@ -8831,11 +8908,11 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
         
         <tags>
             
+            <tag> library </tag>
+            
             <tag> android bucket </tag>
             
             <tag> annotations </tag>
-            
-            <tag> library </tag>
             
         </tags>
         
@@ -9115,8 +9192,6 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> android </tag>
             
-            <tag> library </tag>
-            
             <tag> inject </tag>
             
             <tag> sqlite </tag>
@@ -9126,6 +9201,8 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             <tag> database </tag>
             
             <tag> orm </tag>
+            
+            <tag> library </tag>
             
         </tags>
         
@@ -9251,9 +9328,9 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> java </tag>
             
-            <tag> java8 </tag>
-            
             <tag> lambda </tag>
+            
+            <tag> java8 </tag>
             
         </tags>
         
@@ -9470,11 +9547,11 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> java </tag>
             
+            <tag> Hbase </tag>
+            
             <tag> j2ee </tag>
             
             <tag> java web </tag>
-            
-            <tag> Hbase </tag>
             
         </tags>
         
@@ -9653,9 +9730,9 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> android </tag>
             
-            <tag> annotations </tag>
-            
             <tag> library </tag>
+            
+            <tag> annotations </tag>
             
             <tag> proxy </tag>
             
@@ -9728,9 +9805,9 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> android </tag>
             
-            <tag> library </tag>
-            
             <tag> inject </tag>
+            
+            <tag> library </tag>
             
         </tags>
         
@@ -10206,11 +10283,11 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> orm </tag>
             
-            <tag> Hibernate </tag>
-            
             <tag> j2ee </tag>
             
             <tag> java web </tag>
+            
+            <tag> Hibernate </tag>
             
         </tags>
         
@@ -12382,9 +12459,9 @@ Integer.toHexString(Integer.parseInt(&quot;0101&quot;, 2));
             
             <tag> android </tag>
             
-            <tag> UI </tag>
-            
             <tag> tips </tag>
+            
+            <tag> UI </tag>
             
             <tag> unit </tag>
             

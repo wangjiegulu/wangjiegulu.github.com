@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#ffffff">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#ffffff">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#ffffff">
+
+
+    <meta name="description" content="Huginn实现自动通过telegram推送豆瓣高分电影之前博客《Huginn实现自动通过slack推送豆瓣高分电影》有讲到过通过 Huginn 来实现自动获取豆瓣正在上映中的高分（设定分数超过7.8分）电影，并且自动通过 Slack 通知给我。那么怎样通过 Telegram 来进行推送呢？ 创建 Telegram Bot其实跟 Slack 一样，首先需要创建一个 telegram bot，然后通">
+<meta name="keywords" content="ifttt,automate,huginn,integromat,zapier,geek,douban,movies,telegram">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Huginn实现自动通过Telegram推送豆瓣高分电影">
+<meta property="og:url" content="https://blog.wangjiegulu.com/2018/11/16/douban_high_movie_huginn_telegram/index.html">
+<meta property="og:site_name" content="Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer">
+<meta property="og:description" content="Huginn实现自动通过telegram推送豆瓣高分电影之前博客《Huginn实现自动通过slack推送豆瓣高分电影》有讲到过通过 Huginn 来实现自动获取豆瓣正在上映中的高分（设定分数超过7.8分）电影，并且自动通过 Slack 通知给我。那么怎样通过 Telegram 来进行推送呢？ 创建 Telegram Bot其实跟 Slack 一样，首先需要创建一个 telegram bot，然后通">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://user-images.githubusercontent.com/5423194/48595853-74912880-e991-11e8-915c-7b2fbd82ccf0.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/5423194/48595984-f08b7080-e991-11e8-8989-5a65de625a0c.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/5423194/48596207-fa61a380-e992-11e8-9cd5-0320c69303ea.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/5423194/48596921-0733c680-e996-11e8-9190-2533727bf27d.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/5423194/48597282-0308a880-e998-11e8-8df0-7f8ac6857608.png">
+<meta property="og:updated_time" content="2018-11-16T04:15:11.082Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Huginn实现自动通过Telegram推送豆瓣高分电影">
+<meta name="twitter:description" content="Huginn实现自动通过telegram推送豆瓣高分电影之前博客《Huginn实现自动通过slack推送豆瓣高分电影》有讲到过通过 Huginn 来实现自动获取豆瓣正在上映中的高分（设定分数超过7.8分）电影，并且自动通过 Slack 通知给我。那么怎样通过 Telegram 来进行推送呢？ 创建 Telegram Bot其实跟 Slack 一样，首先需要创建一个 telegram bot，然后通">
+<meta name="twitter:image" content="https://user-images.githubusercontent.com/5423194/48595853-74912880-e991-11e8-915c-7b2fbd82ccf0.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Huginn实现自动通过Telegram推送豆瓣高分电影</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3">
+    
+      <div id="header-post-nav">
+  <span id="nav">
+      <ul>
+         
+          <li><b><a href="/">Home</a></b></li>
+         
+          <li><b><a href="/archives/">Writing</a></b></li>
+         
+          <li><b><a href="/tags/">Tags</a></b></li>
+         
+          <li><b><a href="/about/">About</a></b></li>
+         
+          <li><b><a href="/feed.xml">RSS</a></b></li>
+        
+      </ul>
+  </span>
+</div>
+
+<div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/feed.xml">RSS</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2018/09/26/private-smart-life-cloud-b--working-with-ifttt-slack/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://blog.wangjiegulu.com/2018/11/16/douban_high_movie_huginn_telegram/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://blog.wangjiegulu.com/2018/11/16/douban_high_movie_huginn_telegram/&text=Huginn实现自动通过Telegram推送豆瓣高分电影"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.wangjiegulu.com/2018/11/16/douban_high_movie_huginn_telegram/&title=Huginn实现自动通过Telegram推送豆瓣高分电影"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.wangjiegulu.com/2018/11/16/douban_high_movie_huginn_telegram/&is_video=false&description=Huginn实现自动通过Telegram推送豆瓣高分电影"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Huginn实现自动通过Telegram推送豆瓣高分电影&body=Check out this article: https://blog.wangjiegulu.com/2018/11/16/douban_high_movie_huginn_telegram/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.wangjiegulu.com/2018/11/16/douban_high_movie_huginn_telegram/&title=Huginn实现自动通过Telegram推送豆瓣高分电影"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.wangjiegulu.com/2018/11/16/douban_high_movie_huginn_telegram/&title=Huginn实现自动通过Telegram推送豆瓣高分电影"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.wangjiegulu.com/2018/11/16/douban_high_movie_huginn_telegram/&title=Huginn实现自动通过Telegram推送豆瓣高分电影"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://blog.wangjiegulu.com/2018/11/16/douban_high_movie_huginn_telegram/&title=Huginn实现自动通过Telegram推送豆瓣高分电影"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.wangjiegulu.com/2018/11/16/douban_high_movie_huginn_telegram/&name=Huginn实现自动通过Telegram推送豆瓣高分电影&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Huginn实现自动通过telegram推送豆瓣高分电影"><span class="toc-number">1.</span> <span class="toc-text">Huginn实现自动通过telegram推送豆瓣高分电影</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#创建-Telegram-Bot"><span class="toc-number">1.1.</span> <span class="toc-text">创建 Telegram Bot</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建接收消息的频道Channel"><span class="toc-number">1.2.</span> <span class="toc-text">创建接收消息的频道Channel</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建发送-telegram-消息的-agent"><span class="toc-number">1.3.</span> <span class="toc-text">创建发送 telegram 消息的 agent</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#最后"><span class="toc-number">1.4.</span> <span class="toc-text">最后</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Huginn实现自动通过Telegram推送豆瓣高分电影
+    </h1>
+
+
+
+    <div class="meta"  style="margin-top:12px;">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name" style="margin-left: 12px">Wang Jie</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2018-11-16T03:08:54.024Z" itemprop="datePublished">2018-11-16</time>
+    </div>
+
+<br/>
+      
+    <div class="article-tag">
+        <i class="fas fa-tag" style="margin-top: 20px"></i>
+        <a class="tag-link" href="/tags/automate/">automate</a>, <a class="tag-link" href="/tags/douban/">douban</a>, <a class="tag-link" href="/tags/geek/">geek</a>, <a class="tag-link" href="/tags/huginn/">huginn</a>, <a class="tag-link" href="/tags/ifttt/">ifttt</a>, <a class="tag-link" href="/tags/integromat/">integromat</a>, <a class="tag-link" href="/tags/movies/">movies</a>, <a class="tag-link" href="/tags/telegram/">telegram</a>, <a class="tag-link" href="/tags/zapier/">zapier</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  
+  <div class="content" itemprop="articleBody">
+    
+    
+      <!-- <img class="header-img" src="https://images.unsplash.com/photo-1521931961826-fe48677230a5?ixlib=rb-0.3.5&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;s=ea0a29a438c74124fe8798e41faccb6a&amp;auto=format&amp;fit=crop&amp;w=2250&amp;q=80" /> -->
+      
+
+        <img src="https://images.unsplash.com/photo-1521931961826-fe48677230a5?ixlib=rb-0.3.5&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;s=ea0a29a438c74124fe8798e41faccb6a&amp;auto=format&amp;fit=crop&amp;w=2250&amp;q=80" style="border-radius: 3px;"/>
+        
+      
+      
+    
+
+    <h1 id="Huginn实现自动通过telegram推送豆瓣高分电影"><a href="#Huginn实现自动通过telegram推送豆瓣高分电影" class="headerlink" title="Huginn实现自动通过telegram推送豆瓣高分电影"></a>Huginn实现自动通过telegram推送豆瓣高分电影</h1><p>之前博客<a href="https://blog.wangjiegulu.com/2018/04/03/huginn_douban_high_score_movies_and_slack/">《Huginn实现自动通过slack推送豆瓣高分电影》</a>有讲到过通过 Huginn 来实现自动获取豆瓣正在上映中的高分（设定分数超过7.8分）电影，并且自动通过 Slack 通知给我。那么怎样通过 Telegram 来进行推送呢？</p>
+<h2 id="创建-Telegram-Bot"><a href="#创建-Telegram-Bot" class="headerlink" title="创建 Telegram Bot"></a>创建 Telegram Bot</h2><p>其实跟 Slack 一样，首先需要创建一个 telegram bot，然后通过 telegram bot 来进行通知。</p>
+<p>具体我们可以参考 telegram 的官方文档：<a href="https://core.telegram.org/bots#6-botfather" target="_blank" rel="noopener">https://core.telegram.org/bots#6-botfather</a></p>
+<p>这里创建 Bot 的方式跟 Slack 有所不同，需要通过跟 <code>BotFather</code> 进行对话来创建，打开 telegram 客户端，搜索 <code>BotFather</code>进入对话框：</p>
+<div style="text-align: center;"><br>    <img src="https://user-images.githubusercontent.com/5423194/48595853-74912880-e991-11e8-915c-7b2fbd82ccf0.png" width="400px"><br></div>
+
+<p>给 <code>BotFather</code> 发送一个创建 Bot 的命令 <code>/newbot</code>：</p>
+<div style="text-align: center;"><br>    <img src="https://user-images.githubusercontent.com/5423194/48595984-f08b7080-e991-11e8-8989-5a65de625a0c.png" width="700px"><br></div>
+
+<p>如上图所示，通过发送 <code>/newbot</code> 命令（消息）后，<code>BotFather</code> 会回复让你进行设置 <code>bot</code> 的 <code>name</code> 和 <code>user_name</code>，其中 <code>username</code> 必须要是 <code>bot</code> 结尾，我这里 <code>name</code> 和 <code>username</code> 都设置为 <code>angelia_bot</code>。</p>
+<p>最后 <code>BotFather</code> 会回复创建成功，并切返回你创建的机器人的 <code>access token</code>，有了<code>access token</code>我们就能给 group 或者 channel 发送消息了。</p>
+<div style="text-align: center;"><br>    <img src="https://user-images.githubusercontent.com/5423194/48596207-fa61a380-e992-11e8-9cd5-0320c69303ea.png" width="700px"><br></div>
+
+<h2 id="创建接收消息的频道Channel"><a href="#创建接收消息的频道Channel" class="headerlink" title="创建接收消息的频道Channel"></a>创建接收消息的频道Channel</h2><p>接下来我们需要创建一个用来接收消息的 <code>Channel</code>（当然，你用 <code>Group</code> 也可以，如果用 <code>Group</code> 的话，很多人加进来聊天发消息会比较凌乱，<code>Channel</code>的话，别人订阅之后就只能接受查看消息，比较符合我们现在的场景）。</p>
+<p>创建完之后，通过访问 &lt;<a href="https://api.telegram.org/bot" target="_blank" rel="noopener">https://api.telegram.org/bot</a><bot-access-token\>/getUpdates&gt;，找到刚刚创建的 <code>channel</code>，拿到这个 <code>channel</code> 的id（应该是负数的id）。</bot-access-token\></p>
+<blockquote>
+<p>把上面的 url 中的 <code>&lt;bot-access-token&gt;</code> 替换成刚刚创建 <code>bot</code> 拿到的 <code>access token</code></p>
+</blockquote>
+<p>把刚刚我们创建的 <code>bot</code> 添加到我们创建的 <code>channel</code> 中：</p>
+<div style="text-align: center;"><br>    <img src="https://user-images.githubusercontent.com/5423194/48596921-0733c680-e996-11e8-9190-2533727bf27d.png" width="400px"><br></div>
+
+
+<h2 id="创建发送-telegram-消息的-agent"><a href="#创建发送-telegram-消息的-agent" class="headerlink" title="创建发送 telegram 消息的 agent"></a>创建发送 telegram 消息的 agent</h2><p>之前的流程跟<a href="https://blog.wangjiegulu.com/2018/04/03/huginn_douban_high_score_movies_and_slack/">《Huginn实现自动通过slack推送豆瓣高分电影》</a>中的一样，只是最后需要创建一个发送到 telegram 的 agent。</p>
+<p>如下：创建一个 <code>PostAgent</code>：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"post_url"</span>: <span class="string">"&#123;% credential telegram_base_url %&#125;bot&#123;% credential telegram_bot_token %&#125;/sendPhoto"</span>,</span><br><span class="line">  <span class="attr">"expected_receive_period_in_days"</span>: <span class="string">"1"</span>,</span><br><span class="line">  <span class="attr">"content_type"</span>: <span class="string">"json"</span>,</span><br><span class="line">  <span class="attr">"method"</span>: <span class="string">"post"</span>,</span><br><span class="line">  <span class="attr">"payload"</span>: &#123;</span><br><span class="line">    <span class="attr">"chat_id"</span>: <span class="string">"&#123;% credential telegram_movie_channel_id %&#125;"</span>,</span><br><span class="line">    <span class="attr">"photo"</span>: <span class="string">"&#123;&#123;image_url&#125;&#125;"</span>,</span><br><span class="line">    <span class="attr">"parse_mode"</span>: <span class="string">"Markdown"</span>,</span><br><span class="line">    <span class="attr">"caption"</span>: <span class="string">"*Title*: [&lt;&lt;&#123;&#123;title&#125;&#125;&gt;&gt;](&#123;&#123;detail_url&#125;&#125;) \n*Score*: &#123;&#123;score&#125;&#125;\n*Star*: &#123;&#123;star&#125;&#125;\n*Release*: &#123;&#123;release&#125;&#125;\n*Region*: &#123;&#123;region&#125;&#125;\n*Actors*: &#123;&#123;actors&#125;&#125;\n*Director*: &#123;&#123;director&#125;&#125;"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"headers"</span>: &#123;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"emit_events"</span>: <span class="string">"false"</span>,</span><br><span class="line">  <span class="attr">"no_merge"</span>: <span class="string">"false"</span>,</span><br><span class="line">  <span class="attr">"output_mode"</span>: <span class="string">"clean"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>每当检测到豆瓣上有新的上映中的电影超过7.8分，刚刚创建的 Channel 中即可查看到 <code>Bot</code> 的通知：</p>
+<div style="text-align: center;"><br>    <img src="https://user-images.githubusercontent.com/5423194/48597282-0308a880-e998-11e8-8df0-7f8ac6857608.png" width="600px"><br></div>
+
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>如果你懒得上面的各种配置，ok，加入下面这个 channel，你就能收到通知啦：</p>
+<blockquote>
+<p><a href="https://t.me/angelia_movies" target="_blank" rel="noopener">https://t.me/angelia_movies</a></p>
+</blockquote>
+
+
+    <br/>
+    <hr>
+
+    
+    <div class="post-copyright" style="margin-top: 20px;">
+        <strong>来源博客：</strong><a href="https://blog.wangjiegulu.com">Wang Jie's Blog</a><br/>
+         <strong>本文链接：</strong><a href="https://blog.wangjiegulu.com/2018/11/16/douban_high_movie_huginn_telegram/">https://blog.wangjiegulu.com/2018/11/16/douban_high_movie_huginn_telegram/</a><br/>
+         <strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处。
+    </div>
+    
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/feed.xml">RSS</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Huginn实现自动通过telegram推送豆瓣高分电影"><span class="toc-number">1.</span> <span class="toc-text">Huginn实现自动通过telegram推送豆瓣高分电影</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#创建-Telegram-Bot"><span class="toc-number">1.1.</span> <span class="toc-text">创建 Telegram Bot</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建接收消息的频道Channel"><span class="toc-number">1.2.</span> <span class="toc-text">创建接收消息的频道Channel</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建发送-telegram-消息的-agent"><span class="toc-number">1.3.</span> <span class="toc-text">创建发送 telegram 消息的 agent</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#最后"><span class="toc-number">1.4.</span> <span class="toc-text">最后</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://blog.wangjiegulu.com/2018/11/16/douban_high_movie_huginn_telegram/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://blog.wangjiegulu.com/2018/11/16/douban_high_movie_huginn_telegram/&text=Huginn实现自动通过Telegram推送豆瓣高分电影"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.wangjiegulu.com/2018/11/16/douban_high_movie_huginn_telegram/&title=Huginn实现自动通过Telegram推送豆瓣高分电影"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.wangjiegulu.com/2018/11/16/douban_high_movie_huginn_telegram/&is_video=false&description=Huginn实现自动通过Telegram推送豆瓣高分电影"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Huginn实现自动通过Telegram推送豆瓣高分电影&body=Check out this article: https://blog.wangjiegulu.com/2018/11/16/douban_high_movie_huginn_telegram/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.wangjiegulu.com/2018/11/16/douban_high_movie_huginn_telegram/&title=Huginn实现自动通过Telegram推送豆瓣高分电影"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.wangjiegulu.com/2018/11/16/douban_high_movie_huginn_telegram/&title=Huginn实现自动通过Telegram推送豆瓣高分电影"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.wangjiegulu.com/2018/11/16/douban_high_movie_huginn_telegram/&title=Huginn实现自动通过Telegram推送豆瓣高分电影"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://blog.wangjiegulu.com/2018/11/16/douban_high_movie_huginn_telegram/&title=Huginn实现自动通过Telegram推送豆瓣高分电影"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.wangjiegulu.com/2018/11/16/douban_high_movie_huginn_telegram/&name=Huginn实现自动通过Telegram推送豆瓣高分电影&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 Wang Jie
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/feed.xml">RSS</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-111189680-2', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'blog-wangjiegulu-com';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+

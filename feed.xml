@@ -6,7 +6,7 @@
   <link href="/feed.xml" rel="self"/>
   
   <link href="https://blog.wangjiegulu.com/"/>
-  <updated>2018-11-12T06:48:09.102Z</updated>
+  <updated>2018-11-16T04:15:11.082Z</updated>
   <id>https://blog.wangjiegulu.com/</id>
   
   <author>
@@ -15,6 +15,52 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Huginn实现自动通过Telegram推送豆瓣高分电影</title>
+    <link href="https://blog.wangjiegulu.com/2018/11/16/douban_high_movie_huginn_telegram/"/>
+    <id>https://blog.wangjiegulu.com/2018/11/16/douban_high_movie_huginn_telegram/</id>
+    <published>2018-11-16T03:08:54.024Z</published>
+    <updated>2018-11-16T04:15:11.082Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;Huginn实现自动通过telegram推送豆瓣高分电影&quot;&gt;&lt;a href=&quot;#Huginn实现自动通过telegram推送豆瓣高分电影&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="huginn" scheme="https://blog.wangjiegulu.com/categories/huginn/"/>
+    
+      <category term="automate" scheme="https://blog.wangjiegulu.com/categories/huginn/automate/"/>
+    
+      <category term="telegram" scheme="https://blog.wangjiegulu.com/categories/huginn/automate/telegram/"/>
+    
+    
+      <category term="ifttt" scheme="https://blog.wangjiegulu.com/tags/ifttt/"/>
+    
+      <category term="automate" scheme="https://blog.wangjiegulu.com/tags/automate/"/>
+    
+      <category term="huginn" scheme="https://blog.wangjiegulu.com/tags/huginn/"/>
+    
+      <category term="integromat" scheme="https://blog.wangjiegulu.com/tags/integromat/"/>
+    
+      <category term="zapier" scheme="https://blog.wangjiegulu.com/tags/zapier/"/>
+    
+      <category term="geek" scheme="https://blog.wangjiegulu.com/tags/geek/"/>
+    
+      <category term="douban" scheme="https://blog.wangjiegulu.com/tags/douban/"/>
+    
+      <category term="movies" scheme="https://blog.wangjiegulu.com/tags/movies/"/>
+    
+      <category term="telegram" scheme="https://blog.wangjiegulu.com/tags/telegram/"/>
+    
+  </entry>
   
   <entry>
     <title>构建自己的 Smart Life 私有云（二）-&gt; 连通 IFTTT &amp; Slack</title>
@@ -203,7 +249,7 @@
     <link href="https://blog.wangjiegulu.com/2018/04/03/huginn_douban_high_score_movies_and_slack/"/>
     <id>https://blog.wangjiegulu.com/2018/04/03/huginn_douban_high_score_movies_and_slack/</id>
     <published>2018-04-03T08:33:40.000Z</published>
-    <updated>2018-04-04T13:39:25.000Z</updated>
+    <updated>2018-11-16T04:09:16.308Z</updated>
     
     <summary type="html">
     
@@ -237,6 +283,8 @@
       <category term="douban" scheme="https://blog.wangjiegulu.com/tags/douban/"/>
     
       <category term="movies" scheme="https://blog.wangjiegulu.com/tags/movies/"/>
+    
+      <category term="slack" scheme="https://blog.wangjiegulu.com/tags/slack/"/>
     
   </entry>
   
@@ -691,33 +739,6 @@
       <category term="RecyclerView" scheme="https://blog.wangjiegulu.com/tags/RecyclerView/"/>
     
       <category term="SeizeRecyclerView" scheme="https://blog.wangjiegulu.com/tags/SeizeRecyclerView/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Lottie简介（翻译）</title>
-    <link href="https://blog.wangjiegulu.com/2017/02/04/Lottie%E7%AE%80%E4%BB%8B%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/"/>
-    <id>https://blog.wangjiegulu.com/2017/02/04/Lottie简介（翻译）/</id>
-    <published>2017-02-04T04:21:00.000Z</published>
-    <updated>2018-03-29T06:29:04.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;Lottie简介（翻译）&quot;&gt;&lt;a href=&quot;#Lottie简介（翻译）&quot; class=&quot;headerlink&quot; title=&quot;Lottie简介（翻译）&quot;&gt;&lt;/a&gt;Lottie简介（翻译）&lt;/h1&gt;&lt;blockquote&gt;
-&lt;p&gt;原文：&lt;a href=&quot;https://medium.com/airbnb-engineering/introducing-lottie-4ff4a0afac0e#.mfnxbtt06&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://medium.com/airbnb-engineering/introducing-lottie-4ff4a0afac0e#.mfnxbtt06&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;新的向本地apps的构建动画的开源工具。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;作者：&lt;a href=&quot;http://github.com/buba447&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Brandon Withrow&lt;/a&gt;, &lt;a href=&quot;https://twitter.com/gpeal8&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Gabridl Peal&lt;/a&gt;, &lt;a href=&quot;https://twitter.com/intelligibabble&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Leland Richardson&lt;/a&gt; 和 &lt;a href=&quot;https://twitter.com/therealsalih?lang=en&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Salih AbdulKarim&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;在以前，在Android，iOS和React Native app上面构建复杂的动画是困难和冗长的过程。你要么不得不为每个尺寸增加大量的图片文件，要么干脆编写数千行不可维护的代码。正因为如此，大多的apps并没有使用动画——尽管这是一个交流想法和创建引人注目的用户体验的强大的工具。一年前，我们就开始改变。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="animation" scheme="https://blog.wangjiegulu.com/tags/animation/"/>
-    
-      <category term="animator" scheme="https://blog.wangjiegulu.com/tags/animator/"/>
-    
-      <category term="lottie" scheme="https://blog.wangjiegulu.com/tags/lottie/"/>
     
   </entry>
   
