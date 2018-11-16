@@ -29,7 +29,7 @@
 <meta property="og:image" content="https://user-images.githubusercontent.com/5423194/48596207-fa61a380-e992-11e8-9cd5-0320c69303ea.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/5423194/48596921-0733c680-e996-11e8-9190-2533727bf27d.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/5423194/48597282-0308a880-e998-11e8-8df0-7f8ac6857608.png">
-<meta property="og:updated_time" content="2018-11-16T04:15:11.082Z">
+<meta property="og:updated_time" content="2018-11-16T05:49:36.875Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Huginn实现自动通过Telegram推送豆瓣高分电影">
 <meta name="twitter:description" content="Huginn实现自动通过telegram推送豆瓣高分电影之前博客《Huginn实现自动通过slack推送豆瓣高分电影》有讲到过通过 Huginn 来实现自动获取豆瓣正在上映中的高分（设定分数超过7.8分）电影，并且自动通过 Slack 通知给我。那么怎样通过 Telegram 来进行推送呢？ 创建 Telegram Bot其实跟 Slack 一样，首先需要创建一个 telegram bot，然后通">
@@ -195,10 +195,10 @@
 <div style="text-align: center;"><br>    <img src="https://user-images.githubusercontent.com/5423194/48595984-f08b7080-e991-11e8-8989-5a65de625a0c.png" width="700px"><br></div>
 
 <p>如上图所示，通过发送 <code>/newbot</code> 命令（消息）后，<code>BotFather</code> 会回复让你进行设置 <code>bot</code> 的 <code>name</code> 和 <code>user_name</code>，其中 <code>username</code> 必须要是 <code>bot</code> 结尾，我这里 <code>name</code> 和 <code>username</code> 都设置为 <code>angelia_bot</code>。</p>
-<p>最后 <code>BotFather</code> 会回复创建成功，并切返回你创建的机器人的 <code>access token</code>，有了<code>access token</code>我们就能给 group 或者 channel 发送消息了。</p>
+<p>最后 <code>BotFather</code> 会回复创建成功，并且返回你创建的机器人的 <code>access token</code>，有了<code>access token</code>我们就能给 group 或者 channel 发送消息了。</p>
 <div style="text-align: center;"><br>    <img src="https://user-images.githubusercontent.com/5423194/48596207-fa61a380-e992-11e8-9cd5-0320c69303ea.png" width="700px"><br></div>
 
-<h2 id="创建接收消息的频道Channel"><a href="#创建接收消息的频道Channel" class="headerlink" title="创建接收消息的频道Channel"></a>创建接收消息的频道Channel</h2><p>接下来我们需要创建一个用来接收消息的 <code>Channel</code>（当然，你用 <code>Group</code> 也可以，如果用 <code>Group</code> 的话，很多人加进来聊天发消息会比较凌乱，<code>Channel</code>的话，别人订阅之后就只能接受查看消息，比较符合我们现在的场景）。</p>
+<h2 id="创建接收消息的频道Channel"><a href="#创建接收消息的频道Channel" class="headerlink" title="创建接收消息的频道Channel"></a>创建接收消息的频道Channel</h2><p>接下来我们需要创建一个用来接收消息的 <code>Channel</code>（当然，你用 <code>Group</code> 也可以，如果用 <code>Group</code> 的话，很多人加进来聊天发消息会比较乱，<code>Channel</code>的话，别人订阅之后就只能接受查看消息，比较符合我们现在的场景）。</p>
 <p>创建完之后，通过访问 &lt;<a href="https://api.telegram.org/bot" target="_blank" rel="noopener">https://api.telegram.org/bot</a><bot-access-token\>/getUpdates&gt;，找到刚刚创建的 <code>channel</code>，拿到这个 <code>channel</code> 的id（应该是负数的id）。</bot-access-token\></p>
 <blockquote>
 <p>把上面的 url 中的 <code>&lt;bot-access-token&gt;</code> 替换成刚刚创建 <code>bot</code> 拿到的 <code>access token</code></p>
