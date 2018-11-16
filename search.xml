@@ -766,7 +766,7 @@
 <li><strong>Lookback：</strong>表示去重的时候跟之前的多少条历史 events 做比较，同一时期一起上映的电影应该不会超过100部，所以设置为100了。</li>
 </ul>
 <h3 id="创建-slack-通知的-agent"><a href="#创建-slack-通知的-agent" class="headerlink" title="创建 slack 通知的 agent"></a>创建 slack 通知的 agent</h3><blockquote>
-<p>如果需要通过 telegram 进行通知，请看这里《Huginn实现自动通过Telegram推送豆瓣高分电影》()</p>
+<p>如果需要通过 telegram 进行通知，请看这里<a href="https://blog.wangjiegulu.com/2018/11/16/douban_high_movie_huginn_telegram/">《Huginn实现自动通过Telegram推送豆瓣高分电影》</a></p>
 </blockquote>
 <p>Huginn 自带有一个 <code>SlackAgent</code>，用来发送 slack 消息。</p>
 <div style="text-align: center;"><br><img src="https://user-images.githubusercontent.com/5423194/38287159-d1b96f10-37fb-11e8-835f-0b9e620ab075.png" width="700px/"><br></div>
@@ -2796,9 +2796,9 @@
             
             <tag> android </tag>
             
-            <tag> ListView </tag>
-            
             <tag> best practices </tag>
+            
+            <tag> ListView </tag>
             
             <tag> RecyclerView </tag>
             
@@ -3437,7 +3437,7 @@
       <title><![CDATA[[Android]异步 layout inflation（翻译）]]></title>
       <url>/2016/09/01/Android-%E5%BC%82%E6%AD%A5-layout-inflation%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/</url>
       <content type="html"><![CDATA[<h1 id="异步-layout-inflation"><a href="#异步-layout-inflation" class="headerlink" title="异步 layout inflation"></a>异步 layout inflation</h1><blockquote>
-<p>原文：<a href="&#109;&#x61;&#x69;&#x6c;&#116;&#111;&#58;&#x68;&#x74;&#116;&#x70;&#115;&#58;&#47;&#x2f;&#x6d;&#101;&#x64;&#x69;&#x75;&#109;&#x2e;&#99;&#111;&#109;&#47;&#64;&#x6c;&#x75;&#112;&#x61;&#x6a;&#x7a;&#47;&#97;&#115;&#121;&#x6e;&#99;&#104;&#114;&#111;&#x6e;&#111;&#117;&#x73;&#45;&#x6c;&#x61;&#121;&#111;&#117;&#116;&#45;&#x69;&#110;&#102;&#x6c;&#x61;&#116;&#x69;&#x6f;&#110;&#x2d;&#55;&#99;&#98;&#99;&#97;&#x32;&#54;&#53;&#x33;&#98;&#x66;&#x23;&#46;&#x71;&#x32;&#x32;&#x76;&#112;&#x65;&#122;&#x67;&#x34;">&#x68;&#x74;&#116;&#x70;&#115;&#58;&#47;&#x2f;&#x6d;&#101;&#x64;&#x69;&#x75;&#109;&#x2e;&#99;&#111;&#109;&#47;&#64;&#x6c;&#x75;&#112;&#x61;&#x6a;&#x7a;&#47;&#97;&#115;&#121;&#x6e;&#99;&#104;&#114;&#111;&#x6e;&#111;&#117;&#x73;&#45;&#x6c;&#x61;&#121;&#111;&#117;&#116;&#45;&#x69;&#110;&#102;&#x6c;&#x61;&#116;&#x69;&#x6f;&#110;&#x2d;&#55;&#99;&#98;&#99;&#97;&#x32;&#54;&#53;&#x33;&#98;&#x66;&#x23;&#46;&#x71;&#x32;&#x32;&#x76;&#112;&#x65;&#122;&#x67;&#x34;</a></p>
+<p>原文：<a href="&#x6d;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#104;&#x74;&#x74;&#x70;&#x73;&#x3a;&#47;&#x2f;&#109;&#x65;&#100;&#x69;&#x75;&#x6d;&#x2e;&#99;&#x6f;&#109;&#47;&#x40;&#108;&#117;&#112;&#97;&#106;&#122;&#47;&#97;&#115;&#121;&#110;&#99;&#104;&#x72;&#x6f;&#110;&#x6f;&#117;&#115;&#x2d;&#x6c;&#97;&#x79;&#x6f;&#117;&#x74;&#x2d;&#x69;&#x6e;&#102;&#108;&#97;&#116;&#x69;&#111;&#110;&#x2d;&#x37;&#x63;&#98;&#x63;&#x61;&#x32;&#x36;&#53;&#x33;&#98;&#x66;&#35;&#46;&#113;&#x32;&#x32;&#118;&#x70;&#x65;&#122;&#103;&#52;">&#104;&#x74;&#x74;&#x70;&#x73;&#x3a;&#47;&#x2f;&#109;&#x65;&#100;&#x69;&#x75;&#x6d;&#x2e;&#99;&#x6f;&#109;&#47;&#x40;&#108;&#117;&#112;&#97;&#106;&#122;&#47;&#97;&#115;&#121;&#110;&#99;&#104;&#x72;&#x6f;&#110;&#x6f;&#117;&#115;&#x2d;&#x6c;&#97;&#x79;&#x6f;&#117;&#x74;&#x2d;&#x69;&#x6e;&#102;&#108;&#97;&#116;&#x69;&#111;&#110;&#x2d;&#x37;&#x63;&#98;&#x63;&#x61;&#x32;&#x36;&#53;&#x33;&#98;&#x66;&#35;&#46;&#113;&#x32;&#x32;&#118;&#x70;&#x65;&#122;&#103;&#52;</a></p>
 </blockquote>
 <p>随着最近发布的<a href="https://developer.android.com/topic/libraries/support-library/revisions.html" target="_blank" rel="noopener">Android Support Library, revision 24</a>，Google开发者在v4包中增加了一个用来异步inflate layouts的帮助类。</p>
 <h2 id="进入-AsyncLayoutInflater"><a href="#进入-AsyncLayoutInflater" class="headerlink" title="进入 AsyncLayoutInflater"></a>进入 AsyncLayoutInflater</h2><p>你会发现AsyncLayoutInflater可以使用在当你想要去懒加载你应用中部分UI或者用户行为的响应。这个帮助类将会允许你的UI线程在执行繁重的inflate时继续保持响应。</p>
@@ -4599,9 +4599,9 @@ Cookie: ... ...
             
             <tag> android </tag>
             
-            <tag> unit test </tag>
-            
             <tag> annotations </tag>
+            
+            <tag> unit test </tag>
             
             <tag> JUnit </tag>
             
@@ -7743,9 +7743,9 @@ for (name in names) {
             
             <tag> android </tag>
             
-            <tag> ListView </tag>
-            
             <tag> best practices </tag>
+            
+            <tag> ListView </tag>
             
             <tag> RecyclerView </tag>
             
@@ -7814,9 +7814,9 @@ for (name in names) {
             
             <tag> android </tag>
             
-            <tag> ListView </tag>
-            
             <tag> best practices </tag>
+            
+            <tag> ListView </tag>
             
             <tag> RecyclerView </tag>
             
@@ -7915,9 +7915,9 @@ for (name in names) {
             
             <tag> android </tag>
             
-            <tag> ListView </tag>
-            
             <tag> best practices </tag>
+            
+            <tag> ListView </tag>
             
             <tag> RecyclerView </tag>
             
@@ -8123,9 +8123,9 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> android </tag>
             
-            <tag> ListView </tag>
-            
             <tag> best practices </tag>
+            
+            <tag> ListView </tag>
             
             <tag> adapter </tag>
             
@@ -8171,11 +8171,11 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> android </tag>
             
+            <tag> best practices </tag>
+            
             <tag> ListView </tag>
             
             <tag> optimize </tag>
-            
-            <tag> best practices </tag>
             
         </tags>
         
@@ -8344,9 +8344,9 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> android </tag>
             
-            <tag> ListView </tag>
-            
             <tag> best practices </tag>
+            
+            <tag> ListView </tag>
             
             <tag> adapter </tag>
             
@@ -9027,9 +9027,9 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> android </tag>
             
-            <tag> ListView </tag>
-            
             <tag> best practices </tag>
+            
+            <tag> ListView </tag>
             
             <tag> adapter </tag>
             
@@ -9328,9 +9328,9 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> java </tag>
             
-            <tag> lambda </tag>
-            
             <tag> java8 </tag>
+            
+            <tag> lambda </tag>
             
         </tags>
         
@@ -9547,11 +9547,11 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> java </tag>
             
-            <tag> Hbase </tag>
-            
             <tag> j2ee </tag>
             
             <tag> java web </tag>
+            
+            <tag> Hbase </tag>
             
         </tags>
         
@@ -10505,11 +10505,11 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
         
         <tags>
             
+            <tag> Intellij IDEA </tag>
+            
             <tag> j2ee </tag>
             
             <tag> java web </tag>
-            
-            <tag> Intellij IDEA </tag>
             
         </tags>
         
@@ -11977,9 +11977,9 @@ Integer.toHexString(Integer.parseInt(&quot;0101&quot;, 2));
             
             <tag> android </tag>
             
-            <tag> ListView </tag>
-            
             <tag> view </tag>
+            
+            <tag> ListView </tag>
             
             <tag> tips </tag>
             
@@ -12459,9 +12459,9 @@ Integer.toHexString(Integer.parseInt(&quot;0101&quot;, 2));
             
             <tag> android </tag>
             
-            <tag> tips </tag>
-            
             <tag> UI </tag>
+            
+            <tag> tips </tag>
             
             <tag> unit </tag>
             
