@@ -642,6 +642,166 @@
     </entry>
     
     <entry>
+      <title><![CDATA[Android Architecture Component LiveData（翻译）]]></title>
+      <url>/2018/04/15/android_architecture_components_livedata/</url>
+      <content type="html"><![CDATA[<h1 id="Android-Architecture-Component-LiveData（翻译）"><a href="#Android-Architecture-Component-LiveData（翻译）" class="headerlink" title="Android Architecture Component LiveData（翻译）"></a>Android Architecture Component LiveData（翻译）</h1><blockquote>
+<p>原文：<a href="https://developer.android.com/topic/libraries/architecture/livedata" target="_blank" rel="noopener">https://developer.android.com/topic/libraries/architecture/livedata</a></p>
+</blockquote>
+<p><a href="https://developer.android.com/reference/android/arch/lifecycle/LiveData.html" target="_blank" rel="noopener"><code>LiveData</code></a> 是一个可观察数据的持有类。不像常规的 observable，LiveData 是生命周期感知的，这意味着它关心其它 app 组件的生命周期，比如 activities，fragments，或者 services。这种感知可确保 LiveData 仅更新处于活动生命周期状态的 app 组件 observers。</p>
+<blockquote>
+<p>要导入 LiveData 到你的 Android 项目中，见<a href="https://developer.android.com/topic/libraries/architecture/adding-components.html#lifecycle" target="_blank" rel="noopener">增加 Components 到你的项目中</a></p>
+</blockquote>
+<p>LiveData 认为，如果观察者的生命周期处于 <a href="https://developer.android.com/reference/android/arch/lifecycle/Lifecycle.State.html#STARTED" target="_blank" rel="noopener">STARTED</a> 或 <a href="https://developer.android.com/reference/android/arch/lifecycle/Lifecycle.State.html#RESUMED" target="_blank" rel="noopener">RESUME</a> 状态，则该观察者 (以 <a href="https://developer.android.com/reference/android/arch/lifecycle/Observer.html" target="_blank" rel="noopener">Observer</a> 类呈现) 处于活动状态。LiveData 只通知活动状态的 observers 进行更新。注册到 <a href="https://developer.android.com/reference/android/arch/lifecycle/LiveData.html" target="_blank" rel="noopener"><code>LiveData</code></a> 的非活动状态的 observers 不会接收到改变通知。</p>
+<p>你可以注册配对一个 observer 和实现了 <a href="https://developer.android.com/reference/android/arch/lifecycle/LifecycleOwner.html" target="_blank" rel="noopener"><code>LifecycleOwner</code></a> 接口的对象。这种关系允许在相应 <a href="https://developer.android.com/reference/android/arch/lifecycle/Lifecycle.html" target="_blank" rel="noopener"><code>Lifecycle</code></a> 对象进入到 <a href="https://developer.android.com/reference/android/arch/lifecycle/Lifecycle.State.html#DESTROYED" target="_blank" rel="noopener"><code>DESTROYED</code></a> 的时候删除相应的 observer。这对 activities 和 fragments 特别有帮助，因为它们可以安全地观察 <a href="https://developer.android.com/reference/android/arch/lifecycle/LiveData.html" target="_blank" rel="noopener"><code>LiveData</code></a> 对象，并且不需要去担心泄漏 —— activites 和 framgents 在销毁时，它们会立即被取消订阅。</p>
+<p>关于如何使用 LiveData 的更多详情，见 <a href="https://developer.android.com/topic/libraries/architecture/livedata#work_livedata" target="_blank" rel="noopener">使用 LiveData 对象</a>。</p>
+<h2 id="使用-LiveData-的优势"><a href="#使用-LiveData-的优势" class="headerlink" title="使用 LiveData 的优势"></a>使用 LiveData 的优势</h2><p>使用 LiveData 提供了以下优势：</p>
+<ul>
+<li><p>确保您的 UI 与您的数据状态相匹配</p>
+<p>LiveData 遵循观察者模式。当生命周期状态改变时，LiveData 通知 <a href="https://developer.android.com/reference/android/arch/lifecycle/Observer.html" target="_blank" rel="noopener"><code>Observer</code></a> 对象。你可以巩固你的代码在这些 observer 对象中更新 UI。Observer 在每次有变化是更新 UI，而不只是在每次 app 数据变化时更新 UI。</p>
+</li>
+<li><p>没有内存泄漏</p>
+<p>Observer 绑定到 <a href="https://developer.android.com/reference/android/arch/lifecycle/Lifecycle.html" target="_blank" rel="noopener"><code>Lifecycle</code></a> 对象，并在其关联的生命周期销毁后进行清理。</p>
+</li>
+<li><p>没有因为 activities 停止导致的崩溃</p>
+<p>如果 Observer 的生命周期处于非活动状态，例如在后台堆栈中的活动的情况下，则它不会接收任何 LiveData 事件。</p>
+</li>
+<li><p>无需手动的生命周期处理</p>
+<p>UI 组件只是观察相关数据，不会停止或恢复观察。LiveData 会自动管理所有这些，因为它在观察时了解相关的生命周期状态更改。</p>
+</li>
+<li><p>始终是最新的数据</p>
+<p>如果生命周期变为非活动状态，它将在再次处于活动状态时接收最新数据。例如，后台的活动在返回到前台后立即接收最新数据。</p>
+</li>
+<li><p>正确的配置更改</p>
+<p>如果由于配置更改，比如设备旋转，而重新创建 activity 或 fragment，它将立即接收最新的可用数据。</p>
+</li>
+<li><p>共享资源</p>
+<p>您可以使用单例模式扩展 <a href="https://developer.android.com/reference/android/arch/lifecycle/LiveData.html" target="_blank" rel="noopener"><code>LiveData</code></a> 对象来包装系统服务，以便在 app 中共享这些服务。<code>LiveData</code> 对象连接到系统服务一次，然后任何需要资源的观察者都可以只监听 <code>LiveData</code> 对象。有关详情，请参阅 <a href="https://developer.android.com/topic/libraries/architecture/livedata#extend_livedata" target="_blank" rel="noopener">扩展 LiveData</a>。</p>
+</li>
+</ul>
+<h2 id="使用-LiveData-对象"><a href="#使用-LiveData-对象" class="headerlink" title="使用 LiveData 对象"></a>使用 LiveData 对象</h2><p>跟随以下几步来使用 <a href="https://developer.android.com/reference/android/arch/lifecycle/LiveData.html" target="_blank" rel="noopener"><code>LiveData</code></a> 对象：</p>
+<ol>
+<li>创建一个 <code>LiveData</code> 的实例来持有某个类型的数据。这通常是在你的 <a href="https://developer.android.com/reference/android/arch/lifecycle/ViewModel.html" target="_blank" rel="noopener"><code>ViewModel</code></a> 类中做的。</li>
+<li>创建一个定义了 <a href="https://developer.android.com/reference/android/arch/lifecycle/Observer.html#onChanged(T" target="_blank" rel="noopener"><code>onChanged()</code></a>) 方法的 <a href="https://developer.android.com/reference/android/arch/lifecycle/Observer.html" target="_blank" rel="noopener"><code>Observer</code></a> 对象，它会在 <code>LiveData</code> 对象持有的数据发生改变时进行控制处理。你通常要在 UI controller 中创建 <code>Observer</code> 对象，比如在 activity 或者 fragment。</li>
+<li>使用 <a href="https://developer.android.com/reference/android/arch/lifecycle/LiveData.html#observe(android.arch.lifecycle.LifecycleOwner,%0Aandroid.arch.lifecycle.Observer%3CT%3E" target="_blank" rel="noopener"><code>observe()</code></a>) 方法来把 <code>Observer</code> 对象 attach 到 <code>LiveData</code> 对象上。<code>observe()</code> 方法接收一个 <a href="https://developer.android.com/reference/android/arch/lifecycle/LifecycleOwner.html" target="_blank" rel="noopener"><code>LifecycleOwner</code></a> 对象。这将 <code>Observer</code> 对象订阅到 <code>LiveData</code> 对象上，以便它收到改变的通知。你通常会 attach <code>Observer</code> 到 UI Controller 上，比如 activity 或者 fragment。</li>
+</ol>
+<blockquote>
+<p>你可以使用 <a href="https://developer.android.com/reference/android/arch/lifecycle/LiveData.html#observeForever(android.arch.lifecycle.Observer%3CT%3E" target="_blank" rel="noopener">observeForever(Observer)</a>) 方法以不关联一个 <a href="https://developer.android.com/reference/android/arch/lifecycle/LifecycleOwner.html" target="_blank" rel="noopener">LifecycleOwner</a> 对象的方式来注册一个 observer。在这种情况下，observer 被认为始终处于活动状态，因此始终会收到有关改变的通知。你可以使用 <a href="https://developer.android.com/reference/android/arch/lifecycle/LiveData.html#removeObserver(android.arch.lifecycle.Observer%3CT%3E" target="_blank" rel="noopener">removeObserver(Observer)</a>) 方法来移除这些 observer 的调用。</p>
+</blockquote>
+<p>当你更新存储在 <code>LiveData</code> 对象的值的时候，它会触发所有注册的 observers 只要关联的 <code>LifecycleOwner</code> 的状态是 active 的。</p>
+<p>LiveData 允许 UI Controller 的 observer 去订阅更新。当持有数据的 <code>LiveData</code> 对象更新时，UI 会在响应中自动更新。</p>
+<h3 id="创建-LiveData-对象"><a href="#创建-LiveData-对象" class="headerlink" title="创建 LiveData 对象"></a>创建 LiveData 对象</h3><p>LiveData 是一个可用于任何数据的一个包装，包括实现了 <a href="https://developer.android.com/reference/java/util/Collections.html" target="_blank" rel="noopener"><code>Collections</code></a> 的对象，比如 <a href="https://developer.android.com/reference/java/util/List.html" target="_blank" rel="noopener"><code>List</code></a>。一个 <a href="https://developer.android.com/reference/android/arch/lifecycle/LiveData.html" target="_blank" rel="noopener"><code>LiveData</code></a> 对象通常存储在 <a href="https://developer.android.com/reference/android/arch/lifecycle/ViewModel.html" target="_blank" rel="noopener"><code>ViewModel</code></a> 对象中，并且通过 getter 方法访问，就像下面演示的那样：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NameViewModel</span> : <span class="type">ViewModel</span></span>() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Create a LiveData with a String</span></span><br><span class="line">    <span class="keyword">val</span> currentName: MutableLiveData&lt;String&gt; <span class="keyword">by</span> lazy &#123;</span><br><span class="line">        MutableLiveData&lt;String&gt;()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Rest of the ViewModel...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最初，<code>LiveData</code> 对象中的数据没有被设置。</p>
+<blockquote>
+<p>注意：确保存储的更新 UI 的 <strong>LiveData</strong> 对象是在 <strong>ViewModel</strong> 对象中，而不是 activity 或者 fragment，原因如下：</p>
+<ul>
+<li>避免臃肿的 activities 和 fragments。现在这些 UI Controllers 是负责展示数据，而不持有数据的状态。</li>
+<li>要从特定的 activity 或者 fragment 实例中解耦 <strong>LiveData</strong> 实例，并且允许 <strong>LiveData</strong> 对象在配置更改后继续生存。</li>
+</ul>
+</blockquote>
+<p>你可以在 <a href="https://developer.android.com/topic/libraries/architecture/viewmodel.html" target="_blank" rel="noopener">ViewModel 指南</a> 中了解更多关于 <code>ViewModel</code> 类型使用的好处。</p>
+<h3 id="观察-LiveData-对象"><a href="#观察-LiveData-对象" class="headerlink" title="观察 LiveData 对象"></a>观察 LiveData 对象</h3><p>在大多情况下，一个 app 组件的 <a href="https://developer.android.com/reference/android/app/Activity.html#onCreate(android.os.Bundle" target="_blank" rel="noopener"><code>onCreate()</code></a>) 方法是开始观察 <a href="https://developer.android.com/reference/android/arch/lifecycle/LiveData.html" target="_blank" rel="noopener"><code>LiveData</code></a> 对象比较正确的地方，愿意如下：</p>
+<ul>
+<li>可以确保系统不会在 activity 或者 fragment 的 <a href="https://developer.android.com/reference/android/app/Activity.html#onResume(" target="_blank" rel="noopener">onResume()</a>) 有过多的调用。</li>
+<li>可以确保 activity 或者 fragment 状态变为 active 时有数据可以尽快显示出来。一旦一个 app 组件处于 <a href="https://developer.android.com/reference/android/arch/lifecycle/Lifecycle.State.html#STARTED" target="_blank" rel="noopener">STARTED</a>，它会从它观察中的 <code>LiveData</code> 对象接收到最近的数据。这只会在观察了 <code>LiveData</code> 时才会发生这种情况。</li>
+</ul>
+<p>通常情况下，LiveData 仅在数据更改时提供更新，并且仅向 active 状态的 observer 提供更新。这个行为的一个例外是，observer 在从 inactive 状态更改为 active 状态时也会收到更新。此外，observer 第二次从 inactive 到 active 状态，只有自从上次变成 active 为止数据改变了，它才会接收到更新。</p>
+<p>下面的例子说明了如何开始观察一个 <code>LiveData</code> 对象：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NameActivity</span> : <span class="type">AppCompatActivity</span></span>() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">lateinit</span> <span class="keyword">var</span> mModel: NameViewModel</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Other code to setup the activity...</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// Get the ViewModel.</span></span><br><span class="line">        mModel = ViewModelProviders.of(<span class="keyword">this</span>).<span class="keyword">get</span>(NameViewModel::<span class="class"><span class="keyword">class</span>.<span class="title">java</span>)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">// Create the observer which updates the UI.</span></span><br><span class="line">        <span class="keyword">val</span> nameObserver = Observer&lt;String&gt; &#123; newName -&gt;</span><br><span class="line">            <span class="comment">// Update the UI, in this case, a TextView.</span></span><br><span class="line">            mNameTextView.text = newName</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.</span></span><br><span class="line">        mModel.currentName.observe(<span class="keyword">this</span>, nameObserver)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>nameObserver</code> 作为参数传入的 <a href="https://developer.android.com/reference/android/arch/lifecycle/LiveData.html#observe(android.arch.lifecycle.LifecycleOwner,%0Aandroid.arch.lifecycle.Observer%3CT%3E" target="_blank" rel="noopener"><code>observe()</code></a>) 被调用之后，<a href="https://developer.android.com/reference/android/arch/lifecycle/Observer.html#onChanged(T" target="_blank" rel="noopener"><code>onChanged()</code></a>) 立刻就会被调用并提供存储在 <code>mCurrentName</code> 中最近的值。如果 <code>LiveData</code> 对象 <code>mCurrentName</code> 中没有被设置值，则 <code>onChanged()</code> 不会被调用。</p>
+<h3 id="更新-LiveData-对象"><a href="#更新-LiveData-对象" class="headerlink" title="更新 LiveData 对象"></a>更新 LiveData 对象</h3><p>LiveData 没有公开可用的方法用来存储更新存储的数据。<a href="https://developer.android.com/reference/android/arch/lifecycle/MutableLiveData.html" target="_blank" rel="noopener"><code>MutableLiveData</code></a> 类暴露公开了 <a href="https://developer.android.com/reference/android/arch/lifecycle/MutableLiveData.html#setValue(T" target="_blank" rel="noopener"><code>setValue(T)</code></a>) 和 <a href="https://developer.android.com/reference/android/arch/lifecycle/MutableLiveData.html#postValue(T" target="_blank" rel="noopener"><code>postValue(T)</code></a>) 方法，如果你需要编辑存储在 <a href="https://developer.android.com/reference/android/arch/lifecycle/LiveData.html" target="_blank" rel="noopener"><code>LiveData</code></a> 对象中的值，你必须要使用它们。通常，<code>MutableLiveData</code> 被在 <a href="https://developer.android.com/reference/android/arch/lifecycle/ViewModel.html" target="_blank" rel="noopener"><code>ViewModel</code></a> 中被使用，<code>ViewModel</code> 只暴露不可编辑的 <code>LiveData</code> 对象给 observers。</p>
+<p>当你设置了 observer 关系之后，你可以更新 <code>LiveData</code> 对象中的值，就如下面例子展示的，当用户按下按钮时触发所有 observers：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mButton.setOnClickListener &#123;</span><br><span class="line">    <span class="keyword">val</span> anotherName = <span class="string">"John Doe"</span></span><br><span class="line">    mModel.currentName.setValue(anotherName)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在例子中调用 <code>setValue(T)</code>，observers 调用它们的 <a href="https://developer.android.com/reference/android/arch/lifecycle/Observer.html#onChanged(T" target="_blank" rel="noopener"><code>onChanged()</code></a>) 方法，值为 <code>John Doe</code>。例子展示了一个按钮被按下，但由于各种原因，可以调用 <code>setValue()</code> 或 <code>postValue()</code> 来更新 <code>mName</code>，包括在网络请求的 response 中，或者数据库加载完成；在所有情况中，调用 <code>setValue()</code> 和 <code>postValue()</code> 会触发 observers 并更新 UI。</p>
+<blockquote>
+<p>注意：你必须在主线程调用 <a href="https://developer.android.com/reference/android/arch/lifecycle/MutableLiveData.html#setValue(T" target="_blank" rel="noopener">setValue(T)</a>) 更新 <strong>LiveData</strong> 对象。如果代码执行在一个工作线程，你可以使用 <a href="https://developer.android.com/reference/android/arch/lifecycle/MutableLiveData.html#postValue(T" target="_blank" rel="noopener">postValue(T)</a>) 方法来更新 <strong>LiveData</strong> 对象。</p>
+</blockquote>
+<h3 id="结合-Room-使用-LiveData"><a href="#结合-Room-使用-LiveData" class="headerlink" title="结合 Room 使用 LiveData"></a>结合 Room 使用 LiveData</h3><p>持久化库 <a href="https://developer.android.com/training/data-storage/room/index.html" target="_blank" rel="noopener">Room</a> 支持 observable 查询，它返回 <a href="https://developer.android.com/reference/android/arch/lifecycle/LiveData.html" target="_blank" rel="noopener"><code>LiveData</code></a> 对象。Observable 查询被作为数据访问对象（DAO）的一部分被编写。</p>
+<p>Room 生成所有必要的代码来在数据库更新时更新 <code>LiveData</code> 对象。如果需要，被生成的代码在后台线程运行异步查询。这个模式可用于使 UI 中显示的数据与存储在数据库中的数据保持同步。你可以在 <a href="https://developer.android.com/topic/libraries/architecture/room.html" target="_blank" rel="noopener">Room 持久化库指南</a> 了解更多关于 Room 和 DAOs。</p>
+<h3 id="扩展-LiveData"><a href="#扩展-LiveData" class="headerlink" title="扩展 LiveData"></a>扩展 LiveData</h3><p>如果 observer 的生命周期是 <a href="https://developer.android.com/reference/android/arch/lifecycle/Lifecycle.State.html#STARTED" target="_blank" rel="noopener"><code>STARTED</code></a> 或者 <a href="https://developer.android.com/reference/android/arch/lifecycle/Lifecycle.State.html#RESUMED" target="_blank" rel="noopener"><code>RESUMED</code></a> 状态，LiveData 则认为 observer 处于 active 状态，下面的代码展示了如何扩展继承 <a href="https://developer.android.com/reference/android/arch/lifecycle/LiveData.html" target="_blank" rel="noopener"><code>LiveData</code></a> 类：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StockLiveData</span></span>(symbol: String) : LiveData&lt;BigDecimal&gt;() &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">val</span> mStockManager = StockManager(symbol)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">val</span> mListener = &#123; price: BigDecimal -&gt;</span><br><span class="line">        value = price</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onActive</span><span class="params">()</span></span> &#123;</span><br><span class="line">        mStockManager.requestPriceUpdates(mListener)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onInactive</span><span class="params">()</span></span> &#123;</span><br><span class="line">        mStockManager.removeUpdates(mListener)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在上述例子的 price listener 的实现中包含了以下几个重要的方法：</p>
+<ul>
+<li><a href="https://developer.android.com/reference/android/arch/lifecycle/LiveData.html#onActive(" target="_blank" rel="noopener"><code>onActive()</code></a>) 方法在 <code>LiveData</code> 对象有一个 active observer 的时候被调用。这意味着你需要在这个方法中开始观察 stock price 的更新。</li>
+<li><a href="https://developer.android.com/reference/android/arch/lifecycle/LiveData.html#onInactive(" target="_blank" rel="noopener"><code>onInactive()</code></a>) 方法在 <code>LiveData</code> 对象没有任何一个 active observer 的时候被调用。因为没有 observers 正在监听，所以没有理由与 <code>StockManager</code> 服务保持连接。</li>
+<li><a href="https://developer.android.com/reference/android/arch/lifecycle/MutableLiveData.html#setValue(T" target="_blank" rel="noopener"><code>setValue(T)</code></a>) 方法更新 <code>LiveData</code> 实例的值，并且通知任何 active 状态的 observers 关于这次改变。</li>
+</ul>
+<p>你可以如下使用 <code>StockLiveData</code> 类：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onActivityCreated</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">    <span class="keyword">super</span>.onActivityCreated(savedInstanceState)</span><br><span class="line">    <span class="keyword">val</span> myPriceListener: LiveData&lt;BigDecimal&gt; = ...</span><br><span class="line">    myPriceListener.observe(<span class="keyword">this</span>, Observer&lt;BigDecimal&gt; &#123; price: BigDecimal? -&gt;</span><br><span class="line">        <span class="comment">// Update the UI.</span></span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="https://developer.android.com/reference/android/arch/lifecycle/LiveData.html#observe(android.arch.lifecycle.LifecycleOwner,%0Aandroid.arch.lifecycle.Observer%3CT%3E" target="_blank" rel="noopener"><code>observe()</code></a>) 方法传入 fragment 作为第一个参数，它是 <a href="https://developer.android.com/reference/android/arch/lifecycle/LifecycleOwner.html" target="_blank" rel="noopener"><code>LifecycleOwner</code></a> 的一个实例。这样做表示此 observer 绑定到与所有者关联的 <a href="https://developer.android.com/reference/android/arch/lifecycle/Lifecycle.html" target="_blank" rel="noopener"><code>Lifecycle</code></a> 对象，意味着：</p>
+<ul>
+<li>如果 <code>Lifecycle</code> 对象不处于 active 状态了，那么就算值改变了 observer 也不会回调。</li>
+<li>在 <code>Lifecycle</code> 对象被销毁了，observer 会自动被移除。</li>
+</ul>
+<p><code>LiveData</code> 对象是生命周期感知的事实，这意味着你可以在多个 activity，fragment，service 之间共享它们。为了保持例子简单，你可以把 <code>LiveData</code> 类作为一个单例实现，如下：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StockLiveData</span></span>(symbol: String) : LiveData&lt;BigDecimal&gt;() &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">val</span> mStockManager: StockManager = StockManager(symbol)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">val</span> mListener = &#123; price: BigDecimal -&gt;</span><br><span class="line">        value = price</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onActive</span><span class="params">()</span></span> &#123;</span><br><span class="line">        mStockManager.requestPriceUpdates(mListener)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onInactive</span><span class="params">()</span></span> &#123;</span><br><span class="line">        mStockManager.removeUpdates(mListener)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">companion</span> <span class="keyword">object</span> &#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">lateinit</span> <span class="keyword">var</span> sInstance: StockLiveData</span><br><span class="line"></span><br><span class="line">        <span class="meta">@MainThread</span></span><br><span class="line">        <span class="function"><span class="keyword">fun</span> <span class="title">get</span><span class="params">(symbol: <span class="type">String</span>)</span></span>: StockLiveData &#123;</span><br><span class="line">            sInstance = <span class="keyword">if</span> (::sInstance.isInitialized) sInstance <span class="keyword">else</span> StockLiveData(symbol)</span><br><span class="line">            <span class="keyword">return</span> sInstance</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后，你可以在 fragment 中使用它，如下：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyFragment</span> : <span class="type">Fragment</span></span>() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onActivityCreated</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">        StockLiveData.<span class="keyword">get</span>(symbol).observe(<span class="keyword">this</span>, Observer&lt;BigDecimal&gt; &#123; price: BigDecimal? -&gt;</span><br><span class="line">            <span class="comment">// Update the UI.</span></span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>多个 fragments 和 activities 可以观察这个 <code>MyPriceListener</code> 实例。LiveData 只会在它们中的一个或多个是可见和 active 的才会连接到系统服务。</p>
+<h2 id="转换-LiveData"><a href="#转换-LiveData" class="headerlink" title="转换 LiveData"></a>转换 LiveData</h2><p>储存在 <a href="https://developer.android.com/reference/android/arch/lifecycle/LiveData.html" target="_blank" rel="noopener"><code>LiveData</code></a> 的数据在派发给 observers 之前，你可能需要做一些改变，或者你可能需要基于另一个值返回一个不同的 <code>LiveData</code> 实例。<a href="https://developer.android.com/reference/android/arch/lifecycle/package-summary.html" target="_blank" rel="noopener"><code>Lifecycle</code></a> 包提供了 <a href="https://developer.android.com/reference/android/arch/lifecycle/Transformations.html" target="_blank" rel="noopener"><code>Transformations</code></a> 类，它包含了一些帮助的方法来支持这些场景。</p>
+<p><a href="https://developer.android.com/reference/android/arch/lifecycle/Transformations.html#map(android.arch.lifecycle.LiveData%3CX%3E,%20android.arch.core.util.Function%3CX,%20Y%3E" target="_blank" rel="noopener"><code>Transformations.map()</code></a>)</p>
+<p>对存储在 <code>LiveData</code> 对象中的值执行函数，并将结果发送到下游。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> userLiveData: LiveData&lt;User&gt; = UserLiveData()</span><br><span class="line"><span class="keyword">val</span> userName: LiveData&lt;String&gt; = Transformations.map(userLiveData) &#123;</span><br><span class="line">    user -&gt; <span class="string">"<span class="subst">$&#123;user.name&#125;</span> <span class="subst">$&#123;user.lastName&#125;</span>"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="https://developer.android.com/reference/android/arch/lifecycle/Transformations.html#switchMap(android.arch.lifecycle.LiveData%3CX%3E,%20android.arch.core.util.Function%3CX,%20android.arch.lifecycle.LiveData%3CY%3E%3E" target="_blank" rel="noopener"><code>Transformations.switchMap()</code></a>)</p>
+<p>类似于 <code>map()</code>，对存储在 <code>LiveData</code> 对象中的值执行函数，并在下游展开和调度结果。传入 <code>switchMap()</code> 的函数必须返回一个 <code>LiveData</code> 对象，如下面例子所示：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">getUser</span><span class="params">(id: <span class="type">String</span>)</span></span>: LiveData&lt;User&gt; &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">val</span> userId: LiveData&lt;String&gt; = ...</span><br><span class="line"><span class="keyword">val</span> user = Transformations.switchMap(userId) &#123; id -&gt; getUser(id) &#125;</span><br></pre></td></tr></table></figure>
+<p>你可以使用转换方法在 observer 的整个生命周期中传输信息。transformations 不会被计算，除非一个 observer 正在监听返回的 <code>LiveData</code> 对象。因为 transformations 是懒计算的，与生命周期相关的行为被隐式传递，而不需要额外的显式调用或依赖。</p>
+<p>如果你觉得你在 <a href="https://developer.android.com/reference/android/arch/lifecycle/ViewModel.html" target="_blank" rel="noopener"><code>ViewModel</code></a> 对象中需要一个 <code>Lifecycle</code> 对象，transformation 是一个更好的解决方案。举个例子，假设你有一个 UI 组件，它接收一个 address 并返回一个 该 address 的 postal code。你可以针对该组件实现单纯的 <code>ViewModel</code>，如下代码所示：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyViewModel</span></span>(<span class="keyword">private</span> <span class="keyword">val</span> repository: PostalCodeRepository) : ViewModel() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">getPostalCode</span><span class="params">(address: <span class="type">String</span>)</span></span>: LiveData&lt;String&gt; &#123;</span><br><span class="line">        <span class="comment">// DON'T DO THIS</span></span><br><span class="line">        <span class="keyword">return</span> repository.getPostCode(address)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>那么当每次调用 <code>getPostalCode()</code>时，UI 组件需要从上一个 <code>LiveData</code> 对象反注册，并注册到新的实例。另外，如果 UI component 被重建，它会触发另一个 <code>repository.getPostCode()</code> 调用而不是使用之前调用的结果。</p>
+<p>对此你实现 postal code 查找作为 address 输入的转换，如下所示：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyViewModel</span></span>(<span class="keyword">private</span> <span class="keyword">val</span> repository: PostalCodeRepository) : ViewModel() &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">val</span> addressInput = MutableLiveData&lt;String&gt;()</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">val</span> postalCode: LiveData&lt;String&gt; =</span><br><span class="line">            Transformations.switchMap(addressInput) &#123; address -&gt; repository.getPostCode(address) &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">setInput</span><span class="params">(address: <span class="type">String</span>)</span></span> &#123;</span><br><span class="line">        addressInput.value = address</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个例子中，<code>postalCode</code> field 是 <code>public</code> 和 <code>final</code> 的，因为这个 field 永远不会改变。<code>postalCode</code> 这个 field 被定义为 <code>addressInput</code> 的一个转换，这意味着 <code>repository.getPostCode()</code> 在 <code>addressInput</code> 改变时被调用。在 <code>repository.getPostCode()</code> 被调用的时候，如果有一个 active 的 observer 则是真的，如果没有 active 的 observer，在添加 observer 之前，不进行任何计算。</p>
+<p>这个机制允许低级别的 app 去创建按需懒计算的 <code>LiveData</code> 对象。一个 <code>ViewModel</code> 对象可以轻松地获取 <code>LiveData</code> 对象的引用，然后在其基础上定义转换规则。</p>
+<h3 id="创建新的转换"><a href="#创建新的转换" class="headerlink" title="创建新的转换"></a>创建新的转换</h3><p>在你的应用中可能有十几个不同且有用的特定转换，但默认情况下是不提供的。要实现你自己的 transformation 你可以使用 <a href="https://developer.android.com/reference/android/arch/lifecycle/MediatorLiveData.html" target="_blank" rel="noopener"><code>MediatorLiveData</code></a> 类，它监听其它 <a href="https://developer.android.com/reference/android/arch/lifecycle/LiveData.html" target="_blank" rel="noopener"><code>LiveData</code></a> 对象并处理它们发出的事件。<code>MediatorLiveData</code> 正确地将其状态传送到源 <code>LiveData</code> 对象。学习关于这个模式的详情，查看 <a href="https://developer.android.com/reference/android/arch/lifecycle/Transformations.html" target="_blank" rel="noopener"><code>Transformations</code></a> 类的参考文档。</p>
+<h2 id="合并多个-LiveData-源"><a href="#合并多个-LiveData-源" class="headerlink" title="合并多个 LiveData 源"></a>合并多个 LiveData 源</h2><p><a href="https://developer.android.com/reference/android/arch/lifecycle/MediatorLiveData.html" target="_blank" rel="noopener"><code>MediatorLiveData</code></a> 是 <a href="https://developer.android.com/reference/android/arch/lifecycle/LiveData.html" target="_blank" rel="noopener"><code>LiveData</code></a> 的一个子类，它允许你去合并多个 LiveData 源。 每当任何原始 LiveData 源对象更改时，<code>MediatorLiveData</code> 对象的 observers 会被触发。</p>
+<p>举个例子，如果你在你的 UI 有一个 <code>LiveData</code> 对象，它可以从本地数据库和网络中更新，然后你可以增加下面几个源到 <code>MediatorLiveData</code> 对象：</p>
+<ul>
+<li>一个 <code>LiveData</code> 对象，与存储在数据库中的数据相关联。</li>
+<li>一个 <code>LiveData</code> 对象，于访问网络的数据相关联。</li>
+</ul>
+<p>你的 activity 只需要去观察 <code>MediatorLiveData</code> 对象来从上面两种源中接收更新。有详细示例，见 <a href="">App Architecture 指南</a> 的 <a href="https://developer.android.com/topic/libraries/architecture/guide.html#addendum" target="_blank" rel="noopener">附录: 公开网络状态</a> 栏。</p>
+<h2 id="额外资源"><a href="#额外资源" class="headerlink" title="额外资源"></a>额外资源</h2><p><code>LiveData</code> 被使用在了 <a href="https://github.com/googlesamples/android-sunflower" target="_blank" rel="noopener">Sunflower</a> 的 demo app 中。</p>
+<p>也可以查看 Architecture Components <a href="https://github.com/googlesamples/android-architecture-components/tree/master/BasicSample" target="_blank" rel="noopener">BasicSample</a>。</p>
+<p>了解更多详情关于与 <a href="https://developer.android.com/training/snackbar" target="_blank" rel="noopener">Snackbar</a> Message，navigation events，和 other events 一起使用 <code>LiveData</code>，查看<a href="https://medium.com/google-developers/livedata-with-snackbar-navigation-and-other-events-the-singleliveevent-case-ac2622673150" target="_blank" rel="noopener">本文</a>。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Android Architecture Component </category>
+            
+            <category> kotlin </category>
+            
+            <category> DataBinding </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> android </tag>
+            
+            <tag> kotlin </tag>
+            
+            <tag> architecture </tag>
+            
+            <tag> Android Architecture Component </tag>
+            
+            <tag> aac </tag>
+            
+            <tag> ViewModel </tag>
+            
+            <tag> LiveData </tag>
+            
+            <tag> DataBinding </tag>
+            
+            <tag> Lifecycles </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Android Architecture Component DataBinding -- 双向绑定（翻译）]]></title>
       <url>/2018/04/15/android_architecture_components_binding_two_way/</url>
       <content type="html"><![CDATA[<h1 id="Android-Architecture-Component-DataBinding-–-双向绑定（翻译）"><a href="#Android-Architecture-Component-DataBinding-–-双向绑定（翻译）" class="headerlink" title="Android Architecture Component DataBinding – 双向绑定（翻译）"></a>Android Architecture Component DataBinding – 双向绑定（翻译）</h1><blockquote>
@@ -3742,9 +3902,9 @@
             
             <tag> android </tag>
             
-            <tag> ListView </tag>
-            
             <tag> best practices </tag>
+            
+            <tag> ListView </tag>
             
             <tag> RecyclerView </tag>
             
@@ -4383,7 +4543,7 @@
       <title><![CDATA[[Android]异步 layout inflation（翻译）]]></title>
       <url>/2016/09/01/Android-%E5%BC%82%E6%AD%A5-layout-inflation%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/</url>
       <content type="html"><![CDATA[<h1 id="异步-layout-inflation"><a href="#异步-layout-inflation" class="headerlink" title="异步 layout inflation"></a>异步 layout inflation</h1><blockquote>
-<p>原文：<a href="&#x6d;&#x61;&#105;&#x6c;&#116;&#111;&#58;&#x68;&#116;&#x74;&#112;&#115;&#58;&#x2f;&#47;&#x6d;&#x65;&#x64;&#105;&#x75;&#109;&#x2e;&#99;&#111;&#109;&#x2f;&#64;&#108;&#x75;&#x70;&#x61;&#106;&#122;&#x2f;&#97;&#x73;&#x79;&#x6e;&#99;&#x68;&#114;&#111;&#110;&#x6f;&#117;&#x73;&#45;&#x6c;&#x61;&#121;&#x6f;&#x75;&#116;&#x2d;&#x69;&#110;&#x66;&#x6c;&#x61;&#116;&#x69;&#111;&#x6e;&#x2d;&#x37;&#x63;&#x62;&#x63;&#97;&#50;&#x36;&#53;&#x33;&#x62;&#x66;&#x23;&#x2e;&#113;&#50;&#x32;&#x76;&#112;&#x65;&#122;&#103;&#x34;">&#x68;&#116;&#x74;&#112;&#115;&#58;&#x2f;&#47;&#x6d;&#x65;&#x64;&#105;&#x75;&#109;&#x2e;&#99;&#111;&#109;&#x2f;&#64;&#108;&#x75;&#x70;&#x61;&#106;&#122;&#x2f;&#97;&#x73;&#x79;&#x6e;&#99;&#x68;&#114;&#111;&#110;&#x6f;&#117;&#x73;&#45;&#x6c;&#x61;&#121;&#x6f;&#x75;&#116;&#x2d;&#x69;&#110;&#x66;&#x6c;&#x61;&#116;&#x69;&#111;&#x6e;&#x2d;&#x37;&#x63;&#x62;&#x63;&#97;&#50;&#x36;&#53;&#x33;&#x62;&#x66;&#x23;&#x2e;&#113;&#50;&#x32;&#x76;&#112;&#x65;&#122;&#103;&#x34;</a></p>
+<p>原文：<a href="&#109;&#x61;&#105;&#x6c;&#116;&#x6f;&#58;&#104;&#116;&#116;&#112;&#x73;&#58;&#x2f;&#x2f;&#109;&#101;&#100;&#x69;&#x75;&#x6d;&#x2e;&#99;&#111;&#109;&#x2f;&#x40;&#x6c;&#117;&#x70;&#97;&#106;&#x7a;&#x2f;&#x61;&#115;&#x79;&#x6e;&#x63;&#104;&#114;&#111;&#110;&#x6f;&#117;&#x73;&#45;&#x6c;&#x61;&#121;&#111;&#117;&#116;&#45;&#x69;&#x6e;&#x66;&#108;&#97;&#116;&#105;&#111;&#110;&#x2d;&#x37;&#x63;&#x62;&#99;&#x61;&#x32;&#x36;&#x35;&#51;&#98;&#x66;&#x23;&#46;&#113;&#x32;&#x32;&#x76;&#112;&#x65;&#122;&#103;&#52;">&#104;&#116;&#116;&#112;&#x73;&#58;&#x2f;&#x2f;&#109;&#101;&#100;&#x69;&#x75;&#x6d;&#x2e;&#99;&#111;&#109;&#x2f;&#x40;&#x6c;&#117;&#x70;&#97;&#106;&#x7a;&#x2f;&#x61;&#115;&#x79;&#x6e;&#x63;&#104;&#114;&#111;&#110;&#x6f;&#117;&#x73;&#45;&#x6c;&#x61;&#121;&#111;&#117;&#116;&#45;&#x69;&#x6e;&#x66;&#108;&#97;&#116;&#105;&#111;&#110;&#x2d;&#x37;&#x63;&#x62;&#99;&#x61;&#x32;&#x36;&#x35;&#51;&#98;&#x66;&#x23;&#46;&#113;&#x32;&#x32;&#x76;&#112;&#x65;&#122;&#103;&#52;</a></p>
 </blockquote>
 <p>随着最近发布的<a href="https://developer.android.com/topic/libraries/support-library/revisions.html" target="_blank" rel="noopener">Android Support Library, revision 24</a>，Google开发者在v4包中增加了一个用来异步inflate layouts的帮助类。</p>
 <h2 id="进入-AsyncLayoutInflater"><a href="#进入-AsyncLayoutInflater" class="headerlink" title="进入 AsyncLayoutInflater"></a>进入 AsyncLayoutInflater</h2><p>你会发现AsyncLayoutInflater可以使用在当你想要去懒加载你应用中部分UI或者用户行为的响应。这个帮助类将会允许你的UI线程在执行繁重的inflate时继续保持响应。</p>
@@ -8689,9 +8849,9 @@ for (name in names) {
             
             <tag> android </tag>
             
-            <tag> ListView </tag>
-            
             <tag> best practices </tag>
+            
+            <tag> ListView </tag>
             
             <tag> RecyclerView </tag>
             
@@ -8760,9 +8920,9 @@ for (name in names) {
             
             <tag> android </tag>
             
-            <tag> ListView </tag>
-            
             <tag> best practices </tag>
+            
+            <tag> ListView </tag>
             
             <tag> RecyclerView </tag>
             
@@ -8861,9 +9021,9 @@ for (name in names) {
             
             <tag> android </tag>
             
-            <tag> ListView </tag>
-            
             <tag> best practices </tag>
+            
+            <tag> ListView </tag>
             
             <tag> RecyclerView </tag>
             
@@ -9069,9 +9229,9 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> android </tag>
             
-            <tag> ListView </tag>
-            
             <tag> best practices </tag>
+            
+            <tag> ListView </tag>
             
             <tag> adapter </tag>
             
@@ -9117,11 +9277,11 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> android </tag>
             
+            <tag> best practices </tag>
+            
             <tag> ListView </tag>
             
             <tag> optimize </tag>
-            
-            <tag> best practices </tag>
             
         </tags>
         
@@ -9290,9 +9450,9 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> android </tag>
             
-            <tag> ListView </tag>
-            
             <tag> best practices </tag>
+            
+            <tag> ListView </tag>
             
             <tag> adapter </tag>
             
@@ -9973,9 +10133,9 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> android </tag>
             
-            <tag> ListView </tag>
-            
             <tag> best practices </tag>
+            
+            <tag> ListView </tag>
             
             <tag> adapter </tag>
             
@@ -10274,9 +10434,9 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> java </tag>
             
-            <tag> lambda </tag>
-            
             <tag> java8 </tag>
+            
+            <tag> lambda </tag>
             
         </tags>
         
@@ -10493,11 +10653,11 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> java </tag>
             
-            <tag> Hbase </tag>
-            
             <tag> j2ee </tag>
             
             <tag> java web </tag>
+            
+            <tag> Hbase </tag>
             
         </tags>
         
@@ -11229,11 +11389,11 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> orm </tag>
             
+            <tag> Hibernate </tag>
+            
             <tag> j2ee </tag>
             
             <tag> java web </tag>
-            
-            <tag> Hibernate </tag>
             
         </tags>
         
@@ -13405,9 +13565,9 @@ Integer.toHexString(Integer.parseInt(&quot;0101&quot;, 2));
             
             <tag> android </tag>
             
-            <tag> tips </tag>
-            
             <tag> UI </tag>
+            
+            <tag> tips </tag>
             
             <tag> unit </tag>
             

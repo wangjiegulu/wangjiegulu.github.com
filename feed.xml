@@ -245,6 +245,52 @@
   </entry>
   
   <entry>
+    <title>Android Architecture Component LiveData（翻译）</title>
+    <link href="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_livedata/"/>
+    <id>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_livedata/</id>
+    <published>2018-04-15T12:01:00.000Z</published>
+    <updated>2018-11-21T15:35:38.122Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;Android-Architecture-Component-LiveData（翻译）&quot;&gt;&lt;a href=&quot;#Android-Architecture-Component-LiveData（翻译）&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="Android Architecture Component" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/"/>
+    
+      <category term="kotlin" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/kotlin/"/>
+    
+      <category term="DataBinding" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/kotlin/DataBinding/"/>
+    
+    
+      <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
+    
+      <category term="kotlin" scheme="https://blog.wangjiegulu.com/tags/kotlin/"/>
+    
+      <category term="architecture" scheme="https://blog.wangjiegulu.com/tags/architecture/"/>
+    
+      <category term="Android Architecture Component" scheme="https://blog.wangjiegulu.com/tags/Android-Architecture-Component/"/>
+    
+      <category term="aac" scheme="https://blog.wangjiegulu.com/tags/aac/"/>
+    
+      <category term="ViewModel" scheme="https://blog.wangjiegulu.com/tags/ViewModel/"/>
+    
+      <category term="LiveData" scheme="https://blog.wangjiegulu.com/tags/LiveData/"/>
+    
+      <category term="DataBinding" scheme="https://blog.wangjiegulu.com/tags/DataBinding/"/>
+    
+      <category term="Lifecycles" scheme="https://blog.wangjiegulu.com/tags/Lifecycles/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Android Architecture Component DataBinding -- 双向绑定（翻译）</title>
     <link href="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_binding_two_way/"/>
     <id>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_binding_two_way/</id>
@@ -863,42 +909,6 @@
       <category term="modular" scheme="https://blog.wangjiegulu.com/tags/modular/"/>
     
       <category term="room" scheme="https://blog.wangjiegulu.com/tags/room/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Android端生成META-INF信息文件的Gradle插件 RapidMetaInfPlugin</title>
-    <link href="https://blog.wangjiegulu.com/2018/02/05/Android%E7%AB%AF%E7%94%9F%E6%88%90META-INF%E4%BF%A1%E6%81%AF%E6%96%87%E4%BB%B6%E7%9A%84Gradle%E6%8F%92%E4%BB%B6%20RapidMetaInfPlugin/"/>
-    <id>https://blog.wangjiegulu.com/2018/02/05/Android端生成META-INF信息文件的Gradle插件 RapidMetaInfPlugin/</id>
-    <published>2018-02-05T12:54:04.000Z</published>
-    <updated>2018-02-05T12:58:38.000Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;Android端生成META-INF信息文件的Gradle插件-RapidMetaInfPlugin&quot;&gt;&lt;a href=&quot;#Android端生成META-INF信息文件的Gradle插件-RapidMetaInfPlugin&quot;
-        
-      
-    
-    </summary>
-    
-      <category term="android" scheme="https://blog.wangjiegulu.com/categories/android/"/>
-    
-      <category term="gradle plugin" scheme="https://blog.wangjiegulu.com/categories/android/gradle-plugin/"/>
-    
-    
-      <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
-    
-      <category term="gradle" scheme="https://blog.wangjiegulu.com/tags/gradle/"/>
-    
-      <category term="gradle plugin" scheme="https://blog.wangjiegulu.com/tags/gradle-plugin/"/>
-    
-      <category term="Android Studio" scheme="https://blog.wangjiegulu.com/tags/Android-Studio/"/>
-    
-      <category term="META-INF" scheme="https://blog.wangjiegulu.com/tags/META-INF/"/>
     
   </entry>
   
