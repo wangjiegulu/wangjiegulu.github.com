@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#ffffff">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#ffffff">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#ffffff">
+
+
+    <meta name="description" content="Android Architecture Component DataBinding – 双向绑定（翻译）要使用双向数据绑定，你可以在一个属性上设置一个值，并设置一个监听器来响应这个属性的变化： 12345&amp;lt;CheckBox    android:id=&quot;@+id/rememberMeCheckBox&quot;    android:checked=&quot;@&amp;#123;viewmodel.remembe">
+<meta name="keywords" content="android,kotlin,architecture,Android Architecture Component,aac,ViewModel,LiveData,DataBinding,Lifecycles">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android Architecture Component DataBinding -- 双向绑定（翻译）">
+<meta property="og:url" content="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_binding_two_way/index.html">
+<meta property="og:site_name" content="Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer">
+<meta property="og:description" content="Android Architecture Component DataBinding – 双向绑定（翻译）要使用双向数据绑定，你可以在一个属性上设置一个值，并设置一个监听器来响应这个属性的变化： 12345&amp;lt;CheckBox    android:id=&quot;@+id/rememberMeCheckBox&quot;    android:checked=&quot;@&amp;#123;viewmodel.remembe">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-11-21T09:13:42.188Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android Architecture Component DataBinding -- 双向绑定（翻译）">
+<meta name="twitter:description" content="Android Architecture Component DataBinding – 双向绑定（翻译）要使用双向数据绑定，你可以在一个属性上设置一个值，并设置一个监听器来响应这个属性的变化： 12345&amp;lt;CheckBox    android:id=&quot;@+id/rememberMeCheckBox&quot;    android:checked=&quot;@&amp;#123;viewmodel.remembe">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Android Architecture Component DataBinding -- 双向绑定（翻译）</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3">
+    
+      <div id="header-post-nav">
+  <span id="nav">
+      <ul>
+         
+          <li><b><a href="/">Home</a></b></li>
+         
+          <li><b><a href="/archives/">Writing</a></b></li>
+         
+          <li><b><a href="/tags/">Tags</a></b></li>
+         
+          <li><b><a href="/about/">About</a></b></li>
+         
+          <li><b><a href="/feed.xml">RSS</a></b></li>
+        
+      </ul>
+  </span>
+</div>
+
+<div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/feed.xml">RSS</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2018/04/16/rapidooo-android-pojo-converter/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2018/04/15/android_architecture_components_binding_architecture/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_binding_two_way/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_binding_two_way/&text=Android Architecture Component DataBinding -- 双向绑定（翻译）"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_binding_two_way/&title=Android Architecture Component DataBinding -- 双向绑定（翻译）"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_binding_two_way/&is_video=false&description=Android Architecture Component DataBinding -- 双向绑定（翻译）"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Android Architecture Component DataBinding -- 双向绑定（翻译）&body=Check out this article: https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_binding_two_way/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_binding_two_way/&title=Android Architecture Component DataBinding -- 双向绑定（翻译）"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_binding_two_way/&title=Android Architecture Component DataBinding -- 双向绑定（翻译）"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_binding_two_way/&title=Android Architecture Component DataBinding -- 双向绑定（翻译）"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_binding_two_way/&title=Android Architecture Component DataBinding -- 双向绑定（翻译）"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_binding_two_way/&name=Android Architecture Component DataBinding -- 双向绑定（翻译）&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Android-Architecture-Component-DataBinding-–-双向绑定（翻译）"><span class="toc-number">1.</span> <span class="toc-text">Android Architecture Component DataBinding – 双向绑定（翻译）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#自定义属性实现双向绑定"><span class="toc-number">1.1.</span> <span class="toc-text">自定义属性实现双向绑定</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#转换器"><span class="toc-number">1.2.</span> <span class="toc-text">转换器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用双向绑定的死循环"><span class="toc-number">1.3.</span> <span class="toc-text">使用双向绑定的死循环</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#双向属性"><span class="toc-number">1.4.</span> <span class="toc-text">双向属性</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Android Architecture Component DataBinding -- 双向绑定（翻译）
+    </h1>
+
+
+
+    <div class="meta"  style="margin-top:12px;">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name" style="margin-left: 12px">Wang Jie</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2018-04-15T10:01:00.000Z" itemprop="datePublished">2018-04-15</time>
+    </div>
+
+<br/>
+      
+    <div class="article-tag">
+        <i class="fas fa-tag" style="margin-top: 20px"></i>
+        <a class="tag-link" href="/tags/Android-Architecture-Component/">Android Architecture Component</a>, <a class="tag-link" href="/tags/DataBinding/">DataBinding</a>, <a class="tag-link" href="/tags/Lifecycles/">Lifecycles</a>, <a class="tag-link" href="/tags/LiveData/">LiveData</a>, <a class="tag-link" href="/tags/ViewModel/">ViewModel</a>, <a class="tag-link" href="/tags/aac/">aac</a>, <a class="tag-link" href="/tags/android/">android</a>, <a class="tag-link" href="/tags/architecture/">architecture</a>, <a class="tag-link" href="/tags/kotlin/">kotlin</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  
+  <div class="content" itemprop="articleBody">
+    
+    
+      <!-- <img class="header-img" src="https://images.unsplash.com/photo-1464865885825-be7cd16fad8d?ixlib=rb-0.3.5&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;s=996620e5a840fd2d82fc5bb137a1b4f7&amp;auto=format&amp;fit=crop&amp;w=2250&amp;q=80" /> -->
+      
+
+        <img src="https://images.unsplash.com/photo-1464865885825-be7cd16fad8d?ixlib=rb-0.3.5&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;s=996620e5a840fd2d82fc5bb137a1b4f7&amp;auto=format&amp;fit=crop&amp;w=2250&amp;q=80" style="border-radius: 3px;"/>
+        
+      
+      
+    
+
+    <h1 id="Android-Architecture-Component-DataBinding-–-双向绑定（翻译）"><a href="#Android-Architecture-Component-DataBinding-–-双向绑定（翻译）" class="headerlink" title="Android Architecture Component DataBinding – 双向绑定（翻译）"></a>Android Architecture Component DataBinding – 双向绑定（翻译）</h1><p>要使用双向数据绑定，你可以在一个属性上设置一个值，并设置一个监听器来响应这个属性的变化：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;CheckBox</span><br><span class="line">    android:id=<span class="string">"@+id/rememberMeCheckBox"</span></span><br><span class="line">    android:checked=<span class="string">"@&#123;viewmodel.rememberMe&#125;"</span></span><br><span class="line">    android:onCheckedChanged=<span class="string">"@&#123;viewmodel.rememberMeChanged&#125;"</span></span><br><span class="line">/&gt;</span><br></pre></td></tr></table></figure>
+<p>双向绑定为这个过程提供了一个捷径：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;CheckBox</span><br><span class="line">    android:id=<span class="string">"@+id/rememberMeCheckBox"</span></span><br><span class="line">    android:checked=<span class="string">"@=&#123;viewmodel.rememberMe&#125;"</span></span><br><span class="line">/&gt;</span><br></pre></td></tr></table></figure>
+<p>使用 <code>@={}</code> 记号，重点是里面的 “=” 号，接收对属性的数据更改，并同时监听用户更新。</p>
+<p>为了对返回数据中的变化做出反应，你可以让你的 layout variable 是一个 <code>Observable</code> 的实现，通常是 <a href="https://developer.android.com/reference/android/databinding/BaseObservable" target="_blank" rel="noopener"><code>BaseObservable</code></a>，并使用 <a href="https://developer.android.com/reference/android/databinding/Bindable" target="_blank" rel="noopener"><code>@Bindable</code></a> 注解，如下代码片段：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LoginViewModel</span> : <span class="type">BaseObservable &#123;</span></span></span><br><span class="line">    <span class="comment">// val data = ...</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bindable</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">getRememberMe</span><span class="params">()</span></span>: <span class="built_in">Boolean</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">data</span>.rememberMe</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">setRememberMe</span><span class="params">(value: <span class="type">Boolean</span>)</span></span> &#123;</span><br><span class="line">        <span class="comment">// Avoids infinite loops.</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">data</span>.rememberMe != value) &#123;</span><br><span class="line">            <span class="keyword">data</span>.rememberMe = value</span><br><span class="line"></span><br><span class="line">            <span class="comment">// React to the change.</span></span><br><span class="line">            saveData()</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Notify observers of a new value.</span></span><br><span class="line">            notifyPropertyChanged(BR.remember_me)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>因为 bindable 属性的 getter 方法是 <code>getRememberMe()</code>，则相应的 setter 方法自动使用 <code>setRememberMe()</code> 这个名字。</p>
+<p>更多关于 <code>BaseObservable</code> 和 <code>@Bindable</code> 的信息，见 <a href="https://developer.android.com/topic/libraries/data-binding/observability" target="_blank" rel="noopener">使用可观察的数据对象</a>。</p>
+<h2 id="自定义属性实现双向绑定"><a href="#自定义属性实现双向绑定" class="headerlink" title="自定义属性实现双向绑定"></a>自定义属性实现双向绑定</h2><p>平台提供了 <a href="https://developer.android.com/topic/libraries/data-binding/two-way#two-way-attributes" target="_blank" rel="noopener">最常用的双向绑定属性</a> 双向绑定实现和监听器改变，你可以作为你 app 的一部分去使用。如果你想使用自定义属性的双向绑定，你需要使用 <a href="https://developer.android.com/reference/android/databinding/InverseBindingAdapter" target="_blank" rel="noopener"><code>@InverseBindingAdapter</code></a> 和 <a href="https://developer.android.com/reference/android/databinding/InverseBindingMethod" target="_blank" rel="noopener"><code>@InverseBindingMethod</code></a> 注解。</p>
+<p>举个例子，如果你想在名为 <code>MyView</code> 的自定义 view 上面开启 <code>&quot;time&quot;</code> 属性的双向绑定，通过以下几步完成：</p>
+<ol>
+<li><p>在设置初始值的方法上添加注解，并在值使用 <code>@BindingAdapter</code> 更改时进行更新：</p>
+ <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@BindingAdapter(<span class="meta-string">"time"</span>)</span></span><br><span class="line"><span class="meta">@JvmStatic</span> <span class="function"><span class="keyword">fun</span> <span class="title">setTime</span><span class="params">(view: <span class="type">MyView</span>, newValue: <span class="type">Time</span>)</span></span> &#123;</span><br><span class="line">    <span class="comment">// 这里很重要，要打破潜在的死循环</span></span><br><span class="line">    <span class="keyword">if</span> (view.time != newValue) &#123;</span><br><span class="line">        view.time = newValue</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在读取 view 值的方法上添加 <code>@InverseBindingAdapter</code> 注解：</p>
+ <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@InverseBindingAdapter(<span class="meta-string">"time"</span>)</span></span><br><span class="line"><span class="meta">@JvmStatic</span> <span class="function"><span class="keyword">fun</span> <span class="title">getTime</span><span class="params">(view: <span class="type">MyView</span>)</span></span> : Time &#123;</span><br><span class="line">    <span class="keyword">return</span> view.getTime()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>此时，Data Binding 知道在数据更改时要执行的操作（它会调用加了 <a href="https://developer.android.com/reference/android/databinding/BindingAdapter" target="_blank" rel="noopener"><code>@BindingAdapter</code></a> 注解的方法）和当属性发生改变时（它会调用加了<a href="https://developer.android.com/reference/android/databinding/InverseBindingListener" target="_blank" rel="noopener"><code>InverseBindingListener</code></a>注解的方法）。但是，它不知道属性何时或如何被更改。</p>
+<p>为此，你需要在 view 上面设置监听器。它可以自定义监听器，关联到你自定义的 view，或者它是一般事件，比如失去焦点，文本的变化等。在方法上增加一个 <code>@BindingAdapter</code> 注解，为属性设置一个改变的监听器：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@BindingAdapter(<span class="meta-string">"app:timeAttrChanged"</span>)</span></span><br><span class="line"><span class="meta">@JvmStatic</span> <span class="function"><span class="keyword">fun</span> <span class="title">setListeners</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">        view: <span class="type">MyView</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">        attrChange: <span class="type">InverseBindingListener</span></span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span> &#123;</span><br><span class="line">    <span class="comment">// Set a listener for click, focus, touch, etc.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个监听器包含一个 <code>InverseBindingListener</code> 作为参数。你使用 <code>InverseBindingListener</code> 来告诉 data binding 系统属性被修改了。系统会开始调用加了 <code>@InverseBindingAdapter</code> 注解的方法，等等。</p>
+<blockquote>
+<p>每一个双向绑定生成了一个<strong>合成的事件属性</strong>。这个属性与基属性具有一个相同的名字，但是它包含了一个 “<strong>AttrChanged</strong>” 的后缀。合成事件属性允许库去创建一个使用 <strong>@BindingAdapter</strong> 注解的方法，以便将事件监听器与 View 的相应的实例相关联。</p>
+</blockquote>
+<p>在实践中，这个监听器中包含了一些不平凡的逻辑，包括单向数据绑定的监听器。举例见 text attribute change 的 adapter，<a href="https://android.googlesource.com/platform/frameworks/data-binding/+/3b920788e90bb0abe615a5d5c899915f0014444b/extensions/baseAdapters/src/main/java/android/databinding/adapters/TextViewBindingAdapter.java#344" target="_blank" rel="noopener">TextViewBindingAdapter</a></p>
+<h2 id="转换器"><a href="#转换器" class="headerlink" title="转换器"></a>转换器</h2><p>如果绑定到一个 <a href="https://developer.android.com/reference/android/view/View" target="_blank" rel="noopener"><code>View</code></a> 的变量需要在展示出来之前被格式化，转换，某种方法修改，它可能需要一个 <code>Converter</code> 对象。</p>
+<p>举个例子，用一个 <code>EditText</code> 对象展示一个日期：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">EditText</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">"@+id/birth_date"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:text</span>=<span class="string">"@=&#123;Converter.dateToString(viewmodel.birthDate)&#125;"</span></span></span><br><span class="line"><span class="tag">/&gt;</span></span><br></pre></td></tr></table></figure>
+<p><code>viewmodel.birthDate</code> 属性包含了一个类型 <code>Long</code> 的值，所以它需要通过一个抓暖气来格式化。</p>
+<p>因为正在使用双向表达式，所以还需要一个逆转换器，让库知道如何将用户提供的字符串转换回支持数据类型，在这里是 <code>Long</code>。这个过程是通过将 <a href="https://developer.android.com/reference/android/databinding/InverseMethod" target="_blank" rel="noopener"><code>@InverseMethod</code></a> 注解添加到其中一个转换器中，并让这个批注引用逆转换器来完成的。此配置的示例出现在下面的代码段中：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">object</span> Converter &#123;</span><br><span class="line">    <span class="meta">@InverseMethod(<span class="meta-string">"stringToDate"</span>)</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">dateToString</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">        view: <span class="type">EditText</span>, oldValue: <span class="type">Long</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">        value: <span class="type">Long</span></span></span></span><br><span class="line"><span class="function"><span class="params">    )</span></span>: String &#123;</span><br><span class="line">        <span class="comment">// Converts long to String.</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">stringToDate</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">        view: <span class="type">EditText</span>, oldValue: <span class="type">String</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">        value: <span class="type">String</span></span></span></span><br><span class="line"><span class="function"><span class="params">    )</span></span>: <span class="built_in">Long</span> &#123;</span><br><span class="line">        <span class="comment">// Converts String to long.</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="使用双向绑定的死循环"><a href="#使用双向绑定的死循环" class="headerlink" title="使用双向绑定的死循环"></a>使用双向绑定的死循环</h2><p>使用双向数据绑定时，注意不要引入死循环。当用户改变一个属性，<code>@InverseBindingAdapter</code> 注解的方法会被调用，并将该值分配给后端属性。这反过来又会调用使用 <code>@BindingAdapter</code> 注解的方法，这将触发对使用 <code>@InverseBindingAdapter</code> 注解的方法的另一个调用，等等。</p>
+<p>因为这个原因，在 <code>@BindingAdapter</code> 注解的方法中通过对比新旧的值来打破潜在可能的死循环是很重要的。</p>
+<h2 id="双向属性"><a href="#双向属性" class="headerlink" title="双向属性"></a>双向属性</h2><p>当你使用以下表中属性时，平台提供了内置的双向数据绑定。有关平台如何提供此支持的详细信息，请参阅相应 binding adapters 的实现:</p>
+<table>
+<thead>
+<tr>
+<th>类</th>
+<th>属性</th>
+<th>Binding Adapter</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://developer.android.com/reference/android/widget/AdapterView" target="_blank" rel="noopener">AdapterView</a></td>
+<td>android:selectedItemPosition<br>android:selection</td>
+<td><a href="https://android.googlesource.com/platform/frameworks/data-binding/+/3b920788e90bb0abe615a5d5c899915f0014444b/extensions/baseAdapters/src/main/java/android/databinding/adapters/AdapterViewBindingAdapter.java" target="_blank" rel="noopener">AdapterViewBindingAdapter</a></td>
+</tr>
+<tr>
+<td><a href="https://developer.android.com/reference/android/widget/CalendarView" target="_blank" rel="noopener">CalendarView</a></td>
+<td>android:date</td>
+<td><a href="https://android.googlesource.com/platform/frameworks/data-binding/+/3b920788e90bb0abe615a5d5c899915f0014444b/extensions/baseAdapters/src/main/java/android/databinding/adapters/CalendarViewBindingAdapter.java" target="_blank" rel="noopener">CalendarViewBindingAdapter</a></td>
+</tr>
+<tr>
+<td><a href="https://developer.android.com/reference/android/widget/CompoundButton" target="_blank" rel="noopener">CompoundButton</a></td>
+<td><a href="https://developer.android.com/reference/android/R.attr#checked" target="_blank" rel="noopener">android:checked</a></td>
+<td><a href="https://android.googlesource.com/platform/frameworks/data-binding/+/3b920788e90bb0abe615a5d5c899915f0014444b/extensions/baseAdapters/src/main/java/android/databinding/adapters/CompoundButtonBindingAdapter.java" target="_blank" rel="noopener">CompoundButtonBindingAdapter</a></td>
+</tr>
+<tr>
+<td><a href="https://developer.android.com/reference/android/widget/DatePicker" target="_blank" rel="noopener">DatePicker</a></td>
+<td>android:year<br>android:month<br>android:day</td>
+<td><a href="https://android.googlesource.com/platform/frameworks/data-binding/+/3b920788e90bb0abe615a5d5c899915f0014444b/extensions/baseAdapters/src/main/java/android/databinding/adapters/DatePickerBindingAdapter.java" target="_blank" rel="noopener">DatePickerBindingAdapter</a></td>
+</tr>
+<tr>
+<td><a href="https://developer.android.com/reference/android/widget/NumberPicker" target="_blank" rel="noopener">NumberPicker</a></td>
+<td><a href="https://developer.android.com/reference/android/R.attr#value" target="_blank" rel="noopener">android:value</a></td>
+<td><a href="https://android.googlesource.com/platform/frameworks/data-binding/+/3b920788e90bb0abe615a5d5c899915f0014444b/extensions/baseAdapters/src/main/java/android/databinding/adapters/NumberPickerBindingAdapter.java" target="_blank" rel="noopener">NumberPickerBindingAdapter</a></td>
+</tr>
+<tr>
+<td><a href="https://developer.android.com/reference/android/widget/RadioButton" target="_blank" rel="noopener">RadioButton</a></td>
+<td><a href="https://developer.android.com/reference/android/R.attr#checkedButton" target="_blank" rel="noopener">android:checkedButton</a></td>
+<td><a href="https://android.googlesource.com/platform/frameworks/data-binding/+/3b920788e90bb0abe615a5d5c899915f0014444b/extensions/baseAdapters/src/main/java/android/databinding/adapters/RadioGroupBindingAdapter.java" target="_blank" rel="noopener">RadioGroupBindingAdapter</a></td>
+</tr>
+<tr>
+<td><a href="https://developer.android.com/reference/android/widget/RatingBar" target="_blank" rel="noopener">RatingBar</a></td>
+<td><a href="https://developer.android.com/reference/android/R.attr#rating" target="_blank" rel="noopener">android:rating</a></td>
+<td><a href="https://android.googlesource.com/platform/frameworks/data-binding/+/3b920788e90bb0abe615a5d5c899915f0014444b/extensions/baseAdapters/src/main/java/android/databinding/adapters/RatingBarBindingAdapter.java" target="_blank" rel="noopener">RatingBarBindingAdapter</a></td>
+</tr>
+<tr>
+<td><a href="https://developer.android.com/reference/android/widget/SeekBar" target="_blank" rel="noopener">SeekBar</a></td>
+<td><a href="https://developer.android.com/reference/android/R.attr#progress" target="_blank" rel="noopener">android:progress</a></td>
+<td><a href="https://android.googlesource.com/platform/frameworks/data-binding/+/3b920788e90bb0abe615a5d5c899915f0014444b/extensions/baseAdapters/src/main/java/android/databinding/adapters/SeekBarBindingAdapter.java" target="_blank" rel="noopener">SeekBarBindingAdapter</a></td>
+</tr>
+<tr>
+<td><a href="https://developer.android.com/reference/android/widget/TabHost" target="_blank" rel="noopener">TabHost</a></td>
+<td>android:currentTab</td>
+<td><a href="https://android.googlesource.com/platform/frameworks/data-binding/+/3b920788e90bb0abe615a5d5c899915f0014444b/extensions/baseAdapters/src/main/java/android/databinding/adapters/TabHostBindingAdapter.java" target="_blank" rel="noopener">TabHostBindingAdapter</a></td>
+</tr>
+<tr>
+<td><a href="https://developer.android.com/reference/android/widget/TextView" target="_blank" rel="noopener">TextView</a></td>
+<td><a href="https://developer.android.com/reference/android/R.attr#text" target="_blank" rel="noopener">android:text</a></td>
+<td><a href="https://android.googlesource.com/platform/frameworks/data-binding/+/3b920788e90bb0abe615a5d5c899915f0014444b/extensions/baseAdapters/src/main/java/android/databinding/adapters/TextViewBindingAdapter.java" target="_blank" rel="noopener">TextViewBindingAdapter</a></td>
+</tr>
+<tr>
+<td><a href="https://developer.android.com/reference/android/widget/TimePicker" target="_blank" rel="noopener">TimePicker</a></td>
+<td>android:hour<br>android:minute</td>
+<td><a href="https://android.googlesource.com/platform/frameworks/data-binding/+/3b920788e90bb0abe615a5d5c899915f0014444b/extensions/baseAdapters/src/main/java/android/databinding/adapters/TimePickerBindingAdapter.java" target="_blank" rel="noopener">TimePickerBindingAdapter</a></td>
+</tr>
+</tbody>
+</table>
+
+
+    <br/>
+    <hr>
+
+    
+    <div class="post-copyright" style="margin-top: 20px;">
+        <strong>来源博客：</strong><a href="https://blog.wangjiegulu.com">Wang Jie's Blog</a><br/>
+         <strong>本文链接：</strong><a href="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_binding_two_way/">https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_binding_two_way/</a><br/>
+         <strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处。
+    </div>
+    
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/feed.xml">RSS</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Android-Architecture-Component-DataBinding-–-双向绑定（翻译）"><span class="toc-number">1.</span> <span class="toc-text">Android Architecture Component DataBinding – 双向绑定（翻译）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#自定义属性实现双向绑定"><span class="toc-number">1.1.</span> <span class="toc-text">自定义属性实现双向绑定</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#转换器"><span class="toc-number">1.2.</span> <span class="toc-text">转换器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用双向绑定的死循环"><span class="toc-number">1.3.</span> <span class="toc-text">使用双向绑定的死循环</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#双向属性"><span class="toc-number">1.4.</span> <span class="toc-text">双向属性</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_binding_two_way/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_binding_two_way/&text=Android Architecture Component DataBinding -- 双向绑定（翻译）"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_binding_two_way/&title=Android Architecture Component DataBinding -- 双向绑定（翻译）"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_binding_two_way/&is_video=false&description=Android Architecture Component DataBinding -- 双向绑定（翻译）"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Android Architecture Component DataBinding -- 双向绑定（翻译）&body=Check out this article: https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_binding_two_way/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_binding_two_way/&title=Android Architecture Component DataBinding -- 双向绑定（翻译）"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_binding_two_way/&title=Android Architecture Component DataBinding -- 双向绑定（翻译）"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_binding_two_way/&title=Android Architecture Component DataBinding -- 双向绑定（翻译）"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_binding_two_way/&title=Android Architecture Component DataBinding -- 双向绑定（翻译）"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_binding_two_way/&name=Android Architecture Component DataBinding -- 双向绑定（翻译）&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 Wang Jie
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/feed.xml">RSS</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-111189680-2', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'blog-wangjiegulu-com';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+

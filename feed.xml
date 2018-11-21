@@ -86,9 +86,9 @@
       <category term="IoT" scheme="https://blog.wangjiegulu.com/categories/Smart-Life/IoT/"/>
     
     
-      <category term="java" scheme="https://blog.wangjiegulu.com/tags/java/"/>
-    
       <category term="kotlin" scheme="https://blog.wangjiegulu.com/tags/kotlin/"/>
+    
+      <category term="java" scheme="https://blog.wangjiegulu.com/tags/java/"/>
     
       <category term="Smart Life" scheme="https://blog.wangjiegulu.com/tags/Smart-Life/"/>
     
@@ -134,9 +134,9 @@
       <category term="IoT" scheme="https://blog.wangjiegulu.com/categories/Smart-Life/IoT/"/>
     
     
-      <category term="java" scheme="https://blog.wangjiegulu.com/tags/java/"/>
-    
       <category term="kotlin" scheme="https://blog.wangjiegulu.com/tags/kotlin/"/>
+    
+      <category term="java" scheme="https://blog.wangjiegulu.com/tags/java/"/>
     
       <category term="Smart Life" scheme="https://blog.wangjiegulu.com/tags/Smart-Life/"/>
     
@@ -241,6 +241,418 @@
       <category term="annotation processor" scheme="https://blog.wangjiegulu.com/tags/annotation-processor/"/>
     
       <category term="pojo converter" scheme="https://blog.wangjiegulu.com/tags/pojo-converter/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android Architecture Component DataBinding -- 双向绑定（翻译）</title>
+    <link href="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_binding_two_way/"/>
+    <id>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_binding_two_way/</id>
+    <published>2018-04-15T10:01:00.000Z</published>
+    <updated>2018-11-21T09:13:42.188Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;Android-Architecture-Component-DataBinding-–-双向绑定（翻译）&quot;&gt;&lt;a href=&quot;#Android-Architecture-Component-DataBinding-–-双向绑定（翻译）&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="Android Architecture Component" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/"/>
+    
+      <category term="kotlin" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/kotlin/"/>
+    
+      <category term="DataBinding" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/kotlin/DataBinding/"/>
+    
+    
+      <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
+    
+      <category term="kotlin" scheme="https://blog.wangjiegulu.com/tags/kotlin/"/>
+    
+      <category term="architecture" scheme="https://blog.wangjiegulu.com/tags/architecture/"/>
+    
+      <category term="Android Architecture Component" scheme="https://blog.wangjiegulu.com/tags/Android-Architecture-Component/"/>
+    
+      <category term="aac" scheme="https://blog.wangjiegulu.com/tags/aac/"/>
+    
+      <category term="ViewModel" scheme="https://blog.wangjiegulu.com/tags/ViewModel/"/>
+    
+      <category term="LiveData" scheme="https://blog.wangjiegulu.com/tags/LiveData/"/>
+    
+      <category term="DataBinding" scheme="https://blog.wangjiegulu.com/tags/DataBinding/"/>
+    
+      <category term="Lifecycles" scheme="https://blog.wangjiegulu.com/tags/Lifecycles/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android Architecture Component DataBinding -- Architecture（翻译）</title>
+    <link href="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_binding_architecture/"/>
+    <id>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_binding_architecture/</id>
+    <published>2018-04-15T09:01:00.000Z</published>
+    <updated>2018-11-21T09:13:29.188Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;Android-Architecture-Component-DataBinding-–-Architecture（翻译）&quot;&gt;&lt;a
+        
+      
+    
+    </summary>
+    
+      <category term="Android Architecture Component" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/"/>
+    
+      <category term="kotlin" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/kotlin/"/>
+    
+      <category term="DataBinding" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/kotlin/DataBinding/"/>
+    
+    
+      <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
+    
+      <category term="kotlin" scheme="https://blog.wangjiegulu.com/tags/kotlin/"/>
+    
+      <category term="architecture" scheme="https://blog.wangjiegulu.com/tags/architecture/"/>
+    
+      <category term="Android Architecture Component" scheme="https://blog.wangjiegulu.com/tags/Android-Architecture-Component/"/>
+    
+      <category term="aac" scheme="https://blog.wangjiegulu.com/tags/aac/"/>
+    
+      <category term="ViewModel" scheme="https://blog.wangjiegulu.com/tags/ViewModel/"/>
+    
+      <category term="LiveData" scheme="https://blog.wangjiegulu.com/tags/LiveData/"/>
+    
+      <category term="DataBinding" scheme="https://blog.wangjiegulu.com/tags/DataBinding/"/>
+    
+      <category term="Lifecycles" scheme="https://blog.wangjiegulu.com/tags/Lifecycles/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android Architecture Component DataBinding -- Binding adapters（翻译）</title>
+    <link href="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_binding_adapters/"/>
+    <id>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_binding_adapters/</id>
+    <published>2018-04-15T08:01:00.000Z</published>
+    <updated>2018-11-21T09:13:18.436Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;Android-Architecture-Component-DataBinding-–-Binding-adapters（翻译）&quot;&gt;&lt;a
+        
+      
+    
+    </summary>
+    
+      <category term="Android Architecture Component" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/"/>
+    
+      <category term="kotlin" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/kotlin/"/>
+    
+      <category term="DataBinding" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/kotlin/DataBinding/"/>
+    
+    
+      <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
+    
+      <category term="kotlin" scheme="https://blog.wangjiegulu.com/tags/kotlin/"/>
+    
+      <category term="architecture" scheme="https://blog.wangjiegulu.com/tags/architecture/"/>
+    
+      <category term="Android Architecture Component" scheme="https://blog.wangjiegulu.com/tags/Android-Architecture-Component/"/>
+    
+      <category term="aac" scheme="https://blog.wangjiegulu.com/tags/aac/"/>
+    
+      <category term="ViewModel" scheme="https://blog.wangjiegulu.com/tags/ViewModel/"/>
+    
+      <category term="LiveData" scheme="https://blog.wangjiegulu.com/tags/LiveData/"/>
+    
+      <category term="DataBinding" scheme="https://blog.wangjiegulu.com/tags/DataBinding/"/>
+    
+      <category term="Lifecycles" scheme="https://blog.wangjiegulu.com/tags/Lifecycles/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android Architecture Component DataBinding -- 生成的绑定类（翻译）</title>
+    <link href="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_generated_binding/"/>
+    <id>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_generated_binding/</id>
+    <published>2018-04-15T07:01:00.000Z</published>
+    <updated>2018-11-21T09:13:06.211Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;Android-Architecture-Component-DataBinding-–-生成的绑定类（翻译）&quot;&gt;&lt;a href=&quot;#Android-Architecture-Component-DataBinding-–-生成的绑定类（翻译）&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="Android Architecture Component" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/"/>
+    
+      <category term="kotlin" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/kotlin/"/>
+    
+      <category term="DataBinding" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/kotlin/DataBinding/"/>
+    
+    
+      <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
+    
+      <category term="kotlin" scheme="https://blog.wangjiegulu.com/tags/kotlin/"/>
+    
+      <category term="architecture" scheme="https://blog.wangjiegulu.com/tags/architecture/"/>
+    
+      <category term="Android Architecture Component" scheme="https://blog.wangjiegulu.com/tags/Android-Architecture-Component/"/>
+    
+      <category term="aac" scheme="https://blog.wangjiegulu.com/tags/aac/"/>
+    
+      <category term="ViewModel" scheme="https://blog.wangjiegulu.com/tags/ViewModel/"/>
+    
+      <category term="LiveData" scheme="https://blog.wangjiegulu.com/tags/LiveData/"/>
+    
+      <category term="DataBinding" scheme="https://blog.wangjiegulu.com/tags/DataBinding/"/>
+    
+      <category term="Lifecycles" scheme="https://blog.wangjiegulu.com/tags/Lifecycles/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android Architecture Component DataBinding -- 使用可观察的数据对象（翻译）</title>
+    <link href="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_observability/"/>
+    <id>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_observability/</id>
+    <published>2018-04-15T06:01:00.000Z</published>
+    <updated>2018-11-21T09:12:45.627Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;Android-Architecture-Component-DataBinding-–-使用可观察的数据对象（翻译）&quot;&gt;&lt;a href=&quot;#Android-Architecture-Component-DataBinding-–-使用可观察的数据对象（翻译）&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="Android Architecture Component" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/"/>
+    
+      <category term="kotlin" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/kotlin/"/>
+    
+      <category term="DataBinding" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/kotlin/DataBinding/"/>
+    
+    
+      <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
+    
+      <category term="kotlin" scheme="https://blog.wangjiegulu.com/tags/kotlin/"/>
+    
+      <category term="architecture" scheme="https://blog.wangjiegulu.com/tags/architecture/"/>
+    
+      <category term="Android Architecture Component" scheme="https://blog.wangjiegulu.com/tags/Android-Architecture-Component/"/>
+    
+      <category term="aac" scheme="https://blog.wangjiegulu.com/tags/aac/"/>
+    
+      <category term="ViewModel" scheme="https://blog.wangjiegulu.com/tags/ViewModel/"/>
+    
+      <category term="LiveData" scheme="https://blog.wangjiegulu.com/tags/LiveData/"/>
+    
+      <category term="DataBinding" scheme="https://blog.wangjiegulu.com/tags/DataBinding/"/>
+    
+      <category term="Lifecycles" scheme="https://blog.wangjiegulu.com/tags/Lifecycles/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android Architecture Component DataBinding -- 布局和表达式（翻译）</title>
+    <link href="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_databinding_expressions/"/>
+    <id>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_databinding_expressions/</id>
+    <published>2018-04-15T05:01:00.000Z</published>
+    <updated>2018-11-21T09:12:18.620Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;Android-Architecture-Component-DataBinding-–-布局和表达式（翻译）&quot;&gt;&lt;a href=&quot;#Android-Architecture-Component-DataBinding-–-布局和表达式（翻译）&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="Android Architecture Component" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/"/>
+    
+      <category term="kotlin" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/kotlin/"/>
+    
+      <category term="DataBinding" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/kotlin/DataBinding/"/>
+    
+    
+      <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
+    
+      <category term="kotlin" scheme="https://blog.wangjiegulu.com/tags/kotlin/"/>
+    
+      <category term="architecture" scheme="https://blog.wangjiegulu.com/tags/architecture/"/>
+    
+      <category term="Android Architecture Component" scheme="https://blog.wangjiegulu.com/tags/Android-Architecture-Component/"/>
+    
+      <category term="aac" scheme="https://blog.wangjiegulu.com/tags/aac/"/>
+    
+      <category term="ViewModel" scheme="https://blog.wangjiegulu.com/tags/ViewModel/"/>
+    
+      <category term="LiveData" scheme="https://blog.wangjiegulu.com/tags/LiveData/"/>
+    
+      <category term="DataBinding" scheme="https://blog.wangjiegulu.com/tags/DataBinding/"/>
+    
+      <category term="Lifecycles" scheme="https://blog.wangjiegulu.com/tags/Lifecycles/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android Architecture Component DataBinding -- Get Started（翻译）</title>
+    <link href="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_databinding_get_started/"/>
+    <id>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_databinding_get_started/</id>
+    <published>2018-04-15T04:01:00.000Z</published>
+    <updated>2018-11-21T09:11:51.530Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;Android-Architecture-Component-DataBinding-–-Get-Started（翻译）&quot;&gt;&lt;a
+        
+      
+    
+    </summary>
+    
+      <category term="Android Architecture Component" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/"/>
+    
+      <category term="kotlin" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/kotlin/"/>
+    
+      <category term="DataBinding" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/kotlin/DataBinding/"/>
+    
+    
+      <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
+    
+      <category term="kotlin" scheme="https://blog.wangjiegulu.com/tags/kotlin/"/>
+    
+      <category term="architecture" scheme="https://blog.wangjiegulu.com/tags/architecture/"/>
+    
+      <category term="Android Architecture Component" scheme="https://blog.wangjiegulu.com/tags/Android-Architecture-Component/"/>
+    
+      <category term="aac" scheme="https://blog.wangjiegulu.com/tags/aac/"/>
+    
+      <category term="ViewModel" scheme="https://blog.wangjiegulu.com/tags/ViewModel/"/>
+    
+      <category term="LiveData" scheme="https://blog.wangjiegulu.com/tags/LiveData/"/>
+    
+      <category term="DataBinding" scheme="https://blog.wangjiegulu.com/tags/DataBinding/"/>
+    
+      <category term="Lifecycles" scheme="https://blog.wangjiegulu.com/tags/Lifecycles/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android Architecture Component DataBinding -- 概要（翻译）</title>
+    <link href="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_databinding_overview/"/>
+    <id>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_databinding_overview/</id>
+    <published>2018-04-15T03:01:00.000Z</published>
+    <updated>2018-11-21T09:11:12.364Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;Android-Architecture-Component-DataBinding-–-概要（翻译）&quot;&gt;&lt;a href=&quot;#Android-Architecture-Component-DataBinding-–-概要（翻译）&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="Android Architecture Component" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/"/>
+    
+      <category term="kotlin" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/kotlin/"/>
+    
+      <category term="DataBinding" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/kotlin/DataBinding/"/>
+    
+    
+      <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
+    
+      <category term="kotlin" scheme="https://blog.wangjiegulu.com/tags/kotlin/"/>
+    
+      <category term="architecture" scheme="https://blog.wangjiegulu.com/tags/architecture/"/>
+    
+      <category term="Android Architecture Component" scheme="https://blog.wangjiegulu.com/tags/Android-Architecture-Component/"/>
+    
+      <category term="aac" scheme="https://blog.wangjiegulu.com/tags/aac/"/>
+    
+      <category term="ViewModel" scheme="https://blog.wangjiegulu.com/tags/ViewModel/"/>
+    
+      <category term="LiveData" scheme="https://blog.wangjiegulu.com/tags/LiveData/"/>
+    
+      <category term="DataBinding" scheme="https://blog.wangjiegulu.com/tags/DataBinding/"/>
+    
+      <category term="Lifecycles" scheme="https://blog.wangjiegulu.com/tags/Lifecycles/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android Architecture Component -- 概要（翻译）</title>
+    <link href="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_overview/"/>
+    <id>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_overview/</id>
+    <published>2018-04-15T02:01:00.000Z</published>
+    <updated>2018-11-21T09:10:49.347Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;Android-Architecture-Component-–-概要（翻译）&quot;&gt;&lt;a href=&quot;#Android-Architecture-Component-–-概要（翻译）&quot; class=&quot;headerlink&quot; title=&quot;Android
+        
+      
+    
+    </summary>
+    
+      <category term="Android Architecture Component" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/"/>
+    
+      <category term="kotlin" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/kotlin/"/>
+    
+    
+      <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
+    
+      <category term="kotlin" scheme="https://blog.wangjiegulu.com/tags/kotlin/"/>
+    
+      <category term="architecture" scheme="https://blog.wangjiegulu.com/tags/architecture/"/>
+    
+      <category term="Android Architecture Component" scheme="https://blog.wangjiegulu.com/tags/Android-Architecture-Component/"/>
+    
+      <category term="aac" scheme="https://blog.wangjiegulu.com/tags/aac/"/>
+    
+      <category term="ViewModel" scheme="https://blog.wangjiegulu.com/tags/ViewModel/"/>
+    
+      <category term="LiveData" scheme="https://blog.wangjiegulu.com/tags/LiveData/"/>
+    
+      <category term="DataBinding" scheme="https://blog.wangjiegulu.com/tags/DataBinding/"/>
+    
+      <category term="Lifecycles" scheme="https://blog.wangjiegulu.com/tags/Lifecycles/"/>
     
   </entry>
   
@@ -438,15 +850,15 @@
     
       <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
     
+      <category term="kotlin" scheme="https://blog.wangjiegulu.com/tags/kotlin/"/>
+    
+      <category term="architecture" scheme="https://blog.wangjiegulu.com/tags/architecture/"/>
+    
       <category term="framework" scheme="https://blog.wangjiegulu.com/tags/framework/"/>
     
       <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
     
       <category term="dagger2" scheme="https://blog.wangjiegulu.com/tags/dagger2/"/>
-    
-      <category term="kotlin" scheme="https://blog.wangjiegulu.com/tags/kotlin/"/>
-    
-      <category term="architecture" scheme="https://blog.wangjiegulu.com/tags/architecture/"/>
     
       <category term="modular" scheme="https://blog.wangjiegulu.com/tags/modular/"/>
     
@@ -487,258 +899,6 @@
       <category term="Android Studio" scheme="https://blog.wangjiegulu.com/tags/Android-Studio/"/>
     
       <category term="META-INF" scheme="https://blog.wangjiegulu.com/tags/META-INF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>IFCTT，即If Copy Then That，一个基于IFTTT的`This`实现</title>
-    <link href="https://blog.wangjiegulu.com/2017/12/20/Android-App-IFCTT%EF%BC%8C%E5%8D%B3If-Copy-Then-That%EF%BC%8C%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8EIFTTT%E7%9A%84-This-%E5%AE%9E%E7%8E%B0/"/>
-    <id>https://blog.wangjiegulu.com/2017/12/20/Android-App-IFCTT，即If-Copy-Then-That，一个基于IFTTT的-This-实现/</id>
-    <published>2017-12-20T04:41:00.000Z</published>
-    <updated>2018-03-26T11:27:46.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;IFCTT，即：&lt;code&gt;If Copy Then That&lt;/code&gt;，是一个基于IFTTT（&lt;code&gt;If This Then That&lt;/code&gt;）的”This”实现，它打通了”用户手机端操作”与”This条件触发”之间的桥梁，让这个过程更具方便性和快捷性。通过手机端的Copy动作，以”Tagged Email”的方式连接到IFTTT，从而触发IFTTT中所有支持的”That”行为。用户只需要复制然后选择触发IFTTT的”Hash Tag”即可，它支持用户配置多种”Hash Tag”来进行多种自定义方式内容传输，比如：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;手机端执行拷贝Url地址（随时随地，任何地方，如Twitter/Facebook/Instagram/wechat/weibo/blog…），一键通过IFCTT &amp;amp; IFTTT，保存链接对应的文章到Instapaper/Pocket，最低成本实现Read it later&lt;/li&gt;
-&lt;li&gt;手机端执行拷贝文章内容，一键通过IFCTT &amp;amp; IFTTT，保存发送对应的内容到Evernote/Google doc/kindle…&lt;/li&gt;
-&lt;li&gt;等等&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;使用IFCTT需要以下几个条件：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;你需要拥有IFTTT账号，并开启相应的Applets&lt;/li&gt;
-&lt;li&gt;你需要使用与IFTTT相同的Email账号在IFCTT中进行smtp授权和配置&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;首先，下载安装IFCTT App&lt;font color=&quot;#FF2D51&quot;&gt;（12月21日～12月28日圣诞节免限中）&lt;/font&gt;：&lt;/p&gt;
-&lt;font color=&quot;#FF2D51&quot;&gt;&lt;strong&gt;Google Play：&lt;a href=&quot;https://play.google.com/store/apps/details?id=com.wangjie.ifctt&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://play.google.com/store/apps/details?id=com.wangjie.ifctt&lt;/a&gt;&lt;/strong&gt;&lt;/font&gt;
-    
-    </summary>
-    
-    
-      <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
-    
-      <category term="ifttt" scheme="https://blog.wangjiegulu.com/tags/ifttt/"/>
-    
-      <category term="ifctt" scheme="https://blog.wangjiegulu.com/tags/ifctt/"/>
-    
-      <category term="automate" scheme="https://blog.wangjiegulu.com/tags/automate/"/>
-    
-      <category term="huginn" scheme="https://blog.wangjiegulu.com/tags/huginn/"/>
-    
-      <category term="hash tag" scheme="https://blog.wangjiegulu.com/tags/hash-tag/"/>
-    
-      <category term="google play" scheme="https://blog.wangjiegulu.com/tags/google-play/"/>
-    
-      <category term="clipboard" scheme="https://blog.wangjiegulu.com/tags/clipboard/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>应朋友死皮白咧地邀请贴一个招聘广告</title>
-    <link href="https://blog.wangjiegulu.com/2017/09/25/%E5%BA%94%E6%9C%8B%E5%8F%8B%E6%AD%BB%E7%9A%AE%E7%99%BD%E5%92%A7%E5%9C%B0%E9%82%80%E8%AF%B7%E8%B4%B4%E4%B8%80%E4%B8%AA%E6%8B%9B%E8%81%98%E5%B9%BF%E5%91%8A/"/>
-    <id>https://blog.wangjiegulu.com/2017/09/25/应朋友死皮白咧地邀请贴一个招聘广告/</id>
-    <published>2017-09-25T09:24:00.000Z</published>
-    <updated>2018-01-30T03:45:39.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;应朋友&lt;strike&gt;死皮白咧地&lt;/strike&gt;邀请在这里贴一个招聘广告，&lt;strong&gt;注意：以下的联系方式都是我朋友的&lt;/strong&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h1 id=&quot;招聘【阿里巴巴ICBU内部推荐快速通道】&quot;&gt;&lt;a href=&quot;#招聘【阿里巴巴ICBU内部推荐快速通道】&quot; class=&quot;headerlink&quot; title=&quot;招聘【阿里巴巴ICBU内部推荐快速通道】&quot;&gt;&lt;/a&gt;招聘【阿里巴巴ICBU内部推荐快速通道】&lt;/h1&gt;&lt;h3 id=&quot;ICBU技术部介绍：&quot;&gt;&lt;a href=&quot;#ICBU技术部介绍：&quot; class=&quot;headerlink&quot; title=&quot;ICBU技术部介绍：&quot;&gt;&lt;/a&gt;ICBU技术部介绍：&lt;/h3&gt;&lt;p&gt;作为阿里巴巴集团提出的eWTP建设的重要部队，国际无线技术部旨在以优秀的无线技术服务全球中小企业。我们面临的技术挑战有：全球化环境下复杂的技术与网络环境、国际贸易复杂的业务流程与规则、国际物流的信息跟踪等履约规范建立、跨境贸易沟通下的语言障碍等。通过深入对技术的全球化布局提升极致的用户体验，研究最新的无线技术如IoT等将业务化繁为简，丰富的无线相机能力和语言翻译服务让沟通全方位无障碍。让全球企业受惠eWTP，无线技术大有可为！ &lt;/p&gt;
-&lt;p&gt;招聘Android、IOS、Java工程师&lt;br&gt;投递邮箱：dechong.wc@alibaba-inc.com&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="jobs" scheme="https://blog.wangjiegulu.com/tags/jobs/"/>
-    
-      <category term="alibaba" scheme="https://blog.wangjiegulu.com/tags/alibaba/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Android焦点流程代码分析</title>
-    <link href="https://blog.wangjiegulu.com/2017/08/04/Android-Android%E7%84%A6%E7%82%B9%E6%B5%81%E7%A8%8B%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/"/>
-    <id>https://blog.wangjiegulu.com/2017/08/04/Android-Android焦点流程代码分析/</id>
-    <published>2017-08-04T10:08:00.000Z</published>
-    <updated>2018-03-29T06:24:05.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;通过View的&lt;code&gt;View::focusSearch&lt;/code&gt;进行焦点搜索对应方向上的下一个可以获取焦点的View：&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
-    
-      <category term="source code" scheme="https://blog.wangjiegulu.com/tags/source-code/"/>
-    
-      <category term="focus" scheme="https://blog.wangjiegulu.com/tags/focus/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Android内存泄漏你所要知道的一切（翻译）</title>
-    <link href="https://blog.wangjiegulu.com/2017/07/25/Android-Android%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E4%BD%A0%E6%89%80%E8%A6%81%E7%9F%A5%E9%81%93%E7%9A%84%E4%B8%80%E5%88%87%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/"/>
-    <id>https://blog.wangjiegulu.com/2017/07/25/Android-Android内存泄漏你所要知道的一切（翻译）/</id>
-    <published>2017-07-25T09:58:00.000Z</published>
-    <updated>2018-02-05T09:30:05.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;Android内存泄漏你所要知道的一切&quot;&gt;&lt;a href=&quot;#Android内存泄漏你所要知道的一切&quot; class=&quot;headerlink&quot; title=&quot;Android内存泄漏你所要知道的一切&quot;&gt;&lt;/a&gt;Android内存泄漏你所要知道的一切&lt;/h1&gt;&lt;blockquote&gt;
-&lt;p&gt;原文：&lt;a href=&quot;https://blog.aritraroy.in/everything-you-need-to-know-about-memory-leaks-in-android-apps-655f191ca859&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.aritraroy.in/everything-you-need-to-know-about-memory-leaks-in-android-apps-655f191ca859&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;写一个Android app很简单，但是&lt;strong&gt;写一个超高品质的内存高效的Android app并不简单&lt;/strong&gt;。从我的个人经验来说，我曾经比较关注和感兴趣构建我app的新特性，功能和UI组件。&lt;/p&gt;
-&lt;p&gt;我主要倾向于工作在具有更多视觉冲击力的东西，而不是花时间在没有人一眼会注意到的东西上面。我开始养成了避免或者给app优化等事情更低优先级的习惯（检测和修复内存泄漏就是其中的一个）。&lt;/p&gt;
-&lt;p&gt;这自然而然导致我承担起了技术负债，从长远来看，它开始影响我的应用的性能和质量。我满满地改变了我的心态，比起去年我更多地以“性能为重点”。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
-    
-      <category term="memory leak" scheme="https://blog.wangjiegulu.com/tags/memory-leak/"/>
-    
-      <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>使用Google Cloud Platform(GCP GCE)安装SSR+BBR教程</title>
-    <link href="https://blog.wangjiegulu.com/2017/05/29/gcp-ssr/"/>
-    <id>https://blog.wangjiegulu.com/2017/05/29/gcp-ssr/</id>
-    <published>2017-05-29T09:52:00.000Z</published>
-    <updated>2018-04-28T05:03:38.000Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;使用Google-Cloud-Platform-GCP-GCE-安装SSR-BBR教程&quot;&gt;&lt;a href=&quot;#使用Google-Cloud-Platform-GCP-GCE-安装SSR-BBR教程&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-    
-      <category term="google cloud platform" scheme="https://blog.wangjiegulu.com/tags/google-cloud-platform/"/>
-    
-      <category term="gcp" scheme="https://blog.wangjiegulu.com/tags/gcp/"/>
-    
-      <category term="ssr" scheme="https://blog.wangjiegulu.com/tags/ssr/"/>
-    
-      <category term="shadowsocks" scheme="https://blog.wangjiegulu.com/tags/shadowsocks/"/>
-    
-      <category term="shadowsocksr" scheme="https://blog.wangjiegulu.com/tags/shadowsocksr/"/>
-    
-      <category term="vpn" scheme="https://blog.wangjiegulu.com/tags/vpn/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Gradle 插件 DiscardFilePlugin（class注入&amp;清空类和方法）</title>
-    <link href="https://blog.wangjiegulu.com/2017/04/19/Android-Gradle-%E6%8F%92%E4%BB%B6-DiscardFilePlugin%EF%BC%88class%E6%B3%A8%E5%85%A5-%E6%B8%85%E7%A9%BA%E7%B1%BB%E5%92%8C%E6%96%B9%E6%B3%95%EF%BC%89/"/>
-    <id>https://blog.wangjiegulu.com/2017/04/19/Android-Gradle-插件-DiscardFilePlugin（class注入-清空类和方法）/</id>
-    <published>2017-04-19T02:40:00.000Z</published>
-    <updated>2018-03-29T06:28:36.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;Android-Gradle-插件-DiscardFilePlugin（清空类和方法）&quot;&gt;&lt;a href=&quot;#Android-Gradle-插件-DiscardFilePlugin（清空类和方法）&quot; class=&quot;headerlink&quot; title=&quot;Android Gradle 插件 DiscardFilePlugin（清空类和方法）&quot;&gt;&lt;/a&gt;Android Gradle 插件 DiscardFilePlugin（清空类和方法）&lt;/h1&gt;&lt;p&gt;An android gradle plugin for discard class or method in compile time.&lt;/p&gt;
-&lt;p&gt;用于在编译构建时期忽略清空类和方法的一个Android Gradle插件。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Github: &lt;a href=&quot;https://github.com/wangjiegulu/DiscardFilePlugin&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://github.com/wangjiegulu/DiscardFilePlugin&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
-&lt;h2 id=&quot;1-1-使用场景&quot;&gt;&lt;a href=&quot;#1-1-使用场景&quot; class=&quot;headerlink&quot; title=&quot;1.1 使用场景&quot;&gt;&lt;/a&gt;1.1 使用场景&lt;/h2&gt;&lt;p&gt;在实际的生产中，我们总是会在我们的app中增加一些调试的工具，比如在&lt;code&gt;debug&lt;/code&gt;模式下加入&lt;code&gt;DebugPanelActivity&lt;/code&gt;（调试面板工具页面，提供比如“切换服务器”等操作）。我们需要在正式上线的release版本中清空相关类和方法，或者修改&lt;code&gt;boolean isProductionEnvironment()&lt;/code&gt;方法，让它永远返回&lt;code&gt;true&lt;/code&gt;，&lt;strong&gt;以此来避免上线之后调试相关代码通过反编译等手段暴露出来。&lt;/strong&gt;&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
-    
-      <category term="gradle" scheme="https://blog.wangjiegulu.com/tags/gradle/"/>
-    
-      <category term="gradle plugin" scheme="https://blog.wangjiegulu.com/tags/gradle-plugin/"/>
-    
-      <category term="discard" scheme="https://blog.wangjiegulu.com/tags/discard/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>NDK配置</title>
-    <link href="https://blog.wangjiegulu.com/2017/04/11/NDK%E9%85%8D%E7%BD%AE/"/>
-    <id>https://blog.wangjiegulu.com/2017/04/11/NDK配置/</id>
-    <published>2017-04-11T04:09:00.000Z</published>
-    <updated>2018-03-26T10:22:32.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;NDK-配置&quot;&gt;&lt;a href=&quot;#NDK-配置&quot; class=&quot;headerlink&quot; title=&quot;NDK 配置&quot;&gt;&lt;/a&gt;NDK 配置&lt;/h1&gt;&lt;p&gt;Android SDK中下载&lt;code&gt;NDK&lt;/code&gt;, &lt;code&gt;LLDB&lt;/code&gt;&lt;/p&gt;
-&lt;h2 id=&quot;Android-mk-和-Application-mk&quot;&gt;&lt;a href=&quot;#Android-mk-和-Application-mk&quot; class=&quot;headerlink&quot; title=&quot;Android.mk 和 Application.mk&quot;&gt;&lt;/a&gt;Android.mk 和 Application.mk&lt;/h2&gt;&lt;p&gt;简单来说&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Android.mk 用来描述需要生成哪些模块的 .so 文件&lt;/li&gt;
-&lt;li&gt;Application.mk 用来描述如何生成 .so 文件，生成静态库还是动态库&lt;/li&gt;
-&lt;/ul&gt;
-    
-    </summary>
-    
-    
-      <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
-    
-      <category term="ndk" scheme="https://blog.wangjiegulu.com/tags/ndk/"/>
-    
-      <category term="jni" scheme="https://blog.wangjiegulu.com/tags/jni/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>CPP Note</title>
-    <link href="https://blog.wangjiegulu.com/2017/04/10/CPP-Note/"/>
-    <id>https://blog.wangjiegulu.com/2017/04/10/CPP-Note/</id>
-    <published>2017-04-10T07:05:00.000Z</published>
-    <updated>2018-03-26T10:23:45.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;hello.cpp -&amp;gt; 编译代码&lt;code&gt;g++ hello.cpp -o a&lt;/code&gt; -&amp;gt; &lt;code&gt;a.out&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;区分大小写的编程语言&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="cpp" scheme="https://blog.wangjiegulu.com/tags/cpp/"/>
-    
-      <category term="c++" scheme="https://blog.wangjiegulu.com/tags/c/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>[Android]使用RecyclerView替代ListView（四：SeizeRecyclerView）</title>
-    <link href="https://blog.wangjiegulu.com/2017/03/29/Android-%E4%BD%BF%E7%94%A8RecyclerView%E6%9B%BF%E4%BB%A3ListView%EF%BC%88%E5%9B%9B%EF%BC%9ASeizeRecyclerView%EF%BC%89/"/>
-    <id>https://blog.wangjiegulu.com/2017/03/29/Android-使用RecyclerView替代ListView（四：SeizeRecyclerView）/</id>
-    <published>2017-03-29T13:09:00.000Z</published>
-    <updated>2018-03-29T06:28:22.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;Android-使用RecyclerView替代ListView（四：SeizeRecyclerView）&quot;&gt;&lt;a href=&quot;#Android-使用RecyclerView替代ListView（四：SeizeRecyclerView）&quot; class=&quot;headerlink&quot; title=&quot;[Android]使用RecyclerView替代ListView（四：SeizeRecyclerView）&quot;&gt;&lt;/a&gt;[Android]使用RecyclerView替代ListView（四：SeizeRecyclerView）&lt;/h1&gt;&lt;p&gt;在RecyclerView的开发过程中，可能会遇到一些窘境，比如，下图是今日头条的视频详情页面：&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
-    
-      <category term="best practices" scheme="https://blog.wangjiegulu.com/tags/best-practices/"/>
-    
-      <category term="ListView" scheme="https://blog.wangjiegulu.com/tags/ListView/"/>
-    
-      <category term="RecyclerView" scheme="https://blog.wangjiegulu.com/tags/RecyclerView/"/>
-    
-      <category term="SeizeRecyclerView" scheme="https://blog.wangjiegulu.com/tags/SeizeRecyclerView/"/>
     
   </entry>
   

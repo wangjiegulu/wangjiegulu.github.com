@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#ffffff">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#ffffff">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#ffffff">
+
+
+    <meta name="description" content="Android Architecture Component DataBinding – 生成的绑定类（翻译）Data Binding 库生成绑定类来用于访问 layout 的 variable 和 views。本文展示了如何创建和自定义生成的绑定类。 生成的绑定类链接 layout 中的 variables 和 views。绑定类的名字和包名都是可以自定义的。所有生成的绑定类都继承自 ViewD">
+<meta name="keywords" content="android,kotlin,architecture,Android Architecture Component,aac,ViewModel,LiveData,DataBinding,Lifecycles">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android Architecture Component DataBinding -- 生成的绑定类（翻译）">
+<meta property="og:url" content="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_generated_binding/index.html">
+<meta property="og:site_name" content="Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer">
+<meta property="og:description" content="Android Architecture Component DataBinding – 生成的绑定类（翻译）Data Binding 库生成绑定类来用于访问 layout 的 variable 和 views。本文展示了如何创建和自定义生成的绑定类。 生成的绑定类链接 layout 中的 variables 和 views。绑定类的名字和包名都是可以自定义的。所有生成的绑定类都继承自 ViewD">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-11-21T09:13:06.211Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android Architecture Component DataBinding -- 生成的绑定类（翻译）">
+<meta name="twitter:description" content="Android Architecture Component DataBinding – 生成的绑定类（翻译）Data Binding 库生成绑定类来用于访问 layout 的 variable 和 views。本文展示了如何创建和自定义生成的绑定类。 生成的绑定类链接 layout 中的 variables 和 views。绑定类的名字和包名都是可以自定义的。所有生成的绑定类都继承自 ViewD">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Android Architecture Component DataBinding -- 生成的绑定类（翻译）</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3">
+    
+      <div id="header-post-nav">
+  <span id="nav">
+      <ul>
+         
+          <li><b><a href="/">Home</a></b></li>
+         
+          <li><b><a href="/archives/">Writing</a></b></li>
+         
+          <li><b><a href="/tags/">Tags</a></b></li>
+         
+          <li><b><a href="/about/">About</a></b></li>
+         
+          <li><b><a href="/feed.xml">RSS</a></b></li>
+        
+      </ul>
+  </span>
+</div>
+
+<div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/feed.xml">RSS</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2018/04/15/android_architecture_components_binding_adapters/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2018/04/15/android_architecture_components_observability/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_generated_binding/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_generated_binding/&text=Android Architecture Component DataBinding -- 生成的绑定类（翻译）"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_generated_binding/&title=Android Architecture Component DataBinding -- 生成的绑定类（翻译）"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_generated_binding/&is_video=false&description=Android Architecture Component DataBinding -- 生成的绑定类（翻译）"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Android Architecture Component DataBinding -- 生成的绑定类（翻译）&body=Check out this article: https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_generated_binding/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_generated_binding/&title=Android Architecture Component DataBinding -- 生成的绑定类（翻译）"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_generated_binding/&title=Android Architecture Component DataBinding -- 生成的绑定类（翻译）"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_generated_binding/&title=Android Architecture Component DataBinding -- 生成的绑定类（翻译）"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_generated_binding/&title=Android Architecture Component DataBinding -- 生成的绑定类（翻译）"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_generated_binding/&name=Android Architecture Component DataBinding -- 生成的绑定类（翻译）&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Android-Architecture-Component-DataBinding-–-生成的绑定类（翻译）"><span class="toc-number">1.</span> <span class="toc-text">Android Architecture Component DataBinding – 生成的绑定类（翻译）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#创建一个-binding-对象"><span class="toc-number">1.1.</span> <span class="toc-text">创建一个 binding 对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#具有-ID-的-Views"><span class="toc-number">1.2.</span> <span class="toc-text">具有 ID 的 Views</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Variables"><span class="toc-number">1.3.</span> <span class="toc-text">Variables</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ViewStubs"><span class="toc-number">1.4.</span> <span class="toc-text">ViewStubs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#立即绑定"><span class="toc-number">1.5.</span> <span class="toc-text">立即绑定</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#高级绑定"><span class="toc-number">1.6.</span> <span class="toc-text">高级绑定</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#动态变量"><span class="toc-number">1.6.1.</span> <span class="toc-text">动态变量</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#后台线程"><span class="toc-number">1.7.</span> <span class="toc-text">后台线程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#自定义绑定类名"><span class="toc-number">1.8.</span> <span class="toc-text">自定义绑定类名</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Android Architecture Component DataBinding -- 生成的绑定类（翻译）
+    </h1>
+
+
+
+    <div class="meta"  style="margin-top:12px;">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name" style="margin-left: 12px">Wang Jie</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2018-04-15T07:01:00.000Z" itemprop="datePublished">2018-04-15</time>
+    </div>
+
+<br/>
+      
+    <div class="article-tag">
+        <i class="fas fa-tag" style="margin-top: 20px"></i>
+        <a class="tag-link" href="/tags/Android-Architecture-Component/">Android Architecture Component</a>, <a class="tag-link" href="/tags/DataBinding/">DataBinding</a>, <a class="tag-link" href="/tags/Lifecycles/">Lifecycles</a>, <a class="tag-link" href="/tags/LiveData/">LiveData</a>, <a class="tag-link" href="/tags/ViewModel/">ViewModel</a>, <a class="tag-link" href="/tags/aac/">aac</a>, <a class="tag-link" href="/tags/android/">android</a>, <a class="tag-link" href="/tags/architecture/">architecture</a>, <a class="tag-link" href="/tags/kotlin/">kotlin</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  
+  <div class="content" itemprop="articleBody">
+    
+    
+      <!-- <img class="header-img" src="https://images.unsplash.com/photo-1464865885825-be7cd16fad8d?ixlib=rb-0.3.5&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;s=996620e5a840fd2d82fc5bb137a1b4f7&amp;auto=format&amp;fit=crop&amp;w=2250&amp;q=80" /> -->
+      
+
+        <img src="https://images.unsplash.com/photo-1464865885825-be7cd16fad8d?ixlib=rb-0.3.5&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;s=996620e5a840fd2d82fc5bb137a1b4f7&amp;auto=format&amp;fit=crop&amp;w=2250&amp;q=80" style="border-radius: 3px;"/>
+        
+      
+      
+    
+
+    <h1 id="Android-Architecture-Component-DataBinding-–-生成的绑定类（翻译）"><a href="#Android-Architecture-Component-DataBinding-–-生成的绑定类（翻译）" class="headerlink" title="Android Architecture Component DataBinding – 生成的绑定类（翻译）"></a>Android Architecture Component DataBinding – 生成的绑定类（翻译）</h1><p>Data Binding 库生成绑定类来用于访问 layout 的 variable 和 views。本文展示了如何创建和自定义生成的绑定类。</p>
+<p>生成的绑定类链接 layout 中的 variables 和 views。绑定类的名字和包名都是可以<a href="https://developer.android.com/topic/libraries/data-binding/generated-binding#custom_binding_class_names" target="_blank" rel="noopener">自定义的</a>。所有生成的绑定类都继承自 <a href="https://developer.android.com/reference/android/databinding/ViewDataBinding.html" target="_blank" rel="noopener"><code>ViewDataBinding</code></a> 类。</p>
+<p>每个 layout 文件都会生成一个 binding class。默认情况下，类名基于 layout 文件的名字。将其转换为 Pascal 大小写, 并向其添加 <em>Binding</em> 后缀。上面的 layout 名字是 <code>activity_main.xml</code> 所以相应生成的类是 <code>ActivityMainBinding</code>。这个类会持有从 layout 属性（比如，<code>user</code> 变量）到 layout 的 views 的所有绑定，并知道如何为绑定表达式赋值。</p>
+<h2 id="创建一个-binding-对象"><a href="#创建一个-binding-对象" class="headerlink" title="创建一个 binding 对象"></a>创建一个 binding 对象</h2><p>Binding 对象在 inflating layout 之后马上创建来确保 layout 中 view 层级在使用表达式绑定到 views 之前没有被修改。最常用绑定对象到 layout 的方式是使用绑定类的静态方法。你可以使用绑定类的 <code>inflate()</code> 方法来 inflate view 层级和绑定对象到它自身。如下例子：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">    <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> binding: MyLayoutBinding = MyLayoutBinding.inflate(layoutInflater)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>有一个 <code>inflate()</code> 方法的替代版本，它除了 <a href="https://developer.android.com/reference/android/view/LayoutInflater.html" target="_blank" rel="noopener"><code>LayoutInflater</code></a> 对象之外还需要一个 <a href="https://developer.android.com/reference/android/view/ViewGroup.html" target="_blank" rel="noopener"><code>ViewGroup</code></a> 对象，如下：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> binding: MyLayoutBinding = MyLayoutBinding.inflate(getLayoutInflater(), viewGroup, <span class="literal">false</span>)</span><br></pre></td></tr></table></figure>
+<p>如果 layout 是使用不同的机制 inflate 的，它可以单独去绑定，如下：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> binding: MyLayoutBinding = MyLayoutBinding.bind(viewRoot)</span><br></pre></td></tr></table></figure>
+<p>有时无法事先知道绑定类型。在这个情况下，binding 可以使用 <a href="https://developer.android.com/reference/android/databinding/DataBindingUtil.html" target="_blank" rel="noopener"><code>DataBindingUtil</code></a> 类来创建，如下代码片段：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> rootView = LayoutInflater.from(<span class="keyword">this</span>).inflate(layoutId, parent, attachToParent)</span><br><span class="line"><span class="keyword">val</span> binding: ViewDataBinding? = DataBindingUtil.bind(viewRoot)</span><br></pre></td></tr></table></figure>
+<p>如果你在 <a href="https://developer.android.com/reference/android/app/Fragment.html" target="_blank" rel="noopener"><code>Fragment</code></a>，<a href="https://developer.android.com/reference/android/widget/ListView.html" target="_blank" rel="noopener"><code>ListView</code></a>，<a href="https://developer.android.com/reference/android/support/v7/widget/RecyclerView.html" target="_blank" rel="noopener"><code>RecyclerView</code></a> adapter 中使用 data binding，你可能更喜欢使用 bindings classes 的 <a href="https://developer.android.com/reference/android/databinding/DataBindingUtil.html#inflate(android.view.LayoutInflater,%20int,%20android.view.ViewGroup,%20boolean,%20android.databinding.DataBindingComponent" target="_blank" rel="noopener"><code>inflate</code></a>) 方法，或者 <a href="https://developer.android.com/reference/android/databinding/DataBindingUtil" target="_blank" rel="noopener"><code>DataBindingUtil</code></a> 类，如下所示：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> listItemBinding = ListItemBinding.inflate(layoutInflater, viewGroup, <span class="literal">false</span>)</span><br><span class="line"><span class="comment">// or</span></span><br><span class="line"><span class="keyword">val</span> listItemBinding = DataBindingUtil.inflate(layoutInflater, R.layout.list_item, viewGroup, <span class="literal">false</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="具有-ID-的-Views"><a href="#具有-ID-的-Views" class="headerlink" title="具有 ID 的 Views"></a>具有 ID 的 Views</h2><p>Data Binding 库在绑定类中为每个 layout 中带有 ID 的 view 创建了一个不可改变的属性。比如，下面的 layout 中，Data Binding 库创建了 <code>firstName</code> 和 <code>lastName</code> 两个 <code>TextView</code> 了行的属性：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;layout xmlns:android=<span class="string">"http://schemas.android.com/apk/res/android"</span>&gt;</span><br><span class="line">   &lt;<span class="keyword">data</span>&gt;</span><br><span class="line">       &lt;variable name=<span class="string">"user"</span> type=<span class="string">"com.example.User"</span>/&gt;</span><br><span class="line">   &lt;/<span class="keyword">data</span>&gt;</span><br><span class="line">   &lt;LinearLayout</span><br><span class="line">       android:orientation=<span class="string">"vertical"</span></span><br><span class="line">       android:layout_width=<span class="string">"match_parent"</span></span><br><span class="line">       android:layout_height=<span class="string">"match_parent"</span>&gt;</span><br><span class="line">       &lt;TextView android:layout_width=<span class="string">"wrap_content"</span></span><br><span class="line">           android:layout_height=<span class="string">"wrap_content"</span></span><br><span class="line">           android:text=<span class="string">"@&#123;user.firstName&#125;"</span></span><br><span class="line">   android:id=<span class="string">"@+id/firstName"</span>/&gt;</span><br><span class="line">       &lt;TextView android:layout_width=<span class="string">"wrap_content"</span></span><br><span class="line">           android:layout_height=<span class="string">"wrap_content"</span></span><br><span class="line">           android:text=<span class="string">"@&#123;user.lastName&#125;"</span></span><br><span class="line">  android:id=<span class="string">"@+id/lastName"</span>/&gt;</span><br><span class="line">   &lt;/LinearLayout&gt;</span><br><span class="line">&lt;/layout&gt;</span><br></pre></td></tr></table></figure>
+<p>库一次从 view 层级中取出包括 IDs 的 views。对于 layout 中的每个 view 来说，这个机制会比调用 <a href="https://developer.android.com/reference/android/app/Activity.html#findViewById(int" target="_blank" rel="noopener"><code>findViewById()</code></a>) 方法更快。</p>
+<p>如果它们没有 data binding 则不必要，但是在一些情况下，仍然需要从代码中访问 view。</p>
+<h2 id="Variables"><a href="#Variables" class="headerlink" title="Variables"></a>Variables</h2><p>Data Binding 库针对每个在 layout 声明了的 variable 生成访问方法。比如，下面的 layout 在绑定类中为 <code>user</code>，<code>image</code> 和 <code>note</code> 生成 setter 和 getter 方法：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">data</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">import</span> <span class="attr">type</span>=<span class="string">"android.graphics.drawable.Drawable"</span>/&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">variable</span> <span class="attr">name</span>=<span class="string">"user"</span> <span class="attr">type</span>=<span class="string">"com.example.User"</span>/&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">variable</span> <span class="attr">name</span>=<span class="string">"image"</span> <span class="attr">type</span>=<span class="string">"Drawable"</span>/&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">variable</span> <span class="attr">name</span>=<span class="string">"note"</span> <span class="attr">type</span>=<span class="string">"String"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">data</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="ViewStubs"><a href="#ViewStubs" class="headerlink" title="ViewStubs"></a>ViewStubs</h2><p>不像普通的 View，<a href="https://developer.android.com/reference/android/view/ViewStub.html" target="_blank" rel="noopener"><code>ViewStub</code></a> 对象以不可见的 view 作为开始。当它们被设置可见或者明确地 inflate 时，它们通过 inflating 另一个 layout 来替换它们自己。</p>
+<p>因为 <code>ViewStub</code> 本质上在 view 层级上是不可见的，binding 对象中的 view 也必须消失来运行 gc 回收。因为 view 是 final 的，一个 <a href="https://developer.android.com/reference/android/databinding/ViewStubProxy.html" target="_blank" rel="noopener"><code>ViewStubProxy</code></a> 对象在生成的绑定类中取代 <code>ViewStub</code>，使你可以在 <code>ViewStub</code> 存在时访问它，并在 <code>ViewStub</code> 被 inflate 时访问 view 层次结构。</p>
+<p>当 inflate 另一个 layout，必须为新 layout 建立绑定。因此，<code>ViewStubProxy</code> 必须监听 <code>ViewStub</code> 的 <a href="https://developer.android.com/reference/android/view/ViewStub.OnInflateListener.html" target="_blank" rel="noopener"><code>OnInflateListener</code></a>，并在需要时建立绑定。因为只有一个监听器可以在给定的时间里存在，<code>ViewStubProxy</code> 允许你去设置一个 <code>OnInflateListener</code>，它会在建立绑定后回调。</p>
+<h2 id="立即绑定"><a href="#立即绑定" class="headerlink" title="立即绑定"></a>立即绑定</h2><p>当一个 variable 或者 observable 对象改变时，binding 会在下一帧之前调度变化。但是有时 binding 需要立即执行。要强制执行，使用 <a href="https://developer.android.com/reference/android/databinding/ViewDataBinding.html#executePendingBindings(" target="_blank" rel="noopener"><code>executePendingBindings()</code></a>) 方法。</p>
+<h2 id="高级绑定"><a href="#高级绑定" class="headerlink" title="高级绑定"></a>高级绑定</h2><h3 id="动态变量"><a href="#动态变量" class="headerlink" title="动态变量"></a>动态变量</h3><p>有时，是不知道特定的绑定类的。比如，一个针对任意布局的 <a href="https://developer.android.com/reference/android/support/v7/widget/RecyclerView.Adapter.html" target="_blank" rel="noopener"><code>RecyclerView.Adapter</code></a> 是不知道具体特定的绑定类的。在调用 <a href="https://developer.android.com/reference/android/support/v7/widget/RecyclerView.Adapter.html#onBindViewHolder(VH,%20int" target="_blank" rel="noopener">onBindViewHolder()</a>) 方式时，它仍必须要分配 binding 的值。</p>
+<p>在下面的例子中，所有 <code>RecyclerView</code> 绑定的布局都有一个 <code>item</code> 变量。<code>BindingHolder</code> 对象有一个 <code>getBinding()</code> 方法返回 <a href="https://developer.android.com/reference/android/databinding/ViewDataBinding.html" target="_blank" rel="noopener"><code>ViewDataBinding</code></a> 基类。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onBindViewHolder</span><span class="params">(holder: <span class="type">BindingHolder</span>, position: <span class="type">Int</span>)</span></span> &#123;</span><br><span class="line">    item: T = mItems.<span class="keyword">get</span>(position)</span><br><span class="line">    holder.binding.setVariable(BR.item, item);</span><br><span class="line">    holder.binding.executePendingBindings();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Data Binding 库在 module 包下生成了一个名为 <strong>BR</strong> 的类，它包含了用户数据绑定的 resources IDs。在上面的例子中，库自动生成了 <strong>BR.item</strong> 变量。</p>
+</blockquote>
+<h2 id="后台线程"><a href="#后台线程" class="headerlink" title="后台线程"></a>后台线程</h2><p>只要数据模型不是集合，你可以在后台线程中更改数据模型。Data Binding 在计算时期对每个variable / field 进行本地化，以避免任何并发问题。</p>
+<h2 id="自定义绑定类名"><a href="#自定义绑定类名" class="headerlink" title="自定义绑定类名"></a>自定义绑定类名</h2><p>默认情况下，一个绑定名字是基于 layout 的名字生成的，以大写字母开头，移除下划线（<code>_</code> ），大写下一个字母，添加后缀单词 <strong>Binding</strong>。这个类被放置在这个 module 包下的 <code>databinding</code> 包中。比如，layout 文件 <code>contact_item.xml</code> 生成 <code>ContactItemBinding</code> 类。如果 module 包是 <code>com.example.my.app</code>，则绑定类则放置在 <code>com.example.my.app.databinding</code> 包中。</p>
+<p>通过调整 <code>data</code> 标签的 <code>class</code> 属性，绑定类可以重命名或放置在不同的包中。举例，下面的 layout 在当前的 module 的 <code>databinding</code> 包中 生成 <code>ContactItem</code> 类：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="keyword">data</span> <span class="class"><span class="keyword">class</span>="<span class="title">ContactItem</span>"&gt;</span></span><br><span class="line">    …</span><br><span class="line">&lt;/<span class="keyword">data</span>&gt;</span><br></pre></td></tr></table></figure>
+<p>你可以通过在类名之前加上句点的方式在不同的包中生成绑定类。下面的例子在 module 包中生成绑定类：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="keyword">data</span> <span class="class"><span class="keyword">class</span>=".<span class="title">ContactItem</span>"&gt;</span></span><br><span class="line">    …</span><br><span class="line">&lt;/<span class="keyword">data</span>&gt;</span><br></pre></td></tr></table></figure>
+<p>你也可以是用全包名来指定生成绑定类的名字。下面例子在 <code>com.example</code> 包中创建 <code>ContactItem</code> 绑定类：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="keyword">data</span> <span class="class"><span class="keyword">class</span>="<span class="title">com</span>.<span class="title">example</span>.<span class="title">ContactItem</span>"&gt;</span></span><br><span class="line">    …</span><br><span class="line">&lt;/<span class="keyword">data</span>&gt;</span><br></pre></td></tr></table></figure>
+
+    <br/>
+    <hr>
+
+    
+    <div class="post-copyright" style="margin-top: 20px;">
+        <strong>来源博客：</strong><a href="https://blog.wangjiegulu.com">Wang Jie's Blog</a><br/>
+         <strong>本文链接：</strong><a href="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_generated_binding/">https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_generated_binding/</a><br/>
+         <strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处。
+    </div>
+    
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/feed.xml">RSS</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Android-Architecture-Component-DataBinding-–-生成的绑定类（翻译）"><span class="toc-number">1.</span> <span class="toc-text">Android Architecture Component DataBinding – 生成的绑定类（翻译）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#创建一个-binding-对象"><span class="toc-number">1.1.</span> <span class="toc-text">创建一个 binding 对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#具有-ID-的-Views"><span class="toc-number">1.2.</span> <span class="toc-text">具有 ID 的 Views</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Variables"><span class="toc-number">1.3.</span> <span class="toc-text">Variables</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ViewStubs"><span class="toc-number">1.4.</span> <span class="toc-text">ViewStubs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#立即绑定"><span class="toc-number">1.5.</span> <span class="toc-text">立即绑定</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#高级绑定"><span class="toc-number">1.6.</span> <span class="toc-text">高级绑定</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#动态变量"><span class="toc-number">1.6.1.</span> <span class="toc-text">动态变量</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#后台线程"><span class="toc-number">1.7.</span> <span class="toc-text">后台线程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#自定义绑定类名"><span class="toc-number">1.8.</span> <span class="toc-text">自定义绑定类名</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_generated_binding/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_generated_binding/&text=Android Architecture Component DataBinding -- 生成的绑定类（翻译）"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_generated_binding/&title=Android Architecture Component DataBinding -- 生成的绑定类（翻译）"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_generated_binding/&is_video=false&description=Android Architecture Component DataBinding -- 生成的绑定类（翻译）"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Android Architecture Component DataBinding -- 生成的绑定类（翻译）&body=Check out this article: https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_generated_binding/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_generated_binding/&title=Android Architecture Component DataBinding -- 生成的绑定类（翻译）"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_generated_binding/&title=Android Architecture Component DataBinding -- 生成的绑定类（翻译）"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_generated_binding/&title=Android Architecture Component DataBinding -- 生成的绑定类（翻译）"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_generated_binding/&title=Android Architecture Component DataBinding -- 生成的绑定类（翻译）"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_generated_binding/&name=Android Architecture Component DataBinding -- 生成的绑定类（翻译）&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 Wang Jie
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/feed.xml">RSS</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-111189680-2', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'blog-wangjiegulu-com';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+

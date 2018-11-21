@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#ffffff">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#ffffff">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#ffffff">
+
+
+    <meta name="description" content="Android Architecture Component DataBinding – Get Started（翻译） 原文：https://developer.android.com/topic/libraries/data-binding/start  学习如何让你的开发环境准备好使用 Data Binding 库，包括支持 android studio 中的 Data Binding 代码">
+<meta name="keywords" content="android,kotlin,architecture,Android Architecture Component,aac,ViewModel,LiveData,DataBinding,Lifecycles">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android Architecture Component DataBinding -- Get Started（翻译）">
+<meta property="og:url" content="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_databinding_get_started/index.html">
+<meta property="og:site_name" content="Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer">
+<meta property="og:description" content="Android Architecture Component DataBinding – Get Started（翻译） 原文：https://developer.android.com/topic/libraries/data-binding/start  学习如何让你的开发环境准备好使用 Data Binding 库，包括支持 android studio 中的 Data Binding 代码">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-11-21T09:11:51.530Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android Architecture Component DataBinding -- Get Started（翻译）">
+<meta name="twitter:description" content="Android Architecture Component DataBinding – Get Started（翻译） 原文：https://developer.android.com/topic/libraries/data-binding/start  学习如何让你的开发环境准备好使用 Data Binding 库，包括支持 android studio 中的 Data Binding 代码">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Android Architecture Component DataBinding -- Get Started（翻译）</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3">
+    
+      <div id="header-post-nav">
+  <span id="nav">
+      <ul>
+         
+          <li><b><a href="/">Home</a></b></li>
+         
+          <li><b><a href="/archives/">Writing</a></b></li>
+         
+          <li><b><a href="/tags/">Tags</a></b></li>
+         
+          <li><b><a href="/about/">About</a></b></li>
+         
+          <li><b><a href="/feed.xml">RSS</a></b></li>
+        
+      </ul>
+  </span>
+</div>
+
+<div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/feed.xml">RSS</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2018/04/15/android_architecture_components_databinding_expressions/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2018/04/15/android_architecture_components_databinding_overview/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_databinding_get_started/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_databinding_get_started/&text=Android Architecture Component DataBinding -- Get Started（翻译）"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_databinding_get_started/&title=Android Architecture Component DataBinding -- Get Started（翻译）"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_databinding_get_started/&is_video=false&description=Android Architecture Component DataBinding -- Get Started（翻译）"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Android Architecture Component DataBinding -- Get Started（翻译）&body=Check out this article: https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_databinding_get_started/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_databinding_get_started/&title=Android Architecture Component DataBinding -- Get Started（翻译）"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_databinding_get_started/&title=Android Architecture Component DataBinding -- Get Started（翻译）"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_databinding_get_started/&title=Android Architecture Component DataBinding -- Get Started（翻译）"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_databinding_get_started/&title=Android Architecture Component DataBinding -- Get Started（翻译）"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_databinding_get_started/&name=Android Architecture Component DataBinding -- Get Started（翻译）&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Android-Architecture-Component-DataBinding-–-Get-Started（翻译）"><span class="toc-number">1.</span> <span class="toc-text">Android Architecture Component DataBinding – Get Started（翻译）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#构建环境"><span class="toc-number">1.1.</span> <span class="toc-text">构建环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Android-Studio-支持-data-binding"><span class="toc-number">1.2.</span> <span class="toc-text">Android Studio 支持 data binding</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#用于绑定类的新-data-binding-编译器"><span class="toc-number">1.3.</span> <span class="toc-text">用于绑定类的新 data binding 编译器</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Android Architecture Component DataBinding -- Get Started（翻译）
+    </h1>
+
+
+
+    <div class="meta"  style="margin-top:12px;">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name" style="margin-left: 12px">Wang Jie</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2018-04-15T04:01:00.000Z" itemprop="datePublished">2018-04-15</time>
+    </div>
+
+<br/>
+      
+    <div class="article-tag">
+        <i class="fas fa-tag" style="margin-top: 20px"></i>
+        <a class="tag-link" href="/tags/Android-Architecture-Component/">Android Architecture Component</a>, <a class="tag-link" href="/tags/DataBinding/">DataBinding</a>, <a class="tag-link" href="/tags/Lifecycles/">Lifecycles</a>, <a class="tag-link" href="/tags/LiveData/">LiveData</a>, <a class="tag-link" href="/tags/ViewModel/">ViewModel</a>, <a class="tag-link" href="/tags/aac/">aac</a>, <a class="tag-link" href="/tags/android/">android</a>, <a class="tag-link" href="/tags/architecture/">architecture</a>, <a class="tag-link" href="/tags/kotlin/">kotlin</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  
+  <div class="content" itemprop="articleBody">
+    
+    
+      <!-- <img class="header-img" src="https://images.unsplash.com/photo-1464865885825-be7cd16fad8d?ixlib=rb-0.3.5&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;s=996620e5a840fd2d82fc5bb137a1b4f7&amp;auto=format&amp;fit=crop&amp;w=2250&amp;q=80" /> -->
+      
+
+        <img src="https://images.unsplash.com/photo-1464865885825-be7cd16fad8d?ixlib=rb-0.3.5&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;s=996620e5a840fd2d82fc5bb137a1b4f7&amp;auto=format&amp;fit=crop&amp;w=2250&amp;q=80" style="border-radius: 3px;"/>
+        
+      
+      
+    
+
+    <h1 id="Android-Architecture-Component-DataBinding-–-Get-Started（翻译）"><a href="#Android-Architecture-Component-DataBinding-–-Get-Started（翻译）" class="headerlink" title="Android Architecture Component DataBinding – Get Started（翻译）"></a>Android Architecture Component DataBinding – Get Started（翻译）</h1><blockquote>
+<p>原文：<a href="https://developer.android.com/topic/libraries/data-binding/start" target="_blank" rel="noopener">https://developer.android.com/topic/libraries/data-binding/start</a></p>
+</blockquote>
+<p>学习如何让你的开发环境准备好使用 Data Binding 库，包括支持 android studio 中的 Data Binding 代码。</p>
+<p>Data Binding 库提供了灵活性和广泛的兼容性 —— 它是一个支持库，所以你可以在运行 Android 4.0（API level 14）及以上版本的设备上使用它。</p>
+<p>推荐在你的项目中使用最新的 Android Gradle 插件。但是，data binding 支持 1.5.0 及以上版本。更多详情，见如何<a href="https://developer.android.com/studio/releases/gradle-plugin.html#updating-plugin" target="_blank" rel="noopener">更新 Android Gradle 插件</a>。</p>
+<h2 id="构建环境"><a href="#构建环境" class="headerlink" title="构建环境"></a>构建环境</h2><p>要开始使用 Data Binding，在 Android SDK Manager 的 <strong>Support Repository</strong> 中下载库。更多详情见<a href="https://developer.android.com/studio/intro/update.html" target="_blank" rel="noopener">更新 IDE 和 SDK Tools</a>。</p>
+<p>要配置你的 app 使用 data binding，在你的 app module 的 <code>build.gradle</code> 文件中增加 <code>dataBinding</code> 标签，如下所示：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">android &#123;</span><br><span class="line">    ...</span><br><span class="line">    dataBinding &#123;</span><br><span class="line">        enabled = <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意：如果你的 app 依赖了使用 data binding 的库，就算你的 app module 没有直接使用 data binding，也必须在你的 app moudle 中进行配置。</p>
+</blockquote>
+<h2 id="Android-Studio-支持-data-binding"><a href="#Android-Studio-支持-data-binding" class="headerlink" title="Android Studio 支持 data binding"></a>Android Studio 支持 data binding</h2><p>Android studio 支持 Data Binding 代码的许多编辑功能。举例，它支持以下 data binding 表达式的功能：</p>
+<ul>
+<li>语法高亮</li>
+<li>表达式语言的语法错误标记</li>
+<li>xml 代码编译</li>
+<li>引用，包括 <a href="https://www.jetbrains.com/help/idea/2017.1/navigation-in-source-code.html" target="_blank" rel="noopener">导航</a> （比如导航跳转到声明）和 <a href="https://www.jetbrains.com/help/idea/2017.1/viewing-inline-documentation.html" target="_blank" rel="noopener">快速文档</a></li>
+</ul>
+<blockquote>
+<p>小心：数组和<a href="https://docs.oracle.com/javase/tutorial/java/generics/types.html" target="_blank" rel="noopener">泛型类型</a>，比如 <a href="https://developer.android.com/reference/android/databinding/Observable.html" target="_blank" rel="noopener">Observable</a> 类，可能错误提示不准确。</p>
+</blockquote>
+<p><strong>Layout Editor</strong> 的 <strong>Preview</strong> 窗口会展示 data binding 表达式的默认值如果提供了的话。举例，<strong>Preview</strong> 窗口在如下声明的 <code>TextView</code> 控件中显示 <code>my_default</code> 值：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">TextView</span> <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:text</span>=<span class="string">"@&#123;user.firstName, default=my_default&#125;"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p>如果你只需要在项目的设计阶段显示默认值，你可以使用 <code>tools</code> 属性来代替默认的表达式值，就像 <a href="https://developer.android.com/studio/write/tool-attributes.html" target="_blank" rel="noopener">Tools Attributes Reference</a> 中描述的那样。</p>
+<h2 id="用于绑定类的新-data-binding-编译器"><a href="#用于绑定类的新-data-binding-编译器" class="headerlink" title="用于绑定类的新 data binding 编译器"></a>用于绑定类的新 data binding 编译器</h2><p>Android Gradle plugin 版本 <code>3.1.0-alpha06</code> 包括了一个新的 data binding 编译器用于生成绑定类。在大多数情况下，新的编译器会增量创建绑定类，这加快了构建过程。学习更多关于绑定类，见 <strong><a href="https://developer.android.com/topic/libraries/data-binding/generated-binding" target="_blank" rel="noopener">生成的绑定类</a></strong>。</p>
+<p>以前版本的 data binding 编译器在编译你的托管代码的同一步骤中生成绑定类。如果你的托管代码编译失败，你可能会得到多个 binding class 找不到的错误。新的 data binding 编译器通过在编译器生成你的 app 之前生成绑定类来避免这些错误。</p>
+<p>要打开新的 data binding 编译器，在你的 <code>gradle.properties</code> 文件中增加如下选项：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android.databinding.enableV2=<span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<p>你也可以在 gradle 命令行中增加以下参数来启用新的编译器：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-Pandroid.databinding.enableV2=true</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意：Android Plugin 3.1 版本的新的 data binding 编译器向后不兼容。你需要在启用此功能的情况下生成所有绑定类，以使用增量编译。但是，Android Plugin 3.2 版中的新编译器与以前版本生成的绑定类兼容。新的编译器在 3.2 版本中默认启用。</p>
+</blockquote>
+<p>启用新的 data binding 编译器时，会有以下行为变化：</p>
+<ul>
+<li>在编译你的托管代码之前，Android Gradle plugin 会为你的 layouts 生成 binding class。</li>
+<li>如果一个 layout 包含在多个目标资源配置，对于所有共享相同的资源 id（不包括视图类型）的views，data binding 库会使用 <code>android.view.View</code> 作为默认的 view 类型</li>
+<li>Library modules 的 Binding class，会被编译打包到相应的 AAR 文件中。 App modules 依赖的这些 library modules 不需要再去生成这些 binding class。更多关于 AAR 文件的详情，见 <a href="https://developer.android.com/studio/projects/android-library" target="_blank" rel="noopener">创建一个 Android 库</a>。</li>
+<li>一个 module 的 binding adapters 不能更改模块依赖的 adapter 的行为。Binding adapters 只能影响自己 module 的代码 和 module 的使用者的代码。</li>
+</ul>
+
+
+    <br/>
+    <hr>
+
+    
+    <div class="post-copyright" style="margin-top: 20px;">
+        <strong>来源博客：</strong><a href="https://blog.wangjiegulu.com">Wang Jie's Blog</a><br/>
+         <strong>本文链接：</strong><a href="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_databinding_get_started/">https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_databinding_get_started/</a><br/>
+         <strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处。
+    </div>
+    
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/feed.xml">RSS</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Android-Architecture-Component-DataBinding-–-Get-Started（翻译）"><span class="toc-number">1.</span> <span class="toc-text">Android Architecture Component DataBinding – Get Started（翻译）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#构建环境"><span class="toc-number">1.1.</span> <span class="toc-text">构建环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Android-Studio-支持-data-binding"><span class="toc-number">1.2.</span> <span class="toc-text">Android Studio 支持 data binding</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#用于绑定类的新-data-binding-编译器"><span class="toc-number">1.3.</span> <span class="toc-text">用于绑定类的新 data binding 编译器</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_databinding_get_started/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_databinding_get_started/&text=Android Architecture Component DataBinding -- Get Started（翻译）"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_databinding_get_started/&title=Android Architecture Component DataBinding -- Get Started（翻译）"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_databinding_get_started/&is_video=false&description=Android Architecture Component DataBinding -- Get Started（翻译）"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Android Architecture Component DataBinding -- Get Started（翻译）&body=Check out this article: https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_databinding_get_started/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_databinding_get_started/&title=Android Architecture Component DataBinding -- Get Started（翻译）"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_databinding_get_started/&title=Android Architecture Component DataBinding -- Get Started（翻译）"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_databinding_get_started/&title=Android Architecture Component DataBinding -- Get Started（翻译）"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_databinding_get_started/&title=Android Architecture Component DataBinding -- Get Started（翻译）"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_databinding_get_started/&name=Android Architecture Component DataBinding -- Get Started（翻译）&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 Wang Jie
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/feed.xml">RSS</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-111189680-2', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'blog-wangjiegulu-com';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+
