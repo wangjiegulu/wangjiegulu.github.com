@@ -4,96 +4,12 @@
 
     
   <url>
-    <loc>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_binding_two_way/</loc>
-    <lastmod>2018-11-21T09:13:42.188Z</lastmod>
+    <loc>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_databinding_expressions/</loc>
+    <lastmod>2018-11-21T09:35:07.817Z</lastmod>
     <data>
         <display>
-        <title>Android Architecture Component DataBinding -- 双向绑定（翻译）</title>
-        <pubTime>2018-04-15T10:01:00.000Z</pubTime>
-        
-        <tag>android</tag>
-         
-        <tag>kotlin</tag>
-         
-        <tag>architecture</tag>
-         
-        <tag>Android Architecture Component</tag>
-         
-        <tag>aac</tag>
-         
-        <tag>ViewModel</tag>
-         
-        <tag>LiveData</tag>
-         
-        <tag>DataBinding</tag>
-         
-        <tag>Lifecycles</tag>
-         
-         
-           
-             
-              <breadCrumb title="Android Architecture Component" url="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/"/>
-          
-             
-              <breadCrumb title="kotlin" url="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/kotlin/"/>
-          
-             
-              <breadCrumb title="DataBinding" url="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/kotlin/DataBinding/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_binding_architecture/</loc>
-    <lastmod>2018-11-21T09:13:29.188Z</lastmod>
-    <data>
-        <display>
-        <title>Android Architecture Component DataBinding -- Architecture（翻译）</title>
-        <pubTime>2018-04-15T09:01:00.000Z</pubTime>
-        
-        <tag>android</tag>
-         
-        <tag>kotlin</tag>
-         
-        <tag>architecture</tag>
-         
-        <tag>Android Architecture Component</tag>
-         
-        <tag>aac</tag>
-         
-        <tag>ViewModel</tag>
-         
-        <tag>LiveData</tag>
-         
-        <tag>DataBinding</tag>
-         
-        <tag>Lifecycles</tag>
-         
-         
-           
-             
-              <breadCrumb title="Android Architecture Component" url="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/"/>
-          
-             
-              <breadCrumb title="kotlin" url="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/kotlin/"/>
-          
-             
-              <breadCrumb title="DataBinding" url="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/kotlin/DataBinding/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_binding_adapters/</loc>
-    <lastmod>2018-11-21T09:13:18.436Z</lastmod>
-    <data>
-        <display>
-        <title>Android Architecture Component DataBinding -- Binding adapters（翻译）</title>
-        <pubTime>2018-04-15T08:01:00.000Z</pubTime>
+        <title>Android Architecture Component DataBinding -- 布局和表达式（翻译）</title>
+        <pubTime>2018-04-15T05:01:00.000Z</pubTime>
         
         <tag>android</tag>
          
@@ -131,7 +47,7 @@
     
   <url>
     <loc>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_generated_binding/</loc>
-    <lastmod>2018-11-21T09:13:06.211Z</lastmod>
+    <lastmod>2018-11-21T09:34:47.374Z</lastmod>
     <data>
         <display>
         <title>Android Architecture Component DataBinding -- 生成的绑定类（翻译）</title>
@@ -173,7 +89,7 @@
     
   <url>
     <loc>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_observability/</loc>
-    <lastmod>2018-11-21T09:12:45.627Z</lastmod>
+    <lastmod>2018-11-21T09:34:18.224Z</lastmod>
     <data>
         <display>
         <title>Android Architecture Component DataBinding -- 使用可观察的数据对象（翻译）</title>
@@ -214,12 +130,138 @@
 
     
   <url>
-    <loc>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_databinding_expressions/</loc>
-    <lastmod>2018-11-21T09:12:18.620Z</lastmod>
+    <loc>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_binding_adapters/</loc>
+    <lastmod>2018-11-21T09:34:00.320Z</lastmod>
     <data>
         <display>
-        <title>Android Architecture Component DataBinding -- 布局和表达式（翻译）</title>
-        <pubTime>2018-04-15T05:01:00.000Z</pubTime>
+        <title>Android Architecture Component DataBinding -- Binding adapters（翻译）</title>
+        <pubTime>2018-04-15T08:01:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>kotlin</tag>
+         
+        <tag>architecture</tag>
+         
+        <tag>Android Architecture Component</tag>
+         
+        <tag>aac</tag>
+         
+        <tag>ViewModel</tag>
+         
+        <tag>LiveData</tag>
+         
+        <tag>DataBinding</tag>
+         
+        <tag>Lifecycles</tag>
+         
+         
+           
+             
+              <breadCrumb title="Android Architecture Component" url="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/"/>
+          
+             
+              <breadCrumb title="kotlin" url="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/kotlin/"/>
+          
+             
+              <breadCrumb title="DataBinding" url="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/kotlin/DataBinding/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_binding_architecture/</loc>
+    <lastmod>2018-11-21T09:33:46.518Z</lastmod>
+    <data>
+        <display>
+        <title>Android Architecture Component DataBinding -- Architecture（翻译）</title>
+        <pubTime>2018-04-15T09:01:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>kotlin</tag>
+         
+        <tag>architecture</tag>
+         
+        <tag>Android Architecture Component</tag>
+         
+        <tag>aac</tag>
+         
+        <tag>ViewModel</tag>
+         
+        <tag>LiveData</tag>
+         
+        <tag>DataBinding</tag>
+         
+        <tag>Lifecycles</tag>
+         
+         
+           
+             
+              <breadCrumb title="Android Architecture Component" url="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/"/>
+          
+             
+              <breadCrumb title="kotlin" url="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/kotlin/"/>
+          
+             
+              <breadCrumb title="DataBinding" url="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/kotlin/DataBinding/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_binding_two_way/</loc>
+    <lastmod>2018-11-21T09:33:29.823Z</lastmod>
+    <data>
+        <display>
+        <title>Android Architecture Component DataBinding -- 双向绑定（翻译）</title>
+        <pubTime>2018-04-15T10:01:00.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>kotlin</tag>
+         
+        <tag>architecture</tag>
+         
+        <tag>Android Architecture Component</tag>
+         
+        <tag>aac</tag>
+         
+        <tag>ViewModel</tag>
+         
+        <tag>LiveData</tag>
+         
+        <tag>DataBinding</tag>
+         
+        <tag>Lifecycles</tag>
+         
+         
+           
+             
+              <breadCrumb title="Android Architecture Component" url="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/"/>
+          
+             
+              <breadCrumb title="kotlin" url="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/kotlin/"/>
+          
+             
+              <breadCrumb title="DataBinding" url="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/kotlin/DataBinding/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_databinding_overview/</loc>
+    <lastmod>2018-11-21T09:33:11.800Z</lastmod>
+    <data>
+        <display>
+        <title>Android Architecture Component DataBinding -- 概要（翻译）</title>
+        <pubTime>2018-04-15T03:01:00.000Z</pubTime>
         
         <tag>android</tag>
          
@@ -262,48 +304,6 @@
         <display>
         <title>Android Architecture Component DataBinding -- Get Started（翻译）</title>
         <pubTime>2018-04-15T04:01:00.000Z</pubTime>
-        
-        <tag>android</tag>
-         
-        <tag>kotlin</tag>
-         
-        <tag>architecture</tag>
-         
-        <tag>Android Architecture Component</tag>
-         
-        <tag>aac</tag>
-         
-        <tag>ViewModel</tag>
-         
-        <tag>LiveData</tag>
-         
-        <tag>DataBinding</tag>
-         
-        <tag>Lifecycles</tag>
-         
-         
-           
-             
-              <breadCrumb title="Android Architecture Component" url="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/"/>
-          
-             
-              <breadCrumb title="kotlin" url="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/kotlin/"/>
-          
-             
-              <breadCrumb title="DataBinding" url="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/kotlin/DataBinding/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_databinding_overview/</loc>
-    <lastmod>2018-11-21T09:11:12.364Z</lastmod>
-    <data>
-        <display>
-        <title>Android Architecture Component DataBinding -- 概要（翻译）</title>
-        <pubTime>2018-04-15T03:01:00.000Z</pubTime>
         
         <tag>android</tag>
          
@@ -1269,9 +1269,9 @@
         <title>[Android]官网《monkeyrunner》中文翻译</title>
         <pubTime>2015-12-16T04:20:00.000Z</pubTime>
         
-        <tag>android</tag>
-         
         <tag>testing</tag>
+         
+        <tag>android</tag>
          
         <tag>翻译</tag>
          
@@ -1465,9 +1465,9 @@
         <title>[Android]官网《UI/Application Exerciser Monkey》中文翻译</title>
         <pubTime>2015-12-15T10:11:00.000Z</pubTime>
         
-        <tag>android</tag>
-         
         <tag>testing</tag>
+         
+        <tag>android</tag>
          
         <tag>翻译</tag>
          
@@ -1536,9 +1536,9 @@
         <title>[Android]官网《Testing Support Library》中文翻译</title>
         <pubTime>2015-12-15T07:44:00.000Z</pubTime>
         
-        <tag>android</tag>
-         
         <tag>testing</tag>
+         
+        <tag>android</tag>
          
         <tag>翻译</tag>
          
@@ -1655,9 +1655,9 @@
         
         <tag>android</tag>
          
-        <tag>annotations</tag>
-         
         <tag>unit test</tag>
+         
+        <tag>annotations</tag>
          
         <tag>JUnit</tag>
          
@@ -3207,11 +3207,11 @@
          
         <tag>java</tag>
          
+        <tag>Hbase</tag>
+         
         <tag>j2ee</tag>
          
         <tag>java web</tag>
-         
-        <tag>Hbase</tag>
          
          
            
@@ -3230,11 +3230,11 @@
         
         <tag>orm</tag>
          
-        <tag>Hibernate</tag>
-         
         <tag>j2ee</tag>
          
         <tag>java web</tag>
+         
+        <tag>Hibernate</tag>
          
          
            
@@ -3915,6 +3915,21 @@
 
     
   <url>
+    <loc>https://blog.wangjiegulu.com/2013/02/19/%E5%B7%A5%E5%85%B7%E5%BA%93-JOJSONBuilder%E5%B7%A5%E5%85%B7%E7%B1%BB%E2%80%94%E2%80%94%E4%B8%80%E9%94%AE%E6%8A%8A%E5%A4%9A%E4%B8%AAbean%E5%AF%B9%E8%B1%A1%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2%E4%B8%BAJSON%E6%A0%BC%E5%BC%8F%E6%95%B0%E6%8D%AE/</loc>
+    <lastmod>2018-01-29T12:36:41.000Z</lastmod>
+    <data>
+        <display>
+        <title>[工具库]JOJSONBuilder工具类——一键把多个bean对象数据转换为JSON格式数据</title>
+        <pubTime>2013-02-19T09:30:00.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://blog.wangjiegulu.com/2013/02/19/%E5%B7%A5%E5%85%B7%E5%BA%93-JOXMLBuilder%E5%B7%A5%E5%85%B7%E7%B1%BB%E2%80%94%E2%80%94%E4%B8%80%E9%94%AE%E6%8A%8A%E5%A4%9A%E4%B8%AAbean%E5%AF%B9%E8%B1%A1%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2%E4%B8%BAXML%E6%A0%BC%E5%BC%8F%E6%95%B0%E6%8D%AE/</loc>
     <lastmod>2018-01-29T12:36:41.000Z</lastmod>
     <data>
@@ -3936,21 +3951,6 @@
         <display>
         <title>设置EditText是否可编辑</title>
         <pubTime>2012-06-15T02:37:00.000Z</pubTime>
-        
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://blog.wangjiegulu.com/2013/02/19/%E5%B7%A5%E5%85%B7%E5%BA%93-JOJSONBuilder%E5%B7%A5%E5%85%B7%E7%B1%BB%E2%80%94%E2%80%94%E4%B8%80%E9%94%AE%E6%8A%8A%E5%A4%9A%E4%B8%AAbean%E5%AF%B9%E8%B1%A1%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2%E4%B8%BAJSON%E6%A0%BC%E5%BC%8F%E6%95%B0%E6%8D%AE/</loc>
-    <lastmod>2018-01-29T12:36:41.000Z</lastmod>
-    <data>
-        <display>
-        <title>[工具库]JOJSONBuilder工具类——一键把多个bean对象数据转换为JSON格式数据</title>
-        <pubTime>2013-02-19T09:30:00.000Z</pubTime>
         
          
            

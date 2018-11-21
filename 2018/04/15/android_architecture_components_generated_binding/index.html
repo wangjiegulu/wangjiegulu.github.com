@@ -16,18 +16,18 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="#ffffff">
 
 
-    <meta name="description" content="Android Architecture Component DataBinding – 生成的绑定类（翻译）Data Binding 库生成绑定类来用于访问 layout 的 variable 和 views。本文展示了如何创建和自定义生成的绑定类。 生成的绑定类链接 layout 中的 variables 和 views。绑定类的名字和包名都是可以自定义的。所有生成的绑定类都继承自 ViewD">
+    <meta name="description" content="Android Architecture Component DataBinding – 生成的绑定类（翻译） 原文：https://developer.android.com/topic/libraries/data-binding/generated-binding  Data Binding 库生成绑定类来用于访问 layout 的 variable 和 views。本文展示了如何创建和自定">
 <meta name="keywords" content="android,kotlin,architecture,Android Architecture Component,aac,ViewModel,LiveData,DataBinding,Lifecycles">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android Architecture Component DataBinding -- 生成的绑定类（翻译）">
 <meta property="og:url" content="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_generated_binding/index.html">
 <meta property="og:site_name" content="Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer">
-<meta property="og:description" content="Android Architecture Component DataBinding – 生成的绑定类（翻译）Data Binding 库生成绑定类来用于访问 layout 的 variable 和 views。本文展示了如何创建和自定义生成的绑定类。 生成的绑定类链接 layout 中的 variables 和 views。绑定类的名字和包名都是可以自定义的。所有生成的绑定类都继承自 ViewD">
+<meta property="og:description" content="Android Architecture Component DataBinding – 生成的绑定类（翻译） 原文：https://developer.android.com/topic/libraries/data-binding/generated-binding  Data Binding 库生成绑定类来用于访问 layout 的 variable 和 views。本文展示了如何创建和自定">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-11-21T09:13:06.211Z">
+<meta property="og:updated_time" content="2018-11-21T09:34:47.374Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android Architecture Component DataBinding -- 生成的绑定类（翻译）">
-<meta name="twitter:description" content="Android Architecture Component DataBinding – 生成的绑定类（翻译）Data Binding 库生成绑定类来用于访问 layout 的 variable 和 views。本文展示了如何创建和自定义生成的绑定类。 生成的绑定类链接 layout 中的 variables 和 views。绑定类的名字和包名都是可以自定义的。所有生成的绑定类都继承自 ViewD">
+<meta name="twitter:description" content="Android Architecture Component DataBinding – 生成的绑定类（翻译） 原文：https://developer.android.com/topic/libraries/data-binding/generated-binding  Data Binding 库生成绑定类来用于访问 layout 的 variable 和 views。本文展示了如何创建和自定">
     
     
         
@@ -181,7 +181,10 @@
       
     
 
-    <h1 id="Android-Architecture-Component-DataBinding-–-生成的绑定类（翻译）"><a href="#Android-Architecture-Component-DataBinding-–-生成的绑定类（翻译）" class="headerlink" title="Android Architecture Component DataBinding – 生成的绑定类（翻译）"></a>Android Architecture Component DataBinding – 生成的绑定类（翻译）</h1><p>Data Binding 库生成绑定类来用于访问 layout 的 variable 和 views。本文展示了如何创建和自定义生成的绑定类。</p>
+    <h1 id="Android-Architecture-Component-DataBinding-–-生成的绑定类（翻译）"><a href="#Android-Architecture-Component-DataBinding-–-生成的绑定类（翻译）" class="headerlink" title="Android Architecture Component DataBinding – 生成的绑定类（翻译）"></a>Android Architecture Component DataBinding – 生成的绑定类（翻译）</h1><blockquote>
+<p>原文：<a href="https://developer.android.com/topic/libraries/data-binding/generated-binding" target="_blank" rel="noopener">https://developer.android.com/topic/libraries/data-binding/generated-binding</a></p>
+</blockquote>
+<p>Data Binding 库生成绑定类来用于访问 layout 的 variable 和 views。本文展示了如何创建和自定义生成的绑定类。</p>
 <p>生成的绑定类链接 layout 中的 variables 和 views。绑定类的名字和包名都是可以<a href="https://developer.android.com/topic/libraries/data-binding/generated-binding#custom_binding_class_names" target="_blank" rel="noopener">自定义的</a>。所有生成的绑定类都继承自 <a href="https://developer.android.com/reference/android/databinding/ViewDataBinding.html" target="_blank" rel="noopener"><code>ViewDataBinding</code></a> 类。</p>
 <p>每个 layout 文件都会生成一个 binding class。默认情况下，类名基于 layout 文件的名字。将其转换为 Pascal 大小写, 并向其添加 <em>Binding</em> 后缀。上面的 layout 名字是 <code>activity_main.xml</code> 所以相应生成的类是 <code>ActivityMainBinding</code>。这个类会持有从 layout 属性（比如，<code>user</code> 变量）到 layout 的 views 的所有绑定，并知道如何为绑定表达式赋值。</p>
 <h2 id="创建一个-binding-对象"><a href="#创建一个-binding-对象" class="headerlink" title="创建一个 binding 对象"></a>创建一个 binding 对象</h2><p>Binding 对象在 inflating layout 之后马上创建来确保 layout 中 view 层级在使用表达式绑定到 views 之前没有被修改。最常用绑定对象到 layout 的方式是使用绑定类的静态方法。你可以使用绑定类的 <code>inflate()</code> 方法来 inflate view 层级和绑定对象到它自身。如下例子：</p>

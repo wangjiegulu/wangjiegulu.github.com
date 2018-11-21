@@ -16,18 +16,18 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="#ffffff">
 
 
-    <meta name="description" content="Android Architecture Component DataBinding – 双向绑定（翻译）要使用双向数据绑定，你可以在一个属性上设置一个值，并设置一个监听器来响应这个属性的变化： 12345&amp;lt;CheckBox    android:id=&quot;@+id/rememberMeCheckBox&quot;    android:checked=&quot;@&amp;#123;viewmodel.remembe">
+    <meta name="description" content="Android Architecture Component DataBinding – 双向绑定（翻译） 原文：https://developer.android.com/topic/libraries/data-binding/two-way  要使用双向数据绑定，你可以在一个属性上设置一个值，并设置一个监听器来响应这个属性的变化： 12345&amp;lt;CheckBox    android:i">
 <meta name="keywords" content="android,kotlin,architecture,Android Architecture Component,aac,ViewModel,LiveData,DataBinding,Lifecycles">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android Architecture Component DataBinding -- 双向绑定（翻译）">
 <meta property="og:url" content="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_binding_two_way/index.html">
 <meta property="og:site_name" content="Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer">
-<meta property="og:description" content="Android Architecture Component DataBinding – 双向绑定（翻译）要使用双向数据绑定，你可以在一个属性上设置一个值，并设置一个监听器来响应这个属性的变化： 12345&amp;lt;CheckBox    android:id=&quot;@+id/rememberMeCheckBox&quot;    android:checked=&quot;@&amp;#123;viewmodel.remembe">
+<meta property="og:description" content="Android Architecture Component DataBinding – 双向绑定（翻译） 原文：https://developer.android.com/topic/libraries/data-binding/two-way  要使用双向数据绑定，你可以在一个属性上设置一个值，并设置一个监听器来响应这个属性的变化： 12345&amp;lt;CheckBox    android:i">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-11-21T09:13:42.188Z">
+<meta property="og:updated_time" content="2018-11-21T09:33:29.823Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android Architecture Component DataBinding -- 双向绑定（翻译）">
-<meta name="twitter:description" content="Android Architecture Component DataBinding – 双向绑定（翻译）要使用双向数据绑定，你可以在一个属性上设置一个值，并设置一个监听器来响应这个属性的变化： 12345&amp;lt;CheckBox    android:id=&quot;@+id/rememberMeCheckBox&quot;    android:checked=&quot;@&amp;#123;viewmodel.remembe">
+<meta name="twitter:description" content="Android Architecture Component DataBinding – 双向绑定（翻译） 原文：https://developer.android.com/topic/libraries/data-binding/two-way  要使用双向数据绑定，你可以在一个属性上设置一个值，并设置一个监听器来响应这个属性的变化： 12345&amp;lt;CheckBox    android:i">
     
     
         
@@ -181,7 +181,10 @@
       
     
 
-    <h1 id="Android-Architecture-Component-DataBinding-–-双向绑定（翻译）"><a href="#Android-Architecture-Component-DataBinding-–-双向绑定（翻译）" class="headerlink" title="Android Architecture Component DataBinding – 双向绑定（翻译）"></a>Android Architecture Component DataBinding – 双向绑定（翻译）</h1><p>要使用双向数据绑定，你可以在一个属性上设置一个值，并设置一个监听器来响应这个属性的变化：</p>
+    <h1 id="Android-Architecture-Component-DataBinding-–-双向绑定（翻译）"><a href="#Android-Architecture-Component-DataBinding-–-双向绑定（翻译）" class="headerlink" title="Android Architecture Component DataBinding – 双向绑定（翻译）"></a>Android Architecture Component DataBinding – 双向绑定（翻译）</h1><blockquote>
+<p>原文：<a href="https://developer.android.com/topic/libraries/data-binding/two-way" target="_blank" rel="noopener">https://developer.android.com/topic/libraries/data-binding/two-way</a></p>
+</blockquote>
+<p>要使用双向数据绑定，你可以在一个属性上设置一个值，并设置一个监听器来响应这个属性的变化：</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;CheckBox</span><br><span class="line">    android:id=<span class="string">"@+id/rememberMeCheckBox"</span></span><br><span class="line">    android:checked=<span class="string">"@&#123;viewmodel.rememberMe&#125;"</span></span><br><span class="line">    android:onCheckedChanged=<span class="string">"@&#123;viewmodel.rememberMeChanged&#125;"</span></span><br><span class="line">/&gt;</span><br></pre></td></tr></table></figure>
 <p>双向绑定为这个过程提供了一个捷径：</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;CheckBox</span><br><span class="line">    android:id=<span class="string">"@+id/rememberMeCheckBox"</span></span><br><span class="line">    android:checked=<span class="string">"@=&#123;viewmodel.rememberMe&#125;"</span></span><br><span class="line">/&gt;</span><br></pre></td></tr></table></figure>

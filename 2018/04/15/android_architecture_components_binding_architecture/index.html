@@ -16,18 +16,18 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="#ffffff">
 
 
-    <meta name="description" content="Android Architecture Component DataBinding – Architecture（翻译）AndroidX 库包含了 Architecture Components，你可以使用它来设计具有鲁棒性，可测试性，可维护性的 apps。Data Binding 库与 Architecture Components 无缝协作，以进一步简化了 UI 的开发。在 Architec">
+    <meta name="description" content="Android Architecture Component DataBinding – Architecture（翻译） 原文：https://developer.android.com/topic/libraries/data-binding/architecture  AndroidX 库包含了 Architecture Components，你可以使用它来设计具有鲁棒性，可测试性，可维护性">
 <meta name="keywords" content="android,kotlin,architecture,Android Architecture Component,aac,ViewModel,LiveData,DataBinding,Lifecycles">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android Architecture Component DataBinding -- Architecture（翻译）">
 <meta property="og:url" content="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_binding_architecture/index.html">
 <meta property="og:site_name" content="Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer">
-<meta property="og:description" content="Android Architecture Component DataBinding – Architecture（翻译）AndroidX 库包含了 Architecture Components，你可以使用它来设计具有鲁棒性，可测试性，可维护性的 apps。Data Binding 库与 Architecture Components 无缝协作，以进一步简化了 UI 的开发。在 Architec">
+<meta property="og:description" content="Android Architecture Component DataBinding – Architecture（翻译） 原文：https://developer.android.com/topic/libraries/data-binding/architecture  AndroidX 库包含了 Architecture Components，你可以使用它来设计具有鲁棒性，可测试性，可维护性">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-11-21T09:13:29.188Z">
+<meta property="og:updated_time" content="2018-11-21T09:33:46.518Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android Architecture Component DataBinding -- Architecture（翻译）">
-<meta name="twitter:description" content="Android Architecture Component DataBinding – Architecture（翻译）AndroidX 库包含了 Architecture Components，你可以使用它来设计具有鲁棒性，可测试性，可维护性的 apps。Data Binding 库与 Architecture Components 无缝协作，以进一步简化了 UI 的开发。在 Architec">
+<meta name="twitter:description" content="Android Architecture Component DataBinding – Architecture（翻译） 原文：https://developer.android.com/topic/libraries/data-binding/architecture  AndroidX 库包含了 Architecture Components，你可以使用它来设计具有鲁棒性，可测试性，可维护性">
     
     
         
@@ -181,7 +181,10 @@
       
     
 
-    <h1 id="Android-Architecture-Component-DataBinding-–-Architecture（翻译）"><a href="#Android-Architecture-Component-DataBinding-–-Architecture（翻译）" class="headerlink" title="Android Architecture Component DataBinding – Architecture（翻译）"></a>Android Architecture Component DataBinding – Architecture（翻译）</h1><p>AndroidX 库包含了 <a href="https://developer.android.com/topic/libraries/architecture/index.html" target="_blank" rel="noopener">Architecture Components</a>，你可以使用它来设计具有鲁棒性，可测试性，可维护性的 apps。Data Binding 库与 Architecture Components 无缝协作，以进一步简化了 UI 的开发。在 Architecture Components 中，你 app 的 layout 可以绑定到数据，它已经帮助你管理 UI 控制器的生命周期，并通知有关数据中的改动。</p>
+    <h1 id="Android-Architecture-Component-DataBinding-–-Architecture（翻译）"><a href="#Android-Architecture-Component-DataBinding-–-Architecture（翻译）" class="headerlink" title="Android Architecture Component DataBinding – Architecture（翻译）"></a>Android Architecture Component DataBinding – Architecture（翻译）</h1><blockquote>
+<p>原文：<a href="https://developer.android.com/topic/libraries/data-binding/architecture" target="_blank" rel="noopener">https://developer.android.com/topic/libraries/data-binding/architecture</a></p>
+</blockquote>
+<p>AndroidX 库包含了 <a href="https://developer.android.com/topic/libraries/architecture/index.html" target="_blank" rel="noopener">Architecture Components</a>，你可以使用它来设计具有鲁棒性，可测试性，可维护性的 apps。Data Binding 库与 Architecture Components 无缝协作，以进一步简化了 UI 的开发。在 Architecture Components 中，你 app 的 layout 可以绑定到数据，它已经帮助你管理 UI 控制器的生命周期，并通知有关数据中的改动。</p>
 <p>本文展示如何把 Architecture Components 继承进你的 app，来让你的 app 进一步增强使用 Data Binding 库的好处。</p>
 <h2 id="使用-LiveData-来通知-UI-数据的更改"><a href="#使用-LiveData-来通知-UI-数据的更改" class="headerlink" title="使用 LiveData 来通知 UI 数据的更改"></a>使用 LiveData 来通知 UI 数据的更改</h2><p>你可以使用 <a href="https://developer.android.com/reference/android/arch/lifecycle/LiveData" target="_blank" rel="noopener"><code>LiveData</code></a> 对象作为 data binding 源在数据变化时候自动通知 UI。更多 Architecture Component 相关详情见 <a href="https://developer.android.com/topic/libraries/architecture/livedata" target="_blank" rel="noopener">LiveData 概要</a>。</p>
 <p>不像实现 <a href="https://developer.android.com/reference/android/databinding/Observable.html" target="_blank" rel="noopener"><code>Observable</code></a> —— 比如 <a href=""> observable fields</a> —— <code>LiveData</code> 对象知道观察者订阅数据变化的生命周期。这点可以引发很多好处，这已经在 <a href="https://developer.android.com/topic/libraries/architecture/livedata.html#the_advantages_of_using_livedata" target="_blank" rel="noopener">LiveData 的优势</a> 中解释了。在 Android Studio 3.1 及以上，你可以在你的 data binding 代码中用 <code>LiveData</code> 对象 替换 <a href="https://developer.android.com/topic/libraries/data-binding/observability.html#observable_fields" target="_blank" rel="noopener">observable fields</a>。</p>

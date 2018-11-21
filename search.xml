@@ -644,7 +644,10 @@
     <entry>
       <title><![CDATA[Android Architecture Component DataBinding -- 双向绑定（翻译）]]></title>
       <url>/2018/04/15/android_architecture_components_binding_two_way/</url>
-      <content type="html"><![CDATA[<h1 id="Android-Architecture-Component-DataBinding-–-双向绑定（翻译）"><a href="#Android-Architecture-Component-DataBinding-–-双向绑定（翻译）" class="headerlink" title="Android Architecture Component DataBinding – 双向绑定（翻译）"></a>Android Architecture Component DataBinding – 双向绑定（翻译）</h1><p>要使用双向数据绑定，你可以在一个属性上设置一个值，并设置一个监听器来响应这个属性的变化：</p>
+      <content type="html"><![CDATA[<h1 id="Android-Architecture-Component-DataBinding-–-双向绑定（翻译）"><a href="#Android-Architecture-Component-DataBinding-–-双向绑定（翻译）" class="headerlink" title="Android Architecture Component DataBinding – 双向绑定（翻译）"></a>Android Architecture Component DataBinding – 双向绑定（翻译）</h1><blockquote>
+<p>原文：<a href="https://developer.android.com/topic/libraries/data-binding/two-way" target="_blank" rel="noopener">https://developer.android.com/topic/libraries/data-binding/two-way</a></p>
+</blockquote>
+<p>要使用双向数据绑定，你可以在一个属性上设置一个值，并设置一个监听器来响应这个属性的变化：</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;CheckBox</span><br><span class="line">    android:id=<span class="string">"@+id/rememberMeCheckBox"</span></span><br><span class="line">    android:checked=<span class="string">"@&#123;viewmodel.rememberMe&#125;"</span></span><br><span class="line">    android:onCheckedChanged=<span class="string">"@&#123;viewmodel.rememberMeChanged&#125;"</span></span><br><span class="line">/&gt;</span><br></pre></td></tr></table></figure>
 <p>双向绑定为这个过程提供了一个捷径：</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;CheckBox</span><br><span class="line">    android:id=<span class="string">"@+id/rememberMeCheckBox"</span></span><br><span class="line">    android:checked=<span class="string">"@=&#123;viewmodel.rememberMe&#125;"</span></span><br><span class="line">/&gt;</span><br></pre></td></tr></table></figure>
@@ -786,7 +789,10 @@
     <entry>
       <title><![CDATA[Android Architecture Component DataBinding -- Architecture（翻译）]]></title>
       <url>/2018/04/15/android_architecture_components_binding_architecture/</url>
-      <content type="html"><![CDATA[<h1 id="Android-Architecture-Component-DataBinding-–-Architecture（翻译）"><a href="#Android-Architecture-Component-DataBinding-–-Architecture（翻译）" class="headerlink" title="Android Architecture Component DataBinding – Architecture（翻译）"></a>Android Architecture Component DataBinding – Architecture（翻译）</h1><p>AndroidX 库包含了 <a href="https://developer.android.com/topic/libraries/architecture/index.html" target="_blank" rel="noopener">Architecture Components</a>，你可以使用它来设计具有鲁棒性，可测试性，可维护性的 apps。Data Binding 库与 Architecture Components 无缝协作，以进一步简化了 UI 的开发。在 Architecture Components 中，你 app 的 layout 可以绑定到数据，它已经帮助你管理 UI 控制器的生命周期，并通知有关数据中的改动。</p>
+      <content type="html"><![CDATA[<h1 id="Android-Architecture-Component-DataBinding-–-Architecture（翻译）"><a href="#Android-Architecture-Component-DataBinding-–-Architecture（翻译）" class="headerlink" title="Android Architecture Component DataBinding – Architecture（翻译）"></a>Android Architecture Component DataBinding – Architecture（翻译）</h1><blockquote>
+<p>原文：<a href="https://developer.android.com/topic/libraries/data-binding/architecture" target="_blank" rel="noopener">https://developer.android.com/topic/libraries/data-binding/architecture</a></p>
+</blockquote>
+<p>AndroidX 库包含了 <a href="https://developer.android.com/topic/libraries/architecture/index.html" target="_blank" rel="noopener">Architecture Components</a>，你可以使用它来设计具有鲁棒性，可测试性，可维护性的 apps。Data Binding 库与 Architecture Components 无缝协作，以进一步简化了 UI 的开发。在 Architecture Components 中，你 app 的 layout 可以绑定到数据，它已经帮助你管理 UI 控制器的生命周期，并通知有关数据中的改动。</p>
 <p>本文展示如何把 Architecture Components 继承进你的 app，来让你的 app 进一步增强使用 Data Binding 库的好处。</p>
 <h2 id="使用-LiveData-来通知-UI-数据的更改"><a href="#使用-LiveData-来通知-UI-数据的更改" class="headerlink" title="使用 LiveData 来通知 UI 数据的更改"></a>使用 LiveData 来通知 UI 数据的更改</h2><p>你可以使用 <a href="https://developer.android.com/reference/android/arch/lifecycle/LiveData" target="_blank" rel="noopener"><code>LiveData</code></a> 对象作为 data binding 源在数据变化时候自动通知 UI。更多 Architecture Component 相关详情见 <a href="https://developer.android.com/topic/libraries/architecture/livedata" target="_blank" rel="noopener">LiveData 概要</a>。</p>
 <p>不像实现 <a href="https://developer.android.com/reference/android/databinding/Observable.html" target="_blank" rel="noopener"><code>Observable</code></a> —— 比如 <a href=""> observable fields</a> —— <code>LiveData</code> 对象知道观察者订阅数据变化的生命周期。这点可以引发很多好处，这已经在 <a href="https://developer.android.com/topic/libraries/architecture/livedata.html#the_advantages_of_using_livedata" target="_blank" rel="noopener">LiveData 的优势</a> 中解释了。在 Android Studio 3.1 及以上，你可以在你的 data binding 代码中用 <code>LiveData</code> 对象 替换 <a href="https://developer.android.com/topic/libraries/data-binding/observability.html#observable_fields" target="_blank" rel="noopener">observable fields</a>。</p>
@@ -843,7 +849,10 @@
     <entry>
       <title><![CDATA[Android Architecture Component DataBinding -- Binding adapters（翻译）]]></title>
       <url>/2018/04/15/android_architecture_components_binding_adapters/</url>
-      <content type="html"><![CDATA[<h1 id="Android-Architecture-Component-DataBinding-–-Binding-adapters（翻译）"><a href="#Android-Architecture-Component-DataBinding-–-Binding-adapters（翻译）" class="headerlink" title="Android Architecture Component DataBinding – Binding adapters（翻译）"></a>Android Architecture Component DataBinding – Binding adapters（翻译）</h1><p>Binding adapters 负责对设置值进行适当的框架调用。一个例子是像调用 <a href="https://developer.android.com/reference/android/widget/TextView.html#setText(char[],%20int,%20int" target="_blank" rel="noopener"><code>setText()</code></a>) 方法去设置属性值。另一个例子是像调用 <a href="https://developer.android.com/reference/android/view/View.html#setOnClickListener(android.view.View.OnClickListener" target="_blank" rel="noopener"><code>setOnClickListener()</code></a>) 方法去设置一个事件监听器。</p>
+      <content type="html"><![CDATA[<h1 id="Android-Architecture-Component-DataBinding-–-Binding-adapters（翻译）"><a href="#Android-Architecture-Component-DataBinding-–-Binding-adapters（翻译）" class="headerlink" title="Android Architecture Component DataBinding – Binding adapters（翻译）"></a>Android Architecture Component DataBinding – Binding adapters（翻译）</h1><blockquote>
+<p>原文：<a href="https://developer.android.com/topic/libraries/data-binding/binding-adapters" target="_blank" rel="noopener">https://developer.android.com/topic/libraries/data-binding/binding-adapters</a></p>
+</blockquote>
+<p>Binding adapters 负责对设置值进行适当的框架调用。一个例子是像调用 <a href="https://developer.android.com/reference/android/widget/TextView.html#setText(char[],%20int,%20int" target="_blank" rel="noopener"><code>setText()</code></a>) 方法去设置属性值。另一个例子是像调用 <a href="https://developer.android.com/reference/android/view/View.html#setOnClickListener(android.view.View.OnClickListener" target="_blank" rel="noopener"><code>setOnClickListener()</code></a>) 方法去设置一个事件监听器。</p>
 <p>Data Binding 库允许你去指定设置一个值的方法，提供你自己的绑定逻辑，以及通过使用 adapters 来指定返回对象的类型。</p>
 <h2 id="设置属性值"><a href="#设置属性值" class="headerlink" title="设置属性值"></a>设置属性值</h2><p>每当绑定的值改变，生成的绑定类必须调用一个 view 的表达式 的 setter 方法。你可以让 Data Binding 自动确定方法，显式声明方法或提供自定义逻辑以选择方法。</p>
 <h3 id="自动选择方法"><a href="#自动选择方法" class="headerlink" title="自动选择方法"></a>自动选择方法</h3><p>对于名为 <code>name</code> 的属性，库会自动尝试寻找方法 <code>setExample(arg)</code>，它接受一个相应的类型作为参数。不考虑属性的命名空间，在搜索方法时只使用属性名称和类型。</p>
@@ -934,7 +943,10 @@
     <entry>
       <title><![CDATA[Android Architecture Component DataBinding -- 生成的绑定类（翻译）]]></title>
       <url>/2018/04/15/android_architecture_components_generated_binding/</url>
-      <content type="html"><![CDATA[<h1 id="Android-Architecture-Component-DataBinding-–-生成的绑定类（翻译）"><a href="#Android-Architecture-Component-DataBinding-–-生成的绑定类（翻译）" class="headerlink" title="Android Architecture Component DataBinding – 生成的绑定类（翻译）"></a>Android Architecture Component DataBinding – 生成的绑定类（翻译）</h1><p>Data Binding 库生成绑定类来用于访问 layout 的 variable 和 views。本文展示了如何创建和自定义生成的绑定类。</p>
+      <content type="html"><![CDATA[<h1 id="Android-Architecture-Component-DataBinding-–-生成的绑定类（翻译）"><a href="#Android-Architecture-Component-DataBinding-–-生成的绑定类（翻译）" class="headerlink" title="Android Architecture Component DataBinding – 生成的绑定类（翻译）"></a>Android Architecture Component DataBinding – 生成的绑定类（翻译）</h1><blockquote>
+<p>原文：<a href="https://developer.android.com/topic/libraries/data-binding/generated-binding" target="_blank" rel="noopener">https://developer.android.com/topic/libraries/data-binding/generated-binding</a></p>
+</blockquote>
+<p>Data Binding 库生成绑定类来用于访问 layout 的 variable 和 views。本文展示了如何创建和自定义生成的绑定类。</p>
 <p>生成的绑定类链接 layout 中的 variables 和 views。绑定类的名字和包名都是可以<a href="https://developer.android.com/topic/libraries/data-binding/generated-binding#custom_binding_class_names" target="_blank" rel="noopener">自定义的</a>。所有生成的绑定类都继承自 <a href="https://developer.android.com/reference/android/databinding/ViewDataBinding.html" target="_blank" rel="noopener"><code>ViewDataBinding</code></a> 类。</p>
 <p>每个 layout 文件都会生成一个 binding class。默认情况下，类名基于 layout 文件的名字。将其转换为 Pascal 大小写, 并向其添加 <em>Binding</em> 后缀。上面的 layout 名字是 <code>activity_main.xml</code> 所以相应生成的类是 <code>ActivityMainBinding</code>。这个类会持有从 layout 属性（比如，<code>user</code> 变量）到 layout 的 views 的所有绑定，并知道如何为绑定表达式赋值。</p>
 <h2 id="创建一个-binding-对象"><a href="#创建一个-binding-对象" class="headerlink" title="创建一个 binding 对象"></a>创建一个 binding 对象</h2><p>Binding 对象在 inflating layout 之后马上创建来确保 layout 中 view 层级在使用表达式绑定到 views 之前没有被修改。最常用绑定对象到 layout 的方式是使用绑定类的静态方法。你可以使用绑定类的 <code>inflate()</code> 方法来 inflate view 层级和绑定对象到它自身。如下例子：</p>
@@ -1010,7 +1022,10 @@
     <entry>
       <title><![CDATA[Android Architecture Component DataBinding -- 使用可观察的数据对象（翻译）]]></title>
       <url>/2018/04/15/android_architecture_components_observability/</url>
-      <content type="html"><![CDATA[<h1 id="Android-Architecture-Component-DataBinding-–-使用可观察的数据对象（翻译）"><a href="#Android-Architecture-Component-DataBinding-–-使用可观察的数据对象（翻译）" class="headerlink" title="Android Architecture Component DataBinding – 使用可观察的数据对象（翻译）"></a>Android Architecture Component DataBinding – 使用可观察的数据对象（翻译）</h1><p>可观察性是指对象将其数据的变化通知他人的能力。Data Binding 库允许你去创建对象，属性，可观察集合。</p>
+      <content type="html"><![CDATA[<h1 id="Android-Architecture-Component-DataBinding-–-使用可观察的数据对象（翻译）"><a href="#Android-Architecture-Component-DataBinding-–-使用可观察的数据对象（翻译）" class="headerlink" title="Android Architecture Component DataBinding – 使用可观察的数据对象（翻译）"></a>Android Architecture Component DataBinding – 使用可观察的数据对象（翻译）</h1><blockquote>
+<p>原文：<a href="https://developer.android.com/topic/libraries/data-binding/observability" target="_blank" rel="noopener">https://developer.android.com/topic/libraries/data-binding/observability</a></p>
+</blockquote>
+<p>可观察性是指对象将其数据的变化通知他人的能力。Data Binding 库允许你去创建对象，属性，可观察集合。</p>
 <p>任何普通的对象都可以使用 Data Binding，但是修改修改之后不会自动引发 UI 的更新。Data Binding 可以使数据对象能够在其数据更改时通知其他对象，也就是监听器。有 3 种不同的可观察类的类型：<a href="https://developer.android.com/topic/libraries/data-binding/observability#observable_objects" target="_blank" rel="noopener"><code>objects</code></a>，<a href="https://developer.android.com/topic/libraries/data-binding/observability#observable_fields" target="_blank" rel="noopener"><code>fields</code></a> 和 <a href="https://developer.android.com/topic/libraries/data-binding/observability#observable_collections" target="_blank" rel="noopener"><code>collections</code></a>。</p>
 <p>当这些可观察的数据对象之一绑定到 UI，并且数据对象的属性发生改变时，UI 将自动更新。</p>
 <h2 id="Observable-fields"><a href="#Observable-fields" class="headerlink" title="Observable fields"></a>Observable fields</h2><p>创建实现了 <a href="https://developer.android.com/reference/android/databinding/Observable.html" target="_blank" rel="noopener"><code>Observable</code></a> 接口的类会涉及到一些工作，如果你的类只有几个属性，这就不值得这么做。在这种情况下，你可以使用泛型 <a href="https://developer.android.com/reference/android/databinding/Observable.html" target="_blank" rel="noopener"><code>Observable</code></a> 类和下面几种特定于原生的类来使得属性变得可观察：</p>
@@ -1084,7 +1099,10 @@
     <entry>
       <title><![CDATA[Android Architecture Component DataBinding -- 布局和表达式（翻译）]]></title>
       <url>/2018/04/15/android_architecture_components_databinding_expressions/</url>
-      <content type="html"><![CDATA[<h1 id="Android-Architecture-Component-DataBinding-–-布局和表达式（翻译）"><a href="#Android-Architecture-Component-DataBinding-–-布局和表达式（翻译）" class="headerlink" title="Android Architecture Component DataBinding – 布局和表达式（翻译）"></a>Android Architecture Component DataBinding – 布局和表达式（翻译）</h1><p>表达式语言允许你编写表达式用于 view 派发的事件。Data binding 库自动生成要将 layout 中的 views 与数据对象绑定所需的类。</p>
+      <content type="html"><![CDATA[<h1 id="Android-Architecture-Component-DataBinding-–-布局和表达式（翻译）"><a href="#Android-Architecture-Component-DataBinding-–-布局和表达式（翻译）" class="headerlink" title="Android Architecture Component DataBinding – 布局和表达式（翻译）"></a>Android Architecture Component DataBinding – 布局和表达式（翻译）</h1><blockquote>
+<p>原文：<a href="https://developer.android.com/topic/libraries/data-binding/expressions" target="_blank" rel="noopener">https://developer.android.com/topic/libraries/data-binding/expressions</a></p>
+</blockquote>
+<p>表达式语言允许你编写表达式用于 view 派发的事件。Data binding 库自动生成要将 layout 中的 views 与数据对象绑定所需的类。</p>
 <p>Data binding 布局有稍微的差别，从 layout 的根节点开始，然后是 <code>data</code> 标签和 <code>view</code> 根标签。这个 view 标签就是你在非 binding 布局文件的根标签。下面代码展示了一个 layout 文件的例子：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">layout</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">data</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">variable</span> <span class="attr">name</span>=<span class="string">"user"</span> <span class="attr">type</span>=<span class="string">"com.example.User"</span>/&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">data</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">LinearLayout</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:orientation</span>=<span class="string">"vertical"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">TextView</span> <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">           <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">           <span class="attr">android:text</span>=<span class="string">"@&#123;user.firstName&#125;"</span>/&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">TextView</span> <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">           <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">           <span class="attr">android:text</span>=<span class="string">"@&#123;user.lastName&#125;"</span>/&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">layout</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>在 <code>data</code> 中的 <code>user</code> 变量描述了一个可能会在这个布局中使用的属性。</p>
@@ -1416,7 +1434,10 @@
     <entry>
       <title><![CDATA[Android Architecture Component DataBinding -- 概要（翻译）]]></title>
       <url>/2018/04/15/android_architecture_components_databinding_overview/</url>
-      <content type="html"><![CDATA[<h1 id="Android-Architecture-Component-DataBinding-–-概要（翻译）"><a href="#Android-Architecture-Component-DataBinding-–-概要（翻译）" class="headerlink" title="Android Architecture Component DataBinding – 概要（翻译）"></a>Android Architecture Component DataBinding – 概要（翻译）</h1><p>Data Binding 库是一个允许你在你的 app 中使用声明性格式而非动态的方式绑定 layout 的 UI 组件到数据源的支持库。</p>
+      <content type="html"><![CDATA[<h1 id="Android-Architecture-Component-DataBinding-–-概要（翻译）"><a href="#Android-Architecture-Component-DataBinding-–-概要（翻译）" class="headerlink" title="Android Architecture Component DataBinding – 概要（翻译）"></a>Android Architecture Component DataBinding – 概要（翻译）</h1><blockquote>
+<p>原文：<a href="https://developer.android.com/topic/libraries/data-binding/index" target="_blank" rel="noopener">https://developer.android.com/topic/libraries/data-binding/index</a></p>
+</blockquote>
+<p>Data Binding 库是一个允许你在你的 app 中使用声明性格式而非动态的方式绑定 layout 的 UI 组件到数据源的支持库。</p>
 <p>Layout 通常是使用代码在 activities 中调用 UI 层额的方法来定义的。举例，下面代码调用 <code>[findViewById](https://developer.android.com/reference/android/app/Activity.html#findViewById(int))</code> 来找到一个 <code>[TextView](https://developer.android.com/reference/android/widget/TextView.html)</code> 控件并把它绑定到 <code>viewModel</code> 变量的 <code>userName</code> 属性：</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">findViewById&lt;TextView&gt;(R.id.sample_text).apply &#123;</span><br><span class="line">    text = viewModel.userName</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>下面的例子展示了怎样使用 Data Binding 库直接在 layout 文件中将 text 分配给控件。这样就不需要调用以上任何的 java 代码。注意在分配表达式中使用 <code>@{}</code> 语法:</p>
@@ -4362,7 +4383,7 @@
       <title><![CDATA[[Android]异步 layout inflation（翻译）]]></title>
       <url>/2016/09/01/Android-%E5%BC%82%E6%AD%A5-layout-inflation%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/</url>
       <content type="html"><![CDATA[<h1 id="异步-layout-inflation"><a href="#异步-layout-inflation" class="headerlink" title="异步 layout inflation"></a>异步 layout inflation</h1><blockquote>
-<p>原文：<a href="&#x6d;&#x61;&#105;&#108;&#x74;&#x6f;&#58;&#x68;&#116;&#x74;&#112;&#x73;&#58;&#x2f;&#x2f;&#x6d;&#x65;&#100;&#x69;&#x75;&#109;&#x2e;&#x63;&#111;&#109;&#x2f;&#64;&#x6c;&#x75;&#x70;&#x61;&#x6a;&#x7a;&#x2f;&#97;&#115;&#x79;&#110;&#x63;&#104;&#114;&#x6f;&#110;&#x6f;&#x75;&#x73;&#45;&#x6c;&#97;&#x79;&#x6f;&#117;&#116;&#x2d;&#105;&#x6e;&#102;&#x6c;&#x61;&#x74;&#x69;&#x6f;&#110;&#x2d;&#x37;&#x63;&#98;&#99;&#x61;&#50;&#x36;&#x35;&#51;&#x62;&#102;&#35;&#x2e;&#x71;&#x32;&#50;&#118;&#x70;&#x65;&#122;&#103;&#x34;">&#x68;&#116;&#x74;&#112;&#x73;&#58;&#x2f;&#x2f;&#x6d;&#x65;&#100;&#x69;&#x75;&#109;&#x2e;&#x63;&#111;&#109;&#x2f;&#64;&#x6c;&#x75;&#x70;&#x61;&#x6a;&#x7a;&#x2f;&#97;&#115;&#x79;&#110;&#x63;&#104;&#114;&#x6f;&#110;&#x6f;&#x75;&#x73;&#45;&#x6c;&#97;&#x79;&#x6f;&#117;&#116;&#x2d;&#105;&#x6e;&#102;&#x6c;&#x61;&#x74;&#x69;&#x6f;&#110;&#x2d;&#x37;&#x63;&#98;&#99;&#x61;&#50;&#x36;&#x35;&#51;&#x62;&#102;&#35;&#x2e;&#x71;&#x32;&#50;&#118;&#x70;&#x65;&#122;&#103;&#x34;</a></p>
+<p>原文：<a href="&#109;&#x61;&#x69;&#x6c;&#x74;&#x6f;&#58;&#104;&#x74;&#x74;&#112;&#115;&#58;&#47;&#x2f;&#109;&#x65;&#100;&#105;&#x75;&#109;&#x2e;&#99;&#111;&#109;&#47;&#x40;&#108;&#x75;&#x70;&#97;&#x6a;&#122;&#x2f;&#x61;&#x73;&#121;&#x6e;&#x63;&#104;&#114;&#111;&#110;&#x6f;&#117;&#x73;&#45;&#108;&#97;&#121;&#111;&#117;&#x74;&#x2d;&#x69;&#x6e;&#102;&#108;&#x61;&#116;&#x69;&#x6f;&#x6e;&#45;&#55;&#x63;&#x62;&#x63;&#x61;&#50;&#54;&#53;&#51;&#x62;&#x66;&#x23;&#x2e;&#113;&#x32;&#50;&#118;&#112;&#x65;&#x7a;&#103;&#52;">&#104;&#x74;&#x74;&#112;&#115;&#58;&#47;&#x2f;&#109;&#x65;&#100;&#105;&#x75;&#109;&#x2e;&#99;&#111;&#109;&#47;&#x40;&#108;&#x75;&#x70;&#97;&#x6a;&#122;&#x2f;&#x61;&#x73;&#121;&#x6e;&#x63;&#104;&#114;&#111;&#110;&#x6f;&#117;&#x73;&#45;&#108;&#97;&#121;&#111;&#117;&#x74;&#x2d;&#x69;&#x6e;&#102;&#108;&#x61;&#116;&#x69;&#x6f;&#x6e;&#45;&#55;&#x63;&#x62;&#x63;&#x61;&#50;&#54;&#53;&#51;&#x62;&#x66;&#x23;&#x2e;&#113;&#x32;&#50;&#118;&#112;&#x65;&#x7a;&#103;&#52;</a></p>
 </blockquote>
 <p>随着最近发布的<a href="https://developer.android.com/topic/libraries/support-library/revisions.html" target="_blank" rel="noopener">Android Support Library, revision 24</a>，Google开发者在v4包中增加了一个用来异步inflate layouts的帮助类。</p>
 <h2 id="进入-AsyncLayoutInflater"><a href="#进入-AsyncLayoutInflater" class="headerlink" title="进入 AsyncLayoutInflater"></a>进入 AsyncLayoutInflater</h2><p>你会发现AsyncLayoutInflater可以使用在当你想要去懒加载你应用中部分UI或者用户行为的响应。这个帮助类将会允许你的UI线程在执行繁重的inflate时继续保持响应。</p>
@@ -5524,9 +5545,9 @@ Cookie: ... ...
             
             <tag> android </tag>
             
-            <tag> annotations </tag>
-            
             <tag> unit test </tag>
+            
+            <tag> annotations </tag>
             
             <tag> JUnit </tag>
             
@@ -6592,9 +6613,9 @@ Cookie: ... ...
         
         <tags>
             
-            <tag> android </tag>
-            
             <tag> testing </tag>
+            
+            <tag> android </tag>
             
             <tag> 翻译 </tag>
             
@@ -6766,9 +6787,9 @@ Cookie: ... ...
         
         <tags>
             
-            <tag> android </tag>
-            
             <tag> testing </tag>
+            
+            <tag> android </tag>
             
             <tag> 翻译 </tag>
             
@@ -6936,9 +6957,9 @@ Cookie: ... ...
         
         <tags>
             
-            <tag> android </tag>
-            
             <tag> testing </tag>
+            
+            <tag> android </tag>
             
             <tag> 翻译 </tag>
             
@@ -10472,11 +10493,11 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> java </tag>
             
+            <tag> Hbase </tag>
+            
             <tag> j2ee </tag>
             
             <tag> java web </tag>
-            
-            <tag> Hbase </tag>
             
         </tags>
         
@@ -11208,11 +11229,11 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> orm </tag>
             
-            <tag> Hibernate </tag>
-            
             <tag> j2ee </tag>
             
             <tag> java web </tag>
+            
+            <tag> Hibernate </tag>
             
         </tags>
         
