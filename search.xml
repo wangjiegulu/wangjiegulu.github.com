@@ -642,6 +642,93 @@
     </entry>
     
     <entry>
+      <title><![CDATA[Android Architecture Component ViewModel（翻译）]]></title>
+      <url>/2018/04/15/android_architecture_components_viewmodel/</url>
+      <content type="html"><![CDATA[<h1 id="Android-Architecture-Component-ViewModel（翻译）"><a href="#Android-Architecture-Component-ViewModel（翻译）" class="headerlink" title="Android Architecture Component ViewModel（翻译）"></a>Android Architecture Component ViewModel（翻译）</h1><blockquote>
+<p>原文：<a href="https://developer.android.com/topic/libraries/architecture/viewmodel" target="_blank" rel="noopener">https://developer.android.com/topic/libraries/architecture/viewmodel</a></p>
+</blockquote>
+<p><a href="https://developer.android.com/reference/android/arch/lifecycle/ViewModel.html" target="_blank" rel="noopener"><code>ViewModel</code></a> 被设计为以生命周期意识的方式存储和管理 UI 相关的数据的类。<a href="https://developer.android.com/reference/android/arch/lifecycle/ViewModel.html" target="_blank" rel="noopener"><code>ViewModel</code></a> 类允许数据在屏幕旋转之后保存下来。</p>
+<blockquote>
+<p><strong>注意</strong>：要导入 <a href="https://developer.android.com/reference/android/arch/lifecycle/ViewModel.html" target="_blank" rel="noopener">ViewModel</a> 到你的 Android 项目中，请查阅 <a href="https://developer.android.com/topic/libraries/architecture/adding-components.html#lifecycle" target="_blank" rel="noopener">添加 components 到你的项目中</a>。</p>
+</blockquote>
+<p>Android Framework 会管理 UI Controllers 的生命周期，比如 activities 和 fragment。Framework 可能会决定去销毁或重建一个 UI Controller 来响应某些完全超出你控制范围的用户操作或设备事件。</p>
+<p>如果系统销毁或者重建一个 UI Controller，你存储在其中的任何瞬态 UI 相关数据都将丢失。举个例子，你的应用可能会在其中一个 activity 中包含用户列表。当 activity 因为配置改变而重建时，新的 activity 会去重新拉取用户列表数据。对于简单的数据，activity 可以使用 <a href="https://developer.android.com/reference/android/app/Activity.html#onSaveInstanceState(android.os.Bundle" target="_blank" rel="noopener"><code>onSaveInstanceState()</code></a>) 方法并在 <a href="https://developer.android.com/reference/android/app/Activity.html#onCreate(android.os.Bundle" target="_blank" rel="noopener"><code>onCreate</code></a>) 方法中从 bundle 中还原数据，但是这个方法只适用于可以序列化和反序列化的少量的数据，而不是潜在的大量数据，如用户列表或 bitmaps。</p>
+<p>另一个问题，UI Controllers 频繁地去进行异步调用，它可能会需要一段时间之后才返回。UI Controller 需要管理这些调用并确保系统会在销毁之后为避免潜在的内存泄漏而把它们清理掉。这种管理需要大量的维护，并且在为配置更改重建对象的情况下，这是对资源的浪费，因为对象可能不得不重新执行它已经执行过的调用。</p>
+<p>UI Controllers，比如 activities 和 fragments 主要负责 UI 数据的显示，对用户行为作出反应，或者处理与操作系统的通信，比如权限请求。要求 UI Controllers 也负责从数据库或网络加载数据会让类变得臃肿。将过多的责任分配给 UI Controller 可能会导致单个类尝试单独处理 app 的所有工作，而不是将工作委派给其他类。以这种方式为 UI Controller 分配过多的责任也会使测试变得更加困难。</p>
+<p>将 view 数据所有权从 UI Controller 逻辑剥离时更容易，更高效的。</p>
+<h2 id="实现一个-ViewModel"><a href="#实现一个-ViewModel" class="headerlink" title="实现一个 ViewModel"></a>实现一个 ViewModel</h2><p>对于 UI Controller，Architecture Components 提供了一个 <a href="https://developer.android.com/reference/android/arch/lifecycle/ViewModel.html" target="_blank" rel="noopener"><code>ViewModel</code></a> 帮助类，让它负责为 UI 准备数据。在配置发生变化时，<a href="https://developer.android.com/reference/android/arch/lifecycle/ViewModel.html" target="_blank" rel="noopener"><code>ViewModel</code></a> 对象会自动保留，所以它们持有的数据会立刻对于下一个 activity 或者 fragment 实例变得可用。举例，如果你需要在你的 app 中显示一个用户列表，确保你给 <a href="https://developer.android.com/reference/android/arch/lifecycle/ViewModel.html" target="_blank" rel="noopener"><code>ViewModel</code></a> 分配获取和持有用户列表数据的职责，而不是给 activity 或者 fragment，如下代码所示：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyViewModel</span> : <span class="type">ViewModel</span></span>() &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">lateinit</span> <span class="keyword">var</span> users: MutableLiveData&lt;List&lt;User&gt;&gt;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">getUsers</span><span class="params">()</span></span>: LiveData&lt;List&lt;User&gt;&gt; &#123;</span><br><span class="line">        <span class="keyword">if</span> (!::users.isInitialized) &#123;</span><br><span class="line">            users = MutableLiveData()</span><br><span class="line">            loadUsers()</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> users</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">loadUsers</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="comment">// Do an asynchronous operation to fetch users.</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>你可以从 activity 中如下方式进行访问：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyActivity</span> : <span class="type">AppCompatActivity</span></span>() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">        <span class="comment">// Create a ViewModel the first time the system calls an activity's onCreate() method.</span></span><br><span class="line">        <span class="comment">// Re-created activities receive the same MyViewModel instance created by the first activity.</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">val</span> model = ViewModelProviders.of(<span class="keyword">this</span>).<span class="keyword">get</span>(MyViewModel::<span class="class"><span class="keyword">class</span>.<span class="title">java</span>)</span></span><br><span class="line">        model.getUsers().observe(<span class="keyword">this</span>, Observer&lt;List&lt;User&gt;&gt;&#123; users -&gt;</span><br><span class="line">            <span class="comment">// update UI</span></span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果 activity 被重建，它会收到同一个 <code>MyViewModel</code> 实例，也就是第一个 activity 创建的那个。当所有拥有者 activity 结束完成，framework 会调用 <a href="https://developer.android.com/reference/android/arch/lifecycle/ViewModel.html" target="_blank" rel="noopener"><code>ViewModel</code></a> 对象的 <a href="https://developer.android.com/reference/android/arch/lifecycle/ViewModel.html#onCleared(" target="_blank" rel="noopener"><code>onCleared()</code></a>) 方法，以便于它可以清理资源。</p>
+<blockquote>
+<p>警告：<a href="https://developer.android.com/reference/android/arch/lifecycle/ViewModel.html" target="_blank" rel="noopener">ViewModel</a> 一定不能引用 view，<a href="https://developer.android.com/reference/android/arch/lifecycle/Lifecycle.html" target="_blank" rel="noopener">Lifecycle</a>，或者任何可能会持有 activity context 的引用的类。</p>
+</blockquote>
+<p><a href="https://developer.android.com/reference/android/arch/lifecycle/ViewModel.html" target="_blank" rel="noopener"><code>ViewModel</code></a> 对象被设计为比生命周期比 views，<a href="https://developer.android.com/reference/android/arch/lifecycle/LifecycleOwner.html" target="_blank" rel="noopener"><code>LifecycleOwners</code></a> 长。这个设计也意味着你可以更容易写覆盖 <a href="https://developer.android.com/reference/android/arch/lifecycle/ViewModel.html" target="_blank" rel="noopener"><code>ViewModel</code></a> 的测试，因为你不需要知道 view 和 <a href="https://developer.android.com/reference/android/arch/lifecycle/Lifecycle.html" target="_blank" rel="noopener"><code>Lifecycle</code></a> 对象。<a href="https://developer.android.com/reference/android/arch/lifecycle/ViewModel.html" target="_blank" rel="noopener"><code>ViewModel</code></a> 对象可以包含 <a href="https://developer.android.com/reference/android/arch/lifecycle/LifecycleObserver.html" target="_blank" rel="noopener"><code>LifecycleObservers</code></a>，比如 <a href="https://developer.android.com/reference/android/arch/lifecycle/LiveData.html" target="_blank" rel="noopener"><code>LiveData</code></a> 对象。但是 <a href="https://developer.android.com/reference/android/arch/lifecycle/ViewModel.html" target="_blank" rel="noopener"><code>ViewModel</code></a> 对象一定不能观察生命周期感知的 observables 的改变，比如 <a href="https://developer.android.com/reference/android/arch/lifecycle/LiveData.html" target="_blank" rel="noopener"><code>LiveData</code></a> 对象。如果 <a href="https://developer.android.com/reference/android/arch/lifecycle/ViewModel.html" target="_blank" rel="noopener"><code>ViewModel</code></a>需要 <a href="https://developer.android.com/reference/android/app/Application.html" target="_blank" rel="noopener"><code>Application</code></a>，比如需要获取系统服务，它可以继承 <a href="https://developer.android.com/reference/android/arch/lifecycle/AndroidViewModel.html" target="_blank" rel="noopener"><code>AndroidViewModel</code></a> 类，它有一个接收 <a href="https://developer.android.com/reference/android/app/Application.html" target="_blank" rel="noopener"><code>Application</code></a> 的构造方法，因为 <a href="https://developer.android.com/reference/android/app/Application.html" target="_blank" rel="noopener"><code>Application</code></a> 类继承 <a href="https://developer.android.com/reference/android/content/Context.html" target="_blank" rel="noopener"><code>Context</code></a>。</p>
+<h2 id="ViewModel-的生命周期"><a href="#ViewModel-的生命周期" class="headerlink" title="ViewModel 的生命周期"></a>ViewModel 的生命周期</h2><p>当获取 <a href="https://developer.android.com/reference/android/arch/lifecycle/ViewModel.html" target="_blank" rel="noopener"><code>ViewModel</code></a> 时，<a href="https://developer.android.com/reference/android/arch/lifecycle/ViewModel.html" target="_blank" rel="noopener"><code>ViewModel</code></a> 对象的作用域是被传入 <a href="https://developer.android.com/reference/android/arch/lifecycle/ViewModelProvider.html" target="_blank" rel="noopener"><code>ViewModelProvider</code></a>的 <a href="https://developer.android.com/reference/android/arch/lifecycle/Lifecycle.html" target="_blank" rel="noopener"><code>Lifecycle</code></a>。<a href="https://developer.android.com/reference/android/arch/lifecycle/ViewModel.html" target="_blank" rel="noopener"><code>ViewModel</code></a> 会留在内存中，直到 <a href="https://developer.android.com/reference/android/arch/lifecycle/Lifecycle.html" target="_blank" rel="noopener"><code>Lifecycle</code></a> 的范围是永久消失为止：对于 activity，当它 finish 的情况下，对于 fragment，当它 detached 的情况下。</p>
+<p>示图 1 展示了一个 activity 各种生命周期状态，当它经历了一个旋转，再 finish。插图也展示了 <a href="https://developer.android.com/reference/android/arch/lifecycle/ViewModel.html" target="_blank" rel="noopener"><code>ViewModel</code></a> 的整个周期，在关联的 activity 生命周期的旁边。此特定关系图说明了 activity 的状态。同样的基本状态也适用于 fragment 的生命周期。</p>
+<div style="text-align: center;"><br><img src="https://user-images.githubusercontent.com/5423194/48878990-e6132000-ee44-11e8-986b-269898892b39.png" width="550px/"><br></div>
+
+<p>你通常要请求一个 <a href="https://developer.android.com/reference/android/arch/lifecycle/ViewModel.html" target="_blank" rel="noopener"><code>ViewModel</code></a> 在第一次调用 activity 对象的 <a href="https://developer.android.com/reference/android/app/Activity.html#onCreate(android.os.Bundle" target="_blank" rel="noopener"><code>onCreate</code></a>) 方法。在 activity 的生命周期中，系统可能会调用多次 <a href="https://developer.android.com/reference/android/app/Activity.html#onCreate(android.os.Bundle" target="_blank" rel="noopener"><code>onCreate</code></a>)，比如当设备屏幕旋转。<a href="https://developer.android.com/reference/android/arch/lifecycle/ViewModel.html" target="_blank" rel="noopener"><code>ViewModel</code></a> 会从当你第一次请求 <a href="https://developer.android.com/reference/android/arch/lifecycle/ViewModel.html" target="_blank" rel="noopener"><code>ViewModel</code></a> 一直存在，直到 activity finished 并 destroyed。</p>
+<h2 id="在-fragments-之间共享数据"><a href="#在-fragments-之间共享数据" class="headerlink" title="在 fragments 之间共享数据"></a>在 fragments 之间共享数据</h2><p>在一个 activity 中多个 fragments 需要互相通信是很常见的。想象一个常见的 master-detail fragments 的情况，其中用户在一个 fragment 的列表中选择一个 item，另一个 fragment 显示所选 item 的内容。这种情况从来都不是不重要的，因为这两个 fragment 都需要定义一些接口描述，并且 owner activity 必须将两者绑定在一起。另外，两个 fragment 都必须处理另一个 fragment 是否已被创建或者可见的场景。</p>
+<p>这个常见的痛点可以通过 <a href="https://developer.android.com/reference/android/arch/lifecycle/ViewModel.html" target="_blank" rel="noopener"><code>ViewModel</code></a> 对象来解决。这些 fragment 可以共享一个 <a href="https://developer.android.com/reference/android/arch/lifecycle/ViewModel.html" target="_blank" rel="noopener"><code>ViewModel</code></a>，使用它们的 activity scope 来处理这个通信，如下示例：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SharedViewModel</span> : <span class="type">ViewModel</span></span>() &#123;</span><br><span class="line">    <span class="keyword">val</span> selected = MutableLiveData&lt;Item&gt;()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">select</span><span class="params">(item: <span class="type">Item</span>)</span></span> &#123;</span><br><span class="line">        selected.value = item</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MasterFragment</span> : <span class="type">Fragment</span></span>() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">lateinit</span> <span class="keyword">var</span> itemSelector: Selector</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">lateinit</span> <span class="keyword">var</span> model: SharedViewModel</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">        model = activity?.run &#123;</span><br><span class="line">            ViewModelProviders.of(<span class="keyword">this</span>).<span class="keyword">get</span>(SharedViewModel::<span class="class"><span class="keyword">class</span>.<span class="title">java</span>)</span></span><br><span class="line">        &#125; ?: <span class="keyword">throw</span> Exception(<span class="string">"Invalid Activity"</span>)</span><br><span class="line">        itemSelector.setOnClickListener &#123; item -&gt;</span><br><span class="line">            <span class="comment">// Update the UI</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DetailFragment</span> : <span class="type">Fragment</span></span>() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">lateinit</span> <span class="keyword">var</span> model: SharedViewModel</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">        model = activity?.run &#123;</span><br><span class="line">            ViewModelProviders.of(<span class="keyword">this</span>).<span class="keyword">get</span>(SharedViewModel::<span class="class"><span class="keyword">class</span>.<span class="title">java</span>)</span></span><br><span class="line">        &#125; ?: <span class="keyword">throw</span> Exception(<span class="string">"Invalid Activity"</span>)</span><br><span class="line">        model.selected.observe(<span class="keyword">this</span>, Observer&lt;Item&gt; &#123; item -&gt;</span><br><span class="line">            <span class="comment">// Update the UI</span></span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>要注意的是两个 fragment 在获取 <a href="https://developer.android.com/reference/android/arch/lifecycle/ViewModelProvider.html" target="_blank" rel="noopener">ViewModelProvider</a> 的时候都使用 <a href="https://developer.android.com/reference/android/app/Fragment.html#getActivity(" target="_blank" rel="noopener"><code>getActivity()</code></a>)。结果，两个 fragment 都接受一个相同的 <code>SharedViewModel</code> 实力，它的范围是 activity。</p>
+<p>这个方法有下面几个好处：</p>
+<ul>
+<li>Activity 不需要做任何事情，或者知道关于这个通信的任何事情</li>
+<li>Fragments 不需要知道互相之间除了 <code>SharedViewModel</code> 契约的其它任何事情。如果其中一个 fragments 消失了，另一个照常保持工作。</li>
+<li>每一个 fragments 都有它自己的生命周期，并不受到另一个生命周期的影响。如果一个 fragment replace 另外一个，UI 会继续工作，不会有问题。</li>
+</ul>
+<h2 id="使用-ViewModel-替换-Loaders"><a href="#使用-ViewModel-替换-Loaders" class="headerlink" title="使用 ViewModel 替换 Loaders"></a>使用 ViewModel 替换 Loaders</h2><p>Loader 类，比如 <a href="https://developer.android.com/reference/android/content/CursorLoader.html" target="_blank" rel="noopener"><code>CursorLoader</code></a>，会频繁地使用来保持 app 中的 UI 数据与数据库保持同步。你可以通过几个其它类使用 <a href="https://developer.android.com/reference/android/arch/lifecycle/ViewModel.html" target="_blank" rel="noopener"><code>ViewModel</code></a> 来替换 loader。使用 <a href="https://developer.android.com/reference/android/arch/lifecycle/ViewModel.html" target="_blank" rel="noopener"><code>ViewModel</code></a> 从数据加载操作中隔离你的 UI controller，这意味着你在这些类中拥有更少的强引用。</p>
+<p>在一个使用 loaders 的常用方法，app 可能使用 <a href="https://developer.android.com/reference/android/content/CursorLoader.html" target="_blank" rel="noopener"><code>CursorLoader</code></a> 来观察数据库的内容。当数据库中的值发生改变，loader 会自动触发一个重新加在并更新 UI：</p>
+<div style="text-align: center;"><br><img src="https://user-images.githubusercontent.com/5423194/48879871-c41b9c80-ee48-11e8-8b26-c051ca94d272.png" width="600px/"><br></div>
+
+<p><a href="https://developer.android.com/reference/android/arch/lifecycle/ViewModel.html" target="_blank" rel="noopener"><code>ViewModel</code></a> 与 <a href="https://developer.android.com/topic/libraries/architecture/room.html" target="_blank" rel="noopener">Room</a> 和 <a href="https://developer.android.com/topic/libraries/architecture/livedata.html" target="_blank" rel="noopener">LiveData</a> 一起使用来替换 loader。<a href="https://developer.android.com/reference/android/arch/lifecycle/ViewModel.html" target="_blank" rel="noopener"><code>ViewModel</code></a> 确保数据在设备配置改变时存活。<a href="https://developer.android.com/topic/libraries/architecture/room.html" target="_blank" rel="noopener">Room</a> 会在数据库发生改变时通知你的 <a href="https://developer.android.com/reference/android/arch/lifecycle/LiveData.html" target="_blank" rel="noopener"><code>LiveData</code></a>，然后 <a href="https://developer.android.com/reference/android/arch/lifecycle/LiveData.html" target="_blank" rel="noopener">LiveData</a> 反过来使用最新的数据更新你的 UI。</p>
+<div style="text-align: center;"><br><img src="https://user-images.githubusercontent.com/5423194/48880164-1c06d300-ee4a-11e8-98b1-cc4dad768914.png" width="600px/"><br></div>
+
+<h2 id="额外资源"><a href="#额外资源" class="headerlink" title="额外资源"></a>额外资源</h2><p><a href="https://medium.com/google-developers/lifecycle-aware-data-loading-with-android-architecture-components-f95484159de4" target="_blank" rel="noopener">本文</a> 描述了如何使用 <a href="https://developer.android.com/reference/android/arch/lifecycle/ViewModel.html" target="_blank" rel="noopener"><code>ViewModel</code></a> 和 <a href="https://developer.android.com/reference/android/arch/lifecycle/LiveData.html" target="_blank" rel="noopener"><code>LiveData</code></a> 来替换 <a href="https://developer.android.com/reference/android/content/AsyncTaskLoader.html" target="_blank" rel="noopener"><code>AsyncTaskLoader</code></a>。</p>
+<p>当你的数据变得越来越复杂，你可以选择用一个单独的类专门用来加载数据。<a href="https://developer.android.com/reference/android/arch/lifecycle/ViewModel.html" target="_blank" rel="noopener"><code>ViewModel</code></a> 的目的是为 UI Controller 封装数据，使得当设置配置改变时让数据存活。更多关于跨配置改变去加载，持久化，管理数据的详情，见 <a href="https://developer.android.com/topic/libraries/architecture/saving-states.html" target="_blank" rel="noopener">保存 UI 状态</a>。</p>
+<p><a href="https://developer.android.com/topic/libraries/architecture/guide.html#fetching_data" target="_blank" rel="noopener">Android App Architecture 指南</a> 建议构建一个 repository 类来处理这些函数。</p>
+<p><a href="https://developer.android.com/reference/android/arch/lifecycle/ViewModel.html" target="_blank" rel="noopener"><code>ViewModel</code></a> 被用在 Android 生命周期 <a href="https://codelabs.developers.google.com/codelabs/android-lifecycles/#0" target="_blank" rel="noopener">codelab</a> 和 <a href="https://github.com/googlesamples/android-sunflower" target="_blank" rel="noopener">Sunflower</a> demo app。也可以参阅 Architecture Components <a href="https://github.com/googlesamples/android-architecture-components/tree/master/BasicSample" target="_blank" rel="noopener">BasicSample</a>。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Android Architecture Component </category>
+            
+            <category> kotlin </category>
+            
+            <category> DataBinding </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> android </tag>
+            
+            <tag> kotlin </tag>
+            
+            <tag> architecture </tag>
+            
+            <tag> Android Architecture Component </tag>
+            
+            <tag> aac </tag>
+            
+            <tag> ViewModel </tag>
+            
+            <tag> LiveData </tag>
+            
+            <tag> DataBinding </tag>
+            
+            <tag> Lifecycles </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Android Architecture Component LiveData（翻译）]]></title>
       <url>/2018/04/15/android_architecture_components_livedata/</url>
       <content type="html"><![CDATA[<h1 id="Android-Architecture-Component-LiveData（翻译）"><a href="#Android-Architecture-Component-LiveData（翻译）" class="headerlink" title="Android Architecture Component LiveData（翻译）"></a>Android Architecture Component LiveData（翻译）</h1><blockquote>
@@ -797,6 +884,8 @@
             
             <tag> Lifecycles </tag>
             
+            <tag> 翻译 </tag>
+            
         </tags>
         
     </entry>
@@ -942,6 +1031,8 @@
             
             <tag> Lifecycles </tag>
             
+            <tag> 翻译 </tag>
+            
         </tags>
         
     </entry>
@@ -1001,6 +1092,8 @@
             <tag> DataBinding </tag>
             
             <tag> Lifecycles </tag>
+            
+            <tag> 翻译 </tag>
             
         </tags>
         
@@ -1096,6 +1189,8 @@
             
             <tag> Lifecycles </tag>
             
+            <tag> 翻译 </tag>
+            
         </tags>
         
     </entry>
@@ -1175,6 +1270,8 @@
             
             <tag> Lifecycles </tag>
             
+            <tag> 翻译 </tag>
+            
         </tags>
         
     </entry>
@@ -1251,6 +1348,8 @@
             <tag> DataBinding </tag>
             
             <tag> Lifecycles </tag>
+            
+            <tag> 翻译 </tag>
             
         </tags>
         
@@ -1505,6 +1604,8 @@
             <tag> DataBinding </tag>
             
             <tag> Lifecycles </tag>
+            
+            <tag> 翻译 </tag>
             
         </tags>
         
@@ -2567,9 +2668,9 @@
             
             <tag> architecture </tag>
             
-            <tag> framework </tag>
-            
             <tag> 翻译 </tag>
+            
+            <tag> framework </tag>
             
             <tag> dagger2 </tag>
             
@@ -3902,9 +4003,9 @@
             
             <tag> android </tag>
             
-            <tag> best practices </tag>
-            
             <tag> ListView </tag>
+            
+            <tag> best practices </tag>
             
             <tag> RecyclerView </tag>
             
@@ -4066,9 +4167,9 @@
             
             <tag> android </tag>
             
-            <tag> dependency injection </tag>
-            
             <tag> 翻译 </tag>
+            
+            <tag> dependency injection </tag>
             
             <tag> dagger2 </tag>
             
@@ -4169,9 +4270,9 @@
             
             <tag> android </tag>
             
-            <tag> dependency injection </tag>
-            
             <tag> 翻译 </tag>
+            
+            <tag> dependency injection </tag>
             
             <tag> dagger2 </tag>
             
@@ -4275,9 +4376,9 @@
             
             <tag> android </tag>
             
-            <tag> dependency injection </tag>
-            
             <tag> 翻译 </tag>
+            
+            <tag> dependency injection </tag>
             
             <tag> dagger2 </tag>
             
@@ -4409,9 +4510,9 @@
             
             <tag> android </tag>
             
-            <tag> dependency injection </tag>
-            
             <tag> 翻译 </tag>
+            
+            <tag> dependency injection </tag>
             
             <tag> dagger2 </tag>
             
@@ -4466,13 +4567,13 @@
             
             <tag> library </tag>
             
-            <tag> sqlite </tag>
-            
-            <tag> database </tag>
-            
             <tag> orm </tag>
             
             <tag> rapidorm </tag>
+            
+            <tag> database </tag>
+            
+            <tag> sqlite </tag>
             
         </tags>
         
@@ -4543,7 +4644,7 @@
       <title><![CDATA[[Android]异步 layout inflation（翻译）]]></title>
       <url>/2016/09/01/Android-%E5%BC%82%E6%AD%A5-layout-inflation%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/</url>
       <content type="html"><![CDATA[<h1 id="异步-layout-inflation"><a href="#异步-layout-inflation" class="headerlink" title="异步 layout inflation"></a>异步 layout inflation</h1><blockquote>
-<p>原文：<a href="&#109;&#x61;&#x69;&#x6c;&#116;&#111;&#x3a;&#x68;&#x74;&#116;&#112;&#115;&#58;&#47;&#47;&#109;&#x65;&#100;&#105;&#x75;&#x6d;&#x2e;&#99;&#111;&#x6d;&#47;&#x40;&#x6c;&#x75;&#x70;&#97;&#x6a;&#x7a;&#x2f;&#x61;&#x73;&#121;&#110;&#99;&#x68;&#114;&#x6f;&#x6e;&#111;&#x75;&#x73;&#x2d;&#x6c;&#97;&#x79;&#x6f;&#x75;&#x74;&#x2d;&#105;&#110;&#102;&#x6c;&#x61;&#x74;&#x69;&#x6f;&#110;&#45;&#55;&#x63;&#98;&#x63;&#97;&#50;&#54;&#x35;&#51;&#98;&#102;&#x23;&#x2e;&#x71;&#x32;&#x32;&#x76;&#x70;&#101;&#122;&#x67;&#52;">&#x68;&#x74;&#116;&#112;&#115;&#58;&#47;&#47;&#109;&#x65;&#100;&#105;&#x75;&#x6d;&#x2e;&#99;&#111;&#x6d;&#47;&#x40;&#x6c;&#x75;&#x70;&#97;&#x6a;&#x7a;&#x2f;&#x61;&#x73;&#121;&#110;&#99;&#x68;&#114;&#x6f;&#x6e;&#111;&#x75;&#x73;&#x2d;&#x6c;&#97;&#x79;&#x6f;&#x75;&#x74;&#x2d;&#105;&#110;&#102;&#x6c;&#x61;&#x74;&#x69;&#x6f;&#110;&#45;&#55;&#x63;&#98;&#x63;&#97;&#50;&#54;&#x35;&#51;&#98;&#102;&#x23;&#x2e;&#x71;&#x32;&#x32;&#x76;&#x70;&#101;&#122;&#x67;&#52;</a></p>
+<p>原文：<a href="&#109;&#97;&#x69;&#x6c;&#116;&#111;&#58;&#x68;&#x74;&#116;&#x70;&#x73;&#58;&#47;&#x2f;&#109;&#101;&#x64;&#x69;&#x75;&#x6d;&#46;&#x63;&#x6f;&#109;&#47;&#64;&#x6c;&#117;&#x70;&#97;&#x6a;&#x7a;&#x2f;&#97;&#x73;&#x79;&#x6e;&#99;&#104;&#x72;&#x6f;&#110;&#111;&#117;&#115;&#45;&#108;&#x61;&#121;&#x6f;&#x75;&#116;&#45;&#105;&#x6e;&#x66;&#108;&#97;&#116;&#x69;&#x6f;&#x6e;&#45;&#x37;&#x63;&#98;&#x63;&#x61;&#50;&#x36;&#53;&#51;&#98;&#102;&#x23;&#46;&#113;&#50;&#x32;&#x76;&#112;&#x65;&#122;&#103;&#x34;">&#x68;&#x74;&#116;&#x70;&#x73;&#58;&#47;&#x2f;&#109;&#101;&#x64;&#x69;&#x75;&#x6d;&#46;&#x63;&#x6f;&#109;&#47;&#64;&#x6c;&#117;&#x70;&#97;&#x6a;&#x7a;&#x2f;&#97;&#x73;&#x79;&#x6e;&#99;&#104;&#x72;&#x6f;&#110;&#111;&#117;&#115;&#45;&#108;&#x61;&#121;&#x6f;&#x75;&#116;&#45;&#105;&#x6e;&#x66;&#108;&#97;&#116;&#x69;&#x6f;&#x6e;&#45;&#x37;&#x63;&#98;&#x63;&#x61;&#50;&#x36;&#53;&#51;&#98;&#102;&#x23;&#46;&#113;&#50;&#x32;&#x76;&#112;&#x65;&#122;&#103;&#x34;</a></p>
 </blockquote>
 <p>随着最近发布的<a href="https://developer.android.com/topic/libraries/support-library/revisions.html" target="_blank" rel="noopener">Android Support Library, revision 24</a>，Google开发者在v4包中增加了一个用来异步inflate layouts的帮助类。</p>
 <h2 id="进入-AsyncLayoutInflater"><a href="#进入-AsyncLayoutInflater" class="headerlink" title="进入 AsyncLayoutInflater"></a>进入 AsyncLayoutInflater</h2><p>你会发现AsyncLayoutInflater可以使用在当你想要去懒加载你应用中部分UI或者用户行为的响应。这个帮助类将会允许你的UI线程在执行繁重的inflate时继续保持响应。</p>
@@ -5759,13 +5860,13 @@ Cookie: ... ...
             
             <tag> library </tag>
             
-            <tag> sqlite </tag>
-            
-            <tag> database </tag>
-            
             <tag> orm </tag>
             
             <tag> rapidorm </tag>
+            
+            <tag> database </tag>
+            
+            <tag> sqlite </tag>
             
         </tags>
         
@@ -6104,9 +6205,9 @@ Cookie: ... ...
             
             <tag> android </tag>
             
-            <tag> framework </tag>
-            
             <tag> 翻译 </tag>
+            
+            <tag> framework </tag>
             
             <tag> best practices </tag>
             
@@ -6197,9 +6298,9 @@ Cookie: ... ...
             
             <tag> android </tag>
             
-            <tag> dependency injection </tag>
-            
             <tag> 翻译 </tag>
+            
+            <tag> dependency injection </tag>
             
             <tag> dagger2 </tag>
             
@@ -6319,9 +6420,9 @@ Cookie: ... ...
             
             <tag> android </tag>
             
-            <tag> dependency injection </tag>
-            
             <tag> 翻译 </tag>
+            
+            <tag> dependency injection </tag>
             
             <tag> dagger2 </tag>
             
@@ -6440,9 +6541,9 @@ Cookie: ... ...
             
             <tag> android </tag>
             
-            <tag> dependency injection </tag>
-            
             <tag> 翻译 </tag>
+            
+            <tag> dependency injection </tag>
             
             <tag> dagger2 </tag>
             
@@ -6580,9 +6681,9 @@ Cookie: ... ...
             
             <tag> android </tag>
             
-            <tag> dependency injection </tag>
-            
             <tag> 翻译 </tag>
+            
+            <tag> dependency injection </tag>
             
             <tag> dagger2 </tag>
             
@@ -6678,9 +6779,9 @@ Cookie: ... ...
             
             <tag> android </tag>
             
-            <tag> dependency injection </tag>
-            
             <tag> 翻译 </tag>
+            
+            <tag> dependency injection </tag>
             
             <tag> dagger2 </tag>
             
@@ -6773,9 +6874,9 @@ Cookie: ... ...
         
         <tags>
             
-            <tag> testing </tag>
-            
             <tag> android </tag>
+            
+            <tag> testing </tag>
             
             <tag> 翻译 </tag>
             
@@ -6947,9 +7048,9 @@ Cookie: ... ...
         
         <tags>
             
-            <tag> testing </tag>
-            
             <tag> android </tag>
+            
+            <tag> testing </tag>
             
             <tag> 翻译 </tag>
             
@@ -7117,9 +7218,9 @@ Cookie: ... ...
         
         <tags>
             
-            <tag> testing </tag>
-            
             <tag> android </tag>
+            
+            <tag> testing </tag>
             
             <tag> 翻译 </tag>
             
@@ -8397,13 +8498,13 @@ for (name in names) {
             
             <tag> library </tag>
             
-            <tag> sqlite </tag>
-            
-            <tag> database </tag>
-            
             <tag> orm </tag>
             
             <tag> rapidorm </tag>
+            
+            <tag> database </tag>
+            
+            <tag> sqlite </tag>
             
         </tags>
         
@@ -8849,9 +8950,9 @@ for (name in names) {
             
             <tag> android </tag>
             
-            <tag> best practices </tag>
-            
             <tag> ListView </tag>
+            
+            <tag> best practices </tag>
             
             <tag> RecyclerView </tag>
             
@@ -8920,9 +9021,9 @@ for (name in names) {
             
             <tag> android </tag>
             
-            <tag> best practices </tag>
-            
             <tag> ListView </tag>
+            
+            <tag> best practices </tag>
             
             <tag> RecyclerView </tag>
             
@@ -9021,9 +9122,9 @@ for (name in names) {
             
             <tag> android </tag>
             
-            <tag> best practices </tag>
-            
             <tag> ListView </tag>
+            
+            <tag> best practices </tag>
             
             <tag> RecyclerView </tag>
             
@@ -9229,9 +9330,9 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> android </tag>
             
-            <tag> best practices </tag>
-            
             <tag> ListView </tag>
+            
+            <tag> best practices </tag>
             
             <tag> adapter </tag>
             
@@ -9277,11 +9378,11 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> android </tag>
             
-            <tag> best practices </tag>
-            
             <tag> ListView </tag>
             
             <tag> optimize </tag>
+            
+            <tag> best practices </tag>
             
         </tags>
         
@@ -9450,9 +9551,9 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> android </tag>
             
-            <tag> best practices </tag>
-            
             <tag> ListView </tag>
+            
+            <tag> best practices </tag>
             
             <tag> adapter </tag>
             
@@ -10133,9 +10234,9 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> android </tag>
             
-            <tag> best practices </tag>
-            
             <tag> ListView </tag>
+            
+            <tag> best practices </tag>
             
             <tag> adapter </tag>
             
@@ -10300,15 +10401,15 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> library </tag>
             
-            <tag> inject </tag>
-            
-            <tag> sqlite </tag>
-            
-            <tag> sqlite3 </tag>
+            <tag> orm </tag>
             
             <tag> database </tag>
             
-            <tag> orm </tag>
+            <tag> sqlite </tag>
+            
+            <tag> inject </tag>
+            
+            <tag> sqlite3 </tag>
             
         </tags>
         
@@ -13083,9 +13184,9 @@ Integer.toHexString(Integer.parseInt(&quot;0101&quot;, 2));
             
             <tag> android </tag>
             
-            <tag> view </tag>
-            
             <tag> ListView </tag>
+            
+            <tag> view </tag>
             
             <tag> tips </tag>
             

@@ -245,11 +245,57 @@
   </entry>
   
   <entry>
+    <title>Android Architecture Component ViewModel（翻译）</title>
+    <link href="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_viewmodel/"/>
+    <id>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_viewmodel/</id>
+    <published>2018-04-15T13:01:00.000Z</published>
+    <updated>2018-11-22T03:40:39.289Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;Android-Architecture-Component-ViewModel（翻译）&quot;&gt;&lt;a href=&quot;#Android-Architecture-Component-ViewModel（翻译）&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="Android Architecture Component" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/"/>
+    
+      <category term="kotlin" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/kotlin/"/>
+    
+      <category term="DataBinding" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/kotlin/DataBinding/"/>
+    
+    
+      <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
+    
+      <category term="kotlin" scheme="https://blog.wangjiegulu.com/tags/kotlin/"/>
+    
+      <category term="architecture" scheme="https://blog.wangjiegulu.com/tags/architecture/"/>
+    
+      <category term="Android Architecture Component" scheme="https://blog.wangjiegulu.com/tags/Android-Architecture-Component/"/>
+    
+      <category term="aac" scheme="https://blog.wangjiegulu.com/tags/aac/"/>
+    
+      <category term="ViewModel" scheme="https://blog.wangjiegulu.com/tags/ViewModel/"/>
+    
+      <category term="LiveData" scheme="https://blog.wangjiegulu.com/tags/LiveData/"/>
+    
+      <category term="DataBinding" scheme="https://blog.wangjiegulu.com/tags/DataBinding/"/>
+    
+      <category term="Lifecycles" scheme="https://blog.wangjiegulu.com/tags/Lifecycles/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Android Architecture Component LiveData（翻译）</title>
     <link href="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_livedata/"/>
     <id>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_livedata/</id>
     <published>2018-04-15T12:01:00.000Z</published>
-    <updated>2018-11-21T15:35:38.122Z</updated>
+    <updated>2018-11-22T01:45:03.676Z</updated>
     
     <summary type="html">
     
@@ -288,6 +334,8 @@
     
       <category term="Lifecycles" scheme="https://blog.wangjiegulu.com/tags/Lifecycles/"/>
     
+      <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
+    
   </entry>
   
   <entry>
@@ -295,7 +343,7 @@
     <link href="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_binding_two_way/"/>
     <id>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_binding_two_way/</id>
     <published>2018-04-15T10:01:00.000Z</published>
-    <updated>2018-11-21T09:33:29.823Z</updated>
+    <updated>2018-11-22T01:44:59.564Z</updated>
     
     <summary type="html">
     
@@ -334,6 +382,8 @@
     
       <category term="Lifecycles" scheme="https://blog.wangjiegulu.com/tags/Lifecycles/"/>
     
+      <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
+    
   </entry>
   
   <entry>
@@ -341,7 +391,7 @@
     <link href="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_binding_architecture/"/>
     <id>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_binding_architecture/</id>
     <published>2018-04-15T09:01:00.000Z</published>
-    <updated>2018-11-21T09:33:46.518Z</updated>
+    <updated>2018-11-22T01:44:50.308Z</updated>
     
     <summary type="html">
     
@@ -380,6 +430,8 @@
     
       <category term="Lifecycles" scheme="https://blog.wangjiegulu.com/tags/Lifecycles/"/>
     
+      <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
+    
   </entry>
   
   <entry>
@@ -387,7 +439,7 @@
     <link href="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_binding_adapters/"/>
     <id>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_binding_adapters/</id>
     <published>2018-04-15T08:01:00.000Z</published>
-    <updated>2018-11-21T09:34:00.320Z</updated>
+    <updated>2018-11-22T01:44:46.034Z</updated>
     
     <summary type="html">
     
@@ -426,6 +478,8 @@
     
       <category term="Lifecycles" scheme="https://blog.wangjiegulu.com/tags/Lifecycles/"/>
     
+      <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
+    
   </entry>
   
   <entry>
@@ -433,7 +487,7 @@
     <link href="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_generated_binding/"/>
     <id>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_generated_binding/</id>
     <published>2018-04-15T07:01:00.000Z</published>
-    <updated>2018-11-21T09:34:47.374Z</updated>
+    <updated>2018-11-22T01:44:37.022Z</updated>
     
     <summary type="html">
     
@@ -472,6 +526,8 @@
     
       <category term="Lifecycles" scheme="https://blog.wangjiegulu.com/tags/Lifecycles/"/>
     
+      <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
+    
   </entry>
   
   <entry>
@@ -479,7 +535,7 @@
     <link href="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_observability/"/>
     <id>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_observability/</id>
     <published>2018-04-15T06:01:00.000Z</published>
-    <updated>2018-11-21T09:34:18.224Z</updated>
+    <updated>2018-11-22T01:44:41.573Z</updated>
     
     <summary type="html">
     
@@ -518,6 +574,8 @@
     
       <category term="Lifecycles" scheme="https://blog.wangjiegulu.com/tags/Lifecycles/"/>
     
+      <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
+    
   </entry>
   
   <entry>
@@ -525,7 +583,7 @@
     <link href="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_databinding_expressions/"/>
     <id>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_databinding_expressions/</id>
     <published>2018-04-15T05:01:00.000Z</published>
-    <updated>2018-11-21T09:35:07.817Z</updated>
+    <updated>2018-11-22T01:44:30.467Z</updated>
     
     <summary type="html">
     
@@ -563,6 +621,8 @@
       <category term="DataBinding" scheme="https://blog.wangjiegulu.com/tags/DataBinding/"/>
     
       <category term="Lifecycles" scheme="https://blog.wangjiegulu.com/tags/Lifecycles/"/>
+    
+      <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
     
   </entry>
   
@@ -869,46 +929,6 @@
       <category term="Google" scheme="https://blog.wangjiegulu.com/tags/Google/"/>
     
       <category term="codelab" scheme="https://blog.wangjiegulu.com/tags/codelab/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>在Android上编写模块化项目（翻译）</title>
-    <link href="https://blog.wangjiegulu.com/2018/02/13/writing_a_modular_project_on_android/"/>
-    <id>https://blog.wangjiegulu.com/2018/02/13/writing_a_modular_project_on_android/</id>
-    <published>2018-02-13T08:04:18.000Z</published>
-    <updated>2018-02-13T09:45:46.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;原文：&lt;a href=&quot;https://medium.com/mindorks/writing-a-modular-project-on-android-304f3b09cb37&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://medium.com/mindorks/writing-a-modular-project-on-android-304f3b09cb37&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h1 id=&quot;在Android上编写模块化项目（翻译）&quot;&gt;&lt;a href=&quot;#在Android上编写模块化项目（翻译）&quot; class=&quot;headerlink&quot; title=&quot;在Android上编写模块化项目（翻译）&quot;&gt;&lt;/a&gt;在Android上编写模块化项目（翻译）&lt;/h1&gt;&lt;p&gt;当我们在 Android Studio 上创建一个新的项目时，自带一个 &lt;code&gt;app&lt;/code&gt; module。这时我们大多数人编写整个应用的地方。每次点击 &lt;code&gt;run&lt;/code&gt; 按钮都会触发我们整个所有 module 上的 gradle 构建，并检查所有文件是否有变化。这就是为什么 gradle 构建会在更大的应用程序上花费 &lt;a href=&quot;https://eng.uber.com/android-monorepo/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;10分钟&lt;/a&gt;的时间，并且减慢开发者的&lt;a href=&quot;https://imgs.xkcd.com/comics/compiling.png&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;输出&lt;/a&gt;。&lt;/p&gt;
-&lt;p&gt;要解决这个问题，复杂的应用程序，如 Uber 决定对它们的应用程序进行模块化并从中&lt;a href=&quot;https://www.youtube.com/watch?v=j6CiHlapado&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;获得&lt;/a&gt;了很多。下面是试用模块化项目的一些优势：&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="android" scheme="https://blog.wangjiegulu.com/categories/android/"/>
-    
-      <category term="gradle plugin" scheme="https://blog.wangjiegulu.com/categories/android/gradle-plugin/"/>
-    
-    
-      <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
-    
-      <category term="kotlin" scheme="https://blog.wangjiegulu.com/tags/kotlin/"/>
-    
-      <category term="architecture" scheme="https://blog.wangjiegulu.com/tags/architecture/"/>
-    
-      <category term="framework" scheme="https://blog.wangjiegulu.com/tags/framework/"/>
-    
-      <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
-    
-      <category term="dagger2" scheme="https://blog.wangjiegulu.com/tags/dagger2/"/>
-    
-      <category term="modular" scheme="https://blog.wangjiegulu.com/tags/modular/"/>
-    
-      <category term="room" scheme="https://blog.wangjiegulu.com/tags/room/"/>
     
   </entry>
   
