@@ -724,6 +724,8 @@
             
             <tag> Lifecycles </tag>
             
+            <tag> 翻译 </tag>
+            
         </tags>
         
     </entry>
@@ -3038,9 +3040,9 @@
             
             <tag> android </tag>
             
-            <tag> memory leak </tag>
-            
             <tag> 翻译 </tag>
+            
+            <tag> memory leak </tag>
             
         </tags>
         
@@ -4567,13 +4569,13 @@
             
             <tag> library </tag>
             
-            <tag> orm </tag>
-            
-            <tag> rapidorm </tag>
+            <tag> sqlite </tag>
             
             <tag> database </tag>
             
-            <tag> sqlite </tag>
+            <tag> orm </tag>
+            
+            <tag> rapidorm </tag>
             
         </tags>
         
@@ -4644,7 +4646,7 @@
       <title><![CDATA[[Android]异步 layout inflation（翻译）]]></title>
       <url>/2016/09/01/Android-%E5%BC%82%E6%AD%A5-layout-inflation%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/</url>
       <content type="html"><![CDATA[<h1 id="异步-layout-inflation"><a href="#异步-layout-inflation" class="headerlink" title="异步 layout inflation"></a>异步 layout inflation</h1><blockquote>
-<p>原文：<a href="&#109;&#97;&#x69;&#x6c;&#116;&#111;&#58;&#x68;&#x74;&#116;&#x70;&#x73;&#58;&#47;&#x2f;&#109;&#101;&#x64;&#x69;&#x75;&#x6d;&#46;&#x63;&#x6f;&#109;&#47;&#64;&#x6c;&#117;&#x70;&#97;&#x6a;&#x7a;&#x2f;&#97;&#x73;&#x79;&#x6e;&#99;&#104;&#x72;&#x6f;&#110;&#111;&#117;&#115;&#45;&#108;&#x61;&#121;&#x6f;&#x75;&#116;&#45;&#105;&#x6e;&#x66;&#108;&#97;&#116;&#x69;&#x6f;&#x6e;&#45;&#x37;&#x63;&#98;&#x63;&#x61;&#50;&#x36;&#53;&#51;&#98;&#102;&#x23;&#46;&#113;&#50;&#x32;&#x76;&#112;&#x65;&#122;&#103;&#x34;">&#x68;&#x74;&#116;&#x70;&#x73;&#58;&#47;&#x2f;&#109;&#101;&#x64;&#x69;&#x75;&#x6d;&#46;&#x63;&#x6f;&#109;&#47;&#64;&#x6c;&#117;&#x70;&#97;&#x6a;&#x7a;&#x2f;&#97;&#x73;&#x79;&#x6e;&#99;&#104;&#x72;&#x6f;&#110;&#111;&#117;&#115;&#45;&#108;&#x61;&#121;&#x6f;&#x75;&#116;&#45;&#105;&#x6e;&#x66;&#108;&#97;&#116;&#x69;&#x6f;&#x6e;&#45;&#x37;&#x63;&#98;&#x63;&#x61;&#50;&#x36;&#53;&#51;&#98;&#102;&#x23;&#46;&#113;&#50;&#x32;&#x76;&#112;&#x65;&#122;&#103;&#x34;</a></p>
+<p>原文：<a href="&#109;&#97;&#x69;&#108;&#116;&#x6f;&#x3a;&#104;&#x74;&#x74;&#x70;&#115;&#58;&#x2f;&#x2f;&#109;&#101;&#100;&#x69;&#x75;&#x6d;&#x2e;&#99;&#x6f;&#109;&#47;&#x40;&#x6c;&#x75;&#x70;&#x61;&#106;&#x7a;&#47;&#x61;&#115;&#x79;&#x6e;&#x63;&#x68;&#x72;&#x6f;&#x6e;&#111;&#x75;&#x73;&#x2d;&#x6c;&#x61;&#121;&#111;&#117;&#116;&#x2d;&#x69;&#x6e;&#x66;&#108;&#97;&#x74;&#x69;&#111;&#110;&#x2d;&#55;&#x63;&#x62;&#x63;&#97;&#x32;&#x36;&#x35;&#51;&#x62;&#x66;&#x23;&#46;&#x71;&#50;&#x32;&#x76;&#x70;&#x65;&#122;&#x67;&#x34;">&#104;&#x74;&#x74;&#x70;&#115;&#58;&#x2f;&#x2f;&#109;&#101;&#100;&#x69;&#x75;&#x6d;&#x2e;&#99;&#x6f;&#109;&#47;&#x40;&#x6c;&#x75;&#x70;&#x61;&#106;&#x7a;&#47;&#x61;&#115;&#x79;&#x6e;&#x63;&#x68;&#x72;&#x6f;&#x6e;&#111;&#x75;&#x73;&#x2d;&#x6c;&#x61;&#121;&#111;&#117;&#116;&#x2d;&#x69;&#x6e;&#x66;&#108;&#97;&#x74;&#x69;&#111;&#110;&#x2d;&#55;&#x63;&#x62;&#x63;&#97;&#x32;&#x36;&#x35;&#51;&#x62;&#x66;&#x23;&#46;&#x71;&#50;&#x32;&#x76;&#x70;&#x65;&#122;&#x67;&#x34;</a></p>
 </blockquote>
 <p>随着最近发布的<a href="https://developer.android.com/topic/libraries/support-library/revisions.html" target="_blank" rel="noopener">Android Support Library, revision 24</a>，Google开发者在v4包中增加了一个用来异步inflate layouts的帮助类。</p>
 <h2 id="进入-AsyncLayoutInflater"><a href="#进入-AsyncLayoutInflater" class="headerlink" title="进入 AsyncLayoutInflater"></a>进入 AsyncLayoutInflater</h2><p>你会发现AsyncLayoutInflater可以使用在当你想要去懒加载你应用中部分UI或者用户行为的响应。这个帮助类将会允许你的UI线程在执行繁重的inflate时继续保持响应。</p>
@@ -5860,13 +5862,13 @@ Cookie: ... ...
             
             <tag> library </tag>
             
-            <tag> orm </tag>
-            
-            <tag> rapidorm </tag>
+            <tag> sqlite </tag>
             
             <tag> database </tag>
             
-            <tag> sqlite </tag>
+            <tag> orm </tag>
+            
+            <tag> rapidorm </tag>
             
         </tags>
         
@@ -6876,9 +6878,9 @@ Cookie: ... ...
             
             <tag> android </tag>
             
-            <tag> testing </tag>
-            
             <tag> 翻译 </tag>
+            
+            <tag> testing </tag>
             
             <tag> monkey </tag>
             
@@ -7050,9 +7052,9 @@ Cookie: ... ...
             
             <tag> android </tag>
             
-            <tag> testing </tag>
-            
             <tag> 翻译 </tag>
+            
+            <tag> testing </tag>
             
             <tag> monkey </tag>
             
@@ -7220,9 +7222,9 @@ Cookie: ... ...
             
             <tag> android </tag>
             
-            <tag> testing </tag>
-            
             <tag> 翻译 </tag>
+            
+            <tag> testing </tag>
             
             <tag> google </tag>
             
@@ -8498,13 +8500,13 @@ for (name in names) {
             
             <tag> library </tag>
             
-            <tag> orm </tag>
-            
-            <tag> rapidorm </tag>
+            <tag> sqlite </tag>
             
             <tag> database </tag>
             
-            <tag> sqlite </tag>
+            <tag> orm </tag>
+            
+            <tag> rapidorm </tag>
             
         </tags>
         
@@ -10401,15 +10403,15 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> library </tag>
             
-            <tag> orm </tag>
-            
-            <tag> database </tag>
+            <tag> inject </tag>
             
             <tag> sqlite </tag>
             
-            <tag> inject </tag>
-            
             <tag> sqlite3 </tag>
+            
+            <tag> database </tag>
+            
+            <tag> orm </tag>
             
         </tags>
         
@@ -13666,9 +13668,9 @@ Integer.toHexString(Integer.parseInt(&quot;0101&quot;, 2));
             
             <tag> android </tag>
             
-            <tag> tips </tag>
-            
             <tag> UI </tag>
+            
+            <tag> tips </tag>
             
             <tag> unit </tag>
             
