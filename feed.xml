@@ -245,6 +245,54 @@
   </entry>
   
   <entry>
+    <title>Android Architecture Component Lifecycle（翻译）</title>
+    <link href="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_lifecycle/"/>
+    <id>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_lifecycle/</id>
+    <published>2018-04-15T13:01:00.000Z</published>
+    <updated>2018-11-22T06:56:52.291Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;Android-Architecture-Component-Lifecycle（翻译）&quot;&gt;&lt;a href=&quot;#Android-Architecture-Component-Lifecycle（翻译）&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="Android Architecture Component" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/"/>
+    
+      <category term="kotlin" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/kotlin/"/>
+    
+      <category term="DataBinding" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/kotlin/DataBinding/"/>
+    
+    
+      <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
+    
+      <category term="kotlin" scheme="https://blog.wangjiegulu.com/tags/kotlin/"/>
+    
+      <category term="architecture" scheme="https://blog.wangjiegulu.com/tags/architecture/"/>
+    
+      <category term="Android Architecture Component" scheme="https://blog.wangjiegulu.com/tags/Android-Architecture-Component/"/>
+    
+      <category term="aac" scheme="https://blog.wangjiegulu.com/tags/aac/"/>
+    
+      <category term="ViewModel" scheme="https://blog.wangjiegulu.com/tags/ViewModel/"/>
+    
+      <category term="LiveData" scheme="https://blog.wangjiegulu.com/tags/LiveData/"/>
+    
+      <category term="DataBinding" scheme="https://blog.wangjiegulu.com/tags/DataBinding/"/>
+    
+      <category term="Lifecycles" scheme="https://blog.wangjiegulu.com/tags/Lifecycles/"/>
+    
+      <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Android Architecture Component ViewModel（翻译）</title>
     <link href="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_viewmodel/"/>
     <id>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_viewmodel/</id>
@@ -725,7 +773,7 @@
     <link href="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_overview/"/>
     <id>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_overview/</id>
     <published>2018-04-15T02:01:00.000Z</published>
-    <updated>2018-11-21T09:10:49.347Z</updated>
+    <updated>2018-11-22T04:45:25.810Z</updated>
     
     <summary type="html">
     
@@ -887,50 +935,6 @@
       <category term="aar" scheme="https://blog.wangjiegulu.com/tags/aar/"/>
     
       <category term="jar" scheme="https://blog.wangjiegulu.com/tags/jar/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>编写第一个Flutter App（翻译）</title>
-    <link href="https://blog.wangjiegulu.com/2018/03/01/write_your_first_flutter_app/"/>
-    <id>https://blog.wangjiegulu.com/2018/03/01/write_your_first_flutter_app/</id>
-    <published>2018-03-01T12:05:58.000Z</published>
-    <updated>2018-03-02T16:08:34.000Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;&lt;strong&gt;以下代码 Github 地址：&lt;a href=&quot;https://github.com/wangjiegulu/flutter_test_01&quot; target=&quot;_blank&quot;
-        
-      
-    
-    </summary>
-    
-      <category term="flutter" scheme="https://blog.wangjiegulu.com/categories/flutter/"/>
-    
-      <category term="dart" scheme="https://blog.wangjiegulu.com/categories/flutter/dart/"/>
-    
-    
-      <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
-    
-      <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
-    
-      <category term="flutter" scheme="https://blog.wangjiegulu.com/tags/flutter/"/>
-    
-      <category term="ios" scheme="https://blog.wangjiegulu.com/tags/ios/"/>
-    
-      <category term="dart" scheme="https://blog.wangjiegulu.com/tags/dart/"/>
-    
-      <category term="widget" scheme="https://blog.wangjiegulu.com/tags/widget/"/>
-    
-      <category term="fuchsia" scheme="https://blog.wangjiegulu.com/tags/fuchsia/"/>
-    
-      <category term="Google" scheme="https://blog.wangjiegulu.com/tags/Google/"/>
-    
-      <category term="codelab" scheme="https://blog.wangjiegulu.com/tags/codelab/"/>
     
   </entry>
   
