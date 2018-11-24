@@ -6,7 +6,7 @@
   <link href="/feed.xml" rel="self"/>
   
   <link href="https://blog.wangjiegulu.com/"/>
-  <updated>2018-11-16T05:49:36.875Z</updated>
+  <updated>2018-11-24T03:08:14.058Z</updated>
   <id>https://blog.wangjiegulu.com/</id>
   
   <author>
@@ -15,6 +15,44 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Huginn 的 docker 部署及数据迁移</title>
+    <link href="https://blog.wangjiegulu.com/2018/11/24/huginn_deployment_with_docker_and_data_migration/"/>
+    <id>https://blog.wangjiegulu.com/2018/11/24/huginn_deployment_with_docker_and_data_migration/</id>
+    <published>2018-11-24T01:58:12.453Z</published>
+    <updated>2018-11-24T03:08:14.058Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;Huginn-的-docker-部署及数据迁移&quot;&gt;&lt;a href=&quot;#Huginn-的-docker-部署及数据迁移&quot; class=&quot;headerlink&quot; title=&quot;Huginn 的 docker 部署及数据迁移&quot;&gt;&lt;/a&gt;Huginn 的 docker
+        
+      
+    
+    </summary>
+    
+      <category term="automate" scheme="https://blog.wangjiegulu.com/categories/automate/"/>
+    
+      <category term="docker" scheme="https://blog.wangjiegulu.com/categories/automate/docker/"/>
+    
+    
+      <category term="automate" scheme="https://blog.wangjiegulu.com/tags/automate/"/>
+    
+      <category term="huginn" scheme="https://blog.wangjiegulu.com/tags/huginn/"/>
+    
+      <category term="mysql" scheme="https://blog.wangjiegulu.com/tags/mysql/"/>
+    
+      <category term="docker" scheme="https://blog.wangjiegulu.com/tags/docker/"/>
+    
+      <category term="docker hub" scheme="https://blog.wangjiegulu.com/tags/docker-hub/"/>
+    
+      <category term="migration" scheme="https://blog.wangjiegulu.com/tags/migration/"/>
+    
+  </entry>
   
   <entry>
     <title>Huginn实现自动通过Telegram推送豆瓣高分电影</title>
@@ -245,11 +283,11 @@
   </entry>
   
   <entry>
-    <title>Android Architecture Component ViewModel（翻译）</title>
-    <link href="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_viewmodel/"/>
-    <id>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_viewmodel/</id>
+    <title>Android Architecture Component Lifecycle（翻译）</title>
+    <link href="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_lifecycle/"/>
+    <id>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_lifecycle/</id>
     <published>2018-04-15T13:01:00.000Z</published>
-    <updated>2018-11-22T04:14:54.803Z</updated>
+    <updated>2018-11-22T06:56:52.291Z</updated>
     
     <summary type="html">
     
@@ -257,7 +295,7 @@
       
         
         
-          &lt;h1 id=&quot;Android-Architecture-Component-ViewModel（翻译）&quot;&gt;&lt;a href=&quot;#Android-Architecture-Component-ViewModel（翻译）&quot; class=&quot;headerlink&quot;
+          &lt;h1 id=&quot;Android-Architecture-Component-Lifecycle（翻译）&quot;&gt;&lt;a href=&quot;#Android-Architecture-Component-Lifecycle（翻译）&quot; class=&quot;headerlink&quot;
         
       
     
@@ -293,11 +331,11 @@
   </entry>
   
   <entry>
-    <title>Android Architecture Component Lifecycle（翻译）</title>
-    <link href="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_lifecycle/"/>
-    <id>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_lifecycle/</id>
+    <title>Android Architecture Component ViewModel（翻译）</title>
+    <link href="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_viewmodel/"/>
+    <id>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_viewmodel/</id>
     <published>2018-04-15T13:01:00.000Z</published>
-    <updated>2018-11-22T06:56:52.291Z</updated>
+    <updated>2018-11-22T04:14:54.803Z</updated>
     
     <summary type="html">
     
@@ -305,7 +343,7 @@
       
         
         
-          &lt;h1 id=&quot;Android-Architecture-Component-Lifecycle（翻译）&quot;&gt;&lt;a href=&quot;#Android-Architecture-Component-Lifecycle（翻译）&quot; class=&quot;headerlink&quot;
+          &lt;h1 id=&quot;Android-Architecture-Component-ViewModel（翻译）&quot;&gt;&lt;a href=&quot;#Android-Architecture-Component-ViewModel（翻译）&quot; class=&quot;headerlink&quot;
         
       
     
@@ -891,50 +929,6 @@
       <category term="zapier" scheme="https://blog.wangjiegulu.com/tags/zapier/"/>
     
       <category term="geek" scheme="https://blog.wangjiegulu.com/tags/geek/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>上传到多个Maven仓库的Gradle插件RapidMavenPushPlugin</title>
-    <link href="https://blog.wangjiegulu.com/2018/03/16/rapid_maven_push_plugin_for_android/"/>
-    <id>https://blog.wangjiegulu.com/2018/03/16/rapid_maven_push_plugin_for_android/</id>
-    <published>2018-03-16T06:08:04.000Z</published>
-    <updated>2018-03-26T10:22:18.000Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;RapidMavenPushPlugin&quot;&gt;&lt;a href=&quot;#RapidMavenPushPlugin&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-      <category term="flutter" scheme="https://blog.wangjiegulu.com/categories/flutter/"/>
-    
-      <category term="dart" scheme="https://blog.wangjiegulu.com/categories/flutter/dart/"/>
-    
-    
-      <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
-    
-      <category term="java" scheme="https://blog.wangjiegulu.com/tags/java/"/>
-    
-      <category term="gradle" scheme="https://blog.wangjiegulu.com/tags/gradle/"/>
-    
-      <category term="gradle plugin" scheme="https://blog.wangjiegulu.com/tags/gradle-plugin/"/>
-    
-      <category term="maven" scheme="https://blog.wangjiegulu.com/tags/maven/"/>
-    
-      <category term="repository" scheme="https://blog.wangjiegulu.com/tags/repository/"/>
-    
-      <category term="plugin" scheme="https://blog.wangjiegulu.com/tags/plugin/"/>
-    
-      <category term="aar" scheme="https://blog.wangjiegulu.com/tags/aar/"/>
-    
-      <category term="jar" scheme="https://blog.wangjiegulu.com/tags/jar/"/>
     
   </entry>
   
