@@ -26,7 +26,7 @@
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://user-images.githubusercontent.com/5423194/48963645-f99fc180-efd1-11e8-8806-357110a96ea8.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/5423194/48963720-a3cc1900-efd3-11e8-97f7-8c473a4298c3.png">
-<meta property="og:updated_time" content="2018-11-24T03:08:14.058Z">
+<meta property="og:updated_time" content="2018-11-24T06:20:12.688Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Huginn 的 docker 部署及数据迁移">
 <meta name="twitter:description" content="Huginn 的 docker 部署及数据迁移前两天因为要换 vps，其中之前部署的 Huginn 需要迁移到新的 vps。之前也有朋友问过关于 huginn 的数据备份和迁移的问题。这篇文章就讲下整个流程。 在 vps 上安装 huginn，我之前的博客- 《Huginn及环境搭建》 有讲到过 Huginn 的部署过程，过程比较复杂，要安装的东西也比较多，做迁移的时候要重新部署一遍，也比较容易出">
@@ -224,9 +224,9 @@
 <p>执行完成之后，就会生成一个名为 <code>huginn_backupfile.sql</code> 文件，里面就是你 huginn 的所有数据了，包括 <code>用户信息</code>，<code>scenarios</code>，<code>agent</code>，<code>events</code>，<code>user_credentials</code>，<code>Services</code> 等等。</p>
 <h2 id="恢复数据"><a href="#恢复数据" class="headerlink" title="恢复数据"></a>恢复数据</h2><p>备份完之后，就要恢复数据，要恢复数据，得先把数据拷贝到 huginn 容器里面。</p>
 <p>首先通过一下命令把文件从 <code>旧的 vps</code> 拷贝到 <code>新的 vps</code> <strong>主机</strong>上：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp huginn_backupfile.sql root@&lt;新 vps ip&gt;:/home/wangjie/</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp huginn_backupfile.sql root@&lt;新 vps ip&gt;:/home/wangjie/huginn_backupfile.sql</span><br></pre></td></tr></table></figure>
 <p>注意，这个时候，文件是在你的 <code>新的 vps</code> 的<strong>主机</strong>上，你还需要把它拷贝到刚刚我们新建的 huginn 容器中，执行如下命令：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker cp /home/wangjie/huginn_backupfile.sql huginn: /home/huginn/</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker cp /home/wangjie/huginn_backupfile.sql huginn: /app/wjhuginn/huginn_backupfile.sql</span><br></pre></td></tr></table></figure>
 <p>在 <code>新的 vps</code> 中对新部署的 <code>huginn</code> 进行 restore 数据，如下：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -ppassword huginn_production &lt; huginn_backupfile.sql</span><br></pre></td></tr></table></figure>
 <blockquote>
