@@ -55,6 +55,156 @@
   </entry>
   
   <entry>
+    <title>Android Architecture Component WorkManager  高级（翻译）</title>
+    <link href="https://blog.wangjiegulu.com/2018/11/20/android_architecture_components_workermanager_advanced/"/>
+    <id>https://blog.wangjiegulu.com/2018/11/20/android_architecture_components_workermanager_advanced/</id>
+    <published>2018-11-20T12:01:00.000Z</published>
+    <updated>2018-11-27T05:39:38.475Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;Android-Architecture-Component-WorkManager-高级（翻译）&quot;&gt;&lt;a href=&quot;#Android-Architecture-Component-WorkManager-高级（翻译）&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="Android Architecture Component" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/"/>
+    
+      <category term="kotlin" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/kotlin/"/>
+    
+      <category term="DataBinding" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/kotlin/DataBinding/"/>
+    
+    
+      <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
+    
+      <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
+    
+      <category term="kotlin" scheme="https://blog.wangjiegulu.com/tags/kotlin/"/>
+    
+      <category term="architecture" scheme="https://blog.wangjiegulu.com/tags/architecture/"/>
+    
+      <category term="Android Architecture Component" scheme="https://blog.wangjiegulu.com/tags/Android-Architecture-Component/"/>
+    
+      <category term="aac" scheme="https://blog.wangjiegulu.com/tags/aac/"/>
+    
+      <category term="ViewModel" scheme="https://blog.wangjiegulu.com/tags/ViewModel/"/>
+    
+      <category term="LiveData" scheme="https://blog.wangjiegulu.com/tags/LiveData/"/>
+    
+      <category term="DataBinding" scheme="https://blog.wangjiegulu.com/tags/DataBinding/"/>
+    
+      <category term="Lifecycles" scheme="https://blog.wangjiegulu.com/tags/Lifecycles/"/>
+    
+      <category term="WorkManager" scheme="https://blog.wangjiegulu.com/tags/WorkManager/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android Architecture Component WorkManager 基础（翻译）</title>
+    <link href="https://blog.wangjiegulu.com/2018/11/20/android_architecture_components_workermanager_basics/"/>
+    <id>https://blog.wangjiegulu.com/2018/11/20/android_architecture_components_workermanager_basics/</id>
+    <published>2018-11-20T11:01:00.000Z</published>
+    <updated>2018-11-27T05:39:39.376Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;Android-Architecture-Component-WorkManager-基础（翻译）&quot;&gt;&lt;a href=&quot;#Android-Architecture-Component-WorkManager-基础（翻译）&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="Android Architecture Component" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/"/>
+    
+      <category term="kotlin" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/kotlin/"/>
+    
+      <category term="DataBinding" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/kotlin/DataBinding/"/>
+    
+    
+      <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
+    
+      <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
+    
+      <category term="kotlin" scheme="https://blog.wangjiegulu.com/tags/kotlin/"/>
+    
+      <category term="architecture" scheme="https://blog.wangjiegulu.com/tags/architecture/"/>
+    
+      <category term="Android Architecture Component" scheme="https://blog.wangjiegulu.com/tags/Android-Architecture-Component/"/>
+    
+      <category term="aac" scheme="https://blog.wangjiegulu.com/tags/aac/"/>
+    
+      <category term="ViewModel" scheme="https://blog.wangjiegulu.com/tags/ViewModel/"/>
+    
+      <category term="LiveData" scheme="https://blog.wangjiegulu.com/tags/LiveData/"/>
+    
+      <category term="DataBinding" scheme="https://blog.wangjiegulu.com/tags/DataBinding/"/>
+    
+      <category term="Lifecycles" scheme="https://blog.wangjiegulu.com/tags/Lifecycles/"/>
+    
+      <category term="WorkManager" scheme="https://blog.wangjiegulu.com/tags/WorkManager/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android Architecture Component WorkManager Overview（翻译）</title>
+    <link href="https://blog.wangjiegulu.com/2018/11/20/android_architecture_components_workermanager_overview/"/>
+    <id>https://blog.wangjiegulu.com/2018/11/20/android_architecture_components_workermanager_overview/</id>
+    <published>2018-11-20T10:01:00.000Z</published>
+    <updated>2018-11-27T05:39:39.381Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;Android-Architecture-Component-WorkManager-Overview（翻译）&quot;&gt;&lt;a href=&quot;#Android-Architecture-Component-WorkManager-Overview（翻译）&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="Android Architecture Component" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/"/>
+    
+      <category term="kotlin" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/kotlin/"/>
+    
+      <category term="DataBinding" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/kotlin/DataBinding/"/>
+    
+    
+      <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
+    
+      <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
+    
+      <category term="kotlin" scheme="https://blog.wangjiegulu.com/tags/kotlin/"/>
+    
+      <category term="architecture" scheme="https://blog.wangjiegulu.com/tags/architecture/"/>
+    
+      <category term="Android Architecture Component" scheme="https://blog.wangjiegulu.com/tags/Android-Architecture-Component/"/>
+    
+      <category term="aac" scheme="https://blog.wangjiegulu.com/tags/aac/"/>
+    
+      <category term="ViewModel" scheme="https://blog.wangjiegulu.com/tags/ViewModel/"/>
+    
+      <category term="LiveData" scheme="https://blog.wangjiegulu.com/tags/LiveData/"/>
+    
+      <category term="DataBinding" scheme="https://blog.wangjiegulu.com/tags/DataBinding/"/>
+    
+      <category term="Lifecycles" scheme="https://blog.wangjiegulu.com/tags/Lifecycles/"/>
+    
+      <category term="WorkManager" scheme="https://blog.wangjiegulu.com/tags/WorkManager/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Huginn实现自动通过Telegram推送豆瓣高分电影</title>
     <link href="https://blog.wangjiegulu.com/2018/11/16/douban_high_movie_huginn_telegram/"/>
     <id>https://blog.wangjiegulu.com/2018/11/16/douban_high_movie_huginn_telegram/</id>
@@ -124,9 +274,9 @@
       <category term="IoT" scheme="https://blog.wangjiegulu.com/categories/Smart-Life/IoT/"/>
     
     
-      <category term="kotlin" scheme="https://blog.wangjiegulu.com/tags/kotlin/"/>
-    
       <category term="java" scheme="https://blog.wangjiegulu.com/tags/java/"/>
+    
+      <category term="kotlin" scheme="https://blog.wangjiegulu.com/tags/kotlin/"/>
     
       <category term="Smart Life" scheme="https://blog.wangjiegulu.com/tags/Smart-Life/"/>
     
@@ -172,9 +322,9 @@
       <category term="IoT" scheme="https://blog.wangjiegulu.com/categories/Smart-Life/IoT/"/>
     
     
-      <category term="kotlin" scheme="https://blog.wangjiegulu.com/tags/kotlin/"/>
-    
       <category term="java" scheme="https://blog.wangjiegulu.com/tags/java/"/>
+    
+      <category term="kotlin" scheme="https://blog.wangjiegulu.com/tags/kotlin/"/>
     
       <category term="Smart Life" scheme="https://blog.wangjiegulu.com/tags/Smart-Life/"/>
     
@@ -310,6 +460,8 @@
     
       <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
     
+      <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
+    
       <category term="kotlin" scheme="https://blog.wangjiegulu.com/tags/kotlin/"/>
     
       <category term="architecture" scheme="https://blog.wangjiegulu.com/tags/architecture/"/>
@@ -325,8 +477,6 @@
       <category term="DataBinding" scheme="https://blog.wangjiegulu.com/tags/DataBinding/"/>
     
       <category term="Lifecycles" scheme="https://blog.wangjiegulu.com/tags/Lifecycles/"/>
-    
-      <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
     
   </entry>
   
@@ -358,6 +508,8 @@
     
       <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
     
+      <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
+    
       <category term="kotlin" scheme="https://blog.wangjiegulu.com/tags/kotlin/"/>
     
       <category term="architecture" scheme="https://blog.wangjiegulu.com/tags/architecture/"/>
@@ -373,8 +525,6 @@
       <category term="DataBinding" scheme="https://blog.wangjiegulu.com/tags/DataBinding/"/>
     
       <category term="Lifecycles" scheme="https://blog.wangjiegulu.com/tags/Lifecycles/"/>
-    
-      <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
     
   </entry>
   
@@ -406,6 +556,8 @@
     
       <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
     
+      <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
+    
       <category term="kotlin" scheme="https://blog.wangjiegulu.com/tags/kotlin/"/>
     
       <category term="architecture" scheme="https://blog.wangjiegulu.com/tags/architecture/"/>
@@ -421,8 +573,6 @@
       <category term="DataBinding" scheme="https://blog.wangjiegulu.com/tags/DataBinding/"/>
     
       <category term="Lifecycles" scheme="https://blog.wangjiegulu.com/tags/Lifecycles/"/>
-    
-      <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
     
   </entry>
   
@@ -454,6 +604,8 @@
     
       <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
     
+      <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
+    
       <category term="kotlin" scheme="https://blog.wangjiegulu.com/tags/kotlin/"/>
     
       <category term="architecture" scheme="https://blog.wangjiegulu.com/tags/architecture/"/>
@@ -469,8 +621,6 @@
       <category term="DataBinding" scheme="https://blog.wangjiegulu.com/tags/DataBinding/"/>
     
       <category term="Lifecycles" scheme="https://blog.wangjiegulu.com/tags/Lifecycles/"/>
-    
-      <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
     
   </entry>
   
@@ -502,6 +652,8 @@
     
       <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
     
+      <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
+    
       <category term="kotlin" scheme="https://blog.wangjiegulu.com/tags/kotlin/"/>
     
       <category term="architecture" scheme="https://blog.wangjiegulu.com/tags/architecture/"/>
@@ -517,8 +669,6 @@
       <category term="DataBinding" scheme="https://blog.wangjiegulu.com/tags/DataBinding/"/>
     
       <category term="Lifecycles" scheme="https://blog.wangjiegulu.com/tags/Lifecycles/"/>
-    
-      <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
     
   </entry>
   
@@ -550,6 +700,8 @@
     
       <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
     
+      <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
+    
       <category term="kotlin" scheme="https://blog.wangjiegulu.com/tags/kotlin/"/>
     
       <category term="architecture" scheme="https://blog.wangjiegulu.com/tags/architecture/"/>
@@ -565,8 +717,6 @@
       <category term="DataBinding" scheme="https://blog.wangjiegulu.com/tags/DataBinding/"/>
     
       <category term="Lifecycles" scheme="https://blog.wangjiegulu.com/tags/Lifecycles/"/>
-    
-      <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
     
   </entry>
   
@@ -598,6 +748,8 @@
     
       <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
     
+      <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
+    
       <category term="kotlin" scheme="https://blog.wangjiegulu.com/tags/kotlin/"/>
     
       <category term="architecture" scheme="https://blog.wangjiegulu.com/tags/architecture/"/>
@@ -613,8 +765,6 @@
       <category term="DataBinding" scheme="https://blog.wangjiegulu.com/tags/DataBinding/"/>
     
       <category term="Lifecycles" scheme="https://blog.wangjiegulu.com/tags/Lifecycles/"/>
-    
-      <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
     
   </entry>
   
@@ -646,6 +796,8 @@
     
       <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
     
+      <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
+    
       <category term="kotlin" scheme="https://blog.wangjiegulu.com/tags/kotlin/"/>
     
       <category term="architecture" scheme="https://blog.wangjiegulu.com/tags/architecture/"/>
@@ -661,8 +813,6 @@
       <category term="DataBinding" scheme="https://blog.wangjiegulu.com/tags/DataBinding/"/>
     
       <category term="Lifecycles" scheme="https://blog.wangjiegulu.com/tags/Lifecycles/"/>
-    
-      <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
     
   </entry>
   
@@ -694,6 +844,8 @@
     
       <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
     
+      <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
+    
       <category term="kotlin" scheme="https://blog.wangjiegulu.com/tags/kotlin/"/>
     
       <category term="architecture" scheme="https://blog.wangjiegulu.com/tags/architecture/"/>
@@ -709,8 +861,6 @@
       <category term="DataBinding" scheme="https://blog.wangjiegulu.com/tags/DataBinding/"/>
     
       <category term="Lifecycles" scheme="https://blog.wangjiegulu.com/tags/Lifecycles/"/>
-    
-      <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
     
   </entry>
   
@@ -803,132 +953,6 @@
       <category term="DataBinding" scheme="https://blog.wangjiegulu.com/tags/DataBinding/"/>
     
       <category term="Lifecycles" scheme="https://blog.wangjiegulu.com/tags/Lifecycles/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Android Architecture Component -- 概要（翻译）</title>
-    <link href="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_overview/"/>
-    <id>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_overview/</id>
-    <published>2018-04-15T02:01:00.000Z</published>
-    <updated>2018-11-22T04:45:25.810Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;Android-Architecture-Component-–-概要（翻译）&quot;&gt;&lt;a href=&quot;#Android-Architecture-Component-–-概要（翻译）&quot; class=&quot;headerlink&quot; title=&quot;Android
-        
-      
-    
-    </summary>
-    
-      <category term="Android Architecture Component" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/"/>
-    
-      <category term="kotlin" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/kotlin/"/>
-    
-    
-      <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
-    
-      <category term="kotlin" scheme="https://blog.wangjiegulu.com/tags/kotlin/"/>
-    
-      <category term="architecture" scheme="https://blog.wangjiegulu.com/tags/architecture/"/>
-    
-      <category term="Android Architecture Component" scheme="https://blog.wangjiegulu.com/tags/Android-Architecture-Component/"/>
-    
-      <category term="aac" scheme="https://blog.wangjiegulu.com/tags/aac/"/>
-    
-      <category term="ViewModel" scheme="https://blog.wangjiegulu.com/tags/ViewModel/"/>
-    
-      <category term="LiveData" scheme="https://blog.wangjiegulu.com/tags/LiveData/"/>
-    
-      <category term="DataBinding" scheme="https://blog.wangjiegulu.com/tags/DataBinding/"/>
-    
-      <category term="Lifecycles" scheme="https://blog.wangjiegulu.com/tags/Lifecycles/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Huginn实现自动通过slack推送豆瓣高分电影</title>
-    <link href="https://blog.wangjiegulu.com/2018/04/03/huginn_douban_high_score_movies_and_slack/"/>
-    <id>https://blog.wangjiegulu.com/2018/04/03/huginn_douban_high_score_movies_and_slack/</id>
-    <published>2018-04-03T08:33:40.000Z</published>
-    <updated>2018-11-16T04:33:45.583Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;Huginn实现自动通过slack推送豆瓣高分电影&quot;&gt;&lt;a href=&quot;#Huginn实现自动通过slack推送豆瓣高分电影&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-      <category term="huginn" scheme="https://blog.wangjiegulu.com/categories/huginn/"/>
-    
-      <category term="automate" scheme="https://blog.wangjiegulu.com/categories/huginn/automate/"/>
-    
-    
-      <category term="ifttt" scheme="https://blog.wangjiegulu.com/tags/ifttt/"/>
-    
-      <category term="automate" scheme="https://blog.wangjiegulu.com/tags/automate/"/>
-    
-      <category term="huginn" scheme="https://blog.wangjiegulu.com/tags/huginn/"/>
-    
-      <category term="integromat" scheme="https://blog.wangjiegulu.com/tags/integromat/"/>
-    
-      <category term="zapier" scheme="https://blog.wangjiegulu.com/tags/zapier/"/>
-    
-      <category term="geek" scheme="https://blog.wangjiegulu.com/tags/geek/"/>
-    
-      <category term="douban" scheme="https://blog.wangjiegulu.com/tags/douban/"/>
-    
-      <category term="movies" scheme="https://blog.wangjiegulu.com/tags/movies/"/>
-    
-      <category term="slack" scheme="https://blog.wangjiegulu.com/tags/slack/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Huginn及环境搭建</title>
-    <link href="https://blog.wangjiegulu.com/2018/04/02/build_the_environment_for_huginn/"/>
-    <id>https://blog.wangjiegulu.com/2018/04/02/build_the_environment_for_huginn/</id>
-    <published>2018-04-02T13:07:39.000Z</published>
-    <updated>2018-04-04T08:36:48.000Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;Huginn-及环境搭建&quot;&gt;&lt;a href=&quot;#Huginn-及环境搭建&quot; class=&quot;headerlink&quot; title=&quot;Huginn 及环境搭建&quot;&gt;&lt;/a&gt;Huginn 及环境搭建&lt;/h1&gt;&lt;h2 id=&quot;什么是-Huginn-？&quot;&gt;&lt;a
-        
-      
-    
-    </summary>
-    
-      <category term="huginn" scheme="https://blog.wangjiegulu.com/categories/huginn/"/>
-    
-      <category term="automate" scheme="https://blog.wangjiegulu.com/categories/huginn/automate/"/>
-    
-    
-      <category term="ifttt" scheme="https://blog.wangjiegulu.com/tags/ifttt/"/>
-    
-      <category term="automate" scheme="https://blog.wangjiegulu.com/tags/automate/"/>
-    
-      <category term="huginn" scheme="https://blog.wangjiegulu.com/tags/huginn/"/>
-    
-      <category term="integromat" scheme="https://blog.wangjiegulu.com/tags/integromat/"/>
-    
-      <category term="zapier" scheme="https://blog.wangjiegulu.com/tags/zapier/"/>
-    
-      <category term="geek" scheme="https://blog.wangjiegulu.com/tags/geek/"/>
     
   </entry>
   

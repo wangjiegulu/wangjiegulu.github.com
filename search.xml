@@ -93,6 +93,243 @@
     </entry>
     
     <entry>
+      <title><![CDATA[Android Architecture Component WorkManager  高级（翻译）]]></title>
+      <url>/2018/11/20/android_architecture_components_workermanager_advanced/</url>
+      <content type="html"><![CDATA[<h1 id="Android-Architecture-Component-WorkManager-高级（翻译）"><a href="#Android-Architecture-Component-WorkManager-高级（翻译）" class="headerlink" title="Android Architecture Component WorkManager 高级（翻译）"></a>Android Architecture Component WorkManager 高级（翻译）</h1><blockquote>
+<p>原文：<a href="https://developer.android.com/topic/libraries/architecture/workmanager/advanced" target="_blank" rel="noopener">https://developer.android.com/topic/libraries/architecture/workmanager/advanced</a></p>
+</blockquote>
+<p>通过 WorkManager 可以轻松地设置和安排复杂的任务请求。你可以在以下场景使用这些 APIs：</p>
+<ul>
+<li>通过指定顺序去执行 tasks 的 <a href="https://developer.android.com/topic/libraries/architecture/workmanager/advanced#chained" target="_blank" rel="noopener">链序列</a>。</li>
+<li>唯一的 <a href="https://developer.android.com/topic/libraries/architecture/workmanager/advanced#unique" target="_blank" rel="noopener">命名序列</a>，以及在应用启动两个同名序列时发生的情况的规则。</li>
+<li>Tasks 的 <a href="https://developer.android.com/topic/libraries/architecture/workmanager/advanced#params" target="_blank" rel="noopener">输入输出值</a>，包括每个 task 的输出作为参数输入到下一个 tasks 中的链 tasks。</li>
+</ul>
+<h2 id="链-tasks"><a href="#链-tasks" class="headerlink" title="链 tasks"></a>链 tasks</h2><p>你的 app 可能需要以一个特定的顺序来执行多个 tasks。<a href="https://developer.android.com/reference/androidx/work/WorkManager.html" target="_blank" rel="noopener"><code>WorkManager</code></a> 允许你创建一个工作序列并对它进行排队，该序列指定多个 tasks 以及它应该按什么顺序运行。</p>
+<p>举个例子，假设你的 app 有三个 <a href="https://developer.android.com/reference/androidx/work/OneTimeWorkRequest.html" target="_blank" rel="noopener"><code>OneTimeWorkRequest</code></a> 对象：<code>workA</code>，<code>workB</code>，<code>workC</code>。任务必须要按照这个顺序执行。为了排队它们，要通过 <a href="https://developer.android.com/reference/androidx/work/WorkManager#beginWith(java.util.List%3Candroidx.work.OneTimeWorkRequest%3E" target="_blank" rel="noopener"><code>WorkManager.beginWith()</code></a>) 方法创建一个序列，传入第一个 <a href="https://developer.android.com/reference/androidx/work/OneTimeWorkRequest.html" target="_blank" rel="noopener"><code>OneTimeWorkRequest</code></a> 对象；这个方法返回一个 <a href="https://developer.android.com/reference/androidx/work/WorkContinuation.html" target="_blank" rel="noopener"><code>WorkContinuation</code></a> 对象，它定义了 tasks 的序列。然后使用 <a href="https://developer.android.com/reference/androidx/work/WorkContinuation#then" target="_blank" rel="noopener"><code>WorkContinuation.then()</code></a> 按照顺序增加其它的 <a href="https://developer.android.com/reference/androidx/work/OneTimeWorkRequest.html" target="_blank" rel="noopener"><code>OneTimeWorkRequest</code></a> 对象，最后，使用 <a href="https://developer.android.com/reference/androidx/work/WorkContinuation#enqueue" target="_blank" rel="noopener"><code>WorkContinuation.enqueue()</code></a> 来排队整个序列：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">WorkManager.getInstance()</span><br><span class="line">    .beginWith(workA)</span><br><span class="line">        <span class="comment">// Note: WorkManager.beginWith() returns a</span></span><br><span class="line">        <span class="comment">// WorkContinuation object; the following calls are</span></span><br><span class="line">        <span class="comment">// to WorkContinuation methods</span></span><br><span class="line">    .then(workB)    <span class="comment">// FYI, then() returns a new WorkContinuation instance</span></span><br><span class="line">    .then(workC)</span><br><span class="line">    .enqueue()</span><br></pre></td></tr></table></figure>
+<p><a href="https://developer.android.com/reference/androidx/work/WorkManager.html" target="_blank" rel="noopener"><code>WorkManager</code></a> 会按照请求的顺序以及每个 task 指定的约束来运行 tasks。如果 任何 task 返回了 <a href="https://developer.android.com/reference/androidx/work/Worker.Result#FAILURE" target="_blank" rel="noopener"><code>Worker.Result.FAILURE</code></a>，则整个序列结束。</p>
+<p>你也可以传入多个 <a href="https://developer.android.com/reference/androidx/work/OneTimeWorkRequest.html" target="_blank" rel="noopener"><code>OneTimeWorkRequest</code></a> 对象到 <a href="https://developer.android.com/reference/androidx/work/WorkManager#beginWith(java.util.List%3Candroidx.work.OneTimeWorkRequest%3E" target="_blank" rel="noopener"><code>beginWith()</code></a>) 和 <a href="https://developer.android.com/reference/androidx/work/WorkContinuation#then" target="_blank" rel="noopener"><code>.then()</code></a> 调用。如果你传入几个 <a href="https://developer.android.com/reference/androidx/work/OneTimeWorkRequest.html" target="_blank" rel="noopener"><code>OneTimeWorkRequest</code></a> 到一个单独的方法调用，<a href="https://developer.android.com/reference/androidx/work/WorkManager.html" target="_blank" rel="noopener"><code>WorkManager</code></a> 会在运行其余 tasks 之前运行这些 tasks（并行）。比如：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">WorkManager.getInstance()</span><br><span class="line">    <span class="comment">// 首先，运行所有 A tasks (并行):</span></span><br><span class="line">    .beginWith(workA1, workA2, workA3)</span><br><span class="line">    <span class="comment">// ...当所有的 A tasks 结束, 运行单个 B task:</span></span><br><span class="line">    .then(workB)</span><br><span class="line">    <span class="comment">// ...然后运行 C tasks (以任何顺序):</span></span><br><span class="line">    .then(workC1, workC2)</span><br><span class="line">    .enqueue()</span><br></pre></td></tr></table></figure>
+<p>你可以通过 <a href="https://developer.android.com/reference/androidx/work/WorkContinuation#combine" target="_blank" rel="noopener"><code>WorkContinuation.combine()</code></a> 方法连接多个链来创建更复杂的序列。比如，假设你想要运行像以下的序列：</p>
+<div style="text-align: center;"><br><img src="https://user-images.githubusercontent.com/5423194/49058154-c3667a00-f23d-11e8-97a0-ca92352ce1ac.png" width="400px/"><br></div>
+
+<p>要设置这个序列，创建两个独立的链，然后把它们链接在一起形成第三个：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> chain1 = WorkManager.getInstance()</span><br><span class="line">    .beginWith(workA)</span><br><span class="line">    .then(workB)</span><br><span class="line"><span class="keyword">val</span> chain2 = WorkManager.getInstance()</span><br><span class="line">    .beginWith(workC)</span><br><span class="line">    .then(workD)</span><br><span class="line"><span class="keyword">val</span> chain3 = WorkContinuation</span><br><span class="line">    .combine(chain1, chain2)</span><br><span class="line">    .then(workE)</span><br><span class="line">chain3.enqueue()</span><br></pre></td></tr></table></figure>
+<p>在这种情况下，<a href="https://developer.android.com/reference/androidx/work/WorkManager.html" target="_blank" rel="noopener"><code>WorkManager</code></a> 在 <code>workB</code> 之前运行 <code>workA</code>。运行 <code>workD</code> 之前运行 <code>workC</code>。在 <code>workB</code> 和 <code>workD</code> 都完成之后，<a href="https://developer.android.com/reference/androidx/work/WorkManager.html" target="_blank" rel="noopener"><code>WorkManager</code></a> 运行 <code>workE</code>。</p>
+<blockquote>
+<p><strong>注意</strong>：当 <a href="https://developer.android.com/reference/androidx/work/WorkManager.html" target="_blank" rel="noopener">WorkManager</a> 按照顺序运行没个子链，不能保证 <strong>链1</strong> 中的任务与 <strong>链2</strong> 中的任务可能重叠。比如，<strong>workB</strong> 可能在 <strong>workC</strong> 之前或者之后运行，或者同时运行。只能保证每个子链中的 task 将按顺序运行；就是，<strong>workB</strong> 不会运行直到 <strong>workA</strong> 完成。</p>
+</blockquote>
+<p><a href="https://developer.android.com/reference/androidx/work/WorkContinuation.html" target="_blank" rel="noopener"><code>WorkContinuation</code></a> 有许多变种来提供为特定情况提供快捷。举个例子，<a href="https://developer.android.com/reference/androidx/work/WorkContinuation#combine(androidx.work.OneTimeWorkRequest,%20java.util.List%3Candroidx.work.WorkContinuation%3E" target="_blank" rel="noopener"><code>WorkContinuation.combine(OneTimeWorkRequest, WorkContinuation…)</code></a>) 方法是指示 <a href="https://developer.android.com/reference/androidx/work/WorkManager.html" target="_blank" rel="noopener"><code>WorkManager</code></a> 完成所有指定的 <a href="https://developer.android.com/reference/androidx/work/WorkContinuation.html" target="_blank" rel="noopener"><code>WorkContinuation</code></a> 链，然后完成指定的 <a href="https://developer.android.com/reference/androidx/work/OneTimeWorkRequest.html" target="_blank" rel="noopener"><code>OneTimeWorkRequest</code></a>。详请可参阅 <a href="https://developer.android.com/reference/androidx/work/WorkContinuation.html" target="_blank" rel="noopener">WorkContinuation</a>。</p>
+<h2 id="唯一工作序列"><a href="#唯一工作序列" class="headerlink" title="唯一工作序列"></a>唯一工作序列</h2><p>你可以通过调用 <a href="https://developer.android.com/reference/androidx/work/WorkManager#beginUniqueWork(java.lang.String,%20androidx.work.ExistingWorkPolicy,%20androidx.work.OneTimeWorkRequest..." target="_blank" rel="noopener"><code>beginUniqueWork()</code></a>) 而不是 <a href="https://developer.android.com/reference/androidx/work/WorkManager#beginWith(java.util.List%3Candroidx.work.OneTimeWorkRequest%3E" target="_blank" rel="noopener"><code>beginWith()</code></a>) 开始一个序列来创建一个 <em>唯一的工作序列</em>。每一个唯一工作序列都有一个名字；<a href="https://developer.android.com/reference/androidx/work/WorkManager.html" target="_blank" rel="noopener"><code>WorkManager</code></a> 一次只允许一个序列具有该名字。当你创建一个新的唯一工作序列时，你要指定如果已经有一个相同名字并且未完成的序列时 <a href="https://developer.android.com/reference/androidx/work/WorkManager.html" target="_blank" rel="noopener"><code>WorkManager</code></a> 应该怎么做：</p>
+<ul>
+<li>取消已经存在的序列并用新的 <a href="https://developer.android.com/reference/androidx/work/ExistingWorkPolicy#replace" target="_blank" rel="noopener">替换</a> 它</li>
+<li><a href="https://developer.android.com/reference/androidx/work/ExistingWorkPolicy#keep" target="_blank" rel="noopener">保留</a> 存在的序列并忽略掉你新的请求。</li>
+<li><a href="https://developer.android.com/reference/androidx/work/ExistingWorkPolicy#append" target="_blank" rel="noopener">追加</a> 你新的序列到你存在的序列上，在存在的序列的最后一个 task 执行完之后执行新的序列的第一个 task。</li>
+</ul>
+<p>唯一工作序列在你有一个 task 不该排队多次的时候很有用。举个例子，如果你的 app 需要同步数据到网络，你可能对名为 “sync” 的序列进行排队，然后指定如果已经有这个名字的序列存在，则你新的 task 应该被忽略。唯一工作序列在你需要去逐渐建立一个长长的任务链时也很有用。举个例子，一个图片编辑 app 可能会让用户撤销一个很长的动作链。这些每个撤销的操作都可能会需要花费一些时间，但是它们需要以一个正确的顺序被执行。在这个情况下，app 应该创建一个 “undo” 链，并且如果需要则追加每个撤销操作。</p>
+<h2 id="输入和输出值"><a href="#输入和输出值" class="headerlink" title="输入和输出值"></a>输入和输出值</h2><p>为了更大的灵活性，你可以传入参数到你的 tasks 并让 task 返回值。输入输出值是键值对。要传入值到一个 task，则需要在你创建 <a href="https://developer.android.com/reference/androidx/work/WorkRequest.html" target="_blank" rel="noopener"><code>WorkRequest</code></a> 对象之前调用 <a href="https://developer.android.com/reference/androidx/work/WorkRequest.Builder#setinputdata" target="_blank" rel="noopener"><code>WorkRequest.Builder.setInputData()</code></a> 方法。这个方法接收一个 <a href="https://developer.android.com/reference/androidx/work/Data.html" target="_blank" rel="noopener"><code>Data</code></a> 对象，你可以通过 <a href="https://developer.android.com/reference/androidx/work/Data.Builder.html" target="_blank" rel="noopener"><code>Data.Builder</code></a> 来创建它。<a href="https://developer.android.com/reference/androidx/work/Worker.html" target="_blank" rel="noopener"><code>Worker</code></a> 类可以通过 <a href="https://developer.android.com/reference/androidx/work/Worker#getinputdata" target="_blank" rel="noopener"><code>Worker.getInputData()</code></a> 来访问这些参数。要输出一个返回值，task 要调用 <a href="https://developer.android.com/reference/androidx/work/Worker#setoutputdata" target="_blank" rel="noopener"><code>Worker.setOutputData()</code></a>，它接受一个 <a href="https://developer.android.com/reference/androidx/work/Data.html" target="_blank" rel="noopener"><code>Data</code></a> 对象。你可以通过观察 task 的 <code>LiveData&lt;WorkStatus&gt;</code> 来得到输出。</p>
+<p>举个例子，假设你有一个 <a href="https://developer.android.com/reference/androidx/work/Worker.html" target="_blank" rel="noopener"><code>Worker</code></a> 类来执行耗时的计算。以下代码展示了 <a href="https://developer.android.com/reference/androidx/work/Worker.html" target="_blank" rel="noopener"><code>Worker</code></a> 类应该是怎么样的：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Define the parameter keys:</span></span><br><span class="line">const <span class="keyword">val</span> KEY_X_ARG = <span class="string">"X"</span></span><br><span class="line">const <span class="keyword">val</span> KEY_Y_ARG = <span class="string">"Y"</span></span><br><span class="line">const <span class="keyword">val</span> KEY_Z_ARG = <span class="string">"Z"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// ...and the result key:</span></span><br><span class="line">const <span class="keyword">val</span> KEY_RESULT = <span class="string">"result"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Define the Worker class:</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MathWorker</span></span>(context : Context, params : WorkerParameters)</span><br><span class="line">    : Worker(context, params)  &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">doWork</span><span class="params">()</span></span>: Result &#123;</span><br><span class="line">        <span class="keyword">val</span> x = inputData.getInt(KEY_X_ARG, <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">val</span> y = inputData.getInt(KEY_Y_ARG, <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">val</span> z = inputData.getInt(KEY_Z_ARG, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment">// ...do the math...</span></span><br><span class="line">        <span class="keyword">val</span> result = myCrazyMathFunction(x, y, z);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//...set the output, and we're done!</span></span><br><span class="line">        <span class="keyword">val</span> output: Data = mapOf(KEY_RESULT to result).toWorkData()</span><br><span class="line">        setOutputData(output)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> Result.SUCCESS</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>要创建一个 worker 并传入参数，你应该如下编写代码：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> myData: Data = mapOf(<span class="string">"KEY_X_ARG"</span> to <span class="number">42</span>,</span><br><span class="line">                       <span class="string">"KEY_Y_ARG"</span> to <span class="number">421</span>,</span><br><span class="line">                       <span class="string">"KEY_Z_ARG"</span> to <span class="number">8675309</span>)</span><br><span class="line">                     .toWorkData()</span><br><span class="line"></span><br><span class="line"><span class="comment">// ...then create and enqueue a OneTimeWorkRequest that uses those arguments</span></span><br><span class="line"><span class="keyword">val</span> mathWork = OneTimeWorkRequestBuilder&lt;MathWorker&gt;()</span><br><span class="line">        .setInputData(myData)</span><br><span class="line">        .build()</span><br><span class="line">WorkManager.getInstance().enqueue(mathWork)</span><br></pre></td></tr></table></figure>
+<p>返回值会在 task 的 <a href="https://developer.android.com/reference/androidx/work/WorkStatus.html" target="_blank" rel="noopener"><code>WorkStatus</code></a> 中可用：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">WorkManager.getInstance().getStatusById(mathWork.id)</span><br><span class="line">        .observe(<span class="keyword">this</span>, Observer &#123; status -&gt;</span><br><span class="line">            <span class="keyword">if</span> (status != <span class="literal">null</span> &amp;&amp; status.state.isFinished) &#123;</span><br><span class="line">                <span class="keyword">val</span> myResult = status.outputData.getInt(KEY_RESULT,</span><br><span class="line">                      myDefaultValue)</span><br><span class="line">                <span class="comment">// ... do something with the result ...</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br></pre></td></tr></table></figure>
+<p>如果你链接了 tasks，一个 task 的输出可作为链中下一个 task 的输入。如果它是一个简单链，使用单个的 <a href="https://developer.android.com/reference/androidx/work/OneTimeWorkRequest.html" target="_blank" rel="noopener"><code>OneTimeWorkRequest</code></a> 链接另一个单个 <a href="https://developer.android.com/reference/androidx/work/OneTimeWorkRequest.html" target="_blank" rel="noopener"><code>OneTimeWorkRequest</code></a>，第一个 tasker 通过调用 <a href="https://developer.android.com/reference/androidx/work/Worker.html#setOutputData(androidx.work.Data" target="_blank" rel="noopener"><code>setOutputData()</code></a>) 返回结果，然后下一个 task 通过调用 <a href="https://developer.android.com/reference/androidx/work/Worker.html#getinputdata" target="_blank" rel="noopener"><code>getInputData()</code></a> 获取结果。如果链更复杂 —— 比如，因为几个 task 都发送输入到一个单个的后续任务 —— 你可以在 <a href="https://developer.android.com/reference/androidx/work/OneTimeWorkRequest.Builder.html" target="_blank" rel="noopener"><code>OneTimeWorkRequest.Builder</code></a> 定义一个 <a href="https://developer.android.com/reference/androidx/work/InputMerger.html" target="_blank" rel="noopener"><code>InputMerger</code></a> 来指定如果多个 tasks 返回一个相同 key 的输出时应该怎么处理。</p>
+<h2 id="额外的资源"><a href="#额外的资源" class="headerlink" title="额外的资源"></a>额外的资源</h2><p><code>WorkManager</code> 是一个 <a href="https://developer.android.com/jetpack/" target="_blank" rel="noopener">Android Jetpack</a> architecture component。可参阅使用到它的 <a href="https://github.com/googlesamples/android-sunflower" target="_blank" rel="noopener">Sunflower</a> demo app。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Android Architecture Component </category>
+            
+            <category> kotlin </category>
+            
+            <category> DataBinding </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> android </tag>
+            
+            <tag> 翻译 </tag>
+            
+            <tag> kotlin </tag>
+            
+            <tag> architecture </tag>
+            
+            <tag> Android Architecture Component </tag>
+            
+            <tag> aac </tag>
+            
+            <tag> ViewModel </tag>
+            
+            <tag> LiveData </tag>
+            
+            <tag> DataBinding </tag>
+            
+            <tag> Lifecycles </tag>
+            
+            <tag> WorkManager </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Android Architecture Component WorkManager 基础（翻译）]]></title>
+      <url>/2018/11/20/android_architecture_components_workermanager_basics/</url>
+      <content type="html"><![CDATA[<h1 id="Android-Architecture-Component-WorkManager-基础（翻译）"><a href="#Android-Architecture-Component-WorkManager-基础（翻译）" class="headerlink" title="Android Architecture Component WorkManager 基础（翻译）"></a>Android Architecture Component WorkManager 基础（翻译）</h1><blockquote>
+<p>原文：<a href="https://developer.android.com/topic/libraries/architecture/workmanager/basics/" target="_blank" rel="noopener">https://developer.android.com/topic/libraries/architecture/workmanager/basics/</a></p>
+</blockquote>
+<p>使用 WorkManager，你可以很容易地设置任务，并将它移交给系统并在你指定的条件下运行。</p>
+<p>本文述介绍了 WorkManager 最基本的功能。你可以学习到如何去设置一个 task，指定在什么条件下运行，并交给系统处理。你也可以如何去设置一个重复的 jobs。</p>
+<p>更多关于 WorkManager 高级功能的信息，比如 job 链的输入输出值，参阅 <a href="https://developer.android.com/topic/libraries/architecture/workmanager/advanced.html" target="_blank" rel="noopener">WorkManager 高级功能</a>。还有更多可用的功能；完整信息见 <a href="https://developer.android.com/reference/androidx/work/package-summary" target="_blank" rel="noopener">WorkManager 参考文档</a>。</p>
+<blockquote>
+<p><strong>注意</strong>：要导入 WorkManager 到你的项目中，见 <a href="https://developer.android.com/topic/libraries/architecture/adding-components.html#workmanager" target="_blank" rel="noopener">在你的项目中增加 Components</a>。</p>
+</blockquote>
+<h2 id="类和概念"><a href="#类和概念" class="headerlink" title="类和概念"></a>类和概念</h2><p>WorkManager API 使用了几个不通的类。在一些情况下，你要编写其中一些 API 类的子类。</p>
+<p>以下是最重要的 WorkManager 类：</p>
+<ul>
+<li><a href="https://developer.android.com/reference/androidx/work/Worker.html" target="_blank" rel="noopener"><code>Worker</code></a>：指定你需要执行的 task。WorkManager APIs 包含了一个抽象的 <a href="https://developer.android.com/reference/androidx/work/Worker.html" target="_blank" rel="noopener"><code>Worker</code></a> 类。你要继承这个类并在这里执行工作。</li>
+<li><a href="https://developer.android.com/reference/androidx/work/WorkRequest.html" target="_blank" rel="noopener"><code>WorkRequest</code></a>：表示一个单个 task。最低限度，一个 <a href="https://developer.android.com/reference/androidx/work/WorkRequest.html" target="_blank" rel="noopener"><code>WorkRequest</code></a> 对象指定哪个 <a href="https://developer.android.com/reference/androidx/work/Worker.html" target="_blank" rel="noopener"><code>Worker</code></a> 类应该执行 task。但是你也可以在 <a href="https://developer.android.com/reference/androidx/work/WorkRequest.html" target="_blank" rel="noopener"><code>WorkRequest</code></a> 对象中增加细节，指定任务应该在哪种情况下运行的事项。每个 <a href="https://developer.android.com/reference/androidx/work/WorkRequest.html" target="_blank" rel="noopener"><code>WorkRequest</code></a> 有一个自动生成的唯一 ID；你可以使用 ID 来做一些比如取消排队中的 task 或者获取 task 的状态等操作。<a href="https://developer.android.com/reference/androidx/work/WorkRequest.html" target="_blank" rel="noopener"><code>WorkRequest</code></a> 是一个抽象类；在你的代码中，你将使用它的直接子类之一，<a href="https://developer.android.com/reference/androidx/work/OneTimeWorkRequest.html" target="_blank" rel="noopener"><code>OneTimeWorkRequest</code></a> 或者 <a href="https://developer.android.com/reference/androidx/work/PeriodicWorkRequest.html" target="_blank" rel="noopener"><code>PeriodicWorkRequest</code></a>。<ul>
+<li><a href="https://developer.android.com/reference/androidx/work/WorkRequest.Builder.html" target="_blank" rel="noopener"><code>WorkRequest.Builder</code></a>：一个帮助类，用于创建 <a href="https://developer.android.com/reference/androidx/work/WorkRequest.html" target="_blank" rel="noopener"><code>WorkRequest</code></a> 对象。同样，你将使用它的子类之一，<a href="https://developer.android.com/reference/androidx/work/OneTimeWorkRequest.Builder.html" target="_blank" rel="noopener"><code>OneTimeWorkRequest.Builder</code></a> 或者 <a href="https://developer.android.com/reference/androidx/work/PeriodicWorkRequest.Builder.html" target="_blank" rel="noopener"><code>PeriodicWorkRequest.Builder</code></a>。</li>
+<li><a href="https://developer.android.com/reference/androidx/work/Constraints.html" target="_blank" rel="noopener"><code>Constraints</code></a>：指定何时运行 task（比如，“只在连接到网络时”） 的约束。你使用 <a href="https://developer.android.com/reference/androidx/work/Constraints.Builder.html" target="_blank" rel="noopener"><code>Constraints.Builder</code></a> 来创建 <a href="https://developer.android.com/reference/androidx/work/Constraints.html" target="_blank" rel="noopener"><code>Constraints</code></a>，并且传递 <a href="https://developer.android.com/reference/androidx/work/Constraints.html" target="_blank" rel="noopener"><code>Constraints</code></a> 到 <a href="https://developer.android.com/reference/androidx/work/WorkRequest.Builder.html" target="_blank" rel="noopener"><code>WorkRequest.Builder</code></a> 来创建 <a href="https://developer.android.com/reference/androidx/work/WorkRequest.html" target="_blank" rel="noopener"><code>WorkRequest</code></a></li>
+</ul>
+</li>
+<li><a href="https://developer.android.com/reference/androidx/work/WorkManager.html" target="_blank" rel="noopener"><code>WorkManager</code></a>：排队和管理 work 请求。你把 <a href="https://developer.android.com/reference/androidx/work/WorkRequest.html" target="_blank" rel="noopener"><code>WorkRequest</code></a> 对象传入到 <a href="https://developer.android.com/reference/androidx/work/WorkManager.html" target="_blank" rel="noopener"><code>WorkManager</code></a> 将 task 排队。<a href="https://developer.android.com/reference/androidx/work/WorkManager.html" target="_blank" rel="noopener"><code>WorkManager</code></a> 可以在一个分散系统资源的负载同时又遵守指定约束的的方式调度 task。</li>
+<li><a href="https://developer.android.com/reference/androidx/work/WorkInfo.html" target="_blank" rel="noopener"><code>WorkInfo</code></a>：包含了关于某个特定 task 的信息。<a href="https://developer.android.com/reference/androidx/work/WorkManager.html" target="_blank" rel="noopener"><code>WorkManager</code></a> 为每个 <a href="https://developer.android.com/reference/androidx/work/WorkRequest.html" target="_blank" rel="noopener"><code>WorkRequest</code></a> 对象提供了一个 <a href="https://developer.android.com/reference/android/arch/lifecycle/LiveData.html" target="_blank" rel="noopener"><code>LiveData</code></a>。<a href="https://developer.android.com/reference/android/arch/lifecycle/LiveData.html" target="_blank" rel="noopener"><code>LiveData</code></a> 持有一个 <a href="https://developer.android.com/reference/androidx/work/WorkInfo.html" target="_blank" rel="noopener"><code>WorkInfo</code></a> 对象；通过观察这个 <a href="https://developer.android.com/reference/android/arch/lifecycle/LiveData.html" target="_blank" rel="noopener"><code>LiveData</code></a>，你可以确定任务的当前状态，并在任务完成后获取任何返回的值。</li>
+</ul>
+<h2 id="典型的工作流程"><a href="#典型的工作流程" class="headerlink" title="典型的工作流程"></a>典型的工作流程</h2><p>假设你正在编写一个图片库的 app，并且这个 app 需要定期去压缩存储的图片。你希望使用 WorkManager APIs 来调度图片压缩。在这种情况下，你并不特别关心图片何时会被压缩；你想设置任务，然后就忘掉它。</p>
+<p>首先，你应该去定义你的 <a href="https://developer.android.com/reference/androidx/work/Worker.html" target="_blank" rel="noopener"><code>Work</code></a> 类，然后复写它的 <a href="https://developer.android.com/reference/androidx/work/Worker.html#doWork(" target="_blank" rel="noopener"><code>doWork()</code></a>) 方法。你的 Worker 类指定如何去执行这个操作，但没有任何有关 task 应该在何时运行的信息。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CompressWorker</span></span>(context : Context, params : WorkerParameters)</span><br><span class="line">    : Worker(context, params) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">doWork</span><span class="params">()</span></span>: Result &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Do the work here--in this case, compress the stored images.</span></span><br><span class="line">        <span class="comment">// In this example no parameters are passed; the task is</span></span><br><span class="line">        <span class="comment">// assumed to be "compress the whole library."</span></span><br><span class="line">        myCompress()</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Indicate success or failure with your return value:</span></span><br><span class="line">        <span class="keyword">return</span> Result.SUCCESS</span><br><span class="line"></span><br><span class="line">        <span class="comment">// (Returning RETRY tells WorkManager to try this task again</span></span><br><span class="line">        <span class="comment">// later; FAILURE says not to try again.)</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后你基于 <a href="https://developer.android.com/reference/androidx/work/Worker.html" target="_blank" rel="noopener"><code>Worker</code></a> 去创建一个 <a href="https://developer.android.com/reference/androidx/work/OneTimeWorkRequest.html" target="_blank" rel="noopener"><code>OneTimeWorkRequest</code></a> 对象，然后使用 <a href="https://developer.android.com/reference/androidx/work/WorkManager.html" target="_blank" rel="noopener"><code>WorkManager</code></a> 将其排队：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> compressionWork = OneTimeWorkRequestBuilder&lt;CompressWorker&gt;().build()</span><br><span class="line">WorkManager.getInstance().enqueue(compressionWork)</span><br></pre></td></tr></table></figure>
+<p><a href="https://developer.android.com/reference/androidx/work/WorkManager.html" target="_blank" rel="noopener">WorkManager</a> 选择一个合适的时间去运行这个 task 来平衡诸如系统负载，设备是否插入等考虑因素。在大多情况下，如果你不指定任何约束，<a href="https://developer.android.com/reference/androidx/work/WorkManager.html" target="_blank" rel="noopener"><code>WorkManager</code></a> 会立即运行你的任务。如果你需要去检查 task 的状态，你可以通过获取适当的 <code>LiveData&lt;WorkInfo&gt;</code> 的句柄来获取一个 <a href="https://developer.android.com/reference/androidx/work/WorkInfo.html" target="_blank" rel="noopener"><code>WorkInfo</code></a>。举个例子，如果你想要去检查 task 是否已经完成了，你应该通过以下方式：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">WorkManager.getInstance().getWorkInfoByIdLiveData(compressionWork.id)</span><br><span class="line">                .observe(lifecycleOwner, Observer &#123; workInfo -&gt;</span><br><span class="line">                    <span class="comment">// Do something with the status</span></span><br><span class="line">                    <span class="keyword">if</span> (workInfo != <span class="literal">null</span> &amp;&amp; workInfo.state.isFinished) &#123;</span><br><span class="line">                        <span class="comment">// ...</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;)</span><br></pre></td></tr></table></figure>
+<p>更多关于使用 <a href="https://developer.android.com/reference/android/arch/lifecycle/LiveData.html" target="_blank" rel="noopener"><code>LiveData</code></a> 的详情，见 <a href="https://developer.android.com/topic/libraries/architecture/livedata" target="_blank" rel="noopener">LiveData 概要</a>。</p>
+<h2 id="Task-条件"><a href="#Task-条件" class="headerlink" title="Task 条件"></a>Task 条件</h2><p>如果你想要，你可以去指定 task 在何时应该运行的约束。举例，你可能想要去指定 task 应该只运行在设备闲置，并且电源连接时。在这两种情况下，你需要创建一个 <a href="https://developer.android.com/reference/androidx/work/OneTimeWorkRequest.Builder.html" target="_blank" rel="noopener"><code>OneTimeWorkRequest.Builder</code></a> 对象，并使用这个 builder 来创建一个真正的 <a href="https://developer.android.com/reference/androidx/work/OneTimeWorkRequest.html" target="_blank" rel="noopener"><code>OneTimeWorkRequest</code></a>：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Create a Constraints object that defines when the task should run</span></span><br><span class="line"><span class="keyword">val</span> myConstraints = Constraints.Builder()</span><br><span class="line">        .setRequiresDeviceIdle(<span class="literal">true</span>)</span><br><span class="line">        .setRequiresCharging(<span class="literal">true</span>)</span><br><span class="line">        <span class="comment">// Many other constraints are available, see the</span></span><br><span class="line">        <span class="comment">// Constraints.Builder reference</span></span><br><span class="line">        .build()</span><br><span class="line"></span><br><span class="line"><span class="comment">// ...then create a OneTimeWorkRequest that uses those constraints</span></span><br><span class="line"><span class="keyword">val</span> compressionWork = OneTimeWorkRequestBuilder&lt;CompressWorker&gt;()</span><br><span class="line">        .setConstraints(myConstraints)</span><br><span class="line">        .build()</span><br></pre></td></tr></table></figure>
+<p>然后把新的 <a href="https://developer.android.com/reference/androidx/work/OneTimeWorkRequest.html" target="_blank" rel="noopener"><code>OneTimeWorkRequest</code></a> 对象传递到 <a href="https://developer.android.com/reference/androidx/work/WorkManager#enqueue(java.util.List%3C?%20extends%20androidx.work.WorkRequest%3E" target="_blank" rel="noopener"><code>WorkManager.enqueue()</code></a>)，像之前所说的，<a href="https://developer.android.com/reference/androidx/work/WorkManager.html" target="_blank" rel="noopener"><code>WorkManager</code></a> 会在找运行任务时间时会考虑你的约束条件。</p>
+<h2 id="取消一个-Task"><a href="#取消一个-Task" class="headerlink" title="取消一个 Task"></a>取消一个 Task</h2><p>在你把一个 task 加入到队列后，你可以去取消它。要取消这个 task，你需要一个它的 work ID，这可以在从 <a href="https://developer.android.com/reference/androidx/work/WorkRequest.html" target="_blank" rel="noopener"><code>WorkRequest</code></a> 对象。举例，下面的代码取消了上面一节中的 <code>compressionWork</code> 请求：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> compressionWorkId:UUID = compressionWork.getId()</span><br><span class="line">WorkManager.getInstance().cancelWorkById(compressionWorkId)</span><br></pre></td></tr></table></figure>
+<p><a href="https://developer.android.com/reference/androidx/work/WorkManager.html" target="_blank" rel="noopener"><code>WorkManager</code></a> 会尽最大努力去取消这个 task，但这本质上是不确定的 – 当你试图取消任务时，任务可能已经运行中或已经完成。<a href="https://developer.android.com/reference/androidx/work/WorkManager.html" target="_blank" rel="noopener"><code>WorkManager</code></a> 也提供方法去取消在 <a href="https://developer.android.com/topic/libraries/architecture/workmanager/advanced.html#unique" target="_blank" rel="noopener">唯一工作序列</a> 中的所有 task，或者所有拥有一个指定 tag 的所有 tasks，也是在尽最大努力的基础上的。</p>
+<h2 id="Tagged-Work"><a href="#Tagged-Work" class="headerlink" title="Tagged Work"></a>Tagged Work</h2><p>你可以通过给任何 <a href="https://developer.android.com/reference/androidx/work/WorkRequest.html" target="_blank" rel="noopener"><code>WorkRequest</code></a> 对象分配一个字符串的 tag 来为你的 tasks 在逻辑上进行分组。要设置一个 tag，调用 <a href="https://developer.android.com/reference/androidx/work/WorkRequest.Builder#addtag" target="_blank" rel="noopener"><code>WorkRequest.Builder.addTag()</code></a>，比如：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> cacheCleanupTask =</span><br><span class="line">        OneTimeWorkRequestBuilder&lt;MyCacheCleanupWorker&gt;()</span><br><span class="line">    .setConstraints(myConstraints)</span><br><span class="line">    .addTag(<span class="string">"cleanup"</span>)</span><br><span class="line">    .build()</span><br></pre></td></tr></table></figure>
+<p><a href="https://developer.android.com/reference/androidx/work/WorkManager.html" target="_blank" rel="noopener"><code>WorkManager</code></a> 类提供了几个工具方法来让你通过指定的 tag 来操作所有的 tasks。比如，<a href="https://developer.android.com/reference/androidx/work/WorkManager#cancelallworkbytag" target="_blank" rel="noopener"><code>WorkManager.cancelAllWorkByTag()</code></a> 通过指定 tag 来取消所有 tasks，<a href="https://developer.android.com/reference/androidx/work/WorkManager#getworkinfosbytaglivedata" target="_blank" rel="noopener"><code>WorkManager.getWorkInfosByTagLiveData()</code></a> 返回一个所有这个 tag 的 tasks 的 <a href="https://developer.android.com/reference/androidx/work/WorkInfo.html" target="_blank" rel="noopener"><code>WorkInfo</code></a> 列表。</p>
+<h2 id="重复-tasks"><a href="#重复-tasks" class="headerlink" title="重复 tasks"></a>重复 tasks</h2><p>你可能有一个 task 需要去重复地执行。举个例子，图片管理 app 可能不会只压缩图片一次。更可能的是，它会经常去检查共享的照片，看是否有新的或者修改过的照片需要被压缩。这个重复的 task 可以在它找到新的图片时压缩图片，或者，当它发现需要压缩的图像时，它可能会触发新的 “压缩此图像” 任务。</p>
+<p>要创建一个重复的 task，使用 <a href="https://developer.android.com/reference/androidx/work/PeriodicWorkRequest.Builder.html" target="_blank" rel="noopener"><code>PeriodicWorkRequest.Builder</code></a> 类来创建一个 <a href="https://developer.android.com/reference/androidx/work/PeriodicWorkRequest.html" target="_blank" rel="noopener"><code>PeriodicWorkRequest</code></a> 对象，然后跟 <a href="https://developer.android.com/reference/androidx/work/OneTimeWorkRequest.html" target="_blank" rel="noopener"><code>OneTimeWorkRequest</code></a> 同样的方式去排队 <a href="https://developer.android.com/reference/androidx/work/PeriodicWorkRequest.html" target="_blank" rel="noopener"><code>PeriodicWorkRequest</code></a>。举个例子，假设我们定义了一个 <code>PhotoCheckWorker</code> 类来识别图片是否需要被压缩。如果你想要每 12 小时一次运行这个清单 task，你应该如下创建一个 <a href="https://developer.android.com/reference/androidx/work/PeriodicWorkRequest.html" target="_blank" rel="noopener"><code>PeriodicWorkRequest</code></a> 对象：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> photoCheckBuilder =</span><br><span class="line">        PeriodicWorkRequestBuilder&lt;PhotoCheckWorker&gt;(<span class="number">12</span>, TimeUnit.HOURS)</span><br><span class="line"><span class="comment">// ...if you want, you can apply constraints to the builder here...</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Create the actual work object:</span></span><br><span class="line"><span class="keyword">val</span> photoCheckWork = photoCheckBuilder.build()</span><br><span class="line"><span class="comment">// Then enqueue the recurring task:</span></span><br><span class="line">WorkManager.getInstance().enqueue(photoCheckWork)</span><br></pre></td></tr></table></figure>
+<p><a href="https://developer.android.com/reference/androidx/work/WorkManager.html" target="_blank" rel="noopener"><code>WorkManager</code></a> 尝试在你请求的时间间隔去运行你的 task，受你设置的限制和其他要求的约束。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Android Architecture Component </category>
+            
+            <category> kotlin </category>
+            
+            <category> DataBinding </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> android </tag>
+            
+            <tag> 翻译 </tag>
+            
+            <tag> kotlin </tag>
+            
+            <tag> architecture </tag>
+            
+            <tag> Android Architecture Component </tag>
+            
+            <tag> aac </tag>
+            
+            <tag> ViewModel </tag>
+            
+            <tag> LiveData </tag>
+            
+            <tag> DataBinding </tag>
+            
+            <tag> Lifecycles </tag>
+            
+            <tag> WorkManager </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Android Architecture Component WorkManager Overview（翻译）]]></title>
+      <url>/2018/11/20/android_architecture_components_workermanager_overview/</url>
+      <content type="html"><![CDATA[<h1 id="Android-Architecture-Component-WorkManager-Overview（翻译）"><a href="#Android-Architecture-Component-WorkManager-Overview（翻译）" class="headerlink" title="Android Architecture Component WorkManager Overview（翻译）"></a>Android Architecture Component WorkManager Overview（翻译）</h1><blockquote>
+<p>原文：<a href="https://developer.android.com/topic/libraries/architecture/workmanager/" target="_blank" rel="noopener">https://developer.android.com/topic/libraries/architecture/workmanager/</a></p>
+</blockquote>
+<p>WorkManager API 可以让指定可延迟的异步任务以及这些任务应在何时运行变得简单。这些 API 让你创建一个 task，并交给 WorkManager 处理来立即或在适当的时间运行。</p>
+<p>WorkManager 会基于设备 API 的级别和 app 状态等因素来选择适当的方式运行你的 task。在 app 运行时，如果 WorkManager 执行你 tasks 的其中一个，WorkManager 可以在你 app 进程中的一个新的线程中执行你的 task。如果 app 没有在运行中，WorkManager 会选择合适的方式来调度一个后台任务 — 取决于设备 API 级别和包含的依赖，WorkManager 可能会使用 <a href="https://developer.android.com/reference/android/app/job/JobScheduler.html" target="_blank" rel="noopener"><code>JobScheduler</code></a>，<a href="https://github.com/firebase/firebase-jobdispatcher-android#user-content-firebase-jobdispatcher-" target="_blank" rel="noopener"><code>Firebase JobDispatcher</code></a>，或者 <a href="https://developer.android.com/reference/android/app/AlarmManager.html" target="_blank" rel="noopener"><code>AlarmManager</code></a>。你不需要编写设备逻辑来确定设备具有哪些功能，并选择适当的 api。而是你仅仅把 task 交给 WorkManager 并让它自己选择最好的方式。</p>
+<blockquote>
+<p><strong>注意</strong>：工作管理器适用于需要保证即使应用退出系统也有运行的任务，比如上传 app 数据到服务器。它不适用于在应用进程销毁时要安全终止的进程内后台工作。对于这种场景，我们建议使用 <a href="https://developer.android.com/training/multiple-threads/create-threadpool#ThreadPool" target="_blank" rel="noopener">ThreadPools</a>。</p>
+</blockquote>
+<h2 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h2><ul>
+<li><p><a href="https://developer.android.com/topic/libraries/architecture/workmanager/basics.html" target="_blank" rel="noopener"><strong>WorkManager 基础</strong></a></p>
+<ul>
+<li>使用工作管理器计划在你选择的场景下运行的单个任务，或以指定间隔运行的定期任务。</li>
+</ul>
+</li>
+<li><p><a href="https://developer.android.com/topic/libraries/architecture/workmanager/advanced.html" target="_blank" rel="noopener"><strong>WorkManager 高级功能</strong></a></p>
+<ul>
+<li>设置链接的任务序列，设置输入输出值的任务，并设置命名的，唯一的工作序列。</li>
+</ul>
+</li>
+</ul>
+<h2 id="额外资源"><a href="#额外资源" class="headerlink" title="额外资源"></a>额外资源</h2><p><code>WorkManager</code> 在 <a href="https://github.com/googlesamples/android-sunflower" target="_blank" rel="noopener">Sunflower</a> demo app 中被使用。</p>
+<p>也可以参阅 Architecture Components <a href="https://github.com/googlesamples/android-architecture-components/tree/master/WorkManagerSample" target="_blank" rel="noopener">WorkManager sample</a>。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Android Architecture Component </category>
+            
+            <category> kotlin </category>
+            
+            <category> DataBinding </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> android </tag>
+            
+            <tag> 翻译 </tag>
+            
+            <tag> kotlin </tag>
+            
+            <tag> architecture </tag>
+            
+            <tag> Android Architecture Component </tag>
+            
+            <tag> aac </tag>
+            
+            <tag> ViewModel </tag>
+            
+            <tag> LiveData </tag>
+            
+            <tag> DataBinding </tag>
+            
+            <tag> Lifecycles </tag>
+            
+            <tag> WorkManager </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Huginn实现自动通过Telegram推送豆瓣高分电影]]></title>
       <url>/2018/11/16/douban_high_movie_huginn_telegram/</url>
       <content type="html"><![CDATA[<h1 id="Huginn实现自动通过telegram推送豆瓣高分电影"><a href="#Huginn实现自动通过telegram推送豆瓣高分电影" class="headerlink" title="Huginn实现自动通过telegram推送豆瓣高分电影"></a>Huginn实现自动通过telegram推送豆瓣高分电影</h1><p>之前博客<a href="https://blog.wangjiegulu.com/2018/04/03/huginn_douban_high_score_movies_and_slack/">《Huginn实现自动通过slack推送豆瓣高分电影》</a>有讲到过通过 Huginn 来实现自动获取豆瓣正在上映中的高分（设定分数超过7.8分）电影，并且自动通过 Slack 通知给我。那么怎样通过 Telegram 来进行推送呢？</p>
@@ -291,9 +528,9 @@
         
         <tags>
             
-            <tag> kotlin </tag>
-            
             <tag> java </tag>
+            
+            <tag> kotlin </tag>
             
             <tag> Smart Life </tag>
             
@@ -463,9 +700,9 @@
         
         <tags>
             
-            <tag> kotlin </tag>
-            
             <tag> java </tag>
+            
+            <tag> kotlin </tag>
             
             <tag> Smart Life </tag>
             
@@ -825,6 +1062,8 @@
             
             <tag> android </tag>
             
+            <tag> 翻译 </tag>
+            
             <tag> kotlin </tag>
             
             <tag> architecture </tag>
@@ -840,8 +1079,6 @@
             <tag> DataBinding </tag>
             
             <tag> Lifecycles </tag>
-            
-            <tag> 翻译 </tag>
             
         </tags>
         
@@ -914,6 +1151,8 @@
             
             <tag> android </tag>
             
+            <tag> 翻译 </tag>
+            
             <tag> kotlin </tag>
             
             <tag> architecture </tag>
@@ -929,8 +1168,6 @@
             <tag> DataBinding </tag>
             
             <tag> Lifecycles </tag>
-            
-            <tag> 翻译 </tag>
             
         </tags>
         
@@ -1076,6 +1313,8 @@
             
             <tag> android </tag>
             
+            <tag> 翻译 </tag>
+            
             <tag> kotlin </tag>
             
             <tag> architecture </tag>
@@ -1091,8 +1330,6 @@
             <tag> DataBinding </tag>
             
             <tag> Lifecycles </tag>
-            
-            <tag> 翻译 </tag>
             
         </tags>
         
@@ -1223,6 +1460,8 @@
             
             <tag> android </tag>
             
+            <tag> 翻译 </tag>
+            
             <tag> kotlin </tag>
             
             <tag> architecture </tag>
@@ -1238,8 +1477,6 @@
             <tag> DataBinding </tag>
             
             <tag> Lifecycles </tag>
-            
-            <tag> 翻译 </tag>
             
         </tags>
         
@@ -1285,6 +1522,8 @@
             
             <tag> android </tag>
             
+            <tag> 翻译 </tag>
+            
             <tag> kotlin </tag>
             
             <tag> architecture </tag>
@@ -1300,8 +1539,6 @@
             <tag> DataBinding </tag>
             
             <tag> Lifecycles </tag>
-            
-            <tag> 翻译 </tag>
             
         </tags>
         
@@ -1381,6 +1618,8 @@
             
             <tag> android </tag>
             
+            <tag> 翻译 </tag>
+            
             <tag> kotlin </tag>
             
             <tag> architecture </tag>
@@ -1396,8 +1635,6 @@
             <tag> DataBinding </tag>
             
             <tag> Lifecycles </tag>
-            
-            <tag> 翻译 </tag>
             
         </tags>
         
@@ -1462,6 +1699,8 @@
             
             <tag> android </tag>
             
+            <tag> 翻译 </tag>
+            
             <tag> kotlin </tag>
             
             <tag> architecture </tag>
@@ -1477,8 +1716,6 @@
             <tag> DataBinding </tag>
             
             <tag> Lifecycles </tag>
-            
-            <tag> 翻译 </tag>
             
         </tags>
         
@@ -1541,6 +1778,8 @@
             
             <tag> android </tag>
             
+            <tag> 翻译 </tag>
+            
             <tag> kotlin </tag>
             
             <tag> architecture </tag>
@@ -1556,8 +1795,6 @@
             <tag> DataBinding </tag>
             
             <tag> Lifecycles </tag>
-            
-            <tag> 翻译 </tag>
             
         </tags>
         
@@ -1797,6 +2034,8 @@
             
             <tag> android </tag>
             
+            <tag> 翻译 </tag>
+            
             <tag> kotlin </tag>
             
             <tag> architecture </tag>
@@ -1812,8 +2051,6 @@
             <tag> DataBinding </tag>
             
             <tag> Lifecycles </tag>
-            
-            <tag> 翻译 </tag>
             
         </tags>
         
@@ -2872,15 +3109,15 @@
             
             <tag> android </tag>
             
-            <tag> kotlin </tag>
-            
-            <tag> architecture </tag>
+            <tag> framework </tag>
             
             <tag> 翻译 </tag>
             
-            <tag> framework </tag>
-            
             <tag> dagger2 </tag>
+            
+            <tag> kotlin </tag>
+            
+            <tag> architecture </tag>
             
             <tag> modular </tag>
             
@@ -3246,9 +3483,9 @@
             
             <tag> android </tag>
             
-            <tag> 翻译 </tag>
-            
             <tag> memory leak </tag>
+            
+            <tag> 翻译 </tag>
             
         </tags>
         
@@ -4375,9 +4612,9 @@
             
             <tag> android </tag>
             
-            <tag> 翻译 </tag>
-            
             <tag> dependency injection </tag>
+            
+            <tag> 翻译 </tag>
             
             <tag> dagger2 </tag>
             
@@ -4478,9 +4715,9 @@
             
             <tag> android </tag>
             
-            <tag> 翻译 </tag>
-            
             <tag> dependency injection </tag>
+            
+            <tag> 翻译 </tag>
             
             <tag> dagger2 </tag>
             
@@ -4584,9 +4821,9 @@
             
             <tag> android </tag>
             
-            <tag> 翻译 </tag>
-            
             <tag> dependency injection </tag>
+            
+            <tag> 翻译 </tag>
             
             <tag> dagger2 </tag>
             
@@ -4718,9 +4955,9 @@
             
             <tag> android </tag>
             
-            <tag> 翻译 </tag>
-            
             <tag> dependency injection </tag>
+            
+            <tag> 翻译 </tag>
             
             <tag> dagger2 </tag>
             
@@ -4852,7 +5089,7 @@
       <title><![CDATA[[Android]异步 layout inflation（翻译）]]></title>
       <url>/2016/09/01/Android-%E5%BC%82%E6%AD%A5-layout-inflation%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/</url>
       <content type="html"><![CDATA[<h1 id="异步-layout-inflation"><a href="#异步-layout-inflation" class="headerlink" title="异步 layout inflation"></a>异步 layout inflation</h1><blockquote>
-<p>原文：<a href="&#109;&#x61;&#105;&#108;&#x74;&#111;&#x3a;&#104;&#116;&#116;&#112;&#115;&#x3a;&#47;&#47;&#109;&#x65;&#x64;&#x69;&#117;&#109;&#46;&#x63;&#x6f;&#109;&#x2f;&#64;&#108;&#x75;&#112;&#97;&#x6a;&#x7a;&#47;&#x61;&#115;&#x79;&#x6e;&#x63;&#104;&#x72;&#x6f;&#110;&#111;&#117;&#115;&#x2d;&#108;&#97;&#x79;&#111;&#x75;&#116;&#x2d;&#105;&#x6e;&#102;&#x6c;&#x61;&#116;&#x69;&#x6f;&#x6e;&#45;&#55;&#x63;&#98;&#x63;&#97;&#50;&#54;&#53;&#x33;&#98;&#x66;&#x23;&#46;&#113;&#50;&#50;&#118;&#112;&#x65;&#122;&#103;&#x34;">&#104;&#116;&#116;&#112;&#115;&#x3a;&#47;&#47;&#109;&#x65;&#x64;&#x69;&#117;&#109;&#46;&#x63;&#x6f;&#109;&#x2f;&#64;&#108;&#x75;&#112;&#97;&#x6a;&#x7a;&#47;&#x61;&#115;&#x79;&#x6e;&#x63;&#104;&#x72;&#x6f;&#110;&#111;&#117;&#115;&#x2d;&#108;&#97;&#x79;&#111;&#x75;&#116;&#x2d;&#105;&#x6e;&#102;&#x6c;&#x61;&#116;&#x69;&#x6f;&#x6e;&#45;&#55;&#x63;&#98;&#x63;&#97;&#50;&#54;&#53;&#x33;&#98;&#x66;&#x23;&#46;&#113;&#50;&#50;&#118;&#112;&#x65;&#122;&#103;&#x34;</a></p>
+<p>原文：<a href="&#109;&#97;&#x69;&#x6c;&#116;&#x6f;&#58;&#104;&#116;&#116;&#112;&#x73;&#x3a;&#x2f;&#x2f;&#x6d;&#x65;&#100;&#105;&#x75;&#x6d;&#46;&#x63;&#111;&#x6d;&#x2f;&#64;&#108;&#x75;&#112;&#97;&#106;&#122;&#x2f;&#97;&#x73;&#121;&#x6e;&#x63;&#104;&#x72;&#111;&#110;&#111;&#x75;&#x73;&#45;&#x6c;&#97;&#121;&#x6f;&#x75;&#x74;&#45;&#x69;&#110;&#102;&#x6c;&#x61;&#116;&#x69;&#111;&#110;&#45;&#x37;&#x63;&#x62;&#99;&#x61;&#x32;&#x36;&#x35;&#x33;&#x62;&#x66;&#x23;&#46;&#113;&#50;&#x32;&#x76;&#112;&#101;&#x7a;&#103;&#x34;">&#104;&#116;&#116;&#112;&#x73;&#x3a;&#x2f;&#x2f;&#x6d;&#x65;&#100;&#105;&#x75;&#x6d;&#46;&#x63;&#111;&#x6d;&#x2f;&#64;&#108;&#x75;&#112;&#97;&#106;&#122;&#x2f;&#97;&#x73;&#121;&#x6e;&#x63;&#104;&#x72;&#111;&#110;&#111;&#x75;&#x73;&#45;&#x6c;&#97;&#121;&#x6f;&#x75;&#x74;&#45;&#x69;&#110;&#102;&#x6c;&#x61;&#116;&#x69;&#111;&#110;&#45;&#x37;&#x63;&#x62;&#99;&#x61;&#x32;&#x36;&#x35;&#x33;&#x62;&#x66;&#x23;&#46;&#113;&#50;&#x32;&#x76;&#112;&#101;&#x7a;&#103;&#x34;</a></p>
 </blockquote>
 <p>随着最近发布的<a href="https://developer.android.com/topic/libraries/support-library/revisions.html" target="_blank" rel="noopener">Android Support Library, revision 24</a>，Google开发者在v4包中增加了一个用来异步inflate layouts的帮助类。</p>
 <h2 id="进入-AsyncLayoutInflater"><a href="#进入-AsyncLayoutInflater" class="headerlink" title="进入 AsyncLayoutInflater"></a>进入 AsyncLayoutInflater</h2><p>你会发现AsyncLayoutInflater可以使用在当你想要去懒加载你应用中部分UI或者用户行为的响应。这个帮助类将会允许你的UI线程在执行繁重的inflate时继续保持响应。</p>
@@ -6014,9 +6251,9 @@ Cookie: ... ...
             
             <tag> android </tag>
             
-            <tag> unit test </tag>
-            
             <tag> annotations </tag>
+            
+            <tag> unit test </tag>
             
             <tag> JUnit </tag>
             
@@ -6413,9 +6650,9 @@ Cookie: ... ...
             
             <tag> android </tag>
             
-            <tag> 翻译 </tag>
-            
             <tag> framework </tag>
+            
+            <tag> 翻译 </tag>
             
             <tag> best practices </tag>
             
@@ -6506,9 +6743,9 @@ Cookie: ... ...
             
             <tag> android </tag>
             
-            <tag> 翻译 </tag>
-            
             <tag> dependency injection </tag>
+            
+            <tag> 翻译 </tag>
             
             <tag> dagger2 </tag>
             
@@ -6628,9 +6865,9 @@ Cookie: ... ...
             
             <tag> android </tag>
             
-            <tag> 翻译 </tag>
-            
             <tag> dependency injection </tag>
+            
+            <tag> 翻译 </tag>
             
             <tag> dagger2 </tag>
             
@@ -6749,9 +6986,9 @@ Cookie: ... ...
             
             <tag> android </tag>
             
-            <tag> 翻译 </tag>
-            
             <tag> dependency injection </tag>
+            
+            <tag> 翻译 </tag>
             
             <tag> dagger2 </tag>
             
@@ -6889,9 +7126,9 @@ Cookie: ... ...
             
             <tag> android </tag>
             
-            <tag> 翻译 </tag>
-            
             <tag> dependency injection </tag>
+            
+            <tag> 翻译 </tag>
             
             <tag> dagger2 </tag>
             
@@ -6987,9 +7224,9 @@ Cookie: ... ...
             
             <tag> android </tag>
             
-            <tag> 翻译 </tag>
-            
             <tag> dependency injection </tag>
+            
+            <tag> 翻译 </tag>
             
             <tag> dagger2 </tag>
             
@@ -7082,11 +7319,11 @@ Cookie: ... ...
         
         <tags>
             
+            <tag> testing </tag>
+            
             <tag> android </tag>
             
             <tag> 翻译 </tag>
-            
-            <tag> testing </tag>
             
             <tag> monkey </tag>
             
@@ -7256,11 +7493,11 @@ Cookie: ... ...
         
         <tags>
             
+            <tag> testing </tag>
+            
             <tag> android </tag>
             
             <tag> 翻译 </tag>
-            
-            <tag> testing </tag>
             
             <tag> monkey </tag>
             
@@ -7426,11 +7663,11 @@ Cookie: ... ...
         
         <tags>
             
+            <tag> testing </tag>
+            
             <tag> android </tag>
             
             <tag> 翻译 </tag>
-            
-            <tag> testing </tag>
             
             <tag> google </tag>
             
@@ -8039,9 +8276,9 @@ Cookie: ... ...
         
         <tags>
             
-            <tag> kotlin </tag>
-            
             <tag> 翻译 </tag>
+            
+            <tag> kotlin </tag>
             
             <tag> Kotli­n for android Developers </tag>
             
@@ -13874,9 +14111,9 @@ Integer.toHexString(Integer.parseInt(&quot;0101&quot;, 2));
             
             <tag> android </tag>
             
-            <tag> tips </tag>
-            
             <tag> UI </tag>
+            
+            <tag> tips </tag>
             
             <tag> unit </tag>
             
