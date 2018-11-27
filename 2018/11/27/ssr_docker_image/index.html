@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#ffffff">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#ffffff">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#ffffff">
+
+
+    <meta name="description" content="制作一个 SSR Docker 镜像基于 秋水逸冰 发布的 一键安装脚本 写的 Dockerfile。 因为平时会在多个 vps 上都部署一套，有时候还经常换 vps，但是又比较懒，不想每次都得重新创建自己的配置文件，所以索性把配置文件直接放在镜像里面。  本文的镜像文件已经上传到 Github：https://github.com/wangjiegulu/ssr_dockerfile大家 clo">
+<meta name="keywords" content="automate,huginn,mysql,docker,docker hub,migration,ssr,shadowsocks,shadowsocksr,ss">
+<meta property="og:type" content="article">
+<meta property="og:title" content="制作一个 SSR Docker 镜像">
+<meta property="og:url" content="https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/index.html">
+<meta property="og:site_name" content="Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer">
+<meta property="og:description" content="制作一个 SSR Docker 镜像基于 秋水逸冰 发布的 一键安装脚本 写的 Dockerfile。 因为平时会在多个 vps 上都部署一套，有时候还经常换 vps，但是又比较懒，不想每次都得重新创建自己的配置文件，所以索性把配置文件直接放在镜像里面。  本文的镜像文件已经上传到 Github：https://github.com/wangjiegulu/ssr_dockerfile大家 clo">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-11-27T08:29:14.908Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="制作一个 SSR Docker 镜像">
+<meta name="twitter:description" content="制作一个 SSR Docker 镜像基于 秋水逸冰 发布的 一键安装脚本 写的 Dockerfile。 因为平时会在多个 vps 上都部署一套，有时候还经常换 vps，但是又比较懒，不想每次都得重新创建自己的配置文件，所以索性把配置文件直接放在镜像里面。  本文的镜像文件已经上传到 Github：https://github.com/wangjiegulu/ssr_dockerfile大家 clo">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>制作一个 SSR Docker 镜像</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3">
+    
+      <div id="header-post-nav">
+  <span id="nav">
+      <ul>
+         
+          <li><b><a href="/">Home</a></b></li>
+         
+          <li><b><a href="/archives/">Writing</a></b></li>
+         
+          <li><b><a href="/about/">About</a></b></li>
+         
+          <li><b><a href="/message/">Message</a></b></li>
+         
+          <li><b><a href="/feed.xml">RSS</a></b></li>
+        
+      </ul>
+  </span>
+</div>
+
+<div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/message/">Message</a></li>
+         
+          <li><a href="/feed.xml">RSS</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2018/11/24/huginn_deployment_with_docker_and_data_migration/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/&text=制作一个 SSR Docker 镜像"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/&title=制作一个 SSR Docker 镜像"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/&is_video=false&description=制作一个 SSR Docker 镜像"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=制作一个 SSR Docker 镜像&body=Check out this article: https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/&title=制作一个 SSR Docker 镜像"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/&title=制作一个 SSR Docker 镜像"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/&title=制作一个 SSR Docker 镜像"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/&title=制作一个 SSR Docker 镜像"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/&name=制作一个 SSR Docker 镜像&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#制作一个-SSR-Docker-镜像"><span class="toc-number">1.</span> <span class="toc-text">制作一个 SSR Docker 镜像</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#编写-Dockerfile-文件"><span class="toc-number">1.1.</span> <span class="toc-text">编写 Dockerfile 文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#构建镜像"><span class="toc-number">1.2.</span> <span class="toc-text">构建镜像</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#构建步骤"><span class="toc-number">1.2.1.</span> <span class="toc-text">构建步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用步骤"><span class="toc-number">1.2.2.</span> <span class="toc-text">使用步骤</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        制作一个 SSR Docker 镜像
+    </h1>
+
+
+
+    <div class="meta"  style="margin-top:12px;">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name" style="margin-left: 12px">Wang Jie</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2018-11-27T08:03:59.511Z" itemprop="datePublished">2018-11-27</time>
+    </div>
+
+<br/>
+      
+    <div class="article-tag">
+        <i class="fas fa-tag" style="margin-top: 20px"></i>
+        <a class="tag-link" href="/tags/automate/">automate</a>, <a class="tag-link" href="/tags/docker/">docker</a>, <a class="tag-link" href="/tags/docker-hub/">docker hub</a>, <a class="tag-link" href="/tags/huginn/">huginn</a>, <a class="tag-link" href="/tags/migration/">migration</a>, <a class="tag-link" href="/tags/mysql/">mysql</a>, <a class="tag-link" href="/tags/shadowsocks/">shadowsocks</a>, <a class="tag-link" href="/tags/shadowsocksr/">shadowsocksr</a>, <a class="tag-link" href="/tags/ss/">ss</a>, <a class="tag-link" href="/tags/ssr/">ssr</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  
+  <div class="content" itemprop="articleBody">
+    
+    
+      <!-- <img class="header-img" src="https://images.unsplash.com/photo-1478809956569-c7ce9654a947?ixlib=rb-0.3.5&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;s=96287b17975bd6c0a003628dd93f6ee6&amp;auto=format&amp;fit=crop&amp;w=2273&amp;q=80" /> -->
+      
+
+        <img src="https://images.unsplash.com/photo-1478809956569-c7ce9654a947?ixlib=rb-0.3.5&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;s=96287b17975bd6c0a003628dd93f6ee6&amp;auto=format&amp;fit=crop&amp;w=2273&amp;q=80" style="border-radius: 3px;"/>
+        
+      
+      
+    
+
+
+    <div class="md-content">
+      <h1 id="制作一个-SSR-Docker-镜像"><a href="#制作一个-SSR-Docker-镜像" class="headerlink" title="制作一个 SSR Docker 镜像"></a>制作一个 SSR Docker 镜像</h1><p>基于 <a href="https://github.com/teddysun/shadowsocks_install" target="_blank" rel="noopener">秋水逸冰</a> 发布的 <a href="https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocksR.sh" target="_blank" rel="noopener">一键安装脚本</a> 写的 <code>Dockerfile</code>。</p>
+<p>因为平时会在多个 vps 上都部署一套，有时候还经常换 vps，但是又比较懒，不想每次都得重新创建自己的配置文件，所以索性把配置文件直接放在镜像里面。</p>
+<blockquote>
+<p>本文的镜像文件已经上传到 <a href="https://github.com/wangjiegulu/ssr_dockerfile" target="_blank" rel="noopener">Github</a>：<br><a href="https://github.com/wangjiegulu/ssr_dockerfile" target="_blank" rel="noopener">https://github.com/wangjiegulu/ssr_dockerfile</a><br>大家 clone 下来之后可以省去编写 Dockerfile 文件步骤，直接进入到 <a href="#build_image">构建镜像</a> 步骤。</p>
+</blockquote>
+<h2 id="编写-Dockerfile-文件"><a href="#编写-Dockerfile-文件" class="headerlink" title="编写 Dockerfile 文件"></a>编写 Dockerfile 文件</h2><p>以下是最终的 Dockerfile 文件，后面我们再分析里面的重要的一些步骤：</p>
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Dockerfile for ShadowsocksR</span></span><br><span class="line"><span class="comment"># https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocksR.sh</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">FROM</span> debian:stretch</span><br><span class="line"></span><br><span class="line"><span class="keyword">LABEL</span> maintainer="Wang Jie &lt;tiantian.china.2@gmail.com&gt;"</span><br><span class="line"></span><br><span class="line"># prepare</span><br><span class="line">RUN apt-get update \</span><br><span class="line">  &amp;&amp; apt-get install -y procps \</span><br><span class="line">  &amp;&amp; apt-get install -y wget \</span><br><span class="line">  &amp;&amp; rm -rf /var/lib/apt/lists/* \</span><br><span class="line">  &amp;&amp; export PATH=$PATH:/usr/local/bin:/usr/bin:/bin:/sbin:/usr/local/games:/usr/games</span><br><span class="line"></span><br><span class="line"># install ssr</span><br><span class="line">RUN cd /usr/local \</span><br><span class="line">  &amp;&amp; mkdir ssr \</span><br><span class="line">  &amp;&amp; cd ssr \</span><br><span class="line">  &amp;&amp; wget --no-check-certificate https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocksR.sh \</span><br><span class="line">  &amp;&amp; chmod +x shadowsocksR.sh \</span><br><span class="line">  &amp;&amp; \n | ./shadowsocksR.sh 2&gt;&amp;1 | tee shadowsocksR.log \</span><br><span class="line">  &amp;&amp; \n; exit 0</span><br><span class="line"></span><br><span class="line"># ssr configuration</span><br><span class="line">COPY shadowsocks.json /etc/</span><br><span class="line"></span><br><span class="line"># ssr script</span><br><span class="line">RUN cd /usr/local/ssr \</span><br><span class="line">  # fake log</span><br><span class="line">  &amp;&amp; touch fake_log.log \</span><br><span class="line">  # start.sh</span><br><span class="line">  &amp;&amp; touch start.sh \</span><br><span class="line">  &amp;&amp; echo 'python /usr/local/shadowsocks/server.py -c /etc/shadowsocks.json -d start &amp;&amp; tail -f /usr/local/ssr/fake_log.log' &gt; start.sh \</span><br><span class="line">  &amp;&amp; chmod 775 start.sh \</span><br><span class="line">  # stop.sh</span><br><span class="line">  &amp;&amp; touch stop.sh \</span><br><span class="line">  &amp;&amp; echo 'python /usr/local/shadowsocks/server.py -c /etc/shadowsocks.json -d stop' &gt; stop.sh \</span><br><span class="line">  &amp;&amp; chmod 775 stop.sh \</span><br><span class="line">  # restart.sh</span><br><span class="line">  &amp;&amp; touch restart.sh \</span><br><span class="line">  &amp;&amp; echo './stop.sh &amp;&amp; ./start.sh' &gt; restart.sh \</span><br><span class="line">  &amp;&amp; chmod 775 restart.sh</span><br><span class="line"></span><br><span class="line">ENTRYPOINT ["sh", "/usr/local/ssr/start.sh"]</span><br></pre></td></tr></table></figure>
+<p>根据以上文件可知：</p>
+<ul>
+<li>首先我们这个 ssr 镜像是在 linxus <code>debian stretch</code> 这个版本的基础上制作的。</li>
+<li>第一个 <code>RUN</code> 是做一些构建之前的准备工作：<ul>
+<li>安装 <code>wget</code>，为了方便我们之后从 github 下载 <a href="https://github.com/teddysun/shadowsocks_install" target="_blank" rel="noopener">秋水逸冰</a> 发布的 <a href="https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocksR.sh" target="_blank" rel="noopener">一键安装脚本</a> 。</li>
+<li>配置环境变量。</li>
+</ul>
+</li>
+<li>第二个 <code>RUN</code> 是用来安装 ssr，先下载 <code>https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocksR.sh</code>，然后再执行 <code>./shadowsocksR.sh 2&gt;&amp;1 | tee shadowsocksR.log</code>，这里因为这个脚本是交互式的，安装过程中会让你选择比如端口号，加密协议等等信息，但是我们希望一起都按照默认的安装，最后再用我们的配置文件去覆盖默认的来达到自动部署的目的，所以我们在命令前面加上 <code>\n</code>，一律通过回车默认跳过。</li>
+<li><code>COPY</code> 操作是在安装完成之后，把当前目录的 <code>shadowsocks.json</code> 拷贝到容器的 <code>/etc/</code> 目录。所以大家在使用这个 Dockerfile 构建之前要在同目录下配置好自己的 <code>shadowsocks.json</code>。</li>
+<li>最后一个 <code>RUN</code> 是用来创建一些命令脚本，比如 启动 ssr 的 <code>start.sh</code>，停止 ssr 的 <code>stop.sh</code>，重启 ssr 的 <code>restart.sh</code>；除此之外，还会创建一个 <code>fake_log.log</code> 文件，因为如果没有这个文件，当你启动这个容器，并执行 <code>start.sh</code> 之后，一旦执行成功，容器就被自动关闭了，这个是由 docker 机制决定，所以我们需要在启动之后再 <code>tail -f fake_log.log</code>，来确保 容器不会被关闭。</li>
+<li>最后的 <code>ENTRYPOINT</code> 表示从这个镜像启动一个容器之后，自动执行的命令，我们希望在容器启动的时候自动把 ssr 的服务开启，所以需要做这个配置。</li>
+</ul>
+<p><span id="build_image"></span></p>
+<h2 id="构建镜像"><a href="#构建镜像" class="headerlink" title="构建镜像"></a>构建镜像</h2><p>在 <code>Dockerfile</code> 的同一目录创建你自己的 <code>shadowsocks.json</code> 文件，然后构建生成镜像，然后上传到你自己的 <a href="https://hub.docker.com/" target="_blank" rel="noopener">Docker Hub</a>。之后在任何主机上部署，pull 下你自己的镜像，run 即可，省去每次要修改你的配置的步骤。</p>
+<blockquote>
+<p>注意：你创建的这个镜像中是包含了自己的配置文件信息的，所以最好是 <code>private</code>。</p>
+</blockquote>
+<h3 id="构建步骤"><a href="#构建步骤" class="headerlink" title="构建步骤"></a>构建步骤</h3><ul>
+<li>在 <a href="https://hub.docker.com/" target="_blank" rel="noopener">Docker Hub</a> （没有就先注册）创建你的 respository （最好 private），如 <code>ssr</code>，假设你的 docker hub 用户名为 <code>zhangsan</code>。</li>
+<li>Clone 本项目</li>
+<li><p>在项目根目录创建 <code>shadowsocks.json</code>，编写类似如下的 ssr 配置：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">   <span class="attr">"server"</span>:<span class="string">"0.0.0.0"</span>,</span><br><span class="line">   <span class="attr">"server_ipv6"</span>:<span class="string">"[::]"</span>,</span><br><span class="line">   <span class="attr">"local_address"</span>:<span class="string">"127.0.0.1"</span>,</span><br><span class="line">   <span class="attr">"local_port"</span>:<span class="number">1080</span>,</span><br><span class="line">   <span class="attr">"port_password"</span>:&#123;</span><br><span class="line">       <span class="attr">"9000"</span>:<span class="string">"xxxxxx"</span>,</span><br><span class="line">       <span class="attr">"9001"</span>:&#123;<span class="attr">"password"</span>:<span class="string">"xxxxxx"</span>, <span class="attr">"protocol"</span>:<span class="string">"auth_chain_a"</span>, <span class="attr">"obfs"</span>:<span class="string">"tls1.2_ticket_auth"</span>, <span class="attr">"obfs_param"</span>:<span class="string">""</span>&#125;,</span><br><span class="line">       <span class="attr">"9002"</span>:&#123;<span class="attr">"password"</span>:<span class="string">"xxxxxx"</span>, <span class="attr">"protocol"</span>:<span class="string">"auth_chain_a"</span>, <span class="attr">"obfs"</span>:<span class="string">"tls1.2_ticket_auth"</span>, <span class="attr">"obfs_param"</span>:<span class="string">""</span>&#125;</span><br><span class="line">       // ...</span><br><span class="line">   &#125;,</span><br><span class="line">   <span class="attr">"timeout"</span>:<span class="number">120</span>,</span><br><span class="line">   <span class="attr">"method"</span>:<span class="string">"chacha20"</span>,</span><br><span class="line">   <span class="attr">"protocol"</span>:<span class="string">"origin"</span>,</span><br><span class="line">   <span class="attr">"protocol_param"</span>:<span class="string">""</span>,</span><br><span class="line">   <span class="attr">"obfs"</span>:<span class="string">"plain"</span>,</span><br><span class="line">   <span class="attr">"obfs_param"</span>:<span class="string">""</span>,</span><br><span class="line">   <span class="attr">"redirect"</span>:<span class="string">""</span>,</span><br><span class="line">   <span class="attr">"dns_ipv6"</span>:<span class="literal">false</span>,</span><br><span class="line">   <span class="attr">"fast_open"</span>:<span class="literal">false</span>,</span><br><span class="line">   <span class="attr">"workers"</span>:<span class="number">1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li>创建 docker 镜像：cd 到本项目的根目录，运行命令 <code>docker build --no-cache -t zhangsan/ssr:0.1 .</code>。创建成功之后运行 <code>docker images</code> 确认下。</li>
+<li>把你本地生成的镜像 push 到你的仓库：<ul>
+<li>运行 <code>docker login</code>，确认你是登录状态，未登录则登录 <code>Docker Hub</code>。</li>
+<li>执行 <code>docker push zhangsan/ssr:0.1</code>。</li>
+<li>成功之后到你的 <code>Docker Hub</code> 查看该 respository 的 tag 是否有 <code>0.1</code> 的版本存在了。</li>
+</ul>
+</li>
+</ul>
+<h3 id="使用步骤"><a href="#使用步骤" class="headerlink" title="使用步骤"></a>使用步骤</h3><ul>
+<li>登录你的 vps，安装 docker，执行 <code>docker login</code> 登录。</li>
+<li>运行 <code>docker pull zhangsan/ssr:0.1</code> 命令把刚刚你创建的镜像 pull 下来。</li>
+<li>再运行镜像：<code>docker run -itd --name ssr -p 9000:9000 -p 9001:9001 -p 9002:9002 zhangsan/ssr:0.1</code></li>
+<li>容器（容器的名字为 <code>ssr</code>）启动之后，<code>ssr server</code> 会自动跑起来。</li>
+<li>根据你 vps 的系统，把 <code>docker run ssr</code> 作为开机自启。</li>
+</ul>
+
+    </div>
+
+    <br/>
+    <hr>
+
+    
+    <div class="post-copyright" style="margin-top: 20px;">
+        <strong>来源博客：</strong><a href="https://blog.wangjiegulu.com">Wang Jie's Blog</a><br/>
+         <strong>本文链接：</strong><a href="https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/">https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/</a><br/>
+         <strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处。
+    </div>
+    
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/message/">Message</a></li>
+         
+          <li><a href="/feed.xml">RSS</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#制作一个-SSR-Docker-镜像"><span class="toc-number">1.</span> <span class="toc-text">制作一个 SSR Docker 镜像</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#编写-Dockerfile-文件"><span class="toc-number">1.1.</span> <span class="toc-text">编写 Dockerfile 文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#构建镜像"><span class="toc-number">1.2.</span> <span class="toc-text">构建镜像</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#构建步骤"><span class="toc-number">1.2.1.</span> <span class="toc-text">构建步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用步骤"><span class="toc-number">1.2.2.</span> <span class="toc-text">使用步骤</span></a></li></ol></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/&text=制作一个 SSR Docker 镜像"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/&title=制作一个 SSR Docker 镜像"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/&is_video=false&description=制作一个 SSR Docker 镜像"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=制作一个 SSR Docker 镜像&body=Check out this article: https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/&title=制作一个 SSR Docker 镜像"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/&title=制作一个 SSR Docker 镜像"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/&title=制作一个 SSR Docker 镜像"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/&title=制作一个 SSR Docker 镜像"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/&name=制作一个 SSR Docker 镜像&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 Wang Jie
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/message/">Message</a></li>
+         
+          <li><a href="/feed.xml">RSS</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-111189680-2', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'blog-wangjiegulu-com';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+

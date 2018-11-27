@@ -173,9 +173,12 @@
     
     
 
-    <div class="dp-highlighter"><br><br>1.  屏蔽返回键的代码:<br>public boolean onKeyDown(int keyCode,KeyEvent event){<br>switch(keyCode){<br>case KeyEvent.KEYCODE_HOME:return true;<br>case KeyEvent.KEYCODE_BACK:return true;<br>case KeyEvent.KEYCODE_CALL:return true;<br>case KeyEvent.KEYCODE_SYM: return true;<br>case KeyEvent.KEYCODE_VOLUME_DOWN: return true;<br>case KeyEvent.KEYCODE_VOLUME_UP: return true;<br>case KeyEvent.KEYCODE_STAR: return true;<br>}<br>return super.onKeyDown(keyCode, event);<br>}<br><br>屏蔽home键的代码:<br>public void onAttachedToWindow() {<br>this.getWindow().setType(WindowManager.LayoutParams.TYPE_KEYGUARD);<br>super.onAttachedToWindow();<br>}</div>
+
+    <div class="md-content">
+      <div class="dp-highlighter"><br><br>1.  屏蔽返回键的代码:<br>public boolean onKeyDown(int keyCode,KeyEvent event){<br>switch(keyCode){<br>case KeyEvent.KEYCODE_HOME:return true;<br>case KeyEvent.KEYCODE_BACK:return true;<br>case KeyEvent.KEYCODE_CALL:return true;<br>case KeyEvent.KEYCODE_SYM: return true;<br>case KeyEvent.KEYCODE_VOLUME_DOWN: return true;<br>case KeyEvent.KEYCODE_VOLUME_UP: return true;<br>case KeyEvent.KEYCODE_STAR: return true;<br>}<br>return super.onKeyDown(keyCode, event);<br>}<br><br>屏蔽home键的代码:<br>public void onAttachedToWindow() {<br>this.getWindow().setType(WindowManager.LayoutParams.TYPE_KEYGUARD);<br>super.onAttachedToWindow();<br>}</div>
 
 
+    </div>
 
     <br/>
     <hr>

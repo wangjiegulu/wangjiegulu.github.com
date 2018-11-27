@@ -173,7 +173,9 @@
     
     
 
-    <p>[TOC]</p>
+
+    <div class="md-content">
+      <p>[TOC]</p>
 <h2 id="使用Kotlin＋OkHttp＋RxJava进行网络请求"><a href="#使用Kotlin＋OkHttp＋RxJava进行网络请求" class="headerlink" title="使用Kotlin＋OkHttp＋RxJava进行网络请求"></a>使用Kotlin＋OkHttp＋RxJava进行网络请求</h2><p>代码：<a href="https://github.com/wangjiegulu/KotlinAndroidSample" target="_blank" rel="noopener">https://github.com/wangjiegulu/KotlinAndroidSample</a></p>
 <h3 id="1-需要"><a href="#1-需要" class="headerlink" title="1. 需要"></a>1. 需要</h3><ul>
 <li>对<a href="http://kotlinlang.org/" target="_blank" rel="noopener">Kotlin</a>语法有基本的掌握</li>
@@ -191,6 +193,7 @@
 <p>如上：通过url构建Request.Builder，然后通过RequestBuilder构建一个Obserable，然后订阅获得排出的请求结果。</p>
 <p>为了方便调用，又在Obserable中扩展了几个方法：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="type">&lt;T&gt;</span> Observable<span class="type">&lt;T&gt;</span>.<span class="title">observeOnMain</span><span class="params">()</span></span>: Observable&lt;T&gt; = <span class="keyword">this</span>.observeOn(AndroidSchedulers.mainThread())</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="type">&lt;T&gt;</span> Observable<span class="type">&lt;T&gt;</span>.<span class="title">subscribeSafeNext</span><span class="params">(onNext: (<span class="type">T</span>)</span></span> -&gt; <span class="built_in">Unit</span>): Subscription = <span class="keyword">this</span>.subscribe(onNext, &#123; t -&gt; Log.e(TAG, <span class="string">""</span>, t) &#125;, &#123;&#125;);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="type">&lt;T&gt;</span> Observable<span class="type">&lt;T&gt;</span>.<span class="title">subscribeSafeCompleted</span><span class="params">(onCompleted: ()</span></span> -&gt; <span class="built_in">Unit</span>): Subscription = <span class="keyword">this</span>.subscribe(&#123;&#125;, &#123; t -&gt; Log.e(TAG, <span class="string">""</span>, t) &#125;, onCompleted);</span><br></pre></td></tr></table></figure></p>
 
+    </div>
 
     <br/>
     <hr>

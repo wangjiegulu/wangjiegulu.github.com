@@ -180,7 +180,9 @@
     
     
 
-    <blockquote>
+
+    <div class="md-content">
+      <blockquote>
 <p>原文：<a href="https://medium.com/mindorks/writing-a-modular-project-on-android-304f3b09cb37" target="_blank" rel="noopener">https://medium.com/mindorks/writing-a-modular-project-on-android-304f3b09cb37</a></p>
 </blockquote>
 <h1 id="在Android上编写模块化项目（翻译）"><a href="#在Android上编写模块化项目（翻译）" class="headerlink" title="在Android上编写模块化项目（翻译）"></a>在Android上编写模块化项目（翻译）</h1><p>当我们在 Android Studio 上创建一个新的项目时，自带一个 <code>app</code> module。这时我们大多数人编写整个应用的地方。每次点击 <code>run</code> 按钮都会触发我们整个所有 module 上的 gradle 构建，并检查所有文件是否有变化。这就是为什么 gradle 构建会在更大的应用程序上花费 <a href="https://eng.uber.com/android-monorepo/" target="_blank" rel="noopener">10分钟</a>的时间，并且减慢开发者的<a href="https://imgs.xkcd.com/comics/compiling.png" target="_blank" rel="noopener">输出</a>。</p>
@@ -239,6 +241,7 @@
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>尽管把你的单独的 application 转成模块化有一些棘手，其中一些我试图通过上面的方法来解决，优点是深刻的。如果您在模块中遇到任何障碍，请随时在下面提及它们，我们可以一起讨论解决方案。</p>
 <p>谢谢。</p>
 
+    </div>
 
     <br/>
     <hr>

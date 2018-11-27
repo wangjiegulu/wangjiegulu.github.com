@@ -183,7 +183,9 @@
       
     
 
-    <h1 id="构建自己的-Smart-Life-私有云（一）-gt-破解涂鸦智能插座"><a href="#构建自己的-Smart-Life-私有云（一）-gt-破解涂鸦智能插座" class="headerlink" title="构建自己的 Smart Life 私有云（一）-&gt; 破解涂鸦智能插座"></a>构建自己的 Smart Life 私有云（一）-&gt; 破解涂鸦智能插座</h1><p>本系列文章的目标是通过自己搭建的<code>私有云</code>、<code>IFTTT</code>、<code>Slack</code>、<code>Google Assistant</code>、<code>涂鸦智能</code>、<code>图灵机器人</code>等等第三方服务，构建自己的“智能生活”基本的框架。</p>
+
+    <div class="md-content">
+      <h1 id="构建自己的-Smart-Life-私有云（一）-gt-破解涂鸦智能插座"><a href="#构建自己的-Smart-Life-私有云（一）-gt-破解涂鸦智能插座" class="headerlink" title="构建自己的 Smart Life 私有云（一）-&gt; 破解涂鸦智能插座"></a>构建自己的 Smart Life 私有云（一）-&gt; 破解涂鸦智能插座</h1><p>本系列文章的目标是通过自己搭建的<code>私有云</code>、<code>IFTTT</code>、<code>Slack</code>、<code>Google Assistant</code>、<code>涂鸦智能</code>、<code>图灵机器人</code>等等第三方服务，构建自己的“智能生活”基本的框架。</p>
 <p>前段时间我在京东上购买了一个<a href="https://item.jd.com/29882207900.html" target="_blank" rel="noopener">涂鸦智能的插座</a>。涂鸦智能是一个把产品智能化的一个平台，从软件和硬件和云端上面提供给厂商一个一站式人工智能物联网的解决方案（<em>确实不是涂鸦智能的广告- -.</em>）。所以严格来说应该是“鹊起”基于涂鸦解决方案所开发出来的一个产品，基于涂鸦提供的一切规范，所有软硬云端的开发规范都可以在官网无权限限制地查看到（<a href="https://docs.tuya.com/cn/" target="_blank" rel="noopener">https://docs.tuya.com/cn/</a>）</p>
 <h2 id="初试插座"><a href="#初试插座" class="headerlink" title="初试插座"></a>初试插座</h2><p>我首先下载了涂鸦的官方app：<a href="https://play.google.com/store/apps/details?id=com.tuya.smartlife&amp;hl=en_US" target="_blank" rel="noopener">Smart Life</a>，注册登录、智能配对插座，通过手机控制插座开关，一切顺利，还支持设置定时开关和 Schedule，而且手机控制到插座的反应十分灵敏（看样子应该使用了长链接）。</p>
 <h2 id="破解插座"><a href="#破解插座" class="headerlink" title="破解插座"></a>破解插座</h2><p>当然使用官方 app 显然是无法满足我们需求，所以查看官方文档，发现文档中的 <a href="https://docs.tuya.com/cn/cloudapi/appAPI/tuya.m.device.dp.publish_1.0.html" target="_blank" rel="noopener">tuya.m.device.dp.publish</a> 接口正好可以满足我们的需求。</p>
@@ -314,6 +316,7 @@
 <p>以上，该接口接收别名（alias）和开闭状态（turnOn）两个入参。首先，通过请求的别名去 properties 查找设备，如果找到，则通过 <code>tuyaClientService</code> 的 <code>controlPlug</code> 方法来下发指令，<code>controlPlug</code> 的实现就是刚刚上面说的 <code>获取登录接口-登录-下发指令</code>几步。</p>
 <p>构建、部署，通过 Postman 访问 <code>http://localhost:xxxxx/angelia/control/plug</code>, body 设置为 <code>{&quot;alias&quot;: &quot;卧室总电源&quot;, &quot;turnOn&quot;: true}</code>，插座即可打开。</p>
 
+    </div>
 
     <br/>
     <hr>

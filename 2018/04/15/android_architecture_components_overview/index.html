@@ -181,7 +181,9 @@
       
     
 
-    <h1 id="Android-Architecture-Component-–-概要（翻译）"><a href="#Android-Architecture-Component-–-概要（翻译）" class="headerlink" title="Android Architecture Component – 概要（翻译）"></a>Android Architecture Component – 概要（翻译）</h1><blockquote>
+
+    <div class="md-content">
+      <h1 id="Android-Architecture-Component-–-概要（翻译）"><a href="#Android-Architecture-Component-–-概要（翻译）" class="headerlink" title="Android Architecture Component – 概要（翻译）"></a>Android Architecture Component – 概要（翻译）</h1><blockquote>
 <p>写在前面：抽空整理一下 Android Architecture Component 官方文档的翻译，根据官方文档会分成很多篇，当自己回顾做个笔记，也方便大家参考。</p>
 <p>注：以下 “Android Architecture Component”，Android 体系结构组件，在译文中均不做具体翻译。<br><br><br>原文：</p>
 <ul>
@@ -240,6 +242,7 @@
 <p>WorkManager 相关的类已经存在于 androidx.navigation 包中，但是当前依赖于 Support Library 27.1.1 和 关联的 Arch component 版本。AndroidX dependencies 依赖的 WorkManager 版本将会在未来发布。</p>
 <p>WorkManager 需要 <code>compileSdk</code> 版本 28 或者更高。</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">    <span class="keyword">def</span> work_version = <span class="string">"1.0.0-alpha11"</span></span><br><span class="line"></span><br><span class="line">    implementation <span class="string">"android.arch.work:work-runtime:$work_version"</span> <span class="comment">// use -ktx for Kotlin</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// optional - Firebase JobDispatcher support</span></span><br><span class="line">    implementation <span class="string">"android.arch.work:work-firebase:$work_version"</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// optional - Test helpers</span></span><br><span class="line">    androidTestImplementation <span class="string">"android.arch.work:work-testing:$work_version"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
 
     <br/>
     <hr>

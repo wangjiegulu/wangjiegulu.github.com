@@ -405,7 +405,7 @@ abbr {
 ul,
 ol,
 dl {
-  line-height: 1.61;
+  line-height: 1.725;
 }
 ul ul,
 ol ul,
@@ -461,7 +461,7 @@ body {
   font-weight: 400;
   font-size: 15px;
   font-family: "Menlo", "Meslo LG", monospace;
-  line-height: 1.61;
+  line-height: 1.725;
   text-rendering: geometricPrecision;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
@@ -1573,4 +1573,11 @@ blockquote p::before {
   font-weight: bold;
   border-radius: 2px;
   margin: 0 8px 0 6px;
+}
+.md-content p li {
+  line-height: 1.925;
+}
+.md-content a {
+  color: #6188ae;
+  background-image: linear-gradient(transparent, transparent 5px, #6188ae 5px, #6188ae);
 }

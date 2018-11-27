@@ -173,7 +173,9 @@
     
     
 
-    <p>#三、函数和lambda表达式</p>
+
+    <div class="md-content">
+      <p>#三、函数和lambda表达式</p>
 <p>##1. 函数声明<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fun double(x: Int): Int &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>函数参数是用 Pascal 符号定义的　name:type。参数之间用逗号隔开，每个参数必须指明类型。函数参数可以有默认参数。这样相比其他语言可以减少重载。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fun read(b: Array&lt;Byte&gt;, off: Int = 0, len: Int = b.size() ) &#123;</span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>##2. 命名参数<br>在调用函数时可以参数可以命名。这对于有很多参数或只有一个的函数来说很方便。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">fun reformat(str: String, normalizeCase: Boolean = true,upperCaseFirstLetter: Boolean = true,</span><br><span class="line">             divideByCamelHumps: Boolean = false,</span><br><span class="line">             wordSeparator: Char = &apos; &apos;) &#123;</span><br><span class="line">...</span><br><span class="line">&#125;</span><br><span class="line">reformat(str,</span><br><span class="line">    normalizeCase = true,</span><br><span class="line">    uppercaseFirstLetter = true,</span><br><span class="line">    divideByCamelHumps = false,</span><br><span class="line">    wordSeparator = &apos;_&apos;</span><br><span class="line">  )</span><br></pre></td></tr></table></figure></p>
@@ -198,6 +200,7 @@
 <p>注意有些内联函数可以调用传递进来的 lambda 函数，但不是在函数体，而是在另一个执行的上下文中，比如局部对象或者一个嵌套函数。在这样的情形中，非局部的控制流也不允许在lambda 函数中。为了表明，lambda 参数需要有 InlineOptions.ONLY_LOCAL_RETURN 注解</p>
 <p><strong>参考：</strong><br>1. <a href="http://kotlinlang.org/docs/reference/basic-syntax.html" target="_blank" rel="noopener">http://kotlinlang.org/docs/reference/basic-syntax.html</a><br>2. <a href="http://huanglizhuo.gitbooks.io/kotlin-in-chinese" target="_blank" rel="noopener">http://huanglizhuo.gitbooks.io/kotlin-in-chinese</a></p>
 
+    </div>
 
     <br/>
     <hr>

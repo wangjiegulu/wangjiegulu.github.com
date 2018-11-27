@@ -4,6 +4,83 @@
 
     
   <url>
+    <loc>https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/</loc>
+    <lastmod>2018-11-27T08:29:14.908Z</lastmod>
+    <data>
+        <display>
+        <title>制作一个 SSR Docker 镜像</title>
+        <pubTime>2018-11-27T08:03:59.511Z</pubTime>
+        
+        <tag>automate</tag>
+         
+        <tag>huginn</tag>
+         
+        <tag>mysql</tag>
+         
+        <tag>docker</tag>
+         
+        <tag>docker hub</tag>
+         
+        <tag>migration</tag>
+         
+        <tag>ssr</tag>
+         
+        <tag>shadowsocks</tag>
+         
+        <tag>shadowsocksr</tag>
+         
+        <tag>ss</tag>
+         
+         
+           
+             
+              <breadCrumb title="automate" url="https://blog.wangjiegulu.com/categories/automate/"/>
+          
+             
+              <breadCrumb title="docker" url="https://blog.wangjiegulu.com/categories/automate/docker/"/>
+          
+             
+              <breadCrumb title="ssr" url="https://blog.wangjiegulu.com/categories/automate/docker/ssr/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://blog.wangjiegulu.com/2018/11/24/huginn_deployment_with_docker_and_data_migration/</loc>
+    <lastmod>2018-11-27T08:29:03.523Z</lastmod>
+    <data>
+        <display>
+        <title>Huginn 的 Docker 部署及数据迁移</title>
+        <pubTime>2018-11-24T01:58:12.453Z</pubTime>
+        
+        <tag>automate</tag>
+         
+        <tag>huginn</tag>
+         
+        <tag>mysql</tag>
+         
+        <tag>docker</tag>
+         
+        <tag>docker hub</tag>
+         
+        <tag>migration</tag>
+         
+         
+           
+             
+              <breadCrumb title="automate" url="https://blog.wangjiegulu.com/categories/automate/"/>
+          
+             
+              <breadCrumb title="docker" url="https://blog.wangjiegulu.com/categories/automate/docker/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://blog.wangjiegulu.com/2018/10/20/android_architecture_components_workermanager_overview/</loc>
     <lastmod>2018-11-27T05:44:10.064Z</lastmod>
     <data>
@@ -141,39 +218,6 @@
     </url>
 
     
-    
-  <url>
-    <loc>https://blog.wangjiegulu.com/2018/11/24/huginn_deployment_with_docker_and_data_migration/</loc>
-    <lastmod>2018-11-24T06:20:12.688Z</lastmod>
-    <data>
-        <display>
-        <title>Huginn 的 docker 部署及数据迁移</title>
-        <pubTime>2018-11-24T01:58:12.453Z</pubTime>
-        
-        <tag>automate</tag>
-         
-        <tag>huginn</tag>
-         
-        <tag>mysql</tag>
-         
-        <tag>docker</tag>
-         
-        <tag>docker hub</tag>
-         
-        <tag>migration</tag>
-         
-         
-           
-             
-              <breadCrumb title="automate" url="https://blog.wangjiegulu.com/categories/automate/"/>
-          
-             
-              <breadCrumb title="docker" url="https://blog.wangjiegulu.com/categories/automate/docker/"/>
-          
-        </display>
-    </data>
-    </url>
-
     
   <url>
     <loc>https://blog.wangjiegulu.com/2017/05/29/gcp-ssr/</loc>
@@ -1151,11 +1195,11 @@
          
         <tag>翻译</tag>
          
+        <tag>google</tag>
+         
         <tag>dagger2</tag>
          
         <tag>DI</tag>
-         
-        <tag>google</tag>
          
          
            
@@ -1247,11 +1291,11 @@
          
         <tag>翻译</tag>
          
+        <tag>google</tag>
+         
         <tag>dagger2</tag>
          
         <tag>DI</tag>
-         
-        <tag>google</tag>
          
          
            
@@ -1274,11 +1318,11 @@
          
         <tag>翻译</tag>
          
+        <tag>google</tag>
+         
         <tag>dagger2</tag>
          
         <tag>DI</tag>
-         
-        <tag>google</tag>
          
          
            
@@ -1508,11 +1552,11 @@
          
         <tag>翻译</tag>
          
+        <tag>google</tag>
+         
         <tag>dagger2</tag>
          
         <tag>DI</tag>
-         
-        <tag>google</tag>
          
         <tag>RxJava</tag>
          
@@ -1971,9 +2015,9 @@
         
         <tag>android</tag>
          
-        <tag>annotations</tag>
-         
         <tag>unit test</tag>
+         
+        <tag>annotations</tag>
          
         <tag>JUnit</tag>
          
@@ -2044,11 +2088,11 @@
          
         <tag>翻译</tag>
          
+        <tag>google</tag>
+         
         <tag>dagger2</tag>
          
         <tag>DI</tag>
-         
-        <tag>google</tag>
          
          
            
@@ -2071,11 +2115,11 @@
          
         <tag>翻译</tag>
          
+        <tag>google</tag>
+         
         <tag>dagger2</tag>
          
         <tag>DI</tag>
-         
-        <tag>google</tag>
          
          
            
@@ -2125,11 +2169,11 @@
          
         <tag>翻译</tag>
          
+        <tag>google</tag>
+         
         <tag>dagger2</tag>
          
         <tag>DI</tag>
-         
-        <tag>google</tag>
          
          
            
@@ -2223,11 +2267,11 @@
          
         <tag>翻译</tag>
          
+        <tag>google</tag>
+         
         <tag>dagger2</tag>
          
         <tag>DI</tag>
-         
-        <tag>google</tag>
          
          
            
@@ -4231,21 +4275,6 @@
 
     
   <url>
-    <loc>https://blog.wangjiegulu.com/2013/02/19/%E5%B7%A5%E5%85%B7%E5%BA%93-JOXMLBuilder%E5%B7%A5%E5%85%B7%E7%B1%BB%E2%80%94%E2%80%94%E4%B8%80%E9%94%AE%E6%8A%8A%E5%A4%9A%E4%B8%AAbean%E5%AF%B9%E8%B1%A1%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2%E4%B8%BAXML%E6%A0%BC%E5%BC%8F%E6%95%B0%E6%8D%AE/</loc>
-    <lastmod>2018-01-29T12:36:41.000Z</lastmod>
-    <data>
-        <display>
-        <title>[工具库]JOXMLBuilder工具类——一键把多个bean对象数据转换为XML格式数据</title>
-        <pubTime>2013-02-19T09:14:00.000Z</pubTime>
-        
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://blog.wangjiegulu.com/2012/06/15/%E8%AE%BE%E7%BD%AEEditText%E6%98%AF%E5%90%A6%E5%8F%AF%E7%BC%96%E8%BE%91/</loc>
     <lastmod>2018-01-29T12:36:41.000Z</lastmod>
     <data>
@@ -4267,6 +4296,21 @@
         <display>
         <title>[工具库]JOJSONBuilder工具类——一键把多个bean对象数据转换为JSON格式数据</title>
         <pubTime>2013-02-19T09:30:00.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://blog.wangjiegulu.com/2013/02/19/%E5%B7%A5%E5%85%B7%E5%BA%93-JOXMLBuilder%E5%B7%A5%E5%85%B7%E7%B1%BB%E2%80%94%E2%80%94%E4%B8%80%E9%94%AE%E6%8A%8A%E5%A4%9A%E4%B8%AAbean%E5%AF%B9%E8%B1%A1%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2%E4%B8%BAXML%E6%A0%BC%E5%BC%8F%E6%95%B0%E6%8D%AE/</loc>
+    <lastmod>2018-01-29T12:36:41.000Z</lastmod>
+    <data>
+        <display>
+        <title>[工具库]JOXMLBuilder工具类——一键把多个bean对象数据转换为XML格式数据</title>
+        <pubTime>2013-02-19T09:14:00.000Z</pubTime>
         
          
            

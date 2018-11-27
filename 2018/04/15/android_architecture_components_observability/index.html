@@ -181,7 +181,9 @@
       
     
 
-    <h1 id="Android-Architecture-Component-DataBinding-–-使用可观察的数据对象（翻译）"><a href="#Android-Architecture-Component-DataBinding-–-使用可观察的数据对象（翻译）" class="headerlink" title="Android Architecture Component DataBinding – 使用可观察的数据对象（翻译）"></a>Android Architecture Component DataBinding – 使用可观察的数据对象（翻译）</h1><blockquote>
+
+    <div class="md-content">
+      <h1 id="Android-Architecture-Component-DataBinding-–-使用可观察的数据对象（翻译）"><a href="#Android-Architecture-Component-DataBinding-–-使用可观察的数据对象（翻译）" class="headerlink" title="Android Architecture Component DataBinding – 使用可观察的数据对象（翻译）"></a>Android Architecture Component DataBinding – 使用可观察的数据对象（翻译）</h1><blockquote>
 <p>原文：<a href="https://developer.android.com/topic/libraries/data-binding/observability" target="_blank" rel="noopener">https://developer.android.com/topic/libraries/data-binding/observability</a></p>
 </blockquote>
 <p>可观察性是指对象将其数据的变化通知他人的能力。Data Binding 库允许你去创建对象，属性，可观察集合。</p>
@@ -219,6 +221,7 @@
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span> : <span class="type">BaseObservable</span></span>() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@get:Bindable</span></span><br><span class="line">    <span class="keyword">var</span> firstName: String = <span class="string">""</span></span><br><span class="line">        <span class="keyword">set</span>(value) &#123;</span><br><span class="line">            field = value</span><br><span class="line">            notifyPropertyChanged(BR.firstName)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@get:Bindable</span></span><br><span class="line">    <span class="keyword">var</span> lastName: String = <span class="string">""</span></span><br><span class="line">        <span class="keyword">set</span>(value) &#123;</span><br><span class="line">            field = value</span><br><span class="line">            notifyPropertyChanged(BR.lastName)</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>Data Binding 在 module 包下面（包含了 resource ids）生成了一个名为 <code>BR</code> 的类用于数据绑定。<a href="https://developer.android.com/reference/android/databinding/Bindable.html" target="_blank" rel="noopener"><code>Bindable</code></a> 注解在编译时期在 <code>BR</code> 类中生成了一个 entry。如果数据类不能被修改，<a href="https://developer.android.com/reference/android/databinding/Observable.html" target="_blank" rel="noopener"><code>Observable</code></a> 接口可以通过使用一个<a href="https://developer.android.com/reference/android/databinding/PropertyChangeRegistry.html" target="_blank" rel="noopener"><code>PropertyChangeRegistry</code></a>来有效地注册和通知监听器的方式被实现。</p>
 
+    </div>
 
     <br/>
     <hr>

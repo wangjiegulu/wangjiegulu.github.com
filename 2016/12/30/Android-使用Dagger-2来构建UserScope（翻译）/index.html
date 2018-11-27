@@ -17,7 +17,7 @@
 
 
     <meta name="description" content="使用Dagger 2来构建UserScope 原文：http://frogermcs.github.io/building-userscope-with-dagger2/  在Dagger 2中自定义scopes可以在不寻常存活时间（与Application和界面生命周期不同的）的依赖上给我带来更好的控制。但是在Android app中正确地实现它需要记住几个事情：scope不能存活比applic">
-<meta name="keywords" content="android,dependency injection,翻译,dagger2,DI,google">
+<meta name="keywords" content="android,dependency injection,翻译,google,dagger2,DI">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用Dagger 2来构建UserScope（翻译）">
 <meta property="og:url" content="https://blog.wangjiegulu.com/2016/12/30/Android-使用Dagger-2来构建UserScope（翻译）/index.html">
@@ -176,7 +176,9 @@
     
     
 
-    <h1 id="使用Dagger-2来构建UserScope"><a href="#使用Dagger-2来构建UserScope" class="headerlink" title="使用Dagger 2来构建UserScope"></a>使用Dagger 2来构建UserScope</h1><blockquote>
+
+    <div class="md-content">
+      <h1 id="使用Dagger-2来构建UserScope"><a href="#使用Dagger-2来构建UserScope" class="headerlink" title="使用Dagger 2来构建UserScope"></a>使用Dagger 2来构建UserScope</h1><blockquote>
 <p>原文：<a href="http://frogermcs.github.io/building-userscope-with-dagger2/" target="_blank" rel="noopener">http://frogermcs.github.io/building-userscope-with-dagger2/</a></p>
 </blockquote>
 <p>在Dagger 2中自定义scopes可以在不寻常存活时间（与Application和界面生命周期不同的）的依赖上给我带来更好的控制。但是在Android app中正确地实现它需要记住几个事情：scope不能存活比application进程更长的周期，进程可以被系统杀死并且在更多的对象实例的用户流中恢复过来。今天我们将介绍所有这些，并尝试实现可用于生产的UserScope。</p>
@@ -256,6 +258,7 @@
 </blockquote>
 <p><a href="http://www.cnblogs.com/tiantianbyconan/p/6266442.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/6266442.html</a></p>
 
+    </div>
 
     <br/>
     <hr>

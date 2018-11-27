@@ -173,7 +173,9 @@
     
     
 
-    <p>#二、类和对象：</p>
+
+    <div class="md-content">
+      <p>#二、类和对象：</p>
 <p>##1. 类定义：<br>类的声明包含类名，类头(指定类型参数，主构造函数等等)，以及类主体，用大括号包裹。类头和类体是可选的；如果没有类体可以省略大括号。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">class Invoice&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>##2. 构造函数:<br>在 Kotlin 中类可以有一个主构造函数以及多个二级构造函数。主构造函数是类头的一部分：跟在类名后面(可以有可选的参数)。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">class Person(val firstName: String, val lastName: String, var age: Int)&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>初始化代码可以放在以 init 做前缀的初始化块内：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">class Customer(name: String)&#123;</span><br><span class="line">    init &#123;</span><br><span class="line">        logger,info(&quot;Customer initialized with value $&#123;name&#125;&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
@@ -210,6 +212,7 @@
 <p><a href="http://huanglizhuo.gitbooks.io/kotlin-in-chinese/content/ClassesAndObjects/DelegationProperties.html" target="_blank" rel="noopener">标准代理</a></p>
 <p><strong>参考：</strong><br>1. <a href="http://kotlinlang.org/docs/reference/basic-syntax.html" target="_blank" rel="noopener">http://kotlinlang.org/docs/reference/basic-syntax.html</a><br>2. <a href="http://huanglizhuo.gitbooks.io/kotlin-in-chinese" target="_blank" rel="noopener">http://huanglizhuo.gitbooks.io/kotlin-in-chinese</a></p>
 
+    </div>
 
     <br/>
     <hr>

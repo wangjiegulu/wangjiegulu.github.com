@@ -181,7 +181,9 @@
       
     
 
-    <h1 id="Android-Architecture-Component-WorkManager-基础（翻译）"><a href="#Android-Architecture-Component-WorkManager-基础（翻译）" class="headerlink" title="Android Architecture Component WorkManager 基础（翻译）"></a>Android Architecture Component WorkManager 基础（翻译）</h1><blockquote>
+
+    <div class="md-content">
+      <h1 id="Android-Architecture-Component-WorkManager-基础（翻译）"><a href="#Android-Architecture-Component-WorkManager-基础（翻译）" class="headerlink" title="Android Architecture Component WorkManager 基础（翻译）"></a>Android Architecture Component WorkManager 基础（翻译）</h1><blockquote>
 <p>原文：<a href="https://developer.android.com/topic/libraries/architecture/workmanager/basics/" target="_blank" rel="noopener">https://developer.android.com/topic/libraries/architecture/workmanager/basics/</a></p>
 </blockquote>
 <p>使用 WorkManager，你可以很容易地设置任务，并将它移交给系统并在你指定的条件下运行。</p>
@@ -224,6 +226,7 @@
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> photoCheckBuilder =</span><br><span class="line">        PeriodicWorkRequestBuilder&lt;PhotoCheckWorker&gt;(<span class="number">12</span>, TimeUnit.HOURS)</span><br><span class="line"><span class="comment">// ...if you want, you can apply constraints to the builder here...</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Create the actual work object:</span></span><br><span class="line"><span class="keyword">val</span> photoCheckWork = photoCheckBuilder.build()</span><br><span class="line"><span class="comment">// Then enqueue the recurring task:</span></span><br><span class="line">WorkManager.getInstance().enqueue(photoCheckWork)</span><br></pre></td></tr></table></figure>
 <p><a href="https://developer.android.com/reference/androidx/work/WorkManager.html" target="_blank" rel="noopener"><code>WorkManager</code></a> 尝试在你请求的时间间隔去运行你的 task，受你设置的限制和其他要求的约束。</p>
 
+    </div>
 
     <br/>
     <hr>

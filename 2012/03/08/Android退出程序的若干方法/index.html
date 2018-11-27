@@ -173,7 +173,9 @@
     
     
 
-    <p>Android程序有很多Activity，比如说主窗口A，调用了子窗口B，如果在B中直接finish(), 接下里显示的是A。在B中如何关闭整个Android应用程序呢?本人总结了几种比较简单的实现方法。</p>
+
+    <div class="md-content">
+      <p>Android程序有很多Activity，比如说主窗口A，调用了子窗口B，如果在B中直接finish(), 接下里显示的是A。在B中如何关闭整个Android应用程序呢?本人总结了几种比较简单的实现方法。</p>
 <p>1. Dalvik VM的本地方法</p>
 <p>android.os.Process.killProcess(android.os.Process.myPid()) //获取PID</p>
 <p>System.exit(0); //常规java、c#的标准退出法，返回值为0代表正常退出</p>
@@ -232,6 +234,7 @@
 <p>}</p>
 <p>}</p>
 
+    </div>
 
     <br/>
     <hr>

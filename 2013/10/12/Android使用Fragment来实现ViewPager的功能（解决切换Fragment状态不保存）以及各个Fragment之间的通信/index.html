@@ -186,7 +186,9 @@
     
     
 
-    <p>我前两天写过一篇博客《Android使用Fragment来实现TabHost的功能（解决切换Fragment状态不保存）以及各个Fragment之间的通信》（<a href="http://www.cnblogs.com/tiantianbyconan/p/3360938.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/3360938.html</a>），实现了Tab切换时保留当前Fragment状态，并在切换前自动回调onPause()方法，在切换后自动调用onResume()，这样就做到了跟TahHost一样的功能。</p>
+
+    <div class="md-content">
+      <p>我前两天写过一篇博客《Android使用Fragment来实现TabHost的功能（解决切换Fragment状态不保存）以及各个Fragment之间的通信》（<a href="http://www.cnblogs.com/tiantianbyconan/p/3360938.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/3360938.html</a>），实现了Tab切换时保留当前Fragment状态，并在切换前自动回调onPause()方法，在切换后自动调用onResume()，这样就做到了跟TahHost一样的功能。</p>
 <p>今天来实现下ViewPager的功能，google提供了一个FragmentPagerAdapter这么一个适配器，蛋疼的是，碰到了跟上次类似的问题。比如ViewPager有5个page，刚打开的时候，会加载page1和page2，我们手动切换到page2的时候，会加载page3，切换到page3的时候，加载page4的同时会destory掉page1，所以，还是面临同样的问题，page的状态无法保存，于是，咱还是自己来实现下好了，自己动手，丰衣足食嘛！（同样&nbsp;<span>有朋友知道解决办法的话，希望联系我，赐教下哈</span>）</p>
 <p>先来看下整个demo的结构，跟上次实现TabHost的例子差不多：</p>
 <p><img src="http://images.cnitblog.com/blog/378300/201310/12093410-5a0bb7a1077d4614898ce8b0fbb85d07.jpg" alt=""></p>
@@ -242,6 +244,7 @@
 <p>&nbsp;</p>
 <p><span style="color: #ff0000;"><strong>demo下载：<a href="http://pan.baidu.com/s/1stGQ7" target="_blank" rel="noopener">http://pan.baidu.com/s/1stGQ7</a></strong></span></p>
 
+    </div>
 
     <br/>
     <hr>

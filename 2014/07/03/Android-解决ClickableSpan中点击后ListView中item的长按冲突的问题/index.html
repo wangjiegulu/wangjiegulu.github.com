@@ -173,7 +173,9 @@
     
     
 
-    <p>项目中碰到一个问题，情景是这样的：</p>
+
+    <div class="md-content">
+      <p>项目中碰到一个问题，情景是这样的：</p>
 <p>有一个ListView，每个item中有一个TextView，这个TextView实现了LongClick事件，这个TextView中又添加了ClickableSpan，实现了方法onClick。</p>
 <p>我的需求是点击ClickableSpan，则响应ClickableSpan事件；长按ClickableSpan效果跟长按TextView应该一样，都响应TextView的LongClick事件。</p>
 <p>然而结果是点击ClickableSpan响应正常；但是长按ClickableSpan时问题出现了：TextView的长按事件响应了，ClickableSpan点击事件也响应了！</p>
@@ -186,6 +188,7 @@
 <p>代码很简单，按住超过500ms，则认定为是长按，则不执行ClickableSpan的onClick</p>
 <p>&nbsp;</p>
 
+    </div>
 
     <br/>
     <hr>

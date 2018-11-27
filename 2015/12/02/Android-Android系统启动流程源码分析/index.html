@@ -173,7 +173,9 @@
     
     
 
-    <h3 id="Android系统启动流程源码分析"><a href="#Android系统启动流程源码分析" class="headerlink" title="Android系统启动流程源码分析"></a>Android系统启动流程源码分析</h3><p>首先我们知道，<code>Android</code>是基于<code>Linux</code>的，当<code>Linux</code>内核加载完成时就会自动启动一个<code>init</code>的进程。<br>又因为我们每当我们启动一个App时，就会生成一个新的<code>dalvik</code>实例，并处于一个新的进程（当然一个App也可能是多进程的）。<br>当我们打开第一个App的时候，就会通过<code>init</code>进程fork出一个<code>zygote</code>进程。之后打开新的App的时候都会<code>fork</code>之前的<code>zygote</code>进程。</p>
+
+    <div class="md-content">
+      <h3 id="Android系统启动流程源码分析"><a href="#Android系统启动流程源码分析" class="headerlink" title="Android系统启动流程源码分析"></a>Android系统启动流程源码分析</h3><p>首先我们知道，<code>Android</code>是基于<code>Linux</code>的，当<code>Linux</code>内核加载完成时就会自动启动一个<code>init</code>的进程。<br>又因为我们每当我们启动一个App时，就会生成一个新的<code>dalvik</code>实例，并处于一个新的进程（当然一个App也可能是多进程的）。<br>当我们打开第一个App的时候，就会通过<code>init</code>进程fork出一个<code>zygote</code>进程。之后打开新的App的时候都会<code>fork</code>之前的<code>zygote</code>进程。</p>
 <p>当<code>fork</code>一个<code>zygote</code>进程时，会进入<code>com.android.internal.os.ZygoteInit</code>的<code>main</code>方法进行初始化操作：</p>
 <ul>
 <li><p>预加载资源</p>
@@ -265,6 +267,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Application <span class="title">makeApplication</span><span class="params">(<span class="keyword">boolean</span> forceDefaultAppClass,</span></span></span><br><span class="line"><span class="function"><span class="params">            Instrumentation instrumentation)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 只有第一次调用makeApplication才会往下执行</span></span><br><span class="line">	<span class="keyword">if</span> (mApplication != <span class="keyword">null</span>) &#123;</span><br><span class="line">	    <span class="keyword">return</span> mApplication;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 初始化系统的Application，所以appClass是"android.app.Application"</span></span><br><span class="line">	String appClass = mApplicationInfo.className;</span><br><span class="line">    <span class="keyword">if</span> (forceDefaultAppClass || (appClass == <span class="keyword">null</span>)) &#123;</span><br><span class="line">        appClass = <span class="string">"android.app.Application"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	ContextImpl appContext = ContextImpl.createAppContext(mActivityThread, <span class="keyword">this</span>);</span><br><span class="line">    app = mActivityThread.mInstrumentation.newApplication(</span><br><span class="line">            cl, appClass, appContext);</span><br><span class="line">    appContext.setOuterContext(app);</span><br><span class="line">	<span class="comment">// ...	</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>创建<code>appContext</code>，然后通过<code>Instrumentation</code>生成<code>Application</code>对象，并给<code>appContext</code>设置外部引用。</p>
 
+    </div>
 
     <br/>
     <hr>

@@ -177,7 +177,9 @@
     
     
 
-    <h2 id="Java中的强引用、软引用、弱引用和虚引用-nbsp"><a href="#Java中的强引用、软引用、弱引用和虚引用-nbsp" class="headerlink" title="Java中的强引用、软引用、弱引用和虚引用&nbsp;"></a>Java中的强引用、软引用、弱引用和虚引用&nbsp;</h2><div><span>原文链接</span><span>:</span><span><a href="http://aaronfu.net/?p=9995" target="_blank" rel="noopener">http://aaronfu.net/?p=9995</a></span></div>
+
+    <div class="md-content">
+      <h2 id="Java中的强引用、软引用、弱引用和虚引用-nbsp"><a href="#Java中的强引用、软引用、弱引用和虚引用-nbsp" class="headerlink" title="Java中的强引用、软引用、弱引用和虚引用&nbsp;"></a>Java中的强引用、软引用、弱引用和虚引用&nbsp;</h2><div><span>原文链接</span><span>:</span><span><a href="http://aaronfu.net/?p=9995" target="_blank" rel="noopener">http://aaronfu.net/?p=9995</a></span></div>
 
 <p>从JDK1.2版本开始，把对象的引用分为四种级别，从而使程序能更加灵活的控制对象的生命周期。这四种级别由高到低依次为：强引用、软引用、弱引用和虚引用。</p>
 <p><strong>1．强引用</strong><br>本章前文介绍的引用实际上都是强引用，这是使用最普遍的引用。如果一个对象具有强引用，那就类似于必不可少的生活用品，垃圾回收器绝不会回收它。当内存空 间不足，Java虚拟机宁愿抛出OutOfMemoryError错误，使程序异常终止，也不会靠随意回收具有强引用的对象来解决内存不足问题。</p>
@@ -206,6 +208,7 @@
 <p><img src="http://www.javathinker.org/java/ref_3.gif" alt=""><br>图11-12 “hello”对象被垃圾回收，弱引用被加入到引用队列</p>
 <p>The important part about strong references &mdash; the part that makes them “strong” &mdash; is how they interact with the garbage collector. Specifically, if an object is reachable via a chain of strong references (strongly reachable), it is not eligible for garbage collection. As you don&rsquo;t want the garbage collector destroying objects you&rsquo;re working on, this is normally exactly what you want.</p>
 
+    </div>
 
     <br/>
     <hr>

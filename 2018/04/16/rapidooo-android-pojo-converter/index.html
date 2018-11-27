@@ -181,7 +181,9 @@
       
     
 
-    <h1 id="RapidOOO"><a href="#RapidOOO" class="headerlink" title="RapidOOO"></a>RapidOOO</h1><p>Android POJO 转换器:根据 POJO 类编译时自动生成支持扩展互相绑定的领域对象。</p>
+
+    <div class="md-content">
+      <h1 id="RapidOOO"><a href="#RapidOOO" class="headerlink" title="RapidOOO"></a>RapidOOO</h1><p>Android POJO 转换器:根据 POJO 类编译时自动生成支持扩展互相绑定的领域对象。</p>
 <p><a href="https://github.com/wangjiegulu/RapidOOO/blob/master/README_zh.md" target="_blank" rel="noopener">English Version</a></p>
 <p><strong>Github:</strong> <a href="https://github.com/wangjiegulu/RapidOOO" target="_blank" rel="noopener">https://github.com/wangjiegulu/RapidOOO</a></p>
 <h2 id="为什么使用-RapidOOO？"><a href="#为什么使用-RapidOOO？" class="headerlink" title="为什么使用 RapidOOO？"></a>为什么使用 RapidOOO？</h2><p>我们在领域驱动设计中经常会在不同层级之间传递数据，例如 <code>VO</code>, <code>PO</code>, <code>DO</code>, <code>DTO</code>, <code>BO</code>等。Android 的开发中也经常会遇到这些情况，比如在 <a href="https://github.com/android10/Android-CleanArchitecture" target="_blank" rel="noopener">Android-CleanArchitecture</a> 的 <a href="https://github.com/android10/Android-CleanArchitecture/blob/master/presentation/src/main/java/com/fernandocejas/android10/sample/presentation/mapper/UserModelDataMapper.java#L42" target="_blank" rel="noopener">UserModelDataMapper::transform</a>, <a href="https://github.com/android10/Android-CleanArchitecture/blob/master/data/src/main/java/com/fernandocejas/android10/sample/data/entity/mapper/UserEntityDataMapper.java#L42" target="_blank" rel="noopener">UserEntityDataMapper::transform</a> 等。手工地进行拷贝转换的过程不但繁琐，而且错误的风险比较大，在新增、删除字段时也增加了维护的成本。<a href="http://dozer.sourceforge.net/documentation/about.html" target="_blank" rel="noopener">Dozer</a> 可以很好地解决这个问题，但是在 Android 上可能就不太适用了。</p>
@@ -260,6 +262,7 @@
 <p>如上代码，通过添加 <code>@OOOPool</code> 注解，并指定 <code>acquireMethod</code> 和 <code>releaseMethod</code> 两个方法来创建和回收相应的对象即可（这里使用了 Android Support 包中的 <code>Pools.SimplePool</code> 来实现对象池）。</p>
 <h1 id="License"><a href="#License" class="headerlink" title="License"></a>License</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Copyright 2018 Wang Jie</span><br><span class="line"></span><br><span class="line">Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span><br><span class="line">you may not use this file except in compliance with the License.</span><br><span class="line">You may obtain a copy of the License at</span><br><span class="line"></span><br><span class="line">  http://www.apache.org/licenses/LICENSE-2.0</span><br><span class="line"></span><br><span class="line">Unless required by applicable law or agreed to in writing, software</span><br><span class="line">distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span><br><span class="line">WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span><br><span class="line">See the License for the specific language governing permissions and</span><br><span class="line">limitations under the License.</span><br></pre></td></tr></table></figure>
 
+    </div>
 
     <br/>
     <hr>

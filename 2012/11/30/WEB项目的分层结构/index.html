@@ -173,7 +173,9 @@
     
     
 
-    <p><strong>WEB**</strong>项目的分层结构**</p>
+
+    <div class="md-content">
+      <p><strong>WEB**</strong>项目的分层结构**</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;大部分的WEB应用在职责上至少被分成四层：表示层、持久层、业务层和域模块层。</p>
 <p><strong>一、&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**</strong>表示层**</p>
 <p>一般来讲，一个典型的WEB应用的前端应该是表示层，可以使用Struts框架。</p>
@@ -207,6 +209,7 @@
 <p><strong>四、&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**</strong>域模块层**</p>
 <p>既然我们致力于一个WEB的应用，我们就需要一个对象集合，让它在不同层之间移动。域模块层由实际需求中业务对象组成，比如订单明细、产品、等。开发者在这层不用管哪些数据传输对象，而关注域对象即可。例如，Hibernate允许你将数据库中的信息存入域对象，这样你可以在连接断开的情况下把这些数据显示到用户界面层，而那些对象也可以返回给持久层，从而在数据库里更新。而且，你不必把对象转化成DTO（这可能导致它在不同层之间传输过程中丢失）。这个模型使得Java开发者能很自然运用面向编程，而不需要附加编码。</p>
 
+    </div>
 
     <br/>
     <hr>

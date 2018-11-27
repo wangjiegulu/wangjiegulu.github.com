@@ -173,7 +173,9 @@
     
     
 
-    <p>适配器:基于现有类所提供的服务，向客户提供接口，以满足客户的期望</p>
+
+    <div class="md-content">
+      <p>适配器:基于现有类所提供的服务，向客户提供接口，以满足客户的期望</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;《Java设计模式》</p>
 <p>一、类适配器：</p>
 <p>OtherOperation（已存在所需功能的类）：</p>
@@ -206,6 +208,7 @@
   </span><span style="color: #808080;">@author</span><span style="color: #008000;"> com.tiantian<br> <em> </em></span><span style="color: #808080;">@version</span><span style="color: #008000;"> 创建时间：2012-11-21 下午4:52:36<br> </span><span style="color: #008000;">/</span><br><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span> OperationAdapter <span style="color: #0000ff;">implements</span><span style="color: #000000;"> Operation{<br>    </span><span style="color: #0000ff;">private</span><span style="color: #000000;"> OtherAdd otherAdd;<br>    </span><span style="color: #0000ff;">private</span><span style="color: #000000;"> OtherMinus otherMinus;<br><br>    </span><span style="color: #0000ff;">public</span><span style="color: #000000;"> OtherAdd getOtherAdd() {<br>        </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> otherAdd;<br>    }<br><br>    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> setOtherAdd(OtherAdd otherAdd) {<br>        </span><span style="color: #0000ff;">this</span>.otherAdd =<span style="color: #000000;"> otherAdd;<br>    }<br><br>    </span><span style="color: #0000ff;">public</span><span style="color: #000000;"> OtherMinus getOtherMinus() {<br>        </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> otherMinus;<br>    }<br><br>    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> setOtherMinus(OtherMinus otherMinus) {<br>        </span><span style="color: #0000ff;">this</span>.otherMinus =<span style="color: #000000;"> otherMinus;<br>    }<br><br>    @Override<br>    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">int</span> add(<span style="color: #0000ff;">int</span> a, <span style="color: #0000ff;">int</span><span style="color: #000000;"> b) {<br>        </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> otherAdd.add(a, b);<br>    }<br><br>    @Override<br>    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">int</span> minus(<span style="color: #0000ff;">int</span> a, <span style="color: #0000ff;">int</span><span style="color: #000000;"> b) {<br>        </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> otherMinus.minus(a, b);<br>    }<br><br>}</span></pre><br></div>
 
 
+    </div>
 
     <br/>
     <hr>

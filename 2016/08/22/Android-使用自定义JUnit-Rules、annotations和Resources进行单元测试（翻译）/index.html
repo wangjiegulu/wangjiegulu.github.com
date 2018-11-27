@@ -17,7 +17,7 @@
 
 
     <meta name="description" content="使用自定义JUnit Rules、annotations和Resources进行单元测试 原文：http://www.thedroidsonroids.com/blog/android/unit-tests-rules-annotations-resources  简介Unit Test并不只有断言和测试方法组成。它有一些可以用来提高质量和测试代码可读性的技术。在本文中我们将探索：  annota">
-<meta name="keywords" content="android,annotations,unit test,JUnit,Junit Rules">
+<meta name="keywords" content="android,unit test,annotations,JUnit,Junit Rules">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Android]使用自定义JUnit Rules、annotations和Resources进行单元测试（翻译）">
 <meta property="og:url" content="https://blog.wangjiegulu.com/2016/08/22/Android-使用自定义JUnit-Rules、annotations和Resources进行单元测试（翻译）/index.html">
@@ -173,7 +173,9 @@
     
     
 
-    <h1 id="使用自定义JUnit-Rules、annotations和Resources进行单元测试"><a href="#使用自定义JUnit-Rules、annotations和Resources进行单元测试" class="headerlink" title="使用自定义JUnit Rules、annotations和Resources进行单元测试"></a>使用自定义JUnit Rules、annotations和Resources进行单元测试</h1><blockquote>
+
+    <div class="md-content">
+      <h1 id="使用自定义JUnit-Rules、annotations和Resources进行单元测试"><a href="#使用自定义JUnit-Rules、annotations和Resources进行单元测试" class="headerlink" title="使用自定义JUnit Rules、annotations和Resources进行单元测试"></a>使用自定义JUnit Rules、annotations和Resources进行单元测试</h1><blockquote>
 <p>原文：<a href="http://www.thedroidsonroids.com/blog/android/unit-tests-rules-annotations-resources" target="_blank" rel="noopener">http://www.thedroidsonroids.com/blog/android/unit-tests-rules-annotations-resources</a></p>
 </blockquote>
 <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Unit Test并不只有断言和测试方法组成。它有一些可以用来提高质量和测试代码可读性的技术。在本文中我们将探索：</p>
@@ -243,6 +245,7 @@
 <p>注意try-with-resources从Android API 19（Kitkat）才可用。如果测试代码位于Android gradle module中，并且你的<code>minSdkVersion</code>低于19，那么你可能需要在<code>evaluate()</code>方法上增加<code>@TargetApi(Build.VERSION_CODES.KITKAT)</code>注解来避免<a href="http://tools.android.com/tips/lint-checks" target="_blank" rel="noopener">lint</a>错误。单元测试会在开发机器（Mac，PC等）上被执行而不是Android设备或者模拟器，所以这里只有<code>compileSdkVersion</code>才是关键。</p>
 <p>这样的单元测试（不需要使用Android特定的API）也可以被放在java module中（<code>build.gradle</code>中<code>apply plugin: &#39;java&#39;</code>）。理论上这事最好的idea，但是在Android Studio/Intellij IDEA中有一个<a href="http://tools.android.com/knownissues#TOC-JUnit-tests-missing-resources-in-classpath-when-run-from-Studio" target="_blank" rel="noopener">问题</a>需要预防，那就是从IDE开箱即用地执行单元测试的配置工作。</p>
 
+    </div>
 
     <br/>
     <hr>

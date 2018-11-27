@@ -181,7 +181,9 @@
       
     
 
-    <h1 id="Android-Architecture-Component-DataBinding-–-布局和表达式（翻译）"><a href="#Android-Architecture-Component-DataBinding-–-布局和表达式（翻译）" class="headerlink" title="Android Architecture Component DataBinding – 布局和表达式（翻译）"></a>Android Architecture Component DataBinding – 布局和表达式（翻译）</h1><blockquote>
+
+    <div class="md-content">
+      <h1 id="Android-Architecture-Component-DataBinding-–-布局和表达式（翻译）"><a href="#Android-Architecture-Component-DataBinding-–-布局和表达式（翻译）" class="headerlink" title="Android Architecture Component DataBinding – 布局和表达式（翻译）"></a>Android Architecture Component DataBinding – 布局和表达式（翻译）</h1><blockquote>
 <p>原文：<a href="https://developer.android.com/topic/libraries/data-binding/expressions" target="_blank" rel="noopener">https://developer.android.com/topic/libraries/data-binding/expressions</a></p>
 </blockquote>
 <p>表达式语言允许你编写表达式用于 view 派发的事件。Data binding 库自动生成要将 layout 中的 views 与数据对象绑定所需的类。</p>
@@ -396,6 +398,7 @@
 <p>Data Binding 不支持将其作为 merge 标签的直接子级包括在内。举例，<em>下面的 layout 不支持</em>：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">layout</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">xmlns:bind</span>=<span class="string">"http://schemas.android.com/apk/res-auto"</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">data</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">variable</span> <span class="attr">name</span>=<span class="string">"user"</span> <span class="attr">type</span>=<span class="string">"com.example.User"</span>/&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">data</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">merge</span>&gt;</span><span class="comment">&lt;!-- Doesn't work --&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">include</span> <span class="attr">layout</span>=<span class="string">"@layout/name"</span></span></span><br><span class="line"><span class="tag">           <span class="attr">bind:user</span>=<span class="string">"@&#123;user&#125;"</span>/&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">include</span> <span class="attr">layout</span>=<span class="string">"@layout/contact"</span></span></span><br><span class="line"><span class="tag">           <span class="attr">bind:user</span>=<span class="string">"@&#123;user&#125;"</span>/&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">merge</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">layout</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
+    </div>
 
     <br/>
     <hr>

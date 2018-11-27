@@ -173,7 +173,9 @@
     
     
 
-    <p>&nbsp;Hibernate3注解 收藏&nbsp;<br>1、@Entity(name=”EntityName”)&nbsp;<br>必须,name为可选,对应数据库中一的个表</p>
+
+    <div class="md-content">
+      <p>&nbsp;Hibernate3注解 收藏&nbsp;<br>1、@Entity(name=”EntityName”)&nbsp;<br>必须,name为可选,对应数据库中一的个表</p>
 <p>2、@Table(name=””,catalog=””,schema=””)&nbsp;<br>可选,通常和@Entity配合使用,只能标注在实体的class定义处,表示实体对应的数据库表的信息&nbsp;<br>name:可选,表示表的名称.默认地,表名和实体名称一致,只有在不一致的情况下才需要指定表名&nbsp;<br>catalog:可选,表示Catalog名称,默认为Catalog(“”).&nbsp;<br>schema:可选,表示Schema名称,默认为Schema(“”).</p>
 <p>3、@id&nbsp;<br>必须&nbsp;<br>@id定义了映射到数据库表的主键的属性,一个实体只能有一个属性被映射为主键.置于getXxxx()前.</p>
 <p>4、@GeneratedValue(strategy=GenerationType,generator=””)&nbsp;<br>可选&nbsp;<br>strategy:表示主键生成策略,有AUTO,INDENTITY,SEQUENCE 和 TABLE 4种,分别表示让ORM框架自动选择,&nbsp;<br>根据数据库的Identity字段生成,根据数据库表的Sequence字段生成,以有根据一个额外的表生成主键,默认为AUTO&nbsp;<br>generator:表示主键生成器的名称,这个属性通常和ORM框架相关,例如,Hibernate可以指定uuid等主键生成方式.&nbsp;<br>示例:&nbsp;<br>&nbsp;&nbsp;&nbsp; @Id&nbsp;<br>&nbsp;&nbsp;&nbsp; @GeneratedValues(strategy=StrategyType.SEQUENCE)&nbsp;<br>&nbsp;&nbsp;&nbsp; public int getPk() {&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return pk;&nbsp;<br>&nbsp;&nbsp;&nbsp; }</p>
@@ -209,6 +211,7 @@
 <p>@NamedQueries(&nbsp;<br>{&nbsp;<br>@NamedQuery(&nbsp;<br>name=”planeType.findById”,&nbsp;<br>query=”select p from PlaneType p left join fetch p.modelPlanes where id=:id”&nbsp;<br>),&nbsp;<br>@NamedQuery(&nbsp;<br>name=”planeType.findAll”,&nbsp;<br>query=”select p from PlaneType p”&nbsp;<br>),&nbsp;<br>@NamedQuery(&nbsp;<br>name=”planeType.delete”,&nbsp;<br>query=”delete from PlaneType where id=:id”&nbsp;<br>)&nbsp;<br>}&nbsp;<br>)&nbsp;<br>　　一旦完成了定义，您就可以像调用其他任何其他命名查询一样来调用它们。</p>
 <p>结束语&nbsp;<br>　　Hibernate 3 注释提供了强大而精致的 API，简化了 Java 数据库中的持久性代码，本文中只进行了简单的讨论。您可以选择遵从标准并使用 Java 持久性 API，也可以利用特定于 Hibernate的扩展，这些功能以损失可移植性为代价提供了更为强大的功能和更高的灵活性。无论如何，通过消除对 XML 映射文件的需求，Hibernate 注释将简化应用程序的维护，同时也可以使您对EJB 3 有初步认识。来试试吧！&nbsp;<br>&nbsp;<br>&nbsp;<br>本文来自CSDN博客，转载请标明出处：<a href="http://blog.csdn.net/dingqinghu/archive/2011/03/25/6275798.aspx" target="_blank" rel="noopener">http://blog.csdn.net/dingqinghu/archive/2011/03/25/6275798.aspx</a></p>
 
+    </div>
 
     <br/>
     <hr>

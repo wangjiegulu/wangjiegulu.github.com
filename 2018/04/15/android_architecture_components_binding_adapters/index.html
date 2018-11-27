@@ -181,7 +181,9 @@
       
     
 
-    <h1 id="Android-Architecture-Component-DataBinding-–-Binding-adapters（翻译）"><a href="#Android-Architecture-Component-DataBinding-–-Binding-adapters（翻译）" class="headerlink" title="Android Architecture Component DataBinding – Binding adapters（翻译）"></a>Android Architecture Component DataBinding – Binding adapters（翻译）</h1><blockquote>
+
+    <div class="md-content">
+      <h1 id="Android-Architecture-Component-DataBinding-–-Binding-adapters（翻译）"><a href="#Android-Architecture-Component-DataBinding-–-Binding-adapters（翻译）" class="headerlink" title="Android Architecture Component DataBinding – Binding adapters（翻译）"></a>Android Architecture Component DataBinding – Binding adapters（翻译）</h1><blockquote>
 <p>原文：<a href="https://developer.android.com/topic/libraries/data-binding/binding-adapters" target="_blank" rel="noopener">https://developer.android.com/topic/libraries/data-binding/binding-adapters</a></p>
 </blockquote>
 <p>Binding adapters 负责对设置值进行适当的框架调用。一个例子是像调用 <a href="https://developer.android.com/reference/android/widget/TextView.html#setText(char[],%20int,%20int" target="_blank" rel="noopener"><code>setText()</code></a>) 方法去设置属性值。另一个例子是像调用 <a href="https://developer.android.com/reference/android/view/View.html#setOnClickListener(android.view.View.OnClickListener" target="_blank" rel="noopener"><code>setOnClickListener()</code></a>) 方法去设置一个事件监听器。</p>
@@ -236,6 +238,7 @@
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@BindingConversion</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">convertColorToDrawable</span><span class="params">(color: <span class="type">Int</span>)</span></span> = ColorDrawable(color)</span><br></pre></td></tr></table></figure>
 <p>但是，绑定表达式中提供的值类型必须是一致的。不能在同一表达式中使用不同的类型，如下示例所示：</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;View</span><br><span class="line">   android:background=<span class="string">"@&#123;isError ? @drawable/error : @color/white&#125;"</span></span><br><span class="line">   android:layout_width=<span class="string">"wrap_content"</span></span><br><span class="line">   android:layout_height=<span class="string">"wrap_content"</span>/&gt;</span><br></pre></td></tr></table></figure>
+    </div>
 
     <br/>
     <hr>

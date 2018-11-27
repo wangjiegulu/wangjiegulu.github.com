@@ -176,7 +176,9 @@
     
     
 
-    <p>经历过的客户端的架构分为这么几个阶段：</p>
+
+    <div class="md-content">
+      <p>经历过的客户端的架构分为这么几个阶段：</p>
 <h3 id="第一阶段"><a href="#第一阶段" class="headerlink" title="第一阶段"></a>第一阶段</h3><p>使用传统的MVC，其中的View，对应的是各种Layout布局文件，但是这些布局文件中并不像Web端那样强大，能做的事情非常有限；Controller对应的是Activity，而Activity中却又具有操作UI的功能，我们在实际的项目中也会有很多UI操作在这一层，也做了很多View中应该做的事情，当然Controller中也包含Controller应该做的事情，比如各种事件的派发回调，而且在一层中我们会根据事件再去调用Model层操作数据，所以这种MVC的方式在实际项目中，Activity所在的Controller是非常重的，各层次之间的耦合情况也比较严重，不方便单元测试。</p>
 <h3 id="第二阶段"><a href="#第二阶段" class="headerlink" title="第二阶段"></a>第二阶段</h3><p>使用MVC的进化版——MVP，MVP中把Layout布局和Activity作为View层，增加了Presenter，Presenter层与Model层进行业务的交互，完成后再与View层交互（也就是Activity）进行回调来刷新UI。这样一来，所有业务逻辑的工作都交给了Presenter中进行，使得View层与Model层的耦合度降低，Activity中的工作也进行了简化。但是在实际项目中，随着逻辑的复杂度越来越大，Activity臃肿的缺点仍然体现出来了，因为Activity中还是充满了大量与View层无关的代码，比如各种事件的处理派发，就如MVC中的那样View层和Controller代码耦合在一起无法自拔。</p>
 <h3 id="第三阶段"><a href="#第三阶段" class="headerlink" title="第三阶段"></a>第三阶段</h3><p>也是现在正在使用的架构，针对第二阶段进行优化，为了把View再次简化，想到两种方式：</p>
@@ -219,6 +221,7 @@
 <h3 id="第四阶段："><a href="#第四阶段：" class="headerlink" title="第四阶段："></a>第四阶段：</h3><p>MVVM，把<code>Presenter</code>改成<code>ViewModel</code>，它与<code>View</code>之间的交互可以使用<code>Data Binding</code>的方式双向进行，也就是说<code>View</code>和<code>ViewModel</code>任意一方的改变都会体现在另一方中，Google IO上提供的框架暂时还不成熟，只支持单向，所以暂时还没有在正式的项目中使用。</p>
 <p>实质上MV*的思想都是一样的，解耦隔离视图（View）和模型（Model），在实际的应用中不需要给<code>MVC</code>、<code>MVP</code>和<code>MVVM</code>一个明确的界限，甚至可以把几者融合在一起。</p>
 
+    </div>
 
     <br/>
     <hr>

@@ -16,20 +16,20 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="#ffffff">
 
 
-    <meta name="description" content="Huginn 的 docker 部署及数据迁移前两天因为要换 vps，其中之前部署的 Huginn 需要迁移到新的 vps。之前也有朋友问过关于 huginn 的数据备份和迁移的问题。这篇文章就讲下整个流程。 在 vps 上安装 huginn，我之前的博客- 《Huginn及环境搭建》 有讲到过 Huginn 的部署过程，过程比较复杂，要安装的东西也比较多，做迁移的时候要重新部署一遍，也比较容易出">
+    <meta name="description" content="Huginn 的 Docker 部署及数据迁移前两天因为要换 vps，其中之前部署的 Huginn 需要迁移到新的 vps。之前也有朋友问过关于 huginn 的数据备份和迁移的问题。这篇文章就讲下整个流程。 在 vps 上安装 huginn，我之前的博客- 《Huginn及环境搭建》 有讲到过 Huginn 的部署过程，过程比较复杂，要安装的东西也比较多，做迁移的时候要重新部署一遍，也比较容易出">
 <meta name="keywords" content="automate,huginn,mysql,docker,docker hub,migration">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Huginn 的 docker 部署及数据迁移">
+<meta property="og:title" content="Huginn 的 Docker 部署及数据迁移">
 <meta property="og:url" content="https://blog.wangjiegulu.com/2018/11/24/huginn_deployment_with_docker_and_data_migration/index.html">
 <meta property="og:site_name" content="Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer">
-<meta property="og:description" content="Huginn 的 docker 部署及数据迁移前两天因为要换 vps，其中之前部署的 Huginn 需要迁移到新的 vps。之前也有朋友问过关于 huginn 的数据备份和迁移的问题。这篇文章就讲下整个流程。 在 vps 上安装 huginn，我之前的博客- 《Huginn及环境搭建》 有讲到过 Huginn 的部署过程，过程比较复杂，要安装的东西也比较多，做迁移的时候要重新部署一遍，也比较容易出">
+<meta property="og:description" content="Huginn 的 Docker 部署及数据迁移前两天因为要换 vps，其中之前部署的 Huginn 需要迁移到新的 vps。之前也有朋友问过关于 huginn 的数据备份和迁移的问题。这篇文章就讲下整个流程。 在 vps 上安装 huginn，我之前的博客- 《Huginn及环境搭建》 有讲到过 Huginn 的部署过程，过程比较复杂，要安装的东西也比较多，做迁移的时候要重新部署一遍，也比较容易出">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://user-images.githubusercontent.com/5423194/48963645-f99fc180-efd1-11e8-8806-357110a96ea8.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/5423194/48963720-a3cc1900-efd3-11e8-97f7-8c473a4298c3.png">
-<meta property="og:updated_time" content="2018-11-24T06:20:12.688Z">
+<meta property="og:updated_time" content="2018-11-27T08:29:03.523Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Huginn 的 docker 部署及数据迁移">
-<meta name="twitter:description" content="Huginn 的 docker 部署及数据迁移前两天因为要换 vps，其中之前部署的 Huginn 需要迁移到新的 vps。之前也有朋友问过关于 huginn 的数据备份和迁移的问题。这篇文章就讲下整个流程。 在 vps 上安装 huginn，我之前的博客- 《Huginn及环境搭建》 有讲到过 Huginn 的部署过程，过程比较复杂，要安装的东西也比较多，做迁移的时候要重新部署一遍，也比较容易出">
+<meta name="twitter:title" content="Huginn 的 Docker 部署及数据迁移">
+<meta name="twitter:description" content="Huginn 的 Docker 部署及数据迁移前两天因为要换 vps，其中之前部署的 Huginn 需要迁移到新的 vps。之前也有朋友问过关于 huginn 的数据备份和迁移的问题。这篇文章就讲下整个流程。 在 vps 上安装 huginn，我之前的博客- 《Huginn及环境搭建》 有讲到过 Huginn 的部署过程，过程比较复杂，要安装的东西也比较多，做迁移的时候要重新部署一遍，也比较容易出">
 <meta name="twitter:image" content="https://user-images.githubusercontent.com/5423194/48963645-f99fc180-efd1-11e8-8806-357110a96ea8.png">
     
     
@@ -50,7 +50,7 @@
         
     
     <!-- title -->
-    <title>Huginn 的 docker 部署及数据迁移</title>
+    <title>Huginn 的 Docker 部署及数据迁移</title>
     <!-- styles -->
     <link rel="stylesheet" href="/css/style.css">
     <!-- rss -->
@@ -103,6 +103,8 @@
     <span id="actions">
       <ul>
         
+        <li><a class="icon" href="/2018/11/27/ssr_docker_image/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
         
         <li><a class="icon" href="/2018/11/16/douban_high_movie_huginn_telegram/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
@@ -118,20 +120,20 @@
     <div id="share" style="display: none">
       <ul>
   <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://blog.wangjiegulu.com/2018/11/24/huginn_deployment_with_docker_and_data_migration/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=https://blog.wangjiegulu.com/2018/11/24/huginn_deployment_with_docker_and_data_migration/&text=Huginn 的 docker 部署及数据迁移"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.wangjiegulu.com/2018/11/24/huginn_deployment_with_docker_and_data_migration/&title=Huginn 的 docker 部署及数据迁移"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.wangjiegulu.com/2018/11/24/huginn_deployment_with_docker_and_data_migration/&is_video=false&description=Huginn 的 docker 部署及数据迁移"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Huginn 的 docker 部署及数据迁移&body=Check out this article: https://blog.wangjiegulu.com/2018/11/24/huginn_deployment_with_docker_and_data_migration/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.wangjiegulu.com/2018/11/24/huginn_deployment_with_docker_and_data_migration/&title=Huginn 的 docker 部署及数据迁移"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.wangjiegulu.com/2018/11/24/huginn_deployment_with_docker_and_data_migration/&title=Huginn 的 docker 部署及数据迁移"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.wangjiegulu.com/2018/11/24/huginn_deployment_with_docker_and_data_migration/&title=Huginn 的 docker 部署及数据迁移"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=https://blog.wangjiegulu.com/2018/11/24/huginn_deployment_with_docker_and_data_migration/&title=Huginn 的 docker 部署及数据迁移"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.wangjiegulu.com/2018/11/24/huginn_deployment_with_docker_and_data_migration/&name=Huginn 的 docker 部署及数据迁移&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://blog.wangjiegulu.com/2018/11/24/huginn_deployment_with_docker_and_data_migration/&text=Huginn 的 Docker 部署及数据迁移"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.wangjiegulu.com/2018/11/24/huginn_deployment_with_docker_and_data_migration/&title=Huginn 的 Docker 部署及数据迁移"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.wangjiegulu.com/2018/11/24/huginn_deployment_with_docker_and_data_migration/&is_video=false&description=Huginn 的 Docker 部署及数据迁移"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Huginn 的 Docker 部署及数据迁移&body=Check out this article: https://blog.wangjiegulu.com/2018/11/24/huginn_deployment_with_docker_and_data_migration/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.wangjiegulu.com/2018/11/24/huginn_deployment_with_docker_and_data_migration/&title=Huginn 的 Docker 部署及数据迁移"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.wangjiegulu.com/2018/11/24/huginn_deployment_with_docker_and_data_migration/&title=Huginn 的 Docker 部署及数据迁移"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.wangjiegulu.com/2018/11/24/huginn_deployment_with_docker_and_data_migration/&title=Huginn 的 Docker 部署及数据迁移"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://blog.wangjiegulu.com/2018/11/24/huginn_deployment_with_docker_and_data_migration/&title=Huginn 的 Docker 部署及数据迁移"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.wangjiegulu.com/2018/11/24/huginn_deployment_with_docker_and_data_migration/&name=Huginn 的 Docker 部署及数据迁移&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Huginn-的-docker-部署及数据迁移"><span class="toc-number">1.</span> <span class="toc-text">Huginn 的 docker 部署及数据迁移</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装-docker"><span class="toc-number">1.1.</span> <span class="toc-text">安装 docker</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#拉取-huginn-镜像"><span class="toc-number">1.2.</span> <span class="toc-text">拉取 huginn 镜像</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#运行-huginn"><span class="toc-number">1.3.</span> <span class="toc-text">运行 huginn</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据备份"><span class="toc-number">1.4.</span> <span class="toc-text">数据备份</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#恢复数据"><span class="toc-number">1.5.</span> <span class="toc-text">恢复数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其它配置"><span class="toc-number">1.6.</span> <span class="toc-text">其它配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#修改-DNS-Host-Record"><span class="toc-number">1.6.1.</span> <span class="toc-text">修改 DNS Host Record</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置-nginx-反向代理："><span class="toc-number">1.6.2.</span> <span class="toc-text">配置 nginx 反向代理：</span></a></li></ol></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Huginn-的-Docker-部署及数据迁移"><span class="toc-number">1.</span> <span class="toc-text">Huginn 的 Docker 部署及数据迁移</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装-docker"><span class="toc-number">1.1.</span> <span class="toc-text">安装 docker</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#拉取-huginn-镜像"><span class="toc-number">1.2.</span> <span class="toc-text">拉取 huginn 镜像</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#运行-huginn"><span class="toc-number">1.3.</span> <span class="toc-text">运行 huginn</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据备份"><span class="toc-number">1.4.</span> <span class="toc-text">数据备份</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#恢复数据"><span class="toc-number">1.5.</span> <span class="toc-text">恢复数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其它配置"><span class="toc-number">1.6.</span> <span class="toc-text">其它配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#修改-DNS-Host-Record"><span class="toc-number">1.6.1.</span> <span class="toc-text">修改 DNS Host Record</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置-nginx-反向代理："><span class="toc-number">1.6.2.</span> <span class="toc-text">配置 nginx 反向代理：</span></a></li></ol></li></ol></li></ol>
     </div>
   </span>
 </div>
@@ -143,7 +145,7 @@
   <header>
     
     <h1 class="posttitle" itemprop="name headline">
-        Huginn 的 docker 部署及数据迁移
+        Huginn 的 Docker 部署及数据迁移
     </h1>
 
 
@@ -182,7 +184,9 @@
       
     
 
-    <h1 id="Huginn-的-docker-部署及数据迁移"><a href="#Huginn-的-docker-部署及数据迁移" class="headerlink" title="Huginn 的 docker 部署及数据迁移"></a>Huginn 的 docker 部署及数据迁移</h1><p>前两天因为要换 vps，其中之前部署的 Huginn 需要迁移到新的 vps。之前也有朋友问过关于 huginn 的数据备份和迁移的问题。这篇文章就讲下整个流程。</p>
+
+    <div class="md-content">
+      <h1 id="Huginn-的-Docker-部署及数据迁移"><a href="#Huginn-的-Docker-部署及数据迁移" class="headerlink" title="Huginn 的 Docker 部署及数据迁移"></a>Huginn 的 Docker 部署及数据迁移</h1><p>前两天因为要换 vps，其中之前部署的 Huginn 需要迁移到新的 vps。之前也有朋友问过关于 huginn 的数据备份和迁移的问题。这篇文章就讲下整个流程。</p>
 <p>在 vps 上安装 huginn，我之前的博客- <a href="https://blog.wangjiegulu.com/2018/04/02/build_the_environment_for_huginn/">《Huginn及环境搭建》</a> 有讲到过 Huginn 的部署过程，过程比较复杂，要安装的东西也比较多，做迁移的时候要重新部署一遍，也比较容易出错。而 Huginn 有提供 docker 镜像，所以这次我们通过 docker 来搭建 Huginn 环境。</p>
 <h2 id="安装-docker"><a href="#安装-docker" class="headerlink" title="安装 docker"></a>安装 docker</h2><p>我用的 vps 是 Debian，按照官方文档安装 docker，具体流程见这里：<a href="https://docs.docker.com/install/linux/docker-ce/debian/" target="_blank" rel="noopener">https://docs.docker.com/install/linux/docker-ce/debian/</a>。</p>
 <blockquote>
@@ -241,6 +245,7 @@
 <h2 id="其它配置"><a href="#其它配置" class="headerlink" title="其它配置"></a>其它配置</h2><h3 id="修改-DNS-Host-Record"><a href="#修改-DNS-Host-Record" class="headerlink" title="修改 DNS Host Record"></a>修改 DNS Host Record</h3><p>把你的 ip 地址改成新的 vps 的 ip。</p>
 <h3 id="配置-nginx-反向代理："><a href="#配置-nginx-反向代理：" class="headerlink" title="配置 nginx 反向代理："></a>配置 nginx 反向代理：</h3><p>如下配置，详情可参考 <a href="https://github.com/huginn/huginn/wiki/Nginx-reverse-proxy-configuration" target="_blank" rel="noopener">这里</a>：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    # Make it available from the Internet</span><br><span class="line">    allow all;</span><br><span class="line"></span><br><span class="line">    listen 80;</span><br><span class="line"></span><br><span class="line">    # server names for this server.</span><br><span class="line">    # any requests that come in that match any these names will use the proxy.</span><br><span class="line">    server_name huginn.server.com;</span><br><span class="line">    access_log /var/log/nginx/huginn.server.com-access.log;</span><br><span class="line">    error_log /var/log/nginx/huginn.server.com-error.log;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        proxy_pass http://127.0.0.1:3000;</span><br><span class="line">        proxy_set_header Host $host;</span><br><span class="line">        proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">        proxy_set_header X-Forwarded-Proto $scheme;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    listen 443 ssl;</span><br><span class="line"></span><br><span class="line">    # Setup SSL certificate with Let&apos;s Encript (https://letsencrypt.org/)</span><br><span class="line">    ssl_certificate /etc/letsencrypt/live/huginn.server.com/fullchain.pem;</span><br><span class="line">    ssl_certificate_key /etc/letsencrypt/live/huginn.server.com/privkey.pem;</span><br><span class="line">    include /etc/letsencrypt/options-ssl-nginx.conf;</span><br><span class="line">    ssl_trusted_certificate /etc/letsencrypt/live/huginn.server.com/chain.pem;</span><br><span class="line">    ssl_stapling on;</span><br><span class="line">    ssl_stapling_verify on;</span><br><span class="line"></span><br><span class="line">    if ($scheme != &quot;https&quot;) &#123;</span><br><span class="line">        return 301 https://$host$request_uri;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
 
     <br/>
     <hr>
@@ -286,21 +291,21 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Huginn-的-docker-部署及数据迁移"><span class="toc-number">1.</span> <span class="toc-text">Huginn 的 docker 部署及数据迁移</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装-docker"><span class="toc-number">1.1.</span> <span class="toc-text">安装 docker</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#拉取-huginn-镜像"><span class="toc-number">1.2.</span> <span class="toc-text">拉取 huginn 镜像</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#运行-huginn"><span class="toc-number">1.3.</span> <span class="toc-text">运行 huginn</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据备份"><span class="toc-number">1.4.</span> <span class="toc-text">数据备份</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#恢复数据"><span class="toc-number">1.5.</span> <span class="toc-text">恢复数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其它配置"><span class="toc-number">1.6.</span> <span class="toc-text">其它配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#修改-DNS-Host-Record"><span class="toc-number">1.6.1.</span> <span class="toc-text">修改 DNS Host Record</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置-nginx-反向代理："><span class="toc-number">1.6.2.</span> <span class="toc-text">配置 nginx 反向代理：</span></a></li></ol></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Huginn-的-Docker-部署及数据迁移"><span class="toc-number">1.</span> <span class="toc-text">Huginn 的 Docker 部署及数据迁移</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装-docker"><span class="toc-number">1.1.</span> <span class="toc-text">安装 docker</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#拉取-huginn-镜像"><span class="toc-number">1.2.</span> <span class="toc-text">拉取 huginn 镜像</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#运行-huginn"><span class="toc-number">1.3.</span> <span class="toc-text">运行 huginn</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据备份"><span class="toc-number">1.4.</span> <span class="toc-text">数据备份</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#恢复数据"><span class="toc-number">1.5.</span> <span class="toc-text">恢复数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其它配置"><span class="toc-number">1.6.</span> <span class="toc-text">其它配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#修改-DNS-Host-Record"><span class="toc-number">1.6.1.</span> <span class="toc-text">修改 DNS Host Record</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置-nginx-反向代理："><span class="toc-number">1.6.2.</span> <span class="toc-text">配置 nginx 反向代理：</span></a></li></ol></li></ol></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
       <ul>
   <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://blog.wangjiegulu.com/2018/11/24/huginn_deployment_with_docker_and_data_migration/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=https://blog.wangjiegulu.com/2018/11/24/huginn_deployment_with_docker_and_data_migration/&text=Huginn 的 docker 部署及数据迁移"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.wangjiegulu.com/2018/11/24/huginn_deployment_with_docker_and_data_migration/&title=Huginn 的 docker 部署及数据迁移"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.wangjiegulu.com/2018/11/24/huginn_deployment_with_docker_and_data_migration/&is_video=false&description=Huginn 的 docker 部署及数据迁移"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Huginn 的 docker 部署及数据迁移&body=Check out this article: https://blog.wangjiegulu.com/2018/11/24/huginn_deployment_with_docker_and_data_migration/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.wangjiegulu.com/2018/11/24/huginn_deployment_with_docker_and_data_migration/&title=Huginn 的 docker 部署及数据迁移"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.wangjiegulu.com/2018/11/24/huginn_deployment_with_docker_and_data_migration/&title=Huginn 的 docker 部署及数据迁移"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.wangjiegulu.com/2018/11/24/huginn_deployment_with_docker_and_data_migration/&title=Huginn 的 docker 部署及数据迁移"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=https://blog.wangjiegulu.com/2018/11/24/huginn_deployment_with_docker_and_data_migration/&title=Huginn 的 docker 部署及数据迁移"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.wangjiegulu.com/2018/11/24/huginn_deployment_with_docker_and_data_migration/&name=Huginn 的 docker 部署及数据迁移&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://blog.wangjiegulu.com/2018/11/24/huginn_deployment_with_docker_and_data_migration/&text=Huginn 的 Docker 部署及数据迁移"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.wangjiegulu.com/2018/11/24/huginn_deployment_with_docker_and_data_migration/&title=Huginn 的 Docker 部署及数据迁移"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.wangjiegulu.com/2018/11/24/huginn_deployment_with_docker_and_data_migration/&is_video=false&description=Huginn 的 Docker 部署及数据迁移"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Huginn 的 Docker 部署及数据迁移&body=Check out this article: https://blog.wangjiegulu.com/2018/11/24/huginn_deployment_with_docker_and_data_migration/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.wangjiegulu.com/2018/11/24/huginn_deployment_with_docker_and_data_migration/&title=Huginn 的 Docker 部署及数据迁移"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.wangjiegulu.com/2018/11/24/huginn_deployment_with_docker_and_data_migration/&title=Huginn 的 Docker 部署及数据迁移"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.wangjiegulu.com/2018/11/24/huginn_deployment_with_docker_and_data_migration/&title=Huginn 的 Docker 部署及数据迁移"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://blog.wangjiegulu.com/2018/11/24/huginn_deployment_with_docker_and_data_migration/&title=Huginn 的 Docker 部署及数据迁移"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.wangjiegulu.com/2018/11/24/huginn_deployment_with_docker_and_data_migration/&name=Huginn 的 Docker 部署及数据迁移&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>

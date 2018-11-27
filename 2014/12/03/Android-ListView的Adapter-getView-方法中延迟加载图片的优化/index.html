@@ -173,7 +173,9 @@
     
     
 
-    <p>举个例子吧，以好友列表为例</p>
+
+    <div class="md-content">
+      <p>举个例子吧，以好友列表为例</p>
 <p>ListView中每个Item表示一个好友，每个好友中都有一个头像，需要从服务端加载到本地，然后显示在item中。</p>
 <p>显然，启动加载图片的过程应该是在getView()方法中触发，启动一个线程，然后下载头像图片。这里使用我写的一个开源框架<strong><a href="https://github.com/wangjiegulu/ImageLoaderSample" target="_blank" rel="noopener">ImageLoaderSample</a></strong>（<a href="https://github.com/wangjiegulu/ImageLoaderSample" target="_blank" rel="noopener">https://github.com/wangjiegulu/ImageLoaderSample</a>）来加载图片，并实现内存缓存和本地缓存。</p>
 <p>额－－这里不再介绍ImageLoaderSample的用法了，给个传送门：<a href="http://www.cnblogs.com/tiantianbyconan/p/3574131.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/p/3574131.html</a></p>
@@ -202,6 +204,7 @@
 <p>这样，运行原来的代码试试吧，是不是效率快了一些？</p>
 <p>&nbsp;</p>
 
+    </div>
 
     <br/>
     <hr>

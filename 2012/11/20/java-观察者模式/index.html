@@ -173,7 +173,9 @@
     
     
 
-    <p>IWatched：</p>
+
+    <div class="md-content">
+      <p>IWatched：</p>
 <div class="cnblogs_code"><br><pre><span style="color: #008000;">/<em>*</em></span><span style="color: #008000;">
   </span><span style="color: #808080;">@author</span><span style="color: #008000;"> com.tiantian<br> <em> </em></span><span style="color: #808080;">@version</span><span style="color: #008000;"> 创建时间：2012-11-20 下午4:58:25<br> </span><span style="color: #008000;">/</span><br><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">interface</span><span style="color: #000000;"> IWatched {<br>    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> addWatcher(IWatcher watcher);<br>    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> removeWatcher(IWatcher watcher);<br>    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> notifyWatchers(String msg);<br>}</span></pre><br></div>
 
@@ -194,6 +196,7 @@
   </span><span style="color: #808080;">@author</span><span style="color: #008000;"> com.tiantian<br> <em> </em></span><span style="color: #808080;">@version</span><span style="color: #008000;"> 创建时间：2012-11-20 下午5:05:26<br> </span><span style="color: #008000;">/</span><br><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> Test {<br>    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> main(String[] args) {<br>        IWatched watched </span>= <span style="color: #0000ff;">new</span><span style="color: #000000;"> Watched();<br>        IWatcher watcher1 </span>= <span style="color: #0000ff;">new</span><span style="color: #000000;"> Watcher();<br>        IWatcher watcher2 </span>= <span style="color: #0000ff;">new</span><span style="color: #000000;"> Watcher();<br>        IWatcher watcher3 </span>= <span style="color: #0000ff;">new</span><span style="color: #000000;"> Watcher();<br>        watched.addWatcher(watcher1);<br>        watched.addWatcher(watcher2);<br>        watched.addWatcher(watcher3);<br>        watched.notifyWatchers(</span>“I have been clicked!”<span style="color: #000000;">);<br><br>        watched.removeWatcher(watcher1);<br>        watched.notifyWatchers(</span>“what’s up”<span style="color: #000000;">);<br>    }<br>}</span></pre><br></div>
 
 
+    </div>
 
     <br/>
     <hr>

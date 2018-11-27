@@ -173,7 +173,9 @@
     
     
 
-    <h2 id="从Launcher开始启动App流程源码分析"><a href="#从Launcher开始启动App流程源码分析" class="headerlink" title="从Launcher开始启动App流程源码分析"></a>从Launcher开始启动App流程源码分析</h2><p><code>com.android.launcher.Launcher</code>就是我们的Launcher页面了，可以看到Launcher其实也是一个<code>Activity</code>：</p>
+
+    <div class="md-content">
+      <h2 id="从Launcher开始启动App流程源码分析"><a href="#从Launcher开始启动App流程源码分析" class="headerlink" title="从Launcher开始启动App流程源码分析"></a>从Launcher开始启动App流程源码分析</h2><p><code>com.android.launcher.Launcher</code>就是我们的Launcher页面了，可以看到Launcher其实也是一个<code>Activity</code>：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Launcher</span> <span class="keyword">extends</span> <span class="title">Activity</span> <span class="keyword">implements</span> <span class="title">View</span>.<span class="title">OnClickListener</span>, <span class="title">OnLongClickListener</span> </span>&#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>既然是<code>Activity</code>，那当然也会有<code>onCreate</code>、<code>onResume</code>等生命周期了，按照逻辑，应该会去加载所有App，以网格的布局显示在页面上，果然，在<code>onResume</code>看到了这个方法：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onResume</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.onResume();</span><br><span class="line">    <span class="keyword">if</span> (mRestoring) &#123;</span><br><span class="line">        startLoaders();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -320,6 +322,7 @@
 </li>
 </ul>
 
+    </div>
 
     <br/>
     <hr>

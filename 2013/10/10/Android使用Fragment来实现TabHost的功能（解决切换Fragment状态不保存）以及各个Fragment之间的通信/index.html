@@ -187,7 +187,9 @@
     
     
 
-    <p><img src="http://images.cnitblog.com/blog/378300/201310/10104944-40b5dbc296894475bdaf8914a59d0498.png" alt=""></p>
+
+    <div class="md-content">
+      <p><img src="http://images.cnitblog.com/blog/378300/201310/10104944-40b5dbc296894475bdaf8914a59d0498.png" alt=""></p>
 <p>如新浪微博下面的标签切换功能，我以前也写过一篇博文（<a href="http://www.cnblogs.com/tiantianbyconan/archive/2012/02/24/2366237.html" target="_blank" rel="noopener">http://www.cnblogs.com/tiantianbyconan/archive/2012/02/24/2366237.html</a>），可以实现，用的是TabHost。但是android发展比较迅速，TabHost这玩意现在已经被弃用了，虽说用现在也能用，但是被弃用的东西还是少用为妙。</p>
 <p>官方有个FragmentTabHost这么一个替代品，于是试了一下，发现每次切换tab，都会调用<span>onCreateView()方法，控件被重新加载，也就是说你从tab1切换到别的tab后，再切换回来，tab1的状态并没有保存，重新加载了控件。</span></p>
 <p><span>搞了半天，暂时没有好的解决办法（有朋友知道解决办法的话，希望联系我，赐教下哈）</span></p>
@@ -240,6 +242,7 @@
 <p><img src="http://images.cnitblog.com/blog/378300/201310/10114324-42b27a496916463e91d7400c5c3d1884.png" alt=""></p>
 <p><span style="color: #ff0000;"><strong>demo下载地址：<a href="http://pan.baidu.com/s/1wxsIX" target="_blank" rel="noopener"><span style="color: #ff0000;">http://pan.baidu.com/s/1wxsIX</span></a></strong></span></p>
 
+    </div>
 
     <br/>
     <hr>

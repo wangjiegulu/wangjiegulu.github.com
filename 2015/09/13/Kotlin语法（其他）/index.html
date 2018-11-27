@@ -173,7 +173,9 @@
     
     
 
-    <p>#三、其他<br>[TOC]</p>
+
+    <div class="md-content">
+      <p>#三、其他<br>[TOC]</p>
 <p>##1. 多重声明<br>有时候可以通过给对象插入多个成员函数做区别是很方便的:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val (name, age) = person</span><br></pre></td></tr></table></figure></p>
 <p>多重声明一次创建了多个变量。我们声明了俩个新变量：name age 并且可以独立使用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">println(name)</span><br><span class="line">println(age)</span><br></pre></td></tr></table></figure></p>
 <p>也可以在 for 循环中用:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">for ((a, b) in collection) &#123; ... &#125;</span><br></pre></td></tr></table></figure></p>
@@ -227,6 +229,7 @@
 <p>当给动态调用传递一个 lambda 表达式时，所有的参数默认都是<code>dynamic</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dyn.foo &#123;</span><br><span class="line">  x -&gt; x.bar() // x is dynamic</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p><strong>参考：</strong><br>1. <a href="http://kotlinlang.org/docs/reference/basic-syntax.html" target="_blank" rel="noopener">http://kotlinlang.org/docs/reference/basic-syntax.html</a><br>2. <a href="http://huanglizhuo.gitbooks.io/kotlin-in-chinese" target="_blank" rel="noopener">http://huanglizhuo.gitbooks.io/kotlin-in-chinese</a></p>
 
+    </div>
 
     <br/>
     <hr>

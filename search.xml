@@ -3,9 +3,99 @@
   
     
     <entry>
-      <title><![CDATA[Huginn 的 docker 部署及数据迁移]]></title>
+      <title><![CDATA[制作一个 SSR Docker 镜像]]></title>
+      <url>/2018/11/27/ssr_docker_image/</url>
+      <content type="html"><![CDATA[<h1 id="制作一个-SSR-Docker-镜像"><a href="#制作一个-SSR-Docker-镜像" class="headerlink" title="制作一个 SSR Docker 镜像"></a>制作一个 SSR Docker 镜像</h1><p>基于 <a href="https://github.com/teddysun/shadowsocks_install" target="_blank" rel="noopener">秋水逸冰</a> 发布的 <a href="https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocksR.sh" target="_blank" rel="noopener">一键安装脚本</a> 写的 <code>Dockerfile</code>。</p>
+<p>因为平时会在多个 vps 上都部署一套，有时候还经常换 vps，但是又比较懒，不想每次都得重新创建自己的配置文件，所以索性把配置文件直接放在镜像里面。</p>
+<blockquote>
+<p>本文的镜像文件已经上传到 <a href="https://github.com/wangjiegulu/ssr_dockerfile" target="_blank" rel="noopener">Github</a>：<br><a href="https://github.com/wangjiegulu/ssr_dockerfile" target="_blank" rel="noopener">https://github.com/wangjiegulu/ssr_dockerfile</a><br>大家 clone 下来之后可以省去编写 Dockerfile 文件步骤，直接进入到 <a href="#build_image">构建镜像</a> 步骤。</p>
+</blockquote>
+<h2 id="编写-Dockerfile-文件"><a href="#编写-Dockerfile-文件" class="headerlink" title="编写 Dockerfile 文件"></a>编写 Dockerfile 文件</h2><p>以下是最终的 Dockerfile 文件，后面我们再分析里面的重要的一些步骤：</p>
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Dockerfile for ShadowsocksR</span></span><br><span class="line"><span class="comment"># https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocksR.sh</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">FROM</span> debian:stretch</span><br><span class="line"></span><br><span class="line"><span class="keyword">LABEL</span> maintainer="Wang Jie &lt;tiantian.china.2@gmail.com&gt;"</span><br><span class="line"></span><br><span class="line"># prepare</span><br><span class="line">RUN apt-get update \</span><br><span class="line">  &amp;&amp; apt-get install -y procps \</span><br><span class="line">  &amp;&amp; apt-get install -y wget \</span><br><span class="line">  &amp;&amp; rm -rf /var/lib/apt/lists/* \</span><br><span class="line">  &amp;&amp; export PATH=$PATH:/usr/local/bin:/usr/bin:/bin:/sbin:/usr/local/games:/usr/games</span><br><span class="line"></span><br><span class="line"># install ssr</span><br><span class="line">RUN cd /usr/local \</span><br><span class="line">  &amp;&amp; mkdir ssr \</span><br><span class="line">  &amp;&amp; cd ssr \</span><br><span class="line">  &amp;&amp; wget --no-check-certificate https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocksR.sh \</span><br><span class="line">  &amp;&amp; chmod +x shadowsocksR.sh \</span><br><span class="line">  &amp;&amp; \n | ./shadowsocksR.sh 2&gt;&amp;1 | tee shadowsocksR.log \</span><br><span class="line">  &amp;&amp; \n; exit 0</span><br><span class="line"></span><br><span class="line"># ssr configuration</span><br><span class="line">COPY shadowsocks.json /etc/</span><br><span class="line"></span><br><span class="line"># ssr script</span><br><span class="line">RUN cd /usr/local/ssr \</span><br><span class="line">  # fake log</span><br><span class="line">  &amp;&amp; touch fake_log.log \</span><br><span class="line">  # start.sh</span><br><span class="line">  &amp;&amp; touch start.sh \</span><br><span class="line">  &amp;&amp; echo 'python /usr/local/shadowsocks/server.py -c /etc/shadowsocks.json -d start &amp;&amp; tail -f /usr/local/ssr/fake_log.log' &gt; start.sh \</span><br><span class="line">  &amp;&amp; chmod 775 start.sh \</span><br><span class="line">  # stop.sh</span><br><span class="line">  &amp;&amp; touch stop.sh \</span><br><span class="line">  &amp;&amp; echo 'python /usr/local/shadowsocks/server.py -c /etc/shadowsocks.json -d stop' &gt; stop.sh \</span><br><span class="line">  &amp;&amp; chmod 775 stop.sh \</span><br><span class="line">  # restart.sh</span><br><span class="line">  &amp;&amp; touch restart.sh \</span><br><span class="line">  &amp;&amp; echo './stop.sh &amp;&amp; ./start.sh' &gt; restart.sh \</span><br><span class="line">  &amp;&amp; chmod 775 restart.sh</span><br><span class="line"></span><br><span class="line">ENTRYPOINT ["sh", "/usr/local/ssr/start.sh"]</span><br></pre></td></tr></table></figure>
+<p>根据以上文件可知：</p>
+<ul>
+<li>首先我们这个 ssr 镜像是在 linxus <code>debian stretch</code> 这个版本的基础上制作的。</li>
+<li>第一个 <code>RUN</code> 是做一些构建之前的准备工作：<ul>
+<li>安装 <code>wget</code>，为了方便我们之后从 github 下载 <a href="https://github.com/teddysun/shadowsocks_install" target="_blank" rel="noopener">秋水逸冰</a> 发布的 <a href="https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocksR.sh" target="_blank" rel="noopener">一键安装脚本</a> 。</li>
+<li>配置环境变量。</li>
+</ul>
+</li>
+<li>第二个 <code>RUN</code> 是用来安装 ssr，先下载 <code>https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocksR.sh</code>，然后再执行 <code>./shadowsocksR.sh 2&gt;&amp;1 | tee shadowsocksR.log</code>，这里因为这个脚本是交互式的，安装过程中会让你选择比如端口号，加密协议等等信息，但是我们希望一起都按照默认的安装，最后再用我们的配置文件去覆盖默认的来达到自动部署的目的，所以我们在命令前面加上 <code>\n</code>，一律通过回车默认跳过。</li>
+<li><code>COPY</code> 操作是在安装完成之后，把当前目录的 <code>shadowsocks.json</code> 拷贝到容器的 <code>/etc/</code> 目录。所以大家在使用这个 Dockerfile 构建之前要在同目录下配置好自己的 <code>shadowsocks.json</code>。</li>
+<li>最后一个 <code>RUN</code> 是用来创建一些命令脚本，比如 启动 ssr 的 <code>start.sh</code>，停止 ssr 的 <code>stop.sh</code>，重启 ssr 的 <code>restart.sh</code>；除此之外，还会创建一个 <code>fake_log.log</code> 文件，因为如果没有这个文件，当你启动这个容器，并执行 <code>start.sh</code> 之后，一旦执行成功，容器就被自动关闭了，这个是由 docker 机制决定，所以我们需要在启动之后再 <code>tail -f fake_log.log</code>，来确保 容器不会被关闭。</li>
+<li>最后的 <code>ENTRYPOINT</code> 表示从这个镜像启动一个容器之后，自动执行的命令，我们希望在容器启动的时候自动把 ssr 的服务开启，所以需要做这个配置。</li>
+</ul>
+<p><span id="build_image"></span></p>
+<h2 id="构建镜像"><a href="#构建镜像" class="headerlink" title="构建镜像"></a>构建镜像</h2><p>在 <code>Dockerfile</code> 的同一目录创建你自己的 <code>shadowsocks.json</code> 文件，然后构建生成镜像，然后上传到你自己的 <a href="https://hub.docker.com/" target="_blank" rel="noopener">Docker Hub</a>。之后在任何主机上部署，pull 下你自己的镜像，run 即可，省去每次要修改你的配置的步骤。</p>
+<blockquote>
+<p>注意：你创建的这个镜像中是包含了自己的配置文件信息的，所以最好是 <code>private</code>。</p>
+</blockquote>
+<h3 id="构建步骤"><a href="#构建步骤" class="headerlink" title="构建步骤"></a>构建步骤</h3><ul>
+<li>在 <a href="https://hub.docker.com/" target="_blank" rel="noopener">Docker Hub</a> （没有就先注册）创建你的 respository （最好 private），如 <code>ssr</code>，假设你的 docker hub 用户名为 <code>zhangsan</code>。</li>
+<li>Clone 本项目</li>
+<li><p>在项目根目录创建 <code>shadowsocks.json</code>，编写类似如下的 ssr 配置：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">   <span class="attr">"server"</span>:<span class="string">"0.0.0.0"</span>,</span><br><span class="line">   <span class="attr">"server_ipv6"</span>:<span class="string">"[::]"</span>,</span><br><span class="line">   <span class="attr">"local_address"</span>:<span class="string">"127.0.0.1"</span>,</span><br><span class="line">   <span class="attr">"local_port"</span>:<span class="number">1080</span>,</span><br><span class="line">   <span class="attr">"port_password"</span>:&#123;</span><br><span class="line">       <span class="attr">"9000"</span>:<span class="string">"xxxxxx"</span>,</span><br><span class="line">       <span class="attr">"9001"</span>:&#123;<span class="attr">"password"</span>:<span class="string">"xxxxxx"</span>, <span class="attr">"protocol"</span>:<span class="string">"auth_chain_a"</span>, <span class="attr">"obfs"</span>:<span class="string">"tls1.2_ticket_auth"</span>, <span class="attr">"obfs_param"</span>:<span class="string">""</span>&#125;,</span><br><span class="line">       <span class="attr">"9002"</span>:&#123;<span class="attr">"password"</span>:<span class="string">"xxxxxx"</span>, <span class="attr">"protocol"</span>:<span class="string">"auth_chain_a"</span>, <span class="attr">"obfs"</span>:<span class="string">"tls1.2_ticket_auth"</span>, <span class="attr">"obfs_param"</span>:<span class="string">""</span>&#125;</span><br><span class="line">       // ...</span><br><span class="line">   &#125;,</span><br><span class="line">   <span class="attr">"timeout"</span>:<span class="number">120</span>,</span><br><span class="line">   <span class="attr">"method"</span>:<span class="string">"chacha20"</span>,</span><br><span class="line">   <span class="attr">"protocol"</span>:<span class="string">"origin"</span>,</span><br><span class="line">   <span class="attr">"protocol_param"</span>:<span class="string">""</span>,</span><br><span class="line">   <span class="attr">"obfs"</span>:<span class="string">"plain"</span>,</span><br><span class="line">   <span class="attr">"obfs_param"</span>:<span class="string">""</span>,</span><br><span class="line">   <span class="attr">"redirect"</span>:<span class="string">""</span>,</span><br><span class="line">   <span class="attr">"dns_ipv6"</span>:<span class="literal">false</span>,</span><br><span class="line">   <span class="attr">"fast_open"</span>:<span class="literal">false</span>,</span><br><span class="line">   <span class="attr">"workers"</span>:<span class="number">1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li>创建 docker 镜像：cd 到本项目的根目录，运行命令 <code>docker build --no-cache -t zhangsan/ssr:0.1 .</code>。创建成功之后运行 <code>docker images</code> 确认下。</li>
+<li>把你本地生成的镜像 push 到你的仓库：<ul>
+<li>运行 <code>docker login</code>，确认你是登录状态，未登录则登录 <code>Docker Hub</code>。</li>
+<li>执行 <code>docker push zhangsan/ssr:0.1</code>。</li>
+<li>成功之后到你的 <code>Docker Hub</code> 查看该 respository 的 tag 是否有 <code>0.1</code> 的版本存在了。</li>
+</ul>
+</li>
+</ul>
+<h3 id="使用步骤"><a href="#使用步骤" class="headerlink" title="使用步骤"></a>使用步骤</h3><ul>
+<li>登录你的 vps，安装 docker，执行 <code>docker login</code> 登录。</li>
+<li>运行 <code>docker pull zhangsan/ssr:0.1</code> 命令把刚刚你创建的镜像 pull 下来。</li>
+<li>再运行镜像：<code>docker run -itd --name ssr -p 9000:9000 -p 9001:9001 -p 9002:9002 zhangsan/ssr:0.1</code></li>
+<li>容器（容器的名字为 <code>ssr</code>）启动之后，<code>ssr server</code> 会自动跑起来。</li>
+<li>根据你 vps 的系统，把 <code>docker run ssr</code> 作为开机自启。</li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> automate </category>
+            
+            <category> docker </category>
+            
+            <category> ssr </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> automate </tag>
+            
+            <tag> huginn </tag>
+            
+            <tag> mysql </tag>
+            
+            <tag> docker </tag>
+            
+            <tag> docker hub </tag>
+            
+            <tag> migration </tag>
+            
+            <tag> ssr </tag>
+            
+            <tag> shadowsocks </tag>
+            
+            <tag> shadowsocksr </tag>
+            
+            <tag> ss </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Huginn 的 Docker 部署及数据迁移]]></title>
       <url>/2018/11/24/huginn_deployment_with_docker_and_data_migration/</url>
-      <content type="html"><![CDATA[<h1 id="Huginn-的-docker-部署及数据迁移"><a href="#Huginn-的-docker-部署及数据迁移" class="headerlink" title="Huginn 的 docker 部署及数据迁移"></a>Huginn 的 docker 部署及数据迁移</h1><p>前两天因为要换 vps，其中之前部署的 Huginn 需要迁移到新的 vps。之前也有朋友问过关于 huginn 的数据备份和迁移的问题。这篇文章就讲下整个流程。</p>
+      <content type="html"><![CDATA[<h1 id="Huginn-的-Docker-部署及数据迁移"><a href="#Huginn-的-Docker-部署及数据迁移" class="headerlink" title="Huginn 的 Docker 部署及数据迁移"></a>Huginn 的 Docker 部署及数据迁移</h1><p>前两天因为要换 vps，其中之前部署的 Huginn 需要迁移到新的 vps。之前也有朋友问过关于 huginn 的数据备份和迁移的问题。这篇文章就讲下整个流程。</p>
 <p>在 vps 上安装 huginn，我之前的博客- <a href="https://blog.wangjiegulu.com/2018/04/02/build_the_environment_for_huginn/">《Huginn及环境搭建》</a> 有讲到过 Huginn 的部署过程，过程比较复杂，要安装的东西也比较多，做迁移的时候要重新部署一遍，也比较容易出错。而 Huginn 有提供 docker 镜像，所以这次我们通过 docker 来搭建 Huginn 环境。</p>
 <h2 id="安装-docker"><a href="#安装-docker" class="headerlink" title="安装 docker"></a>安装 docker</h2><p>我用的 vps 是 Debian，按照官方文档安装 docker，具体流程见这里：<a href="https://docs.docker.com/install/linux/docker-ce/debian/" target="_blank" rel="noopener">https://docs.docker.com/install/linux/docker-ce/debian/</a>。</p>
 <blockquote>
@@ -4616,11 +4706,11 @@
             
             <tag> 翻译 </tag>
             
+            <tag> google </tag>
+            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
-            
-            <tag> google </tag>
             
         </tags>
         
@@ -4719,11 +4809,11 @@
             
             <tag> 翻译 </tag>
             
+            <tag> google </tag>
+            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
-            
-            <tag> google </tag>
             
         </tags>
         
@@ -4825,11 +4915,11 @@
             
             <tag> 翻译 </tag>
             
+            <tag> google </tag>
+            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
-            
-            <tag> google </tag>
             
             <tag> RxJava </tag>
             
@@ -4959,11 +5049,11 @@
             
             <tag> 翻译 </tag>
             
+            <tag> google </tag>
+            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
-            
-            <tag> google </tag>
             
         </tags>
         
@@ -5089,7 +5179,7 @@
       <title><![CDATA[[Android]异步 layout inflation（翻译）]]></title>
       <url>/2016/09/01/Android-%E5%BC%82%E6%AD%A5-layout-inflation%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/</url>
       <content type="html"><![CDATA[<h1 id="异步-layout-inflation"><a href="#异步-layout-inflation" class="headerlink" title="异步 layout inflation"></a>异步 layout inflation</h1><blockquote>
-<p>原文：<a href="&#x6d;&#x61;&#x69;&#108;&#x74;&#x6f;&#58;&#104;&#x74;&#116;&#112;&#x73;&#x3a;&#47;&#47;&#109;&#101;&#100;&#105;&#117;&#x6d;&#46;&#x63;&#x6f;&#109;&#x2f;&#x40;&#108;&#x75;&#x70;&#97;&#x6a;&#x7a;&#47;&#97;&#115;&#x79;&#x6e;&#x63;&#x68;&#114;&#x6f;&#110;&#x6f;&#x75;&#115;&#x2d;&#108;&#x61;&#121;&#x6f;&#117;&#x74;&#45;&#105;&#110;&#102;&#x6c;&#97;&#116;&#105;&#111;&#110;&#45;&#x37;&#x63;&#98;&#x63;&#97;&#x32;&#54;&#53;&#51;&#x62;&#102;&#x23;&#x2e;&#x71;&#x32;&#x32;&#118;&#x70;&#x65;&#x7a;&#x67;&#x34;">&#104;&#x74;&#116;&#112;&#x73;&#x3a;&#47;&#47;&#109;&#101;&#100;&#105;&#117;&#x6d;&#46;&#x63;&#x6f;&#109;&#x2f;&#x40;&#108;&#x75;&#x70;&#97;&#x6a;&#x7a;&#47;&#97;&#115;&#x79;&#x6e;&#x63;&#x68;&#114;&#x6f;&#110;&#x6f;&#x75;&#115;&#x2d;&#108;&#x61;&#121;&#x6f;&#117;&#x74;&#45;&#105;&#110;&#102;&#x6c;&#97;&#116;&#105;&#111;&#110;&#45;&#x37;&#x63;&#98;&#x63;&#97;&#x32;&#54;&#53;&#51;&#x62;&#102;&#x23;&#x2e;&#x71;&#x32;&#x32;&#118;&#x70;&#x65;&#x7a;&#x67;&#x34;</a></p>
+<p>原文：<a href="&#x6d;&#x61;&#x69;&#108;&#116;&#x6f;&#x3a;&#104;&#x74;&#x74;&#x70;&#x73;&#58;&#47;&#47;&#x6d;&#101;&#x64;&#105;&#117;&#x6d;&#x2e;&#x63;&#111;&#109;&#x2f;&#x40;&#x6c;&#x75;&#112;&#x61;&#106;&#x7a;&#x2f;&#x61;&#115;&#x79;&#110;&#x63;&#104;&#x72;&#111;&#x6e;&#111;&#117;&#x73;&#x2d;&#x6c;&#97;&#x79;&#x6f;&#117;&#116;&#x2d;&#x69;&#x6e;&#102;&#108;&#x61;&#x74;&#105;&#111;&#x6e;&#45;&#55;&#x63;&#98;&#99;&#97;&#x32;&#54;&#53;&#x33;&#98;&#x66;&#x23;&#46;&#x71;&#x32;&#x32;&#x76;&#112;&#x65;&#x7a;&#x67;&#52;">&#104;&#x74;&#x74;&#x70;&#x73;&#58;&#47;&#47;&#x6d;&#101;&#x64;&#105;&#117;&#x6d;&#x2e;&#x63;&#111;&#109;&#x2f;&#x40;&#x6c;&#x75;&#112;&#x61;&#106;&#x7a;&#x2f;&#x61;&#115;&#x79;&#110;&#x63;&#104;&#x72;&#111;&#x6e;&#111;&#117;&#x73;&#x2d;&#x6c;&#97;&#x79;&#x6f;&#117;&#116;&#x2d;&#x69;&#x6e;&#102;&#108;&#x61;&#x74;&#105;&#111;&#x6e;&#45;&#55;&#x63;&#98;&#99;&#97;&#x32;&#54;&#53;&#x33;&#98;&#x66;&#x23;&#46;&#x71;&#x32;&#x32;&#x76;&#112;&#x65;&#x7a;&#x67;&#52;</a></p>
 </blockquote>
 <p>随着最近发布的<a href="https://developer.android.com/topic/libraries/support-library/revisions.html" target="_blank" rel="noopener">Android Support Library, revision 24</a>，Google开发者在v4包中增加了一个用来异步inflate layouts的帮助类。</p>
 <h2 id="进入-AsyncLayoutInflater"><a href="#进入-AsyncLayoutInflater" class="headerlink" title="进入 AsyncLayoutInflater"></a>进入 AsyncLayoutInflater</h2><p>你会发现AsyncLayoutInflater可以使用在当你想要去懒加载你应用中部分UI或者用户行为的响应。这个帮助类将会允许你的UI线程在执行繁重的inflate时继续保持响应。</p>
@@ -6251,9 +6341,9 @@ Cookie: ... ...
             
             <tag> android </tag>
             
-            <tag> annotations </tag>
-            
             <tag> unit test </tag>
+            
+            <tag> annotations </tag>
             
             <tag> JUnit </tag>
             
@@ -6869,11 +6959,11 @@ Cookie: ... ...
             
             <tag> 翻译 </tag>
             
+            <tag> google </tag>
+            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
-            
-            <tag> google </tag>
             
         </tags>
         
@@ -6990,11 +7080,11 @@ Cookie: ... ...
             
             <tag> 翻译 </tag>
             
+            <tag> google </tag>
+            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
-            
-            <tag> google </tag>
             
         </tags>
         
@@ -7130,11 +7220,11 @@ Cookie: ... ...
             
             <tag> 翻译 </tag>
             
+            <tag> google </tag>
+            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
-            
-            <tag> google </tag>
             
         </tags>
         
@@ -7228,11 +7318,11 @@ Cookie: ... ...
             
             <tag> 翻译 </tag>
             
+            <tag> google </tag>
+            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
-            
-            <tag> google </tag>
             
         </tags>
         

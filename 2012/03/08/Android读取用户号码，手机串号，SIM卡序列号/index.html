@@ -173,11 +173,14 @@
     
     
 
-    <p>1、使用TelephonyManager提供的方法，核心代码:</p>
+
+    <div class="md-content">
+      <p>1、使用TelephonyManager提供的方法，核心代码:</p>
 <p>TelephonyManager tm = (TelephonyManager) this.getSystemService(TELEPHONY_SERVICE);<br>String imei = tm.getDeviceId();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //取出IMEI<br>Log.d(TAG, “IMEI:”+imei);<br>String tel = tm.getLine1Number();&nbsp;&nbsp;&nbsp;&nbsp; //取出MSISDN，很可能为空<br>Log.d(TAG, “MSISDN:”+tel);<br>String iccid =tm.getSimSerialNumber();&nbsp; //取出ICCID<br>Log.d(TAG, “ICCID:”+iccid);<br>String imsi =tm.getSubscriberId();&nbsp;&nbsp;&nbsp;&nbsp; //取出IMSI<br>Log.d(TAG, “IMSI:”+imsi);</p>
 <p>2、加入权限</p>
 <p>在manifest.xml文件中要添加 &lt;uses-permission android:name=”android.permission.READ_PHONE_STATE” /&gt;</p>
 
+    </div>
 
     <br/>
     <hr>

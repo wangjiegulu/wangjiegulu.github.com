@@ -183,7 +183,9 @@
       
     
 
-    <h1 id="Android-Architecture-Component-WorkManager-高级（翻译）"><a href="#Android-Architecture-Component-WorkManager-高级（翻译）" class="headerlink" title="Android Architecture Component WorkManager 高级（翻译）"></a>Android Architecture Component WorkManager 高级（翻译）</h1><blockquote>
+
+    <div class="md-content">
+      <h1 id="Android-Architecture-Component-WorkManager-高级（翻译）"><a href="#Android-Architecture-Component-WorkManager-高级（翻译）" class="headerlink" title="Android Architecture Component WorkManager 高级（翻译）"></a>Android Architecture Component WorkManager 高级（翻译）</h1><blockquote>
 <p>原文：<a href="https://developer.android.com/topic/libraries/architecture/workmanager/advanced" target="_blank" rel="noopener">https://developer.android.com/topic/libraries/architecture/workmanager/advanced</a></p>
 </blockquote>
 <p>通过 WorkManager 可以轻松地设置和安排复杂的任务请求。你可以在以下场景使用这些 APIs：</p>
@@ -225,6 +227,7 @@
 <p>如果你链接了 tasks，一个 task 的输出可作为链中下一个 task 的输入。如果它是一个简单链，使用单个的 <a href="https://developer.android.com/reference/androidx/work/OneTimeWorkRequest.html" target="_blank" rel="noopener"><code>OneTimeWorkRequest</code></a> 链接另一个单个 <a href="https://developer.android.com/reference/androidx/work/OneTimeWorkRequest.html" target="_blank" rel="noopener"><code>OneTimeWorkRequest</code></a>，第一个 tasker 通过调用 <a href="https://developer.android.com/reference/androidx/work/Worker.html#setOutputData(androidx.work.Data" target="_blank" rel="noopener"><code>setOutputData()</code></a>) 返回结果，然后下一个 task 通过调用 <a href="https://developer.android.com/reference/androidx/work/Worker.html#getinputdata" target="_blank" rel="noopener"><code>getInputData()</code></a> 获取结果。如果链更复杂 —— 比如，因为几个 task 都发送输入到一个单个的后续任务 —— 你可以在 <a href="https://developer.android.com/reference/androidx/work/OneTimeWorkRequest.Builder.html" target="_blank" rel="noopener"><code>OneTimeWorkRequest.Builder</code></a> 定义一个 <a href="https://developer.android.com/reference/androidx/work/InputMerger.html" target="_blank" rel="noopener"><code>InputMerger</code></a> 来指定如果多个 tasks 返回一个相同 key 的输出时应该怎么处理。</p>
 <h2 id="额外的资源"><a href="#额外的资源" class="headerlink" title="额外的资源"></a>额外的资源</h2><p><code>WorkManager</code> 是一个 <a href="https://developer.android.com/jetpack/" target="_blank" rel="noopener">Android Jetpack</a> architecture component。可参阅使用到它的 <a href="https://github.com/googlesamples/android-sunflower" target="_blank" rel="noopener">Sunflower</a> demo app。</p>
 
+    </div>
 
     <br/>
     <hr>

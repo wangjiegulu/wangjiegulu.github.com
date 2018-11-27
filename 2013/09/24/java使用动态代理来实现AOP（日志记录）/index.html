@@ -175,7 +175,9 @@
     
     
 
-    <p><span style="line-height: 1.5;">AOP（面向方面）的思想，就是把项目共同的那部分功能分离开来，比如日志记录，避免在业务逻辑里面夹杂着跟业务逻辑无关的代码。</span></p>
+
+    <div class="md-content">
+      <p><span style="line-height: 1.5;">AOP（面向方面）的思想，就是把项目共同的那部分功能分离开来，比如日志记录，避免在业务逻辑里面夹杂着跟业务逻辑无关的代码。</span></p>
 <p>下面是一个AOP实现的简单例子：</p>
 <p><img src="http://images.cnitblog.com/blog/378300/201309/24111801-c8f719406a074bf5805d2a94ac2dcccb.jpg" alt=""></p>
 <p>首先定义一些业务方法：</p>
@@ -201,6 +203,7 @@
 <p>九月 24, 2013 11:08:03 上午 com.wangjie.aoptest2.invohandler.LogInvoHandler invoke<br>INFO: <strong><strong>invoke method: login; args: [zhangsan, 123456]; return: login success<br>九月 24, 2013 11:08:03 上午 com.wangjie.aoptest2.invohandler.LogInvoHandler invoke<br>INFO: </strong></strong>invoke method: find; args: null; return: find success<br>九月 24, 2013 11:08:03 上午 com.wangjie.aoptest2.Test main<br>INFO: ————————————–<br>九月 24, 2013 11:08:03 上午 com.wangjie.aoptest2.invohandler.LogInvoHandler invoke<br>INFO: <strong><strong>invoke method: work; args: null; return: work success<br>九月 24, 2013 11:08:03 上午 com.wangjie.aoptest2.invohandler.LogInvoHandler invoke<br>INFO: </strong></strong>invoke method: sleep; args: null; return: sleep success<br>九月 24, 2013 11:08:03 上午 com.wangjie.aoptest2.Test main<br>INFO: ————————————–<br>九月 24, 2013 11:08:03 上午 com.wangjie.aoptest2.invohandler.LogInvoHandler invoke<br>INFO: <strong><strong>invoke method: login; args: [lisi, 654321]; return: login success<br>九月 24, 2013 11:08:03 上午 com.wangjie.aoptest2.invohandler.LogInvoHandler invoke<br>INFO: </strong></strong>invoke method: find; args: null; return: find success</p>
 <p>&nbsp;</p>
 
+    </div>
 
     <br/>
     <hr>
