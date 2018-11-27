@@ -55,11 +55,57 @@
   </entry>
   
   <entry>
+    <title>Huginn实现自动通过Telegram推送豆瓣高分电影</title>
+    <link href="https://blog.wangjiegulu.com/2018/11/16/douban_high_movie_huginn_telegram/"/>
+    <id>https://blog.wangjiegulu.com/2018/11/16/douban_high_movie_huginn_telegram/</id>
+    <published>2018-11-16T03:08:54.024Z</published>
+    <updated>2018-11-16T05:49:36.875Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;Huginn实现自动通过telegram推送豆瓣高分电影&quot;&gt;&lt;a href=&quot;#Huginn实现自动通过telegram推送豆瓣高分电影&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="huginn" scheme="https://blog.wangjiegulu.com/categories/huginn/"/>
+    
+      <category term="automate" scheme="https://blog.wangjiegulu.com/categories/huginn/automate/"/>
+    
+      <category term="telegram" scheme="https://blog.wangjiegulu.com/categories/huginn/automate/telegram/"/>
+    
+    
+      <category term="ifttt" scheme="https://blog.wangjiegulu.com/tags/ifttt/"/>
+    
+      <category term="automate" scheme="https://blog.wangjiegulu.com/tags/automate/"/>
+    
+      <category term="huginn" scheme="https://blog.wangjiegulu.com/tags/huginn/"/>
+    
+      <category term="integromat" scheme="https://blog.wangjiegulu.com/tags/integromat/"/>
+    
+      <category term="zapier" scheme="https://blog.wangjiegulu.com/tags/zapier/"/>
+    
+      <category term="geek" scheme="https://blog.wangjiegulu.com/tags/geek/"/>
+    
+      <category term="douban" scheme="https://blog.wangjiegulu.com/tags/douban/"/>
+    
+      <category term="movies" scheme="https://blog.wangjiegulu.com/tags/movies/"/>
+    
+      <category term="telegram" scheme="https://blog.wangjiegulu.com/tags/telegram/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Android Architecture Component WorkManager  高级（翻译）</title>
-    <link href="https://blog.wangjiegulu.com/2018/11/20/android_architecture_components_workermanager_advanced/"/>
-    <id>https://blog.wangjiegulu.com/2018/11/20/android_architecture_components_workermanager_advanced/</id>
-    <published>2018-11-20T12:01:00.000Z</published>
-    <updated>2018-11-27T05:39:38.475Z</updated>
+    <link href="https://blog.wangjiegulu.com/2018/10/20/android_architecture_components_workermanager_advanced/"/>
+    <id>https://blog.wangjiegulu.com/2018/10/20/android_architecture_components_workermanager_advanced/</id>
+    <published>2018-10-20T12:01:00.000Z</published>
+    <updated>2018-11-27T05:41:15.923Z</updated>
     
     <summary type="html">
     
@@ -106,10 +152,10 @@
   
   <entry>
     <title>Android Architecture Component WorkManager 基础（翻译）</title>
-    <link href="https://blog.wangjiegulu.com/2018/11/20/android_architecture_components_workermanager_basics/"/>
-    <id>https://blog.wangjiegulu.com/2018/11/20/android_architecture_components_workermanager_basics/</id>
-    <published>2018-11-20T11:01:00.000Z</published>
-    <updated>2018-11-27T05:39:39.376Z</updated>
+    <link href="https://blog.wangjiegulu.com/2018/10/20/android_architecture_components_workermanager_basics/"/>
+    <id>https://blog.wangjiegulu.com/2018/10/20/android_architecture_components_workermanager_basics/</id>
+    <published>2018-10-20T11:01:00.000Z</published>
+    <updated>2018-11-27T05:41:16.325Z</updated>
     
     <summary type="html">
     
@@ -156,10 +202,10 @@
   
   <entry>
     <title>Android Architecture Component WorkManager Overview（翻译）</title>
-    <link href="https://blog.wangjiegulu.com/2018/11/20/android_architecture_components_workermanager_overview/"/>
-    <id>https://blog.wangjiegulu.com/2018/11/20/android_architecture_components_workermanager_overview/</id>
-    <published>2018-11-20T10:01:00.000Z</published>
-    <updated>2018-11-27T05:39:39.381Z</updated>
+    <link href="https://blog.wangjiegulu.com/2018/10/20/android_architecture_components_workermanager_overview/"/>
+    <id>https://blog.wangjiegulu.com/2018/10/20/android_architecture_components_workermanager_overview/</id>
+    <published>2018-10-20T10:01:00.000Z</published>
+    <updated>2018-11-27T05:41:16.330Z</updated>
     
     <summary type="html">
     
@@ -201,52 +247,6 @@
       <category term="Lifecycles" scheme="https://blog.wangjiegulu.com/tags/Lifecycles/"/>
     
       <category term="WorkManager" scheme="https://blog.wangjiegulu.com/tags/WorkManager/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Huginn实现自动通过Telegram推送豆瓣高分电影</title>
-    <link href="https://blog.wangjiegulu.com/2018/11/16/douban_high_movie_huginn_telegram/"/>
-    <id>https://blog.wangjiegulu.com/2018/11/16/douban_high_movie_huginn_telegram/</id>
-    <published>2018-11-16T03:08:54.024Z</published>
-    <updated>2018-11-16T05:49:36.875Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;Huginn实现自动通过telegram推送豆瓣高分电影&quot;&gt;&lt;a href=&quot;#Huginn实现自动通过telegram推送豆瓣高分电影&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-      <category term="huginn" scheme="https://blog.wangjiegulu.com/categories/huginn/"/>
-    
-      <category term="automate" scheme="https://blog.wangjiegulu.com/categories/huginn/automate/"/>
-    
-      <category term="telegram" scheme="https://blog.wangjiegulu.com/categories/huginn/automate/telegram/"/>
-    
-    
-      <category term="ifttt" scheme="https://blog.wangjiegulu.com/tags/ifttt/"/>
-    
-      <category term="automate" scheme="https://blog.wangjiegulu.com/tags/automate/"/>
-    
-      <category term="huginn" scheme="https://blog.wangjiegulu.com/tags/huginn/"/>
-    
-      <category term="integromat" scheme="https://blog.wangjiegulu.com/tags/integromat/"/>
-    
-      <category term="zapier" scheme="https://blog.wangjiegulu.com/tags/zapier/"/>
-    
-      <category term="geek" scheme="https://blog.wangjiegulu.com/tags/geek/"/>
-    
-      <category term="douban" scheme="https://blog.wangjiegulu.com/tags/douban/"/>
-    
-      <category term="movies" scheme="https://blog.wangjiegulu.com/tags/movies/"/>
-    
-      <category term="telegram" scheme="https://blog.wangjiegulu.com/tags/telegram/"/>
     
   </entry>
   
@@ -433,11 +433,11 @@
   </entry>
   
   <entry>
-    <title>Android Architecture Component Lifecycle（翻译）</title>
-    <link href="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_lifecycle/"/>
-    <id>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_lifecycle/</id>
+    <title>Android Architecture Component ViewModel（翻译）</title>
+    <link href="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_viewmodel/"/>
+    <id>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_viewmodel/</id>
     <published>2018-04-15T13:01:00.000Z</published>
-    <updated>2018-11-22T06:56:52.291Z</updated>
+    <updated>2018-11-22T04:14:54.803Z</updated>
     
     <summary type="html">
     
@@ -445,7 +445,7 @@
       
         
         
-          &lt;h1 id=&quot;Android-Architecture-Component-Lifecycle（翻译）&quot;&gt;&lt;a href=&quot;#Android-Architecture-Component-Lifecycle（翻译）&quot; class=&quot;headerlink&quot;
+          &lt;h1 id=&quot;Android-Architecture-Component-ViewModel（翻译）&quot;&gt;&lt;a href=&quot;#Android-Architecture-Component-ViewModel（翻译）&quot; class=&quot;headerlink&quot;
         
       
     
@@ -481,11 +481,11 @@
   </entry>
   
   <entry>
-    <title>Android Architecture Component ViewModel（翻译）</title>
-    <link href="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_viewmodel/"/>
-    <id>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_viewmodel/</id>
+    <title>Android Architecture Component Lifecycle（翻译）</title>
+    <link href="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_lifecycle/"/>
+    <id>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_lifecycle/</id>
     <published>2018-04-15T13:01:00.000Z</published>
-    <updated>2018-11-22T04:14:54.803Z</updated>
+    <updated>2018-11-22T06:56:52.291Z</updated>
     
     <summary type="html">
     
@@ -493,7 +493,7 @@
       
         
         
-          &lt;h1 id=&quot;Android-Architecture-Component-ViewModel（翻译）&quot;&gt;&lt;a href=&quot;#Android-Architecture-Component-ViewModel（翻译）&quot; class=&quot;headerlink&quot;
+          &lt;h1 id=&quot;Android-Architecture-Component-Lifecycle（翻译）&quot;&gt;&lt;a href=&quot;#Android-Architecture-Component-Lifecycle（翻译）&quot; class=&quot;headerlink&quot;
         
       
     

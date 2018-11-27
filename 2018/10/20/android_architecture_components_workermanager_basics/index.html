@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#ffffff">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#ffffff">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#ffffff">
+
+
+    <meta name="description" content="Android Architecture Component WorkManager 基础（翻译） 原文：https://developer.android.com/topic/libraries/architecture/workmanager/basics/  使用 WorkManager，你可以很容易地设置任务，并将它移交给系统并在你指定的条件下运行。 本文述介绍了 WorkManager">
+<meta name="keywords" content="android,翻译,kotlin,architecture,Android Architecture Component,aac,ViewModel,LiveData,DataBinding,Lifecycles,WorkManager">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android Architecture Component WorkManager 基础（翻译）">
+<meta property="og:url" content="https://blog.wangjiegulu.com/2018/10/20/android_architecture_components_workermanager_basics/index.html">
+<meta property="og:site_name" content="Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer">
+<meta property="og:description" content="Android Architecture Component WorkManager 基础（翻译） 原文：https://developer.android.com/topic/libraries/architecture/workmanager/basics/  使用 WorkManager，你可以很容易地设置任务，并将它移交给系统并在你指定的条件下运行。 本文述介绍了 WorkManager">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-11-27T05:41:16.325Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android Architecture Component WorkManager 基础（翻译）">
+<meta name="twitter:description" content="Android Architecture Component WorkManager 基础（翻译） 原文：https://developer.android.com/topic/libraries/architecture/workmanager/basics/  使用 WorkManager，你可以很容易地设置任务，并将它移交给系统并在你指定的条件下运行。 本文述介绍了 WorkManager">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Android Architecture Component WorkManager 基础（翻译）</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3">
+    
+      <div id="header-post-nav">
+  <span id="nav">
+      <ul>
+         
+          <li><b><a href="/">Home</a></b></li>
+         
+          <li><b><a href="/archives/">Writing</a></b></li>
+         
+          <li><b><a href="/about/">About</a></b></li>
+         
+          <li><b><a href="/message/">Message</a></b></li>
+         
+          <li><b><a href="/feed.xml">RSS</a></b></li>
+        
+      </ul>
+  </span>
+</div>
+
+<div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/message/">Message</a></li>
+         
+          <li><a href="/feed.xml">RSS</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2018/10/20/android_architecture_components_workermanager_advanced/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2018/10/20/android_architecture_components_workermanager_overview/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://blog.wangjiegulu.com/2018/10/20/android_architecture_components_workermanager_basics/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://blog.wangjiegulu.com/2018/10/20/android_architecture_components_workermanager_basics/&text=Android Architecture Component WorkManager 基础（翻译）"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.wangjiegulu.com/2018/10/20/android_architecture_components_workermanager_basics/&title=Android Architecture Component WorkManager 基础（翻译）"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.wangjiegulu.com/2018/10/20/android_architecture_components_workermanager_basics/&is_video=false&description=Android Architecture Component WorkManager 基础（翻译）"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Android Architecture Component WorkManager 基础（翻译）&body=Check out this article: https://blog.wangjiegulu.com/2018/10/20/android_architecture_components_workermanager_basics/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.wangjiegulu.com/2018/10/20/android_architecture_components_workermanager_basics/&title=Android Architecture Component WorkManager 基础（翻译）"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.wangjiegulu.com/2018/10/20/android_architecture_components_workermanager_basics/&title=Android Architecture Component WorkManager 基础（翻译）"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.wangjiegulu.com/2018/10/20/android_architecture_components_workermanager_basics/&title=Android Architecture Component WorkManager 基础（翻译）"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://blog.wangjiegulu.com/2018/10/20/android_architecture_components_workermanager_basics/&title=Android Architecture Component WorkManager 基础（翻译）"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.wangjiegulu.com/2018/10/20/android_architecture_components_workermanager_basics/&name=Android Architecture Component WorkManager 基础（翻译）&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Android-Architecture-Component-WorkManager-基础（翻译）"><span class="toc-number">1.</span> <span class="toc-text">Android Architecture Component WorkManager 基础（翻译）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#类和概念"><span class="toc-number">1.1.</span> <span class="toc-text">类和概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#典型的工作流程"><span class="toc-number">1.2.</span> <span class="toc-text">典型的工作流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-条件"><span class="toc-number">1.3.</span> <span class="toc-text">Task 条件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#取消一个-Task"><span class="toc-number">1.4.</span> <span class="toc-text">取消一个 Task</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tagged-Work"><span class="toc-number">1.5.</span> <span class="toc-text">Tagged Work</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#重复-tasks"><span class="toc-number">1.6.</span> <span class="toc-text">重复 tasks</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Android Architecture Component WorkManager 基础（翻译）
+    </h1>
+
+
+
+    <div class="meta"  style="margin-top:12px;">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name" style="margin-left: 12px">Wang Jie</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2018-10-20T11:01:00.000Z" itemprop="datePublished">2018-10-20</time>
+    </div>
+
+<br/>
+      
+    <div class="article-tag">
+        <i class="fas fa-tag" style="margin-top: 20px"></i>
+        <a class="tag-link" href="/tags/Android-Architecture-Component/">Android Architecture Component</a>, <a class="tag-link" href="/tags/DataBinding/">DataBinding</a>, <a class="tag-link" href="/tags/Lifecycles/">Lifecycles</a>, <a class="tag-link" href="/tags/LiveData/">LiveData</a>, <a class="tag-link" href="/tags/ViewModel/">ViewModel</a>, <a class="tag-link" href="/tags/WorkManager/">WorkManager</a>, <a class="tag-link" href="/tags/aac/">aac</a>, <a class="tag-link" href="/tags/android/">android</a>, <a class="tag-link" href="/tags/architecture/">architecture</a>, <a class="tag-link" href="/tags/kotlin/">kotlin</a>, <a class="tag-link" href="/tags/翻译/">翻译</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  
+  <div class="content" itemprop="articleBody">
+    
+    
+      <!-- <img class="header-img" src="https://images.unsplash.com/photo-1529792083865-d23889753466?ixlib=rb-0.3.5&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;s=32475a0b7929a8a98b874ff47bf1bd4c&amp;auto=format&amp;fit=crop&amp;w=2250&amp;q=80" /> -->
+      
+
+        <img src="https://images.unsplash.com/photo-1529792083865-d23889753466?ixlib=rb-0.3.5&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;s=32475a0b7929a8a98b874ff47bf1bd4c&amp;auto=format&amp;fit=crop&amp;w=2250&amp;q=80" style="border-radius: 3px;"/>
+        
+      
+      
+    
+
+    <h1 id="Android-Architecture-Component-WorkManager-基础（翻译）"><a href="#Android-Architecture-Component-WorkManager-基础（翻译）" class="headerlink" title="Android Architecture Component WorkManager 基础（翻译）"></a>Android Architecture Component WorkManager 基础（翻译）</h1><blockquote>
+<p>原文：<a href="https://developer.android.com/topic/libraries/architecture/workmanager/basics/" target="_blank" rel="noopener">https://developer.android.com/topic/libraries/architecture/workmanager/basics/</a></p>
+</blockquote>
+<p>使用 WorkManager，你可以很容易地设置任务，并将它移交给系统并在你指定的条件下运行。</p>
+<p>本文述介绍了 WorkManager 最基本的功能。你可以学习到如何去设置一个 task，指定在什么条件下运行，并交给系统处理。你也可以如何去设置一个重复的 jobs。</p>
+<p>更多关于 WorkManager 高级功能的信息，比如 job 链的输入输出值，参阅 <a href="https://developer.android.com/topic/libraries/architecture/workmanager/advanced.html" target="_blank" rel="noopener">WorkManager 高级功能</a>。还有更多可用的功能；完整信息见 <a href="https://developer.android.com/reference/androidx/work/package-summary" target="_blank" rel="noopener">WorkManager 参考文档</a>。</p>
+<blockquote>
+<p><strong>注意</strong>：要导入 WorkManager 到你的项目中，见 <a href="https://developer.android.com/topic/libraries/architecture/adding-components.html#workmanager" target="_blank" rel="noopener">在你的项目中增加 Components</a>。</p>
+</blockquote>
+<h2 id="类和概念"><a href="#类和概念" class="headerlink" title="类和概念"></a>类和概念</h2><p>WorkManager API 使用了几个不通的类。在一些情况下，你要编写其中一些 API 类的子类。</p>
+<p>以下是最重要的 WorkManager 类：</p>
+<ul>
+<li><a href="https://developer.android.com/reference/androidx/work/Worker.html" target="_blank" rel="noopener"><code>Worker</code></a>：指定你需要执行的 task。WorkManager APIs 包含了一个抽象的 <a href="https://developer.android.com/reference/androidx/work/Worker.html" target="_blank" rel="noopener"><code>Worker</code></a> 类。你要继承这个类并在这里执行工作。</li>
+<li><a href="https://developer.android.com/reference/androidx/work/WorkRequest.html" target="_blank" rel="noopener"><code>WorkRequest</code></a>：表示一个单个 task。最低限度，一个 <a href="https://developer.android.com/reference/androidx/work/WorkRequest.html" target="_blank" rel="noopener"><code>WorkRequest</code></a> 对象指定哪个 <a href="https://developer.android.com/reference/androidx/work/Worker.html" target="_blank" rel="noopener"><code>Worker</code></a> 类应该执行 task。但是你也可以在 <a href="https://developer.android.com/reference/androidx/work/WorkRequest.html" target="_blank" rel="noopener"><code>WorkRequest</code></a> 对象中增加细节，指定任务应该在哪种情况下运行的事项。每个 <a href="https://developer.android.com/reference/androidx/work/WorkRequest.html" target="_blank" rel="noopener"><code>WorkRequest</code></a> 有一个自动生成的唯一 ID；你可以使用 ID 来做一些比如取消排队中的 task 或者获取 task 的状态等操作。<a href="https://developer.android.com/reference/androidx/work/WorkRequest.html" target="_blank" rel="noopener"><code>WorkRequest</code></a> 是一个抽象类；在你的代码中，你将使用它的直接子类之一，<a href="https://developer.android.com/reference/androidx/work/OneTimeWorkRequest.html" target="_blank" rel="noopener"><code>OneTimeWorkRequest</code></a> 或者 <a href="https://developer.android.com/reference/androidx/work/PeriodicWorkRequest.html" target="_blank" rel="noopener"><code>PeriodicWorkRequest</code></a>。<ul>
+<li><a href="https://developer.android.com/reference/androidx/work/WorkRequest.Builder.html" target="_blank" rel="noopener"><code>WorkRequest.Builder</code></a>：一个帮助类，用于创建 <a href="https://developer.android.com/reference/androidx/work/WorkRequest.html" target="_blank" rel="noopener"><code>WorkRequest</code></a> 对象。同样，你将使用它的子类之一，<a href="https://developer.android.com/reference/androidx/work/OneTimeWorkRequest.Builder.html" target="_blank" rel="noopener"><code>OneTimeWorkRequest.Builder</code></a> 或者 <a href="https://developer.android.com/reference/androidx/work/PeriodicWorkRequest.Builder.html" target="_blank" rel="noopener"><code>PeriodicWorkRequest.Builder</code></a>。</li>
+<li><a href="https://developer.android.com/reference/androidx/work/Constraints.html" target="_blank" rel="noopener"><code>Constraints</code></a>：指定何时运行 task（比如，“只在连接到网络时”） 的约束。你使用 <a href="https://developer.android.com/reference/androidx/work/Constraints.Builder.html" target="_blank" rel="noopener"><code>Constraints.Builder</code></a> 来创建 <a href="https://developer.android.com/reference/androidx/work/Constraints.html" target="_blank" rel="noopener"><code>Constraints</code></a>，并且传递 <a href="https://developer.android.com/reference/androidx/work/Constraints.html" target="_blank" rel="noopener"><code>Constraints</code></a> 到 <a href="https://developer.android.com/reference/androidx/work/WorkRequest.Builder.html" target="_blank" rel="noopener"><code>WorkRequest.Builder</code></a> 来创建 <a href="https://developer.android.com/reference/androidx/work/WorkRequest.html" target="_blank" rel="noopener"><code>WorkRequest</code></a></li>
+</ul>
+</li>
+<li><a href="https://developer.android.com/reference/androidx/work/WorkManager.html" target="_blank" rel="noopener"><code>WorkManager</code></a>：排队和管理 work 请求。你把 <a href="https://developer.android.com/reference/androidx/work/WorkRequest.html" target="_blank" rel="noopener"><code>WorkRequest</code></a> 对象传入到 <a href="https://developer.android.com/reference/androidx/work/WorkManager.html" target="_blank" rel="noopener"><code>WorkManager</code></a> 将 task 排队。<a href="https://developer.android.com/reference/androidx/work/WorkManager.html" target="_blank" rel="noopener"><code>WorkManager</code></a> 可以在一个分散系统资源的负载同时又遵守指定约束的的方式调度 task。</li>
+<li><a href="https://developer.android.com/reference/androidx/work/WorkInfo.html" target="_blank" rel="noopener"><code>WorkInfo</code></a>：包含了关于某个特定 task 的信息。<a href="https://developer.android.com/reference/androidx/work/WorkManager.html" target="_blank" rel="noopener"><code>WorkManager</code></a> 为每个 <a href="https://developer.android.com/reference/androidx/work/WorkRequest.html" target="_blank" rel="noopener"><code>WorkRequest</code></a> 对象提供了一个 <a href="https://developer.android.com/reference/android/arch/lifecycle/LiveData.html" target="_blank" rel="noopener"><code>LiveData</code></a>。<a href="https://developer.android.com/reference/android/arch/lifecycle/LiveData.html" target="_blank" rel="noopener"><code>LiveData</code></a> 持有一个 <a href="https://developer.android.com/reference/androidx/work/WorkInfo.html" target="_blank" rel="noopener"><code>WorkInfo</code></a> 对象；通过观察这个 <a href="https://developer.android.com/reference/android/arch/lifecycle/LiveData.html" target="_blank" rel="noopener"><code>LiveData</code></a>，你可以确定任务的当前状态，并在任务完成后获取任何返回的值。</li>
+</ul>
+<h2 id="典型的工作流程"><a href="#典型的工作流程" class="headerlink" title="典型的工作流程"></a>典型的工作流程</h2><p>假设你正在编写一个图片库的 app，并且这个 app 需要定期去压缩存储的图片。你希望使用 WorkManager APIs 来调度图片压缩。在这种情况下，你并不特别关心图片何时会被压缩；你想设置任务，然后就忘掉它。</p>
+<p>首先，你应该去定义你的 <a href="https://developer.android.com/reference/androidx/work/Worker.html" target="_blank" rel="noopener"><code>Work</code></a> 类，然后复写它的 <a href="https://developer.android.com/reference/androidx/work/Worker.html#doWork(" target="_blank" rel="noopener"><code>doWork()</code></a>) 方法。你的 Worker 类指定如何去执行这个操作，但没有任何有关 task 应该在何时运行的信息。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CompressWorker</span></span>(context : Context, params : WorkerParameters)</span><br><span class="line">    : Worker(context, params) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">doWork</span><span class="params">()</span></span>: Result &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Do the work here--in this case, compress the stored images.</span></span><br><span class="line">        <span class="comment">// In this example no parameters are passed; the task is</span></span><br><span class="line">        <span class="comment">// assumed to be "compress the whole library."</span></span><br><span class="line">        myCompress()</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Indicate success or failure with your return value:</span></span><br><span class="line">        <span class="keyword">return</span> Result.SUCCESS</span><br><span class="line"></span><br><span class="line">        <span class="comment">// (Returning RETRY tells WorkManager to try this task again</span></span><br><span class="line">        <span class="comment">// later; FAILURE says not to try again.)</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后你基于 <a href="https://developer.android.com/reference/androidx/work/Worker.html" target="_blank" rel="noopener"><code>Worker</code></a> 去创建一个 <a href="https://developer.android.com/reference/androidx/work/OneTimeWorkRequest.html" target="_blank" rel="noopener"><code>OneTimeWorkRequest</code></a> 对象，然后使用 <a href="https://developer.android.com/reference/androidx/work/WorkManager.html" target="_blank" rel="noopener"><code>WorkManager</code></a> 将其排队：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> compressionWork = OneTimeWorkRequestBuilder&lt;CompressWorker&gt;().build()</span><br><span class="line">WorkManager.getInstance().enqueue(compressionWork)</span><br></pre></td></tr></table></figure>
+<p><a href="https://developer.android.com/reference/androidx/work/WorkManager.html" target="_blank" rel="noopener">WorkManager</a> 选择一个合适的时间去运行这个 task 来平衡诸如系统负载，设备是否插入等考虑因素。在大多情况下，如果你不指定任何约束，<a href="https://developer.android.com/reference/androidx/work/WorkManager.html" target="_blank" rel="noopener"><code>WorkManager</code></a> 会立即运行你的任务。如果你需要去检查 task 的状态，你可以通过获取适当的 <code>LiveData&lt;WorkInfo&gt;</code> 的句柄来获取一个 <a href="https://developer.android.com/reference/androidx/work/WorkInfo.html" target="_blank" rel="noopener"><code>WorkInfo</code></a>。举个例子，如果你想要去检查 task 是否已经完成了，你应该通过以下方式：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">WorkManager.getInstance().getWorkInfoByIdLiveData(compressionWork.id)</span><br><span class="line">                .observe(lifecycleOwner, Observer &#123; workInfo -&gt;</span><br><span class="line">                    <span class="comment">// Do something with the status</span></span><br><span class="line">                    <span class="keyword">if</span> (workInfo != <span class="literal">null</span> &amp;&amp; workInfo.state.isFinished) &#123;</span><br><span class="line">                        <span class="comment">// ...</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;)</span><br></pre></td></tr></table></figure>
+<p>更多关于使用 <a href="https://developer.android.com/reference/android/arch/lifecycle/LiveData.html" target="_blank" rel="noopener"><code>LiveData</code></a> 的详情，见 <a href="https://developer.android.com/topic/libraries/architecture/livedata" target="_blank" rel="noopener">LiveData 概要</a>。</p>
+<h2 id="Task-条件"><a href="#Task-条件" class="headerlink" title="Task 条件"></a>Task 条件</h2><p>如果你想要，你可以去指定 task 在何时应该运行的约束。举例，你可能想要去指定 task 应该只运行在设备闲置，并且电源连接时。在这两种情况下，你需要创建一个 <a href="https://developer.android.com/reference/androidx/work/OneTimeWorkRequest.Builder.html" target="_blank" rel="noopener"><code>OneTimeWorkRequest.Builder</code></a> 对象，并使用这个 builder 来创建一个真正的 <a href="https://developer.android.com/reference/androidx/work/OneTimeWorkRequest.html" target="_blank" rel="noopener"><code>OneTimeWorkRequest</code></a>：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Create a Constraints object that defines when the task should run</span></span><br><span class="line"><span class="keyword">val</span> myConstraints = Constraints.Builder()</span><br><span class="line">        .setRequiresDeviceIdle(<span class="literal">true</span>)</span><br><span class="line">        .setRequiresCharging(<span class="literal">true</span>)</span><br><span class="line">        <span class="comment">// Many other constraints are available, see the</span></span><br><span class="line">        <span class="comment">// Constraints.Builder reference</span></span><br><span class="line">        .build()</span><br><span class="line"></span><br><span class="line"><span class="comment">// ...then create a OneTimeWorkRequest that uses those constraints</span></span><br><span class="line"><span class="keyword">val</span> compressionWork = OneTimeWorkRequestBuilder&lt;CompressWorker&gt;()</span><br><span class="line">        .setConstraints(myConstraints)</span><br><span class="line">        .build()</span><br></pre></td></tr></table></figure>
+<p>然后把新的 <a href="https://developer.android.com/reference/androidx/work/OneTimeWorkRequest.html" target="_blank" rel="noopener"><code>OneTimeWorkRequest</code></a> 对象传递到 <a href="https://developer.android.com/reference/androidx/work/WorkManager#enqueue(java.util.List%3C?%20extends%20androidx.work.WorkRequest%3E" target="_blank" rel="noopener"><code>WorkManager.enqueue()</code></a>)，像之前所说的，<a href="https://developer.android.com/reference/androidx/work/WorkManager.html" target="_blank" rel="noopener"><code>WorkManager</code></a> 会在找运行任务时间时会考虑你的约束条件。</p>
+<h2 id="取消一个-Task"><a href="#取消一个-Task" class="headerlink" title="取消一个 Task"></a>取消一个 Task</h2><p>在你把一个 task 加入到队列后，你可以去取消它。要取消这个 task，你需要一个它的 work ID，这可以在从 <a href="https://developer.android.com/reference/androidx/work/WorkRequest.html" target="_blank" rel="noopener"><code>WorkRequest</code></a> 对象。举例，下面的代码取消了上面一节中的 <code>compressionWork</code> 请求：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> compressionWorkId:UUID = compressionWork.getId()</span><br><span class="line">WorkManager.getInstance().cancelWorkById(compressionWorkId)</span><br></pre></td></tr></table></figure>
+<p><a href="https://developer.android.com/reference/androidx/work/WorkManager.html" target="_blank" rel="noopener"><code>WorkManager</code></a> 会尽最大努力去取消这个 task，但这本质上是不确定的 – 当你试图取消任务时，任务可能已经运行中或已经完成。<a href="https://developer.android.com/reference/androidx/work/WorkManager.html" target="_blank" rel="noopener"><code>WorkManager</code></a> 也提供方法去取消在 <a href="https://developer.android.com/topic/libraries/architecture/workmanager/advanced.html#unique" target="_blank" rel="noopener">唯一工作序列</a> 中的所有 task，或者所有拥有一个指定 tag 的所有 tasks，也是在尽最大努力的基础上的。</p>
+<h2 id="Tagged-Work"><a href="#Tagged-Work" class="headerlink" title="Tagged Work"></a>Tagged Work</h2><p>你可以通过给任何 <a href="https://developer.android.com/reference/androidx/work/WorkRequest.html" target="_blank" rel="noopener"><code>WorkRequest</code></a> 对象分配一个字符串的 tag 来为你的 tasks 在逻辑上进行分组。要设置一个 tag，调用 <a href="https://developer.android.com/reference/androidx/work/WorkRequest.Builder#addtag" target="_blank" rel="noopener"><code>WorkRequest.Builder.addTag()</code></a>，比如：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> cacheCleanupTask =</span><br><span class="line">        OneTimeWorkRequestBuilder&lt;MyCacheCleanupWorker&gt;()</span><br><span class="line">    .setConstraints(myConstraints)</span><br><span class="line">    .addTag(<span class="string">"cleanup"</span>)</span><br><span class="line">    .build()</span><br></pre></td></tr></table></figure>
+<p><a href="https://developer.android.com/reference/androidx/work/WorkManager.html" target="_blank" rel="noopener"><code>WorkManager</code></a> 类提供了几个工具方法来让你通过指定的 tag 来操作所有的 tasks。比如，<a href="https://developer.android.com/reference/androidx/work/WorkManager#cancelallworkbytag" target="_blank" rel="noopener"><code>WorkManager.cancelAllWorkByTag()</code></a> 通过指定 tag 来取消所有 tasks，<a href="https://developer.android.com/reference/androidx/work/WorkManager#getworkinfosbytaglivedata" target="_blank" rel="noopener"><code>WorkManager.getWorkInfosByTagLiveData()</code></a> 返回一个所有这个 tag 的 tasks 的 <a href="https://developer.android.com/reference/androidx/work/WorkInfo.html" target="_blank" rel="noopener"><code>WorkInfo</code></a> 列表。</p>
+<h2 id="重复-tasks"><a href="#重复-tasks" class="headerlink" title="重复 tasks"></a>重复 tasks</h2><p>你可能有一个 task 需要去重复地执行。举个例子，图片管理 app 可能不会只压缩图片一次。更可能的是，它会经常去检查共享的照片，看是否有新的或者修改过的照片需要被压缩。这个重复的 task 可以在它找到新的图片时压缩图片，或者，当它发现需要压缩的图像时，它可能会触发新的 “压缩此图像” 任务。</p>
+<p>要创建一个重复的 task，使用 <a href="https://developer.android.com/reference/androidx/work/PeriodicWorkRequest.Builder.html" target="_blank" rel="noopener"><code>PeriodicWorkRequest.Builder</code></a> 类来创建一个 <a href="https://developer.android.com/reference/androidx/work/PeriodicWorkRequest.html" target="_blank" rel="noopener"><code>PeriodicWorkRequest</code></a> 对象，然后跟 <a href="https://developer.android.com/reference/androidx/work/OneTimeWorkRequest.html" target="_blank" rel="noopener"><code>OneTimeWorkRequest</code></a> 同样的方式去排队 <a href="https://developer.android.com/reference/androidx/work/PeriodicWorkRequest.html" target="_blank" rel="noopener"><code>PeriodicWorkRequest</code></a>。举个例子，假设我们定义了一个 <code>PhotoCheckWorker</code> 类来识别图片是否需要被压缩。如果你想要每 12 小时一次运行这个清单 task，你应该如下创建一个 <a href="https://developer.android.com/reference/androidx/work/PeriodicWorkRequest.html" target="_blank" rel="noopener"><code>PeriodicWorkRequest</code></a> 对象：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> photoCheckBuilder =</span><br><span class="line">        PeriodicWorkRequestBuilder&lt;PhotoCheckWorker&gt;(<span class="number">12</span>, TimeUnit.HOURS)</span><br><span class="line"><span class="comment">// ...if you want, you can apply constraints to the builder here...</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Create the actual work object:</span></span><br><span class="line"><span class="keyword">val</span> photoCheckWork = photoCheckBuilder.build()</span><br><span class="line"><span class="comment">// Then enqueue the recurring task:</span></span><br><span class="line">WorkManager.getInstance().enqueue(photoCheckWork)</span><br></pre></td></tr></table></figure>
+<p><a href="https://developer.android.com/reference/androidx/work/WorkManager.html" target="_blank" rel="noopener"><code>WorkManager</code></a> 尝试在你请求的时间间隔去运行你的 task，受你设置的限制和其他要求的约束。</p>
+
+
+    <br/>
+    <hr>
+
+    
+    <div class="post-copyright" style="margin-top: 20px;">
+        <strong>来源博客：</strong><a href="https://blog.wangjiegulu.com">Wang Jie's Blog</a><br/>
+         <strong>本文链接：</strong><a href="https://blog.wangjiegulu.com/2018/10/20/android_architecture_components_workermanager_basics/">https://blog.wangjiegulu.com/2018/10/20/android_architecture_components_workermanager_basics/</a><br/>
+         <strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处。
+    </div>
+    
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/message/">Message</a></li>
+         
+          <li><a href="/feed.xml">RSS</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Android-Architecture-Component-WorkManager-基础（翻译）"><span class="toc-number">1.</span> <span class="toc-text">Android Architecture Component WorkManager 基础（翻译）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#类和概念"><span class="toc-number">1.1.</span> <span class="toc-text">类和概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#典型的工作流程"><span class="toc-number">1.2.</span> <span class="toc-text">典型的工作流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-条件"><span class="toc-number">1.3.</span> <span class="toc-text">Task 条件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#取消一个-Task"><span class="toc-number">1.4.</span> <span class="toc-text">取消一个 Task</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tagged-Work"><span class="toc-number">1.5.</span> <span class="toc-text">Tagged Work</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#重复-tasks"><span class="toc-number">1.6.</span> <span class="toc-text">重复 tasks</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://blog.wangjiegulu.com/2018/10/20/android_architecture_components_workermanager_basics/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://blog.wangjiegulu.com/2018/10/20/android_architecture_components_workermanager_basics/&text=Android Architecture Component WorkManager 基础（翻译）"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.wangjiegulu.com/2018/10/20/android_architecture_components_workermanager_basics/&title=Android Architecture Component WorkManager 基础（翻译）"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.wangjiegulu.com/2018/10/20/android_architecture_components_workermanager_basics/&is_video=false&description=Android Architecture Component WorkManager 基础（翻译）"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Android Architecture Component WorkManager 基础（翻译）&body=Check out this article: https://blog.wangjiegulu.com/2018/10/20/android_architecture_components_workermanager_basics/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.wangjiegulu.com/2018/10/20/android_architecture_components_workermanager_basics/&title=Android Architecture Component WorkManager 基础（翻译）"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.wangjiegulu.com/2018/10/20/android_architecture_components_workermanager_basics/&title=Android Architecture Component WorkManager 基础（翻译）"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.wangjiegulu.com/2018/10/20/android_architecture_components_workermanager_basics/&title=Android Architecture Component WorkManager 基础（翻译）"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://blog.wangjiegulu.com/2018/10/20/android_architecture_components_workermanager_basics/&title=Android Architecture Component WorkManager 基础（翻译）"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.wangjiegulu.com/2018/10/20/android_architecture_components_workermanager_basics/&name=Android Architecture Component WorkManager 基础（翻译）&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 Wang Jie
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/message/">Message</a></li>
+         
+          <li><a href="/feed.xml">RSS</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-111189680-2', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'blog-wangjiegulu-com';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+

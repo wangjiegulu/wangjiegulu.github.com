@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#ffffff">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#ffffff">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#ffffff">
+
+
+    <meta name="description" content="Android Architecture Component WorkManager 高级（翻译） 原文：https://developer.android.com/topic/libraries/architecture/workmanager/advanced  通过 WorkManager 可以轻松地设置和安排复杂的任务请求。你可以在以下场景使用这些 APIs：  通过指定顺序去执行 tas">
+<meta name="keywords" content="android,翻译,kotlin,architecture,Android Architecture Component,aac,ViewModel,LiveData,DataBinding,Lifecycles,WorkManager">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android Architecture Component WorkManager  高级（翻译）">
+<meta property="og:url" content="https://blog.wangjiegulu.com/2018/10/20/android_architecture_components_workermanager_advanced/index.html">
+<meta property="og:site_name" content="Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer">
+<meta property="og:description" content="Android Architecture Component WorkManager 高级（翻译） 原文：https://developer.android.com/topic/libraries/architecture/workmanager/advanced  通过 WorkManager 可以轻松地设置和安排复杂的任务请求。你可以在以下场景使用这些 APIs：  通过指定顺序去执行 tas">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://user-images.githubusercontent.com/5423194/49058154-c3667a00-f23d-11e8-97a0-ca92352ce1ac.png">
+<meta property="og:updated_time" content="2018-11-27T05:41:15.923Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android Architecture Component WorkManager  高级（翻译）">
+<meta name="twitter:description" content="Android Architecture Component WorkManager 高级（翻译） 原文：https://developer.android.com/topic/libraries/architecture/workmanager/advanced  通过 WorkManager 可以轻松地设置和安排复杂的任务请求。你可以在以下场景使用这些 APIs：  通过指定顺序去执行 tas">
+<meta name="twitter:image" content="https://user-images.githubusercontent.com/5423194/49058154-c3667a00-f23d-11e8-97a0-ca92352ce1ac.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Android Architecture Component WorkManager  高级（翻译）</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3">
+    
+      <div id="header-post-nav">
+  <span id="nav">
+      <ul>
+         
+          <li><b><a href="/">Home</a></b></li>
+         
+          <li><b><a href="/archives/">Writing</a></b></li>
+         
+          <li><b><a href="/about/">About</a></b></li>
+         
+          <li><b><a href="/message/">Message</a></b></li>
+         
+          <li><b><a href="/feed.xml">RSS</a></b></li>
+        
+      </ul>
+  </span>
+</div>
+
+<div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/message/">Message</a></li>
+         
+          <li><a href="/feed.xml">RSS</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2018/11/16/douban_high_movie_huginn_telegram/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2018/10/20/android_architecture_components_workermanager_basics/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://blog.wangjiegulu.com/2018/10/20/android_architecture_components_workermanager_advanced/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://blog.wangjiegulu.com/2018/10/20/android_architecture_components_workermanager_advanced/&text=Android Architecture Component WorkManager  高级（翻译）"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.wangjiegulu.com/2018/10/20/android_architecture_components_workermanager_advanced/&title=Android Architecture Component WorkManager  高级（翻译）"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.wangjiegulu.com/2018/10/20/android_architecture_components_workermanager_advanced/&is_video=false&description=Android Architecture Component WorkManager  高级（翻译）"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Android Architecture Component WorkManager  高级（翻译）&body=Check out this article: https://blog.wangjiegulu.com/2018/10/20/android_architecture_components_workermanager_advanced/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.wangjiegulu.com/2018/10/20/android_architecture_components_workermanager_advanced/&title=Android Architecture Component WorkManager  高级（翻译）"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.wangjiegulu.com/2018/10/20/android_architecture_components_workermanager_advanced/&title=Android Architecture Component WorkManager  高级（翻译）"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.wangjiegulu.com/2018/10/20/android_architecture_components_workermanager_advanced/&title=Android Architecture Component WorkManager  高级（翻译）"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://blog.wangjiegulu.com/2018/10/20/android_architecture_components_workermanager_advanced/&title=Android Architecture Component WorkManager  高级（翻译）"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.wangjiegulu.com/2018/10/20/android_architecture_components_workermanager_advanced/&name=Android Architecture Component WorkManager  高级（翻译）&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Android-Architecture-Component-WorkManager-高级（翻译）"><span class="toc-number">1.</span> <span class="toc-text">Android Architecture Component WorkManager 高级（翻译）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#链-tasks"><span class="toc-number">1.1.</span> <span class="toc-text">链 tasks</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#唯一工作序列"><span class="toc-number">1.2.</span> <span class="toc-text">唯一工作序列</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#输入和输出值"><span class="toc-number">1.3.</span> <span class="toc-text">输入和输出值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#额外的资源"><span class="toc-number">1.4.</span> <span class="toc-text">额外的资源</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Android Architecture Component WorkManager  高级（翻译）
+    </h1>
+
+
+
+    <div class="meta"  style="margin-top:12px;">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name" style="margin-left: 12px">Wang Jie</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2018-10-20T12:01:00.000Z" itemprop="datePublished">2018-10-20</time>
+    </div>
+
+<br/>
+      
+    <div class="article-tag">
+        <i class="fas fa-tag" style="margin-top: 20px"></i>
+        <a class="tag-link" href="/tags/Android-Architecture-Component/">Android Architecture Component</a>, <a class="tag-link" href="/tags/DataBinding/">DataBinding</a>, <a class="tag-link" href="/tags/Lifecycles/">Lifecycles</a>, <a class="tag-link" href="/tags/LiveData/">LiveData</a>, <a class="tag-link" href="/tags/ViewModel/">ViewModel</a>, <a class="tag-link" href="/tags/WorkManager/">WorkManager</a>, <a class="tag-link" href="/tags/aac/">aac</a>, <a class="tag-link" href="/tags/android/">android</a>, <a class="tag-link" href="/tags/architecture/">architecture</a>, <a class="tag-link" href="/tags/kotlin/">kotlin</a>, <a class="tag-link" href="/tags/翻译/">翻译</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  
+  <div class="content" itemprop="articleBody">
+    
+    
+      <!-- <img class="header-img" src="https://images.unsplash.com/photo-1529792083865-d23889753466?ixlib=rb-0.3.5&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;s=32475a0b7929a8a98b874ff47bf1bd4c&amp;auto=format&amp;fit=crop&amp;w=2250&amp;q=80" /> -->
+      
+
+        <img src="https://images.unsplash.com/photo-1529792083865-d23889753466?ixlib=rb-0.3.5&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;s=32475a0b7929a8a98b874ff47bf1bd4c&amp;auto=format&amp;fit=crop&amp;w=2250&amp;q=80" style="border-radius: 3px;"/>
+        
+      
+      
+    
+
+    <h1 id="Android-Architecture-Component-WorkManager-高级（翻译）"><a href="#Android-Architecture-Component-WorkManager-高级（翻译）" class="headerlink" title="Android Architecture Component WorkManager 高级（翻译）"></a>Android Architecture Component WorkManager 高级（翻译）</h1><blockquote>
+<p>原文：<a href="https://developer.android.com/topic/libraries/architecture/workmanager/advanced" target="_blank" rel="noopener">https://developer.android.com/topic/libraries/architecture/workmanager/advanced</a></p>
+</blockquote>
+<p>通过 WorkManager 可以轻松地设置和安排复杂的任务请求。你可以在以下场景使用这些 APIs：</p>
+<ul>
+<li>通过指定顺序去执行 tasks 的 <a href="https://developer.android.com/topic/libraries/architecture/workmanager/advanced#chained" target="_blank" rel="noopener">链序列</a>。</li>
+<li>唯一的 <a href="https://developer.android.com/topic/libraries/architecture/workmanager/advanced#unique" target="_blank" rel="noopener">命名序列</a>，以及在应用启动两个同名序列时发生的情况的规则。</li>
+<li>Tasks 的 <a href="https://developer.android.com/topic/libraries/architecture/workmanager/advanced#params" target="_blank" rel="noopener">输入输出值</a>，包括每个 task 的输出作为参数输入到下一个 tasks 中的链 tasks。</li>
+</ul>
+<h2 id="链-tasks"><a href="#链-tasks" class="headerlink" title="链 tasks"></a>链 tasks</h2><p>你的 app 可能需要以一个特定的顺序来执行多个 tasks。<a href="https://developer.android.com/reference/androidx/work/WorkManager.html" target="_blank" rel="noopener"><code>WorkManager</code></a> 允许你创建一个工作序列并对它进行排队，该序列指定多个 tasks 以及它应该按什么顺序运行。</p>
+<p>举个例子，假设你的 app 有三个 <a href="https://developer.android.com/reference/androidx/work/OneTimeWorkRequest.html" target="_blank" rel="noopener"><code>OneTimeWorkRequest</code></a> 对象：<code>workA</code>，<code>workB</code>，<code>workC</code>。任务必须要按照这个顺序执行。为了排队它们，要通过 <a href="https://developer.android.com/reference/androidx/work/WorkManager#beginWith(java.util.List%3Candroidx.work.OneTimeWorkRequest%3E" target="_blank" rel="noopener"><code>WorkManager.beginWith()</code></a>) 方法创建一个序列，传入第一个 <a href="https://developer.android.com/reference/androidx/work/OneTimeWorkRequest.html" target="_blank" rel="noopener"><code>OneTimeWorkRequest</code></a> 对象；这个方法返回一个 <a href="https://developer.android.com/reference/androidx/work/WorkContinuation.html" target="_blank" rel="noopener"><code>WorkContinuation</code></a> 对象，它定义了 tasks 的序列。然后使用 <a href="https://developer.android.com/reference/androidx/work/WorkContinuation#then" target="_blank" rel="noopener"><code>WorkContinuation.then()</code></a> 按照顺序增加其它的 <a href="https://developer.android.com/reference/androidx/work/OneTimeWorkRequest.html" target="_blank" rel="noopener"><code>OneTimeWorkRequest</code></a> 对象，最后，使用 <a href="https://developer.android.com/reference/androidx/work/WorkContinuation#enqueue" target="_blank" rel="noopener"><code>WorkContinuation.enqueue()</code></a> 来排队整个序列：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">WorkManager.getInstance()</span><br><span class="line">    .beginWith(workA)</span><br><span class="line">        <span class="comment">// Note: WorkManager.beginWith() returns a</span></span><br><span class="line">        <span class="comment">// WorkContinuation object; the following calls are</span></span><br><span class="line">        <span class="comment">// to WorkContinuation methods</span></span><br><span class="line">    .then(workB)    <span class="comment">// FYI, then() returns a new WorkContinuation instance</span></span><br><span class="line">    .then(workC)</span><br><span class="line">    .enqueue()</span><br></pre></td></tr></table></figure>
+<p><a href="https://developer.android.com/reference/androidx/work/WorkManager.html" target="_blank" rel="noopener"><code>WorkManager</code></a> 会按照请求的顺序以及每个 task 指定的约束来运行 tasks。如果 任何 task 返回了 <a href="https://developer.android.com/reference/androidx/work/Worker.Result#FAILURE" target="_blank" rel="noopener"><code>Worker.Result.FAILURE</code></a>，则整个序列结束。</p>
+<p>你也可以传入多个 <a href="https://developer.android.com/reference/androidx/work/OneTimeWorkRequest.html" target="_blank" rel="noopener"><code>OneTimeWorkRequest</code></a> 对象到 <a href="https://developer.android.com/reference/androidx/work/WorkManager#beginWith(java.util.List%3Candroidx.work.OneTimeWorkRequest%3E" target="_blank" rel="noopener"><code>beginWith()</code></a>) 和 <a href="https://developer.android.com/reference/androidx/work/WorkContinuation#then" target="_blank" rel="noopener"><code>.then()</code></a> 调用。如果你传入几个 <a href="https://developer.android.com/reference/androidx/work/OneTimeWorkRequest.html" target="_blank" rel="noopener"><code>OneTimeWorkRequest</code></a> 到一个单独的方法调用，<a href="https://developer.android.com/reference/androidx/work/WorkManager.html" target="_blank" rel="noopener"><code>WorkManager</code></a> 会在运行其余 tasks 之前运行这些 tasks（并行）。比如：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">WorkManager.getInstance()</span><br><span class="line">    <span class="comment">// 首先，运行所有 A tasks (并行):</span></span><br><span class="line">    .beginWith(workA1, workA2, workA3)</span><br><span class="line">    <span class="comment">// ...当所有的 A tasks 结束, 运行单个 B task:</span></span><br><span class="line">    .then(workB)</span><br><span class="line">    <span class="comment">// ...然后运行 C tasks (以任何顺序):</span></span><br><span class="line">    .then(workC1, workC2)</span><br><span class="line">    .enqueue()</span><br></pre></td></tr></table></figure>
+<p>你可以通过 <a href="https://developer.android.com/reference/androidx/work/WorkContinuation#combine" target="_blank" rel="noopener"><code>WorkContinuation.combine()</code></a> 方法连接多个链来创建更复杂的序列。比如，假设你想要运行像以下的序列：</p>
+<div style="text-align: center;"><br><img src="https://user-images.githubusercontent.com/5423194/49058154-c3667a00-f23d-11e8-97a0-ca92352ce1ac.png" width="400px/"><br></div>
+
+<p>要设置这个序列，创建两个独立的链，然后把它们链接在一起形成第三个：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> chain1 = WorkManager.getInstance()</span><br><span class="line">    .beginWith(workA)</span><br><span class="line">    .then(workB)</span><br><span class="line"><span class="keyword">val</span> chain2 = WorkManager.getInstance()</span><br><span class="line">    .beginWith(workC)</span><br><span class="line">    .then(workD)</span><br><span class="line"><span class="keyword">val</span> chain3 = WorkContinuation</span><br><span class="line">    .combine(chain1, chain2)</span><br><span class="line">    .then(workE)</span><br><span class="line">chain3.enqueue()</span><br></pre></td></tr></table></figure>
+<p>在这种情况下，<a href="https://developer.android.com/reference/androidx/work/WorkManager.html" target="_blank" rel="noopener"><code>WorkManager</code></a> 在 <code>workB</code> 之前运行 <code>workA</code>。运行 <code>workD</code> 之前运行 <code>workC</code>。在 <code>workB</code> 和 <code>workD</code> 都完成之后，<a href="https://developer.android.com/reference/androidx/work/WorkManager.html" target="_blank" rel="noopener"><code>WorkManager</code></a> 运行 <code>workE</code>。</p>
+<blockquote>
+<p><strong>注意</strong>：当 <a href="https://developer.android.com/reference/androidx/work/WorkManager.html" target="_blank" rel="noopener">WorkManager</a> 按照顺序运行没个子链，不能保证 <strong>链1</strong> 中的任务与 <strong>链2</strong> 中的任务可能重叠。比如，<strong>workB</strong> 可能在 <strong>workC</strong> 之前或者之后运行，或者同时运行。只能保证每个子链中的 task 将按顺序运行；就是，<strong>workB</strong> 不会运行直到 <strong>workA</strong> 完成。</p>
+</blockquote>
+<p><a href="https://developer.android.com/reference/androidx/work/WorkContinuation.html" target="_blank" rel="noopener"><code>WorkContinuation</code></a> 有许多变种来提供为特定情况提供快捷。举个例子，<a href="https://developer.android.com/reference/androidx/work/WorkContinuation#combine(androidx.work.OneTimeWorkRequest,%20java.util.List%3Candroidx.work.WorkContinuation%3E" target="_blank" rel="noopener"><code>WorkContinuation.combine(OneTimeWorkRequest, WorkContinuation…)</code></a>) 方法是指示 <a href="https://developer.android.com/reference/androidx/work/WorkManager.html" target="_blank" rel="noopener"><code>WorkManager</code></a> 完成所有指定的 <a href="https://developer.android.com/reference/androidx/work/WorkContinuation.html" target="_blank" rel="noopener"><code>WorkContinuation</code></a> 链，然后完成指定的 <a href="https://developer.android.com/reference/androidx/work/OneTimeWorkRequest.html" target="_blank" rel="noopener"><code>OneTimeWorkRequest</code></a>。详请可参阅 <a href="https://developer.android.com/reference/androidx/work/WorkContinuation.html" target="_blank" rel="noopener">WorkContinuation</a>。</p>
+<h2 id="唯一工作序列"><a href="#唯一工作序列" class="headerlink" title="唯一工作序列"></a>唯一工作序列</h2><p>你可以通过调用 <a href="https://developer.android.com/reference/androidx/work/WorkManager#beginUniqueWork(java.lang.String,%20androidx.work.ExistingWorkPolicy,%20androidx.work.OneTimeWorkRequest..." target="_blank" rel="noopener"><code>beginUniqueWork()</code></a>) 而不是 <a href="https://developer.android.com/reference/androidx/work/WorkManager#beginWith(java.util.List%3Candroidx.work.OneTimeWorkRequest%3E" target="_blank" rel="noopener"><code>beginWith()</code></a>) 开始一个序列来创建一个 <em>唯一的工作序列</em>。每一个唯一工作序列都有一个名字；<a href="https://developer.android.com/reference/androidx/work/WorkManager.html" target="_blank" rel="noopener"><code>WorkManager</code></a> 一次只允许一个序列具有该名字。当你创建一个新的唯一工作序列时，你要指定如果已经有一个相同名字并且未完成的序列时 <a href="https://developer.android.com/reference/androidx/work/WorkManager.html" target="_blank" rel="noopener"><code>WorkManager</code></a> 应该怎么做：</p>
+<ul>
+<li>取消已经存在的序列并用新的 <a href="https://developer.android.com/reference/androidx/work/ExistingWorkPolicy#replace" target="_blank" rel="noopener">替换</a> 它</li>
+<li><a href="https://developer.android.com/reference/androidx/work/ExistingWorkPolicy#keep" target="_blank" rel="noopener">保留</a> 存在的序列并忽略掉你新的请求。</li>
+<li><a href="https://developer.android.com/reference/androidx/work/ExistingWorkPolicy#append" target="_blank" rel="noopener">追加</a> 你新的序列到你存在的序列上，在存在的序列的最后一个 task 执行完之后执行新的序列的第一个 task。</li>
+</ul>
+<p>唯一工作序列在你有一个 task 不该排队多次的时候很有用。举个例子，如果你的 app 需要同步数据到网络，你可能对名为 “sync” 的序列进行排队，然后指定如果已经有这个名字的序列存在，则你新的 task 应该被忽略。唯一工作序列在你需要去逐渐建立一个长长的任务链时也很有用。举个例子，一个图片编辑 app 可能会让用户撤销一个很长的动作链。这些每个撤销的操作都可能会需要花费一些时间，但是它们需要以一个正确的顺序被执行。在这个情况下，app 应该创建一个 “undo” 链，并且如果需要则追加每个撤销操作。</p>
+<h2 id="输入和输出值"><a href="#输入和输出值" class="headerlink" title="输入和输出值"></a>输入和输出值</h2><p>为了更大的灵活性，你可以传入参数到你的 tasks 并让 task 返回值。输入输出值是键值对。要传入值到一个 task，则需要在你创建 <a href="https://developer.android.com/reference/androidx/work/WorkRequest.html" target="_blank" rel="noopener"><code>WorkRequest</code></a> 对象之前调用 <a href="https://developer.android.com/reference/androidx/work/WorkRequest.Builder#setinputdata" target="_blank" rel="noopener"><code>WorkRequest.Builder.setInputData()</code></a> 方法。这个方法接收一个 <a href="https://developer.android.com/reference/androidx/work/Data.html" target="_blank" rel="noopener"><code>Data</code></a> 对象，你可以通过 <a href="https://developer.android.com/reference/androidx/work/Data.Builder.html" target="_blank" rel="noopener"><code>Data.Builder</code></a> 来创建它。<a href="https://developer.android.com/reference/androidx/work/Worker.html" target="_blank" rel="noopener"><code>Worker</code></a> 类可以通过 <a href="https://developer.android.com/reference/androidx/work/Worker#getinputdata" target="_blank" rel="noopener"><code>Worker.getInputData()</code></a> 来访问这些参数。要输出一个返回值，task 要调用 <a href="https://developer.android.com/reference/androidx/work/Worker#setoutputdata" target="_blank" rel="noopener"><code>Worker.setOutputData()</code></a>，它接受一个 <a href="https://developer.android.com/reference/androidx/work/Data.html" target="_blank" rel="noopener"><code>Data</code></a> 对象。你可以通过观察 task 的 <code>LiveData&lt;WorkStatus&gt;</code> 来得到输出。</p>
+<p>举个例子，假设你有一个 <a href="https://developer.android.com/reference/androidx/work/Worker.html" target="_blank" rel="noopener"><code>Worker</code></a> 类来执行耗时的计算。以下代码展示了 <a href="https://developer.android.com/reference/androidx/work/Worker.html" target="_blank" rel="noopener"><code>Worker</code></a> 类应该是怎么样的：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Define the parameter keys:</span></span><br><span class="line">const <span class="keyword">val</span> KEY_X_ARG = <span class="string">"X"</span></span><br><span class="line">const <span class="keyword">val</span> KEY_Y_ARG = <span class="string">"Y"</span></span><br><span class="line">const <span class="keyword">val</span> KEY_Z_ARG = <span class="string">"Z"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// ...and the result key:</span></span><br><span class="line">const <span class="keyword">val</span> KEY_RESULT = <span class="string">"result"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Define the Worker class:</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MathWorker</span></span>(context : Context, params : WorkerParameters)</span><br><span class="line">    : Worker(context, params)  &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">doWork</span><span class="params">()</span></span>: Result &#123;</span><br><span class="line">        <span class="keyword">val</span> x = inputData.getInt(KEY_X_ARG, <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">val</span> y = inputData.getInt(KEY_Y_ARG, <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">val</span> z = inputData.getInt(KEY_Z_ARG, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment">// ...do the math...</span></span><br><span class="line">        <span class="keyword">val</span> result = myCrazyMathFunction(x, y, z);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//...set the output, and we're done!</span></span><br><span class="line">        <span class="keyword">val</span> output: Data = mapOf(KEY_RESULT to result).toWorkData()</span><br><span class="line">        setOutputData(output)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> Result.SUCCESS</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>要创建一个 worker 并传入参数，你应该如下编写代码：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> myData: Data = mapOf(<span class="string">"KEY_X_ARG"</span> to <span class="number">42</span>,</span><br><span class="line">                       <span class="string">"KEY_Y_ARG"</span> to <span class="number">421</span>,</span><br><span class="line">                       <span class="string">"KEY_Z_ARG"</span> to <span class="number">8675309</span>)</span><br><span class="line">                     .toWorkData()</span><br><span class="line"></span><br><span class="line"><span class="comment">// ...then create and enqueue a OneTimeWorkRequest that uses those arguments</span></span><br><span class="line"><span class="keyword">val</span> mathWork = OneTimeWorkRequestBuilder&lt;MathWorker&gt;()</span><br><span class="line">        .setInputData(myData)</span><br><span class="line">        .build()</span><br><span class="line">WorkManager.getInstance().enqueue(mathWork)</span><br></pre></td></tr></table></figure>
+<p>返回值会在 task 的 <a href="https://developer.android.com/reference/androidx/work/WorkStatus.html" target="_blank" rel="noopener"><code>WorkStatus</code></a> 中可用：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">WorkManager.getInstance().getStatusById(mathWork.id)</span><br><span class="line">        .observe(<span class="keyword">this</span>, Observer &#123; status -&gt;</span><br><span class="line">            <span class="keyword">if</span> (status != <span class="literal">null</span> &amp;&amp; status.state.isFinished) &#123;</span><br><span class="line">                <span class="keyword">val</span> myResult = status.outputData.getInt(KEY_RESULT,</span><br><span class="line">                      myDefaultValue)</span><br><span class="line">                <span class="comment">// ... do something with the result ...</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br></pre></td></tr></table></figure>
+<p>如果你链接了 tasks，一个 task 的输出可作为链中下一个 task 的输入。如果它是一个简单链，使用单个的 <a href="https://developer.android.com/reference/androidx/work/OneTimeWorkRequest.html" target="_blank" rel="noopener"><code>OneTimeWorkRequest</code></a> 链接另一个单个 <a href="https://developer.android.com/reference/androidx/work/OneTimeWorkRequest.html" target="_blank" rel="noopener"><code>OneTimeWorkRequest</code></a>，第一个 tasker 通过调用 <a href="https://developer.android.com/reference/androidx/work/Worker.html#setOutputData(androidx.work.Data" target="_blank" rel="noopener"><code>setOutputData()</code></a>) 返回结果，然后下一个 task 通过调用 <a href="https://developer.android.com/reference/androidx/work/Worker.html#getinputdata" target="_blank" rel="noopener"><code>getInputData()</code></a> 获取结果。如果链更复杂 —— 比如，因为几个 task 都发送输入到一个单个的后续任务 —— 你可以在 <a href="https://developer.android.com/reference/androidx/work/OneTimeWorkRequest.Builder.html" target="_blank" rel="noopener"><code>OneTimeWorkRequest.Builder</code></a> 定义一个 <a href="https://developer.android.com/reference/androidx/work/InputMerger.html" target="_blank" rel="noopener"><code>InputMerger</code></a> 来指定如果多个 tasks 返回一个相同 key 的输出时应该怎么处理。</p>
+<h2 id="额外的资源"><a href="#额外的资源" class="headerlink" title="额外的资源"></a>额外的资源</h2><p><code>WorkManager</code> 是一个 <a href="https://developer.android.com/jetpack/" target="_blank" rel="noopener">Android Jetpack</a> architecture component。可参阅使用到它的 <a href="https://github.com/googlesamples/android-sunflower" target="_blank" rel="noopener">Sunflower</a> demo app。</p>
+
+
+    <br/>
+    <hr>
+
+    
+    <div class="post-copyright" style="margin-top: 20px;">
+        <strong>来源博客：</strong><a href="https://blog.wangjiegulu.com">Wang Jie's Blog</a><br/>
+         <strong>本文链接：</strong><a href="https://blog.wangjiegulu.com/2018/10/20/android_architecture_components_workermanager_advanced/">https://blog.wangjiegulu.com/2018/10/20/android_architecture_components_workermanager_advanced/</a><br/>
+         <strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处。
+    </div>
+    
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/message/">Message</a></li>
+         
+          <li><a href="/feed.xml">RSS</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Android-Architecture-Component-WorkManager-高级（翻译）"><span class="toc-number">1.</span> <span class="toc-text">Android Architecture Component WorkManager 高级（翻译）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#链-tasks"><span class="toc-number">1.1.</span> <span class="toc-text">链 tasks</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#唯一工作序列"><span class="toc-number">1.2.</span> <span class="toc-text">唯一工作序列</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#输入和输出值"><span class="toc-number">1.3.</span> <span class="toc-text">输入和输出值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#额外的资源"><span class="toc-number">1.4.</span> <span class="toc-text">额外的资源</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://blog.wangjiegulu.com/2018/10/20/android_architecture_components_workermanager_advanced/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://blog.wangjiegulu.com/2018/10/20/android_architecture_components_workermanager_advanced/&text=Android Architecture Component WorkManager  高级（翻译）"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.wangjiegulu.com/2018/10/20/android_architecture_components_workermanager_advanced/&title=Android Architecture Component WorkManager  高级（翻译）"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.wangjiegulu.com/2018/10/20/android_architecture_components_workermanager_advanced/&is_video=false&description=Android Architecture Component WorkManager  高级（翻译）"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Android Architecture Component WorkManager  高级（翻译）&body=Check out this article: https://blog.wangjiegulu.com/2018/10/20/android_architecture_components_workermanager_advanced/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.wangjiegulu.com/2018/10/20/android_architecture_components_workermanager_advanced/&title=Android Architecture Component WorkManager  高级（翻译）"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.wangjiegulu.com/2018/10/20/android_architecture_components_workermanager_advanced/&title=Android Architecture Component WorkManager  高级（翻译）"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.wangjiegulu.com/2018/10/20/android_architecture_components_workermanager_advanced/&title=Android Architecture Component WorkManager  高级（翻译）"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://blog.wangjiegulu.com/2018/10/20/android_architecture_components_workermanager_advanced/&title=Android Architecture Component WorkManager  高级（翻译）"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.wangjiegulu.com/2018/10/20/android_architecture_components_workermanager_advanced/&name=Android Architecture Component WorkManager  高级（翻译）&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 Wang Jie
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/message/">Message</a></li>
+         
+          <li><a href="/feed.xml">RSS</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-111189680-2', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'blog-wangjiegulu-com';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+
