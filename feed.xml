@@ -48,17 +48,17 @@
     
       <category term="mysql" scheme="https://blog.wangjiegulu.com/tags/mysql/"/>
     
-      <category term="ssr" scheme="https://blog.wangjiegulu.com/tags/ssr/"/>
-    
-      <category term="shadowsocks" scheme="https://blog.wangjiegulu.com/tags/shadowsocks/"/>
-    
-      <category term="shadowsocksr" scheme="https://blog.wangjiegulu.com/tags/shadowsocksr/"/>
-    
       <category term="docker" scheme="https://blog.wangjiegulu.com/tags/docker/"/>
     
       <category term="docker hub" scheme="https://blog.wangjiegulu.com/tags/docker-hub/"/>
     
       <category term="migration" scheme="https://blog.wangjiegulu.com/tags/migration/"/>
+    
+      <category term="ssr" scheme="https://blog.wangjiegulu.com/tags/ssr/"/>
+    
+      <category term="shadowsocks" scheme="https://blog.wangjiegulu.com/tags/shadowsocks/"/>
+    
+      <category term="shadowsocksr" scheme="https://blog.wangjiegulu.com/tags/shadowsocksr/"/>
     
       <category term="ss" scheme="https://blog.wangjiegulu.com/tags/ss/"/>
     
@@ -481,11 +481,11 @@
   </entry>
   
   <entry>
-    <title>Android Architecture Component Lifecycle（翻译）</title>
-    <link href="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_lifecycle/"/>
-    <id>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_lifecycle/</id>
+    <title>Android Architecture Component ViewModel（翻译）</title>
+    <link href="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_viewmodel/"/>
+    <id>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_viewmodel/</id>
     <published>2018-04-15T13:01:00.000Z</published>
-    <updated>2018-11-22T06:56:52.291Z</updated>
+    <updated>2018-11-22T04:14:54.803Z</updated>
     
     <summary type="html">
     
@@ -493,7 +493,7 @@
       
         
         
-          &lt;h1 id=&quot;Android-Architecture-Component-Lifecycle（翻译）&quot;&gt;&lt;a href=&quot;#Android-Architecture-Component-Lifecycle（翻译）&quot; class=&quot;headerlink&quot;
+          &lt;h1 id=&quot;Android-Architecture-Component-ViewModel（翻译）&quot;&gt;&lt;a href=&quot;#Android-Architecture-Component-ViewModel（翻译）&quot; class=&quot;headerlink&quot;
         
       
     
@@ -529,11 +529,11 @@
   </entry>
   
   <entry>
-    <title>Android Architecture Component ViewModel（翻译）</title>
-    <link href="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_viewmodel/"/>
-    <id>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_viewmodel/</id>
+    <title>Android Architecture Component Lifecycle（翻译）</title>
+    <link href="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_lifecycle/"/>
+    <id>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_lifecycle/</id>
     <published>2018-04-15T13:01:00.000Z</published>
-    <updated>2018-11-22T04:14:54.803Z</updated>
+    <updated>2018-11-22T06:56:52.291Z</updated>
     
     <summary type="html">
     
@@ -541,7 +541,7 @@
       
         
         
-          &lt;h1 id=&quot;Android-Architecture-Component-ViewModel（翻译）&quot;&gt;&lt;a href=&quot;#Android-Architecture-Component-ViewModel（翻译）&quot; class=&quot;headerlink&quot;
+          &lt;h1 id=&quot;Android-Architecture-Component-Lifecycle（翻译）&quot;&gt;&lt;a href=&quot;#Android-Architecture-Component-Lifecycle（翻译）&quot; class=&quot;headerlink&quot;
         
       
     

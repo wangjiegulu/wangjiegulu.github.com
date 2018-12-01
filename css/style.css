@@ -1581,3 +1581,12 @@ blockquote p::before {
   color: #45818e;
   background-image: linear-gradient(transparent, transparent 5px, #45818e 5px, #45818e);
 }
+::selection {
+  background: #d4e4e6;
+}
+::-moz-selection {
+  background: #d4e4e6;
+}
+::-webkit-selection {
+  background: #d4e4e6;
+}
