@@ -460,7 +460,7 @@ body {
   color: #333;
   font-weight: 400;
   font-size: 15px;
-  font-family: "Menlo", "Meslo LG", monospace;
+  font-family: "Menlo", "Meslo LG", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB", "Source Han Sans CN", sans-serif;
   line-height: 1.725;
   text-rendering: geometricPrecision;
   -moz-osx-font-smoothing: grayscale;
@@ -1456,7 +1456,7 @@ code {
   border: 0px dotted #666;
   border-radius: 3px;
   -webkit-border-radius: 3px;
-  background-color: #f1f1f1;
+  background-color: #f3f3f3;
   padding-top: 2px;
   padding-bottom: 2px;
   padding-left: 4px;
@@ -1578,6 +1578,6 @@ blockquote p::before {
   line-height: 1.925;
 }
 .md-content a {
-  color: #6188ae;
-  background-image: linear-gradient(transparent, transparent 5px, #6188ae 5px, #6188ae);
+  color: #45818e;
+  background-image: linear-gradient(transparent, transparent 5px, #45818e 5px, #45818e);
 }
