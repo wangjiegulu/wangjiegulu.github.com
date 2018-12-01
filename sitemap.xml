@@ -4,7 +4,14 @@
   <url>
     <loc>https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/</loc>
     
-    <lastmod>2018-11-27T09:27:35.154Z</lastmod>
+    <lastmod>2018-12-01T08:08:19.150Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.wangjiegulu.com/2018/11/16/douban_high_movie_huginn_telegram/</loc>
+    
+    <lastmod>2018-12-01T07:55:49.047Z</lastmod>
     
   </url>
   
@@ -131,13 +138,6 @@
     <loc>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_databinding_get_started/</loc>
     
     <lastmod>2018-11-21T09:11:51.530Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.wangjiegulu.com/2018/11/16/douban_high_movie_huginn_telegram/</loc>
-    
-    <lastmod>2018-11-16T05:49:36.875Z</lastmod>
     
   </url>
   
@@ -1213,7 +1213,7 @@
   </url>
   
   <url>
-    <loc>https://blog.wangjiegulu.com/2013/02/19/%E5%B7%A5%E5%85%B7%E5%BA%93-JOXMLBuilder%E5%B7%A5%E5%85%B7%E7%B1%BB%E2%80%94%E2%80%94%E4%B8%80%E9%94%AE%E6%8A%8A%E5%A4%9A%E4%B8%AAbean%E5%AF%B9%E8%B1%A1%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2%E4%B8%BAXML%E6%A0%BC%E5%BC%8F%E6%95%B0%E6%8D%AE/</loc>
+    <loc>https://blog.wangjiegulu.com/2013/02/20/%E5%B7%A5%E5%85%B7%E5%BA%93-JFileDownloader%E5%B7%A5%E5%85%B7%E7%B1%BB%E2%80%94%E2%80%94%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8B%E8%BD%BD%E7%BD%91%E7%BB%9C%E6%96%87%E4%BB%B6%EF%BC%8C%E5%B9%B6%E4%BF%9D%E5%AD%98%E5%9C%A8%E6%9C%AC%E5%9C%B0/</loc>
     
     <lastmod>2018-01-29T12:36:41.000Z</lastmod>
     
@@ -1227,6 +1227,13 @@
   </url>
   
   <url>
+    <loc>https://blog.wangjiegulu.com/2013/02/19/%E5%B7%A5%E5%85%B7%E5%BA%93-JOJSONBuilder%E5%B7%A5%E5%85%B7%E7%B1%BB%E2%80%94%E2%80%94%E4%B8%80%E9%94%AE%E6%8A%8A%E5%A4%9A%E4%B8%AAbean%E5%AF%B9%E8%B1%A1%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2%E4%B8%BAJSON%E6%A0%BC%E5%BC%8F%E6%95%B0%E6%8D%AE/</loc>
+    
+    <lastmod>2018-01-29T12:36:41.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://blog.wangjiegulu.com/2012/06/15/%E8%AE%BE%E7%BD%AEEditText%E6%98%AF%E5%90%A6%E5%8F%AF%E7%BC%96%E8%BE%91/</loc>
     
     <lastmod>2018-01-29T12:36:41.000Z</lastmod>
@@ -1234,14 +1241,7 @@
   </url>
   
   <url>
-    <loc>https://blog.wangjiegulu.com/2013/02/20/%E5%B7%A5%E5%85%B7%E5%BA%93-JFileDownloader%E5%B7%A5%E5%85%B7%E7%B1%BB%E2%80%94%E2%80%94%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8B%E8%BD%BD%E7%BD%91%E7%BB%9C%E6%96%87%E4%BB%B6%EF%BC%8C%E5%B9%B6%E4%BF%9D%E5%AD%98%E5%9C%A8%E6%9C%AC%E5%9C%B0/</loc>
-    
-    <lastmod>2018-01-29T12:36:41.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.wangjiegulu.com/2013/02/19/%E5%B7%A5%E5%85%B7%E5%BA%93-JOJSONBuilder%E5%B7%A5%E5%85%B7%E7%B1%BB%E2%80%94%E2%80%94%E4%B8%80%E9%94%AE%E6%8A%8A%E5%A4%9A%E4%B8%AAbean%E5%AF%B9%E8%B1%A1%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2%E4%B8%BAJSON%E6%A0%BC%E5%BC%8F%E6%95%B0%E6%8D%AE/</loc>
+    <loc>https://blog.wangjiegulu.com/2013/02/19/%E5%B7%A5%E5%85%B7%E5%BA%93-JOXMLBuilder%E5%B7%A5%E5%85%B7%E7%B1%BB%E2%80%94%E2%80%94%E4%B8%80%E9%94%AE%E6%8A%8A%E5%A4%9A%E4%B8%AAbean%E5%AF%B9%E8%B1%A1%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2%E4%B8%BAXML%E6%A0%BC%E5%BC%8F%E6%95%B0%E6%8D%AE/</loc>
     
     <lastmod>2018-01-29T12:36:41.000Z</lastmod>
     

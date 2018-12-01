@@ -17,16 +17,16 @@
 
 
     <meta name="description" content="制作一个 SSR Docker 镜像基于 秋水逸冰 发布的 一键安装脚本 写的 Dockerfile。 因为平时会在多个 vps 上都部署一套，有时候还经常换 vps，但是又比较懒，不想每次都得重新创建自己的配置文件，所以索性把配置文件直接放在镜像里面。  本文的镜像文件已经上传到 Github：https://github.com/wangjiegulu/ssr_dockerfile大家 clo">
-<meta name="keywords" content="automate,huginn,mysql,docker,docker hub,migration,ssr,shadowsocks,shadowsocksr,ss">
+<meta name="keywords" content="automate,huginn,mysql,ssr,shadowsocks,shadowsocksr,docker,docker hub,migration,ss">
 <meta property="og:type" content="article">
-<meta property="og:title" content="制作一个 SSR Docker 镜像">
+<meta property="og:title" content="制作一个 SSR Docker 镜像 🚀">
 <meta property="og:url" content="https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/index.html">
 <meta property="og:site_name" content="Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer">
 <meta property="og:description" content="制作一个 SSR Docker 镜像基于 秋水逸冰 发布的 一键安装脚本 写的 Dockerfile。 因为平时会在多个 vps 上都部署一套，有时候还经常换 vps，但是又比较懒，不想每次都得重新创建自己的配置文件，所以索性把配置文件直接放在镜像里面。  本文的镜像文件已经上传到 Github：https://github.com/wangjiegulu/ssr_dockerfile大家 clo">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-11-27T09:27:35.154Z">
+<meta property="og:updated_time" content="2018-12-01T08:08:19.150Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="制作一个 SSR Docker 镜像">
+<meta name="twitter:title" content="制作一个 SSR Docker 镜像 🚀">
 <meta name="twitter:description" content="制作一个 SSR Docker 镜像基于 秋水逸冰 发布的 一键安装脚本 写的 Dockerfile。 因为平时会在多个 vps 上都部署一套，有时候还经常换 vps，但是又比较懒，不想每次都得重新创建自己的配置文件，所以索性把配置文件直接放在镜像里面。  本文的镜像文件已经上传到 Github：https://github.com/wangjiegulu/ssr_dockerfile大家 clo">
     
     
@@ -47,7 +47,7 @@
         
     
     <!-- title -->
-    <title>制作一个 SSR Docker 镜像</title>
+    <title>制作一个 SSR Docker 镜像 🚀</title>
     <!-- styles -->
     <link rel="stylesheet" href="/css/style.css">
     <!-- rss -->
@@ -115,15 +115,15 @@
     <div id="share" style="display: none">
       <ul>
   <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/&text=制作一个 SSR Docker 镜像"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/&title=制作一个 SSR Docker 镜像"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/&is_video=false&description=制作一个 SSR Docker 镜像"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=制作一个 SSR Docker 镜像&body=Check out this article: https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/&title=制作一个 SSR Docker 镜像"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/&title=制作一个 SSR Docker 镜像"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/&title=制作一个 SSR Docker 镜像"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/&title=制作一个 SSR Docker 镜像"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/&name=制作一个 SSR Docker 镜像&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/&text=制作一个 SSR Docker 镜像 🚀"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/&title=制作一个 SSR Docker 镜像 🚀"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/&is_video=false&description=制作一个 SSR Docker 镜像 🚀"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=制作一个 SSR Docker 镜像 🚀&body=Check out this article: https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/&title=制作一个 SSR Docker 镜像 🚀"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/&title=制作一个 SSR Docker 镜像 🚀"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/&title=制作一个 SSR Docker 镜像 🚀"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/&title=制作一个 SSR Docker 镜像 🚀"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/&name=制作一个 SSR Docker 镜像 🚀&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -140,7 +140,7 @@
   <header>
     
     <h1 class="posttitle" itemprop="name headline">
-        制作一个 SSR Docker 镜像
+        制作一个 SSR Docker 镜像 🚀
     </h1>
 
 
@@ -282,15 +282,15 @@
     <div id="share-footer" style="display: none">
       <ul>
   <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/&text=制作一个 SSR Docker 镜像"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/&title=制作一个 SSR Docker 镜像"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/&is_video=false&description=制作一个 SSR Docker 镜像"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=制作一个 SSR Docker 镜像&body=Check out this article: https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/&title=制作一个 SSR Docker 镜像"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/&title=制作一个 SSR Docker 镜像"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/&title=制作一个 SSR Docker 镜像"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/&title=制作一个 SSR Docker 镜像"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/&name=制作一个 SSR Docker 镜像&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/&text=制作一个 SSR Docker 镜像 🚀"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/&title=制作一个 SSR Docker 镜像 🚀"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/&is_video=false&description=制作一个 SSR Docker 镜像 🚀"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=制作一个 SSR Docker 镜像 🚀&body=Check out this article: https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/&title=制作一个 SSR Docker 镜像 🚀"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/&title=制作一个 SSR Docker 镜像 🚀"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/&title=制作一个 SSR Docker 镜像 🚀"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/&title=制作一个 SSR Docker 镜像 🚀"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/&name=制作一个 SSR Docker 镜像 🚀&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
