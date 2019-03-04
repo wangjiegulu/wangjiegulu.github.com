@@ -3,6 +3,179 @@
   
     
     <entry>
+      <title><![CDATA[🧾 Scrum 检查清单]]></title>
+      <url>/2019/03/04/scrum_checklist/</url>
+      <content type="html"><![CDATA[<h1 id="Scrum-检查清单"><a href="#Scrum-检查清单" class="headerlink" title="Scrum 检查清单"></a>Scrum 检查清单</h1><blockquote>
+<p><strong>PO</strong> = Product Owner</p>
+<p><strong>SM</strong> = Scrum Master</p>
+<p><strong>PBL</strong> = Product Backlog</p>
+<p><strong>DoD</strong> = Definition of Done</p>
+</blockquote>
+<h2 id="基本条目："><a href="#基本条目：" class="headerlink" title="基本条目："></a>基本条目：</h2><blockquote>
+<p>如果你做到了这些，就可以忽略检查清单的其他部分，你的过程还不错</p>
+</blockquote>
+<ul>
+<li>每个迭代（4 周以内）交付<strong>测试过且可工作的软件</strong></li>
+<li>交付<strong>业务最需要</strong>的内容</li>
+<li><strong>持续地改进</strong>过程</li>
+</ul>
+<h2 id="Scrum-核心："><a href="#Scrum-核心：" class="headerlink" title="Scrum 核心："></a>Scrum 核心：</h2><blockquote>
+<p>这些是 Scrum 的主要元素。没有它们，你就不能称之为 Scrum</p>
+</blockquote>
+<ul>
+<li>明确<strong>产品负责人（PO）</strong><ul>
+<li><strong>PO 有权</strong>进行优先级排序</li>
+<li><strong>PO 有知识</strong>进行优先级排序</li>
+<li>PO 直接<strong>与团队接触</strong></li>
+<li>PO 直接<strong>与利益相关者接触</strong></li>
+<li>当 PO 是一个团队时，PO 们<strong>统一口径</strong></li>
+</ul>
+</li>
+<li>团队拥有一个<strong>迭代待办事项列表（sprint backlog）</strong><ul>
+<li>高度<strong>可视化</strong></li>
+<li>每日<strong>更新</strong></li>
+<li>完全地由<strong>团队</strong>拥有</li>
+</ul>
+</li>
+<li>举行<strong>每日站会</strong>（daily scrum）<ul>
+<li>团队全员参加</li>
+<li>暴露出问题和障碍</li>
+</ul>
+</li>
+<li>每个迭代后举行<strong>演示（demo）</strong><ul>
+<li>展示<strong>测试过且可工作的软件</strong></li>
+<li>收到来自利益相关者和 PO 的<strong>反馈</strong></li>
+</ul>
+</li>
+<li>具有<strong>完成的定义（DoD）</strong><ul>
+<li>DoD 在每个迭代内都是<strong>切实可行的</strong></li>
+<li>团队尊重 DoD</li>
+</ul>
+</li>
+<li>每个迭代结束之后都举行<strong>回顾（retrospective）</strong><ul>
+<li>产品具体的改进<strong>提案</strong></li>
+<li>一些提案真正得到<strong>实现</strong></li>
+<li><strong>团队全员和 PO</strong> 参加</li>
+</ul>
+</li>
+<li>PO 拥有一个<strong>产品待办事项列表</strong><ul>
+<li>高优先级待办事项是按业务价值<strong>排序过的</strong></li>
+<li>高优先级待办事项是<strong>估算过的</strong></li>
+<li>由<strong>团队进行估算</strong></li>
+<li>高优先级待办事项<strong>粒度足够细，可以放入一个迭代内</strong></li>
+<li>PO 理解所有待办事项的目的</li>
+</ul>
+</li>
+<li>举行<strong>迭代计划会议（sprint planning meetings）</strong><ul>
+<li><strong>PO 参加</strong></li>
+<li>PO 展示<strong>最新的产品待办事项列表</strong></li>
+<li><strong>团队全员</strong>参加</li>
+<li>产出<strong>迭代计划</strong>（sprint plan）</li>
+<li>团队全员相信计划是<strong>切实可行的</strong></li>
+<li><strong>PO 对待办事项的优先级满意</strong></li>
+</ul>
+</li>
+<li>基于时间盒的迭代<ul>
+<li>迭代长度<strong>小于等于 4 周</strong></li>
+<li>总是<strong>按时结束</strong></li>
+<li>团队不被外部打扰或控制</li>
+<li>团队通常能够<strong>交付他们承诺的内容</strong></li>
+</ul>
+</li>
+<li>团队成员<strong>坐在一起</strong><ul>
+<li>每个团队<strong>最多 9 人</strong></li>
+</ul>
+</li>
+</ul>
+<h2 id="Scrum-检查清单："><a href="#Scrum-检查清单：" class="headerlink" title="Scrum 检查清单："></a>Scrum 检查清单：</h2><blockquote>
+<p>推荐但不是必须的，大多数通常是需要的，但不是所有，可以尝试</p>
+</blockquote>
+<ul>
+<li>团队具备待办事项的<strong>所有技能</strong></li>
+<li>团队成员<strong>不会局限于特定的角色</strong></li>
+<li><strong>注定失败</strong>的迭代趁早结束</li>
+<li>PO 的<strong>产品愿景</strong>体现在产品待办事项列表中</li>
+<li>产品待办事项列表和产品愿景<strong>高度可视化</strong></li>
+<li><strong>团队全员参与估算</strong></li>
+<li>团队估算时 <strong>PO 在场</strong></li>
+<li>用<strong>相对大小</strong>（故事点）而不是时间来估算</li>
+<li>团队都知道最紧迫的<strong>1-3 条障碍</strong><ul>
+<li><strong>SM 具备应对策略</strong>去解决紧迫的障碍</li>
+<li><strong>SM 专注于</strong>移除障碍</li>
+<li>当团队不能解决时提交给<strong>管理层</strong></li>
+</ul>
+</li>
+<li>团队具有一个 <strong>Scrum Master（SM）</strong><ul>
+<li>SM <strong>与团队坐在一起</strong></li>
+</ul>
+</li>
+<li>当前迭代内的待办事项<strong>拆分成任务（task）</strong><ul>
+<li>迭代的任务是<strong>估算过的</strong></li>
+<li><strong>每日重新估算</strong>进行中的任务</li>
+</ul>
+</li>
+<li>度量速率（velocity）<ul>
+<li>迭代计划内的所有待办事项都有<strong>估算值</strong></li>
+<li>PO 利用速率来做<strong>发布计划（release planning）</strong></li>
+<li>速率仅统计<strong>完成</strong>的待办事项</li>
+</ul>
+</li>
+<li>团队拥有一个<strong>迭代燃尽图</strong><ul>
+<li>高度<strong>可视化</strong></li>
+<li>每日<strong>更新</strong></li>
+</ul>
+</li>
+<li><strong>每日站会（daily scrum）</strong>每天举行，固定地点和时间<ul>
+<li><strong>PO 每周至少参加几次</strong></li>
+<li>最长 <strong>15分钟</strong></li>
+<li>每个团队成员都<strong>知道其他人在做什么</strong></li>
+</ul>
+</li>
+</ul>
+<h2 id="扩大规模"><a href="#扩大规模" class="headerlink" title="扩大规模"></a>扩大规模</h2><blockquote>
+<p>任何扩大 scrum 规模的努力都要具备的最基本条件：</p>
+</blockquote>
+<ul>
+<li>存在一个<strong>首席产品负责人（chief PO）</strong></li>
+<li>互相依赖的团队举行 <strong>Scrum of Scrumns</strong></li>
+<li>互相依赖的团队 <strong>每个迭代内进行集成</strong></li>
+</ul>
+<h2 id="积极信号"><a href="#积极信号" class="headerlink" title="积极信号"></a>积极信号</h2><blockquote>
+<p>良好的 Scrum 实施的主要信号</p>
+</blockquote>
+<ul>
+<li><strong>快乐！</strong>热情饱满</li>
+<li><strong>很少加班</strong>且自愿发生</li>
+<li>对过程进行讨论、批评和<strong>尝试</strong></li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> 敏捷开发 </category>
+            
+            <category> 项目管理 </category>
+            
+            <category> scrum </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> scrum </tag>
+            
+            <tag> 敏捷开发 </tag>
+            
+            <tag> 开发过程 </tag>
+            
+            <tag> 项目管理 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[制作一个 SSR Docker 镜像 🚀]]></title>
       <url>/2018/11/27/ssr_docker_image/</url>
       <content type="html"><![CDATA[<h1 id="制作一个-SSR-Docker-镜像"><a href="#制作一个-SSR-Docker-镜像" class="headerlink" title="制作一个 SSR Docker 镜像"></a>制作一个 SSR Docker 镜像</h1><p>基于 <a href="https://github.com/teddysun/shadowsocks_install" target="_blank" rel="noopener">秋水逸冰</a> 发布的 <a href="https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocksR.sh" target="_blank" rel="noopener">一键安装脚本</a> 写的 <code>Dockerfile</code>。</p>
@@ -72,8 +245,6 @@
             
             <tag> huginn </tag>
             
-            <tag> mysql </tag>
-            
             <tag> ssr </tag>
             
             <tag> shadowsocks </tag>
@@ -83,6 +254,8 @@
             <tag> docker </tag>
             
             <tag> docker hub </tag>
+            
+            <tag> mysql </tag>
             
             <tag> migration </tag>
             
@@ -170,11 +343,11 @@
             
             <tag> huginn </tag>
             
-            <tag> mysql </tag>
-            
             <tag> docker </tag>
             
             <tag> docker hub </tag>
+            
+            <tag> mysql </tag>
             
             <tag> migration </tag>
             
@@ -618,9 +791,9 @@
         
         <tags>
             
-            <tag> java </tag>
-            
             <tag> kotlin </tag>
+            
+            <tag> java </tag>
             
             <tag> Smart Life </tag>
             
@@ -790,9 +963,9 @@
         
         <tags>
             
-            <tag> java </tag>
-            
             <tag> kotlin </tag>
+            
+            <tag> java </tag>
             
             <tag> Smart Life </tag>
             
@@ -2798,13 +2971,13 @@
             
             <tag> android </tag>
             
-            <tag> java </tag>
+            <tag> maven </tag>
             
             <tag> gradle </tag>
             
             <tag> gradle plugin </tag>
             
-            <tag> maven </tag>
+            <tag> java </tag>
             
             <tag> repository </tag>
             
@@ -3199,13 +3372,13 @@
             
             <tag> android </tag>
             
-            <tag> framework </tag>
+            <tag> dagger2 </tag>
             
             <tag> 翻译 </tag>
             
-            <tag> dagger2 </tag>
-            
             <tag> kotlin </tag>
+            
+            <tag> framework </tag>
             
             <tag> architecture </tag>
             
@@ -3573,9 +3746,9 @@
             
             <tag> android </tag>
             
-            <tag> memory leak </tag>
-            
             <tag> 翻译 </tag>
+            
+            <tag> memory leak </tag>
             
         </tags>
         
@@ -4538,11 +4711,11 @@
             
             <tag> android </tag>
             
+            <tag> RecyclerView </tag>
+            
             <tag> ListView </tag>
             
             <tag> best practices </tag>
-            
-            <tag> RecyclerView </tag>
             
             <tag> SeizeRecyclerView </tag>
             
@@ -4586,11 +4759,11 @@
         
         <tags>
             
-            <tag> animation </tag>
+            <tag> lottie </tag>
             
             <tag> animator </tag>
             
-            <tag> lottie </tag>
+            <tag> animation </tag>
             
         </tags>
         
@@ -4702,15 +4875,15 @@
             
             <tag> android </tag>
             
+            <tag> dagger2 </tag>
+            
+            <tag> DI </tag>
+            
             <tag> dependency injection </tag>
             
             <tag> 翻译 </tag>
             
             <tag> google </tag>
-            
-            <tag> dagger2 </tag>
-            
-            <tag> DI </tag>
             
         </tags>
         
@@ -4805,15 +4978,15 @@
             
             <tag> android </tag>
             
+            <tag> dagger2 </tag>
+            
+            <tag> DI </tag>
+            
             <tag> dependency injection </tag>
             
             <tag> 翻译 </tag>
             
             <tag> google </tag>
-            
-            <tag> dagger2 </tag>
-            
-            <tag> DI </tag>
             
         </tags>
         
@@ -4911,15 +5084,15 @@
             
             <tag> android </tag>
             
+            <tag> dagger2 </tag>
+            
+            <tag> DI </tag>
+            
             <tag> dependency injection </tag>
             
             <tag> 翻译 </tag>
             
             <tag> google </tag>
-            
-            <tag> dagger2 </tag>
-            
-            <tag> DI </tag>
             
             <tag> RxJava </tag>
             
@@ -5045,15 +5218,15 @@
             
             <tag> android </tag>
             
+            <tag> dagger2 </tag>
+            
+            <tag> DI </tag>
+            
             <tag> dependency injection </tag>
             
             <tag> 翻译 </tag>
             
             <tag> google </tag>
-            
-            <tag> dagger2 </tag>
-            
-            <tag> DI </tag>
             
         </tags>
         
@@ -5100,15 +5273,15 @@
             
             <tag> android </tag>
             
-            <tag> library </tag>
-            
-            <tag> sqlite </tag>
-            
-            <tag> database </tag>
-            
             <tag> orm </tag>
             
             <tag> rapidorm </tag>
+            
+            <tag> library </tag>
+            
+            <tag> database </tag>
+            
+            <tag> sqlite </tag>
             
         </tags>
         
@@ -5179,7 +5352,7 @@
       <title><![CDATA[[Android]异步 layout inflation（翻译）]]></title>
       <url>/2016/09/01/Android-%E5%BC%82%E6%AD%A5-layout-inflation%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/</url>
       <content type="html"><![CDATA[<h1 id="异步-layout-inflation"><a href="#异步-layout-inflation" class="headerlink" title="异步 layout inflation"></a>异步 layout inflation</h1><blockquote>
-<p>原文：<a href="&#x6d;&#97;&#105;&#108;&#x74;&#111;&#58;&#104;&#x74;&#x74;&#x70;&#x73;&#58;&#x2f;&#47;&#109;&#101;&#x64;&#x69;&#x75;&#109;&#46;&#x63;&#x6f;&#109;&#x2f;&#64;&#x6c;&#x75;&#x70;&#x61;&#106;&#x7a;&#x2f;&#97;&#115;&#x79;&#x6e;&#99;&#104;&#114;&#x6f;&#110;&#x6f;&#x75;&#115;&#x2d;&#x6c;&#x61;&#x79;&#x6f;&#x75;&#116;&#x2d;&#x69;&#110;&#x66;&#x6c;&#x61;&#116;&#x69;&#x6f;&#110;&#45;&#x37;&#x63;&#x62;&#x63;&#x61;&#50;&#x36;&#x35;&#x33;&#98;&#x66;&#x23;&#46;&#x71;&#50;&#50;&#x76;&#112;&#x65;&#122;&#x67;&#x34;">&#104;&#x74;&#x74;&#x70;&#x73;&#58;&#x2f;&#47;&#109;&#101;&#x64;&#x69;&#x75;&#109;&#46;&#x63;&#x6f;&#109;&#x2f;&#64;&#x6c;&#x75;&#x70;&#x61;&#106;&#x7a;&#x2f;&#97;&#115;&#x79;&#x6e;&#99;&#104;&#114;&#x6f;&#110;&#x6f;&#x75;&#115;&#x2d;&#x6c;&#x61;&#x79;&#x6f;&#x75;&#116;&#x2d;&#x69;&#110;&#x66;&#x6c;&#x61;&#116;&#x69;&#x6f;&#110;&#45;&#x37;&#x63;&#x62;&#x63;&#x61;&#50;&#x36;&#x35;&#x33;&#98;&#x66;&#x23;&#46;&#x71;&#50;&#50;&#x76;&#112;&#x65;&#122;&#x67;&#x34;</a></p>
+<p>原文：<a href="&#109;&#x61;&#105;&#x6c;&#x74;&#111;&#x3a;&#104;&#116;&#x74;&#x70;&#x73;&#x3a;&#x2f;&#x2f;&#109;&#x65;&#x64;&#x69;&#117;&#x6d;&#x2e;&#99;&#x6f;&#109;&#47;&#x40;&#x6c;&#x75;&#x70;&#97;&#x6a;&#122;&#x2f;&#x61;&#x73;&#121;&#110;&#x63;&#x68;&#114;&#x6f;&#x6e;&#x6f;&#117;&#115;&#45;&#108;&#97;&#121;&#111;&#117;&#116;&#x2d;&#105;&#x6e;&#x66;&#x6c;&#x61;&#116;&#x69;&#x6f;&#x6e;&#45;&#x37;&#x63;&#x62;&#x63;&#x61;&#50;&#x36;&#53;&#x33;&#x62;&#x66;&#35;&#46;&#x71;&#x32;&#50;&#118;&#112;&#x65;&#x7a;&#103;&#52;">&#104;&#116;&#x74;&#x70;&#x73;&#x3a;&#x2f;&#x2f;&#109;&#x65;&#x64;&#x69;&#117;&#x6d;&#x2e;&#99;&#x6f;&#109;&#47;&#x40;&#x6c;&#x75;&#x70;&#97;&#x6a;&#122;&#x2f;&#x61;&#x73;&#121;&#110;&#x63;&#x68;&#114;&#x6f;&#x6e;&#x6f;&#117;&#115;&#45;&#108;&#97;&#121;&#111;&#117;&#116;&#x2d;&#105;&#x6e;&#x66;&#x6c;&#x61;&#116;&#x69;&#x6f;&#x6e;&#45;&#x37;&#x63;&#x62;&#x63;&#x61;&#50;&#x36;&#53;&#x33;&#x62;&#x66;&#35;&#46;&#x71;&#x32;&#50;&#118;&#112;&#x65;&#x7a;&#103;&#52;</a></p>
 </blockquote>
 <p>随着最近发布的<a href="https://developer.android.com/topic/libraries/support-library/revisions.html" target="_blank" rel="noopener">Android Support Library, revision 24</a>，Google开发者在v4包中增加了一个用来异步inflate layouts的帮助类。</p>
 <h2 id="进入-AsyncLayoutInflater"><a href="#进入-AsyncLayoutInflater" class="headerlink" title="进入 AsyncLayoutInflater"></a>进入 AsyncLayoutInflater</h2><p>你会发现AsyncLayoutInflater可以使用在当你想要去懒加载你应用中部分UI或者用户行为的响应。这个帮助类将会允许你的UI线程在执行繁重的inflate时继续保持响应。</p>
@@ -6343,11 +6516,11 @@ Cookie: ... ...
             
             <tag> unit test </tag>
             
-            <tag> annotations </tag>
-            
             <tag> JUnit </tag>
             
             <tag> Junit Rules </tag>
+            
+            <tag> annotations </tag>
             
         </tags>
         
@@ -6393,15 +6566,15 @@ Cookie: ... ...
             
             <tag> android </tag>
             
-            <tag> library </tag>
-            
-            <tag> sqlite </tag>
-            
-            <tag> database </tag>
-            
             <tag> orm </tag>
             
             <tag> rapidorm </tag>
+            
+            <tag> library </tag>
+            
+            <tag> database </tag>
+            
+            <tag> sqlite </tag>
             
         </tags>
         
@@ -6669,15 +6842,15 @@ Cookie: ... ...
             
             <tag> android </tag>
             
-            <tag> mvp </tag>
-            
             <tag> dependency injection </tag>
             
-            <tag> unit test </tag>
+            <tag> mvp </tag>
+            
+            <tag> mvc </tag>
             
             <tag> framework </tag>
             
-            <tag> mvc </tag>
+            <tag> unit test </tag>
             
         </tags>
         
@@ -6740,11 +6913,11 @@ Cookie: ... ...
             
             <tag> android </tag>
             
-            <tag> framework </tag>
-            
             <tag> 翻译 </tag>
             
             <tag> best practices </tag>
+            
+            <tag> framework </tag>
             
         </tags>
         
@@ -6833,15 +7006,15 @@ Cookie: ... ...
             
             <tag> android </tag>
             
-            <tag> dependency injection </tag>
-            
-            <tag> 翻译 </tag>
-            
             <tag> dagger2 </tag>
             
             <tag> memory </tag>
             
             <tag> DI </tag>
+            
+            <tag> dependency injection </tag>
+            
+            <tag> 翻译 </tag>
             
         </tags>
         
@@ -6955,15 +7128,15 @@ Cookie: ... ...
             
             <tag> android </tag>
             
+            <tag> dagger2 </tag>
+            
+            <tag> DI </tag>
+            
             <tag> dependency injection </tag>
             
             <tag> 翻译 </tag>
             
             <tag> google </tag>
-            
-            <tag> dagger2 </tag>
-            
-            <tag> DI </tag>
             
         </tags>
         
@@ -7076,15 +7249,15 @@ Cookie: ... ...
             
             <tag> android </tag>
             
+            <tag> dagger2 </tag>
+            
+            <tag> DI </tag>
+            
             <tag> dependency injection </tag>
             
             <tag> 翻译 </tag>
             
             <tag> google </tag>
-            
-            <tag> dagger2 </tag>
-            
-            <tag> DI </tag>
             
         </tags>
         
@@ -7216,15 +7389,15 @@ Cookie: ... ...
             
             <tag> android </tag>
             
+            <tag> dagger2 </tag>
+            
+            <tag> DI </tag>
+            
             <tag> dependency injection </tag>
             
             <tag> 翻译 </tag>
             
             <tag> google </tag>
-            
-            <tag> dagger2 </tag>
-            
-            <tag> DI </tag>
             
         </tags>
         
@@ -7314,15 +7487,15 @@ Cookie: ... ...
             
             <tag> android </tag>
             
+            <tag> dagger2 </tag>
+            
+            <tag> DI </tag>
+            
             <tag> dependency injection </tag>
             
             <tag> 翻译 </tag>
             
             <tag> google </tag>
-            
-            <tag> dagger2 </tag>
-            
-            <tag> DI </tag>
             
         </tags>
         
@@ -7819,13 +7992,13 @@ Cookie: ... ...
             
             <tag> android </tag>
             
-            <tag> mvp </tag>
+            <tag> best practices </tag>
             
-            <tag> framework </tag>
+            <tag> mvp </tag>
             
             <tag> mvc </tag>
             
-            <tag> best practices </tag>
+            <tag> framework </tag>
             
         </tags>
         
@@ -9031,15 +9204,15 @@ for (name in names) {
             
             <tag> android </tag>
             
-            <tag> library </tag>
-            
-            <tag> sqlite </tag>
-            
-            <tag> database </tag>
-            
             <tag> orm </tag>
             
             <tag> rapidorm </tag>
+            
+            <tag> library </tag>
+            
+            <tag> database </tag>
+            
+            <tag> sqlite </tag>
             
         </tags>
         
@@ -9196,11 +9369,11 @@ for (name in names) {
             
             <tag> android </tag>
             
+            <tag> view </tag>
+            
             <tag> FloatingActionButton </tag>
             
             <tag> FAB </tag>
-            
-            <tag> view </tag>
             
         </tags>
         
@@ -9316,11 +9489,11 @@ for (name in names) {
             
             <tag> android </tag>
             
-            <tag> gradle </tag>
-            
             <tag> maven </tag>
             
             <tag> open source </tag>
+            
+            <tag> gradle </tag>
             
             <tag> uploadArchive </tag>
             
@@ -9350,9 +9523,9 @@ for (name in names) {
         
         <tags>
             
-            <tag> blog </tag>
-            
             <tag> java </tag>
+            
+            <tag> blog </tag>
             
         </tags>
         
@@ -9485,11 +9658,11 @@ for (name in names) {
             
             <tag> android </tag>
             
+            <tag> RecyclerView </tag>
+            
             <tag> ListView </tag>
             
             <tag> best practices </tag>
-            
-            <tag> RecyclerView </tag>
             
         </tags>
         
@@ -9556,11 +9729,11 @@ for (name in names) {
             
             <tag> android </tag>
             
+            <tag> RecyclerView </tag>
+            
             <tag> ListView </tag>
             
             <tag> best practices </tag>
-            
-            <tag> RecyclerView </tag>
             
         </tags>
         
@@ -9657,11 +9830,11 @@ for (name in names) {
             
             <tag> android </tag>
             
+            <tag> RecyclerView </tag>
+            
             <tag> ListView </tag>
             
             <tag> best practices </tag>
-            
-            <tag> RecyclerView </tag>
             
         </tags>
         
@@ -9915,9 +10088,9 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> ListView </tag>
             
-            <tag> optimize </tag>
-            
             <tag> best practices </tag>
+            
+            <tag> optimize </tag>
             
         </tags>
         
@@ -10120,13 +10293,13 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> android </tag>
             
-            <tag> mvp </tag>
+            <tag> best practices </tag>
             
-            <tag> framework </tag>
+            <tag> mvp </tag>
             
             <tag> mvc </tag>
             
-            <tag> best practices </tag>
+            <tag> framework </tag>
             
         </tags>
         
@@ -10591,11 +10764,11 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> android </tag>
             
-            <tag> property animation </tag>
+            <tag> animator </tag>
             
             <tag> animation </tag>
             
-            <tag> animator </tag>
+            <tag> property animation </tag>
             
         </tags>
         
@@ -10650,11 +10823,11 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
         
         <tags>
             
-            <tag> android bucket </tag>
+            <tag> library </tag>
             
             <tag> annotations </tag>
             
-            <tag> library </tag>
+            <tag> android bucket </tag>
             
         </tags>
         
@@ -10934,17 +11107,17 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> android </tag>
             
+            <tag> orm </tag>
+            
             <tag> library </tag>
-            
-            <tag> inject </tag>
-            
-            <tag> sqlite </tag>
-            
-            <tag> sqlite3 </tag>
             
             <tag> database </tag>
             
-            <tag> orm </tag>
+            <tag> sqlite </tag>
+            
+            <tag> inject </tag>
+            
+            <tag> sqlite3 </tag>
             
         </tags>
         
@@ -11070,9 +11243,9 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> java </tag>
             
-            <tag> java8 </tag>
-            
             <tag> lambda </tag>
+            
+            <tag> java8 </tag>
             
         </tags>
         
@@ -11287,13 +11460,13 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> android </tag>
             
-            <tag> java </tag>
-            
-            <tag> Hbase </tag>
-            
             <tag> j2ee </tag>
             
             <tag> java web </tag>
+            
+            <tag> java </tag>
+            
+            <tag> Hbase </tag>
             
         </tags>
         
@@ -11352,11 +11525,11 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
         
         <tags>
             
-            <tag> java </tag>
-            
             <tag> j2ee </tag>
             
             <tag> java web </tag>
+            
+            <tag> java </tag>
             
             <tag> ubuntu </tag>
             
@@ -11472,15 +11645,15 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> android </tag>
             
-            <tag> annotations </tag>
-            
             <tag> library </tag>
+            
+            <tag> annotations </tag>
             
             <tag> proxy </tag>
             
-            <tag> dynamic proxy </tag>
-            
             <tag> http </tag>
+            
+            <tag> dynamic proxy </tag>
             
         </tags>
         
@@ -11972,9 +12145,9 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> android </tag>
             
-            <tag> fragment </tag>
-            
             <tag> TabHost </tag>
+            
+            <tag> fragment </tag>
             
         </tags>
         
@@ -12070,9 +12243,9 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> java </tag>
             
-            <tag> dynamic proxy </tag>
-            
             <tag> aop </tag>
+            
+            <tag> dynamic proxy </tag>
             
             <tag> log </tag>
             
@@ -12247,11 +12420,11 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
         
         <tags>
             
+            <tag> Intellij IDEA </tag>
+            
             <tag> j2ee </tag>
             
             <tag> java web </tag>
-            
-            <tag> Intellij IDEA </tag>
             
         </tags>
         
@@ -12411,13 +12584,13 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> java web </tag>
             
+            <tag> mysql </tag>
+            
             <tag> struts </tag>
             
             <tag> ibatis </tag>
             
             <tag> spring </tag>
-            
-            <tag> mysql </tag>
             
         </tags>
         
@@ -13109,11 +13282,11 @@ Integer.toHexString(Integer.parseInt(&quot;0101&quot;, 2));
         
         <tags>
             
-            <tag> java </tag>
-            
             <tag> j2ee </tag>
             
             <tag> java web </tag>
+            
+            <tag> java </tag>
             
         </tags>
         
@@ -13297,9 +13470,9 @@ Integer.toHexString(Integer.parseInt(&quot;0101&quot;, 2));
             
             <tag> java </tag>
             
-            <tag> proxy </tag>
-            
             <tag> pattern </tag>
+            
+            <tag> proxy </tag>
             
         </tags>
         
@@ -13721,9 +13894,9 @@ Integer.toHexString(Integer.parseInt(&quot;0101&quot;, 2));
             
             <tag> ListView </tag>
             
-            <tag> view </tag>
-            
             <tag> tips </tag>
+            
+            <tag> view </tag>
             
         </tags>
         
@@ -14036,9 +14209,9 @@ Integer.toHexString(Integer.parseInt(&quot;0101&quot;, 2));
             
             <tag> android </tag>
             
-            <tag> ScrollView </tag>
-            
             <tag> exception </tag>
+            
+            <tag> ScrollView </tag>
             
         </tags>
         
@@ -14201,9 +14374,9 @@ Integer.toHexString(Integer.parseInt(&quot;0101&quot;, 2));
             
             <tag> android </tag>
             
-            <tag> tips </tag>
-            
             <tag> UI </tag>
+            
+            <tag> tips </tag>
             
             <tag> unit </tag>
             
@@ -14575,9 +14748,9 @@ Integer.toHexString(Integer.parseInt(&quot;0101&quot;, 2));
             
             <tag> android </tag>
             
-            <tag> TabHost </tag>
-            
             <tag> RadioGroup </tag>
+            
+            <tag> TabHost </tag>
             
             <tag> Gallery </tag>
             

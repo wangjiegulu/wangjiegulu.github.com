@@ -6,7 +6,7 @@
   <link href="/feed.xml" rel="self"/>
   
   <link href="https://blog.wangjiegulu.com/"/>
-  <updated>2018-12-01T08:08:19.150Z</updated>
+  <updated>2019-03-04T08:59:39.018Z</updated>
   <id>https://blog.wangjiegulu.com/</id>
   
   <author>
@@ -17,11 +17,48 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>🧾 Scrum 检查清单</title>
+    <link href="https://blog.wangjiegulu.com/2019/03/04/scrum_checklist/"/>
+    <id>https://blog.wangjiegulu.com/2019/03/04/scrum_checklist/</id>
+    <published>2019-03-04T08:47:35.451Z</published>
+    <updated>2019-03-04T08:59:39.018Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;Scrum-检查清单&quot;&gt;&lt;a href=&quot;#Scrum-检查清单&quot; class=&quot;headerlink&quot; title=&quot;Scrum 检查清单&quot;&gt;&lt;/a&gt;Scrum 检查清单&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;PO&lt;/strong&gt; =
+        
+      
+    
+    </summary>
+    
+      <category term="敏捷开发" scheme="https://blog.wangjiegulu.com/categories/%E6%95%8F%E6%8D%B7%E5%BC%80%E5%8F%91/"/>
+    
+      <category term="项目管理" scheme="https://blog.wangjiegulu.com/categories/%E6%95%8F%E6%8D%B7%E5%BC%80%E5%8F%91/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/"/>
+    
+      <category term="scrum" scheme="https://blog.wangjiegulu.com/categories/%E6%95%8F%E6%8D%B7%E5%BC%80%E5%8F%91/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/scrum/"/>
+    
+    
+      <category term="scrum" scheme="https://blog.wangjiegulu.com/tags/scrum/"/>
+    
+      <category term="敏捷开发" scheme="https://blog.wangjiegulu.com/tags/%E6%95%8F%E6%8D%B7%E5%BC%80%E5%8F%91/"/>
+    
+      <category term="开发过程" scheme="https://blog.wangjiegulu.com/tags/%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B/"/>
+    
+      <category term="项目管理" scheme="https://blog.wangjiegulu.com/tags/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/"/>
+    
+  </entry>
+  
+  <entry>
     <title>制作一个 SSR Docker 镜像 🚀</title>
     <link href="https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/"/>
     <id>https://blog.wangjiegulu.com/2018/11/27/ssr_docker_image/</id>
     <published>2018-11-27T08:03:59.511Z</published>
-    <updated>2018-12-01T08:08:19.150Z</updated>
+    <updated>2018-12-01T08:08:19.151Z</updated>
     
     <summary type="html">
     
@@ -46,8 +83,6 @@
     
       <category term="huginn" scheme="https://blog.wangjiegulu.com/tags/huginn/"/>
     
-      <category term="mysql" scheme="https://blog.wangjiegulu.com/tags/mysql/"/>
-    
       <category term="ssr" scheme="https://blog.wangjiegulu.com/tags/ssr/"/>
     
       <category term="shadowsocks" scheme="https://blog.wangjiegulu.com/tags/shadowsocks/"/>
@@ -57,6 +92,8 @@
       <category term="docker" scheme="https://blog.wangjiegulu.com/tags/docker/"/>
     
       <category term="docker hub" scheme="https://blog.wangjiegulu.com/tags/docker-hub/"/>
+    
+      <category term="mysql" scheme="https://blog.wangjiegulu.com/tags/mysql/"/>
     
       <category term="migration" scheme="https://blog.wangjiegulu.com/tags/migration/"/>
     
@@ -92,11 +129,11 @@
     
       <category term="huginn" scheme="https://blog.wangjiegulu.com/tags/huginn/"/>
     
-      <category term="mysql" scheme="https://blog.wangjiegulu.com/tags/mysql/"/>
-    
       <category term="docker" scheme="https://blog.wangjiegulu.com/tags/docker/"/>
     
       <category term="docker hub" scheme="https://blog.wangjiegulu.com/tags/docker-hub/"/>
+    
+      <category term="mysql" scheme="https://blog.wangjiegulu.com/tags/mysql/"/>
     
       <category term="migration" scheme="https://blog.wangjiegulu.com/tags/migration/"/>
     
@@ -106,7 +143,7 @@
     <title>Huginn 实现自动通过 Telegram 推送豆瓣高分电影</title>
     <link href="https://blog.wangjiegulu.com/2018/11/16/douban_high_movie_huginn_telegram/"/>
     <id>https://blog.wangjiegulu.com/2018/11/16/douban_high_movie_huginn_telegram/</id>
-    <published>2018-11-16T03:08:54.024Z</published>
+    <published>2018-11-16T03:08:54.025Z</published>
     <updated>2018-12-01T07:55:49.047Z</updated>
     
     <summary type="html">
@@ -153,7 +190,7 @@
     <link href="https://blog.wangjiegulu.com/2018/10/20/android_architecture_components_workermanager_advanced/"/>
     <id>https://blog.wangjiegulu.com/2018/10/20/android_architecture_components_workermanager_advanced/</id>
     <published>2018-10-20T12:01:00.000Z</published>
-    <updated>2018-11-27T05:41:15.923Z</updated>
+    <updated>2018-11-27T05:41:15.924Z</updated>
     
     <summary type="html">
     
@@ -203,7 +240,7 @@
     <link href="https://blog.wangjiegulu.com/2018/10/20/android_architecture_components_workermanager_basics/"/>
     <id>https://blog.wangjiegulu.com/2018/10/20/android_architecture_components_workermanager_basics/</id>
     <published>2018-10-20T11:01:00.000Z</published>
-    <updated>2018-11-27T05:41:16.325Z</updated>
+    <updated>2018-11-27T05:41:16.326Z</updated>
     
     <summary type="html">
     
@@ -302,7 +339,7 @@
     <title>构建自己的 Smart Life 私有云（二）-&gt; 连通 IFTTT &amp; Slack</title>
     <link href="https://blog.wangjiegulu.com/2018/09/26/private-smart-life-cloud-b--working-with-ifttt-slack/"/>
     <id>https://blog.wangjiegulu.com/2018/09/26/private-smart-life-cloud-b--working-with-ifttt-slack/</id>
-    <published>2018-09-26T08:45:09.437Z</published>
+    <published>2018-09-26T08:45:09.438Z</published>
     <updated>2018-11-12T06:48:09.102Z</updated>
     
     <summary type="html">
@@ -322,9 +359,9 @@
       <category term="IoT" scheme="https://blog.wangjiegulu.com/categories/Smart-Life/IoT/"/>
     
     
-      <category term="java" scheme="https://blog.wangjiegulu.com/tags/java/"/>
-    
       <category term="kotlin" scheme="https://blog.wangjiegulu.com/tags/kotlin/"/>
+    
+      <category term="java" scheme="https://blog.wangjiegulu.com/tags/java/"/>
     
       <category term="Smart Life" scheme="https://blog.wangjiegulu.com/tags/Smart-Life/"/>
     
@@ -351,7 +388,7 @@
     <link href="https://blog.wangjiegulu.com/2018/09/26/private-smart-life-cloud-a--hack-tuya-smart-plug/"/>
     <id>https://blog.wangjiegulu.com/2018/09/26/private-smart-life-cloud-a--hack-tuya-smart-plug/</id>
     <published>2018-09-26T07:08:09.585Z</published>
-    <updated>2018-10-14T13:33:34.265Z</updated>
+    <updated>2018-10-14T13:33:34.266Z</updated>
     
     <summary type="html">
     
@@ -370,9 +407,9 @@
       <category term="IoT" scheme="https://blog.wangjiegulu.com/categories/Smart-Life/IoT/"/>
     
     
-      <category term="java" scheme="https://blog.wangjiegulu.com/tags/java/"/>
-    
       <category term="kotlin" scheme="https://blog.wangjiegulu.com/tags/kotlin/"/>
+    
+      <category term="java" scheme="https://blog.wangjiegulu.com/tags/java/"/>
     
       <category term="Smart Life" scheme="https://blog.wangjiegulu.com/tags/Smart-Life/"/>
     
@@ -398,7 +435,7 @@
     <title>理解 CI 和 CD 之间的区别（翻译）</title>
     <link href="https://blog.wangjiegulu.com/2018/09/10/understanding-the-difference-between-ci-and-cd/"/>
     <id>https://blog.wangjiegulu.com/2018/09/10/understanding-the-difference-between-ci-and-cd/</id>
-    <published>2018-09-10T05:24:27.761Z</published>
+    <published>2018-09-10T05:24:27.762Z</published>
     <updated>2018-09-11T05:21:25.129Z</updated>
     
     <summary type="html">
@@ -725,7 +762,7 @@
     <link href="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_binding_adapters/"/>
     <id>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_binding_adapters/</id>
     <published>2018-04-15T08:01:00.000Z</published>
-    <updated>2018-11-22T01:44:46.034Z</updated>
+    <updated>2018-11-22T01:44:46.035Z</updated>
     
     <summary type="html">
     
@@ -773,7 +810,7 @@
     <link href="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_generated_binding/"/>
     <id>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_generated_binding/</id>
     <published>2018-04-15T07:01:00.000Z</published>
-    <updated>2018-11-22T01:44:37.022Z</updated>
+    <updated>2018-11-22T01:44:37.023Z</updated>
     
     <summary type="html">
     
@@ -869,7 +906,7 @@
     <link href="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_databinding_expressions/"/>
     <id>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_databinding_expressions/</id>
     <published>2018-04-15T05:01:00.000Z</published>
-    <updated>2018-11-22T01:44:30.467Z</updated>
+    <updated>2018-11-22T01:44:30.468Z</updated>
     
     <summary type="html">
     
@@ -893,52 +930,6 @@
       <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
     
       <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
-    
-      <category term="kotlin" scheme="https://blog.wangjiegulu.com/tags/kotlin/"/>
-    
-      <category term="architecture" scheme="https://blog.wangjiegulu.com/tags/architecture/"/>
-    
-      <category term="Android Architecture Component" scheme="https://blog.wangjiegulu.com/tags/Android-Architecture-Component/"/>
-    
-      <category term="aac" scheme="https://blog.wangjiegulu.com/tags/aac/"/>
-    
-      <category term="ViewModel" scheme="https://blog.wangjiegulu.com/tags/ViewModel/"/>
-    
-      <category term="LiveData" scheme="https://blog.wangjiegulu.com/tags/LiveData/"/>
-    
-      <category term="DataBinding" scheme="https://blog.wangjiegulu.com/tags/DataBinding/"/>
-    
-      <category term="Lifecycles" scheme="https://blog.wangjiegulu.com/tags/Lifecycles/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Android Architecture Component DataBinding -- Get Started（翻译）</title>
-    <link href="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_databinding_get_started/"/>
-    <id>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_databinding_get_started/</id>
-    <published>2018-04-15T04:01:00.000Z</published>
-    <updated>2018-11-21T09:11:51.530Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;Android-Architecture-Component-DataBinding-–-Get-Started（翻译）&quot;&gt;&lt;a
-        
-      
-    
-    </summary>
-    
-      <category term="Android Architecture Component" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/"/>
-    
-      <category term="kotlin" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/kotlin/"/>
-    
-      <category term="DataBinding" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/kotlin/DataBinding/"/>
-    
-    
-      <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
     
       <category term="kotlin" scheme="https://blog.wangjiegulu.com/tags/kotlin/"/>
     
