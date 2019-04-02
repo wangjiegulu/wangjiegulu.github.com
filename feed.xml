@@ -125,6 +125,12 @@
     
       <category term="huginn" scheme="https://blog.wangjiegulu.com/tags/huginn/"/>
     
+      <category term="ssr" scheme="https://blog.wangjiegulu.com/tags/ssr/"/>
+    
+      <category term="shadowsocks" scheme="https://blog.wangjiegulu.com/tags/shadowsocks/"/>
+    
+      <category term="shadowsocksr" scheme="https://blog.wangjiegulu.com/tags/shadowsocksr/"/>
+    
       <category term="docker" scheme="https://blog.wangjiegulu.com/tags/docker/"/>
     
       <category term="docker hub" scheme="https://blog.wangjiegulu.com/tags/docker-hub/"/>
@@ -132,12 +138,6 @@
       <category term="mysql" scheme="https://blog.wangjiegulu.com/tags/mysql/"/>
     
       <category term="migration" scheme="https://blog.wangjiegulu.com/tags/migration/"/>
-    
-      <category term="ssr" scheme="https://blog.wangjiegulu.com/tags/ssr/"/>
-    
-      <category term="shadowsocks" scheme="https://blog.wangjiegulu.com/tags/shadowsocks/"/>
-    
-      <category term="shadowsocksr" scheme="https://blog.wangjiegulu.com/tags/shadowsocksr/"/>
     
       <category term="ss" scheme="https://blog.wangjiegulu.com/tags/ss/"/>
     

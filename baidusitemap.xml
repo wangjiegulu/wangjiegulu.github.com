@@ -83,6 +83,12 @@
          
         <tag>huginn</tag>
          
+        <tag>ssr</tag>
+         
+        <tag>shadowsocks</tag>
+         
+        <tag>shadowsocksr</tag>
+         
         <tag>docker</tag>
          
         <tag>docker hub</tag>
@@ -90,12 +96,6 @@
         <tag>mysql</tag>
          
         <tag>migration</tag>
-         
-        <tag>ssr</tag>
-         
-        <tag>shadowsocks</tag>
-         
-        <tag>shadowsocksr</tag>
          
         <tag>ss</tag>
          
@@ -1259,8 +1259,6 @@
         
         <tag>android</tag>
          
-        <tag>google</tag>
-         
         <tag>dagger2</tag>
          
         <tag>DI</tag>
@@ -1268,6 +1266,8 @@
         <tag>dependency injection</tag>
          
         <tag>翻译</tag>
+         
+        <tag>google</tag>
          
          
            
@@ -1355,8 +1355,6 @@
         
         <tag>android</tag>
          
-        <tag>google</tag>
-         
         <tag>dagger2</tag>
          
         <tag>DI</tag>
@@ -1364,6 +1362,8 @@
         <tag>dependency injection</tag>
          
         <tag>翻译</tag>
+         
+        <tag>google</tag>
          
          
            
@@ -1382,8 +1382,6 @@
         
         <tag>android</tag>
          
-        <tag>google</tag>
-         
         <tag>dagger2</tag>
          
         <tag>DI</tag>
@@ -1391,6 +1389,8 @@
         <tag>dependency injection</tag>
          
         <tag>翻译</tag>
+         
+        <tag>google</tag>
          
          
            
@@ -1616,8 +1616,6 @@
         
         <tag>android</tag>
          
-        <tag>google</tag>
-         
         <tag>dagger2</tag>
          
         <tag>DI</tag>
@@ -1625,6 +1623,8 @@
         <tag>dependency injection</tag>
          
         <tag>翻译</tag>
+         
+        <tag>google</tag>
          
         <tag>RxJava</tag>
          
@@ -1826,9 +1826,9 @@
         
         <tag>java</tag>
          
-        <tag>dynamic proxy</tag>
-         
         <tag>aop</tag>
+         
+        <tag>dynamic proxy</tag>
          
         <tag>log</tag>
          
@@ -1968,9 +1968,9 @@
          
         <tag>android</tag>
          
-        <tag>google</tag>
-         
         <tag>翻译</tag>
+         
+        <tag>google</tag>
          
         <tag>support</tag>
          
@@ -2152,8 +2152,6 @@
         
         <tag>android</tag>
          
-        <tag>google</tag>
-         
         <tag>dagger2</tag>
          
         <tag>DI</tag>
@@ -2161,6 +2159,8 @@
         <tag>dependency injection</tag>
          
         <tag>翻译</tag>
+         
+        <tag>google</tag>
          
          
            
@@ -2179,8 +2179,6 @@
         
         <tag>android</tag>
          
-        <tag>google</tag>
-         
         <tag>dagger2</tag>
          
         <tag>DI</tag>
@@ -2188,6 +2186,8 @@
         <tag>dependency injection</tag>
          
         <tag>翻译</tag>
+         
+        <tag>google</tag>
          
          
            
@@ -2233,8 +2233,6 @@
         
         <tag>android</tag>
          
-        <tag>google</tag>
-         
         <tag>dagger2</tag>
          
         <tag>DI</tag>
@@ -2242,6 +2240,8 @@
         <tag>dependency injection</tag>
          
         <tag>翻译</tag>
+         
+        <tag>google</tag>
          
          
            
@@ -2331,8 +2331,6 @@
         
         <tag>android</tag>
          
-        <tag>google</tag>
-         
         <tag>dagger2</tag>
          
         <tag>DI</tag>
@@ -2340,6 +2338,8 @@
         <tag>dependency injection</tag>
          
         <tag>翻译</tag>
+         
+        <tag>google</tag>
          
          
            
@@ -2454,9 +2454,9 @@
          
         <tag>annotations</tag>
          
-        <tag>http</tag>
-         
         <tag>proxy</tag>
+         
+        <tag>http</tag>
          
         <tag>dynamic proxy</tag>
          
