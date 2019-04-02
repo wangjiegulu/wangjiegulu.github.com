@@ -4,6 +4,42 @@
 
     
   <url>
+    <loc>https://blog.wangjiegulu.com/2019/04/02/jenkins-add-macos-node/</loc>
+    <lastmod>2019-04-02T15:21:58.108Z</lastmod>
+    <data>
+        <display>
+        <title>Jenkins 添加 MacOS 节点</title>
+        <pubTime>2019-04-02T01:06:27.534Z</pubTime>
+        
+        <tag>CI</tag>
+         
+        <tag>jenkins</tag>
+         
+        <tag>iOS</tag>
+         
+        <tag>持续集成</tag>
+         
+        <tag>Continuous Integration</tag>
+         
+         
+           
+             
+              <breadCrumb title="jenkins" url="https://blog.wangjiegulu.com/categories/jenkins/"/>
+          
+             
+              <breadCrumb title="CI" url="https://blog.wangjiegulu.com/categories/jenkins/CI/"/>
+          
+             
+              <breadCrumb title="持续集成" url="https://blog.wangjiegulu.com/categories/jenkins/CI/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/"/>
+          
+             
+             
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://blog.wangjiegulu.com/2019/03/04/scrum_checklist/</loc>
     <lastmod>2019-03-04T09:04:09.658Z</lastmod>
     <data>
@@ -47,12 +83,6 @@
          
         <tag>huginn</tag>
          
-        <tag>ssr</tag>
-         
-        <tag>shadowsocks</tag>
-         
-        <tag>shadowsocksr</tag>
-         
         <tag>docker</tag>
          
         <tag>docker hub</tag>
@@ -60,6 +90,12 @@
         <tag>mysql</tag>
          
         <tag>migration</tag>
+         
+        <tag>ssr</tag>
+         
+        <tag>shadowsocks</tag>
+         
+        <tag>shadowsocksr</tag>
          
         <tag>ss</tag>
          
@@ -974,9 +1010,9 @@
         
         <tag>CI</tag>
          
-        <tag>Continuous Integration</tag>
-         
         <tag>持续集成</tag>
+         
+        <tag>Continuous Integration</tag>
          
         <tag>CD</tag>
          
@@ -1223,6 +1259,8 @@
         
         <tag>android</tag>
          
+        <tag>google</tag>
+         
         <tag>dagger2</tag>
          
         <tag>DI</tag>
@@ -1230,8 +1268,6 @@
         <tag>dependency injection</tag>
          
         <tag>翻译</tag>
-         
-        <tag>google</tag>
          
          
            
@@ -1319,6 +1355,8 @@
         
         <tag>android</tag>
          
+        <tag>google</tag>
+         
         <tag>dagger2</tag>
          
         <tag>DI</tag>
@@ -1326,8 +1364,6 @@
         <tag>dependency injection</tag>
          
         <tag>翻译</tag>
-         
-        <tag>google</tag>
          
          
            
@@ -1346,6 +1382,8 @@
         
         <tag>android</tag>
          
+        <tag>google</tag>
+         
         <tag>dagger2</tag>
          
         <tag>DI</tag>
@@ -1353,8 +1391,6 @@
         <tag>dependency injection</tag>
          
         <tag>翻译</tag>
-         
-        <tag>google</tag>
          
          
            
@@ -1580,6 +1616,8 @@
         
         <tag>android</tag>
          
+        <tag>google</tag>
+         
         <tag>dagger2</tag>
          
         <tag>DI</tag>
@@ -1587,8 +1625,6 @@
         <tag>dependency injection</tag>
          
         <tag>翻译</tag>
-         
-        <tag>google</tag>
          
         <tag>RxJava</tag>
          
@@ -1790,9 +1826,9 @@
         
         <tag>java</tag>
          
-        <tag>aop</tag>
-         
         <tag>dynamic proxy</tag>
+         
+        <tag>aop</tag>
          
         <tag>log</tag>
          
@@ -1932,9 +1968,9 @@
          
         <tag>android</tag>
          
-        <tag>翻译</tag>
-         
         <tag>google</tag>
+         
+        <tag>翻译</tag>
          
         <tag>support</tag>
          
@@ -2116,6 +2152,8 @@
         
         <tag>android</tag>
          
+        <tag>google</tag>
+         
         <tag>dagger2</tag>
          
         <tag>DI</tag>
@@ -2123,8 +2161,6 @@
         <tag>dependency injection</tag>
          
         <tag>翻译</tag>
-         
-        <tag>google</tag>
          
          
            
@@ -2143,6 +2179,8 @@
         
         <tag>android</tag>
          
+        <tag>google</tag>
+         
         <tag>dagger2</tag>
          
         <tag>DI</tag>
@@ -2150,8 +2188,6 @@
         <tag>dependency injection</tag>
          
         <tag>翻译</tag>
-         
-        <tag>google</tag>
          
          
            
@@ -2197,6 +2233,8 @@
         
         <tag>android</tag>
          
+        <tag>google</tag>
+         
         <tag>dagger2</tag>
          
         <tag>DI</tag>
@@ -2204,8 +2242,6 @@
         <tag>dependency injection</tag>
          
         <tag>翻译</tag>
-         
-        <tag>google</tag>
          
          
            
@@ -2295,6 +2331,8 @@
         
         <tag>android</tag>
          
+        <tag>google</tag>
+         
         <tag>dagger2</tag>
          
         <tag>DI</tag>
@@ -2302,8 +2340,6 @@
         <tag>dependency injection</tag>
          
         <tag>翻译</tag>
-         
-        <tag>google</tag>
          
          
            
@@ -2418,9 +2454,9 @@
          
         <tag>annotations</tag>
          
-        <tag>proxy</tag>
-         
         <tag>http</tag>
+         
+        <tag>proxy</tag>
          
         <tag>dynamic proxy</tag>
          

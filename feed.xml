@@ -6,7 +6,7 @@
   <link href="/feed.xml" rel="self"/>
   
   <link href="https://blog.wangjiegulu.com/"/>
-  <updated>2019-03-04T09:04:09.658Z</updated>
+  <updated>2019-04-02T15:21:58.108Z</updated>
   <id>https://blog.wangjiegulu.com/</id>
   
   <author>
@@ -15,6 +15,48 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Jenkins 添加 MacOS 节点</title>
+    <link href="https://blog.wangjiegulu.com/2019/04/02/jenkins-add-macos-node/"/>
+    <id>https://blog.wangjiegulu.com/2019/04/02/jenkins-add-macos-node/</id>
+    <published>2019-04-02T01:06:27.534Z</published>
+    <updated>2019-04-02T15:21:58.108Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;Jenkins-添加-MacOS-节点&quot;&gt;&lt;a href=&quot;#Jenkins-添加-MacOS-节点&quot; class=&quot;headerlink&quot; title=&quot;Jenkins 添加 MacOS 节点&quot;&gt;&lt;/a&gt;Jenkins 添加 MacOS
+        
+      
+    
+    </summary>
+    
+      <category term="jenkins" scheme="https://blog.wangjiegulu.com/categories/jenkins/"/>
+    
+      <category term="CI" scheme="https://blog.wangjiegulu.com/categories/jenkins/CI/"/>
+    
+      <category term="持续集成" scheme="https://blog.wangjiegulu.com/categories/jenkins/CI/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/"/>
+    
+      <category term="Continuous Integration" scheme="https://blog.wangjiegulu.com/categories/jenkins/CI/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/Continuous-Integration/"/>
+    
+      <category term="iOS" scheme="https://blog.wangjiegulu.com/categories/jenkins/CI/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/Continuous-Integration/iOS/"/>
+    
+    
+      <category term="CI" scheme="https://blog.wangjiegulu.com/tags/CI/"/>
+    
+      <category term="jenkins" scheme="https://blog.wangjiegulu.com/tags/jenkins/"/>
+    
+      <category term="iOS" scheme="https://blog.wangjiegulu.com/tags/iOS/"/>
+    
+      <category term="持续集成" scheme="https://blog.wangjiegulu.com/tags/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/"/>
+    
+      <category term="Continuous Integration" scheme="https://blog.wangjiegulu.com/tags/Continuous-Integration/"/>
+    
+  </entry>
   
   <entry>
     <title>🧾 Scrum 检查清单</title>
@@ -83,12 +125,6 @@
     
       <category term="huginn" scheme="https://blog.wangjiegulu.com/tags/huginn/"/>
     
-      <category term="ssr" scheme="https://blog.wangjiegulu.com/tags/ssr/"/>
-    
-      <category term="shadowsocks" scheme="https://blog.wangjiegulu.com/tags/shadowsocks/"/>
-    
-      <category term="shadowsocksr" scheme="https://blog.wangjiegulu.com/tags/shadowsocksr/"/>
-    
       <category term="docker" scheme="https://blog.wangjiegulu.com/tags/docker/"/>
     
       <category term="docker hub" scheme="https://blog.wangjiegulu.com/tags/docker-hub/"/>
@@ -96,6 +132,12 @@
       <category term="mysql" scheme="https://blog.wangjiegulu.com/tags/mysql/"/>
     
       <category term="migration" scheme="https://blog.wangjiegulu.com/tags/migration/"/>
+    
+      <category term="ssr" scheme="https://blog.wangjiegulu.com/tags/ssr/"/>
+    
+      <category term="shadowsocks" scheme="https://blog.wangjiegulu.com/tags/shadowsocks/"/>
+    
+      <category term="shadowsocksr" scheme="https://blog.wangjiegulu.com/tags/shadowsocksr/"/>
     
       <category term="ss" scheme="https://blog.wangjiegulu.com/tags/ss/"/>
     
@@ -457,9 +499,9 @@
     
       <category term="CI" scheme="https://blog.wangjiegulu.com/tags/CI/"/>
     
-      <category term="Continuous Integration" scheme="https://blog.wangjiegulu.com/tags/Continuous-Integration/"/>
-    
       <category term="持续集成" scheme="https://blog.wangjiegulu.com/tags/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/"/>
+    
+      <category term="Continuous Integration" scheme="https://blog.wangjiegulu.com/tags/Continuous-Integration/"/>
     
       <category term="CD" scheme="https://blog.wangjiegulu.com/tags/CD/"/>
     
@@ -867,54 +909,6 @@
         
         
           &lt;h1 id=&quot;Android-Architecture-Component-DataBinding-–-使用可观察的数据对象（翻译）&quot;&gt;&lt;a href=&quot;#Android-Architecture-Component-DataBinding-–-使用可观察的数据对象（翻译）&quot;
-        
-      
-    
-    </summary>
-    
-      <category term="Android Architecture Component" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/"/>
-    
-      <category term="kotlin" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/kotlin/"/>
-    
-      <category term="DataBinding" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/kotlin/DataBinding/"/>
-    
-    
-      <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
-    
-      <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
-    
-      <category term="kotlin" scheme="https://blog.wangjiegulu.com/tags/kotlin/"/>
-    
-      <category term="architecture" scheme="https://blog.wangjiegulu.com/tags/architecture/"/>
-    
-      <category term="Android Architecture Component" scheme="https://blog.wangjiegulu.com/tags/Android-Architecture-Component/"/>
-    
-      <category term="aac" scheme="https://blog.wangjiegulu.com/tags/aac/"/>
-    
-      <category term="ViewModel" scheme="https://blog.wangjiegulu.com/tags/ViewModel/"/>
-    
-      <category term="LiveData" scheme="https://blog.wangjiegulu.com/tags/LiveData/"/>
-    
-      <category term="DataBinding" scheme="https://blog.wangjiegulu.com/tags/DataBinding/"/>
-    
-      <category term="Lifecycles" scheme="https://blog.wangjiegulu.com/tags/Lifecycles/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Android Architecture Component DataBinding -- 布局和表达式（翻译）</title>
-    <link href="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_databinding_expressions/"/>
-    <id>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_databinding_expressions/</id>
-    <published>2018-04-15T05:01:00.000Z</published>
-    <updated>2018-11-22T01:44:30.468Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;Android-Architecture-Component-DataBinding-–-布局和表达式（翻译）&quot;&gt;&lt;a href=&quot;#Android-Architecture-Component-DataBinding-–-布局和表达式（翻译）&quot;
         
       
     

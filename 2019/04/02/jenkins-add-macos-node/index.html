@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#ffffff">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#ffffff">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#ffffff">
+
+
+    <meta name="description" content="Jenkins 添加 MacOS 节点 Master 为 Linux，但是需要支持 iOS 的构建，所以需要添加 MacOS 的 Slave。  开启 Slave 的 SSH 远程登录在 MacOS 的 设置 -&amp;gt; 共享 中如下设置：       配置权限在 Master 上复制 ssh（~/.ssh/id_rsa） 的 private key。 增加到 jenkins 的 Credenti">
+<meta name="keywords" content="CI,jenkins,iOS,持续集成,Continuous Integration">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jenkins 添加 MacOS 节点">
+<meta property="og:url" content="https://blog.wangjiegulu.com/2019/04/02/jenkins-add-macos-node/index.html">
+<meta property="og:site_name" content="Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer">
+<meta property="og:description" content="Jenkins 添加 MacOS 节点 Master 为 Linux，但是需要支持 iOS 的构建，所以需要添加 MacOS 的 Slave。  开启 Slave 的 SSH 远程登录在 MacOS 的 设置 -&amp;gt; 共享 中如下设置：       配置权限在 Master 上复制 ssh（~/.ssh/id_rsa） 的 private key。 增加到 jenkins 的 Credenti">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://user-images.githubusercontent.com/5423194/55370715-0018e980-552e-11e9-997c-7b55b17b785d.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/5423194/55369900-11142b80-552b-11e9-9e06-3373884b84c0.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/5423194/55370117-0017ea00-552c-11e9-8e83-94075d37092e.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/5423194/55370326-b4197500-552c-11e9-8ba1-d617b9eff459.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/5423194/55370854-91885b80-552e-11e9-94a7-88af5907f341.png">
+<meta property="og:updated_time" content="2019-04-02T15:21:58.108Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Jenkins 添加 MacOS 节点">
+<meta name="twitter:description" content="Jenkins 添加 MacOS 节点 Master 为 Linux，但是需要支持 iOS 的构建，所以需要添加 MacOS 的 Slave。  开启 Slave 的 SSH 远程登录在 MacOS 的 设置 -&amp;gt; 共享 中如下设置：       配置权限在 Master 上复制 ssh（~/.ssh/id_rsa） 的 private key。 增加到 jenkins 的 Credenti">
+<meta name="twitter:image" content="https://user-images.githubusercontent.com/5423194/55370715-0018e980-552e-11e9-997c-7b55b17b785d.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Jenkins 添加 MacOS 节点</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3">
+    
+      <div id="header-post-nav">
+  <span id="nav">
+      <ul>
+         
+          <li><b><a href="/">Home</a></b></li>
+         
+          <li><b><a href="/archives/">Writing</a></b></li>
+         
+          <li><b><a href="/tags/">Tags</a></b></li>
+         
+          <li><b><a href="/about/">About</a></b></li>
+         
+          <li><b><a href="/feed.xml">RSS</a></b></li>
+        
+      </ul>
+  </span>
+</div>
+
+<div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/feed.xml">RSS</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2019/03/04/scrum_checklist/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://blog.wangjiegulu.com/2019/04/02/jenkins-add-macos-node/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://blog.wangjiegulu.com/2019/04/02/jenkins-add-macos-node/&text=Jenkins 添加 MacOS 节点"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.wangjiegulu.com/2019/04/02/jenkins-add-macos-node/&title=Jenkins 添加 MacOS 节点"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.wangjiegulu.com/2019/04/02/jenkins-add-macos-node/&is_video=false&description=Jenkins 添加 MacOS 节点"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Jenkins 添加 MacOS 节点&body=Check out this article: https://blog.wangjiegulu.com/2019/04/02/jenkins-add-macos-node/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.wangjiegulu.com/2019/04/02/jenkins-add-macos-node/&title=Jenkins 添加 MacOS 节点"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.wangjiegulu.com/2019/04/02/jenkins-add-macos-node/&title=Jenkins 添加 MacOS 节点"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.wangjiegulu.com/2019/04/02/jenkins-add-macos-node/&title=Jenkins 添加 MacOS 节点"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://blog.wangjiegulu.com/2019/04/02/jenkins-add-macos-node/&title=Jenkins 添加 MacOS 节点"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.wangjiegulu.com/2019/04/02/jenkins-add-macos-node/&name=Jenkins 添加 MacOS 节点&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Jenkins-添加-MacOS-节点"><span class="toc-number">1.</span> <span class="toc-text">Jenkins 添加 MacOS 节点</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#开启-Slave-的-SSH-远程登录"><span class="toc-number">1.1.</span> <span class="toc-text">开启 Slave 的 SSH 远程登录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置权限"><span class="toc-number">1.2.</span> <span class="toc-text">配置权限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在-Jenkins-上增加-Node"><span class="toc-number">1.3.</span> <span class="toc-text">在 Jenkins 上增加 Node</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#启动节点"><span class="toc-number">1.4.</span> <span class="toc-text">启动节点</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Jenkins 添加 MacOS 节点
+    </h1>
+
+
+
+    <div class="meta"  style="margin-top:12px;">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name" style="margin-left: 12px">Wang Jie</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2019-04-02T01:06:27.534Z" itemprop="datePublished">2019-04-02</time>
+    </div>
+
+<br/>
+      
+    <div class="article-tag">
+        <i class="fas fa-tag" style="margin-top: 20px"></i>
+        <a class="tag-link" href="/tags/CI/">CI</a>, <a class="tag-link" href="/tags/Continuous-Integration/">Continuous Integration</a>, <a class="tag-link" href="/tags/iOS/">iOS</a>, <a class="tag-link" href="/tags/jenkins/">jenkins</a>, <a class="tag-link" href="/tags/持续集成/">持续集成</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  
+  <div class="content" itemprop="articleBody">
+    
+    
+      <!-- <img class="header-img" src="https://images.unsplash.com/photo-1504691342899-4d92b50853e1?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=2250&amp;q=80" /> -->
+      
+
+        <img src="https://images.unsplash.com/photo-1504691342899-4d92b50853e1?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=2250&amp;q=80" style="border-radius: 3px;"/>
+        
+      
+      
+    
+
+
+    <div class="md-content">
+      <h1 id="Jenkins-添加-MacOS-节点"><a href="#Jenkins-添加-MacOS-节点" class="headerlink" title="Jenkins 添加 MacOS 节点"></a>Jenkins 添加 MacOS 节点</h1><blockquote>
+<p><code>Master</code> 为 Linux，但是需要支持 iOS 的构建，所以需要添加 <code>MacOS</code> 的 <code>Slave</code>。</p>
+</blockquote>
+<h2 id="开启-Slave-的-SSH-远程登录"><a href="#开启-Slave-的-SSH-远程登录" class="headerlink" title="开启 Slave 的 SSH 远程登录"></a>开启 Slave 的 SSH 远程登录</h2><p>在 MacOS 的 <code>设置</code> -&gt; <code>共享</code> 中如下设置：</p>
+<div style="text-align: center;"><br>    <img src="https://user-images.githubusercontent.com/5423194/55370715-0018e980-552e-11e9-997c-7b55b17b785d.png" width="600px"><br></div>
+
+<h2 id="配置权限"><a href="#配置权限" class="headerlink" title="配置权限"></a>配置权限</h2><p>在 <code>Master</code> 上复制 ssh（<code>~/.ssh/id_rsa</code>） 的 <code>private key</code>。</p>
+<p>增加到 jenkins 的 <code>Credentials</code> 中：</p>
+<div style="text-align: center;"><br>    <img src="https://user-images.githubusercontent.com/5423194/55369900-11142b80-552b-11e9-9e06-3373884b84c0.png" width="800px"><br></div>
+
+<p>选择 <code>SSH Username with private key</code>，<code>Private Key</code> 勾选 <code>Enter directly</code>，把 <code>Master</code> 的 <code>private key</code> 复制进去。</p>
+<p>复制 <code>Master</code> ssh（<code>~/.ssh/id_rsa.pub</code>）的 <code>public key</code></p>
+<p>在 <code>Slave(MacOS)</code> 中新建 <code>~/.ssh/authorized_keys</code>，把 <code>Master</code> 的 <code>public key</code> 复制进去。</p>
+<h2 id="在-Jenkins-上增加-Node"><a href="#在-Jenkins-上增加-Node" class="headerlink" title="在 Jenkins 上增加 Node"></a>在 Jenkins 上增加 Node</h2><div style="text-align: center;"><br>    <img src="https://user-images.githubusercontent.com/5423194/55370117-0017ea00-552c-11e9-8e83-94075d37092e.png" width="800px"><br></div>
+
+<p>如上：</p>
+<p><code>Node Name</code> 随意。</p>
+<p>选择 <code>Permanent Agent</code>。</p>
+<div style="text-align: center;"><br>    <img src="https://user-images.githubusercontent.com/5423194/55370326-b4197500-552c-11e9-8ba1-d617b9eff459.png" width="800px"><br></div>
+
+<ul>
+<li><code>Name</code>、<code>Description</code> 随意。</li>
+<li><code># of executors</code>：表示构建并发数，具体视 Slave 的硬件配置决定。</li>
+<li><code>Remote root directory</code>：Slave 的 workspace</li>
+<li><code>Labels</code>：可用于在 Job 中通过该 Label 来指定运行在哪个节点上。</li>
+<li><code>Launch method</code>：选择 <code>Launch agent agents via SSH</code>。<ul>
+<li><code>Host</code>：Slave 的 host</li>
+<li><code>Credentials</code>：选择刚刚创建的 Credential。</li>
+</ul>
+</li>
+<li><code>Node Node Properties</code>：如果需要配置该 Slave 的环境变量，可以在这里配置。</li>
+</ul>
+<h2 id="启动节点"><a href="#启动节点" class="headerlink" title="启动节点"></a>启动节点</h2><p>保存完毕后，点击 <code>Launch</code> 成功后如下：</p>
+<div style="text-align: center;"><br>    <img src="https://user-images.githubusercontent.com/5423194/55370854-91885b80-552e-11e9-94a7-88af5907f341.png" width="800px"><br></div>
+    </div>
+
+    <br/>
+    <hr>
+
+    
+    <div class="post-copyright" style="margin-top: 20px;">
+        <strong>来源博客：</strong><a href="https://blog.wangjiegulu.com">Wang Jie's Blog</a><br/>
+         <strong>本文链接：</strong><a href="https://blog.wangjiegulu.com/2019/04/02/jenkins-add-macos-node/">https://blog.wangjiegulu.com/2019/04/02/jenkins-add-macos-node/</a><br/>
+         <strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处。
+    </div>
+    
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/feed.xml">RSS</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Jenkins-添加-MacOS-节点"><span class="toc-number">1.</span> <span class="toc-text">Jenkins 添加 MacOS 节点</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#开启-Slave-的-SSH-远程登录"><span class="toc-number">1.1.</span> <span class="toc-text">开启 Slave 的 SSH 远程登录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置权限"><span class="toc-number">1.2.</span> <span class="toc-text">配置权限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在-Jenkins-上增加-Node"><span class="toc-number">1.3.</span> <span class="toc-text">在 Jenkins 上增加 Node</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#启动节点"><span class="toc-number">1.4.</span> <span class="toc-text">启动节点</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://blog.wangjiegulu.com/2019/04/02/jenkins-add-macos-node/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://blog.wangjiegulu.com/2019/04/02/jenkins-add-macos-node/&text=Jenkins 添加 MacOS 节点"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.wangjiegulu.com/2019/04/02/jenkins-add-macos-node/&title=Jenkins 添加 MacOS 节点"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.wangjiegulu.com/2019/04/02/jenkins-add-macos-node/&is_video=false&description=Jenkins 添加 MacOS 节点"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Jenkins 添加 MacOS 节点&body=Check out this article: https://blog.wangjiegulu.com/2019/04/02/jenkins-add-macos-node/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.wangjiegulu.com/2019/04/02/jenkins-add-macos-node/&title=Jenkins 添加 MacOS 节点"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.wangjiegulu.com/2019/04/02/jenkins-add-macos-node/&title=Jenkins 添加 MacOS 节点"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.wangjiegulu.com/2019/04/02/jenkins-add-macos-node/&title=Jenkins 添加 MacOS 节点"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://blog.wangjiegulu.com/2019/04/02/jenkins-add-macos-node/&title=Jenkins 添加 MacOS 节点"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.wangjiegulu.com/2019/04/02/jenkins-add-macos-node/&name=Jenkins 添加 MacOS 节点&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2019 Wang Jie
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/feed.xml">RSS</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-111189680-2', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'blog-wangjiegulu-com';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+

@@ -3,6 +3,75 @@
   
     
     <entry>
+      <title><![CDATA[Jenkins 添加 MacOS 节点]]></title>
+      <url>/2019/04/02/jenkins-add-macos-node/</url>
+      <content type="html"><![CDATA[<h1 id="Jenkins-添加-MacOS-节点"><a href="#Jenkins-添加-MacOS-节点" class="headerlink" title="Jenkins 添加 MacOS 节点"></a>Jenkins 添加 MacOS 节点</h1><blockquote>
+<p><code>Master</code> 为 Linux，但是需要支持 iOS 的构建，所以需要添加 <code>MacOS</code> 的 <code>Slave</code>。</p>
+</blockquote>
+<h2 id="开启-Slave-的-SSH-远程登录"><a href="#开启-Slave-的-SSH-远程登录" class="headerlink" title="开启 Slave 的 SSH 远程登录"></a>开启 Slave 的 SSH 远程登录</h2><p>在 MacOS 的 <code>设置</code> -&gt; <code>共享</code> 中如下设置：</p>
+<div style="text-align: center;"><br>    <img src="https://user-images.githubusercontent.com/5423194/55370715-0018e980-552e-11e9-997c-7b55b17b785d.png" width="600px"><br></div>
+
+<h2 id="配置权限"><a href="#配置权限" class="headerlink" title="配置权限"></a>配置权限</h2><p>在 <code>Master</code> 上复制 ssh（<code>~/.ssh/id_rsa</code>） 的 <code>private key</code>。</p>
+<p>增加到 jenkins 的 <code>Credentials</code> 中：</p>
+<div style="text-align: center;"><br>    <img src="https://user-images.githubusercontent.com/5423194/55369900-11142b80-552b-11e9-9e06-3373884b84c0.png" width="800px"><br></div>
+
+<p>选择 <code>SSH Username with private key</code>，<code>Private Key</code> 勾选 <code>Enter directly</code>，把 <code>Master</code> 的 <code>private key</code> 复制进去。</p>
+<p>复制 <code>Master</code> ssh（<code>~/.ssh/id_rsa.pub</code>）的 <code>public key</code></p>
+<p>在 <code>Slave(MacOS)</code> 中新建 <code>~/.ssh/authorized_keys</code>，把 <code>Master</code> 的 <code>public key</code> 复制进去。</p>
+<h2 id="在-Jenkins-上增加-Node"><a href="#在-Jenkins-上增加-Node" class="headerlink" title="在 Jenkins 上增加 Node"></a>在 Jenkins 上增加 Node</h2><div style="text-align: center;"><br>    <img src="https://user-images.githubusercontent.com/5423194/55370117-0017ea00-552c-11e9-8e83-94075d37092e.png" width="800px"><br></div>
+
+<p>如上：</p>
+<p><code>Node Name</code> 随意。</p>
+<p>选择 <code>Permanent Agent</code>。</p>
+<div style="text-align: center;"><br>    <img src="https://user-images.githubusercontent.com/5423194/55370326-b4197500-552c-11e9-8ba1-d617b9eff459.png" width="800px"><br></div>
+
+<ul>
+<li><code>Name</code>、<code>Description</code> 随意。</li>
+<li><code># of executors</code>：表示构建并发数，具体视 Slave 的硬件配置决定。</li>
+<li><code>Remote root directory</code>：Slave 的 workspace</li>
+<li><code>Labels</code>：可用于在 Job 中通过该 Label 来指定运行在哪个节点上。</li>
+<li><code>Launch method</code>：选择 <code>Launch agent agents via SSH</code>。<ul>
+<li><code>Host</code>：Slave 的 host</li>
+<li><code>Credentials</code>：选择刚刚创建的 Credential。</li>
+</ul>
+</li>
+<li><code>Node Node Properties</code>：如果需要配置该 Slave 的环境变量，可以在这里配置。</li>
+</ul>
+<h2 id="启动节点"><a href="#启动节点" class="headerlink" title="启动节点"></a>启动节点</h2><p>保存完毕后，点击 <code>Launch</code> 成功后如下：</p>
+<div style="text-align: center;"><br>    <img src="https://user-images.githubusercontent.com/5423194/55370854-91885b80-552e-11e9-94a7-88af5907f341.png" width="800px"><br></div>]]></content>
+      
+        <categories>
+            
+            <category> jenkins </category>
+            
+            <category> CI </category>
+            
+            <category> 持续集成 </category>
+            
+            <category> Continuous Integration </category>
+            
+            <category> iOS </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> CI </tag>
+            
+            <tag> jenkins </tag>
+            
+            <tag> iOS </tag>
+            
+            <tag> 持续集成 </tag>
+            
+            <tag> Continuous Integration </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[🧾 Scrum 检查清单]]></title>
       <url>/2019/03/04/scrum_checklist/</url>
       <content type="html"><![CDATA[<h1 id="Scrum-检查清单"><a href="#Scrum-检查清单" class="headerlink" title="Scrum 检查清单"></a>Scrum 检查清单</h1><blockquote>
@@ -245,12 +314,6 @@
             
             <tag> huginn </tag>
             
-            <tag> ssr </tag>
-            
-            <tag> shadowsocks </tag>
-            
-            <tag> shadowsocksr </tag>
-            
             <tag> docker </tag>
             
             <tag> docker hub </tag>
@@ -258,6 +321,12 @@
             <tag> mysql </tag>
             
             <tag> migration </tag>
+            
+            <tag> ssr </tag>
+            
+            <tag> shadowsocks </tag>
+            
+            <tag> shadowsocksr </tag>
             
             <tag> ss </tag>
             
@@ -1097,9 +1166,9 @@
             
             <tag> CI </tag>
             
-            <tag> Continuous Integration </tag>
-            
             <tag> 持续集成 </tag>
+            
+            <tag> Continuous Integration </tag>
             
             <tag> CD </tag>
             
@@ -4875,6 +4944,8 @@
             
             <tag> android </tag>
             
+            <tag> google </tag>
+            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
@@ -4882,8 +4953,6 @@
             <tag> dependency injection </tag>
             
             <tag> 翻译 </tag>
-            
-            <tag> google </tag>
             
         </tags>
         
@@ -4978,6 +5047,8 @@
             
             <tag> android </tag>
             
+            <tag> google </tag>
+            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
@@ -4985,8 +5056,6 @@
             <tag> dependency injection </tag>
             
             <tag> 翻译 </tag>
-            
-            <tag> google </tag>
             
         </tags>
         
@@ -5084,6 +5153,8 @@
             
             <tag> android </tag>
             
+            <tag> google </tag>
+            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
@@ -5091,8 +5162,6 @@
             <tag> dependency injection </tag>
             
             <tag> 翻译 </tag>
-            
-            <tag> google </tag>
             
             <tag> RxJava </tag>
             
@@ -5218,6 +5287,8 @@
             
             <tag> android </tag>
             
+            <tag> google </tag>
+            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
@@ -5225,8 +5296,6 @@
             <tag> dependency injection </tag>
             
             <tag> 翻译 </tag>
-            
-            <tag> google </tag>
             
         </tags>
         
@@ -5352,7 +5421,7 @@
       <title><![CDATA[[Android]异步 layout inflation（翻译）]]></title>
       <url>/2016/09/01/Android-%E5%BC%82%E6%AD%A5-layout-inflation%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/</url>
       <content type="html"><![CDATA[<h1 id="异步-layout-inflation"><a href="#异步-layout-inflation" class="headerlink" title="异步 layout inflation"></a>异步 layout inflation</h1><blockquote>
-<p>原文：<a href="&#x6d;&#97;&#105;&#x6c;&#x74;&#x6f;&#58;&#104;&#x74;&#116;&#x70;&#115;&#x3a;&#47;&#47;&#109;&#x65;&#100;&#105;&#117;&#x6d;&#x2e;&#x63;&#x6f;&#x6d;&#47;&#x40;&#108;&#x75;&#112;&#97;&#x6a;&#x7a;&#47;&#x61;&#115;&#x79;&#x6e;&#99;&#104;&#x72;&#x6f;&#x6e;&#x6f;&#117;&#x73;&#45;&#x6c;&#97;&#x79;&#x6f;&#x75;&#116;&#x2d;&#105;&#110;&#102;&#x6c;&#x61;&#116;&#x69;&#x6f;&#110;&#45;&#x37;&#99;&#x62;&#99;&#x61;&#x32;&#x36;&#53;&#x33;&#x62;&#102;&#35;&#46;&#x71;&#50;&#x32;&#118;&#x70;&#x65;&#122;&#103;&#52;">&#104;&#x74;&#116;&#x70;&#115;&#x3a;&#47;&#47;&#109;&#x65;&#100;&#105;&#117;&#x6d;&#x2e;&#x63;&#x6f;&#x6d;&#47;&#x40;&#108;&#x75;&#112;&#97;&#x6a;&#x7a;&#47;&#x61;&#115;&#x79;&#x6e;&#99;&#104;&#x72;&#x6f;&#x6e;&#x6f;&#117;&#x73;&#45;&#x6c;&#97;&#x79;&#x6f;&#x75;&#116;&#x2d;&#105;&#110;&#102;&#x6c;&#x61;&#116;&#x69;&#x6f;&#110;&#45;&#x37;&#99;&#x62;&#99;&#x61;&#x32;&#x36;&#53;&#x33;&#x62;&#102;&#35;&#46;&#x71;&#50;&#x32;&#118;&#x70;&#x65;&#122;&#103;&#52;</a></p>
+<p>原文：<a href="&#x6d;&#x61;&#105;&#108;&#116;&#x6f;&#58;&#x68;&#116;&#116;&#112;&#115;&#58;&#47;&#x2f;&#x6d;&#101;&#100;&#105;&#117;&#109;&#x2e;&#x63;&#x6f;&#109;&#x2f;&#64;&#x6c;&#117;&#112;&#97;&#x6a;&#x7a;&#47;&#x61;&#115;&#121;&#110;&#99;&#x68;&#x72;&#x6f;&#110;&#111;&#117;&#115;&#45;&#x6c;&#x61;&#x79;&#111;&#117;&#x74;&#45;&#105;&#110;&#x66;&#108;&#97;&#116;&#x69;&#111;&#x6e;&#45;&#x37;&#x63;&#x62;&#x63;&#x61;&#x32;&#x36;&#x35;&#51;&#x62;&#x66;&#35;&#x2e;&#113;&#50;&#50;&#118;&#x70;&#x65;&#122;&#103;&#x34;">&#x68;&#116;&#116;&#112;&#115;&#58;&#47;&#x2f;&#x6d;&#101;&#100;&#105;&#117;&#109;&#x2e;&#x63;&#x6f;&#109;&#x2f;&#64;&#x6c;&#117;&#112;&#97;&#x6a;&#x7a;&#47;&#x61;&#115;&#121;&#110;&#99;&#x68;&#x72;&#x6f;&#110;&#111;&#117;&#115;&#45;&#x6c;&#x61;&#x79;&#111;&#117;&#x74;&#45;&#105;&#110;&#x66;&#108;&#97;&#116;&#x69;&#111;&#x6e;&#45;&#x37;&#x63;&#x62;&#x63;&#x61;&#x32;&#x36;&#x35;&#51;&#x62;&#x66;&#35;&#x2e;&#113;&#50;&#50;&#118;&#x70;&#x65;&#122;&#103;&#x34;</a></p>
 </blockquote>
 <p>随着最近发布的<a href="https://developer.android.com/topic/libraries/support-library/revisions.html" target="_blank" rel="noopener">Android Support Library, revision 24</a>，Google开发者在v4包中增加了一个用来异步inflate layouts的帮助类。</p>
 <h2 id="进入-AsyncLayoutInflater"><a href="#进入-AsyncLayoutInflater" class="headerlink" title="进入 AsyncLayoutInflater"></a>进入 AsyncLayoutInflater</h2><p>你会发现AsyncLayoutInflater可以使用在当你想要去懒加载你应用中部分UI或者用户行为的响应。这个帮助类将会允许你的UI线程在执行繁重的inflate时继续保持响应。</p>
@@ -7128,6 +7197,8 @@ Cookie: ... ...
             
             <tag> android </tag>
             
+            <tag> google </tag>
+            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
@@ -7135,8 +7206,6 @@ Cookie: ... ...
             <tag> dependency injection </tag>
             
             <tag> 翻译 </tag>
-            
-            <tag> google </tag>
             
         </tags>
         
@@ -7249,6 +7318,8 @@ Cookie: ... ...
             
             <tag> android </tag>
             
+            <tag> google </tag>
+            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
@@ -7256,8 +7327,6 @@ Cookie: ... ...
             <tag> dependency injection </tag>
             
             <tag> 翻译 </tag>
-            
-            <tag> google </tag>
             
         </tags>
         
@@ -7389,6 +7458,8 @@ Cookie: ... ...
             
             <tag> android </tag>
             
+            <tag> google </tag>
+            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
@@ -7396,8 +7467,6 @@ Cookie: ... ...
             <tag> dependency injection </tag>
             
             <tag> 翻译 </tag>
-            
-            <tag> google </tag>
             
         </tags>
         
@@ -7487,6 +7556,8 @@ Cookie: ... ...
             
             <tag> android </tag>
             
+            <tag> google </tag>
+            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
@@ -7494,8 +7565,6 @@ Cookie: ... ...
             <tag> dependency injection </tag>
             
             <tag> 翻译 </tag>
-            
-            <tag> google </tag>
             
         </tags>
         
@@ -7930,9 +7999,9 @@ Cookie: ... ...
             
             <tag> android </tag>
             
-            <tag> 翻译 </tag>
-            
             <tag> google </tag>
+            
+            <tag> 翻译 </tag>
             
             <tag> support </tag>
             
@@ -11649,9 +11718,9 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> annotations </tag>
             
-            <tag> proxy </tag>
-            
             <tag> http </tag>
+            
+            <tag> proxy </tag>
             
             <tag> dynamic proxy </tag>
             
@@ -12243,9 +12312,9 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> java </tag>
             
-            <tag> aop </tag>
-            
             <tag> dynamic proxy </tag>
+            
+            <tag> aop </tag>
             
             <tag> log </tag>
             
