@@ -314,12 +314,6 @@
             
             <tag> huginn </tag>
             
-            <tag> ssr </tag>
-            
-            <tag> shadowsocks </tag>
-            
-            <tag> shadowsocksr </tag>
-            
             <tag> docker </tag>
             
             <tag> docker hub </tag>
@@ -328,7 +322,13 @@
             
             <tag> migration </tag>
             
+            <tag> shadowsocks </tag>
+            
+            <tag> shadowsocksr </tag>
+            
             <tag> ss </tag>
+            
+            <tag> ssr </tag>
             
         </tags>
         
@@ -3879,15 +3879,15 @@
         
         <tags>
             
-            <tag> google cloud platform </tag>
-            
-            <tag> gcp </tag>
-            
-            <tag> ssr </tag>
-            
             <tag> shadowsocks </tag>
             
             <tag> shadowsocksr </tag>
+            
+            <tag> ssr </tag>
+            
+            <tag> google cloud platform </tag>
+            
+            <tag> gcp </tag>
             
             <tag> vpn </tag>
             
@@ -4944,6 +4944,8 @@
             
             <tag> android </tag>
             
+            <tag> google </tag>
+            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
@@ -4951,8 +4953,6 @@
             <tag> dependency injection </tag>
             
             <tag> 翻译 </tag>
-            
-            <tag> google </tag>
             
         </tags>
         
@@ -5047,6 +5047,8 @@
             
             <tag> android </tag>
             
+            <tag> google </tag>
+            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
@@ -5054,8 +5056,6 @@
             <tag> dependency injection </tag>
             
             <tag> 翻译 </tag>
-            
-            <tag> google </tag>
             
         </tags>
         
@@ -5153,6 +5153,8 @@
             
             <tag> android </tag>
             
+            <tag> google </tag>
+            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
@@ -5160,8 +5162,6 @@
             <tag> dependency injection </tag>
             
             <tag> 翻译 </tag>
-            
-            <tag> google </tag>
             
             <tag> RxJava </tag>
             
@@ -5287,6 +5287,8 @@
             
             <tag> android </tag>
             
+            <tag> google </tag>
+            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
@@ -5294,8 +5296,6 @@
             <tag> dependency injection </tag>
             
             <tag> 翻译 </tag>
-            
-            <tag> google </tag>
             
         </tags>
         
@@ -5421,7 +5421,7 @@
       <title><![CDATA[[Android]异步 layout inflation（翻译）]]></title>
       <url>/2016/09/01/Android-%E5%BC%82%E6%AD%A5-layout-inflation%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/</url>
       <content type="html"><![CDATA[<h1 id="异步-layout-inflation"><a href="#异步-layout-inflation" class="headerlink" title="异步 layout inflation"></a>异步 layout inflation</h1><blockquote>
-<p>原文：<a href="&#109;&#97;&#x69;&#108;&#x74;&#x6f;&#x3a;&#104;&#x74;&#116;&#x70;&#x73;&#58;&#x2f;&#x2f;&#x6d;&#x65;&#x64;&#105;&#117;&#109;&#x2e;&#x63;&#x6f;&#x6d;&#47;&#64;&#x6c;&#x75;&#x70;&#97;&#106;&#122;&#47;&#x61;&#115;&#121;&#x6e;&#x63;&#x68;&#x72;&#111;&#x6e;&#111;&#117;&#x73;&#45;&#108;&#x61;&#x79;&#111;&#x75;&#x74;&#45;&#105;&#x6e;&#x66;&#x6c;&#x61;&#116;&#105;&#x6f;&#x6e;&#x2d;&#55;&#x63;&#x62;&#99;&#x61;&#x32;&#54;&#53;&#51;&#98;&#102;&#35;&#46;&#113;&#x32;&#x32;&#118;&#112;&#101;&#122;&#x67;&#52;">&#104;&#x74;&#116;&#x70;&#x73;&#58;&#x2f;&#x2f;&#x6d;&#x65;&#x64;&#105;&#117;&#109;&#x2e;&#x63;&#x6f;&#x6d;&#47;&#64;&#x6c;&#x75;&#x70;&#97;&#106;&#122;&#47;&#x61;&#115;&#121;&#x6e;&#x63;&#x68;&#x72;&#111;&#x6e;&#111;&#117;&#x73;&#45;&#108;&#x61;&#x79;&#111;&#x75;&#x74;&#45;&#105;&#x6e;&#x66;&#x6c;&#x61;&#116;&#105;&#x6f;&#x6e;&#x2d;&#55;&#x63;&#x62;&#99;&#x61;&#x32;&#54;&#53;&#51;&#98;&#102;&#35;&#46;&#113;&#x32;&#x32;&#118;&#112;&#101;&#122;&#x67;&#52;</a></p>
+<p>原文：<a href="&#109;&#97;&#x69;&#108;&#x74;&#111;&#x3a;&#104;&#x74;&#116;&#x70;&#115;&#x3a;&#47;&#47;&#x6d;&#x65;&#x64;&#105;&#x75;&#109;&#46;&#x63;&#x6f;&#109;&#x2f;&#64;&#108;&#117;&#x70;&#x61;&#x6a;&#122;&#x2f;&#x61;&#115;&#121;&#x6e;&#99;&#104;&#x72;&#111;&#x6e;&#111;&#117;&#x73;&#x2d;&#x6c;&#x61;&#121;&#111;&#x75;&#116;&#45;&#x69;&#x6e;&#x66;&#x6c;&#x61;&#116;&#105;&#x6f;&#x6e;&#45;&#x37;&#99;&#98;&#99;&#x61;&#x32;&#54;&#53;&#51;&#98;&#102;&#35;&#46;&#113;&#50;&#x32;&#x76;&#112;&#x65;&#x7a;&#103;&#x34;">&#104;&#x74;&#116;&#x70;&#115;&#x3a;&#47;&#47;&#x6d;&#x65;&#x64;&#105;&#x75;&#109;&#46;&#x63;&#x6f;&#109;&#x2f;&#64;&#108;&#117;&#x70;&#x61;&#x6a;&#122;&#x2f;&#x61;&#115;&#121;&#x6e;&#99;&#104;&#x72;&#111;&#x6e;&#111;&#117;&#x73;&#x2d;&#x6c;&#x61;&#121;&#111;&#x75;&#116;&#45;&#x69;&#x6e;&#x66;&#x6c;&#x61;&#116;&#105;&#x6f;&#x6e;&#45;&#x37;&#99;&#98;&#99;&#x61;&#x32;&#54;&#53;&#51;&#98;&#102;&#35;&#46;&#113;&#50;&#x32;&#x76;&#112;&#x65;&#x7a;&#103;&#x34;</a></p>
 </blockquote>
 <p>随着最近发布的<a href="https://developer.android.com/topic/libraries/support-library/revisions.html" target="_blank" rel="noopener">Android Support Library, revision 24</a>，Google开发者在v4包中增加了一个用来异步inflate layouts的帮助类。</p>
 <h2 id="进入-AsyncLayoutInflater"><a href="#进入-AsyncLayoutInflater" class="headerlink" title="进入 AsyncLayoutInflater"></a>进入 AsyncLayoutInflater</h2><p>你会发现AsyncLayoutInflater可以使用在当你想要去懒加载你应用中部分UI或者用户行为的响应。这个帮助类将会允许你的UI线程在执行繁重的inflate时继续保持响应。</p>
@@ -7197,6 +7197,8 @@ Cookie: ... ...
             
             <tag> android </tag>
             
+            <tag> google </tag>
+            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
@@ -7204,8 +7206,6 @@ Cookie: ... ...
             <tag> dependency injection </tag>
             
             <tag> 翻译 </tag>
-            
-            <tag> google </tag>
             
         </tags>
         
@@ -7318,6 +7318,8 @@ Cookie: ... ...
             
             <tag> android </tag>
             
+            <tag> google </tag>
+            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
@@ -7325,8 +7327,6 @@ Cookie: ... ...
             <tag> dependency injection </tag>
             
             <tag> 翻译 </tag>
-            
-            <tag> google </tag>
             
         </tags>
         
@@ -7458,6 +7458,8 @@ Cookie: ... ...
             
             <tag> android </tag>
             
+            <tag> google </tag>
+            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
@@ -7465,8 +7467,6 @@ Cookie: ... ...
             <tag> dependency injection </tag>
             
             <tag> 翻译 </tag>
-            
-            <tag> google </tag>
             
         </tags>
         
@@ -7556,6 +7556,8 @@ Cookie: ... ...
             
             <tag> android </tag>
             
+            <tag> google </tag>
+            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
@@ -7563,8 +7565,6 @@ Cookie: ... ...
             <tag> dependency injection </tag>
             
             <tag> 翻译 </tag>
-            
-            <tag> google </tag>
             
         </tags>
         
@@ -7999,9 +7999,9 @@ Cookie: ... ...
             
             <tag> android </tag>
             
-            <tag> 翻译 </tag>
-            
             <tag> google </tag>
+            
+            <tag> 翻译 </tag>
             
             <tag> support </tag>
             
