@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.wangjiegulu.com/2019/05/31/huginn_automatic_backup/</loc>
+    
+    <lastmod>2019-05-31T09:38:59.401Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://blog.wangjiegulu.com/2019/04/02/jenkins-add-macos-node/</loc>
     
     <lastmod>2019-04-02T15:21:58.108Z</lastmod>

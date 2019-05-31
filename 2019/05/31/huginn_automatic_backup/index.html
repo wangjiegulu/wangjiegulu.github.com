@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#ffffff">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#ffffff">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#ffffff">
+
+
+    <meta name="description" content="Huginn 数据自动备份到 Google Drive之前有写过一篇讲 《Huginn 的 Docker 部署及数据迁移》，但是文中的数据备份自己 SSH 到服务器手动进行备份，比较麻烦。那如果能实现自动实时帮我备份到云端，那再也不用担心数据丢失问题了。 那我们要解决的问题是：  怎么备份数据？ 数据备份到哪里？ 怎么实现自动触发？  怎么备份数据？ 这个之前在 《Huginn 的 Docker">
+<meta name="keywords" content="automate,huginn,backup,Google Drive">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Huginn 数据自动备份到 Google Drive">
+<meta property="og:url" content="https://blog.wangjiegulu.com/2019/05/31/huginn_automatic_backup/index.html">
+<meta property="og:site_name" content="Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer">
+<meta property="og:description" content="Huginn 数据自动备份到 Google Drive之前有写过一篇讲 《Huginn 的 Docker 部署及数据迁移》，但是文中的数据备份自己 SSH 到服务器手动进行备份，比较麻烦。那如果能实现自动实时帮我备份到云端，那再也不用担心数据丢失问题了。 那我们要解决的问题是：  怎么备份数据？ 数据备份到哪里？ 怎么实现自动触发？  怎么备份数据？ 这个之前在 《Huginn 的 Docker">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://user-images.githubusercontent.com/5423194/58694368-694d9980-83c5-11e9-9ed2-6984df687679.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/5423194/58694633-12948f80-83c6-11e9-9cd6-b35589b41362.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/5423194/58693610-bdf01500-83c3-11e9-80c3-8b25ed37ac30.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/5423194/58695525-3bb61f80-83c8-11e9-855b-a0fff7737548.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/5423194/58696063-5b017c80-83c9-11e9-8f8b-bb6e0e0cb539.png">
+<meta property="og:updated_time" content="2019-05-31T09:38:59.401Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Huginn 数据自动备份到 Google Drive">
+<meta name="twitter:description" content="Huginn 数据自动备份到 Google Drive之前有写过一篇讲 《Huginn 的 Docker 部署及数据迁移》，但是文中的数据备份自己 SSH 到服务器手动进行备份，比较麻烦。那如果能实现自动实时帮我备份到云端，那再也不用担心数据丢失问题了。 那我们要解决的问题是：  怎么备份数据？ 数据备份到哪里？ 怎么实现自动触发？  怎么备份数据？ 这个之前在 《Huginn 的 Docker">
+<meta name="twitter:image" content="https://user-images.githubusercontent.com/5423194/58694368-694d9980-83c5-11e9-9ed2-6984df687679.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Huginn 数据自动备份到 Google Drive</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3">
+    
+      <div id="header-post-nav">
+  <span id="nav">
+      <ul>
+         
+          <li><b><a href="/">Home</a></b></li>
+         
+          <li><b><a href="/archives/">Writing</a></b></li>
+         
+          <li><b><a href="/tags/">Tags</a></b></li>
+         
+          <li><b><a href="/about/">About</a></b></li>
+         
+          <li><b><a href="/feed.xml">RSS</a></b></li>
+        
+      </ul>
+  </span>
+</div>
+
+<div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/feed.xml">RSS</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2019/04/02/jenkins-add-macos-node/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://blog.wangjiegulu.com/2019/05/31/huginn_automatic_backup/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://blog.wangjiegulu.com/2019/05/31/huginn_automatic_backup/&text=Huginn 数据自动备份到 Google Drive"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.wangjiegulu.com/2019/05/31/huginn_automatic_backup/&title=Huginn 数据自动备份到 Google Drive"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.wangjiegulu.com/2019/05/31/huginn_automatic_backup/&is_video=false&description=Huginn 数据自动备份到 Google Drive"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Huginn 数据自动备份到 Google Drive&body=Check out this article: https://blog.wangjiegulu.com/2019/05/31/huginn_automatic_backup/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.wangjiegulu.com/2019/05/31/huginn_automatic_backup/&title=Huginn 数据自动备份到 Google Drive"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.wangjiegulu.com/2019/05/31/huginn_automatic_backup/&title=Huginn 数据自动备份到 Google Drive"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.wangjiegulu.com/2019/05/31/huginn_automatic_backup/&title=Huginn 数据自动备份到 Google Drive"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://blog.wangjiegulu.com/2019/05/31/huginn_automatic_backup/&title=Huginn 数据自动备份到 Google Drive"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.wangjiegulu.com/2019/05/31/huginn_automatic_backup/&name=Huginn 数据自动备份到 Google Drive&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Huginn-数据自动备份到-Google-Drive"><span class="toc-number">1.</span> <span class="toc-text">Huginn 数据自动备份到 Google Drive</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-备份数据"><span class="toc-number">1.1.</span> <span class="toc-text">1. 备份数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-上传到-Google-Drive"><span class="toc-number">1.2.</span> <span class="toc-text">2. 上传到 Google Drive</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#OAuth2-认证"><span class="toc-number">1.2.1.</span> <span class="toc-text">OAuth2 认证</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#创建凭据"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">创建凭据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#使用-OAuth-Playground"><span class="toc-number">1.2.1.2.</span> <span class="toc-text">使用 OAuth Playground</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#执行上传"><span class="toc-number">1.2.1.3.</span> <span class="toc-text">执行上传</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#创建文件"><span class="toc-number">1.2.1.3.1.</span> <span class="toc-text">创建文件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#修改文件"><span class="toc-number">1.2.1.3.2.</span> <span class="toc-text">修改文件</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#完整的上传脚本"><span class="toc-number">1.2.1.4.</span> <span class="toc-text">完整的上传脚本</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-设置自动调度"><span class="toc-number">1.3.</span> <span class="toc-text">3. 设置自动调度</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Huginn 数据自动备份到 Google Drive
+    </h1>
+
+
+
+    <div class="meta"  style="margin-top:12px;">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name" style="margin-left: 12px">Wang Jie</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2019-05-31T08:00:03.635Z" itemprop="datePublished">2019-05-31</time>
+    </div>
+
+<br/>
+      
+    <div class="article-tag">
+        <i class="fas fa-tag" style="margin-top: 20px"></i>
+        <a class="tag-link" href="/tags/Google-Drive/">Google Drive</a>, <a class="tag-link" href="/tags/automate/">automate</a>, <a class="tag-link" href="/tags/backup/">backup</a>, <a class="tag-link" href="/tags/huginn/">huginn</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  
+  <div class="content" itemprop="articleBody">
+    
+    
+      <!-- <img class="header-img" src="https://camo.githubusercontent.com/f7da893be2c2f5f765f2436296656e7d25962437/68747470733a2f2f7261772e6769746875622e636f6d2f687567696e6e2f687567696e6e2f6d61737465722f6d656469612f687567696e6e2d6c6f676f2e706e67" /> -->
+      
+
+        <img src="https://camo.githubusercontent.com/f7da893be2c2f5f765f2436296656e7d25962437/68747470733a2f2f7261772e6769746875622e636f6d2f687567696e6e2f687567696e6e2f6d61737465722f6d656469612f687567696e6e2d6c6f676f2e706e67" style="border-radius: 3px;"/>
+        
+      
+      
+    
+
+
+    <div class="md-content">
+      <h1 id="Huginn-数据自动备份到-Google-Drive"><a href="#Huginn-数据自动备份到-Google-Drive" class="headerlink" title="Huginn 数据自动备份到 Google Drive"></a>Huginn 数据自动备份到 Google Drive</h1><p>之前有写过一篇讲 <a href="https://blog.wangjiegulu.com/2018/11/24/huginn_deployment_with_docker_and_data_migration/">《Huginn 的 Docker 部署及数据迁移》</a>，但是文中的数据备份自己 SSH 到服务器手动进行备份，比较麻烦。那如果能实现自动实时帮我备份到云端，那再也不用担心数据丢失问题了。</p>
+<p>那我们要解决的问题是：</p>
+<ul>
+<li>怎么备份数据？</li>
+<li>数据备份到哪里？</li>
+<li>怎么实现自动触发？</li>
+</ul>
+<p><strong>怎么备份数据？</strong></p>
+<p>这个之前在 <a href="https://blog.wangjiegulu.com/2018/11/24/huginn_deployment_with_docker_and_data_migration/">《Huginn 的 Docker 部署及数据迁移》</a> 中有讲到，所以这里就不再赘述了。</p>
+<p><strong>数据备份到哪里？</strong></p>
+<p>因为一直用的 Google Drive，所以优先考虑，而且也是最优解：</p>
+<ul>
+<li>容量比较大</li>
+<li>支持 Restful API，那可以通过脚本去进行上传文件了</li>
+<li>有版本管理，也就是说你只要打包然后上传数据，下次备份只需替换掉，Google 会进行 diff，可以在占用最小的容量的前提下保存更多的版本；默认会保留 100 个版本，足够多了，超过的会自动删除，所以备份的版本也不会无限制地增加。</li>
+</ul>
+<blockquote>
+<p>其它的比如：DropBox，Box 等也可以。</p>
+</blockquote>
+<p><strong>怎么实现自动触发？</strong></p>
+<p>我的 huginn 是部署在 linux，可以使用 <code>crontab</code> 来定时触发备份操作。</p>
+<h2 id="1-备份数据"><a href="#1-备份数据" class="headerlink" title="1. 备份数据"></a>1. 备份数据</h2><p>数据的备份还是通过 mysql 的 <code>mysqldump</code> 命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>!/bin/bash</span><br><span class="line">sudo docker exec huginn bash -c "mysqldump --single-transaction --opt -u [数据库用户名] -ppassword [数据库密码] &gt; /app/huginn_backupfile_tmp.sql"</span><br><span class="line"></span><br><span class="line">docker cp huginn:/app/huginn_backupfile_tmp.sql .</span><br><span class="line"></span><br><span class="line">sudo docker exec huginn bash -c "rm /app/huginn_backupfile_tmp.sql"</span><br><span class="line"></span><br><span class="line">mv huginn_backupfile_tmp.sql huginn_backupfile.sql</span><br></pre></td></tr></table></figure>
+<p>执行以上命令，你可以看到在目录下出现了 <code>huginn_backupfile.sql</code> 备份文件。</p>
+<p>接下去就是怎么把这个文件上传到 Google Drive 了。</p>
+<h2 id="2-上传到-Google-Drive"><a href="#2-上传到-Google-Drive" class="headerlink" title="2. 上传到 Google Drive"></a>2. 上传到 Google Drive</h2><p>先看 <a href="https://developers.google.com/drive/api/v3/manage-uploads" target="_blank" rel="noopener">Google Drive API</a>，阅读文档可知，要上传文件需要一下两步：</p>
+<ul>
+<li>调用 <code>POST https://www.googleapis.com/upload/drive/v3/files?uploadType=resumable</code> 或者 <code>PUT https://www.googleapis.com/upload/drive/v3/files/[FILE_ID]?uploadType=resumable</code> 两个接口来请求增加一个文件或者更新某一个文件（注意，这里只是请求，并不是真正上传数据）。</li>
+<li>上个接口调用成功之后，Response 中会返回一个 <code>Location</code> 的 <code>header</code>，它指定了断点续传的 session URL，然后我们就可以调用这个 URL 来进行真正的上传操作了。</li>
+</ul>
+<h3 id="OAuth2-认证"><a href="#OAuth2-认证" class="headerlink" title="OAuth2 认证"></a>OAuth2 认证</h3><p>在此之前，我们还需要得到认证（请求 header 中的 <code>access_token</code>），这样才能 Google 才能知道是谁在上传文件，是不是合法的。</p>
+<p>因为 Google 是使用 OAuth2 进行认证的，所以一般情况下在认证时，需要跳出一个界面让用户（如果未登录则登录）点击授权之后，才能进行授权。但是这样的话，自动化的流程就被中断了。</p>
+<p>那怎么样才能在不跳出界面授权的情况下进行授权呢？可以使用 <a href="https://developers.google.com/oauthplayground/" target="_blank" rel="noopener">oauthplayground</a></p>
+<h4 id="创建凭据"><a href="#创建凭据" class="headerlink" title="创建凭据"></a>创建凭据</h4><p>打开 <a href="https://console.developers.google.com" target="_blank" rel="noopener">console</a> 中点击创建凭据：</p>
+<div style="text-align: center;"><br>    <img src="https://user-images.githubusercontent.com/5423194/58694368-694d9980-83c5-11e9-9ed2-6984df687679.png" width="600px"><br></div>
+
+<p>应用类型选择 <code>Web 应用</code>，名称随意，创建完毕之后，复制 <code>client id</code> 和 <code>client secret</code>。</p>
+<h4 id="使用-OAuth-Playground"><a href="#使用-OAuth-Playground" class="headerlink" title="使用 OAuth Playground"></a>使用 OAuth Playground</h4><p>打开 <a href="https://developers.google.com/oauthplayground/" target="_blank" rel="noopener">oauthplayground</a>，点击右上角的设置按钮，如下：</p>
+<div style="text-align: center;"><br>    <img src="https://user-images.githubusercontent.com/5423194/58694633-12948f80-83c6-11e9-9cd6-b35589b41362.png" width="400px"><br></div>
+
+<p>勾选 <code>Use your own OAuth credentials</code>，使用自己的 OAuth 证书，然后填写上一步创建的 <code>Client ID</code> 和 <code>Client Secret</code>。</p>
+<p>左边如下勾选：</p>
+<div style="text-align: center;"><br>    <img src="https://user-images.githubusercontent.com/5423194/58693610-bdf01500-83c3-11e9-80c3-8b25ed37ac30.png" width="400px"><br></div>
+
+<p>点击 <code>Authorize API</code> 之后，复制 <code>Refresh token</code>（注意是 <code>refresh token</code>，不是 <code>access token</code>）。</p>
+<p>拿到 refresh token 之后，我们需要使用 refresh token 通过以下接口来置换一个 <code>access token</code>：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">REFRESH_RESPONSE=`curl --silent \</span><br><span class="line">	https://www.googleapis.com/oauth2/v4/token \</span><br><span class="line">	--data-raw "client_secret=[你的client secret]&amp;grant_type=refresh_token&amp;refresh_token=[你的refresh token]&amp;client_id=[你的client id]"`</span><br><span class="line"></span><br><span class="line">echo "refresh response: $REFRESH_RESPONSE"</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 获取 token</span><br><span class="line">ACCESS_TOKEN=`grep -o "\"access_token\"\s*:\s*\".*\"" &lt;&lt;&lt;"$REFRESH_RESPONSE" | sed -n -e 's/"//gp' | awk -F': ' '&#123;print $2&#125;'`</span><br><span class="line">echo "Token: $ACCESS_TOKEN"</span><br></pre></td></tr></table></figure>
+<p>至此就拿到了需要的 <code>access token</code>。</p>
+<h4 id="执行上传"><a href="#执行上传" class="headerlink" title="执行上传"></a>执行上传</h4><p>根据 <a href="https://developers.google.com/drive/api/v3/manage-uploads" target="_blank" rel="noopener">Google Drive API 文档</a>，上传文件有两种方式：</p>
+<h5 id="创建文件"><a href="#创建文件" class="headerlink" title="创建文件"></a>创建文件</h5><blockquote>
+<p>接口：<code>POST https://www.googleapis.com/upload/drive/v3/files?uploadType=resumable</code></p>
+</blockquote>
+<p>当第一次备份时，Google Drive 上是需要调用这个接口创建的。</p>
+<p>这个接口中，接口中需要传入 <code>parents.id</code> 参数，表示我上传的备份文件应该上传到哪个目录中。你可以在 Google Drive 的任何位置创建目录，通过 <code>url</code> 来获取该目录的 id，如下：</p>
+<div style="text-align: center;"><br>    <img src="https://user-images.githubusercontent.com/5423194/58695525-3bb61f80-83c8-11e9-855b-a0fff7737548.png" width="600px"><br></div>
+
+<p>URL 涂黑的 Path segment 就是 folder 的 id。</p>
+<h5 id="修改文件"><a href="#修改文件" class="headerlink" title="修改文件"></a>修改文件</h5><blockquote>
+<p>接口：<code>PUT https://www.googleapis.com/upload/drive/v3/files/[FILE_ID]?uploadType=resumable</code></p>
+</blockquote>
+<p>第二次备份开始之后，我们就用这个方法来不断地修改上一次的备份文件。</p>
+<p>因为是需要修改文件，所以这个接口中除了父目录的 id 之外还需要通过 <code>fileId</code> url 参数 来指定你要修改的某个文件，只要执行第一个备份之后，你就可以在 Google Drive 中拿到对应上传的备份数据的 id，如下选中文件后右键，点击获取共享链接，你就复制了该文件的共享地址，格式类似： <code>https://drive.google.com/open?id=1-a68Gyxxxxxxxxxx4OgxMNufpB</code>，最后的 id 就是该文件的 id 了，你可以拿到 id 之后把分享关闭。</p>
+<div style="text-align: center;"><br>    <img src="https://user-images.githubusercontent.com/5423194/58696063-5b017c80-83c9-11e9-8f8b-bb6e0e0cb539.png" width="400px"><br></div>
+
+<h4 id="完整的上传脚本"><a href="#完整的上传脚本" class="headerlink" title="完整的上传脚本"></a>完整的上传脚本</h4><p><strong>huginn-backup.sh</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>!/bin/bash</span><br><span class="line">sudo docker exec huginn bash -c "mysqldump --single-transaction --opt -u [数据库用户名] -ppassword [数据库密码] &gt; /app/huginn_backupfile_tmp.sql"</span><br><span class="line"></span><br><span class="line">docker cp huginn:/app/huginn_backupfile_tmp.sql .</span><br><span class="line"></span><br><span class="line">sudo docker exec huginn bash -c "rm /app/huginn_backupfile_tmp.sql"</span><br><span class="line"></span><br><span class="line">mv huginn_backupfile_tmp.sql huginn_backupfile.sql</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> upload</span><br><span class="line">CURRENT_PATH=`pwd`</span><br><span class="line">cd ../drive_script</span><br><span class="line">./upload.sh $CURRENT_PATH/$NEW_BACKUP_FILE_NAME [目录 id] [文件 id]</span><br></pre></td></tr></table></figure>
+<p><strong>upload.sh</strong>：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>###</span><br><span class="line"><span class="meta">#</span>### x.sh [FILE] [FOLDER_ID] [FILE_ID]</span><br><span class="line"><span class="meta">#</span>###</span><br><span class="line"></span><br><span class="line">// client sercret, client id, refresh token 等数据保存在了同目录的文件中</span><br><span class="line">CLIENT_SERCRET=`cat CLIENT_SERCRET`</span><br><span class="line">REFRESH_TOKEN=`cat REFRESH_TOKEN`</span><br><span class="line">CLIENT_ID=`cat CLIENT_ID`</span><br><span class="line"></span><br><span class="line">REFRESH_RESPONSE=`curl --silent \</span><br><span class="line">	https://www.googleapis.com/oauth2/v4/token \</span><br><span class="line">	--data-raw "client_secret=$CLIENT_SERCRET&amp;grant_type=refresh_token&amp;refresh_token=$REFRESH_TOKEN&amp;client_id=$CLIENT_ID"`</span><br><span class="line"></span><br><span class="line">echo "refresh response: $REFRESH_RESPONSE"</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 获取 token</span><br><span class="line">ACCESS_TOKEN=`grep -o "\"access_token\"\s*:\s*\".*\"" &lt;&lt;&lt;"$REFRESH_RESPONSE" | sed -n -e 's/"//gp' | awk -F': ' '&#123;print $2&#125;'`</span><br><span class="line">echo "Token: $ACCESS_TOKEN"</span><br><span class="line"></span><br><span class="line">FILE="$1"</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> FOLDER_ID="1nd6K7J7IYcuCbqQ4laX_1uFkP39h3Akz"</span><br><span class="line">FOLDER_ID="$2"</span><br><span class="line">FILE_ID="$3"</span><br><span class="line"><span class="meta">#</span>ACCESS_TOKEN="$3"</span><br><span class="line">MIME_TYPE=`file --brief --mime-type "$FILE"`</span><br><span class="line">SLUG=`basename "$FILE"`</span><br><span class="line"><span class="meta">#</span>FILE_SIZE=`stat -c%s "$FILE"`</span><br><span class="line">FILE_SIZE=`wc -c &lt; $FILE | awk '&#123;print $1&#125;'`</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">postData="&#123;\"mimeType\": \"$MIME_TYPE\",\"title\": \"$SLUG\",\"parents\": [&#123;\"id\": \"$FOLDER_ID\"&#125;]&#125;"</span><br><span class="line">    postDataSize=$(echo $postData | wc -c)</span><br><span class="line"></span><br><span class="line">echo "FILE_ID: $FILE_ID"</span><br><span class="line"></span><br><span class="line">echo "Generating upload link for file $FILE ..."</span><br><span class="line"></span><br><span class="line">if [ "$FILE_ID" = "" ]</span><br><span class="line">then</span><br><span class="line">	uploadlink=`curl --silent \</span><br><span class="line">                -X POST \</span><br><span class="line">                -H "Host: www.googleapis.com" \</span><br><span class="line">                -H "Authorization: Bearer $&#123;ACCESS_TOKEN&#125;" \</span><br><span class="line">                -H "Content-Type: application/json; charset=UTF-8" \</span><br><span class="line">                -H "X-Upload-Content-Type: $MIME_TYPE" \</span><br><span class="line">                -H "X-Upload-Content-Length: $FILE_SIZE" \</span><br><span class="line">                -d "$postData" \</span><br><span class="line">                "https://www.googleapis.com/upload/drive/v2/files?uploadType=resumable" \</span><br><span class="line">                -v -# \</span><br><span class="line">                --dump-header - | sed -ne s/"Location: "//p | tr -d '\r\n'`</span><br><span class="line">else</span><br><span class="line">	echo "FILE_ID not empty: $&#123;FILE_ID&#125;"</span><br><span class="line">	uploadlink=`curl --silent \</span><br><span class="line">                -X PUT \</span><br><span class="line">                -H "Host: www.googleapis.com" \</span><br><span class="line">                -H "Authorization: Bearer $&#123;ACCESS_TOKEN&#125;" \</span><br><span class="line">                -H "Content-Type: application/json; charset=UTF-8" \</span><br><span class="line">                -H "X-Upload-Content-Type: $MIME_TYPE" \</span><br><span class="line">                -H "X-Upload-Content-Length: $FILE_SIZE" \</span><br><span class="line">                -d "$postData" \</span><br><span class="line">                "https://www.googleapis.com/upload/drive/v2/files/$&#123;FILE_ID&#125;?uploadType=resumable" \</span><br><span class="line">                -v -# \</span><br><span class="line">                --dump-header - | sed -ne s/"Location: "//p | tr -d '\r\n'`</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">echo "uploadlink: $uploadlink"</span><br><span class="line"></span><br><span class="line">echo "Uploading file $FILE to google drive..."</span><br><span class="line">curl \</span><br><span class="line">    -X PUT \</span><br><span class="line">    -H "Authorization: Bearer $&#123;ACCESS_TOKEN&#125;" \</span><br><span class="line">    -H "Content-Type: $MIME_TYPE" \</span><br><span class="line">    -H "Content-Length: $FILE_SIZE" \</span><br><span class="line">    -H "Slug: $SLUG" \</span><br><span class="line">    --data-binary "@$FILE" \</span><br><span class="line">    --output ./output \</span><br><span class="line">    "$uploadlink" \</span><br><span class="line">    $curl_args \</span><br><span class="line">    -v -#</span><br></pre></td></tr></table></figure>
+<h2 id="3-设置自动调度"><a href="#3-设置自动调度" class="headerlink" title="3. 设置自动调度"></a>3. 设置自动调度</h2><p>上传脚本搞定了，最后需要通过 <code>crontab</code> 来设置自动调度任务。</p>
+<p>执行 <code>crontab -e</code>，如下编辑：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> huginn backup 23:30 every day</span><br><span class="line">30 23 * * * cd ~/backup/huginn &amp;&amp; /bin/sh huginn-backup.sh &gt;&gt; ~/backup/huginn/cron-huginn.log 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>每天晚上11点30分执行备份</p>
+</blockquote>
+
+    </div>
+
+    <br/>
+    <hr>
+
+    
+    <div class="post-copyright" style="margin-top: 20px;">
+        <strong>来源博客：</strong><a href="https://blog.wangjiegulu.com">Wang Jie's Blog</a><br/>
+         <strong>本文链接：</strong><a href="https://blog.wangjiegulu.com/2019/05/31/huginn_automatic_backup/">https://blog.wangjiegulu.com/2019/05/31/huginn_automatic_backup/</a><br/>
+         <strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处。
+    </div>
+    
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/feed.xml">RSS</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Huginn-数据自动备份到-Google-Drive"><span class="toc-number">1.</span> <span class="toc-text">Huginn 数据自动备份到 Google Drive</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-备份数据"><span class="toc-number">1.1.</span> <span class="toc-text">1. 备份数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-上传到-Google-Drive"><span class="toc-number">1.2.</span> <span class="toc-text">2. 上传到 Google Drive</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#OAuth2-认证"><span class="toc-number">1.2.1.</span> <span class="toc-text">OAuth2 认证</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#创建凭据"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">创建凭据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#使用-OAuth-Playground"><span class="toc-number">1.2.1.2.</span> <span class="toc-text">使用 OAuth Playground</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#执行上传"><span class="toc-number">1.2.1.3.</span> <span class="toc-text">执行上传</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#创建文件"><span class="toc-number">1.2.1.3.1.</span> <span class="toc-text">创建文件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#修改文件"><span class="toc-number">1.2.1.3.2.</span> <span class="toc-text">修改文件</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#完整的上传脚本"><span class="toc-number">1.2.1.4.</span> <span class="toc-text">完整的上传脚本</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-设置自动调度"><span class="toc-number">1.3.</span> <span class="toc-text">3. 设置自动调度</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://blog.wangjiegulu.com/2019/05/31/huginn_automatic_backup/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://blog.wangjiegulu.com/2019/05/31/huginn_automatic_backup/&text=Huginn 数据自动备份到 Google Drive"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.wangjiegulu.com/2019/05/31/huginn_automatic_backup/&title=Huginn 数据自动备份到 Google Drive"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.wangjiegulu.com/2019/05/31/huginn_automatic_backup/&is_video=false&description=Huginn 数据自动备份到 Google Drive"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Huginn 数据自动备份到 Google Drive&body=Check out this article: https://blog.wangjiegulu.com/2019/05/31/huginn_automatic_backup/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.wangjiegulu.com/2019/05/31/huginn_automatic_backup/&title=Huginn 数据自动备份到 Google Drive"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.wangjiegulu.com/2019/05/31/huginn_automatic_backup/&title=Huginn 数据自动备份到 Google Drive"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.wangjiegulu.com/2019/05/31/huginn_automatic_backup/&title=Huginn 数据自动备份到 Google Drive"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://blog.wangjiegulu.com/2019/05/31/huginn_automatic_backup/&title=Huginn 数据自动备份到 Google Drive"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.wangjiegulu.com/2019/05/31/huginn_automatic_backup/&name=Huginn 数据自动备份到 Google Drive&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2019 Wang Jie
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/feed.xml">RSS</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-111189680-2', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'blog-wangjiegulu-com';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+
