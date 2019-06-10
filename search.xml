@@ -72,7 +72,7 @@
 <h4 id="完整的上传脚本"><a href="#完整的上传脚本" class="headerlink" title="完整的上传脚本"></a>完整的上传脚本</h4><p><strong>huginn-backup.sh</strong></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>!/bin/bash</span><br><span class="line">sudo docker exec huginn bash -c "mysqldump --single-transaction --opt -u [数据库用户名] -ppassword [数据库密码] &gt; /app/huginn_backupfile_tmp.sql"</span><br><span class="line"></span><br><span class="line">docker cp huginn:/app/huginn_backupfile_tmp.sql .</span><br><span class="line"></span><br><span class="line">sudo docker exec huginn bash -c "rm /app/huginn_backupfile_tmp.sql"</span><br><span class="line"></span><br><span class="line">mv huginn_backupfile_tmp.sql huginn_backupfile.sql</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> upload</span><br><span class="line">CURRENT_PATH=`pwd`</span><br><span class="line">cd ../drive_script</span><br><span class="line">./upload.sh $CURRENT_PATH/$NEW_BACKUP_FILE_NAME [目录 id] [文件 id]</span><br></pre></td></tr></table></figure>
 <p><strong>upload.sh</strong>：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>###</span><br><span class="line"><span class="meta">#</span>### x.sh [FILE] [FOLDER_ID] [FILE_ID]</span><br><span class="line"><span class="meta">#</span>###</span><br><span class="line"></span><br><span class="line">// client sercret, client id, refresh token 等数据保存在了同目录的文件中</span><br><span class="line">CLIENT_SERCRET=`cat CLIENT_SERCRET`</span><br><span class="line">REFRESH_TOKEN=`cat REFRESH_TOKEN`</span><br><span class="line">CLIENT_ID=`cat CLIENT_ID`</span><br><span class="line"></span><br><span class="line">REFRESH_RESPONSE=`curl --silent \</span><br><span class="line">	https://www.googleapis.com/oauth2/v4/token \</span><br><span class="line">	--data-raw "client_secret=$CLIENT_SERCRET&amp;grant_type=refresh_token&amp;refresh_token=$REFRESH_TOKEN&amp;client_id=$CLIENT_ID"`</span><br><span class="line"></span><br><span class="line">echo "refresh response: $REFRESH_RESPONSE"</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 获取 token</span><br><span class="line">ACCESS_TOKEN=`grep -o "\"access_token\"\s*:\s*\".*\"" &lt;&lt;&lt;"$REFRESH_RESPONSE" | sed -n -e 's/"//gp' | awk -F': ' '&#123;print $2&#125;'`</span><br><span class="line">echo "Token: $ACCESS_TOKEN"</span><br><span class="line"></span><br><span class="line">FILE="$1"</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> FOLDER_ID="1nd6K7J7IYcuCbqQ4laX_1uFkP39h3Akz"</span><br><span class="line">FOLDER_ID="$2"</span><br><span class="line">FILE_ID="$3"</span><br><span class="line"><span class="meta">#</span>ACCESS_TOKEN="$3"</span><br><span class="line">MIME_TYPE=`file --brief --mime-type "$FILE"`</span><br><span class="line">SLUG=`basename "$FILE"`</span><br><span class="line"><span class="meta">#</span>FILE_SIZE=`stat -c%s "$FILE"`</span><br><span class="line">FILE_SIZE=`wc -c &lt; $FILE | awk '&#123;print $1&#125;'`</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">postData="&#123;\"mimeType\": \"$MIME_TYPE\",\"title\": \"$SLUG\",\"parents\": [&#123;\"id\": \"$FOLDER_ID\"&#125;]&#125;"</span><br><span class="line">    postDataSize=$(echo $postData | wc -c)</span><br><span class="line"></span><br><span class="line">echo "FILE_ID: $FILE_ID"</span><br><span class="line"></span><br><span class="line">echo "Generating upload link for file $FILE ..."</span><br><span class="line"></span><br><span class="line">if [ "$FILE_ID" = "" ]</span><br><span class="line">then</span><br><span class="line">	uploadlink=`curl --silent \</span><br><span class="line">                -X POST \</span><br><span class="line">                -H "Host: www.googleapis.com" \</span><br><span class="line">                -H "Authorization: Bearer $&#123;ACCESS_TOKEN&#125;" \</span><br><span class="line">                -H "Content-Type: application/json; charset=UTF-8" \</span><br><span class="line">                -H "X-Upload-Content-Type: $MIME_TYPE" \</span><br><span class="line">                -H "X-Upload-Content-Length: $FILE_SIZE" \</span><br><span class="line">                -d "$postData" \</span><br><span class="line">                "https://www.googleapis.com/upload/drive/v2/files?uploadType=resumable" \</span><br><span class="line">                -v -# \</span><br><span class="line">                --dump-header - | sed -ne s/"Location: "//p | tr -d '\r\n'`</span><br><span class="line">else</span><br><span class="line">	echo "FILE_ID not empty: $&#123;FILE_ID&#125;"</span><br><span class="line">	uploadlink=`curl --silent \</span><br><span class="line">                -X PUT \</span><br><span class="line">                -H "Host: www.googleapis.com" \</span><br><span class="line">                -H "Authorization: Bearer $&#123;ACCESS_TOKEN&#125;" \</span><br><span class="line">                -H "Content-Type: application/json; charset=UTF-8" \</span><br><span class="line">                -H "X-Upload-Content-Type: $MIME_TYPE" \</span><br><span class="line">                -H "X-Upload-Content-Length: $FILE_SIZE" \</span><br><span class="line">                -d "$postData" \</span><br><span class="line">                "https://www.googleapis.com/upload/drive/v2/files/$&#123;FILE_ID&#125;?uploadType=resumable" \</span><br><span class="line">                -v -# \</span><br><span class="line">                --dump-header - | sed -ne s/"Location: "//p | tr -d '\r\n'`</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">echo "uploadlink: $uploadlink"</span><br><span class="line"></span><br><span class="line">echo "Uploading file $FILE to google drive..."</span><br><span class="line">curl \</span><br><span class="line">    -X PUT \</span><br><span class="line">    -H "Authorization: Bearer $&#123;ACCESS_TOKEN&#125;" \</span><br><span class="line">    -H "Content-Type: $MIME_TYPE" \</span><br><span class="line">    -H "Content-Length: $FILE_SIZE" \</span><br><span class="line">    -H "Slug: $SLUG" \</span><br><span class="line">    --data-binary "@$FILE" \</span><br><span class="line">    --output ./output \</span><br><span class="line">    "$uploadlink" \</span><br><span class="line">    $curl_args \</span><br><span class="line">    -v -#</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>###</span><br><span class="line"><span class="meta">#</span>### x.sh [FILE] [FOLDER_ID] [FILE_ID]</span><br><span class="line"><span class="meta">#</span>###</span><br><span class="line"></span><br><span class="line">// client sercret, client id, refresh token 等数据保存在了同目录的文件中</span><br><span class="line">CLIENT_SERCRET=`cat CLIENT_SERCRET`</span><br><span class="line">REFRESH_TOKEN=`cat REFRESH_TOKEN`</span><br><span class="line">CLIENT_ID=`cat CLIENT_ID`</span><br><span class="line"></span><br><span class="line">REFRESH_RESPONSE=`curl --silent \</span><br><span class="line">	https://www.googleapis.com/oauth2/v4/token \</span><br><span class="line">	--data-raw "client_secret=$CLIENT_SERCRET&amp;grant_type=refresh_token&amp;refresh_token=$REFRESH_TOKEN&amp;client_id=$CLIENT_ID"`</span><br><span class="line"></span><br><span class="line">echo "refresh response: $REFRESH_RESPONSE"</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 获取 token</span><br><span class="line">ACCESS_TOKEN=`grep -o "\"access_token\"\s*:\s*\".*\"" &lt;&lt;&lt;"$REFRESH_RESPONSE" | sed -n -e 's/"//gp' | awk -F': ' '&#123;print $2&#125;'`</span><br><span class="line">echo "Token: $ACCESS_TOKEN"</span><br><span class="line"></span><br><span class="line">FILE="$1"</span><br><span class="line"></span><br><span class="line">FOLDER_ID="$2"</span><br><span class="line">FILE_ID="$3"</span><br><span class="line"><span class="meta">#</span>ACCESS_TOKEN="$3"</span><br><span class="line">MIME_TYPE=`file --brief --mime-type "$FILE"`</span><br><span class="line">SLUG=`basename "$FILE"`</span><br><span class="line"><span class="meta">#</span>FILE_SIZE=`stat -c%s "$FILE"`</span><br><span class="line">FILE_SIZE=`wc -c &lt; $FILE | awk '&#123;print $1&#125;'`</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">postData="&#123;\"mimeType\": \"$MIME_TYPE\",\"title\": \"$SLUG\",\"parents\": [&#123;\"id\": \"$FOLDER_ID\"&#125;]&#125;"</span><br><span class="line">    postDataSize=$(echo $postData | wc -c)</span><br><span class="line"></span><br><span class="line">echo "FILE_ID: $FILE_ID"</span><br><span class="line"></span><br><span class="line">echo "Generating upload link for file $FILE ..."</span><br><span class="line"></span><br><span class="line">if [ "$FILE_ID" = "" ]</span><br><span class="line">then</span><br><span class="line">	uploadlink=`curl --silent \</span><br><span class="line">                -X POST \</span><br><span class="line">                -H "Host: www.googleapis.com" \</span><br><span class="line">                -H "Authorization: Bearer $&#123;ACCESS_TOKEN&#125;" \</span><br><span class="line">                -H "Content-Type: application/json; charset=UTF-8" \</span><br><span class="line">                -H "X-Upload-Content-Type: $MIME_TYPE" \</span><br><span class="line">                -H "X-Upload-Content-Length: $FILE_SIZE" \</span><br><span class="line">                -d "$postData" \</span><br><span class="line">                "https://www.googleapis.com/upload/drive/v2/files?uploadType=resumable" \</span><br><span class="line">                -v -# \</span><br><span class="line">                --dump-header - | sed -ne s/"Location: "//p | tr -d '\r\n'`</span><br><span class="line">else</span><br><span class="line">	echo "FILE_ID not empty: $&#123;FILE_ID&#125;"</span><br><span class="line">	uploadlink=`curl --silent \</span><br><span class="line">                -X PUT \</span><br><span class="line">                -H "Host: www.googleapis.com" \</span><br><span class="line">                -H "Authorization: Bearer $&#123;ACCESS_TOKEN&#125;" \</span><br><span class="line">                -H "Content-Type: application/json; charset=UTF-8" \</span><br><span class="line">                -H "X-Upload-Content-Type: $MIME_TYPE" \</span><br><span class="line">                -H "X-Upload-Content-Length: $FILE_SIZE" \</span><br><span class="line">                -d "$postData" \</span><br><span class="line">                "https://www.googleapis.com/upload/drive/v2/files/$&#123;FILE_ID&#125;?uploadType=resumable" \</span><br><span class="line">                -v -# \</span><br><span class="line">                --dump-header - | sed -ne s/"Location: "//p | tr -d '\r\n'`</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">echo "uploadlink: $uploadlink"</span><br><span class="line"></span><br><span class="line">echo "Uploading file $FILE to google drive..."</span><br><span class="line">curl \</span><br><span class="line">    -X PUT \</span><br><span class="line">    -H "Authorization: Bearer $&#123;ACCESS_TOKEN&#125;" \</span><br><span class="line">    -H "Content-Type: $MIME_TYPE" \</span><br><span class="line">    -H "Content-Length: $FILE_SIZE" \</span><br><span class="line">    -H "Slug: $SLUG" \</span><br><span class="line">    --data-binary "@$FILE" \</span><br><span class="line">    --output ./output \</span><br><span class="line">    "$uploadlink" \</span><br><span class="line">    $curl_args \</span><br><span class="line">    -v -#</span><br></pre></td></tr></table></figure>
 <h2 id="3-设置自动调度"><a href="#3-设置自动调度" class="headerlink" title="3. 设置自动调度"></a>3. 设置自动调度</h2><p>上传脚本搞定了，最后需要通过 <code>crontab</code> 来设置自动调度任务。</p>
 <p>执行 <code>crontab -e</code>，如下编辑：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> huginn backup 23:30 every day</span><br><span class="line">30 23 * * * cd ~/backup/huginn &amp;&amp; /bin/sh huginn-backup.sh &gt;&gt; ~/backup/huginn/cron-huginn.log 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
@@ -5048,8 +5048,6 @@
             
             <tag> android </tag>
             
-            <tag> google </tag>
-            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
@@ -5057,6 +5055,8 @@
             <tag> dependency injection </tag>
             
             <tag> 翻译 </tag>
+            
+            <tag> google </tag>
             
         </tags>
         
@@ -5151,8 +5151,6 @@
             
             <tag> android </tag>
             
-            <tag> google </tag>
-            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
@@ -5160,6 +5158,8 @@
             <tag> dependency injection </tag>
             
             <tag> 翻译 </tag>
+            
+            <tag> google </tag>
             
         </tags>
         
@@ -5257,8 +5257,6 @@
             
             <tag> android </tag>
             
-            <tag> google </tag>
-            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
@@ -5266,6 +5264,8 @@
             <tag> dependency injection </tag>
             
             <tag> 翻译 </tag>
+            
+            <tag> google </tag>
             
             <tag> RxJava </tag>
             
@@ -5391,8 +5391,6 @@
             
             <tag> android </tag>
             
-            <tag> google </tag>
-            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
@@ -5400,6 +5398,8 @@
             <tag> dependency injection </tag>
             
             <tag> 翻译 </tag>
+            
+            <tag> google </tag>
             
         </tags>
         
@@ -5525,7 +5525,7 @@
       <title><![CDATA[[Android]异步 layout inflation（翻译）]]></title>
       <url>/2016/09/01/Android-%E5%BC%82%E6%AD%A5-layout-inflation%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/</url>
       <content type="html"><![CDATA[<h1 id="异步-layout-inflation"><a href="#异步-layout-inflation" class="headerlink" title="异步 layout inflation"></a>异步 layout inflation</h1><blockquote>
-<p>原文：<a href="&#109;&#97;&#x69;&#108;&#x74;&#x6f;&#x3a;&#104;&#116;&#x74;&#x70;&#x73;&#58;&#47;&#x2f;&#x6d;&#x65;&#100;&#x69;&#x75;&#x6d;&#46;&#99;&#x6f;&#109;&#47;&#64;&#x6c;&#117;&#x70;&#x61;&#106;&#x7a;&#x2f;&#x61;&#x73;&#121;&#110;&#99;&#104;&#x72;&#111;&#x6e;&#111;&#117;&#x73;&#x2d;&#108;&#x61;&#121;&#x6f;&#117;&#116;&#45;&#105;&#x6e;&#x66;&#x6c;&#97;&#x74;&#105;&#x6f;&#110;&#x2d;&#x37;&#x63;&#98;&#x63;&#97;&#50;&#x36;&#x35;&#51;&#98;&#x66;&#35;&#46;&#113;&#50;&#x32;&#x76;&#112;&#101;&#122;&#x67;&#52;">&#104;&#116;&#x74;&#x70;&#x73;&#58;&#47;&#x2f;&#x6d;&#x65;&#100;&#x69;&#x75;&#x6d;&#46;&#99;&#x6f;&#109;&#47;&#64;&#x6c;&#117;&#x70;&#x61;&#106;&#x7a;&#x2f;&#x61;&#x73;&#121;&#110;&#99;&#104;&#x72;&#111;&#x6e;&#111;&#117;&#x73;&#x2d;&#108;&#x61;&#121;&#x6f;&#117;&#116;&#45;&#105;&#x6e;&#x66;&#x6c;&#97;&#x74;&#105;&#x6f;&#110;&#x2d;&#x37;&#x63;&#98;&#x63;&#97;&#50;&#x36;&#x35;&#51;&#98;&#x66;&#35;&#46;&#113;&#50;&#x32;&#x76;&#112;&#101;&#122;&#x67;&#52;</a></p>
+<p>原文：<a href="&#109;&#97;&#x69;&#x6c;&#116;&#111;&#x3a;&#x68;&#x74;&#x74;&#112;&#115;&#58;&#47;&#47;&#109;&#x65;&#100;&#x69;&#x75;&#109;&#46;&#x63;&#111;&#109;&#47;&#64;&#108;&#117;&#x70;&#97;&#x6a;&#122;&#47;&#97;&#115;&#x79;&#x6e;&#x63;&#104;&#x72;&#x6f;&#x6e;&#111;&#117;&#115;&#x2d;&#x6c;&#x61;&#121;&#111;&#x75;&#x74;&#45;&#x69;&#x6e;&#x66;&#x6c;&#97;&#116;&#105;&#111;&#110;&#x2d;&#55;&#99;&#98;&#x63;&#x61;&#x32;&#x36;&#53;&#51;&#98;&#102;&#35;&#x2e;&#113;&#50;&#x32;&#x76;&#112;&#101;&#122;&#103;&#52;">&#x68;&#x74;&#x74;&#112;&#115;&#58;&#47;&#47;&#109;&#x65;&#100;&#x69;&#x75;&#109;&#46;&#x63;&#111;&#109;&#47;&#64;&#108;&#117;&#x70;&#97;&#x6a;&#122;&#47;&#97;&#115;&#x79;&#x6e;&#x63;&#104;&#x72;&#x6f;&#x6e;&#111;&#117;&#115;&#x2d;&#x6c;&#x61;&#121;&#111;&#x75;&#x74;&#45;&#x69;&#x6e;&#x66;&#x6c;&#97;&#116;&#105;&#111;&#110;&#x2d;&#55;&#99;&#98;&#x63;&#x61;&#x32;&#x36;&#53;&#51;&#98;&#102;&#35;&#x2e;&#113;&#50;&#x32;&#x76;&#112;&#101;&#122;&#103;&#52;</a></p>
 </blockquote>
 <p>随着最近发布的<a href="https://developer.android.com/topic/libraries/support-library/revisions.html" target="_blank" rel="noopener">Android Support Library, revision 24</a>，Google开发者在v4包中增加了一个用来异步inflate layouts的帮助类。</p>
 <h2 id="进入-AsyncLayoutInflater"><a href="#进入-AsyncLayoutInflater" class="headerlink" title="进入 AsyncLayoutInflater"></a>进入 AsyncLayoutInflater</h2><p>你会发现AsyncLayoutInflater可以使用在当你想要去懒加载你应用中部分UI或者用户行为的响应。这个帮助类将会允许你的UI线程在执行繁重的inflate时继续保持响应。</p>
@@ -7301,8 +7301,6 @@ Cookie: ... ...
             
             <tag> android </tag>
             
-            <tag> google </tag>
-            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
@@ -7310,6 +7308,8 @@ Cookie: ... ...
             <tag> dependency injection </tag>
             
             <tag> 翻译 </tag>
+            
+            <tag> google </tag>
             
         </tags>
         
@@ -7422,8 +7422,6 @@ Cookie: ... ...
             
             <tag> android </tag>
             
-            <tag> google </tag>
-            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
@@ -7431,6 +7429,8 @@ Cookie: ... ...
             <tag> dependency injection </tag>
             
             <tag> 翻译 </tag>
+            
+            <tag> google </tag>
             
         </tags>
         
@@ -7562,8 +7562,6 @@ Cookie: ... ...
             
             <tag> android </tag>
             
-            <tag> google </tag>
-            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
@@ -7571,6 +7569,8 @@ Cookie: ... ...
             <tag> dependency injection </tag>
             
             <tag> 翻译 </tag>
+            
+            <tag> google </tag>
             
         </tags>
         
@@ -7660,8 +7660,6 @@ Cookie: ... ...
             
             <tag> android </tag>
             
-            <tag> google </tag>
-            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
@@ -7669,6 +7667,8 @@ Cookie: ... ...
             <tag> dependency injection </tag>
             
             <tag> 翻译 </tag>
+            
+            <tag> google </tag>
             
         </tags>
         
@@ -8103,9 +8103,9 @@ Cookie: ... ...
             
             <tag> android </tag>
             
-            <tag> google </tag>
-            
             <tag> 翻译 </tag>
+            
+            <tag> google </tag>
             
             <tag> support </tag>
             
