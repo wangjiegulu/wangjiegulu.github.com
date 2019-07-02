@@ -4,8 +4,47 @@
 
     
   <url>
+    <loc>https://blog.wangjiegulu.com/2019/07/02/rapidooo-v115/</loc>
+    <lastmod>2019-07-02T11:53:46.312Z</lastmod>
+    <data>
+        <display>
+        <title>领域对象转换库 RapidOOO v1.1.5</title>
+        <pubTime>2019-07-02T11:47:25.855Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>annotations</tag>
+         
+        <tag>javabean</tag>
+         
+        <tag>pojo</tag>
+         
+        <tag>domain-driven-design</tag>
+         
+        <tag>apt</tag>
+         
+        <tag>javapoet</tag>
+         
+        <tag>annotation processor</tag>
+         
+        <tag>pojo converter</tag>
+         
+         
+           
+             
+              <breadCrumb title="android" url="https://blog.wangjiegulu.com/categories/android/"/>
+          
+             
+              <breadCrumb title="pojo converter" url="https://blog.wangjiegulu.com/categories/android/pojo-converter/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://blog.wangjiegulu.com/2019/05/31/huginn_automatic_backup/</loc>
-    <lastmod>2019-06-10T09:40:18.763Z</lastmod>
+    <lastmod>2019-07-02T11:50:39.262Z</lastmod>
     <data>
         <display>
         <title>Huginn 数据自动备份到 Google Drive</title>
@@ -2995,11 +3034,11 @@
         <title>在Ubuntu上安装Hadoop（单机模式）步骤</title>
         <pubTime>2014-02-17T07:49:00.000Z</pubTime>
         
+        <tag>java</tag>
+         
         <tag>j2ee</tag>
          
         <tag>java web</tag>
-         
-        <tag>java</tag>
          
         <tag>ubuntu</tag>
          
@@ -3083,11 +3122,11 @@
         <title>WEB项目的分层结构</title>
         <pubTime>2012-11-30T03:04:00.000Z</pubTime>
         
+        <tag>java</tag>
+         
         <tag>j2ee</tag>
          
         <tag>java web</tag>
-         
-        <tag>java</tag>
          
          
            
@@ -3665,11 +3704,11 @@
         
         <tag>android</tag>
          
+        <tag>java</tag>
+         
         <tag>j2ee</tag>
          
         <tag>java web</tag>
-         
-        <tag>java</tag>
          
         <tag>Hbase</tag>
          

@@ -6,7 +6,7 @@
   <link href="/feed.xml" rel="self"/>
   
   <link href="https://blog.wangjiegulu.com/"/>
-  <updated>2019-06-10T09:40:18.763Z</updated>
+  <updated>2019-07-02T11:53:46.312Z</updated>
   <id>https://blog.wangjiegulu.com/</id>
   
   <author>
@@ -17,11 +17,55 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>领域对象转换库 RapidOOO v1.1.5</title>
+    <link href="https://blog.wangjiegulu.com/2019/07/02/rapidooo-v115/"/>
+    <id>https://blog.wangjiegulu.com/2019/07/02/rapidooo-v115/</id>
+    <published>2019-07-02T11:47:25.855Z</published>
+    <updated>2019-07-02T11:53:46.312Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;领域对象转换库-RapidOOO-v1-1-5&quot;&gt;&lt;a href=&quot;#领域对象转换库-RapidOOO-v1-1-5&quot; class=&quot;headerlink&quot; title=&quot;领域对象转换库 RapidOOO v1.1.5&quot;&gt;&lt;/a&gt;领域对象转换库 RapidOOO
+        
+      
+    
+    </summary>
+    
+      <category term="android" scheme="https://blog.wangjiegulu.com/categories/android/"/>
+    
+      <category term="pojo converter" scheme="https://blog.wangjiegulu.com/categories/android/pojo-converter/"/>
+    
+    
+      <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
+    
+      <category term="annotations" scheme="https://blog.wangjiegulu.com/tags/annotations/"/>
+    
+      <category term="javabean" scheme="https://blog.wangjiegulu.com/tags/javabean/"/>
+    
+      <category term="pojo" scheme="https://blog.wangjiegulu.com/tags/pojo/"/>
+    
+      <category term="domain-driven-design" scheme="https://blog.wangjiegulu.com/tags/domain-driven-design/"/>
+    
+      <category term="apt" scheme="https://blog.wangjiegulu.com/tags/apt/"/>
+    
+      <category term="javapoet" scheme="https://blog.wangjiegulu.com/tags/javapoet/"/>
+    
+      <category term="annotation processor" scheme="https://blog.wangjiegulu.com/tags/annotation-processor/"/>
+    
+      <category term="pojo converter" scheme="https://blog.wangjiegulu.com/tags/pojo-converter/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Huginn 数据自动备份到 Google Drive</title>
     <link href="https://blog.wangjiegulu.com/2019/05/31/huginn_automatic_backup/"/>
     <id>https://blog.wangjiegulu.com/2019/05/31/huginn_automatic_backup/</id>
     <published>2019-05-31T08:00:03.635Z</published>
-    <updated>2019-06-10T09:40:18.763Z</updated>
+    <updated>2019-07-02T11:50:39.262Z</updated>
     
     <summary type="html">
     
@@ -849,54 +893,6 @@
         
         
           &lt;h1 id=&quot;Android-Architecture-Component-DataBinding-–-Binding-adapters（翻译）&quot;&gt;&lt;a
-        
-      
-    
-    </summary>
-    
-      <category term="Android Architecture Component" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/"/>
-    
-      <category term="kotlin" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/kotlin/"/>
-    
-      <category term="DataBinding" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/kotlin/DataBinding/"/>
-    
-    
-      <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
-    
-      <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
-    
-      <category term="kotlin" scheme="https://blog.wangjiegulu.com/tags/kotlin/"/>
-    
-      <category term="architecture" scheme="https://blog.wangjiegulu.com/tags/architecture/"/>
-    
-      <category term="Android Architecture Component" scheme="https://blog.wangjiegulu.com/tags/Android-Architecture-Component/"/>
-    
-      <category term="aac" scheme="https://blog.wangjiegulu.com/tags/aac/"/>
-    
-      <category term="ViewModel" scheme="https://blog.wangjiegulu.com/tags/ViewModel/"/>
-    
-      <category term="LiveData" scheme="https://blog.wangjiegulu.com/tags/LiveData/"/>
-    
-      <category term="DataBinding" scheme="https://blog.wangjiegulu.com/tags/DataBinding/"/>
-    
-      <category term="Lifecycles" scheme="https://blog.wangjiegulu.com/tags/Lifecycles/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Android Architecture Component DataBinding -- 生成的绑定类（翻译）</title>
-    <link href="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_generated_binding/"/>
-    <id>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_generated_binding/</id>
-    <published>2018-04-15T07:01:00.000Z</published>
-    <updated>2018-11-22T01:44:37.023Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;Android-Architecture-Component-DataBinding-–-生成的绑定类（翻译）&quot;&gt;&lt;a href=&quot;#Android-Architecture-Component-DataBinding-–-生成的绑定类（翻译）&quot;
         
       
     
