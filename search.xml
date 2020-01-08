@@ -3,6 +3,56 @@
   
     
     <entry>
+      <title><![CDATA[使用 typinator 提升开发效率，让你的代码飞起来]]></title>
+      <url>/2019/11/26/use_typinator_to_improve_development_efficiency/</url>
+      <content type="html"><![CDATA[<p>[toc]</p>
+<h1 id="使用-typinator-提升开发效率，让你的代码飞起来"><a href="#使用-typinator-提升开发效率，让你的代码飞起来" class="headerlink" title="使用 typinator 提升开发效率，让你的代码飞起来"></a>使用 typinator 提升开发效率，让你的代码飞起来</h1><h2 id="1-背景"><a href="#1-背景" class="headerlink" title="1 背景"></a>1 背景</h2><p>开发过程中，总会免不了编写一些重复的模版代码，保存模版代码的方式很多，比通过通过 IDEA 的 <code>Templates</code> 创建模版代码、<code>VSCode</code> 的 <code>Snippets</code> 等等方式，但是这类特定某些 IDE 的 <code>Templates</code> 或者 <code>Snippets</code> 的方式有较大的局限性，像我这样没事需要用到一系列 IDE （Intellij IDEA、PyCharm、WebStorm、VSCode、Sublime Text 等等），甚至是写博客的 Markdown 编辑器中都可能会使用到的用户就很难在某个地方同意管理这些代码片段。</p>
+<p>当然，你可以把所有代码保存到印象笔记等云笔记中，按照某些维度（语言、功能等）进行分类。但是在我们工作中，切换到云笔记查找模版代码会非常痛苦。</p>
+<h2 id="2-Typinator"><a href="#2-Typinator" class="headerlink" title="2 Typinator"></a>2 Typinator</h2><blockquote>
+<p>官网：<a href="https://www.ergonis.com/products/typinator/" target="_blank" rel="noopener">https://www.ergonis.com/products/typinator/</a><br>文档：<a href="https://www.ergonis.com/products/typinator/TypinatorUsersGuide.pdf" target="_blank" rel="noopener">https://www.ergonis.com/products/typinator/TypinatorUsersGuide.pdf</a></p>
+</blockquote>
+<p>Typinator 并不是像 <a href="https://kapeli.com/dash" target="_blank" rel="noopener">Dash</a> 那样是专门为开发打造的产品，但是用它来作为文本片段管理存储工具绝对是绝佳的。</p>
+<blockquote>
+<p>Typinator 的 slogan：Less typing, fewer mistakes. More spare time!</p>
+</blockquote>
+<h2 id="3-优点和缺点"><a href="#3-优点和缺点" class="headerlink" title="3 优点和缺点"></a>3 优点和缺点</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><p>后台运行，通过输入字符串命令触发唤起，不需要进行界面切换，不会造成割裂感觉，流水般的书写自动化的体验<br>强大的自定义命令功能，并且内置各种交互、系统功能结合、内置函数、甚至支持自己编写脚本<br>命令匹配触发功能，除了缩写匹配，还支持正则匹配，这点相对 dash 来说是绝对的优势<br>一次配置可以使用在任意地方：各个 IDE，iTerm2，聊天 app，gmail…；<br>一键搜索</p>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><h2 id="4-功能"><a href="#4-功能" class="headerlink" title="4 功能"></a>4 功能</h2><h3 id="4-1-配置"><a href="#4-1-配置" class="headerlink" title="4.1 配置"></a>4.1 配置</h3><h4 id="4-1-1-Abbeviation-Set"><a href="#4-1-1-Abbeviation-Set" class="headerlink" title="4.1.1 Abbeviation Set"></a>4.1.1 Abbeviation Set</h4><p>缩写</p>
+<h4 id="4-1-2-Regular-Expression-Set"><a href="#4-1-2-Regular-Expression-Set" class="headerlink" title="4.1.2 Regular Expression Set"></a>4.1.2 Regular Expression Set</h4><p>正则表达</p>
+<h3 id="4-2-使用"><a href="#4-2-使用" class="headerlink" title="4.2 使用"></a>4.2 使用</h3><p>一键搜索</p>
+<p>状态 icon</p>
+<h2 id="5-其他"><a href="#5-其他" class="headerlink" title="5 其他"></a>5 其他</h2><h3 id="5-1-实时备份配置到-Google-Drive"><a href="#5-1-实时备份配置到-Google-Drive" class="headerlink" title="5.1 实时备份配置到 Google Drive"></a>5.1 实时备份配置到 Google Drive</h3><p>自定义配置文件目录</p>
+<p>对配置文件进行备份</p>
+<h2 id="6-举个栗子"><a href="#6-举个栗子" class="headerlink" title="6 举个栗子"></a>6 举个栗子</h2><h3 id="6-1-单位自动转换"><a href="#6-1-单位自动转换" class="headerlink" title="6.1 单位自动转换"></a>6.1 单位自动转换</h3><h3 id="6-2-Git-命令提示"><a href="#6-2-Git-命令提示" class="headerlink" title="6.2 Git 命令提示"></a>6.2 Git 命令提示</h3><p>为什么不用 alias ？</p>
+<ul>
+<li>看不到真正的命令是怎么样的</li>
+<li>只能在 terminal 中使用，无法在其他地方使用</li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> typinator </category>
+            
+            <category> developer </category>
+            
+            <category> automate </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> automate </tag>
+            
+            <tag> typinator </tag>
+            
+            <tag> developer </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[领域对象转换库 RapidOOO v1.1.5]]></title>
       <url>/2019/07/02/rapidooo-v115/</url>
       <content type="html"><![CDATA[<h1 id="领域对象转换库-RapidOOO-v1-1-5"><a href="#领域对象转换库-RapidOOO-v1-1-5" class="headerlink" title="领域对象转换库 RapidOOO v1.1.5"></a>领域对象转换库 RapidOOO v1.1.5</h1><blockquote>
@@ -422,9 +472,14 @@
 <h2 id="3-设置自动调度"><a href="#3-设置自动调度" class="headerlink" title="3. 设置自动调度"></a>3. 设置自动调度</h2><p>上传脚本搞定了，最后需要通过 <code>crontab</code> 来设置自动调度任务。</p>
 <p>执行 <code>crontab -e</code>，如下编辑：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> huginn backup 23:30 every day</span><br><span class="line">30 23 * * * cd ~/backup/huginn &amp;&amp; /bin/sh huginn-backup.sh &gt;&gt; ~/backup/huginn/cron-huginn.log 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
+<ul>
+<li>启动服务：<code>/etc/init.d/cron start</code></li>
+<li>停止服务：<code>/etc/init.d/cron stop</code></li>
+</ul>
 <blockquote>
 <p>每天晚上11点30分执行备份</p>
 </blockquote>
+<!--<iframe src="https://coda.io/embed/O34oAZyJI2/_suhA0?viewMode=embedplay&hideSections=true" width=900 height=500 style="max-width: 100%;" allow="fullscreen"></iframe>-->
 ]]></content>
       
         <categories>
@@ -5871,7 +5926,7 @@
       <title><![CDATA[[Android]异步 layout inflation（翻译）]]></title>
       <url>/2016/09/01/Android-%E5%BC%82%E6%AD%A5-layout-inflation%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/</url>
       <content type="html"><![CDATA[<h1 id="异步-layout-inflation"><a href="#异步-layout-inflation" class="headerlink" title="异步 layout inflation"></a>异步 layout inflation</h1><blockquote>
-<p>原文：<a href="&#x6d;&#x61;&#105;&#x6c;&#116;&#x6f;&#x3a;&#104;&#x74;&#x74;&#112;&#115;&#x3a;&#x2f;&#x2f;&#x6d;&#101;&#100;&#x69;&#x75;&#109;&#x2e;&#x63;&#111;&#109;&#x2f;&#x40;&#108;&#117;&#112;&#97;&#106;&#122;&#47;&#x61;&#x73;&#121;&#110;&#x63;&#x68;&#114;&#111;&#110;&#111;&#117;&#115;&#x2d;&#108;&#x61;&#121;&#x6f;&#x75;&#x74;&#45;&#105;&#110;&#x66;&#108;&#x61;&#x74;&#x69;&#111;&#x6e;&#x2d;&#x37;&#99;&#x62;&#x63;&#x61;&#50;&#x36;&#53;&#51;&#98;&#x66;&#35;&#x2e;&#x71;&#x32;&#50;&#118;&#x70;&#101;&#122;&#x67;&#x34;">&#104;&#x74;&#x74;&#112;&#115;&#x3a;&#x2f;&#x2f;&#x6d;&#101;&#100;&#x69;&#x75;&#109;&#x2e;&#x63;&#111;&#109;&#x2f;&#x40;&#108;&#117;&#112;&#97;&#106;&#122;&#47;&#x61;&#x73;&#121;&#110;&#x63;&#x68;&#114;&#111;&#110;&#111;&#117;&#115;&#x2d;&#108;&#x61;&#121;&#x6f;&#x75;&#x74;&#45;&#105;&#110;&#x66;&#108;&#x61;&#x74;&#x69;&#111;&#x6e;&#x2d;&#x37;&#99;&#x62;&#x63;&#x61;&#50;&#x36;&#53;&#51;&#98;&#x66;&#35;&#x2e;&#x71;&#x32;&#50;&#118;&#x70;&#101;&#122;&#x67;&#x34;</a></p>
+<p>原文：<a href="&#x6d;&#97;&#105;&#108;&#x74;&#x6f;&#x3a;&#x68;&#x74;&#116;&#x70;&#115;&#58;&#47;&#x2f;&#109;&#101;&#100;&#x69;&#117;&#x6d;&#x2e;&#99;&#111;&#109;&#47;&#64;&#108;&#117;&#x70;&#x61;&#106;&#x7a;&#47;&#97;&#x73;&#x79;&#x6e;&#99;&#104;&#x72;&#x6f;&#x6e;&#111;&#117;&#x73;&#x2d;&#x6c;&#97;&#121;&#111;&#x75;&#116;&#45;&#x69;&#x6e;&#x66;&#108;&#97;&#116;&#x69;&#111;&#110;&#x2d;&#x37;&#x63;&#98;&#99;&#97;&#50;&#x36;&#53;&#51;&#x62;&#x66;&#x23;&#x2e;&#x71;&#x32;&#x32;&#x76;&#112;&#101;&#122;&#103;&#x34;">&#x68;&#x74;&#116;&#x70;&#115;&#58;&#47;&#x2f;&#109;&#101;&#100;&#x69;&#117;&#x6d;&#x2e;&#99;&#111;&#109;&#47;&#64;&#108;&#117;&#x70;&#x61;&#106;&#x7a;&#47;&#97;&#x73;&#x79;&#x6e;&#99;&#104;&#x72;&#x6f;&#x6e;&#111;&#117;&#x73;&#x2d;&#x6c;&#97;&#121;&#111;&#x75;&#116;&#45;&#x69;&#x6e;&#x66;&#108;&#97;&#116;&#x69;&#111;&#110;&#x2d;&#x37;&#x63;&#98;&#99;&#97;&#50;&#x36;&#53;&#51;&#x62;&#x66;&#x23;&#x2e;&#x71;&#x32;&#x32;&#x76;&#112;&#101;&#122;&#103;&#x34;</a></p>
 </blockquote>
 <p>随着最近发布的<a href="https://developer.android.com/topic/libraries/support-library/revisions.html" target="_blank" rel="noopener">Android Support Library, revision 24</a>，Google开发者在v4包中增加了一个用来异步inflate layouts的帮助类。</p>
 <h2 id="进入-AsyncLayoutInflater"><a href="#进入-AsyncLayoutInflater" class="headerlink" title="进入 AsyncLayoutInflater"></a>进入 AsyncLayoutInflater</h2><p>你会发现AsyncLayoutInflater可以使用在当你想要去懒加载你应用中部分UI或者用户行为的响应。这个帮助类将会允许你的UI线程在执行繁重的inflate时继续保持响应。</p>

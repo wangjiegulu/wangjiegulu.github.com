@@ -29,7 +29,7 @@
 <meta property="og:image" content="https://user-images.githubusercontent.com/5423194/58693610-bdf01500-83c3-11e9-80c3-8b25ed37ac30.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/5423194/58695525-3bb61f80-83c8-11e9-855b-a0fff7737548.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/5423194/58696063-5b017c80-83c9-11e9-8f8b-bb6e0e0cb539.png">
-<meta property="og:updated_time" content="2019-07-02T11:50:39.262Z">
+<meta property="og:updated_time" content="2019-11-14T07:21:50.130Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Huginn 数据自动备份到 Google Drive">
 <meta name="twitter:description" content="Huginn 数据自动备份到 Google Drive之前有写过一篇讲 《Huginn 的 Docker 部署及数据迁移》，但是文中的数据备份自己 SSH 到服务器手动进行备份，比较麻烦。那如果能实现自动实时帮我备份到云端，那再也不用担心数据丢失问题了。 那我们要解决的问题是：  怎么备份数据？ 数据备份到哪里？ 怎么实现自动触发？  怎么备份数据？ 这个之前在 《Huginn 的 Docker">
@@ -260,9 +260,14 @@
 <h2 id="3-设置自动调度"><a href="#3-设置自动调度" class="headerlink" title="3. 设置自动调度"></a>3. 设置自动调度</h2><p>上传脚本搞定了，最后需要通过 <code>crontab</code> 来设置自动调度任务。</p>
 <p>执行 <code>crontab -e</code>，如下编辑：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> huginn backup 23:30 every day</span><br><span class="line">30 23 * * * cd ~/backup/huginn &amp;&amp; /bin/sh huginn-backup.sh &gt;&gt; ~/backup/huginn/cron-huginn.log 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
+<ul>
+<li>启动服务：<code>/etc/init.d/cron start</code></li>
+<li>停止服务：<code>/etc/init.d/cron stop</code></li>
+</ul>
 <blockquote>
 <p>每天晚上11点30分执行备份</p>
 </blockquote>
+<!--<iframe src="https://coda.io/embed/O34oAZyJI2/_suhA0?viewMode=embedplay&hideSections=true" width=900 height=500 style="max-width: 100%;" allow="fullscreen"></iframe>-->
 
     </div>
 
@@ -342,7 +347,7 @@
     
     <footer id="footer">
   <div class="footer-left">
-    Copyright &copy; 2019 Wang Jie
+    Copyright &copy; 2020 Wang Jie
   </div>
   <div class="footer-right">
     <nav>

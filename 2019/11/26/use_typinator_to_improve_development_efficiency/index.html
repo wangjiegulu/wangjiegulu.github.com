@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#ffffff">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#ffffff">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#ffffff">
+
+
+    <meta name="description" content="[toc] 使用 typinator 提升开发效率，让你的代码飞起来1 背景开发过程中，总会免不了编写一些重复的模版代码，保存模版代码的方式很多，比通过通过 IDEA 的 Templates 创建模版代码、VSCode 的 Snippets 等等方式，但是这类特定某些 IDE 的 Templates 或者 Snippets 的方式有较大的局限性，像我这样没事需要用到一系列 IDE （Intelli">
+<meta name="keywords" content="automate,typinator,developer">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用 typinator 提升开发效率，让你的代码飞起来">
+<meta property="og:url" content="https://blog.wangjiegulu.com/2019/11/26/use_typinator_to_improve_development_efficiency/index.html">
+<meta property="og:site_name" content="Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer">
+<meta property="og:description" content="[toc] 使用 typinator 提升开发效率，让你的代码飞起来1 背景开发过程中，总会免不了编写一些重复的模版代码，保存模版代码的方式很多，比通过通过 IDEA 的 Templates 创建模版代码、VSCode 的 Snippets 等等方式，但是这类特定某些 IDE 的 Templates 或者 Snippets 的方式有较大的局限性，像我这样没事需要用到一系列 IDE （Intelli">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-11-28T01:29:07.650Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用 typinator 提升开发效率，让你的代码飞起来">
+<meta name="twitter:description" content="[toc] 使用 typinator 提升开发效率，让你的代码飞起来1 背景开发过程中，总会免不了编写一些重复的模版代码，保存模版代码的方式很多，比通过通过 IDEA 的 Templates 创建模版代码、VSCode 的 Snippets 等等方式，但是这类特定某些 IDE 的 Templates 或者 Snippets 的方式有较大的局限性，像我这样没事需要用到一系列 IDE （Intelli">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>使用 typinator 提升开发效率，让你的代码飞起来</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3">
+    
+      <div id="header-post-nav">
+  <span id="nav">
+      <ul>
+         
+          <li><b><a href="/">Home</a></b></li>
+         
+          <li><b><a href="/archives/">Writing</a></b></li>
+         
+          <li><b><a href="/tags/">Tags</a></b></li>
+         
+          <li><b><a href="/about/">About</a></b></li>
+         
+          <li><b><a href="/feed.xml">RSS</a></b></li>
+        
+      </ul>
+  </span>
+</div>
+
+<div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/feed.xml">RSS</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2019/07/02/rapidooo-v115/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://blog.wangjiegulu.com/2019/11/26/use_typinator_to_improve_development_efficiency/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://blog.wangjiegulu.com/2019/11/26/use_typinator_to_improve_development_efficiency/&text=使用 typinator 提升开发效率，让你的代码飞起来"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.wangjiegulu.com/2019/11/26/use_typinator_to_improve_development_efficiency/&title=使用 typinator 提升开发效率，让你的代码飞起来"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.wangjiegulu.com/2019/11/26/use_typinator_to_improve_development_efficiency/&is_video=false&description=使用 typinator 提升开发效率，让你的代码飞起来"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=使用 typinator 提升开发效率，让你的代码飞起来&body=Check out this article: https://blog.wangjiegulu.com/2019/11/26/use_typinator_to_improve_development_efficiency/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.wangjiegulu.com/2019/11/26/use_typinator_to_improve_development_efficiency/&title=使用 typinator 提升开发效率，让你的代码飞起来"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.wangjiegulu.com/2019/11/26/use_typinator_to_improve_development_efficiency/&title=使用 typinator 提升开发效率，让你的代码飞起来"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.wangjiegulu.com/2019/11/26/use_typinator_to_improve_development_efficiency/&title=使用 typinator 提升开发效率，让你的代码飞起来"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://blog.wangjiegulu.com/2019/11/26/use_typinator_to_improve_development_efficiency/&title=使用 typinator 提升开发效率，让你的代码飞起来"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.wangjiegulu.com/2019/11/26/use_typinator_to_improve_development_efficiency/&name=使用 typinator 提升开发效率，让你的代码飞起来&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#使用-typinator-提升开发效率，让你的代码飞起来"><span class="toc-number">1.</span> <span class="toc-text">使用 typinator 提升开发效率，让你的代码飞起来</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-背景"><span class="toc-number">1.1.</span> <span class="toc-text">1 背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Typinator"><span class="toc-number">1.2.</span> <span class="toc-text">2 Typinator</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-优点和缺点"><span class="toc-number">1.3.</span> <span class="toc-text">3 优点和缺点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#优点"><span class="toc-number">1.3.1.</span> <span class="toc-text">优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#缺点"><span class="toc-number">1.3.2.</span> <span class="toc-text">缺点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-功能"><span class="toc-number">1.4.</span> <span class="toc-text">4 功能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-配置"><span class="toc-number">1.4.1.</span> <span class="toc-text">4.1 配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-1-Abbeviation-Set"><span class="toc-number">1.4.1.1.</span> <span class="toc-text">4.1.1 Abbeviation Set</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-2-Regular-Expression-Set"><span class="toc-number">1.4.1.2.</span> <span class="toc-text">4.1.2 Regular Expression Set</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-使用"><span class="toc-number">1.4.2.</span> <span class="toc-text">4.2 使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-其他"><span class="toc-number">1.5.</span> <span class="toc-text">5 其他</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-实时备份配置到-Google-Drive"><span class="toc-number">1.5.1.</span> <span class="toc-text">5.1 实时备份配置到 Google Drive</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-举个栗子"><span class="toc-number">1.6.</span> <span class="toc-text">6 举个栗子</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-单位自动转换"><span class="toc-number">1.6.1.</span> <span class="toc-text">6.1 单位自动转换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-Git-命令提示"><span class="toc-number">1.6.2.</span> <span class="toc-text">6.2 Git 命令提示</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        使用 typinator 提升开发效率，让你的代码飞起来
+    </h1>
+
+
+
+    <div class="meta"  style="margin-top:12px;">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name" style="margin-left: 12px">Wang Jie</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2019-11-26T06:09:49.767Z" itemprop="datePublished">2019-11-26</time>
+    </div>
+
+<br/>
+      
+    <div class="article-tag">
+        <i class="fas fa-tag" style="margin-top: 20px"></i>
+        <a class="tag-link" href="/tags/automate/">automate</a>, <a class="tag-link" href="/tags/developer/">developer</a>, <a class="tag-link" href="/tags/typinator/">typinator</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  
+  <div class="content" itemprop="articleBody">
+    
+    
+      <!-- <img class="header-img" src="https://images.unsplash.com/photo-1516062423079-7ca13cdc7f5a?ixlib=rb-0.3.5&amp;s=8f6373676ada5dcf363a679d5a81a2a2&amp;auto=format&amp;fit=crop&amp;w=1361&amp;q=80" /> -->
+      
+
+        <img src="https://images.unsplash.com/photo-1516062423079-7ca13cdc7f5a?ixlib=rb-0.3.5&amp;s=8f6373676ada5dcf363a679d5a81a2a2&amp;auto=format&amp;fit=crop&amp;w=1361&amp;q=80" style="border-radius: 3px;"/>
+        
+      
+      
+    
+
+
+    <div class="md-content">
+      <p>[toc]</p>
+<h1 id="使用-typinator-提升开发效率，让你的代码飞起来"><a href="#使用-typinator-提升开发效率，让你的代码飞起来" class="headerlink" title="使用 typinator 提升开发效率，让你的代码飞起来"></a>使用 typinator 提升开发效率，让你的代码飞起来</h1><h2 id="1-背景"><a href="#1-背景" class="headerlink" title="1 背景"></a>1 背景</h2><p>开发过程中，总会免不了编写一些重复的模版代码，保存模版代码的方式很多，比通过通过 IDEA 的 <code>Templates</code> 创建模版代码、<code>VSCode</code> 的 <code>Snippets</code> 等等方式，但是这类特定某些 IDE 的 <code>Templates</code> 或者 <code>Snippets</code> 的方式有较大的局限性，像我这样没事需要用到一系列 IDE （Intellij IDEA、PyCharm、WebStorm、VSCode、Sublime Text 等等），甚至是写博客的 Markdown 编辑器中都可能会使用到的用户就很难在某个地方同意管理这些代码片段。</p>
+<p>当然，你可以把所有代码保存到印象笔记等云笔记中，按照某些维度（语言、功能等）进行分类。但是在我们工作中，切换到云笔记查找模版代码会非常痛苦。</p>
+<h2 id="2-Typinator"><a href="#2-Typinator" class="headerlink" title="2 Typinator"></a>2 Typinator</h2><blockquote>
+<p>官网：<a href="https://www.ergonis.com/products/typinator/" target="_blank" rel="noopener">https://www.ergonis.com/products/typinator/</a><br>文档：<a href="https://www.ergonis.com/products/typinator/TypinatorUsersGuide.pdf" target="_blank" rel="noopener">https://www.ergonis.com/products/typinator/TypinatorUsersGuide.pdf</a></p>
+</blockquote>
+<p>Typinator 并不是像 <a href="https://kapeli.com/dash" target="_blank" rel="noopener">Dash</a> 那样是专门为开发打造的产品，但是用它来作为文本片段管理存储工具绝对是绝佳的。</p>
+<blockquote>
+<p>Typinator 的 slogan：Less typing, fewer mistakes. More spare time!</p>
+</blockquote>
+<h2 id="3-优点和缺点"><a href="#3-优点和缺点" class="headerlink" title="3 优点和缺点"></a>3 优点和缺点</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><p>后台运行，通过输入字符串命令触发唤起，不需要进行界面切换，不会造成割裂感觉，流水般的书写自动化的体验<br>强大的自定义命令功能，并且内置各种交互、系统功能结合、内置函数、甚至支持自己编写脚本<br>命令匹配触发功能，除了缩写匹配，还支持正则匹配，这点相对 dash 来说是绝对的优势<br>一次配置可以使用在任意地方：各个 IDE，iTerm2，聊天 app，gmail…；<br>一键搜索</p>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><h2 id="4-功能"><a href="#4-功能" class="headerlink" title="4 功能"></a>4 功能</h2><h3 id="4-1-配置"><a href="#4-1-配置" class="headerlink" title="4.1 配置"></a>4.1 配置</h3><h4 id="4-1-1-Abbeviation-Set"><a href="#4-1-1-Abbeviation-Set" class="headerlink" title="4.1.1 Abbeviation Set"></a>4.1.1 Abbeviation Set</h4><p>缩写</p>
+<h4 id="4-1-2-Regular-Expression-Set"><a href="#4-1-2-Regular-Expression-Set" class="headerlink" title="4.1.2 Regular Expression Set"></a>4.1.2 Regular Expression Set</h4><p>正则表达</p>
+<h3 id="4-2-使用"><a href="#4-2-使用" class="headerlink" title="4.2 使用"></a>4.2 使用</h3><p>一键搜索</p>
+<p>状态 icon</p>
+<h2 id="5-其他"><a href="#5-其他" class="headerlink" title="5 其他"></a>5 其他</h2><h3 id="5-1-实时备份配置到-Google-Drive"><a href="#5-1-实时备份配置到-Google-Drive" class="headerlink" title="5.1 实时备份配置到 Google Drive"></a>5.1 实时备份配置到 Google Drive</h3><p>自定义配置文件目录</p>
+<p>对配置文件进行备份</p>
+<h2 id="6-举个栗子"><a href="#6-举个栗子" class="headerlink" title="6 举个栗子"></a>6 举个栗子</h2><h3 id="6-1-单位自动转换"><a href="#6-1-单位自动转换" class="headerlink" title="6.1 单位自动转换"></a>6.1 单位自动转换</h3><h3 id="6-2-Git-命令提示"><a href="#6-2-Git-命令提示" class="headerlink" title="6.2 Git 命令提示"></a>6.2 Git 命令提示</h3><p>为什么不用 alias ？</p>
+<ul>
+<li>看不到真正的命令是怎么样的</li>
+<li>只能在 terminal 中使用，无法在其他地方使用</li>
+</ul>
+
+    </div>
+
+    <br/>
+    <hr>
+
+    
+    <div class="post-copyright" style="margin-top: 20px;">
+        <strong>来源博客：</strong><a href="https://blog.wangjiegulu.com">Wang Jie's Blog</a><br/>
+         <strong>本文链接：</strong><a href="https://blog.wangjiegulu.com/2019/11/26/use_typinator_to_improve_development_efficiency/">https://blog.wangjiegulu.com/2019/11/26/use_typinator_to_improve_development_efficiency/</a><br/>
+         <strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处。
+    </div>
+    
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/feed.xml">RSS</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#使用-typinator-提升开发效率，让你的代码飞起来"><span class="toc-number">1.</span> <span class="toc-text">使用 typinator 提升开发效率，让你的代码飞起来</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-背景"><span class="toc-number">1.1.</span> <span class="toc-text">1 背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Typinator"><span class="toc-number">1.2.</span> <span class="toc-text">2 Typinator</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-优点和缺点"><span class="toc-number">1.3.</span> <span class="toc-text">3 优点和缺点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#优点"><span class="toc-number">1.3.1.</span> <span class="toc-text">优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#缺点"><span class="toc-number">1.3.2.</span> <span class="toc-text">缺点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-功能"><span class="toc-number">1.4.</span> <span class="toc-text">4 功能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-配置"><span class="toc-number">1.4.1.</span> <span class="toc-text">4.1 配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-1-Abbeviation-Set"><span class="toc-number">1.4.1.1.</span> <span class="toc-text">4.1.1 Abbeviation Set</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-2-Regular-Expression-Set"><span class="toc-number">1.4.1.2.</span> <span class="toc-text">4.1.2 Regular Expression Set</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-使用"><span class="toc-number">1.4.2.</span> <span class="toc-text">4.2 使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-其他"><span class="toc-number">1.5.</span> <span class="toc-text">5 其他</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-实时备份配置到-Google-Drive"><span class="toc-number">1.5.1.</span> <span class="toc-text">5.1 实时备份配置到 Google Drive</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-举个栗子"><span class="toc-number">1.6.</span> <span class="toc-text">6 举个栗子</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-单位自动转换"><span class="toc-number">1.6.1.</span> <span class="toc-text">6.1 单位自动转换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-Git-命令提示"><span class="toc-number">1.6.2.</span> <span class="toc-text">6.2 Git 命令提示</span></a></li></ol></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://blog.wangjiegulu.com/2019/11/26/use_typinator_to_improve_development_efficiency/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://blog.wangjiegulu.com/2019/11/26/use_typinator_to_improve_development_efficiency/&text=使用 typinator 提升开发效率，让你的代码飞起来"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.wangjiegulu.com/2019/11/26/use_typinator_to_improve_development_efficiency/&title=使用 typinator 提升开发效率，让你的代码飞起来"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.wangjiegulu.com/2019/11/26/use_typinator_to_improve_development_efficiency/&is_video=false&description=使用 typinator 提升开发效率，让你的代码飞起来"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=使用 typinator 提升开发效率，让你的代码飞起来&body=Check out this article: https://blog.wangjiegulu.com/2019/11/26/use_typinator_to_improve_development_efficiency/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.wangjiegulu.com/2019/11/26/use_typinator_to_improve_development_efficiency/&title=使用 typinator 提升开发效率，让你的代码飞起来"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.wangjiegulu.com/2019/11/26/use_typinator_to_improve_development_efficiency/&title=使用 typinator 提升开发效率，让你的代码飞起来"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.wangjiegulu.com/2019/11/26/use_typinator_to_improve_development_efficiency/&title=使用 typinator 提升开发效率，让你的代码飞起来"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://blog.wangjiegulu.com/2019/11/26/use_typinator_to_improve_development_efficiency/&title=使用 typinator 提升开发效率，让你的代码飞起来"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.wangjiegulu.com/2019/11/26/use_typinator_to_improve_development_efficiency/&name=使用 typinator 提升开发效率，让你的代码飞起来&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2020 Wang Jie
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/feed.xml">RSS</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-111189680-2', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'blog-wangjiegulu-com';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+
