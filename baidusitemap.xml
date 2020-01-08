@@ -4,36 +4,6 @@
 
     
   <url>
-    <loc>https://blog.wangjiegulu.com/2019/11/26/use_typinator_to_improve_development_efficiency/</loc>
-    <lastmod>2019-11-28T01:29:07.650Z</lastmod>
-    <data>
-        <display>
-        <title>使用 typinator 提升开发效率，让你的代码飞起来</title>
-        <pubTime>2019-11-26T06:09:49.767Z</pubTime>
-        
-        <tag>automate</tag>
-         
-        <tag>typinator</tag>
-         
-        <tag>developer</tag>
-         
-         
-           
-             
-              <breadCrumb title="typinator" url="https://blog.wangjiegulu.com/categories/typinator/"/>
-          
-             
-              <breadCrumb title="developer" url="https://blog.wangjiegulu.com/categories/typinator/developer/"/>
-          
-             
-              <breadCrumb title="automate" url="https://blog.wangjiegulu.com/categories/typinator/developer/automate/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://blog.wangjiegulu.com/2019/05/31/huginn_automatic_backup/</loc>
     <lastmod>2019-11-14T07:21:50.130Z</lastmod>
     <data>
@@ -224,9 +194,9 @@
         <title>Huginn 实现自动通过 Telegram 推送豆瓣高分电影</title>
         <pubTime>2018-11-16T03:08:54.025Z</pubTime>
         
-        <tag>ifttt</tag>
-         
         <tag>automate</tag>
+         
+        <tag>ifttt</tag>
          
         <tag>huginn</tag>
          
@@ -984,9 +954,9 @@
         <title>Huginn实现自动通过slack推送豆瓣高分电影</title>
         <pubTime>2018-04-03T08:33:40.000Z</pubTime>
         
-        <tag>ifttt</tag>
-         
         <tag>automate</tag>
+         
+        <tag>ifttt</tag>
          
         <tag>huginn</tag>
          
@@ -1185,9 +1155,9 @@
         <title>Huginn及环境搭建</title>
         <pubTime>2018-04-02T13:07:39.000Z</pubTime>
         
-        <tag>ifttt</tag>
-         
         <tag>automate</tag>
+         
+        <tag>ifttt</tag>
          
         <tag>huginn</tag>
          
@@ -2685,11 +2655,11 @@
         
         <tag>android</tag>
          
+        <tag>automate</tag>
+         
         <tag>ifttt</tag>
          
         <tag>ifctt</tag>
-         
-        <tag>automate</tag>
          
         <tag>huginn</tag>
          
@@ -3064,11 +3034,11 @@
         <title>在Ubuntu上安装Hadoop（单机模式）步骤</title>
         <pubTime>2014-02-17T07:49:00.000Z</pubTime>
         
+        <tag>java</tag>
+         
         <tag>j2ee</tag>
          
         <tag>java web</tag>
-         
-        <tag>java</tag>
          
         <tag>ubuntu</tag>
          
@@ -3152,11 +3122,11 @@
         <title>WEB项目的分层结构</title>
         <pubTime>2012-11-30T03:04:00.000Z</pubTime>
         
+        <tag>java</tag>
+         
         <tag>j2ee</tag>
          
         <tag>java web</tag>
-         
-        <tag>java</tag>
          
          
            
@@ -3734,11 +3704,11 @@
         
         <tag>android</tag>
          
+        <tag>java</tag>
+         
         <tag>j2ee</tag>
          
         <tag>java web</tag>
-         
-        <tag>java</tag>
          
         <tag>Hbase</tag>
          
@@ -4429,12 +4399,12 @@
 
     
   <url>
-    <loc>https://blog.wangjiegulu.com/2013/02/19/%E5%B7%A5%E5%85%B7%E5%BA%93-JOJSONBuilder%E5%B7%A5%E5%85%B7%E7%B1%BB%E2%80%94%E2%80%94%E4%B8%80%E9%94%AE%E6%8A%8A%E5%A4%9A%E4%B8%AAbean%E5%AF%B9%E8%B1%A1%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2%E4%B8%BAJSON%E6%A0%BC%E5%BC%8F%E6%95%B0%E6%8D%AE/</loc>
+    <loc>https://blog.wangjiegulu.com/2016/08/29/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/</loc>
     <lastmod>2018-01-29T12:36:41.000Z</lastmod>
     <data>
         <display>
-        <title>[工具库]JOJSONBuilder工具类——一键把多个bean对象数据转换为JSON格式数据</title>
-        <pubTime>2013-02-19T09:30:00.000Z</pubTime>
+        <title>网络基础</title>
+        <pubTime>2016-08-29T06:10:00.000Z</pubTime>
         
          
            
@@ -4459,12 +4429,12 @@
 
     
   <url>
-    <loc>https://blog.wangjiegulu.com/2016/08/29/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/</loc>
+    <loc>https://blog.wangjiegulu.com/2013/02/19/%E5%B7%A5%E5%85%B7%E5%BA%93-JOXMLBuilder%E5%B7%A5%E5%85%B7%E7%B1%BB%E2%80%94%E2%80%94%E4%B8%80%E9%94%AE%E6%8A%8A%E5%A4%9A%E4%B8%AAbean%E5%AF%B9%E8%B1%A1%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2%E4%B8%BAXML%E6%A0%BC%E5%BC%8F%E6%95%B0%E6%8D%AE/</loc>
     <lastmod>2018-01-29T12:36:41.000Z</lastmod>
     <data>
         <display>
-        <title>网络基础</title>
-        <pubTime>2016-08-29T06:10:00.000Z</pubTime>
+        <title>[工具库]JOXMLBuilder工具类——一键把多个bean对象数据转换为XML格式数据</title>
+        <pubTime>2013-02-19T09:14:00.000Z</pubTime>
         
          
            
@@ -4474,12 +4444,12 @@
 
     
   <url>
-    <loc>https://blog.wangjiegulu.com/2013/02/19/%E5%B7%A5%E5%85%B7%E5%BA%93-JOXMLBuilder%E5%B7%A5%E5%85%B7%E7%B1%BB%E2%80%94%E2%80%94%E4%B8%80%E9%94%AE%E6%8A%8A%E5%A4%9A%E4%B8%AAbean%E5%AF%B9%E8%B1%A1%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2%E4%B8%BAXML%E6%A0%BC%E5%BC%8F%E6%95%B0%E6%8D%AE/</loc>
+    <loc>https://blog.wangjiegulu.com/2013/02/19/%E5%B7%A5%E5%85%B7%E5%BA%93-JOJSONBuilder%E5%B7%A5%E5%85%B7%E7%B1%BB%E2%80%94%E2%80%94%E4%B8%80%E9%94%AE%E6%8A%8A%E5%A4%9A%E4%B8%AAbean%E5%AF%B9%E8%B1%A1%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2%E4%B8%BAJSON%E6%A0%BC%E5%BC%8F%E6%95%B0%E6%8D%AE/</loc>
     <lastmod>2018-01-29T12:36:41.000Z</lastmod>
     <data>
         <display>
-        <title>[工具库]JOXMLBuilder工具类——一键把多个bean对象数据转换为XML格式数据</title>
-        <pubTime>2013-02-19T09:14:00.000Z</pubTime>
+        <title>[工具库]JOJSONBuilder工具类——一键把多个bean对象数据转换为JSON格式数据</title>
+        <pubTime>2013-02-19T09:30:00.000Z</pubTime>
         
          
            
