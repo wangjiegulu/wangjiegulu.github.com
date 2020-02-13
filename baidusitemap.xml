@@ -4,6 +4,31 @@
 
     
   <url>
+    <loc>https://blog.wangjiegulu.com/2020/02/13/fix-jest-typeorm-transaction-decorator/</loc>
+    <lastmod>2020-02-13T07:21:05.312Z</lastmod>
+    <data>
+        <display>
+        <title>TypeORM @Transaction 时使用 Jest 进行单元测试</title>
+        <pubTime>2020-02-13T06:06:10.500Z</pubTime>
+        
+        <tag>nodejs</tag>
+         
+        <tag>express</tag>
+         
+        <tag>typeorm</tag>
+         
+        <tag>decorator</tag>
+         
+        <tag>transaction</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://blog.wangjiegulu.com/2019/05/31/huginn_automatic_backup/</loc>
     <lastmod>2019-11-14T07:21:50.130Z</lastmod>
     <data>
@@ -154,6 +179,8 @@
          
         <tag>huginn</tag>
          
+        <tag>mysql</tag>
+         
         <tag>ssr</tag>
          
         <tag>shadowsocks</tag>
@@ -163,8 +190,6 @@
         <tag>docker</tag>
          
         <tag>docker hub</tag>
-         
-        <tag>mysql</tag>
          
         <tag>migration</tag>
          
@@ -240,11 +265,11 @@
          
         <tag>huginn</tag>
          
+        <tag>mysql</tag>
+         
         <tag>docker</tag>
          
         <tag>docker hub</tag>
-         
-        <tag>mysql</tag>
          
         <tag>migration</tag>
          
@@ -993,9 +1018,9 @@
         <title>构建自己的 Smart Life 私有云（二）-> 连通 IFTTT & Slack</title>
         <pubTime>2018-09-26T08:45:09.438Z</pubTime>
         
-        <tag>kotlin</tag>
-         
         <tag>java</tag>
+         
+        <tag>kotlin</tag>
          
         <tag>Smart Life</tag>
          
@@ -1036,9 +1061,9 @@
         <title>构建自己的 Smart Life 私有云（一）-> 破解涂鸦智能插座</title>
         <pubTime>2018-09-26T07:08:09.585Z</pubTime>
         
-        <tag>kotlin</tag>
-         
         <tag>java</tag>
+         
+        <tag>kotlin</tag>
          
         <tag>Smart Life</tag>
          
@@ -1211,11 +1236,11 @@
         
         <tag>android</tag>
          
-        <tag>RecyclerView</tag>
-         
         <tag>ListView</tag>
          
         <tag>best practices</tag>
+         
+        <tag>RecyclerView</tag>
          
          
            
@@ -1238,13 +1263,13 @@
          
         <tag>java web</tag>
          
-        <tag>mysql</tag>
-         
         <tag>struts</tag>
          
         <tag>ibatis</tag>
          
         <tag>spring</tag>
+         
+        <tag>mysql</tag>
          
          
            
@@ -1307,11 +1332,11 @@
         
         <tag>android</tag>
          
-        <tag>view</tag>
-         
         <tag>FloatingActionButton</tag>
          
         <tag>FAB</tag>
+         
+        <tag>view</tag>
          
          
            
@@ -1330,15 +1355,15 @@
         
         <tag>android</tag>
          
-        <tag>dagger2</tag>
-         
-        <tag>DI</tag>
-         
         <tag>dependency injection</tag>
          
         <tag>翻译</tag>
          
         <tag>google</tag>
+         
+        <tag>dagger2</tag>
+         
+        <tag>DI</tag>
          
          
            
@@ -1399,11 +1424,11 @@
         
         <tag>android</tag>
          
+        <tag>library</tag>
+         
         <tag>orm</tag>
          
         <tag>rapidorm</tag>
-         
-        <tag>library</tag>
          
         <tag>database</tag>
          
@@ -1426,15 +1451,15 @@
         
         <tag>android</tag>
          
-        <tag>dagger2</tag>
-         
-        <tag>DI</tag>
-         
         <tag>dependency injection</tag>
          
         <tag>翻译</tag>
          
         <tag>google</tag>
+         
+        <tag>dagger2</tag>
+         
+        <tag>DI</tag>
          
          
            
@@ -1453,15 +1478,15 @@
         
         <tag>android</tag>
          
-        <tag>dagger2</tag>
-         
-        <tag>DI</tag>
-         
         <tag>dependency injection</tag>
          
         <tag>翻译</tag>
          
         <tag>google</tag>
+         
+        <tag>dagger2</tag>
+         
+        <tag>DI</tag>
          
          
            
@@ -1480,15 +1505,15 @@
         
         <tag>android</tag>
          
+        <tag>dependency injection</tag>
+         
+        <tag>翻译</tag>
+         
         <tag>dagger2</tag>
          
         <tag>memory</tag>
          
         <tag>DI</tag>
-         
-        <tag>dependency injection</tag>
-         
-        <tag>翻译</tag>
          
          
            
@@ -1507,11 +1532,11 @@
         
         <tag>android</tag>
          
+        <tag>gradle</tag>
+         
         <tag>maven</tag>
          
         <tag>open source</tag>
-         
-        <tag>gradle</tag>
          
         <tag>uploadArchive</tag>
          
@@ -1580,9 +1605,9 @@
         
         <tag>android</tag>
          
-        <tag>TabHost</tag>
-         
         <tag>fragment</tag>
+         
+        <tag>TabHost</tag>
          
          
            
@@ -1641,11 +1666,11 @@
         <title>Lottie简介（翻译）</title>
         <pubTime>2017-02-04T04:21:00.000Z</pubTime>
         
-        <tag>lottie</tag>
+        <tag>animation</tag>
          
         <tag>animator</tag>
          
-        <tag>animation</tag>
+        <tag>lottie</tag>
          
          
            
@@ -1687,15 +1712,15 @@
         
         <tag>android</tag>
          
-        <tag>dagger2</tag>
-         
-        <tag>DI</tag>
-         
         <tag>dependency injection</tag>
          
         <tag>翻译</tag>
          
         <tag>google</tag>
+         
+        <tag>dagger2</tag>
+         
+        <tag>DI</tag>
          
         <tag>RxJava</tag>
          
@@ -1718,9 +1743,9 @@
         
         <tag>android</tag>
          
-        <tag>orm</tag>
-         
         <tag>library</tag>
+         
+        <tag>orm</tag>
          
         <tag>database</tag>
          
@@ -1820,11 +1845,11 @@
         
         <tag>android</tag>
          
-        <tag>RecyclerView</tag>
-         
         <tag>ListView</tag>
          
         <tag>best practices</tag>
+         
+        <tag>RecyclerView</tag>
          
         <tag>SeizeRecyclerView</tag>
          
@@ -1897,9 +1922,9 @@
         
         <tag>java</tag>
          
-        <tag>aop</tag>
-         
         <tag>dynamic proxy</tag>
+         
+        <tag>aop</tag>
          
         <tag>log</tag>
          
@@ -1943,11 +1968,11 @@
         
         <tag>android</tag>
          
-        <tag>RecyclerView</tag>
-         
         <tag>ListView</tag>
          
         <tag>best practices</tag>
+         
+        <tag>RecyclerView</tag>
          
          
            
@@ -2110,11 +2135,11 @@
         <title>[Android]AndroidBucket增加碎片SubLayout功能及AISubLayout的注解支持</title>
         <pubTime>2014-05-05T12:31:00.000Z</pubTime>
         
-        <tag>library</tag>
+        <tag>android bucket</tag>
          
         <tag>annotations</tag>
          
-        <tag>android bucket</tag>
+        <tag>library</tag>
          
          
            
@@ -2156,11 +2181,11 @@
          
         <tag>unit test</tag>
          
+        <tag>annotations</tag>
+         
         <tag>JUnit</tag>
          
         <tag>Junit Rules</tag>
-         
-        <tag>annotations</tag>
          
          
            
@@ -2223,15 +2248,15 @@
         
         <tag>android</tag>
          
-        <tag>dagger2</tag>
-         
-        <tag>DI</tag>
-         
         <tag>dependency injection</tag>
          
         <tag>翻译</tag>
          
         <tag>google</tag>
+         
+        <tag>dagger2</tag>
+         
+        <tag>DI</tag>
          
          
            
@@ -2250,15 +2275,15 @@
         
         <tag>android</tag>
          
-        <tag>dagger2</tag>
-         
-        <tag>DI</tag>
-         
         <tag>dependency injection</tag>
          
         <tag>翻译</tag>
          
         <tag>google</tag>
+         
+        <tag>dagger2</tag>
+         
+        <tag>DI</tag>
          
          
            
@@ -2277,15 +2302,15 @@
         
         <tag>android</tag>
          
-        <tag>dependency injection</tag>
-         
         <tag>mvp</tag>
          
-        <tag>mvc</tag>
+        <tag>dependency injection</tag>
+         
+        <tag>unit test</tag>
          
         <tag>framework</tag>
          
-        <tag>unit test</tag>
+        <tag>mvc</tag>
          
          
            
@@ -2304,15 +2329,15 @@
         
         <tag>android</tag>
          
-        <tag>dagger2</tag>
-         
-        <tag>DI</tag>
-         
         <tag>dependency injection</tag>
          
         <tag>翻译</tag>
          
         <tag>google</tag>
+         
+        <tag>dagger2</tag>
+         
+        <tag>DI</tag>
          
          
            
@@ -2352,11 +2377,11 @@
         
         <tag>android</tag>
          
-        <tag>RecyclerView</tag>
-         
         <tag>ListView</tag>
          
         <tag>best practices</tag>
+         
+        <tag>RecyclerView</tag>
          
          
            
@@ -2375,11 +2400,11 @@
         
         <tag>android</tag>
          
+        <tag>library</tag>
+         
         <tag>orm</tag>
          
         <tag>rapidorm</tag>
-         
-        <tag>library</tag>
          
         <tag>database</tag>
          
@@ -2402,15 +2427,15 @@
         
         <tag>android</tag>
          
-        <tag>dagger2</tag>
-         
-        <tag>DI</tag>
-         
         <tag>dependency injection</tag>
          
         <tag>翻译</tag>
          
         <tag>google</tag>
+         
+        <tag>dagger2</tag>
+         
+        <tag>DI</tag>
          
          
            
@@ -2429,11 +2454,11 @@
         
         <tag>android</tag>
          
+        <tag>framework</tag>
+         
         <tag>翻译</tag>
          
         <tag>best practices</tag>
-         
-        <tag>framework</tag>
          
          
            
@@ -2473,11 +2498,11 @@
         
         <tag>android</tag>
          
+        <tag>library</tag>
+         
         <tag>orm</tag>
          
         <tag>rapidorm</tag>
-         
-        <tag>library</tag>
          
         <tag>database</tag>
          
@@ -2521,15 +2546,15 @@
         
         <tag>android</tag>
          
-        <tag>library</tag>
-         
         <tag>annotations</tag>
+         
+        <tag>library</tag>
          
         <tag>proxy</tag>
          
-        <tag>http</tag>
-         
         <tag>dynamic proxy</tag>
+         
+        <tag>http</tag>
          
          
            
@@ -2550,9 +2575,9 @@
          
         <tag>ListView</tag>
          
-        <tag>best practices</tag>
-         
         <tag>optimize</tag>
+         
+        <tag>best practices</tag>
          
          
            
@@ -2613,13 +2638,13 @@
         
         <tag>android</tag>
          
-        <tag>best practices</tag>
-         
         <tag>mvp</tag>
+         
+        <tag>framework</tag>
          
         <tag>mvc</tag>
          
-        <tag>framework</tag>
+        <tag>best practices</tag>
          
          
            
@@ -2726,13 +2751,13 @@
         
         <tag>android</tag>
          
-        <tag>maven</tag>
+        <tag>java</tag>
          
         <tag>gradle</tag>
          
         <tag>gradle plugin</tag>
          
-        <tag>java</tag>
+        <tag>maven</tag>
          
         <tag>repository</tag>
          
@@ -2804,13 +2829,13 @@
         
         <tag>android</tag>
          
-        <tag>dagger2</tag>
+        <tag>framework</tag>
          
         <tag>翻译</tag>
          
-        <tag>kotlin</tag>
+        <tag>dagger2</tag>
          
-        <tag>framework</tag>
+        <tag>kotlin</tag>
          
         <tag>architecture</tag>
          
@@ -2872,9 +2897,9 @@
         
         <tag>android</tag>
          
-        <tag>翻译</tag>
-         
         <tag>memory leak</tag>
+         
+        <tag>翻译</tag>
          
          
            
@@ -2975,9 +3000,9 @@
         
         <tag>android</tag>
          
-        <tag>RadioGroup</tag>
-         
         <tag>TabHost</tag>
+         
+        <tag>RadioGroup</tag>
          
         <tag>Gallery</tag>
          
@@ -3034,11 +3059,11 @@
         <title>在Ubuntu上安装Hadoop（单机模式）步骤</title>
         <pubTime>2014-02-17T07:49:00.000Z</pubTime>
         
+        <tag>java</tag>
+         
         <tag>j2ee</tag>
          
         <tag>java web</tag>
-         
-        <tag>java</tag>
          
         <tag>ubuntu</tag>
          
@@ -3122,11 +3147,11 @@
         <title>WEB项目的分层结构</title>
         <pubTime>2012-11-30T03:04:00.000Z</pubTime>
         
+        <tag>java</tag>
+         
         <tag>j2ee</tag>
          
         <tag>java web</tag>
-         
-        <tag>java</tag>
          
          
            
@@ -3548,9 +3573,9 @@
         
         <tag>java</tag>
          
-        <tag>pattern</tag>
-         
         <tag>proxy</tag>
+         
+        <tag>pattern</tag>
          
          
            
@@ -3664,11 +3689,11 @@
         <title>IntelliJ IDEA 12 创建Web项目 教程 超详细版</title>
         <pubTime>2013-05-18T03:00:00.000Z</pubTime>
         
-        <tag>Intellij IDEA</tag>
-         
         <tag>j2ee</tag>
          
         <tag>java web</tag>
+         
+        <tag>Intellij IDEA</tag>
          
          
            
@@ -3704,11 +3729,11 @@
         
         <tag>android</tag>
          
+        <tag>java</tag>
+         
         <tag>j2ee</tag>
          
         <tag>java web</tag>
-         
-        <tag>java</tag>
          
         <tag>Hbase</tag>
          
@@ -3729,11 +3754,11 @@
         
         <tag>orm</tag>
          
+        <tag>Hibernate</tag>
+         
         <tag>j2ee</tag>
          
         <tag>java web</tag>
-         
-        <tag>Hibernate</tag>
          
          
            
@@ -3969,9 +3994,9 @@
         
         <tag>android</tag>
          
-        <tag>UI</tag>
-         
         <tag>tips</tag>
+         
+        <tag>UI</tag>
          
         <tag>unit</tag>
          
@@ -4059,9 +4084,9 @@
          
         <tag>ListView</tag>
          
-        <tag>tips</tag>
-         
         <tag>view</tag>
+         
+        <tag>tips</tag>
          
          
            
@@ -4158,13 +4183,13 @@
         
         <tag>android</tag>
          
-        <tag>best practices</tag>
-         
         <tag>mvp</tag>
+         
+        <tag>framework</tag>
          
         <tag>mvc</tag>
          
-        <tag>framework</tag>
+        <tag>best practices</tag>
          
          
            
@@ -4183,9 +4208,9 @@
         
         <tag>android</tag>
          
-        <tag>exception</tag>
-         
         <tag>ScrollView</tag>
+         
+        <tag>exception</tag>
          
          
            
@@ -4204,11 +4229,11 @@
         
         <tag>android</tag>
          
-        <tag>animator</tag>
+        <tag>property animation</tag>
          
         <tag>animation</tag>
          
-        <tag>property animation</tag>
+        <tag>animator</tag>
          
          
            
@@ -4372,25 +4397,10 @@
         <title>100个高质量Java开发者博客</title>
         <pubTime>2015-02-28T10:22:00.000Z</pubTime>
         
-        <tag>java</tag>
-         
         <tag>blog</tag>
          
+        <tag>java</tag>
          
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://blog.wangjiegulu.com/2013/02/19/%E5%B7%A5%E5%85%B7%E5%BA%93-JOXMLBuilder%E5%B7%A5%E5%85%B7%E7%B1%BB%E2%80%94%E2%80%94%E4%B8%80%E9%94%AE%E6%8A%8A%E5%A4%9A%E4%B8%AAbean%E5%AF%B9%E8%B1%A1%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2%E4%B8%BAXML%E6%A0%BC%E5%BC%8F%E6%95%B0%E6%8D%AE/</loc>
-    <lastmod>2018-01-29T12:36:41.000Z</lastmod>
-    <data>
-        <display>
-        <title>[工具库]JOXMLBuilder工具类——一键把多个bean对象数据转换为XML格式数据</title>
-        <pubTime>2013-02-19T09:14:00.000Z</pubTime>
-        
          
            
         </display>
@@ -4414,12 +4424,27 @@
 
     
   <url>
-    <loc>https://blog.wangjiegulu.com/2013/02/20/%E5%B7%A5%E5%85%B7%E5%BA%93-JFileDownloader%E5%B7%A5%E5%85%B7%E7%B1%BB%E2%80%94%E2%80%94%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8B%E8%BD%BD%E7%BD%91%E7%BB%9C%E6%96%87%E4%BB%B6%EF%BC%8C%E5%B9%B6%E4%BF%9D%E5%AD%98%E5%9C%A8%E6%9C%AC%E5%9C%B0/</loc>
+    <loc>https://blog.wangjiegulu.com/2013/02/19/%E5%B7%A5%E5%85%B7%E5%BA%93-JOXMLBuilder%E5%B7%A5%E5%85%B7%E7%B1%BB%E2%80%94%E2%80%94%E4%B8%80%E9%94%AE%E6%8A%8A%E5%A4%9A%E4%B8%AAbean%E5%AF%B9%E8%B1%A1%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2%E4%B8%BAXML%E6%A0%BC%E5%BC%8F%E6%95%B0%E6%8D%AE/</loc>
     <lastmod>2018-01-29T12:36:41.000Z</lastmod>
     <data>
         <display>
-        <title>[工具库]JFileDownloader工具类——多线程下载网络文件，并保存在本地</title>
-        <pubTime>2013-02-20T09:37:00.000Z</pubTime>
+        <title>[工具库]JOXMLBuilder工具类——一键把多个bean对象数据转换为XML格式数据</title>
+        <pubTime>2013-02-19T09:14:00.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://blog.wangjiegulu.com/2012/06/15/%E8%AE%BE%E7%BD%AEEditText%E6%98%AF%E5%90%A6%E5%8F%AF%E7%BC%96%E8%BE%91/</loc>
+    <lastmod>2018-01-29T12:36:41.000Z</lastmod>
+    <data>
+        <display>
+        <title>设置EditText是否可编辑</title>
+        <pubTime>2012-06-15T02:37:00.000Z</pubTime>
         
          
            
@@ -4444,12 +4469,12 @@
 
     
   <url>
-    <loc>https://blog.wangjiegulu.com/2012/06/15/%E8%AE%BE%E7%BD%AEEditText%E6%98%AF%E5%90%A6%E5%8F%AF%E7%BC%96%E8%BE%91/</loc>
+    <loc>https://blog.wangjiegulu.com/2013/02/20/%E5%B7%A5%E5%85%B7%E5%BA%93-JFileDownloader%E5%B7%A5%E5%85%B7%E7%B1%BB%E2%80%94%E2%80%94%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8B%E8%BD%BD%E7%BD%91%E7%BB%9C%E6%96%87%E4%BB%B6%EF%BC%8C%E5%B9%B6%E4%BF%9D%E5%AD%98%E5%9C%A8%E6%9C%AC%E5%9C%B0/</loc>
     <lastmod>2018-01-29T12:36:41.000Z</lastmod>
     <data>
         <display>
-        <title>设置EditText是否可编辑</title>
-        <pubTime>2012-06-15T02:37:00.000Z</pubTime>
+        <title>[工具库]JFileDownloader工具类——多线程下载网络文件，并保存在本地</title>
+        <pubTime>2013-02-20T09:37:00.000Z</pubTime>
         
          
            

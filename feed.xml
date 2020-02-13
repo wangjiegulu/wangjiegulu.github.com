@@ -6,7 +6,7 @@
   <link href="/feed.xml" rel="self"/>
   
   <link href="https://blog.wangjiegulu.com/"/>
-  <updated>2019-07-02T11:53:46.312Z</updated>
+  <updated>2020-02-13T07:21:05.312Z</updated>
   <id>https://blog.wangjiegulu.com/</id>
   
   <author>
@@ -15,6 +15,38 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>TypeORM @Transaction 时使用 Jest 进行单元测试</title>
+    <link href="https://blog.wangjiegulu.com/2020/02/13/fix-jest-typeorm-transaction-decorator/"/>
+    <id>https://blog.wangjiegulu.com/2020/02/13/fix-jest-typeorm-transaction-decorator/</id>
+    <published>2020-02-13T06:06:10.500Z</published>
+    <updated>2020-02-13T07:21:05.312Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;TypeORM-Transaction-时使用-Jest-进行单元测试&quot;&gt;&lt;a href=&quot;#TypeORM-Transaction-时使用-Jest-进行单元测试&quot; class=&quot;headerlink&quot; title=&quot;TypeORM @Transaction
+        
+      
+    
+    </summary>
+    
+    
+      <category term="nodejs" scheme="https://blog.wangjiegulu.com/tags/nodejs/"/>
+    
+      <category term="express" scheme="https://blog.wangjiegulu.com/tags/express/"/>
+    
+      <category term="typeorm" scheme="https://blog.wangjiegulu.com/tags/typeorm/"/>
+    
+      <category term="decorator" scheme="https://blog.wangjiegulu.com/tags/decorator/"/>
+    
+      <category term="transaction" scheme="https://blog.wangjiegulu.com/tags/transaction/"/>
+    
+  </entry>
   
   <entry>
     <title>领域对象转换库 RapidOOO v1.1.5</title>
@@ -205,6 +237,8 @@
     
       <category term="huginn" scheme="https://blog.wangjiegulu.com/tags/huginn/"/>
     
+      <category term="mysql" scheme="https://blog.wangjiegulu.com/tags/mysql/"/>
+    
       <category term="ssr" scheme="https://blog.wangjiegulu.com/tags/ssr/"/>
     
       <category term="shadowsocks" scheme="https://blog.wangjiegulu.com/tags/shadowsocks/"/>
@@ -214,8 +248,6 @@
       <category term="docker" scheme="https://blog.wangjiegulu.com/tags/docker/"/>
     
       <category term="docker hub" scheme="https://blog.wangjiegulu.com/tags/docker-hub/"/>
-    
-      <category term="mysql" scheme="https://blog.wangjiegulu.com/tags/mysql/"/>
     
       <category term="migration" scheme="https://blog.wangjiegulu.com/tags/migration/"/>
     
@@ -251,11 +283,11 @@
     
       <category term="huginn" scheme="https://blog.wangjiegulu.com/tags/huginn/"/>
     
+      <category term="mysql" scheme="https://blog.wangjiegulu.com/tags/mysql/"/>
+    
       <category term="docker" scheme="https://blog.wangjiegulu.com/tags/docker/"/>
     
       <category term="docker hub" scheme="https://blog.wangjiegulu.com/tags/docker-hub/"/>
-    
-      <category term="mysql" scheme="https://blog.wangjiegulu.com/tags/mysql/"/>
     
       <category term="migration" scheme="https://blog.wangjiegulu.com/tags/migration/"/>
     
@@ -481,9 +513,9 @@
       <category term="IoT" scheme="https://blog.wangjiegulu.com/categories/Smart-Life/IoT/"/>
     
     
-      <category term="kotlin" scheme="https://blog.wangjiegulu.com/tags/kotlin/"/>
-    
       <category term="java" scheme="https://blog.wangjiegulu.com/tags/java/"/>
+    
+      <category term="kotlin" scheme="https://blog.wangjiegulu.com/tags/kotlin/"/>
     
       <category term="Smart Life" scheme="https://blog.wangjiegulu.com/tags/Smart-Life/"/>
     
@@ -529,9 +561,9 @@
       <category term="IoT" scheme="https://blog.wangjiegulu.com/categories/Smart-Life/IoT/"/>
     
     
-      <category term="kotlin" scheme="https://blog.wangjiegulu.com/tags/kotlin/"/>
-    
       <category term="java" scheme="https://blog.wangjiegulu.com/tags/java/"/>
+    
+      <category term="kotlin" scheme="https://blog.wangjiegulu.com/tags/kotlin/"/>
     
       <category term="Smart Life" scheme="https://blog.wangjiegulu.com/tags/Smart-Life/"/>
     
@@ -640,11 +672,11 @@
   </entry>
   
   <entry>
-    <title>Android Architecture Component ViewModel（翻译）</title>
-    <link href="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_viewmodel/"/>
-    <id>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_viewmodel/</id>
+    <title>Android Architecture Component Lifecycle（翻译）</title>
+    <link href="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_lifecycle/"/>
+    <id>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_lifecycle/</id>
     <published>2018-04-15T13:01:00.000Z</published>
-    <updated>2018-11-22T04:14:54.803Z</updated>
+    <updated>2018-11-22T06:56:52.291Z</updated>
     
     <summary type="html">
     
@@ -652,7 +684,7 @@
       
         
         
-          &lt;h1 id=&quot;Android-Architecture-Component-ViewModel（翻译）&quot;&gt;&lt;a href=&quot;#Android-Architecture-Component-ViewModel（翻译）&quot; class=&quot;headerlink&quot;
+          &lt;h1 id=&quot;Android-Architecture-Component-Lifecycle（翻译）&quot;&gt;&lt;a href=&quot;#Android-Architecture-Component-Lifecycle（翻译）&quot; class=&quot;headerlink&quot;
         
       
     
@@ -688,11 +720,11 @@
   </entry>
   
   <entry>
-    <title>Android Architecture Component Lifecycle（翻译）</title>
-    <link href="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_lifecycle/"/>
-    <id>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_lifecycle/</id>
+    <title>Android Architecture Component ViewModel（翻译）</title>
+    <link href="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_viewmodel/"/>
+    <id>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_viewmodel/</id>
     <published>2018-04-15T13:01:00.000Z</published>
-    <updated>2018-11-22T06:56:52.291Z</updated>
+    <updated>2018-11-22T04:14:54.803Z</updated>
     
     <summary type="html">
     
@@ -700,7 +732,7 @@
       
         
         
-          &lt;h1 id=&quot;Android-Architecture-Component-Lifecycle（翻译）&quot;&gt;&lt;a href=&quot;#Android-Architecture-Component-Lifecycle（翻译）&quot; class=&quot;headerlink&quot;
+          &lt;h1 id=&quot;Android-Architecture-Component-ViewModel（翻译）&quot;&gt;&lt;a href=&quot;#Android-Architecture-Component-ViewModel（翻译）&quot; class=&quot;headerlink&quot;
         
       
     
@@ -845,54 +877,6 @@
         
         
           &lt;h1 id=&quot;Android-Architecture-Component-DataBinding-–-Architecture（翻译）&quot;&gt;&lt;a
-        
-      
-    
-    </summary>
-    
-      <category term="Android Architecture Component" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/"/>
-    
-      <category term="kotlin" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/kotlin/"/>
-    
-      <category term="DataBinding" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/kotlin/DataBinding/"/>
-    
-    
-      <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
-    
-      <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
-    
-      <category term="kotlin" scheme="https://blog.wangjiegulu.com/tags/kotlin/"/>
-    
-      <category term="architecture" scheme="https://blog.wangjiegulu.com/tags/architecture/"/>
-    
-      <category term="Android Architecture Component" scheme="https://blog.wangjiegulu.com/tags/Android-Architecture-Component/"/>
-    
-      <category term="aac" scheme="https://blog.wangjiegulu.com/tags/aac/"/>
-    
-      <category term="ViewModel" scheme="https://blog.wangjiegulu.com/tags/ViewModel/"/>
-    
-      <category term="LiveData" scheme="https://blog.wangjiegulu.com/tags/LiveData/"/>
-    
-      <category term="DataBinding" scheme="https://blog.wangjiegulu.com/tags/DataBinding/"/>
-    
-      <category term="Lifecycles" scheme="https://blog.wangjiegulu.com/tags/Lifecycles/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Android Architecture Component DataBinding -- Binding adapters（翻译）</title>
-    <link href="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_binding_adapters/"/>
-    <id>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_binding_adapters/</id>
-    <published>2018-04-15T08:01:00.000Z</published>
-    <updated>2018-11-22T01:44:46.035Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;Android-Architecture-Component-DataBinding-–-Binding-adapters（翻译）&quot;&gt;&lt;a
         
       
     

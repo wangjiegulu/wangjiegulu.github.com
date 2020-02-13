@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#ffffff">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#ffffff">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#ffffff">
+
+
+    <meta name="description" content="TypeORM @Transaction 时使用 Jest 进行单元测试 所有细节代码见这里：https://github.com/wangjiegulu/express_server_demo  当使用 Service 使用 @Transcation 进行事务操作时，无法进行单元测试。 AccountService： 123456789@Service()export default class">
+<meta name="keywords" content="nodejs,express,typeorm,decorator,transaction">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TypeORM @Transaction 时使用 Jest 进行单元测试">
+<meta property="og:url" content="https://blog.wangjiegulu.com/2020/02/13/fix-jest-typeorm-transaction-decorator/index.html">
+<meta property="og:site_name" content="Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer">
+<meta property="og:description" content="TypeORM @Transaction 时使用 Jest 进行单元测试 所有细节代码见这里：https://github.com/wangjiegulu/express_server_demo  当使用 Service 使用 @Transcation 进行事务操作时，无法进行单元测试。 AccountService： 123456789@Service()export default class">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-02-13T07:21:05.312Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="TypeORM @Transaction 时使用 Jest 进行单元测试">
+<meta name="twitter:description" content="TypeORM @Transaction 时使用 Jest 进行单元测试 所有细节代码见这里：https://github.com/wangjiegulu/express_server_demo  当使用 Service 使用 @Transcation 进行事务操作时，无法进行单元测试。 AccountService： 123456789@Service()export default class">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>TypeORM @Transaction 时使用 Jest 进行单元测试</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3">
+    
+      <div id="header-post-nav">
+  <span id="nav">
+      <ul>
+         
+          <li><b><a href="/">Home</a></b></li>
+         
+          <li><b><a href="/archives/">Writing</a></b></li>
+         
+          <li><b><a href="/tags/">Tags</a></b></li>
+         
+          <li><b><a href="/about/">About</a></b></li>
+         
+          <li><b><a href="/feed.xml">RSS</a></b></li>
+        
+      </ul>
+  </span>
+</div>
+
+<div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/feed.xml">RSS</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2019/07/02/rapidooo-v115/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://blog.wangjiegulu.com/2020/02/13/fix-jest-typeorm-transaction-decorator/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://blog.wangjiegulu.com/2020/02/13/fix-jest-typeorm-transaction-decorator/&text=TypeORM @Transaction 时使用 Jest 进行单元测试"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.wangjiegulu.com/2020/02/13/fix-jest-typeorm-transaction-decorator/&title=TypeORM @Transaction 时使用 Jest 进行单元测试"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.wangjiegulu.com/2020/02/13/fix-jest-typeorm-transaction-decorator/&is_video=false&description=TypeORM @Transaction 时使用 Jest 进行单元测试"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=TypeORM @Transaction 时使用 Jest 进行单元测试&body=Check out this article: https://blog.wangjiegulu.com/2020/02/13/fix-jest-typeorm-transaction-decorator/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.wangjiegulu.com/2020/02/13/fix-jest-typeorm-transaction-decorator/&title=TypeORM @Transaction 时使用 Jest 进行单元测试"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.wangjiegulu.com/2020/02/13/fix-jest-typeorm-transaction-decorator/&title=TypeORM @Transaction 时使用 Jest 进行单元测试"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.wangjiegulu.com/2020/02/13/fix-jest-typeorm-transaction-decorator/&title=TypeORM @Transaction 时使用 Jest 进行单元测试"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://blog.wangjiegulu.com/2020/02/13/fix-jest-typeorm-transaction-decorator/&title=TypeORM @Transaction 时使用 Jest 进行单元测试"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.wangjiegulu.com/2020/02/13/fix-jest-typeorm-transaction-decorator/&name=TypeORM @Transaction 时使用 Jest 进行单元测试&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#TypeORM-Transaction-时使用-Jest-进行单元测试"><span class="toc-number">1.</span> <span class="toc-text">TypeORM @Transaction 时使用 Jest 进行单元测试</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        TypeORM @Transaction 时使用 Jest 进行单元测试
+    </h1>
+
+
+
+    <div class="meta"  style="margin-top:12px;">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name" style="margin-left: 12px">Wang Jie</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2020-02-13T06:06:10.500Z" itemprop="datePublished">2020-02-13</time>
+    </div>
+
+<br/>
+      
+    <div class="article-tag">
+        <i class="fas fa-tag" style="margin-top: 20px"></i>
+        <a class="tag-link" href="/tags/decorator/">decorator</a>, <a class="tag-link" href="/tags/express/">express</a>, <a class="tag-link" href="/tags/nodejs/">nodejs</a>, <a class="tag-link" href="/tags/transaction/">transaction</a>, <a class="tag-link" href="/tags/typeorm/">typeorm</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  
+  <div class="content" itemprop="articleBody">
+    
+    
+      <!-- <img class="header-img" src="https://images.unsplash.com/photo-1516738901171-8eb4fc13bd20?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=2100&amp;q=80" /> -->
+      
+
+        <img src="https://images.unsplash.com/photo-1516738901171-8eb4fc13bd20?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=2100&amp;q=80" style="border-radius: 3px;"/>
+        
+      
+      
+    
+
+
+    <div class="md-content">
+      <h1 id="TypeORM-Transaction-时使用-Jest-进行单元测试"><a href="#TypeORM-Transaction-时使用-Jest-进行单元测试" class="headerlink" title="TypeORM @Transaction 时使用 Jest 进行单元测试"></a>TypeORM @Transaction 时使用 Jest 进行单元测试</h1><blockquote>
+<p>所有细节代码见这里：<a href="https://github.com/wangjiegulu/express_server_demo" target="_blank" rel="noopener">https://github.com/wangjiegulu/express_server_demo</a></p>
+</blockquote>
+<p>当使用 <code>Service</code> 使用 <code>@Transcation</code> 进行事务操作时，无法进行单元测试。</p>
+<p><a href="https://github.com/wangjiegulu/express_server_demo/blob/master/src/bll/AccountService.ts#L29" target="_blank" rel="noopener"><code>AccountService</code></a>：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span>()</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> AccountService &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Transaction</span>()</span><br><span class="line">    <span class="keyword">async</span> loginByWechatMiniApp(loginDetail: <span class="built_in">any</span>, <span class="meta">@TransactionManager</span>() manager?: EntityManager) &#123;</span><br><span class="line">        <span class="comment">// 业务代码省略</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>正常运行时没有问题，但是在执行如下单元测试时报错：</p>
+<p><a href="https://github.com/wangjiegulu/express_server_demo/blob/master/src/test/bll/AccountService.test.ts#L29" target="_blank" rel="noopener"><code>AccountService.test.ts</code></a>：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">describe(<span class="string">"loginByWechatMiniApp"</span>, <span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line"></span><br><span class="line">    beforeEach(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">        mockRpGet.mockClear()</span><br><span class="line">        mockFindOne.mockClear()</span><br><span class="line">        mockSave.mockClear()</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    test(<span class="string">"login success (user not exist)"</span>, <span class="keyword">async</span> ()=&gt;&#123;</span><br><span class="line">        <span class="comment">// session result validate</span></span><br><span class="line">        mockRpGet.mockReturnValue(<span class="built_in">Promise</span>.resolve(sessionResult_validate))</span><br><span class="line">        mockFindOne.mockReturnValueOnce(<span class="built_in">Promise</span>.resolve(<span class="literal">null</span>)) <span class="comment">// find userWechat</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> user = <span class="keyword">new</span> User()</span><br><span class="line">        mockSave.mockReturnValueOnce(<span class="built_in">Promise</span>.resolve(user)) <span class="comment">// save user</span></span><br><span class="line">        <span class="keyword">const</span> userWechat = <span class="keyword">new</span> UserWechat()</span><br><span class="line">        mockSave.mockReturnValueOnce(<span class="built_in">Promise</span>.resolve(userWechat)) <span class="comment">// save userWechat</span></span><br><span class="line"></span><br><span class="line">        mockFindOne.mockReturnValueOnce(<span class="built_in">Promise</span>.resolve(<span class="literal">null</span>)) <span class="comment">// find userLogin</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> userLogin = <span class="keyword">new</span> UserLogin()</span><br><span class="line">        userLogin.token = <span class="string">"tokentoken"</span></span><br><span class="line">        mockSave.mockReturnValueOnce(<span class="built_in">Promise</span>.resolve(userLogin)) <span class="comment">// save userLogin</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> result = <span class="keyword">await</span> accountService.loginByWechatMiniApp(loginDetail_validate, entityManager)</span><br><span class="line"></span><br><span class="line">        expect(mockRpGet).toBeCalledTimes(<span class="number">1</span>)</span><br><span class="line">        expect(mockFindOne).toBeCalledTimes(<span class="number">2</span>)</span><br><span class="line">        expect(mockSave).toBeCalledTimes(<span class="number">3</span>)</span><br><span class="line">        expect(result.user).toEqual(user)</span><br><span class="line">        expect(result.loginInfo).toEqual(userLogin)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>会出现如下错误：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">loginByWechatMiniApp › login success (login success (user not exist))</span><br><span class="line"></span><br><span class="line">    ConnectionNotFoundError: Connection &quot;default&quot; was not found.</span><br><span class="line"></span><br><span class="line">      at new ConnectionNotFoundError (src/error/ConnectionNotFoundError.ts:8:9)</span><br><span class="line">      at ConnectionManager.get (src/connection/ConnectionManager.ts:40:19)</span><br><span class="line">      at Object.getConnection (src/index.ts:253:35)</span><br><span class="line">      at AccountService.descriptor.value (src/decorator/transaction/Transaction.ts:98:24)</span><br><span class="line">      at src/test/bll/AccountService.test.ts:219:43</span><br><span class="line">      at src/test/bll/AccountService.test.ts:8:71</span><br><span class="line">      at __awaiter (src/test/bll/AccountService.test.ts:4:12)</span><br><span class="line">      at Object.&lt;anonymous&gt; (src/test/bll/AccountService.test.ts:202:76)</span><br></pre></td></tr></table></figure>
+<p>这是因为 <code>@Transaction()</code> 中会执行 <code>getConnection()</code> 方法，但是因为单元测试没有执行数据库连接，所以会找不到可用的 connection，报这个错，因此，为了单元测试跑通，需要在运行单元测试时，忽略掉这个 <code>@Transcation()</code> 中会执行的逻辑，因为所有的数据库操作我们都会进行 mock。</p>
+<p>所以，如下，我们可以通过自定义 <code>decorator</code> （<code>XTransaction</code>） 来处理，创建 <a href="https://github.com/wangjiegulu/express_server_demo/blob/master/src/ext/typeorm.ext.ts#L7" target="_blank" rel="noopener"><code>typeorm.ext.ts</code></a>：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Transaction, TransactionManager &#125; <span class="keyword">from</span> <span class="string">'typeorm'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; isTestEnv &#125; <span class="keyword">from</span> <span class="string">'../util/appUtil'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">XTransaction</span>(<span class="params">connectionOrOptions?</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> result = <span class="literal">null</span></span><br><span class="line">    <span class="keyword">if</span> (!isTestEnv()) &#123;</span><br><span class="line">        result = Transaction(connectionOrOptions)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">target, methodName, descriptor</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!isTestEnv()) &#123;</span><br><span class="line">            result(target, methodName, descriptor)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">XTransactionManager</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> result = <span class="literal">null</span></span><br><span class="line">    <span class="keyword">if</span> (!isTestEnv()) &#123;</span><br><span class="line">        result = TransactionManager()</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">object, methodName, index</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!isTestEnv()) &#123;</span><br><span class="line">            result(object, methodName, index)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>再编辑 <a href="https://github.com/wangjiegulu/express_server_demo/blob/master/package.json#L10" target="_blank" rel="noopener"><code>package.json</code></a>:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    // ...</span><br><span class="line">    "scripts": &#123;</span><br><span class="line">        // ...</span><br><span class="line">        "test": "NODE_ENV=test jest"</span><br><span class="line">        // ...</span><br><span class="line">    &#125;,</span><br><span class="line">    // ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="https://github.com/wangjiegulu/express_server_demo/blob/master/src/util/appUtil.ts#L11" target="_blank" rel="noopener"><code>appUtil.ts</code></a></p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">let</span> isTestEnv = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> getEnv() === <span class="string">'test'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后替换掉 <a href="https://github.com/wangjiegulu/express_server_demo/blob/master/src/bll/AccountService.ts#L29" target="_blank" rel="noopener"><code>AccountService.ts</code></a> 中的 <code>@Transaction</code> 即可：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span>()</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> AccountService &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@XTransaction</span>()</span><br><span class="line">    <span class="keyword">async</span> loginByWechatMiniApp(loginDetail: <span class="built_in">any</span>, <span class="meta">@XTransactionManager</span>() manager?: EntityManager) &#123;</span><br><span class="line">        <span class="comment">// 业务代码省略</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最终的代码：</p>
+<ul>
+<li><a href="https://github.com/wangjiegulu/express_server_demo/blob/master/src/bll/AccountService.ts" target="_blank" rel="noopener"><code>AccountService.ts</code></a></li>
+<li><a href="https://github.com/wangjiegulu/express_server_demo/blob/master/src/test/bll/AccountService.test.ts#L88" target="_blank" rel="noopener"><code>AccountService.test.ts</code></a></li>
+<li><a href="https://github.com/wangjiegulu/express_server_demo/blob/master/src/ext/typeorm.ext.ts#L7" target="_blank" rel="noopener"><code>typeorm.ext.ts</code></a></li>
+</ul>
+
+    </div>
+
+    <br/>
+    <hr>
+
+    
+    <div class="post-copyright" style="margin-top: 20px;">
+        <strong>来源博客：</strong><a href="https://blog.wangjiegulu.com">Wang Jie's Blog</a><br/>
+         <strong>本文链接：</strong><a href="https://blog.wangjiegulu.com/2020/02/13/fix-jest-typeorm-transaction-decorator/">https://blog.wangjiegulu.com/2020/02/13/fix-jest-typeorm-transaction-decorator/</a><br/>
+         <strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处。
+    </div>
+    
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/feed.xml">RSS</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#TypeORM-Transaction-时使用-Jest-进行单元测试"><span class="toc-number">1.</span> <span class="toc-text">TypeORM @Transaction 时使用 Jest 进行单元测试</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://blog.wangjiegulu.com/2020/02/13/fix-jest-typeorm-transaction-decorator/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://blog.wangjiegulu.com/2020/02/13/fix-jest-typeorm-transaction-decorator/&text=TypeORM @Transaction 时使用 Jest 进行单元测试"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.wangjiegulu.com/2020/02/13/fix-jest-typeorm-transaction-decorator/&title=TypeORM @Transaction 时使用 Jest 进行单元测试"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.wangjiegulu.com/2020/02/13/fix-jest-typeorm-transaction-decorator/&is_video=false&description=TypeORM @Transaction 时使用 Jest 进行单元测试"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=TypeORM @Transaction 时使用 Jest 进行单元测试&body=Check out this article: https://blog.wangjiegulu.com/2020/02/13/fix-jest-typeorm-transaction-decorator/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.wangjiegulu.com/2020/02/13/fix-jest-typeorm-transaction-decorator/&title=TypeORM @Transaction 时使用 Jest 进行单元测试"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.wangjiegulu.com/2020/02/13/fix-jest-typeorm-transaction-decorator/&title=TypeORM @Transaction 时使用 Jest 进行单元测试"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.wangjiegulu.com/2020/02/13/fix-jest-typeorm-transaction-decorator/&title=TypeORM @Transaction 时使用 Jest 进行单元测试"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://blog.wangjiegulu.com/2020/02/13/fix-jest-typeorm-transaction-decorator/&title=TypeORM @Transaction 时使用 Jest 进行单元测试"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.wangjiegulu.com/2020/02/13/fix-jest-typeorm-transaction-decorator/&name=TypeORM @Transaction 时使用 Jest 进行单元测试&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2020 Wang Jie
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/feed.xml">RSS</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-111189680-2', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'blog-wangjiegulu-com';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+
