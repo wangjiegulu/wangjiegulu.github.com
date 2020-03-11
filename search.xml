@@ -5451,11 +5451,11 @@
             
             <tag> 翻译 </tag>
             
-            <tag> google </tag>
-            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
+            
+            <tag> google </tag>
             
         </tags>
         
@@ -5554,11 +5554,11 @@
             
             <tag> 翻译 </tag>
             
-            <tag> google </tag>
-            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
+            
+            <tag> google </tag>
             
         </tags>
         
@@ -5660,11 +5660,11 @@
             
             <tag> 翻译 </tag>
             
-            <tag> google </tag>
-            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
+            
+            <tag> google </tag>
             
             <tag> RxJava </tag>
             
@@ -5794,11 +5794,11 @@
             
             <tag> 翻译 </tag>
             
-            <tag> google </tag>
-            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
+            
+            <tag> google </tag>
             
         </tags>
         
@@ -5847,13 +5847,13 @@
             
             <tag> library </tag>
             
-            <tag> orm </tag>
-            
-            <tag> rapidorm </tag>
+            <tag> sqlite </tag>
             
             <tag> database </tag>
             
-            <tag> sqlite </tag>
+            <tag> orm </tag>
+            
+            <tag> rapidorm </tag>
             
         </tags>
         
@@ -5924,7 +5924,7 @@
       <title><![CDATA[[Android]异步 layout inflation（翻译）]]></title>
       <url>/2016/09/01/Android-%E5%BC%82%E6%AD%A5-layout-inflation%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/</url>
       <content type="html"><![CDATA[<h1 id="异步-layout-inflation"><a href="#异步-layout-inflation" class="headerlink" title="异步 layout inflation"></a>异步 layout inflation</h1><blockquote>
-<p>原文：<a href="&#x6d;&#97;&#105;&#x6c;&#116;&#x6f;&#58;&#x68;&#116;&#116;&#112;&#115;&#58;&#47;&#x2f;&#109;&#101;&#100;&#105;&#117;&#x6d;&#x2e;&#x63;&#x6f;&#109;&#x2f;&#64;&#x6c;&#x75;&#112;&#97;&#106;&#122;&#x2f;&#x61;&#x73;&#x79;&#x6e;&#99;&#x68;&#114;&#x6f;&#110;&#111;&#117;&#115;&#45;&#108;&#x61;&#121;&#111;&#x75;&#116;&#45;&#105;&#110;&#x66;&#108;&#97;&#116;&#105;&#x6f;&#110;&#45;&#55;&#x63;&#98;&#x63;&#x61;&#x32;&#x36;&#x35;&#x33;&#x62;&#x66;&#35;&#46;&#113;&#x32;&#x32;&#118;&#112;&#101;&#x7a;&#103;&#52;">&#x68;&#116;&#116;&#112;&#115;&#58;&#47;&#x2f;&#109;&#101;&#100;&#105;&#117;&#x6d;&#x2e;&#x63;&#x6f;&#109;&#x2f;&#64;&#x6c;&#x75;&#112;&#97;&#106;&#122;&#x2f;&#x61;&#x73;&#x79;&#x6e;&#99;&#x68;&#114;&#x6f;&#110;&#111;&#117;&#115;&#45;&#108;&#x61;&#121;&#111;&#x75;&#116;&#45;&#105;&#110;&#x66;&#108;&#97;&#116;&#105;&#x6f;&#110;&#45;&#55;&#x63;&#98;&#x63;&#x61;&#x32;&#x36;&#x35;&#x33;&#x62;&#x66;&#35;&#46;&#113;&#x32;&#x32;&#118;&#112;&#101;&#x7a;&#103;&#52;</a></p>
+<p>原文：<a href="&#x6d;&#x61;&#x69;&#108;&#116;&#x6f;&#x3a;&#x68;&#116;&#116;&#112;&#x73;&#58;&#x2f;&#x2f;&#109;&#101;&#100;&#x69;&#117;&#109;&#x2e;&#x63;&#x6f;&#x6d;&#x2f;&#x40;&#x6c;&#x75;&#112;&#x61;&#x6a;&#x7a;&#x2f;&#x61;&#115;&#x79;&#x6e;&#99;&#x68;&#x72;&#111;&#110;&#x6f;&#x75;&#x73;&#45;&#x6c;&#97;&#x79;&#x6f;&#x75;&#116;&#45;&#x69;&#110;&#102;&#x6c;&#97;&#x74;&#x69;&#111;&#110;&#45;&#x37;&#99;&#x62;&#99;&#97;&#x32;&#54;&#53;&#x33;&#98;&#102;&#35;&#x2e;&#113;&#50;&#x32;&#118;&#112;&#101;&#122;&#103;&#52;">&#x68;&#116;&#116;&#112;&#x73;&#58;&#x2f;&#x2f;&#109;&#101;&#100;&#x69;&#117;&#109;&#x2e;&#x63;&#x6f;&#x6d;&#x2f;&#x40;&#x6c;&#x75;&#112;&#x61;&#x6a;&#x7a;&#x2f;&#x61;&#115;&#x79;&#x6e;&#99;&#x68;&#x72;&#111;&#110;&#x6f;&#x75;&#x73;&#45;&#x6c;&#97;&#x79;&#x6f;&#x75;&#116;&#45;&#x69;&#110;&#102;&#x6c;&#97;&#x74;&#x69;&#111;&#110;&#45;&#x37;&#99;&#x62;&#99;&#97;&#x32;&#54;&#53;&#x33;&#98;&#102;&#35;&#x2e;&#113;&#50;&#x32;&#118;&#112;&#101;&#122;&#103;&#52;</a></p>
 </blockquote>
 <p>随着最近发布的<a href="https://developer.android.com/topic/libraries/support-library/revisions.html" target="_blank" rel="noopener">Android Support Library, revision 24</a>，Google开发者在v4包中增加了一个用来异步inflate layouts的帮助类。</p>
 <h2 id="进入-AsyncLayoutInflater"><a href="#进入-AsyncLayoutInflater" class="headerlink" title="进入 AsyncLayoutInflater"></a>进入 AsyncLayoutInflater</h2><p>你会发现AsyncLayoutInflater可以使用在当你想要去懒加载你应用中部分UI或者用户行为的响应。这个帮助类将会允许你的UI线程在执行繁重的inflate时继续保持响应。</p>
@@ -7140,13 +7140,13 @@ Cookie: ... ...
             
             <tag> library </tag>
             
-            <tag> orm </tag>
-            
-            <tag> rapidorm </tag>
+            <tag> sqlite </tag>
             
             <tag> database </tag>
             
-            <tag> sqlite </tag>
+            <tag> orm </tag>
+            
+            <tag> rapidorm </tag>
             
         </tags>
         
@@ -7704,11 +7704,11 @@ Cookie: ... ...
             
             <tag> 翻译 </tag>
             
-            <tag> google </tag>
-            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
+            
+            <tag> google </tag>
             
         </tags>
         
@@ -7825,11 +7825,11 @@ Cookie: ... ...
             
             <tag> 翻译 </tag>
             
-            <tag> google </tag>
-            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
+            
+            <tag> google </tag>
             
         </tags>
         
@@ -7965,11 +7965,11 @@ Cookie: ... ...
             
             <tag> 翻译 </tag>
             
-            <tag> google </tag>
-            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
+            
+            <tag> google </tag>
             
         </tags>
         
@@ -8063,11 +8063,11 @@ Cookie: ... ...
             
             <tag> 翻译 </tag>
             
-            <tag> google </tag>
-            
             <tag> dagger2 </tag>
             
             <tag> DI </tag>
+            
+            <tag> google </tag>
             
         </tags>
         
@@ -9778,13 +9778,13 @@ for (name in names) {
             
             <tag> library </tag>
             
-            <tag> orm </tag>
-            
-            <tag> rapidorm </tag>
+            <tag> sqlite </tag>
             
             <tag> database </tag>
             
-            <tag> sqlite </tag>
+            <tag> orm </tag>
+            
+            <tag> rapidorm </tag>
             
         </tags>
         
@@ -11681,15 +11681,15 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> library </tag>
             
-            <tag> orm </tag>
-            
-            <tag> database </tag>
+            <tag> inject </tag>
             
             <tag> sqlite </tag>
             
-            <tag> inject </tag>
-            
             <tag> sqlite3 </tag>
+            
+            <tag> database </tag>
+            
+            <tag> orm </tag>
             
         </tags>
         
@@ -11815,9 +11815,9 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> java </tag>
             
-            <tag> lambda </tag>
-            
             <tag> java8 </tag>
+            
+            <tag> lambda </tag>
             
         </tags>
         
@@ -12034,11 +12034,11 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> java </tag>
             
+            <tag> Hbase </tag>
+            
             <tag> j2ee </tag>
             
             <tag> java web </tag>
-            
-            <tag> Hbase </tag>
             
         </tags>
         
@@ -12770,11 +12770,11 @@ Git Flow的在不同的操作系统之下有一些轻微的不同。好在nvie�
             
             <tag> orm </tag>
             
-            <tag> Hibernate </tag>
-            
             <tag> j2ee </tag>
             
             <tag> java web </tag>
+            
+            <tag> Hibernate </tag>
             
         </tags>
         
