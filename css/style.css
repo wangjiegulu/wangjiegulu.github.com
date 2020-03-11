@@ -1639,6 +1639,10 @@ article .content h2:before {
   float: center;
   text-align: left;
 }
+#header-post #toc .toc-item *:before {
+  color: #2e3e4f;
+  content: "";
+}
 /*.toc-child
   .toc-item .toc-level-4{
     width: 200px;
