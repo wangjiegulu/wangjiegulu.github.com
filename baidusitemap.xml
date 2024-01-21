@@ -4,6 +4,88 @@
 
     
   <url>
+    <loc>https://blog.wangjiegulu.com/2020/12/08/sdk_framework_extension_00/</loc>
+    <lastmod>2024-01-21T05:11:15.373Z</lastmod>
+    <data>
+        <display>
+        <title>全平台 SDK 统一开发框架 Extension 设计理念</title>
+        <pubTime>2020-12-08T05:45:00.000Z</pubTime>
+        
+        <tag>framework</tag>
+         
+        <tag>SDK</tag>
+         
+        <tag>modular</tag>
+         
+        <tag>模块化</tag>
+         
+        <tag>可测试性</tag>
+         
+        <tag>可维护性</tag>
+         
+        <tag>可扩展性</tag>
+         
+        <tag>extension</tag>
+         
+        <tag>服务化</tag>
+         
+        <tag>服务注册中心</tag>
+         
+         
+           
+             
+              <breadCrumb title="extension" url="https://blog.wangjiegulu.com/categories/extension/"/>
+          
+             
+              <breadCrumb title="modular" url="https://blog.wangjiegulu.com/categories/extension/modular/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://blog.wangjiegulu.com/2022/06/10/ipc_framework_ploto_00/</loc>
+    <lastmod>2024-01-21T05:10:53.727Z</lastmod>
+    <data>
+        <display>
+        <title>跨平台 IPC 通信框架 Ploto SDK 实现原理</title>
+        <pubTime>2022-06-10T09:44:00.000Z</pubTime>
+        
+        <tag>framework</tag>
+         
+        <tag>SDK</tag>
+         
+        <tag>ploto</tag>
+         
+        <tag>IPC</tag>
+         
+        <tag>modular</tag>
+         
+        <tag>模块化</tag>
+         
+        <tag>可测试性</tag>
+         
+        <tag>可维护性</tag>
+         
+        <tag>可扩展性</tag>
+         
+        <tag>Inter-Process Communication</tag>
+         
+         
+           
+             
+              <breadCrumb title="extension" url="https://blog.wangjiegulu.com/categories/extension/"/>
+          
+             
+              <breadCrumb title="modular" url="https://blog.wangjiegulu.com/categories/extension/modular/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://blog.wangjiegulu.com/2020/02/13/fix-jest-typeorm-transaction-decorator/</loc>
     <lastmod>2020-02-13T07:21:05.312Z</lastmod>
     <data>
@@ -1424,13 +1506,13 @@
         
         <tag>android</tag>
          
-        <tag>library</tag>
-         
         <tag>sqlite</tag>
          
         <tag>database</tag>
          
         <tag>orm</tag>
+         
+        <tag>library</tag>
          
         <tag>rapidorm</tag>
          
@@ -1743,8 +1825,6 @@
         
         <tag>android</tag>
          
-        <tag>library</tag>
-         
         <tag>inject</tag>
          
         <tag>sqlite</tag>
@@ -1754,6 +1834,8 @@
         <tag>database</tag>
          
         <tag>orm</tag>
+         
+        <tag>library</tag>
          
          
            
@@ -2135,11 +2217,11 @@
         <title>[Android]AndroidBucket增加碎片SubLayout功能及AISubLayout的注解支持</title>
         <pubTime>2014-05-05T12:31:00.000Z</pubTime>
         
+        <tag>library</tag>
+         
         <tag>android bucket</tag>
          
         <tag>annotations</tag>
-         
-        <tag>library</tag>
          
          
            
@@ -2179,9 +2261,9 @@
         
         <tag>android</tag>
          
-        <tag>annotations</tag>
-         
         <tag>unit test</tag>
+         
+        <tag>annotations</tag>
          
         <tag>JUnit</tag>
          
@@ -2400,13 +2482,13 @@
         
         <tag>android</tag>
          
-        <tag>library</tag>
-         
         <tag>sqlite</tag>
          
         <tag>database</tag>
          
         <tag>orm</tag>
+         
+        <tag>library</tag>
          
         <tag>rapidorm</tag>
          
@@ -2498,13 +2580,13 @@
         
         <tag>android</tag>
          
-        <tag>library</tag>
-         
         <tag>sqlite</tag>
          
         <tag>database</tag>
          
         <tag>orm</tag>
+         
+        <tag>library</tag>
          
         <tag>rapidorm</tag>
          
@@ -2546,9 +2628,9 @@
         
         <tag>android</tag>
          
-        <tag>annotations</tag>
-         
         <tag>library</tag>
+         
+        <tag>annotations</tag>
          
         <tag>proxy</tag>
          
@@ -4292,9 +4374,9 @@
         
         <tag>android</tag>
          
-        <tag>library</tag>
-         
         <tag>inject</tag>
+         
+        <tag>library</tag>
          
          
            
@@ -4424,12 +4506,12 @@
 
     
   <url>
-    <loc>https://blog.wangjiegulu.com/2012/06/15/%E8%AE%BE%E7%BD%AEEditText%E6%98%AF%E5%90%A6%E5%8F%AF%E7%BC%96%E8%BE%91/</loc>
+    <loc>https://blog.wangjiegulu.com/2013/02/19/%E5%B7%A5%E5%85%B7%E5%BA%93-JOXMLBuilder%E5%B7%A5%E5%85%B7%E7%B1%BB%E2%80%94%E2%80%94%E4%B8%80%E9%94%AE%E6%8A%8A%E5%A4%9A%E4%B8%AAbean%E5%AF%B9%E8%B1%A1%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2%E4%B8%BAXML%E6%A0%BC%E5%BC%8F%E6%95%B0%E6%8D%AE/</loc>
     <lastmod>2018-01-29T12:36:41.000Z</lastmod>
     <data>
         <display>
-        <title>设置EditText是否可编辑</title>
-        <pubTime>2012-06-15T02:37:00.000Z</pubTime>
+        <title>[工具库]JOXMLBuilder工具类——一键把多个bean对象数据转换为XML格式数据</title>
+        <pubTime>2013-02-19T09:14:00.000Z</pubTime>
         
          
            
@@ -4439,12 +4521,12 @@
 
     
   <url>
-    <loc>https://blog.wangjiegulu.com/2013/02/19/%E5%B7%A5%E5%85%B7%E5%BA%93-JOXMLBuilder%E5%B7%A5%E5%85%B7%E7%B1%BB%E2%80%94%E2%80%94%E4%B8%80%E9%94%AE%E6%8A%8A%E5%A4%9A%E4%B8%AAbean%E5%AF%B9%E8%B1%A1%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2%E4%B8%BAXML%E6%A0%BC%E5%BC%8F%E6%95%B0%E6%8D%AE/</loc>
+    <loc>https://blog.wangjiegulu.com/2012/06/15/%E8%AE%BE%E7%BD%AEEditText%E6%98%AF%E5%90%A6%E5%8F%AF%E7%BC%96%E8%BE%91/</loc>
     <lastmod>2018-01-29T12:36:41.000Z</lastmod>
     <data>
         <display>
-        <title>[工具库]JOXMLBuilder工具类——一键把多个bean对象数据转换为XML格式数据</title>
-        <pubTime>2013-02-19T09:14:00.000Z</pubTime>
+        <title>设置EditText是否可编辑</title>
+        <pubTime>2012-06-15T02:37:00.000Z</pubTime>
         
          
            

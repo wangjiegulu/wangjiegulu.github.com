@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#ffffff">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#ffffff">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#ffffff">
+
+
+    <meta name="description" content="跨平台 IPC 通信框架 Ploto SDK 实现原理 面对在 Windows、Mac、Linux 等平台上 IPC 通信的差异性，我们在项目中通过 Ploto 跨平台解决方案，磨平了各个平台进程间通信的底层实现差异，降低了各平台之间的技术沟通成本，让开发者更聚焦在业务的设计和开发上。这次，我们来聊聊 Ploto 的整体设计方案和设计理念。  1. 背景工作中开发的 App 实际中会启动不少的进程">
+<meta name="keywords" content="framework,SDK,ploto,IPC,modular,模块化,可测试性,可维护性,可扩展性,Inter-Process Communication">
+<meta property="og:type" content="article">
+<meta property="og:title" content="跨平台 IPC 通信框架 Ploto SDK 实现原理">
+<meta property="og:url" content="https://blog.wangjiegulu.com/2022/06/10/ipc_framework_ploto_00/index.html">
+<meta property="og:site_name" content="Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer">
+<meta property="og:description" content="跨平台 IPC 通信框架 Ploto SDK 实现原理 面对在 Windows、Mac、Linux 等平台上 IPC 通信的差异性，我们在项目中通过 Ploto 跨平台解决方案，磨平了各个平台进程间通信的底层实现差异，降低了各平台之间的技术沟通成本，让开发者更聚焦在业务的设计和开发上。这次，我们来聊聊 Ploto 的整体设计方案和设计理念。  1. 背景工作中开发的 App 实际中会启动不少的进程">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://github.com/wangjiegulu/wangjiegulu.github.com/assets/5423194/19226d87-f4b7-4b69-a93c-59988011dc98">
+<meta property="og:image" content="https://github.com/wangjiegulu/wangjiegulu.github.com/assets/5423194/4bdee21e-34f8-4f40-b0ac-ff43b8a8d224">
+<meta property="og:image" content="https://github.com/wangjiegulu/wangjiegulu.github.com/assets/5423194/9e9db64a-0964-4fa1-ad43-73e0a6f02d90">
+<meta property="og:image" content="https://github.com/wangjiegulu/wangjiegulu.github.com/assets/5423194/cabbb300-9926-40ac-afb6-8d41d05ffacd">
+<meta property="og:image" content="https://github.com/wangjiegulu/wangjiegulu.github.com/assets/5423194/03088240-5d2e-4e80-83d8-3912101b0761">
+<meta property="og:image" content="https://github.com/wangjiegulu/wangjiegulu.github.com/assets/5423194/1f86d46e-7174-45ad-bb42-fad935d792e7">
+<meta property="og:image" content="https://github.com/wangjiegulu/wangjiegulu.github.com/assets/5423194/988e44a5-69f2-4621-aa60-b213155ec942">
+<meta property="og:image" content="https://github.com/wangjiegulu/wangjiegulu.github.com/assets/5423194/4b45f04d-283a-4a67-a525-5112ec823ffe">
+<meta property="og:image" content="https://github.com/wangjiegulu/wangjiegulu.github.com/assets/5423194/032ddffd-0ad5-4faa-b83c-88905024103b">
+<meta property="og:image" content="https://github.com/wangjiegulu/wangjiegulu.github.com/assets/5423194/20fad7a1-4c98-4837-b558-1a2018cc1b2d">
+<meta property="og:updated_time" content="2024-01-21T05:10:53.727Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="跨平台 IPC 通信框架 Ploto SDK 实现原理">
+<meta name="twitter:description" content="跨平台 IPC 通信框架 Ploto SDK 实现原理 面对在 Windows、Mac、Linux 等平台上 IPC 通信的差异性，我们在项目中通过 Ploto 跨平台解决方案，磨平了各个平台进程间通信的底层实现差异，降低了各平台之间的技术沟通成本，让开发者更聚焦在业务的设计和开发上。这次，我们来聊聊 Ploto 的整体设计方案和设计理念。  1. 背景工作中开发的 App 实际中会启动不少的进程">
+<meta name="twitter:image" content="https://github.com/wangjiegulu/wangjiegulu.github.com/assets/5423194/19226d87-f4b7-4b69-a93c-59988011dc98">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>跨平台 IPC 通信框架 Ploto SDK 实现原理</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3">
+    
+      <div id="header-post-nav">
+  <span id="nav">
+      <ul>
+         
+          <li><b><a href="/">Home</a></b></li>
+         
+          <li><b><a href="/archives/">Writing</a></b></li>
+         
+          <li><b><a href="/tags/">Tags</a></b></li>
+         
+          <li><b><a href="/about/">About</a></b></li>
+         
+          <li><b><a href="/feed.xml">RSS</a></b></li>
+        
+      </ul>
+  </span>
+</div>
+
+<div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/feed.xml">RSS</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2020/12/08/sdk_framework_extension_00/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://blog.wangjiegulu.com/2022/06/10/ipc_framework_ploto_00/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://blog.wangjiegulu.com/2022/06/10/ipc_framework_ploto_00/&text=跨平台 IPC 通信框架 Ploto SDK 实现原理"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.wangjiegulu.com/2022/06/10/ipc_framework_ploto_00/&title=跨平台 IPC 通信框架 Ploto SDK 实现原理"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.wangjiegulu.com/2022/06/10/ipc_framework_ploto_00/&is_video=false&description=跨平台 IPC 通信框架 Ploto SDK 实现原理"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=跨平台 IPC 通信框架 Ploto SDK 实现原理&body=Check out this article: https://blog.wangjiegulu.com/2022/06/10/ipc_framework_ploto_00/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.wangjiegulu.com/2022/06/10/ipc_framework_ploto_00/&title=跨平台 IPC 通信框架 Ploto SDK 实现原理"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.wangjiegulu.com/2022/06/10/ipc_framework_ploto_00/&title=跨平台 IPC 通信框架 Ploto SDK 实现原理"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.wangjiegulu.com/2022/06/10/ipc_framework_ploto_00/&title=跨平台 IPC 通信框架 Ploto SDK 实现原理"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://blog.wangjiegulu.com/2022/06/10/ipc_framework_ploto_00/&title=跨平台 IPC 通信框架 Ploto SDK 实现原理"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.wangjiegulu.com/2022/06/10/ipc_framework_ploto_00/&name=跨平台 IPC 通信框架 Ploto SDK 实现原理&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#跨平台-IPC-通信框架-Ploto-SDK-实现原理"><span class="toc-number">1.</span> <span class="toc-text">跨平台 IPC 通信框架 Ploto SDK 实现原理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-背景"><span class="toc-number">1.1.</span> <span class="toc-text">1. 背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-解决方案"><span class="toc-number">1.2.</span> <span class="toc-text">2. 解决方案</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-如何使用"><span class="toc-number">1.2.1.</span> <span class="toc-text">2.1 如何使用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-1-初始化引擎"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">2.1.1 初始化引擎</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-1-1-1-服务端进程"><span class="toc-number">1.2.1.1.1.</span> <span class="toc-text">2.1.1.1 服务端进程</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-1-1-2-客户端进程"><span class="toc-number">1.2.1.1.2.</span> <span class="toc-text">2.1.1.2 客户端进程</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-2-发送请求"><span class="toc-number">1.2.1.2.</span> <span class="toc-text">2.1.2 发送请求</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-3-处理请求"><span class="toc-number">1.2.1.3.</span> <span class="toc-text">2.1.3 处理请求</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-整体设计"><span class="toc-number">1.3.</span> <span class="toc-text">3. 整体设计</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-Engine"><span class="toc-number">1.3.1.</span> <span class="toc-text">3.1 Engine</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-Cable"><span class="toc-number">1.3.2.</span> <span class="toc-text">3.2 Cable</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-Message"><span class="toc-number">1.3.3.</span> <span class="toc-text">3.3 Message</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-1-消息的流转周期函数"><span class="toc-number">1.3.3.1.</span> <span class="toc-text">3.3.1 消息的流转周期函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-2-消息的标准化协议"><span class="toc-number">1.3.3.2.</span> <span class="toc-text">3.3.2 消息的标准化协议</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-Container-和-Dispatcher"><span class="toc-number">1.3.4.</span> <span class="toc-text">3.4 Container 和 Dispatcher</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-1-拦截器的实现"><span class="toc-number">1.3.4.1.</span> <span class="toc-text">3.4.1 拦截器的实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-2-请求缓存的实现"><span class="toc-number">1.3.4.2.</span> <span class="toc-text">3.4.2 请求缓存的实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-3-请求处理实现"><span class="toc-number">1.3.4.3.</span> <span class="toc-text">2.4.3 请求处理实现</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-基于-Socket-的-Ploto-实现"><span class="toc-number">1.4.</span> <span class="toc-text">4. 基于 Socket 的 Ploto 实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-PlotoSocketEngine"><span class="toc-number">1.4.1.</span> <span class="toc-text">4.1 PlotoSocketEngine</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-PlotoSocketCable"><span class="toc-number">1.4.2.</span> <span class="toc-text">4.2 PlotoSocketCable</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-可扩展性"><span class="toc-number">1.5.</span> <span class="toc-text">5. 可扩展性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-底层通信协议可扩展"><span class="toc-number">1.5.1.</span> <span class="toc-text">5.1 底层通信协议可扩展</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-通信消息可扩展"><span class="toc-number">1.5.2.</span> <span class="toc-text">5.2 通信消息可扩展</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-跨平台支持程度"><span class="toc-number">1.6.</span> <span class="toc-text">6. 跨平台支持程度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-尾巴"><span class="toc-number">1.7.</span> <span class="toc-text">7. 尾巴</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        跨平台 IPC 通信框架 Ploto SDK 实现原理
+    </h1>
+
+
+
+    <div class="meta"  style="margin-top:12px;">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name" style="margin-left: 12px">Wang Jie</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2022-06-10T09:44:00.000Z" itemprop="datePublished">2022-06-10</time>
+    </div>
+
+<br/>
+      
+    <div class="article-tag">
+        <i class="fas fa-tag" style="margin-top: 20px"></i>
+        <a class="tag-link" href="/tags/IPC/">IPC</a>, <a class="tag-link" href="/tags/Inter-Process-Communication/">Inter-Process Communication</a>, <a class="tag-link" href="/tags/SDK/">SDK</a>, <a class="tag-link" href="/tags/framework/">framework</a>, <a class="tag-link" href="/tags/modular/">modular</a>, <a class="tag-link" href="/tags/ploto/">ploto</a>, <a class="tag-link" href="/tags/可扩展性/">可扩展性</a>, <a class="tag-link" href="/tags/可测试性/">可测试性</a>, <a class="tag-link" href="/tags/可维护性/">可维护性</a>, <a class="tag-link" href="/tags/模块化/">模块化</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  
+  <div class="content" itemprop="articleBody">
+    
+    
+      <!-- <img class="header-img" src="https://images.unsplash.com/photo-1532255864546-c093fd3786bc?q=80&amp;w=3870&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" /> -->
+      
+
+        <img src="https://images.unsplash.com/photo-1532255864546-c093fd3786bc?q=80&amp;w=3870&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" style="border-radius: 3px;"/>
+        
+      
+      
+    
+
+
+    <div class="md-content">
+      <h1 id="跨平台-IPC-通信框架-Ploto-SDK-实现原理"><a href="#跨平台-IPC-通信框架-Ploto-SDK-实现原理" class="headerlink" title="跨平台 IPC 通信框架 Ploto SDK 实现原理"></a>跨平台 IPC 通信框架 Ploto SDK 实现原理</h1><blockquote>
+<p>面对在 Windows、Mac、Linux 等平台上 IPC 通信的差异性，我们在项目中通过 Ploto 跨平台解决方案，磨平了各个平台进程间通信的底层实现差异，降低了各平台之间的技术沟通成本，让开发者更聚焦在业务的设计和开发上。这次，我们来聊聊 Ploto 的整体设计方案和设计理念。</p>
+</blockquote>
+<h2 id="1-背景"><a href="#1-背景" class="headerlink" title="1. 背景"></a>1. 背景</h2><p>工作中开发的 App 实际中会启动不少的进程以提供各种服务，而不同进程间的通信也较为频繁和繁琐。尤其是 App 需要全平台支持（包括 Windows、Mac、Linux、小程序、Android、iOS 等），由于各平台各系统的差异性，各平台使用的 IPC 通信的方式区别比较大，在方案设计等过程中很难设计并保持统一的 IPC 通信协议和通信过程中调用的链路和流程，这进一步对统一各平台整体的技术架构造成了不小的阻碍。同样在方案评审、Code Review 等过程中，跨端进行评审的时候也大大影响了评审的效率，经常无法聚焦到真正的业务。久而久之，各端在架构设计和实现上面差别会越来越大，整个应用的可维护性也越来越低。</p>
+<h2 id="2-解决方案"><a href="#2-解决方案" class="headerlink" title="2. 解决方案"></a>2. 解决方案</h2><p>对此，我们的目标是能够通过一种手段尽可能减少各平台的差异化，甚至可以忽略掉差异化而导致的各种技术细节，把真正的关注点回归到业务本身上面，在应用开发上更加侧重业务来进行方案和架构的设计，因此这个设计的过程和成果应该是脱离（或者说是无需关心）平台化存在的差异的，当然 “脱离” 的前提是要保证最终的设计方案在各平台中能够低成本真正的可实现、可落地。因此针对一系列不同领域或者场景的问题，我们需要有一系列对应的用来磨平差异化的稳定的解决方案。<br>而在 “进程间通信” 这个场景，我们通过 Ploto 来尝试解决了这个问题。</p>
+<p><strong>Ploto 优势</strong>：</p>
+<ul>
+<li><strong>简单易用</strong>，两个进程的应用接入 Ploto 之后，只需简单配置就能建立连接，并进行双向通信（全双工）</li>
+<li><strong>代码清晰</strong>，消息发送接收等控制代码及业务代码的关注点实现分离</li>
+<li><strong>扩展性强</strong>，支持各种底层通信协议的扩展，并且能够一键无缝切换</li>
+<li><strong>安全性强</strong>，支持通过简单配置实现传输过程中的数据加密，并支持任意的加密方式</li>
+<li><strong>跨平台</strong>，支持 Windows、Mac、Linux、Android 等各平台，几乎消除各平台进程间通信差异</li>
+</ul>
+<h3 id="2-1-如何使用"><a href="#2-1-如何使用" class="headerlink" title="2.1 如何使用"></a>2.1 如何使用</h3><h4 id="2-1-1-初始化引擎"><a href="#2-1-1-初始化引擎" class="headerlink" title="2.1.1 初始化引擎"></a>2.1.1 初始化引擎</h4><h5 id="2-1-1-1-服务端进程"><a href="#2-1-1-1-服务端进程" class="headerlink" title="2.1.1.1 服务端进程"></a>2.1.1.1 服务端进程</h5><p>首先在服务端进程，通过以下方式创建 Ploto 引擎，并进行常用的配置：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建 ServerEngine，这里选用基于 Socket 实现的 PlotoSocketServerEngine（需要设置当前 engine 唯一别名和 socket 端口号）</span></span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">shared_ptr</span>&lt;PlotoSocketServerEngine&gt; engine(<span class="keyword">new</span> PlotoSocketServerEngine(<span class="string">"demo_server"</span>, <span class="number">27131</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置请求拦截器，用于添加通用请求参数</span></span><br><span class="line">engine-&gt;AddRequestInterceptor(<span class="built_in">std</span>::make_shared&lt;CommonParamsRequestInterceptor&gt;());</span><br><span class="line"><span class="comment">// 设置消息（序列化之后）发送前的拦截器，用于对待发送的数据在传输过程中进行自定义的方式加密</span></span><br><span class="line">engine-&gt;AddMessageSendSerializedInterceptor(<span class="built_in">std</span>::make_shared&lt;EncryptMessageInterceptor&gt;());</span><br><span class="line"><span class="comment">// 设置消息（反序列化之前）接收后的拦截器，用户对接收到的数据进行自定义方式进行解密</span></span><br><span class="line">engine-&gt;AddMessageReceiveSerializedInterceptor(<span class="built_in">std</span>::make_shared&lt;DecryptMessageInterceptor&gt;());</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置当前 ServerEngine 支持处理哪些客户端发送过来的请求</span></span><br><span class="line"><span class="comment">// 参数一是该类请求的唯一 target；参数二是对应的处理请求的 Controller</span></span><br><span class="line">engine-&gt;RegisterRequestController(<span class="string">"GetLoginInfo"</span>, <span class="built_in">std</span>::make_shared&lt;GetLoginInfoController&gt;());</span><br><span class="line"></span><br><span class="line"><span class="comment">// 对 Engine 进行初始化</span></span><br><span class="line">engine-&gt;Initialize();</span><br></pre></td></tr></table></figure>
+<h5 id="2-1-1-2-客户端进程"><a href="#2-1-1-2-客户端进程" class="headerlink" title="2.1.1.2 客户端进程"></a>2.1.1.2 客户端进程</h5><p>同样，在客户端进程中，通过以下方式创建 Ploto 引擎，并进行常用的配置：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建 ClientEngine，这里选用基于 Socket 实现的 PlotoSocketClientEngine（需要设置当前 engine 唯一别名和 socket 端口号）</span></span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">shared_ptr</span>&lt;PlotoSocketClientEngine&gt; engine(<span class="keyword">new</span> PlotoSocketClientEngine(<span class="string">"demo_client"</span>, <span class="number">27131</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置请求拦截器，用于添加通用请求参数</span></span><br><span class="line">engine-&gt;AddRequestInterceptor(<span class="built_in">std</span>::make_shared&lt;CommonParamsRequestInterceptor&gt;());</span><br><span class="line"><span class="comment">// 设置消息（序列化之后）发送前的拦截器，用于对待发送的数据在传输过程中进行自定义的方式加密</span></span><br><span class="line">engine-&gt;AddMessageSendSerializedInterceptor(<span class="built_in">std</span>::make_shared&lt;EncryptMessageInterceptor&gt;());</span><br><span class="line"><span class="comment">// 设置消息（反序列化之前）接收后的拦截器，用户对接收到的数据进行自定义方式进行解密</span></span><br><span class="line">engine-&gt;AddMessageReceiveSerializedInterceptor(<span class="built_in">std</span>::make_shared&lt;DecryptMessageInterceptor&gt;());</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置当前 ServerEngine 支持处理哪些客户端发送过来的请求</span></span><br><span class="line"><span class="comment">// 参数一是该类请求的唯一 target；参数二是对应的处理请求的 Controller</span></span><br><span class="line">engine-&gt;RegisterRequestController(<span class="string">"ping"</span>, <span class="built_in">std</span>::make_shared&lt;PingpongRequestController&gt;());</span><br><span class="line">engine-&gt;RegisterRequestController(<span class="string">"MockTimeout"</span>, <span class="built_in">std</span>::make_shared&lt;MockTimeoutController&gt;());</span><br><span class="line"></span><br><span class="line"><span class="comment">// 对 Engine 进行初始化</span></span><br><span class="line">engine-&gt;Initialize();</span><br></pre></td></tr></table></figure>
+<p>以上客户端和服务端两个进程，都创建了基于 Socket 实现的 PlotoEngine（<code>PlotoSocketServerEngine</code> 和 <code>PlotoSocketClientEngine</code>），并对该 Engine 设置了请求通用参数的拦截器，同时通过拦截器来对所有类型消息（包括 Request / Response 及其它扩展类型的消息）进行加密和解密，确保通信过程中使用密文进行传输。</p>
+<p>另外，因为客户端和服务端两个进程都需要主动向另一个进程发送消息（每个端理论上即是客户端又是服务端），所以两端都需要在初始化前配置当前 Engine 支持处理的所有请求，通过 Controller 来进行处理并返回结果，通过 <code>RegisterRequestController</code> 函数来进行注册。<br>最后，调用 Engine 的 <code>Initialize()</code> 函数进行初始化。</p>
+<h4 id="2-1-2-发送请求"><a href="#2-1-2-发送请求" class="headerlink" title="2.1.2 发送请求"></a>2.1.2 发送请求</h4><p>因为一旦建立连接之后 Ploto 支持双向通行，即客户端可以发送请求给服务端，服务端也可以发送请求给客户端，这里以客户端发送请求给服务端为例（反过来代码几乎没什么区别）。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 通过 Engine 来构造一个 Request 对象</span></span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">shared_ptr</span>&lt;Request&gt; request = engine-&gt;CreateRequest();</span><br><span class="line"><span class="comment">// 给 request 设置 target（target 相当于 mapping，服务端会通过这个 target 来映射到对应的请求处理器）</span></span><br><span class="line">request-&gt;SetTarget(<span class="string">"GetLoginInfo"</span>);</span><br><span class="line"><span class="comment">// 给 request 设置参数</span></span><br><span class="line">request-&gt;AddParam(<span class="string">"userId"</span>, <span class="string">"77131"</span>);</span><br><span class="line"><span class="comment">// 给 request 设置 header</span></span><br><span class="line">request-&gt;AddHeader(<span class="string">"header1"</span>, <span class="string">"1a2s3a4sdf"</span>);</span><br><span class="line">request-&gt;AddHeader(<span class="string">"header2"</span>, <span class="string">"1a2s3a4s5df2"</span>);</span><br><span class="line"><span class="comment">// 给 request 设置结果回调函数 lambda</span></span><br><span class="line">request-&gt;SetCallback([](<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">shared_ptr</span>&lt;<span class="keyword">const</span> Response&gt; response) &#123;</span><br><span class="line">    _ploto::_log::I(<span class="string">"[GetLoginInfo]response callback, msg: "</span> + response-&gt;GetMsg() + <span class="string">", data: "</span> + response-&gt;GetData());</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 通过 Engine 的 Send 方法发送请求</span></span><br><span class="line">engine-&gt;Send(request);</span><br></pre></td></tr></table></figure>
+<p>客户端首先通过使用的 Engine 来构造一个请求对象 <code>request</code>，并设置它的 target，target 相当于 mapping，服务端会通过这个 target 来映射到对应的处理器来处理这个请求。并设置参数（可选）、Header（可选）等信息，设置请求的结果回调。最后调用 Engine 的 <code>Send</code> 函数发送。<br>服务端响应之后 callback 会收到回调，并返回 response。</p>
+<h4 id="2-1-3-处理请求"><a href="#2-1-3-处理请求" class="headerlink" title="2.1.3 处理请求"></a>2.1.3 处理请求</h4><p>继续上面的案例，客户端发出请求（<code>target</code> 为 “GetLoginInfo”，即获取用户登录信息）之后，服务端需要对客户端这个请求进行处理和响应，所以服务端需要做两件事情：<br>第一，服务端需要在 Engine 初始化前注册对应 target（“GetLoginInfo”） 的处理器（<code>Controller</code>）：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">engine-&gt;RegisterRequestController(<span class="string">"GetLoginInfo"</span>, <span class="built_in">std</span>::make_shared&lt;GetLoginInfoController&gt;());</span><br></pre></td></tr></table></figure>
+<p>如上，通过 <code>RegisterRequestController</code> 函数来在 Engine 上进行注册，参数一为 target，参数二为对应 target 的 Controller。<br>第二，实现对应 target 的 Controller，如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GetLoginInfoController</span> :</span> <span class="keyword">public</span> PlotoRequestDispatchController &#123;</span><br><span class="line">   <span class="keyword">public</span>:</span><br><span class="line">    GetLoginInfoController() &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    ~GetLoginInfoController() &#123;</span><br><span class="line">        <span class="comment">// do nothing</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">virtual</span> <span class="built_in">std</span>::<span class="built_in">shared_ptr</span>&lt;Response&gt; DoRequest(<span class="built_in">std</span>::<span class="built_in">shared_ptr</span>&lt;<span class="keyword">const</span> Request&gt; request) &#123;</span><br><span class="line">        _ploto::_<span class="built_in">log</span>::I(<span class="string">"[GetLoginInfoController]DoRequest..."</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 从 request 中获取参数</span></span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">string</span> userId = request-&gt;GetParam(<span class="string">"userId"</span>);</span><br><span class="line">        _ploto::_<span class="built_in">log</span>::I(<span class="string">"[GetLoginInfoController]DoRequest, get userId param from request: "</span> + userId);</span><br><span class="line">        <span class="comment">// 从 request 中获取 header</span></span><br><span class="line">        <span class="keyword">auto</span> header1 = request-&gt;GetHeader(<span class="string">"header1"</span>);</span><br><span class="line">        _ploto::_<span class="built_in">log</span>::I(<span class="string">"[GetLoginInfoController]DoRequest, get header1 header from request: "</span> + header1);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 处理过程...</span></span><br><span class="line">        <span class="comment">// 创建 Response</span></span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">shared_ptr</span>&lt;Response&gt; response = <span class="built_in">std</span>::make_shared&lt;Response&gt;(request-&gt;GetRequestId(), _ploto::_respCode::SUCCESS);</span><br><span class="line">        <span class="comment">// 设置返回结果</span></span><br><span class="line">        response-&gt;SetData(</span><br><span class="line">            <span class="string">"&#123; \</span></span><br><span class="line"><span class="string">            \"loginInfo\": &#123; \</span></span><br><span class="line"><span class="string">                \"user\": &#123; \</span></span><br><span class="line"><span class="string">                    \"userId\": 51231, \</span></span><br><span class="line"><span class="string">                    \"username\": \"张三\" \</span></span><br><span class="line"><span class="string">                &#125;, \</span></span><br><span class="line"><span class="string">                \"token\": \"e86ee44d7d274ac08b62f7a6e2f6efa9\" \</span></span><br><span class="line"><span class="string">            &#125; \</span></span><br><span class="line"><span class="string">        &#125;"</span>);</span><br><span class="line">        <span class="comment">// 返回数据给客户端</span></span><br><span class="line">        <span class="keyword">return</span> response;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>如上，处理器需要继承 PlotoRequestDispatchController，并实现对应的 DoRequest 函数返回处理结果 Response。</p>
+<h2 id="3-整体设计"><a href="#3-整体设计" class="headerlink" title="3. 整体设计"></a>3. 整体设计</h2><p><img src="https://github.com/wangjiegulu/wangjiegulu.github.com/assets/5423194/19226d87-f4b7-4b69-a93c-59988011dc98" alt="ipc_framework_ploto_img_01"></p>
+<p>底层抽象逻辑的设计是非常简单的，由 Ploto 对 Application（Process）提供 IPC 能力，而 Ploto 的 Engine 负责协调所有 IPC 通信的内部模块及消息的流转，Cable 主要负责与另一进程建立 “连接”，发送和接收消息。</p>
+<h3 id="3-1-Engine"><a href="#3-1-Engine" class="headerlink" title="3.1 Engine"></a>3.1 Engine</h3><p>一般情况下可以这么理解，一个 Engine 对象代表一个 Ploto 实例。针对不同的 IPC 底层通信协议的实现，Engine 的实现会有一些差异性，但是高度抽象的，对于调用者来说提供的接口是一致的。</p>
+<p>Engine 主要实现 IPC 通信过程中的核心业务控制流程，主要的功能：</p>
+<ul>
+<li>接收相关的 Ploto 配置，如拦截器配置、注册请求处理器等</li>
+<li>对外暴露发送消息和接收消息的接口</li>
+<li>协调内部通信过程中各个模块消息流转的逻辑</li>
+</ul>
+<p><img src="https://github.com/wangjiegulu/wangjiegulu.github.com/assets/5423194/4bdee21e-34f8-4f40-b0ac-ff43b8a8d224" alt="ipc_framework_ploto_img_02"></p>
+<p><strong>接收相关的 Ploto 配置</strong></p>
+<p>在创建 Engine 后、初始化 Engine 之前，允许用户设置一些常规的配置，比如：</p>
+<ul>
+<li>增加请求拦截器：通过增加请求拦截器，我们可以在消息经过一些流转周期函数时插入自定义的逻辑，如：对请求增加通用参数，对请求进行加密，对请求增加自定义的鉴权逻辑 等等。</li>
+<li>增加响应拦截器：与请求拦截器类似，我们可以在消息经过的一些流转周期函数时插入自定义的逻辑，如：对响应的数据进行解密 等等。</li>
+<li>注册请求处理器：通过 <code>RegisterRequestController</code> 函数可以注册当前 Ploto 支持的请求及对应的 Controller，只有通过该函数注册过的请求类型，对方进程发送请求消息过来时，当前 Ploto 才能路由和执行相应的处理器。否则对方进程会收到 “请求对应的 Controller 找不到” 的 Response</li>
+</ul>
+<p><strong>对外暴露发送消息和接收消息的接口</strong></p>
+<p>Engine 对外暴露了发送消息和接收消息的接口，如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 异步发送消息</span></span><br><span class="line"><span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Send</span><span class="params">(<span class="built_in">std</span>::<span class="built_in">shared_ptr</span>&lt;Message&gt; <span class="keyword">const</span> message)</span> final</span></span><br><span class="line"><span class="function"><span class="comment">// 同步发送消息</span></span></span><br><span class="line">virtual std::shared_ptr&lt; const Response&gt; SendSync(std::shared_ptr&lt;Request&gt; const message) override</span><br></pre></td></tr></table></figure>
+<p>发送的函数分为 <strong>异步</strong> 和 <strong>同步</strong> 两种，Ploto 对内部的各种异常情况做了处理，所以发送的过程是可靠的，在内部错误、超时等等各种异常场景下，确保会始终会返回 Response。同步会阻塞当前线程（如果发送的消息是 Request，则最长的阻塞时间为 Request 设置的超时时间，默认为 5 s），推荐使用 异步 的方式进行发送。</p>
+<p><strong>协调内部通信过程中各个模块消息流转的逻辑</strong><br>Engine 本身实现了 <code>OnMessageMoveListener</code> 接口，它关心每个消息在整个流转周期内的事件，通过这些周期的事件函数，Engine 会对每个事件进行分发到每个对应的 <code>Dispatcher</code>（下文会讲到），根据事件的不同阶段，每个 Dispathcer 会实现相应的内部逻辑。</p>
+<p><img src="https://github.com/wangjiegulu/wangjiegulu.github.com/assets/5423194/9e9db64a-0964-4fa1-ad43-73e0a6f02d90" alt="ipc_framework_ploto_img_03"></p>
+<p>因此可以说，Engine 实现了整个 Ploto 运行的控制逻辑，而具体的通信能力则是由 Cable 提供。</p>
+<h3 id="3-2-Cable"><a href="#3-2-Cable" class="headerlink" title="3.2 Cable"></a>3.2 Cable</h3><p>Cable，意为 “电缆”，主要负责底层与另一进程进行通信，顾名思义相当于一个 “连接”，这个 “连接” 的存在形式主要取决于 IPC 底层实现的通信协议，可能是管道、消息队列、共享内存、XPC，也有可能是一个 TCP 连接（如 Socket），这里的连接表示的只是一种 “连接” 的关系和形态，不一定是真实存在的一个 Connection。</p>
+<p>Cable 中实现了真正的发送和接收消息的逻辑。不同的 IPC 底层通信协议的 Cable 实现各不相同，有很大的差异，但是与 Engine 一样，Cable 也具有高度的抽象，隐藏了内部的实现细节，对于外部来说所有的 Cable 都具有统一的接口。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Send</span><span class="params">(<span class="built_in">std</span>::<span class="built_in">shared_ptr</span>&lt;Message&gt; <span class="keyword">const</span> message)</span> final</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">SetOnPlotoCableListener</span><span class="params">(<span class="built_in">std</span>::weak_ptr&lt;OnMessageMoveListener&lt; SerializeType &gt; &gt; onMessageMoveListener)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>一般情况下可以这么理解，一个 PlotoEngine 对象代表一个 Ploto 实例，通过这个 PlotoEngine 可以连接到另一进程的 PlotoEngine，一旦连接之后，两个 PlotoEngine 就可以进行通信了，而此时另一进程的 PlotoEngine 对象在当前 PlotoEngine 中是作为一个 PlotoCable 对象存在。</p>
+<p><img src="https://github.com/wangjiegulu/wangjiegulu.github.com/assets/5423194/cabbb300-9926-40ac-afb6-8d41d05ffacd" alt="ipc_framework_ploto_img_04"></p>
+<p>如上图，在 PlotoEngine A 跟 PlotoEngine B 进行通信时，PlotoEngine A 会在连接（这里的 “连接” 是抽象的概念，具体的连接过程需要依赖具体底层的实现）成功之后创建 PlotoCable（也就是上图中的 “PlotoCable B”），通过这个 PlotoCable B 只能与 PlotoEngine B 进行通信。同样连接成功之后 Engine B 也会创建 Cable（也就是上图中的 “PlotoCable A”），通过这个 PlotoCable A 也只能跟 PlotoEngine A 进行通信。</p>
+<p>当然，一个 PlotoEngine 有可能会创建多个 PlotoCable，这时这个 PlotoEngine 可以选择对应的 PlotoCable 来给对应的 PlotoEngine 发送消息。</p>
+<h3 id="3-3-Message"><a href="#3-3-Message" class="headerlink" title="3.3 Message"></a>3.3 Message</h3><p>Message 为 Ploto 通信过程中传输的最小结构单元，所有支持的消息类型都需要继承自 Message 类，并通过指定的序列化器（<code>MessageSerializer</code>）对数据进行序列化和反序列化。</p>
+<p>目前 Ploto 内部默认实现了基本的 <strong>请求响应模型</strong>，实现了 <code>Request</code> 和 <code>Response</code> 两种类型的 Message：</p>
+<ul>
+<li><strong>Request</strong>：发送 Request 消息可以触发一个通信请求，对方进程的 Ploto 可以通过该 Request 中的 target 自动路由到相应的 Controller，在该 Controller 中可以通过 Request 来获取请求参数完成处理逻辑</li>
+<li><strong>Response</strong>：对方进程处理完成请求、请求超时等时机，需要返回一个 Response 对象，该对象需要返回处理的结果</li>
+</ul>
+<p><img src="https://github.com/wangjiegulu/wangjiegulu.github.com/assets/5423194/03088240-5d2e-4e80-83d8-3912101b0761" alt="ipc_framework_ploto_img_05"></p>
+<h4 id="3-3-1-消息的流转周期函数"><a href="#3-3-1-消息的流转周期函数" class="headerlink" title="3.3.1 消息的流转周期函数"></a>3.3.1 消息的流转周期函数</h4><p>消息（Message）从一个进程被发送开始，到被另一个进程接收，整个过程具有自己的流转周期函数。<br>初略来讲，一个消息被发送，首先会被对应的 <strong>消息序列化器</strong>（<code>MessageSerializer</code>） 进行序列化（具体序列化的方式及序列化之后的数据结构可自定义），然后通过 Cable 实现消息的发送。另一进程接收到消息之后，通过同样的消息序列化器 进行反序列化（同样可以根据不同的底层通信协议进行自定义）成对象。也就是说消息的转发流程与 Ploto 中的消息流转周期函数是对应的，如下图：</p>
+<p><img src="https://github.com/wangjiegulu/wangjiegulu.github.com/assets/5423194/1f86d46e-7174-45ad-bb42-fad935d792e7" alt="ipc_framework_ploto_img_06"></p>
+<p>在上面的发送过程中，Ploto 会在对应的阶段细分不同的消息流转周期函数，Ploto 内部对消息进行业务逻辑上的处理也是需要依赖于这些流转周期函数。如下图：</p>
+<p><img src="https://github.com/wangjiegulu/wangjiegulu.github.com/assets/5423194/988e44a5-69f2-4621-aa60-b213155ec942" alt="ipc_framework_ploto_img_07"></p>
+<p>如上图，以上 10 个函数，其中 <code>OnSendMessage</code> 和 <code>OnReceiveMessage</code> 两个函数用于 Cable 内部真正执行发送和接收消息，细节隐藏在 Cable 内部，不对外暴露，所以余下 8 个为流转周期函数，<strong>按照调用的顺序</strong>如下：</p>
+<ul>
+<li><code>OnPreSendMessage</code>：在消息发送前时回调，此时的 Message 还是一个对象，还没有被序列化</li>
+<li><code>OnPreSendMessageSerialized</code>：在消息发送前回调，此时的 Message 已经被序列化，具体的数据结构取决于使用的序列化器</li>
+<li><code>OnPostSendMessageSerialized</code>：在消息发送后回调，此时参数中会带有序列化和未序列化两种状态的 Message</li>
+<li><code>OnPostSendMessage</code>：在消息发送后回调，此时参数中会携带序列化前的 Message 对象和发送的结果</li>
+<li><code>OnPreReceiveMessageSerialized</code>：在消息接收前回调，此时的消息还是序列化之后的对象</li>
+<li><code>OnPreReceiveMessage</code>：在消息接收前回调，此时接收的消息已经被反序列化</li>
+<li><code>OnPostReceiveMessage</code>：在消息接收后回调，此时接收的消息已经被反序列化</li>
+<li><code>OnPostReceiveMessageSerialized</code>：在消息接收后回调，此时参数中会带有序列化和未序列化两种状态的 Message</li>
+</ul>
+<p>在消息流转周期函数中，我们可以针对不同的 Message 类型进行不同的业务处理。</p>
+<p>如针对 <code>Request</code> 类型的消息：</p>
+<ul>
+<li>在发送 <code>Request</code> 类型的消息前（<code>OnPreSendMessage</code>）和 发送消息后（<code>OnPostSendMessage</code>）两个流转周期函数中处理请求的缓存和超时的处理。</li>
+<li>在接收 <code>Request</code> 类型的消息后（<code>OnPostReceiveMessage</code>）流转周期函数中处理请求路由转发和 Controller 执行等逻辑。</li>
+<li>在发送 <code>Request</code> 类型的消息前（<code>OnPreSendMessage</code> 和 <code>OnPreSendMessageSerialized</code>）实现请求发送拦截器，如增加通用参数，加密 Request 等</li>
+<li>在接收 <code>Request</code> 类型的消息后（<code>OnPreReceiveMessageSerialized</code>）实现请求接收拦截器，如解密 Request 等</li>
+</ul>
+<p>针对 <code>Response</code> 类型的消息一样也有类似消息流转周期函数中的实现。</p>
+<h4 id="3-3-2-消息的标准化协议"><a href="#3-3-2-消息的标准化协议" class="headerlink" title="3.3.2 消息的标准化协议"></a>3.3.2 消息的标准化协议</h4><p>所有消息（包括自定义消息）都需要继承自 Message，Message 的数据结构如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Message</span> &#123;</span></span><br><span class="line">   <span class="keyword">private</span>:</span><br><span class="line">    <span class="comment">//---------- 需要序列化 ----------//</span></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 创建当前 Message 的 point name</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">string</span> fromPointName_;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * @brief 消息类型</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    message::Type type_;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如上，Message 中 <code>fromPointName_</code> 表示该 Message 创建自哪个 PlotoEngine，<code>type_</code> 表示该 Message 的类型，可能是 <code>Request</code> 类型、<code>Response</code> 类型或者其它扩展的类型。</p>
+<p>除了以上这些字段之外，其它数据结构需要具体的扩展类型自由创建，并实现和维护对应的序列化器。</p>
+<p><strong>内置类型 Request</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Request</span> :</span> <span class="keyword">public</span> Message &#123;</span><br><span class="line">   <span class="keyword">private</span>:</span><br><span class="line">    <span class="comment">//---------- 需要序列化 ----------//</span></span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">string</span> requestId_;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">string</span> target_;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">map</span>&lt;<span class="built_in">std</span>::<span class="built_in">string</span>, <span class="built_in">std</span>::<span class="built_in">string</span>&gt; params_;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">map</span>&lt;<span class="built_in">std</span>::<span class="built_in">string</span>, <span class="built_in">std</span>::<span class="built_in">string</span>&gt; headers_;</span><br><span class="line">    <span class="comment">// 请求超时时间</span></span><br><span class="line">    ploto_int64 timeout_ = <span class="number">5000</span>;  <span class="comment">// millis</span></span><br><span class="line">    <span class="comment">// 请求真正发送时间</span></span><br><span class="line">    ploto_int64 sendStartTime_ = <span class="number">0</span>;</span><br><span class="line">    ploto_int64 expiredTime_ = <span class="number">0</span>;  <span class="comment">// 超时过期时间</span></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如上，Request 的标准数据结构中，包括请求参数 <code>params_</code>、请求 <code>header_</code>、超时时间 <code>timeout_</code>、路由标识 <code>target_</code> 等基本参数配置。对方 PlotoCable 接收到 request 之后，会通过 <code>target_</code> 来路由执行 Controller。</p>
+<p><strong>内置类型 Response</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Response</span> :</span> <span class="keyword">public</span> Message &#123;</span><br><span class="line">   <span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">string</span> requestId_;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">string</span> responseId_;</span><br><span class="line">    <span class="keyword">int</span> code_;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">string</span> msg_;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">string</span> data_;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Response 的标准化结构为 结果码 <code>code_</code>、结果描述 <code>msg_</code>、响应数据 <code>data_</code>。</p>
+<h3 id="3-4-Container-和-Dispatcher"><a href="#3-4-Container-和-Dispatcher" class="headerlink" title="3.4 Container 和 Dispatcher"></a>3.4 Container 和 Dispatcher</h3><p>Ploto 的部分核心的业务逻辑功能需要依赖于消息的流转周期函数，PlotoEngine 监听了每个消息的流转周期函数，并作为控制器进行消息流转周期事件的转发和调度。<br>而真正的转发和调度需要依赖于 <code>Container</code> 和 <code>Dispatcher</code>，Container 与 Message 的类型相关，Dispatcher 与收发过程相关，不同的消息类型，通过各自的 Container 来组装每种 Dispatcher，最终形成整个转发和调度的网络。如下图：</p>
+<p><img src="https://github.com/wangjiegulu/wangjiegulu.github.com/assets/5423194/4b45f04d-283a-4a67-a525-5112ec823ffe" alt="ipc_framework_ploto_img_08"></p>
+<p>如上图，每个消息类型需要两个 Dispatcher 来进行分发，一个是消息发送时进行分发，相应函数与消息的发送周期函数对应；一个是消息接收时进行分发，相应函数与消息接收周期函数对应。</p>
+<blockquote>
+<p>HiddenMessageContainer 是特殊的 Container，其中的 Dispatcher 主要用于处理反序列化前的数据，因为此时的数据尚未反序列化成对象，所以具体的消息类型并不明确。</p>
+</blockquote>
+<h4 id="3-4-1-拦截器的实现"><a href="#3-4-1-拦截器的实现" class="headerlink" title="3.4.1 拦截器的实现"></a>3.4.1 拦截器的实现</h4><p>Ploto 基于 Dispatcher 和消息流转周期函数，实现并对外提供了 4 种拦截器：</p>
+<ul>
+<li><strong>RequestInterceptor</strong>：请求类型的消息拦截器，该拦截器会在请求被发送前，通过 Chain 进行调用，通过这个拦截器可以给所有请求配置一些通用的请求参数、对请求数据进行签名等等。注意，只有请求类型的消息才会进入到该拦截器。</li>
+<li><strong>ResponseInterceptor</strong>：响应类型的消息拦截器，该拦截器会在请求被接收后马上被回调，通过这个拦截器可以对响应进行一些通用的处理，比如拦截一些特殊的返回 Code，并做出一些特定的处理。注意，只有响应类型的消息才会进入到该拦截器。</li>
+<li><strong>MessageSendSerializedInterceptor</strong>：消息发送拦截器（消息是序列化后的状态），该拦截器会在消息被发送之后调用，此时消息是序列化之后的数据，所以我们可以通过这个拦截器对请求进行加密等处理。注意：该拦截器不区分消息类型，所有消息都会经过该拦截器</li>
+<li><strong>MessageReceiveSerializedInterceptor</strong>：消息接收拦截器（消息是序列化后的状态），该拦截器会在消息被接收后调用，所以我们可以通过这个拦截器对消息进行解密等处理。注意：该拦截器不区分消息类型，所有消息都会经过该拦截器</li>
+</ul>
+<p>以 <strong>MessageSendSerializedInterceptor</strong> 的实现为例，首先通过 <code>PlotoEngine::AddMessageSendSerializedInterceptor</code> 设置拦截器，然后根据消息流转周期函数，请求发送前会进入到 HiddenMessageReceiveDispatcher 中，拦截器会被 push 到 <code>interceptors_</code> ，在发送过程中，会进入到流转周期函数（<code>OnPreReceiveMessageSerialized</code>），然后通过 <code>PlotoChain</code> 来执行所有的 <code>MessageSendSerializeInterceptor</code> 拦截器。</p>
+<h4 id="3-4-2-请求缓存的实现"><a href="#3-4-2-请求缓存的实现" class="headerlink" title="3.4.2 请求缓存的实现"></a>3.4.2 请求缓存的实现</h4><p>Ploto 内部对所有的请求做了缓存，主要作用是缓存当前的请求数据，在拿到请求结果时能够根据对应的请求进行相应的处理，比如把结果通知调用者。请求结果有可能是对方进程返回的响应，也有可能是对方进程没有响应，导致请求超时，还有可能是在 Ploto 底层处理过程中出现异常返回的内部错误。</p>
+<p>请求缓存的实现也是基于 Dispatcher 的流转周期函数，跟 PlotoEngine 和 PlotoCable 两者的逻辑也是解耦的，流程如下：</p>
+<p><img src="https://github.com/wangjiegulu/wangjiegulu.github.com/assets/5423194/032ddffd-0ad5-4faa-b83c-88905024103b" alt="ipc_framework_ploto_img_09"></p>
+<p>在 Ploto SDK 初始化 / 启动时，后台会自动拉起一个线程，定时扫描当前所有请求的当前状态，用于检查是否存在超时的请求，并对超时的请求进行通知和处理。在请求发送时，会进入 <code>RequestMessageSendDispatcher</code> 中，在流转周期函数 <code>OnPreSendMessage</code> 中把请求加入缓存。PlotoCable 负责发送该请求消息，在 Process B 处理完成并返回 Response 消息后，PlotoCable 会接收到该 Request 对应的响应消息，并通过 PlotoEngine 分发到 <code>ResponseMessageReceiveDispatcher</code> 中，在流转周期函数 <code>OnPostReceiveMessage</code> 中通过 ContainerOwner 接口通知请求结束，在请求缓存中清除对应的请求并回调给调用方。</p>
+<h4 id="2-4-3-请求处理实现"><a href="#2-4-3-请求处理实现" class="headerlink" title="2.4.3 请求处理实现"></a>2.4.3 请求处理实现</h4><p>在 PlotoCable 接收到对方进程的 request 类型消息时，PlotoCable 会把消息分发到 <code>RequestMessageReceiveDispatcher</code> 中，在流转周期函数 <code>OnPostReceiveMessage</code> 中就可以处理这个请求，处理完成之后构建对应的 Response 发送给对方进程。</p>
+<p>处理这个请求的方式比较简单，首先检索到对应请求的 Controller，而所有的 Controller 则是在使用者初始化当前 Ploto SDK 时通过 <code>PlotoEngine::RegisterRequestController</code> 函数注册进来，匹配的规则是通过 Request 的 <code>target</code> 来进行匹配路由。具体流程如下：</p>
+<h2 id="4-基于-Socket-的-Ploto-实现"><a href="#4-基于-Socket-的-Ploto-实现" class="headerlink" title="4. 基于 Socket 的 Ploto 实现"></a>4. 基于 Socket 的 Ploto 实现</h2><p>上述整体设计方案理论上支持各种 IPC 底层通信协议，Ploto 提供了基于 Socket TCP 协议的跨平台（支持 Windows / Mac / Linux / Android，同时支持 Electron 版本）实现。</p>
+<p>遵从上述的设计理念，我们基于 PlotoEngine 进行了扩展，从 <code>PlotoEngine</code> 扩展出 <code>PlotoServerSocketEngine</code> 和 <code>PlotoClientSocketEngine</code>，PlotoServerSocketEngine 允许与多个 Client 建立连接，而 PlotoClientSocketEngine 只能与一个 Server 进行连接，因此延伸出以下方案设计：</p>
+<p><img src="https://github.com/wangjiegulu/wangjiegulu.github.com/assets/5423194/20fad7a1-4c98-4837-b558-1a2018cc1b2d" alt="ipc_framework_ploto_img_10"></p>
+<h3 id="4-1-PlotoSocketEngine"><a href="#4-1-PlotoSocketEngine" class="headerlink" title="4.1 PlotoSocketEngine"></a>4.1 PlotoSocketEngine</h3><p>PlotoSocketServerEngine 的实现，在 OnInitialize 过程中，初始化 socket，绑定指定的端口并进行监听，然后启动 accept 线程，等待客户端的连接。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PlotoSocketServerEngine</span> :</span> <span class="keyword">public</span> PlotoServerEngine&lt;PlotoSocketClientCable, <span class="built_in">std</span>::<span class="built_in">string</span>&gt;,</span><br><span class="line">    <span class="keyword">public</span> PlotoSocketCableAbnormalStatusListener,</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">std</span>::enable_shared_from_this&lt;PlotoSocketServerEngine&gt; &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    sockaddr_in address_;</span><br><span class="line">    S_SOCKET server_fd_;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> port_;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * @brief accept 线程</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">shared_ptr</span>&lt;<span class="built_in">std</span>::thread&gt; acceptThread_;</span><br><span class="line">    <span class="built_in">std</span>::atomic&lt;<span class="keyword">bool</span>&gt; acceptThreadQuitFlag_;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * @brief 创建 socket server engine</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     * @param port 启动 socket 使用的端口号</span></span><br><span class="line"><span class="comment">     * @param pointName 当前 engine 的 endpoint name。每一个实例都需要对于同一server唯一，用于另一端区分是哪个 engine。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    PlotoSocketServerEngine(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span>&amp; pointName,<span class="keyword">int</span> port) :acceptThreadQuitFlag_(<span class="literal">false</span>),port_(port),</span><br><span class="line">        PlotoServerEngine(pointName) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="keyword">virtual</span> ~PlotoSocketServerEngine() &#123;</span><br><span class="line">        <span class="comment">// do nothing</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">bool</span> <span class="title">RemoveClientCable</span><span class="params">(<span class="built_in">std</span>::<span class="built_in">shared_ptr</span>&lt;PlotoSocketClientCable&gt; clientCable)</span> override</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">OnPlotoSocketCableAbnormal</span><span class="params">(<span class="built_in">std</span>::<span class="built_in">shared_ptr</span>&lt;PlotoSocketCable&gt; plotoCable, <span class="keyword">const</span> <span class="keyword">int</span>&amp; errNum, <span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span>&amp; errMsg)</span> override</span>;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">OnPlotoSocketCableClosed</span><span class="params">(<span class="built_in">std</span>::<span class="built_in">shared_ptr</span>&lt;PlotoSocketCable&gt; plotoCable)</span> override</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">OnInitialize</span><span class="params">()</span> override</span>;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">OnDestroy</span><span class="params">()</span> override</span>;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>一旦客户端连接成功，PlotoSocketServerEngine 就会在 engine 线程中创建一个对应该客户端的 <code>PlotoSocketClientCable</code> 对象，并启动 PlotoSocketClientCable。</p>
+<p>PlotoSocketClientEngine 的实现，在 OnInitialize 过程中，通过端口连接到 Server，并且创建 <code>PlotoSocketServerCable</code> 对象，并启动 PlotoSocketServerCable。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PlotoSocketClientEngine</span> :</span> <span class="keyword">public</span> PlotoClientEngine&lt;PlotoSocketServerCable, <span class="built_in">std</span>::<span class="built_in">string</span>&gt;,</span><br><span class="line">                                <span class="keyword">public</span> PlotoSocketCableAbnormalStatusListener,</span><br><span class="line">                                <span class="keyword">public</span> <span class="built_in">std</span>::enable_shared_from_this&lt;PlotoSocketClientEngine&gt; &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * @brief 创建 socket client engine</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     * @param port 服务端的端口号</span></span><br><span class="line"><span class="comment">     * @param pointName 当前 engine 的 endpoint name。每一个实例都需要对于同一 server 唯一，用于另一端区分是哪个 engine。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    PlotoSocketClientEngine(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span> &amp;pointName,<span class="keyword">int</span> port) :PlotoClientEngine(pointName),port_(port)&#123;&#125;</span><br><span class="line">    <span class="keyword">virtual</span> ~PlotoSocketClientEngine()&#123;</span><br><span class="line">        <span class="comment">// do nothing</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">OnPlotoSocketCableAbnormal</span><span class="params">(<span class="built_in">std</span>::<span class="built_in">shared_ptr</span>&lt;PlotoSocketCable&gt; plotoCable, <span class="keyword">const</span> <span class="keyword">int</span>&amp; errNum, <span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span>&amp; errMsg)</span> override</span>;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">OnPlotoSocketCableClosed</span><span class="params">(<span class="built_in">std</span>::<span class="built_in">shared_ptr</span>&lt;PlotoSocketCable&gt; plotoCable)</span> override</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">OnInitialize</span><span class="params">()</span> override</span>;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">OnDestroy</span><span class="params">()</span> override</span>;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    sockaddr_in serv_addr_;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * @brief 当前连接的 socket 句柄</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    S_SOCKET sock_;</span><br><span class="line">    <span class="keyword">int</span> port_;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>在创建 PlotoCable 的同时，两个 PlotoEngine 都会监听 PlotoCable 的连接状态，关注异常断开等情况，并进行相应的处理。</p>
+<h3 id="4-2-PlotoSocketCable"><a href="#4-2-PlotoSocketCable" class="headerlink" title="4.2 PlotoSocketCable"></a>4.2 PlotoSocketCable</h3><p>根据上述的设计理念，Cable 真正实现了消息的发送和接收的能力。<br>PlotoSocketCable 中继承 PlotoCable，需要实现 <code>OnSend</code> 函数和对 <code>OnReceive</code> 函数的调用。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PlotoSocketCable</span> :</span> <span class="keyword">public</span> PlotoCable&lt;<span class="built_in">std</span>::<span class="built_in">string</span>&gt; &#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * @brief cable 状态异常的监听</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="built_in">std</span>::weak_ptr&lt;PlotoSocketCableAbnormalStatusListener&gt; plotoSocketCableStatusAbnormalListener_;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span>:</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * @brief 消息接收线程</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">shared_ptr</span>&lt;<span class="built_in">std</span>::thread&gt; receiveThread_;</span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">   <span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * @brief 当前连接的 socket 句柄</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    S_SOCKET socket_;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * @brief 接收线程的退出标志</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="built_in">std</span>::atomic&lt;<span class="keyword">bool</span>&gt; receiveThreadQuitFlag_;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * @brief 消息粘包/拆包处理</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">shared_ptr</span>&lt;PlotoSocketStickyManager&gt; plotoSocketStickyManager_;</span><br><span class="line"></span><br><span class="line">    PlotoSocketCable(<span class="built_in">std</span>::<span class="built_in">string</span> pointName,</span><br><span class="line">                     PlotoSocketPointID &amp;cablePointID,</span><br><span class="line">                     <span class="built_in">std</span>::<span class="built_in">shared_ptr</span>&lt;MessageSerializer&lt;<span class="built_in">std</span>::<span class="built_in">string</span>&gt; &gt; messageSerializer,</span><br><span class="line">                     <span class="built_in">std</span>::<span class="built_in">shared_ptr</span>&lt;ILooperThread&gt; sendThread = <span class="built_in">std</span>::make_shared&lt;LooperThread&gt;())</span><br><span class="line">        :receiveThreadQuitFlag_(<span class="literal">false</span>), PlotoCable(pointName, cablePointID, messageSerializer, sendThread) &#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">virtual</span> ~PlotoSocketCable() &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Start</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> * threadName)</span> override</span>;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Shutdown</span><span class="params">()</span> override</span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">SetPlotoSocketCableAbnormalStatusListener</span><span class="params">(<span class="built_in">std</span>::weak_ptr&lt;PlotoSocketCableAbnormalStatusListener&gt; listener)</span> </span>&#123;</span><br><span class="line">        plotoSocketCableStatusAbnormalListener_ = listener;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">std</span>::weak_ptr&lt;PlotoSocketCableAbnormalStatusListener&gt; GetPlotoSocketCableAbnormalStatusListener() &#123;</span><br><span class="line">        <span class="keyword">return</span> plotoSocketCableStatusAbnormalListener_;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">   <span class="keyword">protected</span>:</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * @brief 真正的发送逻辑</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     * @param message </span></span><br><span class="line"><span class="comment">     * @return const std::shared_ptr&lt;PlotoRet&gt; </span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">virtual</span> <span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">shared_ptr</span>&lt;PlotoRet&gt; OnSend(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">shared_ptr</span>&lt;<span class="built_in">std</span>::<span class="built_in">string</span>&gt; message) override;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>PlotoSocketCable 会启动一个 Send 线程和一个 Receive 线程，OnSend 和 OnReceive 函数的实现基于标准的 Socket 模型，处理了粘包/拆包等问题，并对各平台进行了适配。</p>
+<h2 id="5-可扩展性"><a href="#5-可扩展性" class="headerlink" title="5. 可扩展性"></a>5. 可扩展性</h2><h3 id="5-1-底层通信协议可扩展"><a href="#5-1-底层通信协议可扩展" class="headerlink" title="5.1 底层通信协议可扩展"></a>5.1 底层通信协议可扩展</h3><p>由于 Ploto 底层是高度抽象的，同时又使用了大量的模板，PlotoEngine / PlotoCable 等各核心组件的接口与具体的通信协议无关，因此 Ploto 也就具备了扩展性，它支持扩展出不同的底层 IPC 通信协议，如在 Android 端可以基于 <a href="https://developer.android.com/reference/android/os/Binder" target="_blank" rel="noopener">Binder</a> 扩展出 PlotoBinderEngine，在 Mac 端可以基于 <a href="https://developer.apple.com/documentation/xpc" target="_blank" rel="noopener">XPC</a> 扩展出 PlotoXPCEngine 等，也可以基于管道、共享内存等传统的 IPC 进行扩展，这样不同的平台或者场景在底层可以使用各自最合适的 IPC 解决方案。</p>
+<h3 id="5-2-通信消息可扩展"><a href="#5-2-通信消息可扩展" class="headerlink" title="5.2 通信消息可扩展"></a>5.2 通信消息可扩展</h3><p>同样，消息的结构及消息的派发处理的流程也都是可扩展的，针对不同的协议，可以使用不同的消息结构（如 Android 的 Parcelable 等），也就是说，除了 Ploto 内置的 Request 和 Response 两种消息类型（虽然这两种消息类型可以基本能够满足常见的使用场景）之外，我们也可以创建自定义的类型，让 Ploto 能够正常发送和接收自定义的消息类型。</p>
+<p>那么消息类型的扩展需要哪些步骤？</p>
+<p>首先，创建任意的自定义类型的消息，如 PushMessage（可能是代表推送消息类型），表示一个进程主动给另一进程推送的消息。</p>
+<p>接着，由于创建的消息是任意的，所以需要对该消息类型实现消息的序列化和反序列化的过程，以便于在消息发送和接收时进行相应的处理，于是需要在对应的 MessageSerializer 中进行实现。</p>
+<p>此时，该自定义消息是可以被发送和接收了，但是消息接收之后可能会有相应的处理的逻辑，因此需要在该消息的流转周期函数中实现对应的 Container 和 Dispatcher，在 Dispatcher 中完善该自定义消息的逻辑处理。</p>
+<p>所以，消息的可扩展主要体现在两方面，支持扩展消息的类型，以及支持扩展消息类型的流转处理逻辑。</p>
+<h2 id="6-跨平台支持程度"><a href="#6-跨平台支持程度" class="headerlink" title="6. 跨平台支持程度"></a>6. 跨平台支持程度</h2><p>目前 Ploto 理论上 5 个平台均支持，其中 Windows 和 Mac 已得到线上的广泛验证，Linux 端还处于内测中，Android 端初步跑通，但还未在实际项目中使用。</p>
+<table>
+<thead>
+<tr>
+<th>平台</th>
+<th>语言版本</th>
+<th>发展情况</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Windows</td>
+<td><code>C++</code></td>
+<td>通过功能性测试、兼容性测试、压测，并在实际线上项目中已正常使用</td>
+<td></td>
+</tr>
+<tr>
+<td>Mac</td>
+<td><code>Objective-C</code> 胶水层 &amp; <code>C++</code></td>
+<td>通过功能性测试、兼容性测试、压测，并在实际线上项目中已正常使用</td>
+<td></td>
+</tr>
+<tr>
+<td>Linux</td>
+<td>1、<code>C++</code><br>2、<code>Typescript / Javascript</code>（Electron）胶水层 &amp; <code>C++</code></td>
+<td>通过功能性测试、兼容性测试、压测，并在实际线上项目中已接入验证</td>
+<td></td>
+</tr>
+<tr>
+<td>Android</td>
+<td><code>Java</code> 胶水层 &amp; <code>C++</code></td>
+<td>初步验证跑通，尚未在实际项目中使用</td>
+<td></td>
+</tr>
+<tr>
+<td>iOS</td>
+<td><code>Objective-C</code> &amp; <code>C++</code></td>
+<td>理论上支持，但是目前未验证</td>
+<td>iOS 由于本身进程管理的限制，仅支持单进程通信，所以目前不作为 Ploto 主要支持的目标平台</td>
+</tr>
+</tbody>
+</table>
+<h2 id="7-尾巴"><a href="#7-尾巴" class="headerlink" title="7. 尾巴"></a>7. 尾巴</h2><p>Ploto 跨平台的解决方案，磨平了各个平台进程间通信的底层实现差异，为进一步统一了各平台的多进程架构的设计提供了基础，为各平台进程间的通信建立了输入和输出的标准，降低了各平台之间的技术沟通成本，让开发者更聚焦在业务的设计和开发上。</p>
+<p>除了在客户端使用之外，Ploto 后续还会计划作为 SDK 统一基础开发框架 Extension 的底层能力，实现 Extension 中服务注册中心的跨进程的服务订阅和共享，打破进程的限制。</p>
+
+    </div>
+
+    <br/>
+    <hr>
+
+    
+    <div class="post-copyright" style="margin-top: 20px;">
+        <strong>来源博客：</strong><a href="https://blog.wangjiegulu.com">Wang Jie's Blog</a><br/>
+         <strong>本文链接：</strong><a href="https://blog.wangjiegulu.com/2022/06/10/ipc_framework_ploto_00/">https://blog.wangjiegulu.com/2022/06/10/ipc_framework_ploto_00/</a><br/>
+         <strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处。
+    </div>
+    
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/feed.xml">RSS</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#跨平台-IPC-通信框架-Ploto-SDK-实现原理"><span class="toc-number">1.</span> <span class="toc-text">跨平台 IPC 通信框架 Ploto SDK 实现原理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-背景"><span class="toc-number">1.1.</span> <span class="toc-text">1. 背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-解决方案"><span class="toc-number">1.2.</span> <span class="toc-text">2. 解决方案</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-如何使用"><span class="toc-number">1.2.1.</span> <span class="toc-text">2.1 如何使用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-1-初始化引擎"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">2.1.1 初始化引擎</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-1-1-1-服务端进程"><span class="toc-number">1.2.1.1.1.</span> <span class="toc-text">2.1.1.1 服务端进程</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-1-1-2-客户端进程"><span class="toc-number">1.2.1.1.2.</span> <span class="toc-text">2.1.1.2 客户端进程</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-2-发送请求"><span class="toc-number">1.2.1.2.</span> <span class="toc-text">2.1.2 发送请求</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-3-处理请求"><span class="toc-number">1.2.1.3.</span> <span class="toc-text">2.1.3 处理请求</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-整体设计"><span class="toc-number">1.3.</span> <span class="toc-text">3. 整体设计</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-Engine"><span class="toc-number">1.3.1.</span> <span class="toc-text">3.1 Engine</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-Cable"><span class="toc-number">1.3.2.</span> <span class="toc-text">3.2 Cable</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-Message"><span class="toc-number">1.3.3.</span> <span class="toc-text">3.3 Message</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-1-消息的流转周期函数"><span class="toc-number">1.3.3.1.</span> <span class="toc-text">3.3.1 消息的流转周期函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-2-消息的标准化协议"><span class="toc-number">1.3.3.2.</span> <span class="toc-text">3.3.2 消息的标准化协议</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-Container-和-Dispatcher"><span class="toc-number">1.3.4.</span> <span class="toc-text">3.4 Container 和 Dispatcher</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-1-拦截器的实现"><span class="toc-number">1.3.4.1.</span> <span class="toc-text">3.4.1 拦截器的实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-2-请求缓存的实现"><span class="toc-number">1.3.4.2.</span> <span class="toc-text">3.4.2 请求缓存的实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-3-请求处理实现"><span class="toc-number">1.3.4.3.</span> <span class="toc-text">2.4.3 请求处理实现</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-基于-Socket-的-Ploto-实现"><span class="toc-number">1.4.</span> <span class="toc-text">4. 基于 Socket 的 Ploto 实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-PlotoSocketEngine"><span class="toc-number">1.4.1.</span> <span class="toc-text">4.1 PlotoSocketEngine</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-PlotoSocketCable"><span class="toc-number">1.4.2.</span> <span class="toc-text">4.2 PlotoSocketCable</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-可扩展性"><span class="toc-number">1.5.</span> <span class="toc-text">5. 可扩展性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-底层通信协议可扩展"><span class="toc-number">1.5.1.</span> <span class="toc-text">5.1 底层通信协议可扩展</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-通信消息可扩展"><span class="toc-number">1.5.2.</span> <span class="toc-text">5.2 通信消息可扩展</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-跨平台支持程度"><span class="toc-number">1.6.</span> <span class="toc-text">6. 跨平台支持程度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-尾巴"><span class="toc-number">1.7.</span> <span class="toc-text">7. 尾巴</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://blog.wangjiegulu.com/2022/06/10/ipc_framework_ploto_00/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://blog.wangjiegulu.com/2022/06/10/ipc_framework_ploto_00/&text=跨平台 IPC 通信框架 Ploto SDK 实现原理"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.wangjiegulu.com/2022/06/10/ipc_framework_ploto_00/&title=跨平台 IPC 通信框架 Ploto SDK 实现原理"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.wangjiegulu.com/2022/06/10/ipc_framework_ploto_00/&is_video=false&description=跨平台 IPC 通信框架 Ploto SDK 实现原理"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=跨平台 IPC 通信框架 Ploto SDK 实现原理&body=Check out this article: https://blog.wangjiegulu.com/2022/06/10/ipc_framework_ploto_00/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.wangjiegulu.com/2022/06/10/ipc_framework_ploto_00/&title=跨平台 IPC 通信框架 Ploto SDK 实现原理"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.wangjiegulu.com/2022/06/10/ipc_framework_ploto_00/&title=跨平台 IPC 通信框架 Ploto SDK 实现原理"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.wangjiegulu.com/2022/06/10/ipc_framework_ploto_00/&title=跨平台 IPC 通信框架 Ploto SDK 实现原理"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://blog.wangjiegulu.com/2022/06/10/ipc_framework_ploto_00/&title=跨平台 IPC 通信框架 Ploto SDK 实现原理"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.wangjiegulu.com/2022/06/10/ipc_framework_ploto_00/&name=跨平台 IPC 通信框架 Ploto SDK 实现原理&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2024 Wang Jie
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/feed.xml">RSS</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-111189680-2', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'blog-wangjiegulu-com';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+

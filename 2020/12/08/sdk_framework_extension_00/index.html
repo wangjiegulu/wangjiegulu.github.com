@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#ffffff">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#ffffff">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#ffffff">
+
+
+    <meta name="description" content="全平台 SDK 统一开发框架 Extension 设计理念什么才是一个好的 SDK 设计 注意：这里的 SDK 是指具有一定完整业务逻辑的独立子系统，开发者可以依赖它通过简洁优雅的 API 解决一些特定领域中的复杂问题；如：APM、HttpDNS、URS、Triton 等等； 并不包括一系列工具类的简单聚合的 SDK，如 extension、xxxUtil 等等  对于业务方来说，SDK 的稳定性">
+<meta name="keywords" content="framework,SDK,modular,模块化,可测试性,可维护性,可扩展性,extension,服务化,服务注册中心">
+<meta property="og:type" content="article">
+<meta property="og:title" content="全平台 SDK 统一开发框架 Extension 设计理念">
+<meta property="og:url" content="https://blog.wangjiegulu.com/2020/12/08/sdk_framework_extension_00/index.html">
+<meta property="og:site_name" content="Wang Jie&#39;s Blog|Software Engineer|Android|Java|Kotlin ❤|github|Huginn|Geek|code|developer|programer">
+<meta property="og:description" content="全平台 SDK 统一开发框架 Extension 设计理念什么才是一个好的 SDK 设计 注意：这里的 SDK 是指具有一定完整业务逻辑的独立子系统，开发者可以依赖它通过简洁优雅的 API 解决一些特定领域中的复杂问题；如：APM、HttpDNS、URS、Triton 等等； 并不包括一系列工具类的简单聚合的 SDK，如 extension、xxxUtil 等等  对于业务方来说，SDK 的稳定性">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://github.com/wangjiegulu/wangjiegulu.github.com/assets/5423194/476ae882-84fd-4691-9e75-6f0172f1d364">
+<meta property="og:image" content="https://github.com/wangjiegulu/wangjiegulu.github.com/assets/5423194/dca6b95a-3740-4a74-9f15-0dc8bad08fcf">
+<meta property="og:image" content="https://github.com/wangjiegulu/wangjiegulu.github.com/assets/5423194/5f499e48-3adf-4244-8cc7-84a848cca221">
+<meta property="og:image" content="https://github.com/wangjiegulu/wangjiegulu.github.com/assets/5423194/67e15fb4-f63d-4b66-b4e4-c72538e0ad6b">
+<meta property="og:updated_time" content="2024-01-21T05:11:15.373Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="全平台 SDK 统一开发框架 Extension 设计理念">
+<meta name="twitter:description" content="全平台 SDK 统一开发框架 Extension 设计理念什么才是一个好的 SDK 设计 注意：这里的 SDK 是指具有一定完整业务逻辑的独立子系统，开发者可以依赖它通过简洁优雅的 API 解决一些特定领域中的复杂问题；如：APM、HttpDNS、URS、Triton 等等； 并不包括一系列工具类的简单聚合的 SDK，如 extension、xxxUtil 等等  对于业务方来说，SDK 的稳定性">
+<meta name="twitter:image" content="https://github.com/wangjiegulu/wangjiegulu.github.com/assets/5423194/476ae882-84fd-4691-9e75-6f0172f1d364">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>全平台 SDK 统一开发框架 Extension 设计理念</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3">
+    
+      <div id="header-post-nav">
+  <span id="nav">
+      <ul>
+         
+          <li><b><a href="/">Home</a></b></li>
+         
+          <li><b><a href="/archives/">Writing</a></b></li>
+         
+          <li><b><a href="/tags/">Tags</a></b></li>
+         
+          <li><b><a href="/about/">About</a></b></li>
+         
+          <li><b><a href="/feed.xml">RSS</a></b></li>
+        
+      </ul>
+  </span>
+</div>
+
+<div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/feed.xml">RSS</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2022/06/10/ipc_framework_ploto_00/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/02/13/fix-jest-typeorm-transaction-decorator/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://blog.wangjiegulu.com/2020/12/08/sdk_framework_extension_00/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://blog.wangjiegulu.com/2020/12/08/sdk_framework_extension_00/&text=全平台 SDK 统一开发框架 Extension 设计理念"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.wangjiegulu.com/2020/12/08/sdk_framework_extension_00/&title=全平台 SDK 统一开发框架 Extension 设计理念"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.wangjiegulu.com/2020/12/08/sdk_framework_extension_00/&is_video=false&description=全平台 SDK 统一开发框架 Extension 设计理念"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=全平台 SDK 统一开发框架 Extension 设计理念&body=Check out this article: https://blog.wangjiegulu.com/2020/12/08/sdk_framework_extension_00/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.wangjiegulu.com/2020/12/08/sdk_framework_extension_00/&title=全平台 SDK 统一开发框架 Extension 设计理念"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.wangjiegulu.com/2020/12/08/sdk_framework_extension_00/&title=全平台 SDK 统一开发框架 Extension 设计理念"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.wangjiegulu.com/2020/12/08/sdk_framework_extension_00/&title=全平台 SDK 统一开发框架 Extension 设计理念"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://blog.wangjiegulu.com/2020/12/08/sdk_framework_extension_00/&title=全平台 SDK 统一开发框架 Extension 设计理念"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.wangjiegulu.com/2020/12/08/sdk_framework_extension_00/&name=全平台 SDK 统一开发框架 Extension 设计理念&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#全平台-SDK-统一开发框架-Extension-设计理念"><span class="toc-number">1.</span> <span class="toc-text">全平台 SDK 统一开发框架 Extension 设计理念</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么才是一个好的-SDK-设计"><span class="toc-number">1.1.</span> <span class="toc-text">什么才是一个好的 SDK 设计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SDK-应该具有可控性"><span class="toc-number">1.2.</span> <span class="toc-text">SDK 应该具有可控性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SDK-应该具有可配置性"><span class="toc-number">1.3.</span> <span class="toc-text">SDK 应该具有可配置性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SDK-应该具有可扩展性"><span class="toc-number">1.4.</span> <span class="toc-text">SDK 应该具有可扩展性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#模块的独立性"><span class="toc-number">1.4.1.</span> <span class="toc-text">模块的独立性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#模块的生命周期"><span class="toc-number">1.4.2.</span> <span class="toc-text">模块的生命周期</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#模块的抽象"><span class="toc-number">1.4.3.</span> <span class="toc-text">模块的抽象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#模块间的通信"><span class="toc-number">1.4.4.</span> <span class="toc-text">模块间的通信</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SDK-应该具有依赖可重入性"><span class="toc-number">1.5.</span> <span class="toc-text">SDK 应该具有依赖可重入性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SDK-的服务应该具有可复用性"><span class="toc-number">1.6.</span> <span class="toc-text">SDK 的服务应该具有可复用性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SDK-的服务应该是进程间可共享的"><span class="toc-number">1.7.</span> <span class="toc-text">SDK 的服务应该是进程间可共享的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SDK-应该具有可测试性"><span class="toc-number">1.8.</span> <span class="toc-text">SDK 应该具有可测试性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SDK-应该具有版本管理"><span class="toc-number">1.9.</span> <span class="toc-text">SDK 应该具有版本管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#版本冲突"><span class="toc-number">1.9.1.</span> <span class="toc-text">版本冲突</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#语义化版本依赖插件"><span class="toc-number">1.9.2.</span> <span class="toc-text">语义化版本依赖插件</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        全平台 SDK 统一开发框架 Extension 设计理念
+    </h1>
+
+
+
+    <div class="meta"  style="margin-top:12px;">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name" style="margin-left: 12px">Wang Jie</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2020-12-08T05:45:00.000Z" itemprop="datePublished">2020-12-08</time>
+    </div>
+
+<br/>
+      
+    <div class="article-tag">
+        <i class="fas fa-tag" style="margin-top: 20px"></i>
+        <a class="tag-link" href="/tags/SDK/">SDK</a>, <a class="tag-link" href="/tags/extension/">extension</a>, <a class="tag-link" href="/tags/framework/">framework</a>, <a class="tag-link" href="/tags/modular/">modular</a>, <a class="tag-link" href="/tags/可扩展性/">可扩展性</a>, <a class="tag-link" href="/tags/可测试性/">可测试性</a>, <a class="tag-link" href="/tags/可维护性/">可维护性</a>, <a class="tag-link" href="/tags/服务化/">服务化</a>, <a class="tag-link" href="/tags/服务注册中心/">服务注册中心</a>, <a class="tag-link" href="/tags/模块化/">模块化</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  
+  <div class="content" itemprop="articleBody">
+    
+    
+      <!-- <img class="header-img" src="https://images.unsplash.com/uploads/14123892966835548e7bd/14369636?q=80&amp;w=3870&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" /> -->
+      
+
+        <img src="https://images.unsplash.com/uploads/14123892966835548e7bd/14369636?q=80&amp;w=3870&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" style="border-radius: 3px;"/>
+        
+      
+      
+    
+
+
+    <div class="md-content">
+      <h1 id="全平台-SDK-统一开发框架-Extension-设计理念"><a href="#全平台-SDK-统一开发框架-Extension-设计理念" class="headerlink" title="全平台 SDK 统一开发框架 Extension 设计理念"></a>全平台 SDK 统一开发框架 Extension 设计理念</h1><h2 id="什么才是一个好的-SDK-设计"><a href="#什么才是一个好的-SDK-设计" class="headerlink" title="什么才是一个好的 SDK 设计"></a>什么才是一个好的 SDK 设计</h2><blockquote>
+<p>注意：这里的 SDK 是指具有一定完整业务逻辑的独立子系统，开发者可以依赖它通过简洁优雅的 API 解决一些特定领域中的复杂问题；如：APM、HttpDNS、URS、Triton 等等；</p>
+<p>并不包括一系列工具类的简单聚合的 SDK，如 extension、xxxUtil 等等</p>
+</blockquote>
+<p>对于业务方来说，SDK 的稳定性至关重要，如果 SDK 内部出现问题直接会影响到整个业务 app 的稳定性。</p>
+<p>那我们可以从哪些方面可以提高 SDK 的稳定性，怎么样才算是一个比较好的 SDK 设计方案？</p>
+<p>或者说，要设计一个好的 SDK，需要考虑哪些方面的因素？</p>
+<h2 id="SDK-应该具有可控性"><a href="#SDK-应该具有可控性" class="headerlink" title="SDK 应该具有可控性"></a>SDK 应该具有可控性</h2><p>SDK 不应该是一堆堆死板的代码块，而是鲜活的，具有生命力的，可以呈现给外部 sdk 自己当前的状态，内部有自己的状态管理机制。</p>
+<p>接入者可以通过 SDK 开放的 API 来控制或者感知 SDK 的生命周期。</p>
+<p>SDK 可能包括但不仅限于 <code>启动</code>、<code>运行中</code>、<code>暂停</code>、<code>关闭</code> 等等状态，并且对外提供了影响 SDK 生命状态的方法，如：启动 SDK、关闭 SDK 等等。生命周期应该是一个闭环，并且是可轮回的，如：<code>启动</code> 之后可以 <code>关闭</code>、<code>关闭</code> 之后又可以重新 <code>启动</code>。</p>
+<p>不论是接入方还是 SDK 内部，都可以随时监听当前 SDK 的生命周期变化，进行对应的逻辑处理。</p>
+<p>SDK 内部的活动也应该受生命周期的影响。</p>
+<blockquote>
+<p>拿 Triton SDK 举例，Triton SDK 是我们内部使用的用于判断移动端当前网络状态的 SDK，它会通过一系列的策略（有可配置的默认策略，也可以让业务方灵活自定义）来判断当前网络是否正常及网络状况的具体级别。</p>
+</blockquote>
+<p>不管是接入方对 SDK 的调用，还是 SDK 内部本身的逻辑执行过程，所有跟 SDK 相关的操作都需要限定当前 SDK 在某种情况下才能有效执行。如果状态有误，则抛出相关的异常或者忽略后面的逻辑及最终的结果，又或者针对具体的异常的场景进行特定的处理；比如：启动过程只能在关闭状态下才能执行；SDK 内部解析请求只能在 SDK 为运行中的状态下才能执行等等。</p>
+<p>否则在 SDK 的内部可能会出现无法预知的问题，比如在接入方调用 Triton API 获取当前网络状态时候，SDK 内部执行了缓存的读取和修改，执行网络探测策略，比如通过系统 api 获取当前的网络可达性的策略，通过 APM 的请求数据来判断网络的策略，当 ping 对应的公共服务器策略时候发现用户没有设置合法的公共服务器，导致理论上配置不合法时不应该启动当前的 Triton SDK，或者说应该启动失败，并提示给接入方，但是因为 SDK 内部没有生命周期的概念，导致流程走到策略3的时候才发现不应该执行探测过程，这时因为前面的策略都已经执行，可能会产生脏数据或者引发意料之外的逻辑。</p>
+<p>SDK 其实是一个抽象的概念，业务 app 接入 Triton SDK 之后通常会通过 SDK 内部的一个单例模式（但是并不建议这么做）创建一个 <code>实例</code>。当创建完之后，才会有一个真正的 Triton SDK 实例产生，之后 app 运行过程中都会使用该 <code>SDK 实例</code>（即 <code>SDKInstance</code>），而该 <code>SDKInstance</code> 中就延展了所有该 SDK 的所有业务逻辑。</p>
+<p>一般来说，SDK 开发者都会为当前 SDK 实例维护一个 <code>isRunning</code> 的状态，并制定一系列的生命周期方法关联到 <code>isRunning</code> 状态，提供给 SDK 开发者使用，这是个一个不错的实践，如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * SDK 启动前回调</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> launchMode 启动模式</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">onSDKLaunch</span><span class="params">(SDKLaunchMode launchMode)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * SDK 启动后回调</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> launchMode 启动模式</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">onSDKStart</span><span class="params">(SDKLaunchMode launchMode)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * SDK 关闭前回调</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> launchMode 启动模式</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">onSDKStop</span><span class="params">(SDKLaunchMode launchMode)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * SDK 关闭后回调</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> launchMode 启动模式</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">onSDKShutdown</span><span class="params">(SDKLaunchMode launchMode)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>但是实际相对复杂的 SDK 中，我们通常会对 SDK 进行一定的架构设计及领域分层，这时 <code>SDKInstance</code> 的职责转变为维护了一系列的领域模型及功能模块，这时 <code>SDKInstance</code> 中的生命周期方法就不足以满足各个领域的需求。</p>
+<p>所以不同的领域对生命周期状态需要有统一的感知和联动，除了一个简单的 <code>isRunning</code> 状态之外，还需要为所有领域模块建立一系列统一标准的生命周期方法，在不同领域的各个的生命周期的方法中来明确业务逻辑的规范。这个在后面 <code>模块化</code> 设计中再讲。</p>
+<blockquote>
+<p>解决方案：SDK 生命周期化</p>
+</blockquote>
+<p><img src="https://github.com/wangjiegulu/wangjiegulu.github.com/assets/5423194/476ae882-84fd-4691-9e75-6f0172f1d364" alt="sdk_framework_extension_img_01"></p>
+<p>SDK 生命周期，启动、关闭流程：</p>
+<p><img src="https://github.com/wangjiegulu/wangjiegulu.github.com/assets/5423194/dca6b95a-3740-4a74-9f15-0dc8bad08fcf" alt="sdk_framework_extension_img_02"></p>
+<h2 id="SDK-应该具有可配置性"><a href="#SDK-应该具有可配置性" class="headerlink" title="SDK 应该具有可配置性"></a>SDK 应该具有可配置性</h2><blockquote>
+<p>模块化架构</p>
+</blockquote>
+<p>对于接入者来说，SDK 应该可以支持一定程度的可定制化。</p>
+<p>可定制化的体现之一就是需要 SDK 具有可配置性，不局限于某些配置开关、某些定制化接口的实现等等。</p>
+<p>所以，接入方可以通过 SDK 开放的 api 进行不同的配置，不同的配置需要由配置模块进行统一管理，配置模块的主要职责是：</p>
+<ul>
+<li>创建最终的配置</li>
+<li>校验所有配置项的合法性</li>
+<li>初始化所有默认的配置项</li>
+<li>维护配置，并在 SDK 内部提供当前的所有配置项。</li>
+</ul>
+<p>配置模块会在 SDK 启动的时候，会根据用户的设置来生成最终的配置，配置模块相对其它模块比较特殊，它会作为 SDK 所有模块的第一个模块被启动，因为其它模块都需要依赖配置模块所创建和提供的配置项。</p>
+<p>需要注意的是，最终生效的配置在 SDK 的整个生命周期中都不可以改动，如果接入方在 SDK 运行中时调用了 SDK 开放的 api 修改了配置，是不能（也是不应该）实时在 SDK 中生效的。</p>
+<p>如果接入方调用了 api 修改配置后实时生效可能会出现什么问题？</p>
+<p>比如配置中有两个配置项：url, domain（假设旧的配置为 <code>url1</code> 和 <code>domain1</code>），通过以下配置成 <code>url2</code> 和 <code>domain2</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SDK.getInstance()</span><br><span class="line">    .setUrl(<span class="string">"url2"</span>)</span><br><span class="line">    .setDomain(<span class="string">"domain2"</span>);</span><br></pre></td></tr></table></figure>
+<p>配置的修改所在的线程取决于业务 app，SDK 内部无法（也不应该）约束，如果这两个配置是实时生效的，由于 <code>setUrl()</code> 和 <code>setDoamin()</code> 的执行先后顺序，则有可能会存在 sdk 内部使用了 <code>url2</code> 和 <code>domain1</code> 这种配置处理的逻辑，而这种配置理论上是不合法的，可能会引发未知的问题。</p>
+<p>假设修改的配置是一个新的对象（通过 builder build 也是一样）：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Configuration</span></span>&#123;</span><br><span class="line">    String url;</span><br><span class="line">    String domain;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">SDK.getInstance()</span><br><span class="line">    .setConfiguration(<span class="keyword">new</span> Configuration(<span class="string">"url2"</span>, <span class="string">"domain2"</span>));</span><br></pre></td></tr></table></figure>
+<p>即使是以上情况，SDK 内部如果出现以下代码可能也会产生问题：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">methodA</span><span class="params">()</span></span>&#123;</span><br><span class="line">    Configuration configuration = sdkInstance.getConfiguration();</span><br><span class="line">    <span class="comment">// 根据当前 configuration 处理逻辑</span></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    methodB();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">methodB</span><span class="params">()</span></span>&#123;</span><br><span class="line">    Configuration configuration = sdkInstance.getConfiguration();</span><br><span class="line">    <span class="comment">// 根据当前 configuration 处理逻辑，这里拿到的 configuration 跟 methodA 里面拿到的配置可能是不一样的</span></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>methodA</code> 和 <code>methodB</code> 是同一业务链路的，但是 sdk 配置可能在 <code>methodA()</code> 执行完之后配置被修改，configuration 被改变，导致运行到 <code>methodB()</code> 时，获取到配置项是不一样的，这也会导致整个处理逻辑出现未知的问题。</p>
+<p>合理的方案是怎么样的？</p>
+<p>接入方手动调用 sdk api 修改配置后，修改的配置是无法实时在当前 sdk 中生效的（只是修改了配置的模版 <code>configTemplate</code>），只有在接入方手动调用了 <code>restart</code> 对 sdk 进行重启之后才会生效。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">SDK.getInstance()</span><br><span class="line">    .setUrl(<span class="string">"url2"</span>)</span><br><span class="line">    .setDomain(<span class="string">"domain2"</span>);</span><br><span class="line"><span class="comment">// 配置保存，但是未生效</span></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line">SDK.getInstance().restart();</span><br><span class="line"><span class="comment">// 配置生效</span></span><br></pre></td></tr></table></figure>
+<h2 id="SDK-应该具有可扩展性"><a href="#SDK-应该具有可扩展性" class="headerlink" title="SDK 应该具有可扩展性"></a>SDK 应该具有可扩展性</h2><blockquote>
+<p>模块化架构</p>
+</blockquote>
+<p>我们讨论的 SDK 是指 <code>具有一定完整业务逻辑闭环的独立子系统</code>。</p>
+<p>我们需要针对 SDK 进行基本的架构设计，拆解其业务逻辑，拆分出多个业务上互相独立的一级模块，保证各个子模块的职责单一性；</p>
+<p>反过来，如果把这些模块集成到一起，合成一个单独的 <code>SDKInstance</code>，即 <code>SDK 实例</code>，就可以完成整个 SDK 所需的所有功能。</p>
+<p>例如，APM 由以下几个模块组成：</p>
+<ul>
+<li>手机信息模块</li>
+<li>网络状态监听模块</li>
+<li>网络诊断模块</li>
+<li>网络信息模块</li>
+<li>定位模块</li>
+<li>存储模块</li>
+<li>性能模块</li>
+<li>上报模块</li>
+<li>采集模块</li>
+<li>…</li>
+</ul>
+<p>弱网库 Triton 由以下几个模块组成：</p>
+<ul>
+<li>网络诊断策略模块</li>
+<li>网络状态缓存模块</li>
+<li>网络探测模块</li>
+<li>网络状态监听模块</li>
+<li>…</li>
+</ul>
+<p>当 <code>SDKInstance</code> 被启动时，本质上是启动包括 <code>配置模块</code> 在内的所有模块 chian，当中一旦有一个模块的初始化过程失败了，则表示整个 SDK 启动失败，会终止后面所有模块的初始化过程的同时，关闭所有已经初始化过的模块，并抛出异常给接入方。</p>
+<p>一个模块是否设计得合理，主要体现在以下几个方面。</p>
+<h3 id="模块的独立性"><a href="#模块的独立性" class="headerlink" title="模块的独立性"></a>模块的独立性</h3><p>每个模块都是能够完成独立的功能，它可能会依赖其它的模块或者服务，但是该模块的核心业务逻辑应该是自身能独立完成的，能够在模块内部自身形成完整的功能闭环。</p>
+<p>比如网络监听模块，包含完整的 <code>网络状态监听的注册</code>、<code>网络状态监听的反注册</code>、<code>网络状态监听的回调通知</code>、跟系统的网络可达性 API 进行通信，并且对外（SDK 内部其它模块）提供 <code>网络状态监听</code> 的服务等等。这些功能都是内聚在 <code>网络状态监听模块</code> 中。</p>
+<p>对于 SDK 其它模块来说，<code>网络状态监听</code> 模块是一个黑盒态，对其它模块只提供 <code>网络状态监听的注册</code>、<code>网络状态监听的反注册</code> 等几个功能，但是对模块自身内部的实现细节、机制及存储的数据是隐蔽的（其它模块也不需要了解它的内部细节）。即 <code>对信息隐蔽</code>。</p>
+<h3 id="模块的生命周期"><a href="#模块的生命周期" class="headerlink" title="模块的生命周期"></a>模块的生命周期</h3><p>模块內业务逻辑的执行是需要依赖整个 SDK 的生命周期的，这就需要与 <code>SDKInstance</code> 的生命周期进行关联，即每个模块需要有以下生命周期方法，在 <code>SDK Instance</code> 的生命周期改变时，会自动通知回调各个模块的对应生命周期方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 在 SDK 启动的时候，所有模块都会通过 chain 进行链式初始化；</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 各个模块初始化的过程中会调用此方法来提供模块进行内部的初始化工作</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">onLaunch</span><span class="params">(SDKLaunchMode launchMode, @NonNull Chain&lt;Config&gt; chain)</span> <span class="keyword">throws</span> Exception</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 整个 SDK 启动后回调（即：所有模块都初始化后回调）</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">onSDKStart</span><span class="params">(SDKLaunchMode launchMode, @NonNull Config config)</span> <span class="keyword">throws</span> Exception</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * SDK 停止时回调（即：真正执行 shutdown 之前）</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">onSDKStop</span><span class="params">(SDKLaunchMode launchMode, @NonNull Config config)</span> <span class="keyword">throws</span> Exception</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 在业务方停止 SDK 时，各个业务模块会调用此方法进行收尾处理</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">onShutdown</span><span class="params">(SDKLaunchMode launchMode, @NonNull Chain&lt;Config&gt; chain)</span> <span class="keyword">throws</span> Exception</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 整个 SDK 关闭回调（即：所有模块都关闭后回调）</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">onSDKShutdown</span><span class="params">(SDKLaunchMode launchMode, @NonNull Config config)</span> <span class="keyword">throws</span> Exception</span>;</span><br></pre></td></tr></table></figure>
+<p>每个模块自身也有自己的状态管理，同样也可以被 <code>启动</code>、<code>关闭</code> 等等操作，在运行过程中，SDK 可以控制单独关闭某个功能模块，比如 APM 在运行过程中可以单独关闭 <code>上报模块</code>，达到只采集数据但不上报数据的目的。</p>
+<h3 id="模块的抽象"><a href="#模块的抽象" class="headerlink" title="模块的抽象"></a>模块的抽象</h3><p>所有模块之间可能是需要互相依赖的，但是依赖关系需要尽量解耦，保证低耦合。</p>
+<p>每个模块应该是抽象的，面向接口、面向协议的，定义好每个协议方法的输入输出，其它模块在调用该模块的方法时只调用协议、不依赖于该模块的具体实现。即，对协议开放。</p>
+<p>模块之间也不应该依赖模块注册的顺序。模块之间可能存在依赖关系，假设 <code>B 模块</code> 依赖了 <code>A 模块</code>，那么 <code>A 模块</code> 在 <code>SDKInstance</code> 中的模块注册顺序必须是在 <code>B 模块</code> 前面吗？</p>
+<p>不应该，因为模块之间的依赖关系是不确定的，假设 <code>B 模块</code> 依赖了 <code>A 模块</code> 的同时，<code>A 模块</code> 也依赖了 <code>B 模块</code>，那么模块注册的过程中就可能会存在问题。</p>
+<p>所以模块的初始化和模块的依赖调用过程需要隔离。</p>
+<h3 id="模块间的通信"><a href="#模块间的通信" class="headerlink" title="模块间的通信"></a>模块间的通信</h3><p>模块间一般面向协议来进行通信。</p>
+<p>一种方式是通过上面说的对模块的抽象，面向接口，通过接口来确定通信的标准化协议。</p>
+<p>另一种更推荐的方式是通过对协议抽象出服务，通过服务来实现数据的通信。</p>
+<p>每个模块通过 <code>服务注册中心</code> 注册服务，对其它模块暴露自己的服务，每个模块也可以通过 <code>服务注册中心</code> 获取/订阅自己需要的服务。</p>
+<p>服务的使用方不关心提供的服务方是谁，服务的提供方也不关心服务的调用方有哪些。淡化依赖关系，所有的依赖关系都由 <code>服务注册中心</code> 进行统一的管理。</p>
+<p><img src="https://github.com/wangjiegulu/wangjiegulu.github.com/assets/5423194/5f499e48-3adf-4244-8cc7-84a848cca221" alt="sdk_framework_extension_img_03"></p>
+<p>如上图，该 <code>SDKInstance</code> 实例由 3 个模块组成：<code>模块 A</code>、<code>模块 B</code>、<code>模块 C</code>。</p>
+<ul>
+<li><code>模块 A</code> 对外提供、暴露 <code>O1</code> 服务，通过注册到 <code>服务注册中心</code> 的方式。同时，<code>模块 A</code> 还依赖 <code>S2</code> 服务，代码中需要获取该服务进行业务逻辑的处理。<code>S2</code> 服务是 <code>模块 B</code> 暴露出来的服务（同样也是注册到 <code>服务注册中心</code>），但是 <code>模块 A</code> 不关心这个，只需要知道自己需要 <code>S2</code> 服务，<code>S2</code> 服务可以是 <code>模块 B</code> 提供的，当然也可以是 <code>模块 C</code> 提供的，对 <code>模块 A</code> 来说没有任何影响，只要服务的提供方能保证服务的可靠性。</li>
+<li><code>模块 B</code> 提供了 <code>S2</code> 服务，但是不依赖与其它任何服务。</li>
+<li><code>模块 C</code> 需要订阅 <code>O1</code> 服务，但是它不对外提供、暴露任何服务。</li>
+<li>同时，以上从 <code>模块 A</code> 到 <code>模块 C</code>，服务初始化的顺序与服务使用无关。</li>
+</ul>
+<h2 id="SDK-应该具有依赖可重入性"><a href="#SDK-应该具有依赖可重入性" class="headerlink" title="SDK 应该具有依赖可重入性"></a>SDK 应该具有依赖可重入性</h2><blockquote>
+<p>去单例化</p>
+</blockquote>
+<p><img src="https://github.com/wangjiegulu/wangjiegulu.github.com/assets/5423194/67e15fb4-f63d-4b66-b4e4-c72538e0ad6b" alt="sdk_framework_extension_img_04"></p>
+<p>一般 SDK 只会提供给 app 接入，可能不存在不同 SDK 内部的互相循环依赖等问题；</p>
+<p>但是作为公技部门，为了让 SDK 的提供的服务具有可复用性，功能粒度一般是更细的，比如上图，<code>App</code> 依赖了 <code>HttpDNS</code>，<code>URS</code> 依赖了 <code>HttpDNS</code>，即 <code>App</code> 也直接或者间接两次依赖了 <code>HttpDNS</code>；</p>
+<p>App 依赖的 <code>HttpDNS</code> 和 <code>URS</code> 依赖的 <code>HttpDNS</code> 因为对应的配置是不一样的，显然不应该是同一个 <code>HttpDNS</code> 实例，<code>App</code> 的 <code>HttpDNS</code> 和 <code>URS</code> 的 <code>HttpDNS</code> 应该互不干扰，相互独立。</p>
+<p>因此，每个 SDK 都不应该是单例的，应该去单例化，理论上可以在一个 JVM 中创建任意多个 SDK 实例提供给不同的业务方使用。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// App 初始化 HttpDNS</span></span><br><span class="line">HttpDNSInstance httpDNSInstanceForApp = <span class="keyword">new</span> HttpDNSInstance(<span class="comment">/*...*/</span>);</span><br><span class="line">httpDNSInstanceForApp</span><br><span class="line">    .withXxx() <span class="comment">// 配置一</span></span><br><span class="line">    .withYyy() <span class="comment">// 配置二</span></span><br><span class="line">httpDNSInstanceForApp.start();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// URS SDK 内部使用 HttpDNS</span></span><br><span class="line">HttpDNSInstance httpDNSInstanceForURS = <span class="keyword">new</span> HttpDNSInstance(<span class="comment">/*...*/</span>);</span><br><span class="line">httpDNSInstanceForURS</span><br><span class="line">    .withXxx() <span class="comment">// 配置一</span></span><br><span class="line">    .withYyy() <span class="comment">// 配置二</span></span><br><span class="line">httpDNSInstanceForURS.start();</span><br></pre></td></tr></table></figure>
+<p><code>httpDNSInstanceForApp</code> 和 <code>httpDNSInstanceForURS</code> 两个 <code>HttpDNS</code> 实例一般情况下没有任何关系，互不干扰（可考虑加入沙箱机制保证每个实例之间的完全隔离和安全性），只服务于自己的业务方。</p>
+<p>所以类似 <code>XxxSDK.getInstance()</code> 单例化的方式并不推荐。</p>
+<blockquote>
+<p>当然，粗暴地去单例的方式可能在很多的场景下并不优雅，也并不符合预期。</p>
+</blockquote>
+<h2 id="SDK-的服务应该具有可复用性"><a href="#SDK-的服务应该具有可复用性" class="headerlink" title="SDK 的服务应该具有可复用性"></a>SDK 的服务应该具有可复用性</h2><blockquote>
+<p>引导器 Bootstrap、服务注册中心</p>
+</blockquote>
+<p>上面说过，每个 SDK 其实都是一个单独具有一定完整业务逻辑的独立子系统，并且每个 SDK 是去单例化的，不同单例可能是完全隔离的。但是很多情况下，相同 SDK 的不同实例、甚至是不同 SDK 的不同实例它们之间也是有非常多的联系，它们有可能需要共享它们的其中一些服务。</p>
+<p>比如弱网库，大部分 SDK 和 app 都应该可以通过弱网库来识别当前的网络状况。这可能就导致了 triton sdk 被多次依赖的问题，比如上图的复杂的 SDK 内部依赖关系；</p>
+<ul>
+<li>App 依赖 Triton</li>
+<li>APM 依赖 Triton</li>
+<li>HttpDNS 依赖 Triton</li>
+<li>URS 依赖 Triton</li>
+<li>URS 依赖 APM</li>
+<li>App 有依赖 APM、URS、HttpDNS、Triton</li>
+<li>…</li>
+</ul>
+<p>显然，之前讲的每个 App 或者 SDK 都有一个 Triton 实例，这么多 Triton 实例之间互相独立，互不干扰当然可以正常运行。</p>
+<p>但是作为 Triton（弱网库），存在这么多 Triton 实例是没有太大意义的，就同一个设备来说，只需要一个 Triton SDK 实例用来探测网络状态并通知给所有的订阅方（跨不同的 SDK）就足够了，过多的 Triton 实例只会造成资源的浪费（多个定时器、不共享的缓存、冗余的网络探测过程等等）。</p>
+<p>合理的方案：</p>
+<ul>
+<li>如果 App 也直接使用了 Triton，则所有直接或者间接依赖 Triton 的 SDK 都应该复用 App 的 Triton 实例，而不是 SDK 自己去创建一个 Triton 实例。</li>
+<li>如果 App 没有使用 Triton，则所有直接依赖 Triton 的 SDK 应该只有一个 Triton 实例被创建，其它 SDK 都复用这一个 Triton 实例。</li>
+</ul>
+<p>因为涉及到服务的共享问题，因此我们使用了 <code>服务注册中心</code> 来解决。</p>
+<p>所有可能会共享的服务都可以被注册到 <code>服务注册中心</code> 上面，所有使用共享服务的 app 或者 SDK 都会从 <code>服务注册中心</code> 上获取服务来进行使用。在这个场景下，这个共享的服务就是 Triton 的实例。</p>
+<blockquote>
+<p>当然，共享的服务不止是 SDK 实例，也可能是一个 <code>定时任务</code>，或者是 <code>网络监听回调</code>，<code>当前手机信息</code> 等等。万物皆服务，服务可共享。</p>
+</blockquote>
+<p>因为涉及到各个 SDK 的服务共享问题，业务方在接入时可能会感觉比较繁琐，因为业务方需要关心每个 SDK 它共享出去什么服务，又需要依赖哪些服务。</p>
+<p>所以，可以通过 SDK 的引导器（Bootstrap）让业务方傻瓜式接入，业务方无需关心各个 SDK 的依赖关系，所有的依赖关系都交给 Bootstrap 中的 <code>SDKExporterModule</code> 即可。</p>
+<p>如下（目前处于实验阶段，后期 api 可能会有调整）：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 初始化并启动引导器</span></span><br><span class="line">SDKBootstrap.withContext(<span class="keyword">this</span>)</span><br><span class="line">        .newSDK(<span class="string">"Triton"</span>, ()=&gt; <span class="keyword">new</span> TritonExporterModule(<span class="keyword">new</span> TritonInstance(BootstrapActivity.<span class="keyword">this</span>)))</span><br><span class="line">        .newSDK(<span class="string">"APM"</span>, ()=&gt; <span class="keyword">new</span> SDKExporterModule&lt;&gt;(<span class="keyword">new</span> TritonInstance(BootstrapActivity.<span class="keyword">this</span>)))</span><br><span class="line">        <span class="comment">// 一旦调用了 SDKBootstrap 的 start 方法并不意味着启动了所有的 SDK 实例，只是启动了 Bootstrap 实例，去统一管理每一个上面声明了的 SDK 及它们之间的所有依赖关系，所有 SDK 都没有被真正启动</span></span><br><span class="line">        .start();</span><br><span class="line"></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 在业务方合适的时机，启动弱网库 Triton SDK</span></span><br><span class="line">SDKBootstrap.getInstance().&lt;TritonInstance&gt;getSDK(<span class="string">"Triton"</span>).start();</span><br><span class="line"></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 在业务方合适的时机，启动 APM SDK</span></span><br><span class="line">SDKBootstrap.getInstance().&lt;MamAgentV3Instance&gt;getSDK(<span class="string">"APM"</span>).start();</span><br></pre></td></tr></table></figure>
+<p>调用 <code>SDKBootstrap::start</code> 方法时并不会真正启动里面的 SDK，只会初始化所有依赖关系并启动 SDK 引导器；只有业务方通过 <code>Bootstrap::getSDK::start</code> 时才会真正启动对应的 SDK。</p>
+<h2 id="SDK-的服务应该是进程间可共享的"><a href="#SDK-的服务应该是进程间可共享的" class="headerlink" title="SDK 的服务应该是进程间可共享的"></a>SDK 的服务应该是进程间可共享的</h2><blockquote>
+<p>服务注册中心</p>
+</blockquote>
+<p>因为 Android 系统允许开发者使用多进程进行开发，经常会导致同一个 SDK 在多个进程中进行初始化，并且每个进程间的数据都是隔离的。在某些 SDK 场景下，就会存在一不同进程间的数据共享问题。</p>
+<p>如 <code>HttpDNS</code>，在不同的进程下面，可能会出现以下问题：</p>
+<ul>
+<li>对应进程的多次重复初始化数据</li>
+<li>DNS 解析的结果是不会在不同进程之间进行共享的，所以可能会导致同一个 app，不同进程的解析缓存数据命中率下降，出现过多的无用重复解析请求等问题。</li>
+</ul>
+<p>重复的次数取决于 app 所拥有的进程数量，对于 SDK 来说这是完全不可控的。</p>
+<p>解决方案，通过进程间的通信来实现数据在不同进程间的共享问题。</p>
+<p>又通过 <code>服务注册中心</code> 扩展出进程间的通信：</p>
+<ul>
+<li><code>进程 A</code> 的生产者可以在 <code>服务注册中心</code> 注册服务；</li>
+<li>其它进程的订阅者可以在 <code>服务注册中心</code> 订阅 <code>进程 A</code> 所创建的服务；</li>
+<li>当 <code>进程 A</code> 产生了新的数据时，通过服务发送数据；</li>
+<li>其它订阅者进程收到 <code>进程 A</code> 发送的数据</li>
+</ul>
+<p>进程间的 Binder IPC 通信逻辑都通过 <code>服务注册中心</code> 上层封装隐藏起来。</p>
+<p>当然，每个进程的 <code>HttpDNS</code> 实例都有可能是生产者。所以，<strong>对于每个进程来说自己又是生产者，又是订阅者</strong>，即把自己的解析结果共享给其它进程，又接收其它进程解析的结果给自己使用。</p>
+<p>只是单纯的数据共享还是无法完全满足需求，可能会出现多个进程同时去解析同一个域名的情况。</p>
+<p>所以可以通过 <code>进程锁</code> 来控制多个进程的并发解析问题。</p>
+<p><code>进程锁</code> 同样也是通过 <code>服务注册中心</code> （底层 Binder IPC）来进行实现。</p>
+<h2 id="SDK-应该具有可测试性"><a href="#SDK-应该具有可测试性" class="headerlink" title="SDK 应该具有可测试性"></a>SDK 应该具有可测试性</h2><blockquote>
+<p>单元测试、服务注册中心</p>
+</blockquote>
+<p>前面提到，整个 SDK 通过不同的领域模块进行拆分，每个模块之间通过协议进行抽象，使用 <code>服务注册中心</code> 来实现不同模块、甚至不同 SDK 之间的通信。</p>
+<p>所以，每个模块天然地对测试是友好的，我们可以通过 <code>Mockito</code> 等 Mock 框架去 mock 不同接口的输入和输出结果，来断言模块内部的逻辑代码是否能正确执行。</p>
+<p>如下，用于测试<strong>配置模块</strong>的 <code>initDefaultConfig</code> 方法，当业务方没有配置 <code>探测策略</code> 时（即 <code>config.getDetectionStrategy()</code> 返回 null），则 <code>initDefaultConfig</code> 方法是否能正确重置为默认的 <code>探测策略</code> 配置：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * ConfigurationModuleTest.java</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test_initDefaultConfig_detectionStrategy_null</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    TritonConfig config = tritonEnvRule.getConfig();</span><br><span class="line">    doReturn(<span class="keyword">null</span>).when(config).getDetectionStrategy();</span><br><span class="line"></span><br><span class="line">    configurationModule.initDefaultConfig(config);</span><br><span class="line"></span><br><span class="line">    verify(config, times(<span class="number">1</span>)).setDetectionStrategy(any(DetectionStrategy.class));</span><br><span class="line">    doCallRealMethod().when(config).getDetectionStrategy();</span><br><span class="line">    Assert.assertNotNull(config.getDetectionStrategy());</span><br><span class="line">    Assert.assertEquals(AlphaDetectionStrategy.class, config.getDetectionStrategy().getClass());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>// TODO: FEATURE wangjie <code>展开细节以后再讲</code> @ 2020-11-18 15:45:17</p>
+<h2 id="SDK-应该具有版本管理"><a href="#SDK-应该具有版本管理" class="headerlink" title="SDK 应该具有版本管理"></a>SDK 应该具有版本管理</h2><p>如上面提到，因为 SDK 可能会出现互相依赖的情况，App、SDK 的依赖关系会变得非常复杂，甚至会陷入 <code>依赖地狱</code>。这时，我们需要通过版本管理来解决这个问题。</p>
+<p>每个 SDK 都必须提供对外暴露的公共 <code>API</code>。SDK 接入方主要通过这些公共 <code>API</code> 来使用该 SDK。如 <code>Triton SDK</code>，业务方都是调用 <code>TritonApi</code> 这个接口进行访问。</p>
+<p>版本的管理严格使用 <a href="https://semver.org/" target="_blank" rel="noopener">语义化版本号</a>： <code>[主版本号].[次版本号].[修订号]</code>，先行版本或者编译元数据可以加在后面作为延伸。如 <code>3.0.0</code>，<code>3.2.1</code>，<code>1.0.0-alpha</code>，<code>1.0.0-alpha.1</code>，<code>1.0.0+20130313144700</code>，<code>2.3.1-rc.1</code>，<code>1.3.23</code>。</p>
+<ul>
+<li><strong>主版本号</strong>：进行不向下兼容的修改时，递增主版本号。如以下情况：<ul>
+<li>如删除了某个 <code>API</code> 方法；</li>
+<li>修改了某个 <code>API</code> 方法的定义，方法签名有修改；</li>
+<li>修改了某个 <code>API</code> 相关类型的数据结构，且无法兼容之前的版本；</li>
+<li>[也可以是]大量次版本号及修订级别的改变；</li>
+<li><code>API</code> 相关的包移动、类重命名；</li>
+<li>其它无法兼容之前版本的修改；</li>
+</ul>
+</li>
+<li><strong>次版本号</strong>：<code>API</code> 保持向下兼容的新增及修改时，递增次版本号；<ul>
+<li>新增了新的 feature，但是兼容之前的版本；</li>
+<li><code>API</code> 的某个方法被标记为弃用；</li>
+<li>[也可以是]内部有大量的新功能或者（也可以是修订级别的）优化时；</li>
+<li>其它能向下兼容旧版本的修改；</li>
+</ul>
+</li>
+<li><strong>修订号</strong>：修复问题但不影响 <code>API</code> 时，递增修订号<ul>
+<li>解决了某个 <code>API</code> 方法的 bug，但是方法的签名没有改变；</li>
+<li>优化了某个 <code>API</code> 方法的内部实现，但是方法的签名没有改变；</li>
+<li>修改了某个 <code>API</code> 相关类型的数据结构，但是兼容之前的版本；</li>
+<li>解决了某些内部的 bug，但是不影响使用；</li>
+<li>其它不影响 <code>API</code> 的修改；</li>
+</ul>
+</li>
+</ul>
+<p>举个例子：假设 <code>URS</code> 依赖 <code>HttpDNS</code>，<code>URS</code> 需要 <code>HttpDNS 1.3.0</code> 的新功能，那么你可以放心地去指定 <code>URS</code> 可以依赖于 大于 <code>1.3.0</code> 小于 <code>2.0.0</code> 版本的 <code>HttpDNS</code>。</p>
+<h3 id="版本冲突"><a href="#版本冲突" class="headerlink" title="版本冲突"></a>版本冲突</h3><p>如果 App、SDK 依赖关系较为复杂时，可能就会引发版本冲突的问题。</p>
+<p><strong>理想场景下</strong></p>
+<ul>
+<li>App：依赖 <code>HttpDNS 1.3.0</code></li>
+<li>App：依赖 <code>URS 3.8.0</code><ul>
+<li><code>URS 3.8.0</code> 依赖 <code>HttpDNS 1.3.0</code></li>
+</ul>
+</li>
+</ul>
+<p>以上场景，两个 <code>HttpDNS</code> 依赖的版本都是 <code>1.3.0</code>，并没有冲突的问题，所以最终依赖的各 SDK 如下：</p>
+<ul>
+<li><code>URS 3.8.0</code></li>
+<li><code>HttpDNS 1.3.0</code></li>
+</ul>
+<p><strong>修订版本冲突场景</strong></p>
+<ul>
+<li>App：依赖 <code>HttpDNS 1.3.0</code></li>
+<li>App：依赖 <code>URS 3.8.0</code><ul>
+<li><code>URS 3.8.0</code> 依赖 <code>HttpDNS 1.3.2</code></li>
+</ul>
+</li>
+</ul>
+<p>以上场景，App 依赖的 HttpDNS（<code>1.3.0</code>） 和 URS 依赖的 HttpDNS（<code>1.3.2</code>） 版本是不一致的，但是，两个版本的差异只是修订版本，所以最终依赖的各 SDK 如下：</p>
+<ul>
+<li><code>URS 3.8.0</code></li>
+<li><code>HttpDNS 1.3.2</code></li>
+</ul>
+<p>以上场景，HttpDNS 最终应该使用 <code>1.3.2</code> 版本，因为这个版本是向下兼容 <code>1.3.0</code>，并可能包含了修复的一些存在的问题；</p>
+<p><strong>次版本冲突场景</strong></p>
+<ul>
+<li>App：依赖 <code>HttpDNS 1.3.2</code></li>
+<li>App：依赖 <code>URS 3.8.0</code><ul>
+<li><code>URS 3.8.0</code> 依赖 <code>HttpDNS 1.4.1</code></li>
+</ul>
+</li>
+</ul>
+<p>以上场景，App 依赖的 HttpDNS（<code>1.3.2</code>） 和 URS 依赖的 HttpDNS（<code>1.4.1</code>） 版本是不一致的，但是，两个版本的差异只是次版本，所以最终依赖的各 SDK 如下：</p>
+<ul>
+<li><code>URS 3.8.0</code></li>
+<li><code>HttpDNS 1.4.1</code></li>
+</ul>
+<p>以上场景，HttpDNS 最终应该使用 <code>1.4.1</code> 版本，因为这个版本是向下兼容 <code>1.3.2</code>，并可能包含了修复的一些存在的问题和新增了一些新的 feature，而这些差异可能会影响到 URS；</p>
+<p><strong>主版本冲突场景</strong></p>
+<ul>
+<li>App：依赖 <code>HttpDNS 1.3.2</code></li>
+<li>App：依赖 <code>URS 3.8.0</code><ul>
+<li><code>URS 3.8.0</code> 依赖 <code>HttpDNS 2.0.1</code></li>
+</ul>
+</li>
+</ul>
+<p>以上场景，App 依赖的 HttpDNS（<code>1.3.2</code>） 和 URS 依赖的 HttpDNS（<code>2.0.1</code>） 版本是不一致的，两个版本的差异是主版本，两个版本理论上是不兼容的，所以无法决定最终使用哪个版本的 <code>HttpDNS</code>（使用任意一个版本都可能会引起另一个出错），此时，App 依赖应该直接报错。</p>
+<h3 id="语义化版本依赖插件"><a href="#语义化版本依赖插件" class="headerlink" title="语义化版本依赖插件"></a>语义化版本依赖插件</h3><p>要保证版本依赖的准确性，需要依赖方（业务方）保持警惕，并检查当前直接或者间接依赖的所有 SDK 之间是否有版本冲突的问题，很多时候，这是无法在编译期间把问题暴露出来的，可能会把问题留到运行时甚至线上。那如何解决或者避免由于版本冲突导致的不可预知的问题呢？</p>
+<p>以 android 为例，通过自定义开发 <code>gradle</code> 插件来规范每个 sdk 的语义化版本的依赖方式，使用方式如下：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 支持修订号兼容</span></span><br><span class="line"><span class="comment">// 类似于 `api("com.netease.android:httpdns:x.x.x")` 且 `1.3.2 &lt;= x.x.x &lt; 1.4.0`</span></span><br><span class="line">semverApi(<span class="string">"com.netease.android:httpdns:~1.3.2"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 支持小版本兼容</span></span><br><span class="line"><span class="comment">// 类似于 `implemention("com.netease.android:httpdns:x.x.x")` 且 `1.3.2 &lt;= x.x.x &lt; 2.0.0`</span></span><br><span class="line">semverImplemention(<span class="string">"com.netease.android:httpdns:^1.3.2"</span>)</span><br></pre></td></tr></table></figure>
+<p><strong>场景一</strong></p>
+<ul>
+<li>App：<code>semverImplemention(&quot;com.netease.android:httpdns:~1.3.0&quot;)</code></li>
+<li>App：<code>semverImplemention(&quot;com.netease.android:urs:^3.8.0&quot;)</code><ul>
+<li>URS：<code>semverImplemention(&quot;com.netease.android:httpdns:^1.3.2&quot;)</code></li>
+</ul>
+</li>
+</ul>
+<p>如上：</p>
+<ul>
+<li>App 需要依赖的 HttpDNS 版本区间为：<code>1.3.0 &lt;= version &lt; 1.4.0</code></li>
+<li>App 依赖了 URS，而 URS 需要依赖的 HttpDNS 版本区间为：<code>1.3.2 &lt;= version &lt; 2.0.0</code></li>
+<li>两者取交集：<code>1.3.2 &lt;= version &lt; 1.4.0</code></li>
+<li>最后，version 取最小，则 version 最终自动选为 <code>1.3.2</code></li>
+</ul>
+<p><strong>场景二</strong></p>
+<ul>
+<li>App：<code>semverImplemention(&quot;com.netease.android:httpdns:^2.3.0&quot;)</code></li>
+<li>App：<code>semverImplemention(&quot;com.netease.android:urs:^3.8.0&quot;)</code><ul>
+<li>URS：<code>semverImplemention(&quot;com.netease.android:httpdns:~1.3.2&quot;)</code></li>
+</ul>
+</li>
+</ul>
+<p>如上：</p>
+<ul>
+<li>App 需要依赖的 HttpDNS 版本区间为：<code>2.3.0 &lt;= version &lt; 3.0.0</code></li>
+<li>App 依赖了 URS，而 URS 需要依赖的 HttpDNS 版本区间为：<code>1.3.2 &lt;= version &lt; 1.4.0</code></li>
+<li>两者并没有交集，说明没有 version 能满足两处的依赖，<strong>编译不通过，报错</strong>。</li>
+</ul>
+
+    </div>
+
+    <br/>
+    <hr>
+
+    
+    <div class="post-copyright" style="margin-top: 20px;">
+        <strong>来源博客：</strong><a href="https://blog.wangjiegulu.com">Wang Jie's Blog</a><br/>
+         <strong>本文链接：</strong><a href="https://blog.wangjiegulu.com/2020/12/08/sdk_framework_extension_00/">https://blog.wangjiegulu.com/2020/12/08/sdk_framework_extension_00/</a><br/>
+         <strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处。
+    </div>
+    
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/feed.xml">RSS</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#全平台-SDK-统一开发框架-Extension-设计理念"><span class="toc-number">1.</span> <span class="toc-text">全平台 SDK 统一开发框架 Extension 设计理念</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么才是一个好的-SDK-设计"><span class="toc-number">1.1.</span> <span class="toc-text">什么才是一个好的 SDK 设计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SDK-应该具有可控性"><span class="toc-number">1.2.</span> <span class="toc-text">SDK 应该具有可控性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SDK-应该具有可配置性"><span class="toc-number">1.3.</span> <span class="toc-text">SDK 应该具有可配置性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SDK-应该具有可扩展性"><span class="toc-number">1.4.</span> <span class="toc-text">SDK 应该具有可扩展性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#模块的独立性"><span class="toc-number">1.4.1.</span> <span class="toc-text">模块的独立性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#模块的生命周期"><span class="toc-number">1.4.2.</span> <span class="toc-text">模块的生命周期</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#模块的抽象"><span class="toc-number">1.4.3.</span> <span class="toc-text">模块的抽象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#模块间的通信"><span class="toc-number">1.4.4.</span> <span class="toc-text">模块间的通信</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SDK-应该具有依赖可重入性"><span class="toc-number">1.5.</span> <span class="toc-text">SDK 应该具有依赖可重入性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SDK-的服务应该具有可复用性"><span class="toc-number">1.6.</span> <span class="toc-text">SDK 的服务应该具有可复用性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SDK-的服务应该是进程间可共享的"><span class="toc-number">1.7.</span> <span class="toc-text">SDK 的服务应该是进程间可共享的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SDK-应该具有可测试性"><span class="toc-number">1.8.</span> <span class="toc-text">SDK 应该具有可测试性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SDK-应该具有版本管理"><span class="toc-number">1.9.</span> <span class="toc-text">SDK 应该具有版本管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#版本冲突"><span class="toc-number">1.9.1.</span> <span class="toc-text">版本冲突</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#语义化版本依赖插件"><span class="toc-number">1.9.2.</span> <span class="toc-text">语义化版本依赖插件</span></a></li></ol></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://blog.wangjiegulu.com/2020/12/08/sdk_framework_extension_00/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://blog.wangjiegulu.com/2020/12/08/sdk_framework_extension_00/&text=全平台 SDK 统一开发框架 Extension 设计理念"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.wangjiegulu.com/2020/12/08/sdk_framework_extension_00/&title=全平台 SDK 统一开发框架 Extension 设计理念"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.wangjiegulu.com/2020/12/08/sdk_framework_extension_00/&is_video=false&description=全平台 SDK 统一开发框架 Extension 设计理念"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=全平台 SDK 统一开发框架 Extension 设计理念&body=Check out this article: https://blog.wangjiegulu.com/2020/12/08/sdk_framework_extension_00/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.wangjiegulu.com/2020/12/08/sdk_framework_extension_00/&title=全平台 SDK 统一开发框架 Extension 设计理念"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.wangjiegulu.com/2020/12/08/sdk_framework_extension_00/&title=全平台 SDK 统一开发框架 Extension 设计理念"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.wangjiegulu.com/2020/12/08/sdk_framework_extension_00/&title=全平台 SDK 统一开发框架 Extension 设计理念"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://blog.wangjiegulu.com/2020/12/08/sdk_framework_extension_00/&title=全平台 SDK 统一开发框架 Extension 设计理念"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.wangjiegulu.com/2020/12/08/sdk_framework_extension_00/&name=全平台 SDK 统一开发框架 Extension 设计理念&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2024 Wang Jie
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/feed.xml">RSS</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-111189680-2', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'blog-wangjiegulu-com';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+
