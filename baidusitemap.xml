@@ -4,6 +4,90 @@
 
     
   <url>
+    <loc>https://blog.wangjiegulu.com/2023/11/17/photograph_A_MONO_Patisserie/</loc>
+    <lastmod>2024-02-08T07:56:12.557Z</lastmod>
+    <data>
+        <display>
+        <title>A.MONO Patisserie 上满觉陇 11 号</title>
+        <pubTime>2023-11-17T07:11:26.000Z</pubTime>
+        
+        <tag>photographs</tag>
+         
+        <tag>life</tag>
+         
+        <tag>Leica</tag>
+         
+        <tag>film</tag>
+         
+        <tag>胶片</tag>
+         
+        <tag>胶卷</tag>
+         
+        <tag>照片</tag>
+         
+         
+           
+             
+              <breadCrumb title="life" url="https://blog.wangjiegulu.com/categories/life/"/>
+          
+             
+              <breadCrumb title="photographs" url="https://blog.wangjiegulu.com/categories/life/photographs/"/>
+          
+             
+              <breadCrumb title="leica" url="https://blog.wangjiegulu.com/categories/life/photographs/leica/"/>
+          
+             
+             
+             
+             
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://blog.wangjiegulu.com/2022/06/10/ipc_framework_ploto_00/</loc>
+    <lastmod>2024-01-28T13:03:25.839Z</lastmod>
+    <data>
+        <display>
+        <title>跨平台 IPC 通信框架 Ploto SDK 实现原理</title>
+        <pubTime>2022-06-10T09:44:00.000Z</pubTime>
+        
+        <tag>framework</tag>
+         
+        <tag>SDK</tag>
+         
+        <tag>ploto</tag>
+         
+        <tag>IPC</tag>
+         
+        <tag>modular</tag>
+         
+        <tag>模块化</tag>
+         
+        <tag>可测试性</tag>
+         
+        <tag>可维护性</tag>
+         
+        <tag>可扩展性</tag>
+         
+        <tag>Inter-Process Communication</tag>
+         
+         
+           
+             
+              <breadCrumb title="extension" url="https://blog.wangjiegulu.com/categories/extension/"/>
+          
+             
+              <breadCrumb title="modular" url="https://blog.wangjiegulu.com/categories/extension/modular/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+    
+  <url>
     <loc>https://blog.wangjiegulu.com/2020/12/08/sdk_framework_extension_00/</loc>
     <lastmod>2024-01-21T05:11:15.373Z</lastmod>
     <data>
@@ -30,47 +114,6 @@
         <tag>服务化</tag>
          
         <tag>服务注册中心</tag>
-         
-         
-           
-             
-              <breadCrumb title="extension" url="https://blog.wangjiegulu.com/categories/extension/"/>
-          
-             
-              <breadCrumb title="modular" url="https://blog.wangjiegulu.com/categories/extension/modular/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://blog.wangjiegulu.com/2022/06/10/ipc_framework_ploto_00/</loc>
-    <lastmod>2024-01-21T05:10:53.727Z</lastmod>
-    <data>
-        <display>
-        <title>跨平台 IPC 通信框架 Ploto SDK 实现原理</title>
-        <pubTime>2022-06-10T09:44:00.000Z</pubTime>
-        
-        <tag>framework</tag>
-         
-        <tag>SDK</tag>
-         
-        <tag>ploto</tag>
-         
-        <tag>IPC</tag>
-         
-        <tag>modular</tag>
-         
-        <tag>模块化</tag>
-         
-        <tag>可测试性</tag>
-         
-        <tag>可维护性</tag>
-         
-        <tag>可扩展性</tag>
-         
-        <tag>Inter-Process Communication</tag>
          
          
            
@@ -1437,9 +1480,9 @@
         
         <tag>android</tag>
          
-        <tag>dependency injection</tag>
-         
         <tag>翻译</tag>
+         
+        <tag>dependency injection</tag>
          
         <tag>dagger2</tag>
          
@@ -1533,9 +1576,9 @@
         
         <tag>android</tag>
          
-        <tag>dependency injection</tag>
-         
         <tag>翻译</tag>
+         
+        <tag>dependency injection</tag>
          
         <tag>dagger2</tag>
          
@@ -1560,9 +1603,9 @@
         
         <tag>android</tag>
          
-        <tag>dependency injection</tag>
-         
         <tag>翻译</tag>
+         
+        <tag>dependency injection</tag>
          
         <tag>dagger2</tag>
          
@@ -1587,9 +1630,9 @@
         
         <tag>android</tag>
          
-        <tag>dependency injection</tag>
-         
         <tag>翻译</tag>
+         
+        <tag>dependency injection</tag>
          
         <tag>dagger2</tag>
          
@@ -1794,9 +1837,9 @@
         
         <tag>android</tag>
          
-        <tag>dependency injection</tag>
-         
         <tag>翻译</tag>
+         
+        <tag>dependency injection</tag>
          
         <tag>dagger2</tag>
          
@@ -2330,9 +2373,9 @@
         
         <tag>android</tag>
          
-        <tag>dependency injection</tag>
-         
         <tag>翻译</tag>
+         
+        <tag>dependency injection</tag>
          
         <tag>dagger2</tag>
          
@@ -2357,9 +2400,9 @@
         
         <tag>android</tag>
          
-        <tag>dependency injection</tag>
-         
         <tag>翻译</tag>
+         
+        <tag>dependency injection</tag>
          
         <tag>dagger2</tag>
          
@@ -2411,9 +2454,9 @@
         
         <tag>android</tag>
          
-        <tag>dependency injection</tag>
-         
         <tag>翻译</tag>
+         
+        <tag>dependency injection</tag>
          
         <tag>dagger2</tag>
          
@@ -2509,9 +2552,9 @@
         
         <tag>android</tag>
          
-        <tag>dependency injection</tag>
-         
         <tag>翻译</tag>
+         
+        <tag>dependency injection</tag>
          
         <tag>dagger2</tag>
          
@@ -2536,9 +2579,9 @@
         
         <tag>android</tag>
          
-        <tag>framework</tag>
-         
         <tag>翻译</tag>
+         
+        <tag>framework</tag>
          
         <tag>best practices</tag>
          
@@ -2911,9 +2954,9 @@
         
         <tag>android</tag>
          
-        <tag>framework</tag>
-         
         <tag>翻译</tag>
+         
+        <tag>framework</tag>
          
         <tag>dagger2</tag>
          
@@ -2989,7 +3032,6 @@
     </data>
     </url>
 
-    
     
     
     
@@ -3813,11 +3855,11 @@
          
         <tag>java</tag>
          
+        <tag>Hbase</tag>
+         
         <tag>j2ee</tag>
          
         <tag>java web</tag>
-         
-        <tag>Hbase</tag>
          
          
            
@@ -3836,11 +3878,11 @@
         
         <tag>orm</tag>
          
-        <tag>Hibernate</tag>
-         
         <tag>j2ee</tag>
          
         <tag>java web</tag>
+         
+        <tag>Hibernate</tag>
          
          
            
@@ -4076,9 +4118,9 @@
         
         <tag>android</tag>
          
-        <tag>tips</tag>
-         
         <tag>UI</tag>
+         
+        <tag>tips</tag>
          
         <tag>unit</tag>
          
@@ -4491,21 +4533,6 @@
 
     
   <url>
-    <loc>https://blog.wangjiegulu.com/2013/02/19/%E5%B7%A5%E5%85%B7%E5%BA%93-JOJSONBuilder%E5%B7%A5%E5%85%B7%E7%B1%BB%E2%80%94%E2%80%94%E4%B8%80%E9%94%AE%E6%8A%8A%E5%A4%9A%E4%B8%AAbean%E5%AF%B9%E8%B1%A1%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2%E4%B8%BAJSON%E6%A0%BC%E5%BC%8F%E6%95%B0%E6%8D%AE/</loc>
-    <lastmod>2018-01-29T12:36:41.000Z</lastmod>
-    <data>
-        <display>
-        <title>[工具库]JOJSONBuilder工具类——一键把多个bean对象数据转换为JSON格式数据</title>
-        <pubTime>2013-02-19T09:30:00.000Z</pubTime>
-        
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://blog.wangjiegulu.com/2012/06/15/%E8%AE%BE%E7%BD%AEEditText%E6%98%AF%E5%90%A6%E5%8F%AF%E7%BC%96%E8%BE%91/</loc>
     <lastmod>2018-01-29T12:36:41.000Z</lastmod>
     <data>
@@ -4527,6 +4554,21 @@
         <display>
         <title>[工具库]JOXMLBuilder工具类——一键把多个bean对象数据转换为XML格式数据</title>
         <pubTime>2013-02-19T09:14:00.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://blog.wangjiegulu.com/2013/02/19/%E5%B7%A5%E5%85%B7%E5%BA%93-JOJSONBuilder%E5%B7%A5%E5%85%B7%E7%B1%BB%E2%80%94%E2%80%94%E4%B8%80%E9%94%AE%E6%8A%8A%E5%A4%9A%E4%B8%AAbean%E5%AF%B9%E8%B1%A1%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2%E4%B8%BAJSON%E6%A0%BC%E5%BC%8F%E6%95%B0%E6%8D%AE/</loc>
+    <lastmod>2018-01-29T12:36:41.000Z</lastmod>
+    <data>
+        <display>
+        <title>[工具库]JOJSONBuilder工具类——一键把多个bean对象数据转换为JSON格式数据</title>
+        <pubTime>2013-02-19T09:30:00.000Z</pubTime>
         
          
            

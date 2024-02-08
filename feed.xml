@@ -6,7 +6,7 @@
   <link href="/feed.xml" rel="self"/>
   
   <link href="https://blog.wangjiegulu.com/"/>
-  <updated>2024-01-21T05:10:53.727Z</updated>
+  <updated>2024-02-08T07:56:12.557Z</updated>
   <id>https://blog.wangjiegulu.com/</id>
   
   <author>
@@ -17,11 +17,61 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>A.MONO Patisserie 上满觉陇 11 号</title>
+    <link href="https://blog.wangjiegulu.com/2023/11/17/photograph_A_MONO_Patisserie/"/>
+    <id>https://blog.wangjiegulu.com/2023/11/17/photograph_A_MONO_Patisserie/</id>
+    <published>2023-11-17T07:11:26.000Z</published>
+    <updated>2024-02-08T07:56:12.557Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;div style=&quot;font-size: 14px; color: #aaa;&quot;&gt;&lt;br&gt;📸 Photo by Wang Jie&lt;br&gt;📷 Camera: Leica M4-2&lt;br&gt;🔍 Lens: Ernst Leitz GmbH Wetzlar Elmar
+        
+      
+    
+    </summary>
+    
+      <category term="life" scheme="https://blog.wangjiegulu.com/categories/life/"/>
+    
+      <category term="photographs" scheme="https://blog.wangjiegulu.com/categories/life/photographs/"/>
+    
+      <category term="leica" scheme="https://blog.wangjiegulu.com/categories/life/photographs/leica/"/>
+    
+      <category term="film" scheme="https://blog.wangjiegulu.com/categories/life/photographs/leica/film/"/>
+    
+      <category term="胶片" scheme="https://blog.wangjiegulu.com/categories/life/photographs/leica/film/%E8%83%B6%E7%89%87/"/>
+    
+      <category term="胶卷" scheme="https://blog.wangjiegulu.com/categories/life/photographs/leica/film/%E8%83%B6%E7%89%87/%E8%83%B6%E5%8D%B7/"/>
+    
+      <category term="照片" scheme="https://blog.wangjiegulu.com/categories/life/photographs/leica/film/%E8%83%B6%E7%89%87/%E8%83%B6%E5%8D%B7/%E7%85%A7%E7%89%87/"/>
+    
+    
+      <category term="photographs" scheme="https://blog.wangjiegulu.com/tags/photographs/"/>
+    
+      <category term="life" scheme="https://blog.wangjiegulu.com/tags/life/"/>
+    
+      <category term="Leica" scheme="https://blog.wangjiegulu.com/tags/Leica/"/>
+    
+      <category term="film" scheme="https://blog.wangjiegulu.com/tags/film/"/>
+    
+      <category term="胶片" scheme="https://blog.wangjiegulu.com/tags/%E8%83%B6%E7%89%87/"/>
+    
+      <category term="胶卷" scheme="https://blog.wangjiegulu.com/tags/%E8%83%B6%E5%8D%B7/"/>
+    
+      <category term="照片" scheme="https://blog.wangjiegulu.com/tags/%E7%85%A7%E7%89%87/"/>
+    
+  </entry>
+  
+  <entry>
     <title>跨平台 IPC 通信框架 Ploto SDK 实现原理</title>
     <link href="https://blog.wangjiegulu.com/2022/06/10/ipc_framework_ploto_00/"/>
     <id>https://blog.wangjiegulu.com/2022/06/10/ipc_framework_ploto_00/</id>
     <published>2022-06-10T09:44:00.000Z</published>
-    <updated>2024-01-21T05:10:53.727Z</updated>
+    <updated>2024-01-28T13:03:25.839Z</updated>
     
     <summary type="html">
     
@@ -764,54 +814,6 @@
   </entry>
   
   <entry>
-    <title>Android Architecture Component Lifecycle（翻译）</title>
-    <link href="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_lifecycle/"/>
-    <id>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_lifecycle/</id>
-    <published>2018-04-15T13:01:00.000Z</published>
-    <updated>2018-11-22T06:56:52.291Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;Android-Architecture-Component-Lifecycle（翻译）&quot;&gt;&lt;a href=&quot;#Android-Architecture-Component-Lifecycle（翻译）&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-      <category term="Android Architecture Component" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/"/>
-    
-      <category term="kotlin" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/kotlin/"/>
-    
-      <category term="DataBinding" scheme="https://blog.wangjiegulu.com/categories/Android-Architecture-Component/kotlin/DataBinding/"/>
-    
-    
-      <category term="android" scheme="https://blog.wangjiegulu.com/tags/android/"/>
-    
-      <category term="翻译" scheme="https://blog.wangjiegulu.com/tags/%E7%BF%BB%E8%AF%91/"/>
-    
-      <category term="kotlin" scheme="https://blog.wangjiegulu.com/tags/kotlin/"/>
-    
-      <category term="architecture" scheme="https://blog.wangjiegulu.com/tags/architecture/"/>
-    
-      <category term="Android Architecture Component" scheme="https://blog.wangjiegulu.com/tags/Android-Architecture-Component/"/>
-    
-      <category term="aac" scheme="https://blog.wangjiegulu.com/tags/aac/"/>
-    
-      <category term="ViewModel" scheme="https://blog.wangjiegulu.com/tags/ViewModel/"/>
-    
-      <category term="LiveData" scheme="https://blog.wangjiegulu.com/tags/LiveData/"/>
-    
-      <category term="DataBinding" scheme="https://blog.wangjiegulu.com/tags/DataBinding/"/>
-    
-      <category term="Lifecycles" scheme="https://blog.wangjiegulu.com/tags/Lifecycles/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Android Architecture Component ViewModel（翻译）</title>
     <link href="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_viewmodel/"/>
     <id>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_viewmodel/</id>
@@ -860,11 +862,11 @@
   </entry>
   
   <entry>
-    <title>Android Architecture Component LiveData（翻译）</title>
-    <link href="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_livedata/"/>
-    <id>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_livedata/</id>
-    <published>2018-04-15T12:01:00.000Z</published>
-    <updated>2018-11-22T01:45:03.676Z</updated>
+    <title>Android Architecture Component Lifecycle（翻译）</title>
+    <link href="https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_lifecycle/"/>
+    <id>https://blog.wangjiegulu.com/2018/04/15/android_architecture_components_lifecycle/</id>
+    <published>2018-04-15T13:01:00.000Z</published>
+    <updated>2018-11-22T06:56:52.291Z</updated>
     
     <summary type="html">
     
@@ -872,7 +874,7 @@
       
         
         
-          &lt;h1 id=&quot;Android-Architecture-Component-LiveData（翻译）&quot;&gt;&lt;a href=&quot;#Android-Architecture-Component-LiveData（翻译）&quot; class=&quot;headerlink&quot;
+          &lt;h1 id=&quot;Android-Architecture-Component-Lifecycle（翻译）&quot;&gt;&lt;a href=&quot;#Android-Architecture-Component-Lifecycle（翻译）&quot; class=&quot;headerlink&quot;
         
       
     
